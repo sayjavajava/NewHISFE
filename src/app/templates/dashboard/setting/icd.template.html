@@ -19,19 +19,6 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="col-md-5">
                         <div class="form-group font-siz11">
-                            <label>Section</label>
-                            <select class="form-control">
-                                <option>Select the section</option>
-                                <option>Select the section 1</option>
-                                <option>Select the section 2</option>
-                                <option>Select the section 3</option>
-                                <option>Select the section 4</option>
-                                <option>Select the section 5</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-group font-siz11">
                             <label>Code</label>
                             <input type="text" class="form-control" placeholder="Enter code">
                         </div>
@@ -48,8 +35,8 @@
                         <thead>
                         <tr role="row" class="off-wite-bg">
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Code</th>
-                            <th width="80%" class="sorting_disabled" rowspan="1" colspan="1"> Primar open-angle</th>
-                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
+                            <th width="70%" class="sorting_disabled" rowspan="1" colspan="1"> Primar open-angle</th>
+                            <th width="18%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" class="filter">
                             <td rowspan="1" colspan="1" class="font-green-dark"><strong>H40.11x0</strong></td>
@@ -227,32 +214,29 @@
                         <div class="form-group hr">
                             <label class="col-md-5 control-label txt-size pdng-lr-5">Code Version:</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <select class="form-control">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                    <option>Option 3</option>
-                                    <option>Option 4</option>
-                                    <option>Option 5</option>
+                                <select class="form-control" [(ngModel)]="iCDModel.selectedICDVersion">
+                                    <option value="0">---Select---</option>
+                                    <option  *ngFor="let ver of iCDVersions" [(value)]="ver.id">{{ver.name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group hr">
                             <label class="col-md-5 control-label txt-size pdng-lr-5">Code:</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <input type="text" class="form-control" placeholder="Enter text">
+                                <input type="text" [(ngModel)]="iCDModel.code" class="form-control" placeholder="Enter text">
                             </div>
                         </div>
                         <div class="form-group hr">
                             <label class="col-md-5 control-label txt-size pdng-lr-5">Title</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <input type="text" class="form-control" placeholder="Enter text">
+                                <input type="text" [(ngModel)]="iCDModel.title" class="form-control" placeholder="Enter text">
                             </div>
                         </div>
                         <div class="form-group hr">
                             <label class="col-md-5 control-label txt-size pdng-lr-5">Status</label>
                             <div class="col-md-7 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
                                 <label class="mt-checkbox mt-checkbox-outline">
-                                    <input type="checkbox" value="1" name="test">
+                                    <input type="checkbox" [(ngModel)]="iCDModel.status" name="test">
                                     <span></span>
                                 </label>
                             </div>
@@ -262,7 +246,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default btn-outline">Close</button>
-                <button type="button" class="btn blue">Save</button>
+                <button type="button" class="btn blue" (click)="saveICDVersion()">Save</button>
             </div>
         </div>
     </div>
