@@ -46,7 +46,7 @@ export class ICDComponent implements OnInit {
         }
     }
 
-    saveICDVersion() {
+    saveICD() {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.postRequest(
                 '/setting/icd/save',

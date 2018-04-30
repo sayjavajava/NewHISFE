@@ -215,7 +215,7 @@
                             <label class="col-md-5 control-label txt-size pdng-lr-5">Code Version:</label>
                             <div class="col-md-7 select pdng-lr-5">
                                 <select class="form-control" [(ngModel)]="iCDModel.selectedICDVersion">
-                                    <option value="0">---Select---</option>
+                                    <option value="0" selected>---Select---</option>
                                     <option  *ngFor="let ver of iCDVersions" [(value)]="ver.id">{{ver.name}}</option>
                                 </select>
                             </div>
@@ -246,7 +246,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default btn-outline">Close</button>
-                <button type="button" class="btn blue" (click)="saveICDVersion()">Save</button>
+                <button type="button" class="btn blue" (click)="saveICD()">Save</button>
             </div>
         </div>
     </div>
