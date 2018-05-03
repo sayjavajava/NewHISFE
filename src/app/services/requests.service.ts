@@ -4,7 +4,8 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {Router} from '@angular/router';
 import {AppConfig} from '../configuration/app.config';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {RoleAndPermission} from '../models/roleandpermission';
 
 @Injectable()
 export class RequestsService {
@@ -61,6 +62,17 @@ export class RequestsService {
         reqHeader.append('Content-Type', 'application/json');
         return this.http.post(this.getBEAPIServer() + url, _params, {headers: reqHeader});
     }
+
+    getRequestWithParam(url: any ,param:any) {
+        console.log('params item:'+param)
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        let params = new HttpParams().set("name",param);
+       // let encodeurl = decodeURI(this.getBEAPIServer() + url);
+            return this.http.get(this.getBEAPIServer()+url,{headers: reqHeader,params:params});
+    }
+
+
 
     /*  putRequest(url: any, _params: any) {
           const headers = new Headers();

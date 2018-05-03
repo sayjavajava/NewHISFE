@@ -16,10 +16,9 @@ var PermissionsService = (function () {
     PermissionsService.prototype.loadPermissions = function (dbPermissions) {
         var permissions = [];
         dbPermissions.forEach(function (item, index) {
-            permissions[index] = item['permission'];
+            permissions[index] = item['name'];
         });
         window.localStorage.setItem(btoa('permissions'), btoa(JSON.stringify(permissions)));
-        //console.log('load permissions');
     };
     PermissionsService.prototype.unloadPermissions = function () {
     };

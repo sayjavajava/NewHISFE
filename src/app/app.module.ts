@@ -82,6 +82,7 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         DashboardComponent,
         DoctorDashboardComponent,
 
+
         // Dashboard Components
         HeaderComponent,
         NavigationComponent,
