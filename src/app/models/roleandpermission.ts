@@ -4,7 +4,6 @@ export class RoleAndPermission {
     description: string;
     active: boolean;
     type: string;
-    assigned: boolean = false;
 
     constructor(name: string, description: string, isActive: boolean, type: string) {
         this.name = name;

@@ -64,11 +64,9 @@ var RequestsService = (function () {
         return this.http.post(this.getBEAPIServer() + url, _params, { headers: reqHeader });
     };
     RequestsService.prototype.getRequestWithParam = function (url, param) {
-        console.log('params item:' + param);
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         reqHeader.append('Content-Type', 'application/json');
-        var params = new http_1.HttpParams().set("name", param);
-        // let encodeurl = decodeURI(this.getBEAPIServer() + url);
+        var params = new http_1.HttpParams().set('name', param);
         return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader, params: params });
     };
     RequestsService = __decorate([

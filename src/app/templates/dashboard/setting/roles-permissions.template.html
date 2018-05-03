@@ -8,11 +8,11 @@
                             <a href="#responsive" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
                                         data-message="Success Icon" data-type="success" data-allow-outside-click="true"
-                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Roles
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Role
                                 </button>
                             </a>
                             <span><a href="#responsive2" data-toggle="modal"><button class="btn blue"> <i
-                                    class="fa fa-plus"></i> Add Permissions </button></a></span>
+                                    class="fa fa-plus"></i> Permission </button></a></span>
                         </div>
                     </h4>
                 </div>
@@ -21,10 +21,10 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="font-blue"><h4>Role</h4></label>
-                                <form [formGroup]="selectform">
-                                    <select id="role" formControlName="role"(change)="onRoleChange($event.target.value)">
-
-                                        <option *ngFor="let c of allroles" [ngValue]="c.name">{{ c.name }}</option>
+                                <form [formGroup]="selectForm">
+                                    <select id="role" formControlName="role" [(ngModel)]="selectedRole"
+                                            (change)="onRoleChange()">
+                                        <option *ngFor="let r of allDBRoles" value="{{r.name}}">{{ r.name }}</option>
                                     </select>
                                 </form>
                             </div>
@@ -32,141 +32,70 @@
                         <div class="hr">
                             <label class="font-blue col-md-12"><h4>Permissions </h4></label>
                             <form>
-                            <div *ngFor="let item of allpermissions;let i = index;">
-                            <div class="col-md-3">
-                                <div class="funkycheckbox">
-                                    <div class="funkycheckbox-success">
-                                        <input type="checkbox" name="checkbox" id="{{item.id}}" >
-                                        <label for="{{item.id}}">{{item.name}}</label>
+                                <div *ngFor="let per of allDBPermissions;let i = index;">
+                                    <div class="col-md-3">
+                                        <div class="funkycheckbox">
+                                            <div class="funkycheckbox-success">
+                                                <input type="checkbox" name="chkbox-{{per.name}}"
+                                                       id="chkbox-{{per.id}}" (change)="onPermissionSelected(per)">
+                                                <label for="chkbox-{{per.id}}">{{per.name}}</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>  </div></form>
-
+                            </form>
                             <div class="col-md-12">
                                 <div class="text-center mrgn-top14">
-                                    <button type="button" class="btn blue">Save</button>
-                                    <button type="button" (click)="test()" class="btn blue">test</button>
+                                    <button type="button" class="btn blue" (click)="saveRolePermissions()">Save</button>
                                 </div>
                             </div>
-
-                            <ul>
-                                <li *ngFor="let item of filteredpermissions">
-                                    {{ item.name }}
-
-                                </li>
-                            </ul>
-
-                            <ul>
-                                <li *ngFor="let item of test2">
-                                    {{ item.name }}
-
-                                </li>
-                            </ul>
                         </div>
                     </div>
 
                 </div>
             </div>
             <div class="clearfix"></div>
-
         </div>
     </div>
     <!--Start Modal-->
     <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
-        <form *ngIf="showForm" [formGroup]="roleform" (ngSubmit)="addRole(roleform.value)">
-            <div class="form-container">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <a><button type="button" class="close" data-dismiss="modal" #closeBtn aria-hidden="true"></button></a>
-                    <h4 class="modal-title">Add Roles</h4>
-                </div>
-                <div class="modal-body">
-
-                    <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
-                        <div class="row">
-
-                               <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span class="required"
-                                      aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" class=" form-control" formControlName="name">
-                                    <span class="alert alert-info" *ngIf="!roleform.controls['name'].valid && roleform.controls['name'].touched">{{ titleAlert  }}
-                            </span>
-                                </div>
-
-                            </div>
-
-
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5"> Description <span
-                                        class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
-
-                                    <textarea class="form-control" rows="3" formControlName="description"></textarea>
-                                    <span class="alert alert-info" *ngIf="!roleform.controls['description'].valid && roleform.controls['description'].touched">{{ descriptionalert  }}
-                            </span>
-                                </div>
-                            </div>
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Active
-                                </label>
-                                <div class="col-md-9">
-                                    <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                        <input type="checkbox" formControlName="active"><span></span></label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" (click)="FormReset()" class="btn btn-light">Close</button>
-                    <button type="submit" [disabled]='!roleform.valid'  class="btn blue">Save</button>
-
-                </div>
-            </div>
-        </div></div>
-        </form>
-    </div>
-    <!--End of Modal-->
-    <!--Start Modal-->
-    <div id="responsive2" class="modal fade" tabindex="-1" aria-hidden="true">
-        <form *ngIf="showForm2" [formGroup]="roleform" (ngSubmit)="addPermission(roleform.value)">
+        <form *ngIf="showForm" [formGroup]="roleForm" (ngSubmit)="addRole(roleForm.value)">
             <div class="form-container">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-
-                            <a><button type="button" class="close" data-dismiss="modal" #closeBtn aria-hidden="true"></button></a>
-                            <h4 class="modal-title">Add Permissions</h4>
+                            <a>
+                                <button type="button" class="close" data-dismiss="modal" #closeBtn
+                                        aria-hidden="true"></button>
+                            </a>
+                            <h4 class="modal-title">Add Roles</h4>
                         </div>
                         <div class="modal-body">
-
                             <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
                                 <div class="row">
-
                                     <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span class="required"
-                                                                                                            aria-required="true"> * </span></label>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
+                                                class="required"
+                                                aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <input type="text" class=" form-control" formControlName="name">
-                                            <span class="alert alert-info" *ngIf="!roleform.controls['name'].valid && roleform.controls['name'].touched">{{ titleAlert  }}
-                            </span>
+                                            <span class="alert alert-info"
+                                                  *ngIf="!roleForm.controls['name'].valid && roleForm.controls['name'].touched">
+                                                {{ titleAlert  }}
+                                            </span>
                                         </div>
-
                                     </div>
-
-
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5"> Description <span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
 
-                                            <textarea class="form-control" rows="3" formControlName="description"></textarea>
-                                            <span class="alert alert-info" *ngIf="!roleform.controls['description'].valid && roleform.controls['description'].touched">{{ descriptionalert  }}
-                            </span>
+                                            <textarea class="form-control" rows="3"
+                                                      formControlName="description"></textarea>
+                                            <span class="alert alert-info"
+                                                  *ngIf="!roleForm.controls['description'].valid && roleForm.controls['description'].touched">
+                                                {{ descriptionAlert  }}
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="form-group hr">
@@ -177,18 +106,81 @@
                                                 <input type="checkbox" formControlName="active"><span></span></label>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" (click)="FormReset()" class="btn btn-light">Reset</button>
-                            <button type="submit" [disabled]='!roleform.valid'  class="btn blue">Save</button>
+                            <button type="button" (click)="formReset()" class="btn btn-light">Close</button>
+                            <button type="submit" [disabled]="!roleForm.valid" class="btn blue">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End of Modal-->
+    <!--Start Modal-->
+    <div id="responsive2" class="modal fade" tabindex="-1" aria-hidden="true">
+        <form *ngIf="showForm2" [formGroup]="roleForm" (ngSubmit)="addPermission(roleForm.value)">
+            <div class="form-container">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a>
+                                <button type="button" class="close" data-dismiss="modal" #closeBtn
+                                        aria-hidden="true"></button>
+                            </a>
+                            <h4 class="modal-title">Add Permissions</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
+                                <div class="row">
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
+                                                class="required"
+                                                aria-required="true"> * </span></label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input type="text" class=" form-control" formControlName="name">
+                                            <span class="alert alert-info"
+                                                  *ngIf="!roleForm.controls['name'].valid && roleForm.controls['name'].touched">
+                                                {{ titleAlert  }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5"> Description <span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <div class="col-md-9 select pdng-lr-5">
+
+                                            <textarea class="form-control" rows="3"
+                                                      formControlName="description"></textarea>
+                                            <span class="alert alert-info"
+                                                  *ngIf="!roleForm.controls['description'].valid && roleForm.controls['description'].touched">
+                                                {{ descriptionAlert  }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Active
+                                        </label>
+                                        <div class="col-md-9">
+                                            <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                                <input type="checkbox" formControlName="active"><span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" (click)="formReset()" class="btn btn-light">Reset</button>
+                            <button type="submit" [disabled]='!roleForm.valid' class="btn blue">Save</button>
 
                         </div>
                     </div>
-                </div></div>
+                </div>
+            </div>
         </form>
     </div>
     <!--End of Modal-->

@@ -12,7 +12,8 @@ var AppConstants = (function () {
     AppConstants.EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     AppConstants.ROLE_ENDPOINT = '/setting/rolePermission/add';
     AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
-    AppConstants.PERMISSION_BY_ROLE = '/setting/rolePermission/permissionsbyrole';
+    AppConstants.PERMISSION_BY_ROLE = '/setting/rolePermission/role';
+    AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
