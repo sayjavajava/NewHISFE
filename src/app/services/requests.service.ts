@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Headers, RequestOptions, Response, ResponseContentType} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {Router} from '@angular/router';
 import {AppConfig} from '../configuration/app.config';
@@ -41,14 +39,17 @@ export class RequestsService {
         return this.http.post(URI, _params, {headers: reqHeader});
     }
 
-    /*    deleteRequest(url: any, _params: any) {
-            const headers = new Headers();
-            if (this.getToken()) {
-                headers.append('Authorization', 'auth_token ' + this.getToken());
-            }
-            return this.http.delete(this.getBEAPIServer() + url, {headers: headers})
-                .map((response: Response) => response.json());
-        };*/
+    deleteRequest(url: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.delete(this.getBEAPIServer() + url, {headers: reqHeader});
+    };
+
+    searchRequest(url: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader});
+    };
 
     getRequest(url: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
@@ -60,6 +61,12 @@ export class RequestsService {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
         return this.http.post(this.getBEAPIServer() + url, _params, {headers: reqHeader});
+    }
+
+    putRequest(url: any, _params: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.put(this.getBEAPIServer() + url, _params, {headers: reqHeader});
     }
 
     /*  putRequest(url: any, _params: any) {

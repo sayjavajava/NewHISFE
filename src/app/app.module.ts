@@ -79,6 +79,7 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         AppComponent,
         MainComponent,
         LoginComponent,
+        DepartmentComponent,
         DashboardComponent,
         DoctorDashboardComponent,
 
