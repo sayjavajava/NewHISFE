@@ -31,7 +31,7 @@ import {UserSharedService} from './services/user.shared.service';
 import {SettingComponent} from './components/dashboard/setting/setting.component';
 import {SettingNavigationComponent} from './components/dashboard/setting/setting-navigation.component';
 import {StaffComponent} from './components/dashboard/setting/staff.component';
-import {ICDComponent} from './components/dashboard/setting/icd.component';
+import {CodeComponent} from './components/dashboard/setting/code.component';
 import {DepartmentComponent} from './components/dashboard/setting/department.component';
 import {CashierComponent} from './components/dashboard/setting/cashier.component';
 import {MedicalServiceComponent} from './components/dashboard/setting/medical-service.component';
@@ -49,6 +49,8 @@ import {NotificationService} from './services/notification.service';
 import {OrganizationComponent} from './components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from './components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from './components/dashboard/setting/addstaff.component';
+import {VersionComponent} from "./components/dashboard/setting/version.component";
+import {CodeVersionComponent} from "./components/dashboard/setting/code-version.component";
 
 
 @NgModule({
@@ -93,7 +95,9 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         SettingComponent,
         SettingNavigationComponent,
         StaffComponent,
-        ICDComponent,
+        CodeComponent,
+        VersionComponent,
+        CodeVersionComponent,
         DepartmentComponent,
         CashierComponent,
         MedicalServiceComponent,

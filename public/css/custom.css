@@ -210,6 +210,8 @@ p, h3, h4{margin:0; padding:0;}
   color: #fff;
   background-color: #5cb85c;
 }
+.cod-higt{max-height: 150px; height: 200px; overflow-y: scroll;}
+.width460{width: 460px !important;}
 @media (max-width:480px) {
 .small-menu-bck{ background:#5294d0;}
 .side-bar-toggle-menu {margin: 70px 6px 0 0 !important;}

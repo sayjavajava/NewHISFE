@@ -38,7 +38,7 @@ var user_shared_service_1 = require("./services/user.shared.service");
 var setting_component_1 = require("./components/dashboard/setting/setting.component");
 var setting_navigation_component_1 = require("./components/dashboard/setting/setting-navigation.component");
 var staff_component_1 = require("./components/dashboard/setting/staff.component");
-var icd_component_1 = require("./components/dashboard/setting/icd.component");
+var code_component_1 = require("./components/dashboard/setting/code.component");
 var department_component_1 = require("./components/dashboard/setting/department.component");
 var cashier_component_1 = require("./components/dashboard/setting/cashier.component");
 var medical_service_component_1 = require("./components/dashboard/setting/medical-service.component");
@@ -56,6 +56,8 @@ var notification_service_1 = require("./services/notification.service");
 var organization_component_1 = require("./components/dashboard/setting/organization.component");
 var addorganization_component_1 = require("./components/dashboard/setting/addorganization.component");
 var addstaff_component_1 = require("./components/dashboard/setting/addstaff.component");
+var version_component_1 = require("./components/dashboard/setting/version.component");
+var code_version_component_1 = require("./components/dashboard/setting/code-version.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -101,7 +103,9 @@ var AppModule = (function () {
                 setting_component_1.SettingComponent,
                 setting_navigation_component_1.SettingNavigationComponent,
                 staff_component_1.StaffComponent,
-                icd_component_1.ICDComponent,
+                code_component_1.CodeComponent,
+                version_component_1.VersionComponent,
+                code_version_component_1.CodeVersionComponent,
                 department_component_1.DepartmentComponent,
                 cashier_component_1.CashierComponent,
                 medical_service_component_1.MedicalServiceComponent,

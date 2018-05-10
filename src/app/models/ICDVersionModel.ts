@@ -1,8 +1,10 @@
 export class ICDVersionModel {
     id: number;
     name: string;
-    /*active: boolean;
+    title: string;
+    status: boolean;
     deleted: boolean;
     updatedOn: number;
-    createdOn: number;*/
+    createdOn: number;
+
 }
