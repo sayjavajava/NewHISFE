@@ -5,6 +5,7 @@ import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
+import {AppConstants} from "../../../utils/app.constants";
 
 @Component({
     selector: 'icd-code-component',
@@ -20,6 +21,7 @@ export class CodeComponent implements OnInit {
     data: any;
     searchCode: string = "";
     searched: boolean = false;
+    isCodeUpdate: boolean = false;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -45,6 +47,7 @@ export class CodeComponent implements OnInit {
 
     refreshCodesTable() {
         this.searched = false;
+        this.searchCode = "";
         this.getICDsFromServer(0);
     }
 
@@ -52,10 +55,10 @@ export class CodeComponent implements OnInit {
         this.getICDsFromServer(page)
     }
 
-    deleteICD(iCDId: any) {
+    deleteICD(codeId: any) {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                '/setting/icd/code/delete?icdId=' + iCDId,
+                AppConstants.ICD_CODE_DELETE + codeId,
                 {})
                 .subscribe(
                     (response: Response) => {
@@ -81,7 +84,7 @@ export class CodeComponent implements OnInit {
             page = page;
         }
         this.requestsService.getRequest(
-            '/setting/icd/codes/' + page)
+            AppConstants.ICD_CODES + page)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'ICD_SUC_02') {
@@ -102,7 +105,7 @@ export class CodeComponent implements OnInit {
         if (form.valid) {
             if (window.localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
-                    '/setting/icd/code/save',
+                    AppConstants.ICD_CODE,
                     JSON.parse(JSON.stringify(this.iCDModel))
                 ).subscribe(
                     (response: Response) => {
@@ -129,47 +132,52 @@ export class CodeComponent implements OnInit {
         }
     }
 
-    updateICDCode() {
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.putRequest(
-                '/setting/icd/code/update',
-                JSON.parse(JSON.stringify(this.iCDModel))
-            ).subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
-                        this.iCDModel = new ICDCodeModel();
-                        this.iCDData = response['responseData'];
-                        this.notificationService.success(response['responseMessage'], 'ICD Code');
-                        document.getElementById('close-btn-update').click();
-                        this.refreshICDsTable(0);
-                    } else {
-                        this.iCDData = response['responseData'];
-                        this.notificationService.error(response['responseMessage'], 'ICD Code')
+    updateICDCode(updateCodeForm: NgForm) {
+        if (updateCodeForm.valid) {
+            if (window.localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.putRequest(
+                    AppConstants.ICD_CODE,
+                    JSON.parse(JSON.stringify(this.iCDModel))
+                ).subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
+                            this.iCDModel = new ICDCodeModel();
+                            this.iCDData = response['responseData'];
+                            this.notificationService.success(response['responseMessage'], 'ICD Code');
+                            document.getElementById('close-btn-update').click();
+                            this.refreshICDsTable(0);
+                        } else {
+                            this.iCDData = response['responseData'];
+                            this.notificationService.error(response['responseMessage'], 'ICD Code')
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
                     }
-                },
-                (error: any) => {
-                    this.HISUtilService.tokenExpired(error.error.error);
-                }
-            );
+                );
+            } else {
+                this.router.navigate(['/login']);
+            }
         } else {
-            this.router.navigate(['/login']);
+            this.notificationService.error('Required Fields are missing', 'ICD Code');
         }
     }
 
     editICDCode(iCDCode: any) {
+        this.isCodeUpdate = true;
         this.iCDModel = iCDCode;
     }
 
     onAddICDCodePopupLoad() {
+        this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel();
     }
 
     searchByCode(pageNo: number) {
-
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(
-                '/setting/icd/code/search/' + pageNo + '?code=' + this.searchCode)
+                AppConstants.ICD_CODE_SEARCH + pageNo + '?code=' + this.searchCode)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_02') {

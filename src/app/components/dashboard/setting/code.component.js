@@ -15,6 +15,7 @@ var ICDCodeModel_1 = require("../../../models/ICDCodeModel");
 var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var router_1 = require("@angular/router");
+var app_constants_1 = require("../../../utils/app.constants");
 var CodeComponent = (function () {
     function CodeComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
@@ -25,6 +26,7 @@ var CodeComponent = (function () {
         this.pages = [];
         this.searchCode = "";
         this.searched = false;
+        this.isCodeUpdate = false;
     }
     CodeComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code';
@@ -43,15 +45,16 @@ var CodeComponent = (function () {
     };
     CodeComponent.prototype.refreshCodesTable = function () {
         this.searched = false;
+        this.searchCode = "";
         this.getICDsFromServer(0);
     };
     CodeComponent.prototype.refreshICDsTable = function (page) {
         this.getICDsFromServer(page);
     };
-    CodeComponent.prototype.deleteICD = function (iCDId) {
+    CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest('/setting/icd/code/delete?icdId=' + iCDId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE + codeId, {})
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Code');
@@ -74,7 +77,7 @@ var CodeComponent = (function () {
         if (page > 0) {
             page = page;
         }
-        this.requestsService.getRequest('/setting/icd/codes/' + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODES + page)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ICD_SUC_02') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -91,7 +94,7 @@ var CodeComponent = (function () {
         var _this = this;
         if (form.valid) {
             if (window.localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.postRequest('/setting/icd/code/save', JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
+                this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_SAVE_SUC_01') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
                         _this.iCDData = response['responseData'];
@@ -115,40 +118,47 @@ var CodeComponent = (function () {
             this.notificationService.error('Required Fields are missing', 'ICD Code');
         }
     };
-    CodeComponent.prototype.updateICDCode = function () {
+    CodeComponent.prototype.updateICDCode = function (updateCodeForm) {
         var _this = this;
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.putRequest('/setting/icd/code/update', JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
-                if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
-                    _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
-                    _this.iCDData = response['responseData'];
-                    _this.notificationService.success(response['responseMessage'], 'ICD Code');
-                    document.getElementById('close-btn-update').click();
-                    _this.refreshICDsTable(0);
-                }
-                else {
-                    _this.iCDData = response['responseData'];
-                    _this.notificationService.error(response['responseMessage'], 'ICD Code');
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
+        if (updateCodeForm.valid) {
+            if (window.localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.putRequest(app_constants_1.AppConstants.ICD_CODE, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
+                    if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
+                        _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
+                        _this.iCDData = response['responseData'];
+                        _this.notificationService.success(response['responseMessage'], 'ICD Code');
+                        document.getElementById('close-btn-update').click();
+                        _this.refreshICDsTable(0);
+                    }
+                    else {
+                        _this.iCDData = response['responseData'];
+                        _this.notificationService.error(response['responseMessage'], 'ICD Code');
+                    }
+                }, function (error) {
+                    _this.HISUtilService.tokenExpired(error.error.error);
+                });
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
         }
         else {
-            this.router.navigate(['/login']);
+            this.notificationService.error('Required Fields are missing', 'ICD Code');
         }
     };
     CodeComponent.prototype.editICDCode = function (iCDCode) {
+        this.isCodeUpdate = true;
         this.iCDModel = iCDCode;
     };
     CodeComponent.prototype.onAddICDCodePopupLoad = function () {
+        this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
     };
     CodeComponent.prototype.searchByCode = function (pageNo) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
-            this.requestsService.getRequest('/setting/icd/code/search/' + pageNo + '?code=' + this.searchCode)
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_SEARCH + pageNo + '?code=' + this.searchCode)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_02') {
                     _this.nextPage = response['responseData']['nextPage'];

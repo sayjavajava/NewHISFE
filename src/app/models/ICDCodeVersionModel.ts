@@ -6,7 +6,7 @@ export class ICDCodeVersionModel {
     public icdCode: ICDCodeModel;
     public icdVersion: ICDVersionModel;
     selectedICDVersionId: number = 0;
-    selectedICDVersionUpdate: string;
+    description: string;
     selectedICDCodes: ICDCodeModel[] = [];
     iCDCodes: ICDCodeModel [];
 

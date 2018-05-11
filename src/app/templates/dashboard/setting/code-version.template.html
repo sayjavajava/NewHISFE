@@ -29,8 +29,8 @@
                             <label>Version</label>
                             <input type="text"
                                    class="form-control"
-                                   [(ngModel)]="searchVersion"
-                                   placeholder="Enter code"
+                                   [(ngModel)]="searchCodeVersion"
+                                   placeholder="Enter Version"
                                    (keydown.enter)="searchCodeVersionByVersionName(0)">
                         </div>
                     </div>
@@ -47,19 +47,22 @@
                            id="datatable_ajax">
                         <thead>
                         <tr role="row" class="off-wite-bg">
-                            <th width="40%" class="sorting_disabled" rowspan="1" colspan="1"> Version</th>
-                            <th width="40%" class="sorting_disabled" rowspan="1" colspan="1"> Code</th>
+                            <th width="25%" class="sorting_disabled" rowspan="1" colspan="1"> Version</th>
+                            <th width="25%" class="sorting_disabled" rowspan="1" colspan="1"> Code</th>
+                            <th width="40%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" *ngFor="let item of data; let i = index;" class="filter">
                             <td rowspan="1" colspan="1" class="font-green-dark">
                                 <strong>{{item.icdVersion.name}}</strong>
                             </td>
-                            <td rowspan="1" colspan="1" class="font-green-dark"><strong>{{item.icdCode.code}}</strong>
+                            <td rowspan="1" colspan="1" class="font-green-dark">
+                                <strong>{{item.icdCode.code}}</strong>
+                            </td>
+                            <td rowspan="1" colspan="1" class="font-green-dark">
+                                <strong>{{item.description}}</strong>
                             </td>
                             <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i>
-                                </button>
                                 <button class="btn btn-default btn-outline btn-sm"
                                         (click)="deleteCodeVersion(item.id)">
                                     <i class="fa fa-remove">
@@ -118,20 +121,20 @@
                 <h4 class="modal-title">Add Code Version</h4>
             </div>
             <div class="modal-body">
-                <div class="scroller" style="height:202px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:302px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
+                        <form>
                         <div class="form-group hr">
                             <label class="control-label col-md-2">Version
                                 <span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-10">
-                                <form>
                                     <div class="input-group select2-bootstrap-prepend">
                                         <select id="icdVersions" [(ngModel)]="iCDCVM.selectedICDVersionId"
                                                 #selectedVer="ngModel" name="selectedVer"
                                                 class="form-control"
-                                                (change)="versionChanged(iCDCVM.selectedICDVersionId,'chk-')">
-                                            <option [ngValue]="0"  selected>---Select---</option>
+                                                (change)="versionChanged(iCDCVM.selectedICDVersionId)">
+                                            <option [ngValue]="0" selected>---Select---</option>
                                             <option
                                                     *ngFor="let ver of iCDVersions"
                                                     [(value)]="ver.id">
@@ -139,16 +142,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
                         </div>
                         <div class="form-group hr">
                             <label class="control-label col-md-2">Code
                                 <span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-10">
-                                <form>
-                                    <div class="input-group select2-bootstrap-prepend">
+                                 <div class="input-group select2-bootstrap-prepend">
                                         <div class="checkbox-box hr cod-higt" id="codesDiv">
                                             <div class="col-md-6" *ngFor="let code of iCDCodes">
                                                 <address>
@@ -163,11 +164,22 @@
                                                 </address>
                                             </div>
                                         </div>
-                                        <!--</select>-->
                                     </div>
-                                </form>
                             </div>
                         </div>
+                        <div class="form-group hr">
+                            <label class="col-md-2 control-label">Description</label>
+                            <div class="col-md-10 select">
+                                <textarea rows="3"
+                                          [(ngModel)]="iCDCVM.description"
+                                          maxlength="400"
+                                          name="description"
+                                          class="form-control"
+                                          placeholder="Enter text">
+                                </textarea>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

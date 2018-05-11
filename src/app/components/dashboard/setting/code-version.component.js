@@ -15,6 +15,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var router_1 = require("@angular/router");
 var ICDCodeVersionModel_1 = require("../../../models/ICDCodeVersionModel");
+var app_constants_1 = require("../../../utils/app.constants");
 var CodeVersionComponent = (function () {
     function CodeVersionComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
@@ -24,7 +25,7 @@ var CodeVersionComponent = (function () {
         this.iCDCVM = new ICDCodeVersionModel_1.ICDCodeVersionModel();
         this.pages = [];
         this.data = [];
-        this.searchVersion = "";
+        this.searchCodeVersion = "";
     }
     CodeVersionComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code Version';
@@ -35,7 +36,7 @@ var CodeVersionComponent = (function () {
     CodeVersionComponent.prototype.versionsPopupLoadByServer = function () {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest('/setting/icd/versions')
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODES)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_01') {
                     _this.iCDCVM = new ICDCodeVersionModel_1.ICDCodeVersionModel();
@@ -54,7 +55,7 @@ var CodeVersionComponent = (function () {
     CodeVersionComponent.prototype.codesPopupLoadByServer = function () {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest('/setting/icd/codes')
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODES)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_01') {
                     _this.iCDCVM = new ICDCodeVersionModel_1.ICDCodeVersionModel();
@@ -84,6 +85,7 @@ var CodeVersionComponent = (function () {
     };
     CodeVersionComponent.prototype.refreshCodeVersionTable = function () {
         this.searched = false;
+        this.searchCodeVersion = "";
         this.getICDCVsFromServer(0);
     };
     CodeVersionComponent.prototype.refreshICDsTable = function (page) {
@@ -92,7 +94,7 @@ var CodeVersionComponent = (function () {
     CodeVersionComponent.prototype.deleteCodeVersion = function (associateICDCVId) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest('/setting/icd/codeVersion/delete?associateICDCVId=' + associateICDCVId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId, {})
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'ICD');
@@ -115,7 +117,7 @@ var CodeVersionComponent = (function () {
         if (page > 0) {
             page = page;
         }
-        this.requestsService.getRequest('/setting/icd/codeVersions/' + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_VERSIONS + page)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ICD_SUC_02') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -136,7 +138,7 @@ var CodeVersionComponent = (function () {
         }
         this.iCDCVM.iCDCodes = this.iCDCodes;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.postRequest('/setting/icd/codeVersion/save', JSON.parse(JSON.stringify(this.iCDCVM))).subscribe(function (response) {
+            this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE_VERSION, JSON.parse(JSON.stringify(this.iCDCVM))).subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_ASSOCIATE_SUC_01') {
                     _this.iCDCVM = new ICDCodeVersionModel_1.ICDCodeVersionModel();
                     _this.notificationService.success(response['responseMessage'], 'ICD');
@@ -158,7 +160,7 @@ var CodeVersionComponent = (function () {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
-            this.requestsService.getRequest('/setting/icd/codeVersion/search/' + page + '?versionName=' + this.searchVersion)
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_SEARCH + page + '?versionName=' + this.searchCodeVersion)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_02') {
                     _this.nextPage = response['responseData']['nextPage'];
@@ -180,7 +182,7 @@ var CodeVersionComponent = (function () {
             });
         }
     };
-    CodeVersionComponent.prototype.versionChanged = function (associatedICDCVId, checkBoxId) {
+    CodeVersionComponent.prototype.versionChanged = function (associatedICDCVId) {
         var _this = this;
         if (associatedICDCVId === 0) {
             for (var _i = 0, _a = this.iCDCodes; _i < _a.length; _i++) {
@@ -190,11 +192,12 @@ var CodeVersionComponent = (function () {
             return;
         }
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest('/setting/icd/version/codes/?versionId=' + associatedICDCVId)
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSION_CODES_VERSION + associatedICDCVId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                     _this.iCDCVM.selectedICDCodes = [];
                     _this.iCDCVM.selectedICDCodes = response['responseData'];
+                    _this.iCDCVM.description = response['responseData'][0].descriptionCodeVersion;
                     for (var _i = 0, _a = _this.iCDCodes; _i < _a.length; _i++) {
                         var obj = _a[_i];
                         obj.checkedCode = false;

@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {ICDVersionModel} from "../../../models/ICDVersionModel";
 import {ICDCodeVersionModel} from "../../../models/ICDCodeVersionModel";
 import {ICDCodeModel} from "../../../models/ICDCodeModel";
+import {AppConstants} from "../../../utils/app.constants";
 
 @Component({
     selector: 'manage-icd-component',
@@ -20,7 +21,7 @@ export class CodeVersionComponent implements OnInit {
     currPage: any;
     pages: number[] = [];
     data: ICDCodeVersionModel[] = [];
-    searchVersion: string = "";
+    searchCodeVersion: string = "";
     searched: boolean;
 
     constructor(private notificationService: NotificationService,
@@ -39,7 +40,7 @@ export class CodeVersionComponent implements OnInit {
     versionsPopupLoadByServer() {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(
-                '/setting/icd/versions')
+                AppConstants.ICD_CODES)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_01') {
@@ -61,7 +62,7 @@ export class CodeVersionComponent implements OnInit {
     codesPopupLoadByServer() {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(
-                '/setting/icd/codes')
+                AppConstants.ICD_CODES)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_01') {
@@ -95,6 +96,7 @@ export class CodeVersionComponent implements OnInit {
 
     refreshCodeVersionTable() {
         this.searched = false;
+        this.searchCodeVersion = "";
         this.getICDCVsFromServer(0);
     }
 
@@ -105,7 +107,7 @@ export class CodeVersionComponent implements OnInit {
     deleteCodeVersion(associateICDCVId: any) {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                '/setting/icd/codeVersion/delete?associateICDCVId=' + associateICDCVId,
+                AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId,
                 {})
                 .subscribe(
                     (response: Response) => {
@@ -131,7 +133,7 @@ export class CodeVersionComponent implements OnInit {
             page = page;
         }
         this.requestsService.getRequest(
-            '/setting/icd/codeVersions/' + page)
+            AppConstants.ICD_CODE_VERSIONS + page)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'ICD_SUC_02') {
@@ -157,7 +159,7 @@ export class CodeVersionComponent implements OnInit {
         this.iCDCVM.iCDCodes = this.iCDCodes;
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.postRequest(
-                '/setting/icd/codeVersion/save',
+                AppConstants.ICD_CODE_VERSION,
                 JSON.parse(JSON.stringify(this.iCDCVM))
             ).subscribe(
                 (response: Response) => {
@@ -183,7 +185,7 @@ export class CodeVersionComponent implements OnInit {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(
-                '/setting/icd/codeVersion/search/' + page + '?versionName=' + this.searchVersion)
+                AppConstants.ICD_CODE_VERSION_SEARCH + page + '?versionName=' + this.searchCodeVersion)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_02') {
@@ -208,7 +210,7 @@ export class CodeVersionComponent implements OnInit {
         }
     }
 
-    versionChanged(associatedICDCVId: any, checkBoxId: any) {
+    versionChanged(associatedICDCVId: any) {
         if (associatedICDCVId === 0) {
             for (let obj of this.iCDCodes) {
                 obj.checkedCode = false;
@@ -217,12 +219,13 @@ export class CodeVersionComponent implements OnInit {
         }
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(
-                '/setting/icd/version/codes/?versionId=' + associatedICDCVId)
+                AppConstants.ICD_VERSION_CODES_VERSION + associatedICDCVId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                             this.iCDCVM.selectedICDCodes = [];
                             this.iCDCVM.selectedICDCodes = response['responseData'];
+                            this.iCDCVM.description = response['responseData'][0].descriptionCodeVersion;
                             for (let obj of this.iCDCodes) {
                                 obj.checkedCode = false;
                             }

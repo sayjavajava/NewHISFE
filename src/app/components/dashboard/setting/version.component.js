@@ -15,6 +15,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var router_1 = require("@angular/router");
 var ICDVersionModel_1 = require("../../../models/ICDVersionModel");
+var app_constants_1 = require("../../../utils/app.constants");
 var VersionComponent = (function () {
     function VersionComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
@@ -41,6 +42,7 @@ var VersionComponent = (function () {
         }
     };
     VersionComponent.prototype.refreshVersionsTable = function () {
+        this.searchVersion = "";
         this.searched = false;
         this.getICDsVersionFromServer(0);
     };
@@ -49,7 +51,7 @@ var VersionComponent = (function () {
         if (page > 0) {
             page = page;
         }
-        this.requestsService.getRequest('/setting/icd/versions/' + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSIONS + page)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ICD_SUC_02') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -63,37 +65,44 @@ var VersionComponent = (function () {
         });
     };
     VersionComponent.prototype.editICDVersion = function (iCDVersion) {
+        this.isVersionUpdate = true;
         this.iCDVersionModel = iCDVersion;
     };
-    VersionComponent.prototype.updateICDVersion = function () {
+    VersionComponent.prototype.updateICDVersion = function (versionForm) {
         var _this = this;
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.putRequest('/setting/icd/version/update', JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
-                if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
-                    _this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
-                    _this.notificationService.success(response['responseMessage'], 'ICD');
-                    document.getElementById('close-btn-update').click();
-                    _this.getPageWiseICDsVersion(_this.currPage);
-                }
-                else {
-                    _this.notificationService.error(response['responseMessage'], 'ICD');
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
+        if (versionForm.valid) {
+            if (window.localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.putRequest(app_constants_1.AppConstants.ICD_VERSION, JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
+                    if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
+                        _this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
+                        _this.notificationService.success(response['responseMessage'], 'ICD');
+                        document.getElementById('close-btn-update').click();
+                        _this.getPageWiseICDsVersion(_this.currPage);
+                    }
+                    else {
+                        _this.notificationService.error(response['responseMessage'], 'ICD');
+                    }
+                }, function (error) {
+                    _this.HISUtilService.tokenExpired(error.error.error);
+                });
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
         }
         else {
-            this.router.navigate(['/login']);
+            this.notificationService.error('Required Fields are missing', 'ICD Version');
         }
     };
     VersionComponent.prototype.onAddICDVersionPopupLoad = function () {
+        this.isVersionUpdate = false;
         this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
     };
     VersionComponent.prototype.searchByVersion = function (page) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
-            this.requestsService.getRequest('/setting/icd/version/search/' + page + '?searchVersion=' + this.searchVersion)
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSION_SEARCH + page + '?searchVersion=' + this.searchVersion)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_02') {
                     _this.nextPage = response['responseData']['nextPage'];
@@ -115,31 +124,36 @@ var VersionComponent = (function () {
             });
         }
     };
-    VersionComponent.prototype.saveICDVersion = function () {
+    VersionComponent.prototype.saveICDVersion = function (form) {
         var _this = this;
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.postRequest('/setting/icd/version/save', JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
-                if (response['responseCode'] === 'ICD_VERSION_SUC_08') {
-                    _this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
-                    _this.notificationService.success(response['responseMessage'], 'ICD');
-                    document.getElementById('close-btn-ICDVersion').click();
-                    _this.refreshICDsVersionTable(0);
-                }
-                else {
-                    _this.notificationService.error('ICD', response['responseMessage']);
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
+        if (form.valid) {
+            if (window.localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.postRequest(app_constants_1.AppConstants.ICD_VERSION, JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
+                    if (response['responseCode'] === 'ICD_VERSION_SUC_08') {
+                        _this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
+                        _this.notificationService.success(response['responseMessage'], 'ICD');
+                        document.getElementById('close-btn-ICDVersion').click();
+                        _this.refreshICDsVersionTable(0);
+                    }
+                    else {
+                        _this.notificationService.error('ICD', response['responseMessage']);
+                    }
+                }, function (error) {
+                    _this.HISUtilService.tokenExpired(error.error.error);
+                });
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
         }
         else {
-            this.router.navigate(['/login']);
+            this.notificationService.error('Required Fields are missing', 'ICD Version');
         }
     };
     VersionComponent.prototype.deleteICDVersion = function (iCDVersionId) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest('/setting/icd/version/delete?iCDVersionId=' + iCDVersionId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_VERSION_DELETE + iCDVersionId, {})
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Version');

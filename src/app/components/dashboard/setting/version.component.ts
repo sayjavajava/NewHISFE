@@ -4,6 +4,8 @@ import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {Router} from "@angular/router";
 import {ICDVersionModel} from "../../../models/ICDVersionModel";
+import {NgForm} from "@angular/forms";
+import {AppConstants} from "../../../utils/app.constants";
 
 @Component({
     selector: 'icd-version-component',
@@ -18,6 +20,7 @@ export class VersionComponent implements OnInit {
     data: any;
     searchVersion: string = "";
     private searched: boolean;
+    private isVersionUpdate: boolean;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -34,22 +37,25 @@ export class VersionComponent implements OnInit {
 
     getPageWiseICDsVersion(page: number) {
         this.data = [];
-        if (this.searched){
+        if (this.searched) {
             this.searchByVersion(page);
-        }else {
+        } else {
             this.getICDsVersionFromServer(page);
         }
     }
+
     refreshVersionsTable() {
+        this.searchVersion = "";
         this.searched = false;
         this.getICDsVersionFromServer(0);
     }
+
     getICDsVersionFromServer(page: number) {
         if (page > 0) {
             page = page;
         }
         this.requestsService.getRequest(
-            '/setting/icd/versions/' + page)
+            AppConstants.ICD_VERSIONS + page)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'ICD_SUC_02') {
@@ -68,42 +74,49 @@ export class VersionComponent implements OnInit {
 
 
     editICDVersion(iCDVersion: any) {
+        this.isVersionUpdate = true;
         this.iCDVersionModel = iCDVersion;
     }
 
-    updateICDVersion() {
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.putRequest(
-                '/setting/icd/version/update',
-                JSON.parse(JSON.stringify(this.iCDVersionModel))
-            ).subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
-                        this.iCDVersionModel = new ICDVersionModel();
-                        this.notificationService.success(response['responseMessage'], 'ICD');
-                        document.getElementById('close-btn-update').click();
-                        this.getPageWiseICDsVersion(this.currPage);
-                    } else {
-                        this.notificationService.error(response['responseMessage'], 'ICD')
+    updateICDVersion(versionForm: NgForm) {
+        if (versionForm.valid) {
+            if (window.localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.putRequest(
+                    AppConstants.ICD_VERSION,
+                    JSON.parse(JSON.stringify(this.iCDVersionModel))
+                ).subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
+                            this.iCDVersionModel = new ICDVersionModel();
+                            this.notificationService.success(response['responseMessage'], 'ICD');
+                            document.getElementById('close-btn-update').click();
+                            this.getPageWiseICDsVersion(this.currPage);
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'ICD')
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
                     }
-                },
-                (error: any) => {
-                    this.HISUtilService.tokenExpired(error.error.error);
-                }
-            );
+                );
+            } else {
+                this.router.navigate(['/login']);
+            }
         } else {
-            this.router.navigate(['/login']);
+            this.notificationService.error('Required Fields are missing', 'ICD Version');
         }
     }
 
     onAddICDVersionPopupLoad() {
+        this.isVersionUpdate = false;
         this.iCDVersionModel = new ICDVersionModel();
     }
-    searchByVersion(page:number) {
+
+    searchByVersion(page: number) {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(
-                '/setting/icd/version/search/'+page+'?searchVersion=' + this.searchVersion)
+                AppConstants.ICD_VERSION_SEARCH + page + '?searchVersion=' + this.searchVersion)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_02') {
@@ -117,7 +130,7 @@ export class VersionComponent implements OnInit {
                             this.prePage = 0;
                             this.currPage = 0;
                             this.pages = [];
-                            this.data =[];
+                            this.data = [];
                             this.notificationService.warn('ICD not found');
                         }
                     },
@@ -128,35 +141,39 @@ export class VersionComponent implements OnInit {
         }
     }
 
-    saveICDVersion() {
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.postRequest(
-                '/setting/icd/version/save',
-                JSON.parse(JSON.stringify(this.iCDVersionModel))
-            ).subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'ICD_VERSION_SUC_08') {
-                        this.iCDVersionModel = new ICDVersionModel();
-                        this.notificationService.success(response['responseMessage'], 'ICD');
-                        document.getElementById('close-btn-ICDVersion').click();
-                        this.refreshICDsVersionTable(0);
-                    } else {
-                        this.notificationService.error('ICD', response['responseMessage'])
+    saveICDVersion(form: NgForm) {
+        if (form.valid) {
+            if (window.localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.postRequest(
+                    AppConstants.ICD_VERSION,
+                    JSON.parse(JSON.stringify(this.iCDVersionModel))
+                ).subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ICD_VERSION_SUC_08') {
+                            this.iCDVersionModel = new ICDVersionModel();
+                            this.notificationService.success(response['responseMessage'], 'ICD');
+                            document.getElementById('close-btn-ICDVersion').click();
+                            this.refreshICDsVersionTable(0);
+                        } else {
+                            this.notificationService.error('ICD', response['responseMessage'])
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
                     }
-                },
-                (error: any) => {
-                    this.HISUtilService.tokenExpired(error.error.error);
-                }
-            );
+                );
+            } else {
+                this.router.navigate(['/login']);
+            }
         } else {
-            this.router.navigate(['/login']);
+            this.notificationService.error('Required Fields are missing', 'ICD Version');
         }
     }
 
     deleteICDVersion(iCDVersionId: any) {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                '/setting/icd/version/delete?iCDVersionId=' + iCDVersionId,
+                AppConstants.ICD_VERSION_DELETE+ iCDVersionId,
                 {})
                 .subscribe(
                     (response: Response) => {

@@ -5,7 +5,7 @@
                 <div class="hr">
                     <h4 class="text-info">ICD Code
                         <div class="pull-right">
-                            <a href="#responsive" data-toggle="modal">
+                            <a href="#popupCode" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow"
                                         (click)="onAddICDCodePopupLoad()"
                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> ICD Code
@@ -59,7 +59,7 @@
                             <td rowspan="1" colspan="1">
                                 <!-- <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i>
                                  </button>-->
-                                <a href="#responsiveUpdate" data-toggle="modal">
+                                <a href="#popupCode" data-toggle="modal">
                                     <button class="btn btn-default btn-outline btn-sm" (click)="editICDCode(item)">
                                         <i class="fa fa-pencil"></i>
                                     </button>
@@ -114,14 +114,15 @@
     </div>
 </div>
 
-<div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="popupCode" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <form id="saveCodeForm" #form="ngForm">
 
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Add Code</h4>
+                    <h4 class="modal-title" [hidden] ="this.isCodeUpdate">Add Code</h4>
+                    <h4 class="modal-title" [hidden] ="!(this.isCodeUpdate)">Update Code</h4>
                 </div>
                 <div class="modal-body">
                     <div class="scroller" style="height:250px" data-always-visible="1" data-rail-visible1="1">
@@ -184,73 +185,18 @@
                     <button type="button" data-dismiss="modal" id="close-btn"
                             class="btn btn-default btn-outline">Close
                     </button>
-                    <button type="button" class="btn blue" id="save-btn"
-                            (click)="saveICDCode(form)">Save
-                    </button>
+                    <span [hidden] ="this.isCodeUpdate">
+                        <button type="button" class="btn blue" id="save-btn"
+                                (click)="saveICDCode(form)">Save
+                        </button>
+                    </span>
+                    <span [hidden] ="!(this.isCodeUpdate)">
+                        <button type="button" class="btn blue"  id="save-btn-update"
+                                (click)="updateICDCode(form)">Update
+                        </button>
+                    </span>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
-<div id="responsiveUpdate" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Update Code</h4>
-            </div>
-            <div class="modal-body">
-                <div class="scroller" style="height:220px" data-always-visible="1" data-rail-visible1="1">
-                    <div class="row">
-                        <div class="form-group hr">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Code
-                                <span class="required" aria-required="true"> * </span>
-                            </label>
-                            <div class="col-md-9 select pdng-lr-5">
-                                <input type="text" [(ngModel)]="iCDModel.code" required name="codeUpdate"
-                                       class="form-control"
-                                       placeholder="Enter text">
-                            </div>
-                        </div>
-                        <div class="form-group hr">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Title</label>
-                            <div class="col-md-9 select pdng-lr-5">
-                                <input type="text" [(ngModel)]="iCDModel.title" name="titleUpdate" class="form-control"
-                                       placeholder="Enter text">
-                            </div>
-                        </div>
-                        <div class="form-group hr">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                            <div class="col-md-9 select pdng-lr-5">
-                                <textarea rows="3"
-                                          [(ngModel)]="iCDModel.description" name="descriptionUpdate"
-                                          class="form-control"
-                                          placeholder="Enter text">
-                                </textarea>
-                            </div>
-                        </div>
-                        <div class="form-group hr">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
-                            <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
-                                <label class="mt-checkbox mt-checkbox-outline">
-                                    <input type="checkbox" [(ngModel)]="iCDModel.status" name="statusUpdate">
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" id="close-btn-update"
-                        class="btn btn-default btn-outline">Close
-                </button>
-                <button type="button" class="btn blue" id="save-btn-update" (click)="updateICDCode()">Update</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
