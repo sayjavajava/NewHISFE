@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import 'rxjs/Rx';
 import {Router} from '@angular/router';
 import {AppConfig} from '../configuration/app.config';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {RoleAndPermission} from '../models/roleandpermission';
 
 @Injectable()
 export class RequestsService {
@@ -62,5 +63,10 @@ export class RequestsService {
         reqHeader.append('Content-Type', 'application/json');
         return this.http.put(this.getBEAPIServer() + url, _params, {headers: reqHeader});
     }
-
+    getRequestWithParam(url: any, param: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        let params = new HttpParams().set('name', param);
+        return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params});
+    }
 }

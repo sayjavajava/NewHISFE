@@ -29,5 +29,10 @@ export class AppConstants {
     public static ICD_CODE_VERSION_SEARCH = '/setting/icd/codeVersion/search/';
     public static ICD_VERSION_CODES_VERSION = '/setting/icd/version/codes/?versionId=';
 
+    public static ROLE_ENDPOINT = '/setting/rolePermission/add';
+    public static PERMISSION_ENDPOINT = '/user/auth/authorities';
+    public static PERMISSION_BY_ROLE = '/setting/rolePermission/role';
+    public static ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
+
 
 }

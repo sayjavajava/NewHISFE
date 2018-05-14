@@ -10,6 +10,12 @@ var AppConstants = (function () {
     }
     AppConstants.ACCESS_TOKEN = 'access_token';
     AppConstants.EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
+    AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';
+    AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
+    AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
+    AppConstants.SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
+    AppConstants.UPDATE_CLINICAL_DEPARTMENT_URL = '/setting/department/update';
+    AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
     AppConstants.ICD_CODES = '/setting/icd/codes/';
@@ -24,6 +30,10 @@ var AppConstants = (function () {
     AppConstants.ICD_CODE_VERSION_DELETE = '/setting/icd/codeVersion?associateICDCVId=';
     AppConstants.ICD_CODE_VERSION_SEARCH = '/setting/icd/codeVersion/search/';
     AppConstants.ICD_VERSION_CODES_VERSION = '/setting/icd/version/codes/?versionId=';
+    AppConstants.ROLE_ENDPOINT = '/setting/rolePermission/add';
+    AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
+    AppConstants.PERMISSION_BY_ROLE = '/setting/rolePermission/role';
+    AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
