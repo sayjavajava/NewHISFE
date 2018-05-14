@@ -146,11 +146,6 @@ var RolePermissionsComponent = (function () {
         else {
             this.addedRolePermissionsIds.splice(index, 1);
         }
-        for (var _i = 0, _a = this.addedRolePermissionsIds; _i < _a.length; _i++) {
-            var rp = _a[_i];
-            console.log(rp);
-        }
-        console.log('-----');
     };
     RolePermissionsComponent.prototype.permissionByRole = function (roleName) {
         var _this = this;

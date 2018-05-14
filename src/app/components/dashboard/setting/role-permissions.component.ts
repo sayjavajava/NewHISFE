@@ -177,10 +177,6 @@ export class RolePermissionsComponent implements OnInit {
         } else {
             this.addedRolePermissionsIds.splice(index, 1);
         }
-        for (let rp of this.addedRolePermissionsIds) {
-           console.log(rp);
-        }
-        console.log('-----');
     }
 
     private permissionByRole(roleName: string) {
