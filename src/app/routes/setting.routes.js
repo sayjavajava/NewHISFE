@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var staff_component_1 = require("../components/dashboard/setting/staff.component");
-var icd_component_1 = require("../components/dashboard/setting/icd.component");
+var code_component_1 = require("../components/dashboard/setting/code.component");
 var department_component_1 = require("../components/dashboard/setting/department.component");
 var cashier_component_1 = require("../components/dashboard/setting/cashier.component");
 var medical_service_component_1 = require("../components/dashboard/setting/medical-service.component");
@@ -17,6 +17,8 @@ var addbranch_component_1 = require("../components/dashboard/setting/addbranch.c
 var organization_component_1 = require("../components/dashboard/setting/organization.component");
 var addorganization_component_1 = require("../components/dashboard/setting/addorganization.component");
 var addstaff_component_1 = require("../components/dashboard/setting/addstaff.component");
+var version_component_1 = require("../components/dashboard/setting/version.component");
+var code_version_component_1 = require("../components/dashboard/setting/code-version.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -34,7 +36,9 @@ exports.SettingRoutes = [
     { path: 'cashier/add', component: addcashier_component_1.AddCashierComponent },
     { path: 'receptionist', component: receptionist_component_1.ReceptionistComponent },
     { path: 'receptionist/add', component: addreceptionist_component_1.AddReceptionistComponent },
-    { path: 'icd', component: icd_component_1.ICDComponent },
+    { path: 'code', component: code_component_1.CodeComponent },
+    { path: 'version', component: version_component_1.VersionComponent },
+    { path: 'codeVersion', component: code_version_component_1.CodeVersionComponent },
     { path: 'medicalservices', component: medical_service_component_1.MedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
     { path: '**', redirectTo: '404' }

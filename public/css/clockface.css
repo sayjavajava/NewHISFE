@@ -54,8 +54,8 @@
 
     	&.am {margin-right: 8px;}	
     	
-    	&.active,
-    	&.active:hover {
+    	&.status,
+    	&.status:hover {
     		.buttonBackground(@btnSuccessBackground, spin(@btnSuccessBackground, 20));
     	}
     }

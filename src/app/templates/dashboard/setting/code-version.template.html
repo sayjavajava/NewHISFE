@@ -1,0 +1,194 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Associate Code version
+                        <div class="pull-right">
+                            <a href="#responsiveICDCVM" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow"
+                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                        data-type="success" data-allow-outside-click="true"
+                                        (click)="onAddICDCVMPopupLoad()"
+                                        data-confirm-button-class="btn-success">
+                                    <i class="fa fa-plus"></i> Associate ICD
+                                </button>
+                            </a>
+                            <button class="btn mt-sweetalert btn blue"
+                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                    data-type="success" data-allow-outside-click="true"
+                                    (click)="refreshCodeVersionTable()"
+                                    data-confirm-button-class="btn-success"> Refresh
+                            </button>
+                        </div>
+                    </h4>
+                </div>
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="col-md-5">
+                        <div class="form-group font-siz11">
+                            <label>Version</label>
+                            <input type="text"
+                                   class="form-control"
+                                   [(ngModel)]="searchCodeVersion"
+                                   placeholder="Enter Version"
+                                   (keydown.enter)="searchCodeVersionByVersionName(0)">
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group mrgn-top24">
+                            <button type="button" class="btn blue" (click)="searchCodeVersionByVersionName(0)">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-scrollable">
+                    <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                           id="datatable_ajax">
+                        <thead>
+                        <tr role="row" class="off-wite-bg">
+                            <th width="25%" class="sorting_disabled" rowspan="1" colspan="1"> Version</th>
+                            <th width="25%" class="sorting_disabled" rowspan="1" colspan="1"> Code</th>
+                            <th width="40%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
+                        </tr>
+                        <tr role="row" *ngFor="let item of data; let i = index;" class="filter">
+                            <td rowspan="1" colspan="1" class="font-green-dark">
+                                <strong>{{item.icdVersion.name}}</strong>
+                            </td>
+                            <td rowspan="1" colspan="1" class="font-green-dark">
+                                <strong>{{item.icdCode.code}}</strong>
+                            </td>
+                            <td rowspan="1" colspan="1" class="font-green-dark">
+                                <strong>{{item.description}}</strong>
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                <button class="btn btn-default btn-outline btn-sm"
+                                        (click)="deleteCodeVersion(item.id)">
+                                    <i class="fa fa-remove">
+                                    </i>
+                                </button>
+                            </td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev">
+                            <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
+                               (click)="getPageWiseICDs(0)">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev">
+                            <a title="Prev" *ngIf="prePage"
+                               (click)="getPageWiseICDs(currPage - 1)">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWiseICDs(page)">{{page+1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getPageWiseICDs(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getPageWiseICDs(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p></p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div id="responsiveICDCVM" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Code Version</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:302px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <form>
+                        <div class="form-group hr">
+                            <label class="control-label col-md-2">Version
+                                <span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-10">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <select id="icdVersions" [(ngModel)]="iCDCVM.selectedICDVersionId"
+                                                #selectedVer="ngModel" name="selectedVer"
+                                                class="form-control"
+                                                (change)="versionChanged(iCDCVM.selectedICDVersionId)">
+                                            <option [ngValue]="0" selected>---Select---</option>
+                                            <option
+                                                    *ngFor="let ver of iCDVersions"
+                                                    [(value)]="ver.id">
+                                                {{ver.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="control-label col-md-2">Code
+                                <span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-10">
+                                 <div class="input-group select2-bootstrap-prepend">
+                                        <div class="checkbox-box hr cod-higt" id="codesDiv">
+                                            <div class="col-md-6" *ngFor="let code of iCDCodes">
+                                                <address>
+                                                    <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="checkbox"
+                                                               id="chk-{{code.id}}"
+                                                               name="chk-{{code.id}}"
+                                                               [(ngModel)]="code.checkedCode">
+                                                        {{code.code}}
+                                                        <span></span>
+                                                    </label>
+                                                </address>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-2 control-label">Description</label>
+                            <div class="col-md-10 select">
+                                <textarea rows="3"
+                                          [(ngModel)]="iCDCVM.description"
+                                          maxlength="400"
+                                          name="description"
+                                          class="form-control"
+                                          placeholder="Enter text">
+                                </textarea>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" id="close-btn"
+                        class="btn btn-default btn-outline">Close
+                </button>
+                <button type="button" class="btn blue" id="save-btn" (click)="saveCodeVersion()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

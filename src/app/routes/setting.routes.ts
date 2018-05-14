@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
 import {StaffComponent} from '../components/dashboard/setting/staff.component';
-import {ICDComponent} from '../components/dashboard/setting/icd.component';
+import {CodeComponent} from '../components/dashboard/setting/code.component';
 import {DepartmentComponent} from '../components/dashboard/setting/department.component';
 import {CashierComponent} from '../components/dashboard/setting/cashier.component';
 import {MedicalServiceComponent} from '../components/dashboard/setting/medical-service.component';
@@ -16,6 +16,8 @@ import {AddBranchComponent} from '../components/dashboard/setting/addbranch.comp
 import {OrganizationComponent} from '../components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from '../components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from '../components/dashboard/setting/addstaff.component';
+import {VersionComponent} from "../components/dashboard/setting/version.component";
+import {CodeVersionComponent} from "../components/dashboard/setting/code-version.component";
 
 
 export const SettingRoutes: Routes = [
@@ -27,16 +29,18 @@ export const SettingRoutes: Routes = [
     {path: 'branch/add', component: AddBranchComponent},
     {path: 'staff', component: StaffComponent},
     {path: 'staff/add', component: AddStaffComponent},
-    {path:'doctor/add',component: AdddoctorComponent},
-    {path:'nurse',component:NurseComponent},
-    {path:'nurse/add',component:AddNurseComponent},
-    {path:'department',component:DepartmentComponent},
-    {path:'cashier',component:CashierComponent},
-    {path:'cashier/add',component: AddCashierComponent},
+    {path: 'doctor/add', component: AdddoctorComponent},
+    {path: 'nurse', component: NurseComponent},
+    {path: 'nurse/add', component: AddNurseComponent},
+    {path: 'department', component: DepartmentComponent},
+    {path: 'cashier', component: CashierComponent},
+    {path: 'cashier/add', component: AddCashierComponent},
     {path: 'receptionist', component: ReceptionistComponent},
     {path: 'receptionist/add', component: AddReceptionistComponent},
-    {path: 'icd', component: ICDComponent},
-    {path:'medicalservices',component:MedicalServiceComponent},
-    {path:'role-permissions',component:RolePermissionsComponent},
+    {path: 'code', component: CodeComponent},
+    {path: 'version', component: VersionComponent},
+    {path: 'codeVersion', component: CodeVersionComponent},
+    {path: 'medicalservices', component: MedicalServiceComponent},
+    {path: 'role-permissions', component: RolePermissionsComponent},
     {path: '**', redirectTo: '404'}
 ];
