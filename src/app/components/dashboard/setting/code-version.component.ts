@@ -32,22 +32,21 @@ export class CodeVersionComponent implements OnInit {
 
     ngOnInit() {
         document.title = 'HIS | ICD Code Version';
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.getICDCVsFromServer(0);
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.getCodeVersionsFromServer(0);
         }
     }
 
     versionsPopupLoadByServer() {
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(
-                AppConstants.ICD_CODES)
+                AppConstants.ICD_VERSIONS)
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'ICD_SUC_01') {
+                        if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
                             this.iCDCVM = new ICDCodeVersionModel();
                             this.iCDVersions = [];
                             this.iCDVersions = response['responseData'];
-                            // this.iCDCVM.selectedICDVersionId = response['responseData'][0].id;
                         }
                     },
                     (error: any) => {
@@ -60,12 +59,12 @@ export class CodeVersionComponent implements OnInit {
     }
 
     codesPopupLoadByServer() {
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(
                 AppConstants.ICD_CODES)
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'ICD_SUC_01') {
+                        if (response['responseCode'] === 'ICD_SUC_16') {
                             this.iCDCVM = new ICDCodeVersionModel();
                             this.iCDCodes = [];
                             this.iCDCodes = response['responseData'];
@@ -90,28 +89,28 @@ export class CodeVersionComponent implements OnInit {
         if (this.searched) {
             this.searchCodeVersionByVersionName(page);
         } else {
-            this.getICDCVsFromServer(page);
+            this.getCodeVersionsFromServer(page);
         }
     }
 
     refreshCodeVersionTable() {
         this.searched = false;
         this.searchCodeVersion = "";
-        this.getICDCVsFromServer(0);
+        this.getCodeVersionsFromServer(0);
     }
 
     refreshICDsTable(page: number) {
-        this.getICDCVsFromServer(page)
+        this.getCodeVersionsFromServer(page)
     }
 
     deleteCodeVersion(associateICDCVId: any) {
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
                 AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId,
                 {})
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'ICD_SUC_03') {
+                        if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {
                             this.notificationService.success(response['responseMessage'], 'ICD');
                             this.getPageWiseICDs(this.currPage);
                         } else {
@@ -128,7 +127,7 @@ export class CodeVersionComponent implements OnInit {
         }
     }
 
-    getICDCVsFromServer(page: number) {
+    getCodeVersionsFromServer(page: number) {
         if (page > 0) {
             page = page;
         }
@@ -136,7 +135,7 @@ export class CodeVersionComponent implements OnInit {
             AppConstants.ICD_CODE_VERSIONS + page)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'ICD_SUC_02') {
+                    if (response['responseCode'] === 'ICD_SUC_16') {
                         this.nextPage = response['responseData']['nextPage'];
                         this.prePage = response['responseData']['prePage'];
                         this.currPage = response['responseData']['currPage'];
@@ -157,13 +156,13 @@ export class CodeVersionComponent implements OnInit {
         }
 
         this.iCDCVM.iCDCodes = this.iCDCodes;
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.postRequest(
                 AppConstants.ICD_CODE_VERSION,
                 JSON.parse(JSON.stringify(this.iCDCVM))
             ).subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'ICD_ASSOCIATE_SUC_01') {
+                    if (response['responseCode'] === 'ICD_ASSOCIATE_SUC_18') {
                         this.iCDCVM = new ICDCodeVersionModel();
                         this.notificationService.success(response['responseMessage'], 'ICD');
                         document.getElementById('close-btn').click();
@@ -182,7 +181,7 @@ export class CodeVersionComponent implements OnInit {
     }
 
     searchCodeVersionByVersionName(page: number) {
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(
                 AppConstants.ICD_CODE_VERSION_SEARCH + page + '?versionName=' + this.searchCodeVersion)
@@ -217,7 +216,7 @@ export class CodeVersionComponent implements OnInit {
             }
             return;
         }
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(
                 AppConstants.ICD_VERSION_CODES_VERSION + associatedICDCVId)
                 .subscribe(

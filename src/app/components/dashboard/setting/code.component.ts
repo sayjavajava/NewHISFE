@@ -31,7 +31,7 @@ export class CodeComponent implements OnInit {
 
     ngOnInit() {
         document.title = 'HIS | ICD Code';
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.getICDsFromServer(0);
         }
     }
@@ -56,7 +56,7 @@ export class CodeComponent implements OnInit {
     }
 
     deleteICD(codeId: any) {
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
                 AppConstants.ICD_CODE_DELETE + codeId,
                 {})
@@ -103,7 +103,7 @@ export class CodeComponent implements OnInit {
 
     saveICDCode(form: NgForm) {
         if (form.valid) {
-            if (window.localStorage.getItem(btoa('access_token'))) {
+            if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
                     AppConstants.ICD_CODE,
                     JSON.parse(JSON.stringify(this.iCDModel))
@@ -134,7 +134,7 @@ export class CodeComponent implements OnInit {
 
     updateICDCode(updateCodeForm: NgForm) {
         if (updateCodeForm.valid) {
-            if (window.localStorage.getItem(btoa('access_token'))) {
+            if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(
                     AppConstants.ICD_CODE,
                     JSON.parse(JSON.stringify(this.iCDModel))
@@ -174,7 +174,7 @@ export class CodeComponent implements OnInit {
     }
 
     searchByCode(pageNo: number) {
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(
                 AppConstants.ICD_CODE_SEARCH + pageNo + '?code=' + this.searchCode)

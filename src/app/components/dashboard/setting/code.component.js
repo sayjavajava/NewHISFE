@@ -30,7 +30,7 @@ var CodeComponent = (function () {
     }
     CodeComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code';
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.getICDsFromServer(0);
         }
     };
@@ -53,7 +53,7 @@ var CodeComponent = (function () {
     };
     CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE + codeId, {})
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
@@ -93,7 +93,7 @@ var CodeComponent = (function () {
     CodeComponent.prototype.saveICDCode = function (form) {
         var _this = this;
         if (form.valid) {
-            if (window.localStorage.getItem(btoa('access_token'))) {
+            if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_SAVE_SUC_01') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
@@ -121,7 +121,7 @@ var CodeComponent = (function () {
     CodeComponent.prototype.updateICDCode = function (updateCodeForm) {
         var _this = this;
         if (updateCodeForm.valid) {
-            if (window.localStorage.getItem(btoa('access_token'))) {
+            if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(app_constants_1.AppConstants.ICD_CODE, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
@@ -156,7 +156,7 @@ var CodeComponent = (function () {
     };
     CodeComponent.prototype.searchByCode = function (pageNo) {
         var _this = this;
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_SEARCH + pageNo + '?code=' + this.searchCode)
                 .subscribe(function (response) {

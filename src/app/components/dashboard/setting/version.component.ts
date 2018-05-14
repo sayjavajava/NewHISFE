@@ -30,8 +30,8 @@ export class VersionComponent implements OnInit {
 
     ngOnInit() {
         document.title = 'HIS | Manage ICD';
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.getICDsVersionFromServer(0);
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.getVersionsFromServer(0);
         }
     }
 
@@ -40,17 +40,17 @@ export class VersionComponent implements OnInit {
         if (this.searched) {
             this.searchByVersion(page);
         } else {
-            this.getICDsVersionFromServer(page);
+            this.getVersionsFromServer(page);
         }
     }
 
     refreshVersionsTable() {
         this.searchVersion = "";
         this.searched = false;
-        this.getICDsVersionFromServer(0);
+        this.getVersionsFromServer(0);
     }
 
-    getICDsVersionFromServer(page: number) {
+    getVersionsFromServer(page: number) {
         if (page > 0) {
             page = page;
         }
@@ -80,13 +80,13 @@ export class VersionComponent implements OnInit {
 
     updateICDVersion(versionForm: NgForm) {
         if (versionForm.valid) {
-            if (window.localStorage.getItem(btoa('access_token'))) {
+            if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(
                     AppConstants.ICD_VERSION,
                     JSON.parse(JSON.stringify(this.iCDVersionModel))
                 ).subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
+                        if (response['responseCode'] === 'ICD_VERSION_UPDATE_SUC_07') {
                             this.iCDVersionModel = new ICDVersionModel();
                             this.notificationService.success(response['responseMessage'], 'ICD');
                             document.getElementById('close-btn-update').click();
@@ -113,13 +113,13 @@ export class VersionComponent implements OnInit {
     }
 
     searchByVersion(page: number) {
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(
                 AppConstants.ICD_VERSION_SEARCH + page + '?searchVersion=' + this.searchVersion)
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'ICD_SUC_02') {
+                        if (response['responseCode'] === 'ICD_VERSIONS_FOUND_SUC_13') {
                             this.nextPage = response['responseData']['nextPage'];
                             this.prePage = response['responseData']['prePage'];
                             this.currPage = response['responseData']['currPage'];
@@ -143,7 +143,7 @@ export class VersionComponent implements OnInit {
 
     saveICDVersion(form: NgForm) {
         if (form.valid) {
-            if (window.localStorage.getItem(btoa('access_token'))) {
+            if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
                     AppConstants.ICD_VERSION,
                     JSON.parse(JSON.stringify(this.iCDVersionModel))
@@ -171,13 +171,13 @@ export class VersionComponent implements OnInit {
     }
 
     deleteICDVersion(iCDVersionId: any) {
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
                 AppConstants.ICD_VERSION_DELETE+ iCDVersionId,
                 {})
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'ICD_SUC_03') {
+                        if (response['responseCode'] === 'ICD_VERSION_DEL_SUC_11') {
                             this.notificationService.success(response['responseMessage'], 'ICD Version');
                             this.getPageWiseICDsVersion(this.currPage);
                         } else {
@@ -195,7 +195,7 @@ export class VersionComponent implements OnInit {
     }
 
     refreshICDsVersionTable(page: number) {
-        this.getICDsVersionFromServer(page)
+        this.getVersionsFromServer(page)
     }
 
 }

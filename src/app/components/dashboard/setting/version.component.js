@@ -28,8 +28,8 @@ var VersionComponent = (function () {
     }
     VersionComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Manage ICD';
-        if (window.localStorage.getItem(btoa('access_token'))) {
-            this.getICDsVersionFromServer(0);
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.getVersionsFromServer(0);
         }
     };
     VersionComponent.prototype.getPageWiseICDsVersion = function (page) {
@@ -38,15 +38,15 @@ var VersionComponent = (function () {
             this.searchByVersion(page);
         }
         else {
-            this.getICDsVersionFromServer(page);
+            this.getVersionsFromServer(page);
         }
     };
     VersionComponent.prototype.refreshVersionsTable = function () {
         this.searchVersion = "";
         this.searched = false;
-        this.getICDsVersionFromServer(0);
+        this.getVersionsFromServer(0);
     };
-    VersionComponent.prototype.getICDsVersionFromServer = function (page) {
+    VersionComponent.prototype.getVersionsFromServer = function (page) {
         var _this = this;
         if (page > 0) {
             page = page;
@@ -71,9 +71,9 @@ var VersionComponent = (function () {
     VersionComponent.prototype.updateICDVersion = function (versionForm) {
         var _this = this;
         if (versionForm.valid) {
-            if (window.localStorage.getItem(btoa('access_token'))) {
+            if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(app_constants_1.AppConstants.ICD_VERSION, JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
-                    if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
+                    if (response['responseCode'] === 'ICD_VERSION_UPDATE_SUC_07') {
                         _this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
                         _this.notificationService.success(response['responseMessage'], 'ICD');
                         document.getElementById('close-btn-update').click();
@@ -100,11 +100,11 @@ var VersionComponent = (function () {
     };
     VersionComponent.prototype.searchByVersion = function (page) {
         var _this = this;
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSION_SEARCH + page + '?searchVersion=' + this.searchVersion)
                 .subscribe(function (response) {
-                if (response['responseCode'] === 'ICD_SUC_02') {
+                if (response['responseCode'] === 'ICD_VERSIONS_FOUND_SUC_13') {
                     _this.nextPage = response['responseData']['nextPage'];
                     _this.prePage = response['responseData']['prePage'];
                     _this.currPage = response['responseData']['currPage'];
@@ -127,7 +127,7 @@ var VersionComponent = (function () {
     VersionComponent.prototype.saveICDVersion = function (form) {
         var _this = this;
         if (form.valid) {
-            if (window.localStorage.getItem(btoa('access_token'))) {
+            if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(app_constants_1.AppConstants.ICD_VERSION, JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_VERSION_SUC_08') {
                         _this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
@@ -152,10 +152,10 @@ var VersionComponent = (function () {
     };
     VersionComponent.prototype.deleteICDVersion = function (iCDVersionId) {
         var _this = this;
-        if (window.localStorage.getItem(btoa('access_token'))) {
+        if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_VERSION_DELETE + iCDVersionId, {})
                 .subscribe(function (response) {
-                if (response['responseCode'] === 'ICD_SUC_03') {
+                if (response['responseCode'] === 'ICD_VERSION_DEL_SUC_11') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Version');
                     _this.getPageWiseICDsVersion(_this.currPage);
                 }
@@ -172,7 +172,7 @@ var VersionComponent = (function () {
         }
     };
     VersionComponent.prototype.refreshICDsVersionTable = function (page) {
-        this.getICDsVersionFromServer(page);
+        this.getVersionsFromServer(page);
     };
     VersionComponent = __decorate([
         core_1.Component({

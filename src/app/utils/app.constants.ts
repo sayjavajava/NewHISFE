@@ -8,9 +8,9 @@ export class AppConstants {
     public static ACCESS_TOKEN = 'access_token';
     public static EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
 
-    ////////////////////// ICD URL ///////////////////////////////
+    ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
-    public static ICD_CODES = '/setting/icd/versions/';
+    public static ICD_CODES = '/setting/icd/codes/';
     public static ICD_CODE_DELETE = '/setting/icd/code?codeId=';
     public static ICD_CODE_SEARCH = '/setting/icd/code/search/';
     public static ICD_VERSION = '/setting/icd/version';

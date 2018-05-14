@@ -10,9 +10,9 @@ var AppConstants = (function () {
     }
     AppConstants.ACCESS_TOKEN = 'access_token';
     AppConstants.EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
-    ////////////////////// ICD URL ///////////////////////////////
+    ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
-    AppConstants.ICD_CODES = '/setting/icd/versions/';
+    AppConstants.ICD_CODES = '/setting/icd/codes/';
     AppConstants.ICD_CODE_DELETE = '/setting/icd/code?codeId=';
     AppConstants.ICD_CODE_SEARCH = '/setting/icd/code/search/';
     AppConstants.ICD_VERSION = '/setting/icd/version';
