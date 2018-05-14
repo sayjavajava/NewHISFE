@@ -16,8 +16,10 @@ import {AddBranchComponent} from '../components/dashboard/setting/addbranch.comp
 import {OrganizationComponent} from '../components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from '../components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from '../components/dashboard/setting/addstaff.component';
-import {VersionComponent} from "../components/dashboard/setting/version.component";
-import {CodeVersionComponent} from "../components/dashboard/setting/code-version.component";
+import {VersionComponent} from '../components/dashboard/setting/version.component';
+import {CodeVersionComponent} from '../components/dashboard/setting/code-version.component';
+import {AddMedicalServiceComponent} from '../components/dashboard/setting/add-medical-service.component';
+import {ServiceTaxComponent} from '../components/dashboard/setting/service-tax.component';
 
 
 export const SettingRoutes: Routes = [
@@ -40,7 +42,9 @@ export const SettingRoutes: Routes = [
     {path: 'code', component: CodeComponent},
     {path: 'version', component: VersionComponent},
     {path: 'codeVersion', component: CodeVersionComponent},
-    {path: 'medicalservices', component: MedicalServiceComponent},
+    {path: 'medicalServices', component: MedicalServiceComponent},
+    {path: 'medicalServices/add', component: AddMedicalServiceComponent},
     {path: 'role-permissions', component: RolePermissionsComponent},
+    {path: 'service-tax', component: ServiceTaxComponent},
     {path: '**', redirectTo: '404'}
 ];

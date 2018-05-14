@@ -34,5 +34,9 @@ export class AppConstants {
     public static PERMISSION_BY_ROLE = '/setting/rolePermission/role';
     public static ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
 
+    ////////////////////// Service Tax URLs ///////////////////////////////
+    public static FETCH_ALL_TAX_URL ='/setting/tax/';
+
+
 
 }

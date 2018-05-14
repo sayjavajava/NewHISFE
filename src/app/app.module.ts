@@ -49,9 +49,10 @@ import {NotificationService} from './services/notification.service';
 import {OrganizationComponent} from './components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from './components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from './components/dashboard/setting/addstaff.component';
-import {VersionComponent} from "./components/dashboard/setting/version.component";
-import {CodeVersionComponent} from "./components/dashboard/setting/code-version.component";
-
+import {VersionComponent} from './components/dashboard/setting/version.component';
+import {CodeVersionComponent} from './components/dashboard/setting/code-version.component';
+import {AddMedicalServiceComponent} from './components/dashboard/setting/add-medical-service.component';
+import {ServiceTaxComponent} from './components/dashboard/setting/service-tax.component';
 
 @NgModule({
     providers: [
@@ -103,6 +104,7 @@ import {CodeVersionComponent} from "./components/dashboard/setting/code-version.
         DepartmentComponent,
         CashierComponent,
         MedicalServiceComponent,
+        AddMedicalServiceComponent,
         NurseComponent,
         ReceptionistComponent,
         BranchComponent,
@@ -114,7 +116,8 @@ import {CodeVersionComponent} from "./components/dashboard/setting/code-version.
         AddBranchComponent,
         OrganizationComponent,
         AddOrganizationComponent,
-        AddStaffComponent
+        AddStaffComponent,
+        ServiceTaxComponent,
     ],
     bootstrap: [AppComponent]
 })

@@ -34,6 +34,8 @@ var AppConstants = (function () {
     AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
     AppConstants.PERMISSION_BY_ROLE = '/setting/rolePermission/role';
     AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
+    ////////////////////// Service Tax URLs ///////////////////////////////
+    AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

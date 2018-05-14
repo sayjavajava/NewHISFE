@@ -10,19 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var MedicalServiceComponent = (function () {
-    function MedicalServiceComponent() {
+var AddMedicalServiceComponent = (function () {
+    function AddMedicalServiceComponent() {
     }
-    MedicalServiceComponent.prototype.ngOnInit = function () {
+    AddMedicalServiceComponent.prototype.ngOnInit = function () {
     };
-    MedicalServiceComponent = __decorate([
+    AddMedicalServiceComponent = __decorate([
         core_1.Component({
-            selector: 'medical-services-component',
-            templateUrl: '../../../templates/dashboard/setting/medical-services.template.html',
+            selector: 'medicl-services-component',
+            templateUrl: '../../../templates/dashboard/setting/add-medical-services.template.html',
         }),
         __metadata("design:paramtypes", [])
-    ], MedicalServiceComponent);
-    return MedicalServiceComponent;
+    ], AddMedicalServiceComponent);
+    return AddMedicalServiceComponent;
 }());
-exports.MedicalServiceComponent = MedicalServiceComponent;
-//# sourceMappingURL=medical-service.component.js.map
+exports.AddMedicalServiceComponent = AddMedicalServiceComponent;
+//# sourceMappingURL=add-medical-service.component.js.map

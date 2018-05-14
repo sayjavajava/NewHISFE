@@ -19,6 +19,8 @@ var addorganization_component_1 = require("../components/dashboard/setting/addor
 var addstaff_component_1 = require("../components/dashboard/setting/addstaff.component");
 var version_component_1 = require("../components/dashboard/setting/version.component");
 var code_version_component_1 = require("../components/dashboard/setting/code-version.component");
+var add_medical_service_component_1 = require("../components/dashboard/setting/add-medical-service.component");
+var service_tax_component_1 = require("../components/dashboard/setting/service-tax.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -39,8 +41,10 @@ exports.SettingRoutes = [
     { path: 'code', component: code_component_1.CodeComponent },
     { path: 'version', component: version_component_1.VersionComponent },
     { path: 'codeVersion', component: code_version_component_1.CodeVersionComponent },
-    { path: 'medicalservices', component: medical_service_component_1.MedicalServiceComponent },
+    { path: 'medicalServices', component: medical_service_component_1.MedicalServiceComponent },
+    { path: 'medicalServices/add', component: add_medical_service_component_1.AddMedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
+    { path: 'service-tax', component: service_tax_component_1.ServiceTaxComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map
