@@ -12,6 +12,6 @@ export class AppConstants {
     public static SEARCH_CLINICAL_DEPARTMENT_URL ='/setting/department/search/';
     public static SAVE_CLINICAL_DEPARTMENT_URL ='/setting/department/save';
     public static UPDATE_CLINICAL_DEPARTMENT_URL ='/setting/department/update';
-
+    public static FETCH_ALL_BRANCHES_URL ='/setting/branch/';
 
 }

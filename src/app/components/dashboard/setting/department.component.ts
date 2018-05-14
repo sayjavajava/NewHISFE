@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {HISUtilService} from "../../../services/his-util.service";
-import {Router} from "@angular/router";
-import {RequestsService} from "../../../services/requests.service";
-import {UserSharedService} from "../../../services/user.shared.service";
-import {AppConstants} from "../../../utils/app.constants";
-import {NotificationService} from "../../../services/notification.service";
-import {NgForm} from "@angular/forms";
-import {ClinicalDepartment} from "../../../models/clinical-department";
+import {HISUtilService} from '../../../services/his-util.service';
+import {Router} from '@angular/router';
+import {RequestsService} from '../../../services/requests.service';
+import {UserSharedService} from '../../../services/user.shared.service';
+import {AppConstants} from '../../../utils/app.constants';
+import {NotificationService} from '../../../services/notification.service';
+import {NgForm} from '@angular/forms';
+import {ClinicalDepartment} from '../../../models/clinical-department';
+import * as _ from 'lodash'
 
 @Component({
     selector: 'department-component',
@@ -106,6 +107,10 @@ export class DepartmentComponent implements OnInit {
     }
 
     saveClinicalDepartment(form: NgForm) {
+        _.each(form.form.controls, function (control) {
+            control['_touched'] = true
+        });
+
         if (form.valid) {
             this.requestsService.postRequest(
                 AppConstants.SAVE_CLINICAL_DEPARTMENT_URL,
@@ -125,13 +130,14 @@ export class DepartmentComponent implements OnInit {
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
                 );
-        } else {
-            this.notificationService.error('Require fields are missing', 'Clinical Department');
         }
     }
 
-
     updateClinicalDepartment(form: NgForm) {
+        _.each(form.form.controls, function (control) {
+            control['_touched'] = true
+        });
+
         if (form.valid) {
             this.requestsService.putRequest(
                 AppConstants.UPDATE_CLINICAL_DEPARTMENT_URL,
@@ -152,15 +158,11 @@ export class DepartmentComponent implements OnInit {
 
                     }
                 );
-        } else {
-            this.notificationService.error('Require fields are missing', 'Clinical Department');
         }
     }
 
     onUpdatePopupLoad(department: ClinicalDepartment) {
         this.selectedDepartment = department;
-        //#TODO need to set branch id
-        this.selectedDepartment.branchId = 1;
     }
 
     onAddPopupLoad() {

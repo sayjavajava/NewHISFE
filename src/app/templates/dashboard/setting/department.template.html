@@ -45,7 +45,7 @@
                                 <th width="16%"> Action</th>
                             </tr>
                             <tr *ngFor="let item of data; let i = index;" class="filter">
-                                <td class="c-text-left padding">{{item.name}}</td>
+                                <td class="c-text-left padding font-green-dark"><strong>{{item.name}}</strong></td>
                                 <td class="c-text-left">{{item.description}}</td>
                                 <td>{{item.active === true ? 'Active' : 'In-Active'}}</td>
                                 <td class="sorting_disabled">
@@ -124,16 +124,6 @@
                             <div class="scroller" style="height: 190px; overflow: hidden; width: auto;">
                                 <div class="row">
                                     <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Branch
-                                            <span class="required"
-                                                  aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <select class="form-control">
-                                                <option>Primary Branch</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
@@ -167,7 +157,8 @@
                         <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">
                             Close
                         </button>
-                        <button type="button" class="btn blue" *ngIf="selectedDepartment.id <= 0 || selectedDepartment.id == null"
+                        <button type="button" class="btn blue"
+                                *ngIf="selectedDepartment.id <= 0 || selectedDepartment.id == null"
                                 (click)="saveClinicalDepartment(form)">Save
                         </button>
                         <button type="button" class="btn blue" *ngIf="selectedDepartment.id > 0"

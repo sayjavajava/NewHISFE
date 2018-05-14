@@ -45,14 +45,18 @@ var RequestsService = (function () {
         var URI = this.getBEAPIServer() + url + '?username=' + _params['userName'] + '&password=' + _params['password'] + '&grant_type=' + _params['grantType'];
         return this.http.post(URI, _params, { headers: reqHeader });
     };
-    /*    deleteRequest(url: any, _params: any) {
-            const headers = new Headers();
-            if (this.getToken()) {
-                headers.append('Authorization', 'auth_token ' + this.getToken());
-            }
-            return this.http.delete(this.getBEAPIServer() + url, {headers: headers})
-                .map((response: Response) => response.json());
-        };*/
+    RequestsService.prototype.deleteRequest = function (url) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.delete(this.getBEAPIServer() + url, { headers: reqHeader });
+    };
+    ;
+    RequestsService.prototype.searchRequest = function (url) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader });
+    };
+    ;
     RequestsService.prototype.getRequest = function (url) {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         reqHeader.append('Content-Type', 'application/json');
@@ -62,6 +66,11 @@ var RequestsService = (function () {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         reqHeader.append('Content-Type', 'application/json');
         return this.http.post(this.getBEAPIServer() + url, _params, { headers: reqHeader });
+    };
+    RequestsService.prototype.putRequest = function (url, _params) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.put(this.getBEAPIServer() + url, _params, { headers: reqHeader });
     };
     RequestsService = __decorate([
         core_1.Injectable(),
