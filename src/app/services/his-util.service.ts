@@ -18,4 +18,8 @@ export class HISUtilService {
         }
     }
 
+    hidePopupWithCloseButtonId(closeButtonId: string){
+        document.getElementById(closeButtonId).click();
+    }
+
 }

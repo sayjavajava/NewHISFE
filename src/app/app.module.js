@@ -91,6 +91,7 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 main_component_1.MainComponent,
                 login_component_1.LoginComponent,
+                department_component_1.DepartmentComponent,
                 dashboard_component_1.DashboardComponent,
                 doctor_dashboard_component_1.DoctorDashboardComponent,
                 // Dashboard Components

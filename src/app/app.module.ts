@@ -81,6 +81,7 @@ import {CodeVersionComponent} from "./components/dashboard/setting/code-version.
         AppComponent,
         MainComponent,
         LoginComponent,
+        DepartmentComponent,
         DashboardComponent,
         DoctorDashboardComponent,
 
