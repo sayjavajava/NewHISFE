@@ -54,7 +54,7 @@ var CodeComponent = (function () {
     CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE + codeId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE_URL + codeId, {})
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Code');
@@ -94,7 +94,7 @@ var CodeComponent = (function () {
         var _this = this;
         if (form.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
+                this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE_SAVE_URL, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_SAVE_SUC_01') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
                         _this.iCDData = response['responseData'];
@@ -122,7 +122,7 @@ var CodeComponent = (function () {
         var _this = this;
         if (updateCodeForm.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.putRequest(app_constants_1.AppConstants.ICD_CODE, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
+                this.requestsService.putRequest(app_constants_1.AppConstants.ICD_CODE_UPDATE_URL, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
                         _this.iCDData = response['responseData'];

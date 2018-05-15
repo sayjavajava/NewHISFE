@@ -2,6 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var ServiceTax = (function () {
     function ServiceTax() {
+        this.id = 0;
+        this.name = "";
+        this.description = "";
+        this.rate = 0.0;
+        this.active = false;
+        this.deleted = false;
     }
     return ServiceTax;
 }());

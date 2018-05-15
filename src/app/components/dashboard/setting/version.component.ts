@@ -82,7 +82,7 @@ export class VersionComponent implements OnInit {
         if (versionForm.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(
-                    AppConstants.ICD_VERSION,
+                    AppConstants.ICD_VERSION_UPDATE_URL,
                     JSON.parse(JSON.stringify(this.iCDVersionModel))
                 ).subscribe(
                     (response: Response) => {
@@ -145,7 +145,7 @@ export class VersionComponent implements OnInit {
         if (form.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
-                    AppConstants.ICD_VERSION,
+                    AppConstants.ICD_VERSION_SAVE_URL,
                     JSON.parse(JSON.stringify(this.iCDVersionModel))
                 ).subscribe(
                     (response: Response) => {
@@ -173,7 +173,7 @@ export class VersionComponent implements OnInit {
     deleteICDVersion(iCDVersionId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                AppConstants.ICD_VERSION_DELETE+ iCDVersionId,
+                AppConstants.ICD_VERSION_DELETE_URL+ iCDVersionId,
                 {})
                 .subscribe(
                     (response: Response) => {

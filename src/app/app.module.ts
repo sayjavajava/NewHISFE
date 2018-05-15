@@ -75,7 +75,6 @@ import {ServiceTaxComponent} from './components/dashboard/setting/service-tax.co
         MatButtonModule,
         HttpClientModule,
         MatSnackBarModule,
-
     ],
     declarations: [
         // App Components

@@ -5,12 +5,13 @@
                 <div class="hr">
                     <h4 class="text-info">Service Tax
                         <div class="pull-right">
-                            <a href="#popupCode" data-toggle="modal">
+                            <a href="#taxPopup" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow"
-                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Tax
+                                        (click)="onTaxPopupLoad()"><i class="fa fa-plus"></i> Tax
                                 </button>
                             </a>
                             <button class="btn mt-sweetalert btn blue"
+                                    (click)="refreshTaxesTable()"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
                         </div>
@@ -21,6 +22,8 @@
                         <div class="form-group font-siz11">
                             <label>Name</label>
                             <input type="text"
+                                   [(ngModel)] = "searchTax"
+                                   (keydown.enter)="searchByTaxName()"
                                    class="form-control"
                                    placeholder="Enter Name">
                         </div>
@@ -28,6 +31,7 @@
                     <div class="col-md-1">
                         <div class="form-group mrgn-top24">
                             <button type="button"
+                                    (click)="searchByTaxName()"
                                     class="btn blue">
                                 Search
                             </button>
@@ -39,28 +43,32 @@
                            id="datatable_ajax">
                         <thead>
                         <tr role="row" class="off-wite-bg">
-                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Name</th>
-                            <th width="25%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
-                            <th width="25%" class="sorting_disabled" rowspan="1" colspan="1"> Rate (%)</th>
-                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
-                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
+                            <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> Name</th>
+                            <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> Rate (%)</th>
+                            <th width="5%" class="sorting_disabled" rowspan="1" colspan="1"> From </th>
+                            <th width="5%" class="sorting_disabled" rowspan="1" colspan="1"> To </th>
+                            <th width="30%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
-                        <tr role="row" *ngFor="let item of data; let i = index;">
+                        <tr role="row" *ngFor="let item of dataTaxes; let i = index;">
                             <td rowspan="1" colspan="1" class="font-green-dark"><strong>{{item.name}}</strong></td>
-                            <td rowspan="1" colspan="1">{{item.description}}</td>
                             <td rowspan="1" colspan="1">{{item.rate}}</td>
+                            <td rowspan="1" colspan="1">{{item.fromDate}}</td>
+                            <td rowspan="1" colspan="1">{{item.toDate}}</td>
+                            <td rowspan="1" colspan="1">{{item.description}}</td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.active === true ? 'Active' : 'In-Active'}}
                             </td>
                             <td rowspan="1" colspan="1">
-                                <!-- <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i>
-                                 </button>-->
-                                <a href="#popupCode" data-toggle="modal">
-                                    <button class="btn btn-default btn-outline btn-sm" >
+                                <a href="#taxPopup" data-toggle="modal">
+                                    <button class="btn btn-default btn-outline btn-sm"
+                                    (click)="editServiceTax(item)">
                                         <i class="fa fa-pencil"></i>
                                     </button>
                                 </a>
-                                <button class="btn btn-default btn-outline btn-sm">
+                                <button class="btn btn-default btn-outline btn-sm"
+                                (click)="deleteServiceTax(item.id)">
                                     <i class="fa fa-remove">
                                     </i>
                                 </button>
@@ -76,24 +84,27 @@
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
                         <li class="prev">
-                            <a title="First" >
+                            <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
+                               (click)="getPageWiseICDs(0)">
                                 <i class="fa fa-angle-double-left"></i>
                             </a>
                         </li>
                         <li class="prev">
-                            <a title="Prev" >
+                            <a title="Prev" *ngIf="prePage"
+                               (click)="getPageWiseICDs(currPage - 1)">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
-                        <li [ngClass]="active">
-                            <a (click)="getPageWiseICDs(page)">1</a>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWiseICDs(page)">{{page+1}}</a>
                         </li>
-                        <li class="next">
+                        <li class="next" *ngIf="nextPage">
                             <a (click)="getPageWiseICDs(currPage + 1)" title="Next">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
-                        <li class="next" >
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
                             <a (click)="getPageWiseICDs(pages.length - 1)" title="Last">
                                 <i class="fa fa-angle-double-right"></i>
                             </a>
@@ -107,64 +118,103 @@
     </div>
 </div>
 
-<div id="popupCode" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="taxPopup" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <form id="saveCodeForm" #form="ngForm">
+        <form id="saveServiceTaxForm" #form="ngForm">
 
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" [hidden]="isUpdateServiceTax">Add Tax</h4>
+                    <h4 class="modal-title" [hidden]="!isUpdateServiceTax">Update Tax</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:250px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:350px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Code
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text"
                                            class="form-control"
-                                           placeholder="Enter Code" name="codeName"
-                                           required pattern="^[a-zA-Z 0-9_-]{1,60}$"
-                                           >
+                                           [(ngModel)]="serviceTax.name"
+                                           placeholder="Enter Name" name="name"
+                                           pattern="^[a-zA-Z 0-9_-]{0,60}$" required
+                                           #name="ngModel">
+                                    <span *ngIf="name.invalid && name.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">Please enter valid name.
+                                    </span>
                                 </div>
-                                <span
-                                      class="col-md-9 select pdng-lr-5 text-danger">
-                                    Please enter valid code.
-                            </span>
                             </div>
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Title</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Rate(%)
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" class="form-control"
-                                           placeholder="Enter Title" name="titleName"
-                                           pattern="^[a-zA-Z 0-9_-]{0,60}$"
-                                           >
+                                    <input type="number"
+                                           class="form-control"
+                                           [(ngModel)]="serviceTax.rate"
+                                           disabled="{{isUpdateServiceTax}}"
+                                           placeholder="Enter rate" name="rate"
+                                           max="100" min="0" step="0.1"
+                                           required
+                                           #rate="ngModel">
                                 </div>
-
-                                <span
+                                <span *ngIf="rate.invalid && rate.touched"
                                       class="col-md-9 select pdng-lr-5 text-danger">
-                                    Please enter valid Title.
-                            </span>
-
+                                        Please enter valid rate.
+                                </span>
                             </div>
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">From
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                <textarea rows="3"
-                                         maxlength="300"
-                                          name="description"
-                                          class="form-control"
-                                          placeholder="Enter text">
-                                </textarea>
+                                    <input type="date" class="form-control form-control-inline input-medium"
+                                           [(ngModel)] ="serviceTax.fromDate"
+                                           (ngModelChange)="serviceTax.fromDate = $event"
+                                           name="fromDate" #fromDate="ngModel">
+                                </div>
+                                <span *ngIf="fromDate.invalid && fromDate.touched"
+                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid from Date.
+                                </span>
+                            </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">To
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="date" class="form-control form-control-inline input-medium"
+                                           [(ngModel)] ="serviceTax.toDate"
+                                           (ngModelChange)="serviceTax.toDate = $event"
+                                           name="toDate" #toDate="ngModel">
+                                </div>
+                                <span *ngIf="toDate.invalid && toDate.touched"
+                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid to Date.
+                                </span>
+                            </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Description
+                                    <span class="required" aria-required="true">  </span>
+                                </label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <textarea rows="3"
+                                              [(ngModel)]="serviceTax.description"
+                                              maxlength="300"
+                                              name="description"
+                                              class="form-control"
+                                              placeholder="Enter Description">
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
                                 <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
                                     <label class="mt-checkbox mt-checkbox-outline">
-                                        <input type="checkbox"  name="status">
+                                        <input type="checkbox" [(ngModel)]="serviceTax.active" name="active">
                                         <span></span>
                                     </label>
                                 </div>
@@ -176,9 +226,15 @@
                     <button type="button" data-dismiss="modal" id="close-btn"
                             class="btn btn-default btn-outline">Close
                     </button>
-                    <span >
+                    <span [hidden]="isUpdateServiceTax">
                         <button type="button" class="btn blue" id="save-btn"
-                                (click)="saveICDCode(form)">Save
+                                (click)="saveServiceTax(form)"
+                        cl>Save
+                        </button>
+                    </span>
+                    <span [hidden]="!isUpdateServiceTax">
+                        <button type="button" class="btn blue" id="update-btn"
+                                (click)="updateServiceTax(form)">Update
                         </button>
                     </span>
 
