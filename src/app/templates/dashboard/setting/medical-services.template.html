@@ -78,134 +78,66 @@
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Services Fee</th>
                             <th width="3%" class="sorting_disabled" rowspan="1" colspan="1"> Services Tax</th>
                             <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Services Cost</th>
-                            <th width="6%" class="sorting_disabled" rowspan="1" colspan="1">Item Count</th>
                             <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
-                        <tr role="row" class="filter">
-                            <td rowspan="1" colspan="1">779</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Texas Face</td>
-                            <td rowspan="1" colspan="1"></td>
-                            <td rowspan="1" colspan="1">Dermatology</td>
-                            <td rowspan="1" colspan="1">SR 3,999.00</td>
-                            <td rowspan="1" colspan="1">-</td>
-                            <td rowspan="1" colspan="1">SR 0</td>
-                            <td rowspan="1" colspan="1">0</td>
-                            <td rowspan="1" colspan="1"><span class="mt-action-dot bg-green-meadow"></span></td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
+                        <tr role="row" *ngFor="let item of data; let i = index;">
+                            <td class="font-green-dark"><strong>{{item.id}}</strong></td>
+                            <td class="font-green-dark"><strong>{{item.title}}</strong></td>
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.dptName}}</td>
+                            <td>{{item.fee}}</td>
+                            <td>{{item.taxRate}}</td>
+                            <td>{{item.cost}}</td>
+                            <td><span
+                                    [ngClass]="{'bg-green-meadow': item.status === true, 'bg-red-meadow': item.status === false}"
+                                    class="mt-action-dot"></span></td>
+                            <td>
                                 <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter off-wite-bg">
-                            <td rowspan="1" colspan="1">778</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Offer (05-31 Oct)- Filler 1 ML</td>
-                            <td rowspan="1" colspan="1"></td>
-                            <td rowspan="1" colspan="1">Dermatology</td>
-                            <td rowspan="1" colspan="1">SR 925.00</td>
-                            <td rowspan="1" colspan="1">-</td>
-                            <td rowspan="1" colspan="1">SR 0</td>
-                            <td rowspan="1" colspan="1">0</td>
-                            <td rowspan="1" colspan="1"><span class="mt-action-dot bg-green-meadow"></span></td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter">
-                            <td rowspan="1" colspan="1">777</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Offer (05-31 Oct)- Botox Upper Face
-                            </td>
-                            <td rowspan="1" colspan="1"></td>
-                            <td rowspan="1" colspan="1">Dermatology</td>
-                            <td rowspan="1" colspan="1">SR 925.00</td>
-                            <td rowspan="1" colspan="1">-</td>
-                            <td rowspan="1" colspan="1">SR 0</td>
-                            <td rowspan="1" colspan="1">0</td>
-                            <td rowspan="1" colspan="1"><span class="mt-action-dot bg-green-meadow"></span></td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter off-wite-bg">
-                            <td rowspan="1" colspan="1">776</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">PKG (01/10-14/10)- 3 Session LHR Full
-                                Body With B&A + Retouch
-                            </td>
-                            <td rowspan="1" colspan="1"></td>
-                            <td rowspan="1" colspan="1">Dermatology</td>
-                            <td rowspan="1" colspan="1">SR 923.00</td>
-                            <td rowspan="1" colspan="1">-</td>
-                            <td rowspan="1" colspan="1">SR 0</td>
-                            <td rowspan="1" colspan="1">0</td>
-                            <td rowspan="1" colspan="1"><span class="mt-action-dot bg-green-meadow"></span></td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter">
-                            <td rowspan="1" colspan="1">775</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Offer (01/10-05/10)- Facial + Spectra
-                                Carbon
-                            </td>
-                            <td rowspan="1" colspan="1"></td>
-                            <td rowspan="1" colspan="1">Skin Care Laser</td>
-                            <td rowspan="1" colspan="1">SR 925.00</td>
-                            <td rowspan="1" colspan="1">-</td>
-                            <td rowspan="1" colspan="1">SR 0</td>
-                            <td rowspan="1" colspan="1">0</td>
-                            <td rowspan="1" colspan="1"><span class="mt-action-dot bg-green-meadow"></span></td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter off-wite-bg">
-                            <td rowspan="1" colspan="1">774</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Offer (01/10-05/10)- Facial + Collagen
-                                Mask + Laser Mustache
-                            </td>
-                            <td rowspan="1" colspan="1"></td>
-                            <td rowspan="1" colspan="1">Skin Care Laser</td>
-                            <td rowspan="1" colspan="1">SR 389.00</td>
-                            <td rowspan="1" colspan="1">-</td>
-                            <td rowspan="1" colspan="1">SR 0</td>
-                            <td rowspan="1" colspan="1">0</td>
-                            <td rowspan="1" colspan="1"><span class="mt-action-dot bg-green-meadow"></span></td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter">
-                            <td rowspan="1" colspan="1">773</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Offer (01/10-05/10)- Caviar Mask +
-                                Laser Full Face
-                            </td>
-                            <td rowspan="1" colspan="1"></td>
-                            <td rowspan="1" colspan="1">Skin Care Laser</td>
-                            <td rowspan="1" colspan="1">SR 389.00</td>
-                            <td rowspan="1" colspan="1">-</td>
-                            <td rowspan="1" colspan="1">SR 0</td>
-                            <td rowspan="1" colspan="1">0</td>
-                            <td rowspan="1" colspan="1"><span class="mt-action-dot bg-green-meadow"></span></td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
+                                <button class="btn btn-default btn-outline btn-sm"
+                                        (click)="deleteMedicalServices(item.id, item.dptId, item.branchId)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
                             </td>
                         </tr>
                         </thead>
                     </table>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev">
+                            <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
+                               (click)="getPageWiseMedicalServicesFromServer(0)">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev">
+                            <a title="Prev" *ngIf="prePage"
+                               (click)="getPageWiseMedicalServicesFromServer(currPage - 1)">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWiseMedicalServicesFromServer(page)">{{page+1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getPageWiseMedicalServicesFromServer(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getPageWiseMedicalServicesFromServer(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p></p>
             </div>
         </div>
         <div class="clearfix"></div>

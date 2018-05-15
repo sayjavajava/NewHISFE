@@ -9,10 +9,10 @@ export class AppConstants {
     public static EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';
     public static DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
-    public static SEARCH_CLINICAL_DEPARTMENT_URL ='/setting/department/search/';
-    public static SAVE_CLINICAL_DEPARTMENT_URL ='/setting/department/save';
-    public static UPDATE_CLINICAL_DEPARTMENT_URL ='/setting/department/update';
-    public static FETCH_ALL_BRANCHES_URL ='/setting/branch/';
+    public static SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
+    public static SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
+    public static UPDATE_CLINICAL_DEPARTMENT_URL = '/setting/department/update';
+    public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
@@ -35,8 +35,11 @@ export class AppConstants {
     public static ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
 
     ////////////////////// Service Tax URLs ///////////////////////////////
-    public static FETCH_ALL_TAX_URL ='/setting/tax/';
+    public static FETCH_ALL_TAX_URL = '/setting/tax/';
 
-
+    ////////////////////// Service Tax URLs ///////////////////////////////
+    public static FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
+    public static SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
+    public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
 
 }

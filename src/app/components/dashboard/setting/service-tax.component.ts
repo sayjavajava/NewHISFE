@@ -54,28 +54,28 @@ export class ServiceTaxComponent implements OnInit {
             );
     }
 
-    deleteTax(taxId: any) {
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest(
-                AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId,
-                {})
-                .subscribe(
-                    (response: Response) => {
-                        if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {
-                            this.notificationService.success(response['responseMessage'], 'ICD');
-                            this.getPageWiseICDs(this.currPage);
-                        } else {
-                            this.getPageWiseICDs(this.currPage);
-                            this.notificationService.error(response['responseMessage'], 'ICD');
-                        }
-                    },
-                    (error: any) => {
-                        this.HISUtilService.tokenExpired(error.error.error);
-                    }
-                );
-        } else {
-            this.router.navigate(['/login']);
-        }
-    }
+    // deleteTax(taxId: any) {
+    //     if (localStorage.getItem(btoa('access_token'))) {
+    //         this.requestsService.deleteRequest(
+    //             AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId,
+    //             {})
+    //             .subscribe(
+    //                 (response: Response) => {
+    //                     if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {
+    //                         this.notificationService.success(response['responseMessage'], 'ICD');
+    //                         this.getPageWiseICDs(this.currPage);
+    //                     } else {
+    //                         this.getPageWiseICDs(this.currPage);
+    //                         this.notificationService.error(response['responseMessage'], 'ICD');
+    //                     }
+    //                 },
+    //                 (error: any) => {
+    //                     this.HISUtilService.tokenExpired(error.error.error);
+    //                 }
+    //             );
+    //     } else {
+    //         this.router.navigate(['/login']);
+    //     }
+    // }
 
 }

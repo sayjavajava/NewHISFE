@@ -36,6 +36,10 @@ var AppConstants = (function () {
     AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
+    ////////////////////// Service Tax URLs ///////////////////////////////
+    AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
+    AppConstants.SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
+    AppConstants.DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
