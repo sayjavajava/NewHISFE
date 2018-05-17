@@ -53,6 +53,8 @@ import {VersionComponent} from './components/dashboard/setting/version.component
 import {CodeVersionComponent} from './components/dashboard/setting/code-version.component';
 import {AddMedicalServiceComponent} from './components/dashboard/setting/add-medical-service.component';
 import {ServiceTaxComponent} from './components/dashboard/setting/service-tax.component';
+import {EditMedicalServiceComponent} from "./components/dashboard/setting/edit-medical-service.component";
+import {NotFound404SettingComponent} from "./components/dashboard/setting/not-found-404-setting.component";
 
 @NgModule({
     providers: [
@@ -105,6 +107,7 @@ import {ServiceTaxComponent} from './components/dashboard/setting/service-tax.co
         CashierComponent,
         MedicalServiceComponent,
         AddMedicalServiceComponent,
+        EditMedicalServiceComponent,
         NurseComponent,
         ReceptionistComponent,
         BranchComponent,
@@ -118,6 +121,7 @@ import {ServiceTaxComponent} from './components/dashboard/setting/service-tax.co
         AddOrganizationComponent,
         AddStaffComponent,
         ServiceTaxComponent,
+        NotFound404SettingComponent,
     ],
     bootstrap: [AppComponent]
 })

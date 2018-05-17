@@ -39,7 +39,9 @@ var AppConstants = (function () {
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
     AppConstants.SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
+    AppConstants.UPDATE_MEDICAL_SERVICES_URL = '/setting/medicalService/update';
     AppConstants.DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
+    AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

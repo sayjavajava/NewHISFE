@@ -6,7 +6,8 @@
                     <h4 class="text-info">Manage Medical Services
                         <div class="pull-right">
                             <a routerLink="add">
-                                <button class="btn mt-sweetalert btn green-meadow"><i class="fa fa-plus"></i> Add
+                                <button class="btn mt-sweetalert btn green-meadow">
+                                    <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
                             <span><button class="btn btn-default btn-outline"> <i
@@ -93,7 +94,11 @@
                                     [ngClass]="{'bg-green-meadow': item.status === true, 'bg-red-meadow': item.status === false}"
                                     class="mt-action-dot"></span></td>
                             <td>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
+
+                                <button class="btn mt-sweetalert btn green-meadow"
+                                        routerLink="/dashboard/setting/medicalServices/edit/{{item.id}}">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
                                 <button class="btn btn-default btn-outline btn-sm"
                                         (click)="deleteMedicalServices(item.id, item.dptId, item.branchId)">
                                     <i class="fa fa-remove"></i>

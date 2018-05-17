@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
-                    <h4 class="text-info">Add Medical Services</h4>
+                    <h4 class="text-info">Update Medical Services</h4>
                 </div>
-                <form  id="createMSForm" #form="ngForm" class="form-horizontal">
+                <form id="editMSForm" #form="ngForm" class="form-horizontal">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -15,7 +15,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="text" required
-                                               [(ngModel)]="selectedMedicalService.title"
+                                               [(ngModel)]="selectedMS.title"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                name="msTitle" #msTitle="ngModel"/>
                                     </div>
@@ -31,7 +31,7 @@
                                     <div class="col-md-9">
                                         <select class="form-control" name="branchDrp"
                                                 [ngModelOptions]="{standalone:true}"
-                                                [(ngModel)]="selectedMedicalService.branchId">
+                                                [(ngModel)]="selectedMS.branchId">
                                             <option value="0">-- Select --</option>
                                             <option *ngFor="let item of branches; let i = index;"
                                                     value={{item.id}}>
@@ -47,7 +47,7 @@
                                     <div class="col-md-9">
                                         <select class="form-control" name="dptDrp"
                                                 [ngModelOptions]="{standalone:true}"
-                                                [(ngModel)]="selectedMedicalService.dptId">
+                                                [(ngModel)]="selectedMS.dptId">
                                             <option value="0">-- Select --</option>
                                             <option *ngFor="let item of departments; let i = index;"
                                                     value={{item.id}}>
@@ -62,7 +62,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="number"
-                                               [(ngModel)]="selectedMedicalService.cost"
+                                               [(ngModel)]="selectedMS.cost"
                                                required pattern="^[0-9]{1,60}$"
                                                name="cost" #cost="ngModel"/>
                                     </div>
@@ -77,7 +77,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="number"
-                                               [(ngModel)]="selectedMedicalService.fee"
+                                               [(ngModel)]="selectedMS.fee"
                                                required pattern="^[0-9]{1,60}$"
                                                name="fee" #fee="ngModel"/>
                                     </div>
@@ -92,7 +92,7 @@
                                     <div class="col-md-9">
                                         <select class="form-control" name="dptDrp"
                                                 [ngModelOptions]="{standalone:true}"
-                                                [(ngModel)]="selectedMedicalService.taxId">
+                                                [(ngModel)]="selectedMS.taxId">
                                             <option value="0">-- Select --</option>
                                             <option *ngFor="let item of taxes; let i = index;"
                                                     value={{item.id}}>
@@ -106,7 +106,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input class="form-control" type="number"
-                                               [(ngModel)]="selectedMedicalService.duration"
+                                               [(ngModel)]="selectedMS.duration"
                                                required pattern="^[0-9]{1,60}$"
                                                name="duration" #duration="ngModel"/>
                                     </div>
@@ -123,13 +123,13 @@
                                     </label>
                                     <div class="col-md-9">
                                         <textarea class="form-control" rows="3" title="" placeholder="Enter Description"
-                                                  [(ngModel)]="selectedMedicalService.description"
+                                                  [(ngModel)]="selectedMS.description" maxlength="300"
                                                   name="description" #description="ngModel">
                                         </textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label  class="col-md-3 control-label">File Image</label>
+                                    <label class="col-md-3 control-label">File Image</label>
                                     <div class="col-md-9">
                                         <!--<input type="file" id="exampleInputFile">-->
                                         <p class="help-block"> (Recommended: width 400px X height 300px) </p>
@@ -141,8 +141,8 @@
                                     <div class="col-md-9">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <input class="form-control" type="checkbox"
-                                                   [(ngModel)]="selectedMedicalService.status"
-                                                   required name="status" #status="ngModel"/>
+                                                   [(ngModel)]="selectedMS.status"
+                                                   name="status" #status="ngModel"/>
                                             <span></span></label>
                                     </div>
                                 </div>
@@ -150,8 +150,7 @@
                         </div>
                         <div class="hr">
                             <div class="col-md-12 text-center">
-                                <button type="button" class="btn default"> Cancel</button>
-                                <button type="button" (click)="saveMedicalServices(form)" class="btn blue"> Save
+                                <button type="button" (click)="updateMedicalServices(form)" class="btn blue"> Update
                                 </button>
                             </div>
                         </div>

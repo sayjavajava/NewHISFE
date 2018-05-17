@@ -40,6 +40,8 @@ export class AppConstants {
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
     public static SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
+    public static UPDATE_MEDICAL_SERVICES_URL = '/setting/medicalService/update';
     public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
+    public static FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
 
 }

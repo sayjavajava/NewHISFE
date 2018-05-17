@@ -4,6 +4,8 @@ import {NotificationService} from '../../../services/notification.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {MedicalService} from '../../../models/medical-service';
+import {Router} from "@angular/router";
+
 
 @Component({
     selector: 'medical-services-component',
@@ -19,8 +21,8 @@ export class MedicalServiceComponent implements OnInit {
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
-                private HISUtilService: HISUtilService) {
-
+                private HISUtilService: HISUtilService,
+                private router:Router) {
     }
 
     ngOnInit() {

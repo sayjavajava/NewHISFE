@@ -60,6 +60,8 @@ var version_component_1 = require("./components/dashboard/setting/version.compon
 var code_version_component_1 = require("./components/dashboard/setting/code-version.component");
 var add_medical_service_component_1 = require("./components/dashboard/setting/add-medical-service.component");
 var service_tax_component_1 = require("./components/dashboard/setting/service-tax.component");
+var edit_medical_service_component_1 = require("./components/dashboard/setting/edit-medical-service.component");
+var not_found_404_setting_component_1 = require("./components/dashboard/setting/not-found-404-setting.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -113,6 +115,7 @@ var AppModule = (function () {
                 cashier_component_1.CashierComponent,
                 medical_service_component_1.MedicalServiceComponent,
                 add_medical_service_component_1.AddMedicalServiceComponent,
+                edit_medical_service_component_1.EditMedicalServiceComponent,
                 nurse_component_1.NurseComponent,
                 receptionist_component_1.ReceptionistComponent,
                 branch_component_1.BranchComponent,
@@ -126,6 +129,7 @@ var AppModule = (function () {
                 addorganization_component_1.AddOrganizationComponent,
                 addstaff_component_1.AddStaffComponent,
                 service_tax_component_1.ServiceTaxComponent,
+                not_found_404_setting_component_1.NotFound404SettingComponent,
             ],
             bootstrap: [app_component_1.AppComponent]
         })

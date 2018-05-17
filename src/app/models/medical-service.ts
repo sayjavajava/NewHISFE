@@ -11,6 +11,8 @@ export class MedicalService {
     dptName: string;
     taxId: number = 0;
     taxRate: number;
+    duration: number;
+    description:string;
 
     constructor() {
     }
