@@ -10,6 +10,8 @@ var AppConstants = (function () {
     }
     AppConstants.ACCESS_TOKEN = 'access_token';
     AppConstants.EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
+    AppConstants.CREATE_USER_ENDPOINT = '/user/add';
+    AppConstants.USER__SEARCH = '/user/search/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

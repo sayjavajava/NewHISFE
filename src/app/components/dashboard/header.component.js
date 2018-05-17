@@ -14,12 +14,14 @@ var requests_service_1 = require("../../services/requests.service");
 var router_1 = require("@angular/router");
 var user_shared_service_1 = require("../../services/user.shared.service");
 var his_util_service_1 = require("../../services/his-util.service");
+var permissions_service_1 = require("../../services/permissions.service");
 var HeaderComponent = (function () {
-    function HeaderComponent(requestsService, router, userSharedService, HISUtilService) {
+    function HeaderComponent(requestsService, router, userSharedService, HISUtilService, permissionService) {
         this.requestsService = requestsService;
         this.router = router;
         this.userSharedService = userSharedService;
         this.HISUtilService = HISUtilService;
+        this.permissionService = permissionService;
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -35,6 +37,7 @@ var HeaderComponent = (function () {
                     _this.userSharedService.lastName = response['responseData'].lastName;
                     _this.userSharedService.profileImg = response['responseData'].profileImg;
                     _this.userSharedService.role = response['responseData'].role;
+                    _this.permissionService.loadPermissions(response['responseData'].permissions);
                     _this.firstName = _this.userSharedService.firstName;
                     _this.lastName = _this.userSharedService.lastName;
                     _this.profileImg = _this.userSharedService.profileImg;
@@ -57,6 +60,7 @@ var HeaderComponent = (function () {
                 window.localStorage.removeItem(btoa('access_token'));
                 window.localStorage.removeItem(btoa('refresh_token'));
                 window.localStorage.removeItem(btoa('expire_in'));
+                window.localStorage.removeItem(atob('permissions'));
                 _this.router.navigate(['/login']);
             }
         }, function (error) {
@@ -72,7 +76,8 @@ var HeaderComponent = (function () {
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,
             user_shared_service_1.UserSharedService,
-            his_util_service_1.HISUtilService])
+            his_util_service_1.HISUtilService,
+            permissions_service_1.PermissionsService])
     ], HeaderComponent);
     return HeaderComponent;
 }());

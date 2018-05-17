@@ -10,19 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var AddCashierComponent = (function () {
-    function AddCashierComponent() {
+var ErrordisplayComponent = (function () {
+    function ErrordisplayComponent() {
     }
-    AddCashierComponent.prototype.ngOnInit = function () {
+    ErrordisplayComponent.prototype.ngOnInit = function () {
     };
-    AddCashierComponent = __decorate([
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], ErrordisplayComponent.prototype, "errorMsg", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], ErrordisplayComponent.prototype, "displayError", void 0);
+    ErrordisplayComponent = __decorate([
         core_1.Component({
-            selector: 'addcashier-component',
-            templateUrl: '../../../templates/dashboard/setting/addcashier.template.html',
+            selector: 'app-field-error-display',
+            templateUrl: '../../../templates/dashboard/setting/error-display.template.html',
+            styles: ["\n        .error-msg {\n            color: #a94442;\n        }\n        .fix-error-icon {\n            top: 27px;\n        }\n  "],
         }),
         __metadata("design:paramtypes", [])
-    ], AddCashierComponent);
-    return AddCashierComponent;
+    ], ErrordisplayComponent);
+    return ErrordisplayComponent;
 }());
-exports.AddCashierComponent = AddCashierComponent;
-//# sourceMappingURL=addcashier.component.js.map
+exports.ErrordisplayComponent = ErrordisplayComponent;
+//# sourceMappingURL=errordisplay.component.js.map

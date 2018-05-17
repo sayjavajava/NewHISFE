@@ -8,7 +8,7 @@
                             <a routerLink="/dashboard/setting/staff/add">
                                 <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
                                         data-message="Success Icon" data-type="success" data-allow-outside-click="true"
-                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New Staff
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
                                 </button>
                             </a>
                             <span><button class="btn btn-default btn-outline"> <i
@@ -24,23 +24,23 @@
                                 <label>Name:</label>
                                 <input type="text" class="form-control" formControlName="name" placeholder="Enter Name">
                             </div>
+
                         </div>
                         <div class="col-md-4">
                             <div class="form-group font-siz11">
                                 <label>Roles</label>
-                                <select id="role"  class="form-control" formControlName="role">
-                                    <!-- <select class="form-control">
-                                         <option>All</option>
-                                         <option>Doctor</option>
-                                         <option>Nurse</option>
-                                         <option>Receptionist </option>
-                                         <option>Cashier</option>
-                                         <option>SuperAdmin</option>-->
+                                <!--<select id="role"  (change)="roleSelected($event.target.value)" class="form-control" formControlName="role">
+                                    <option *ngFor="let c of roles" [ngValue]="c">{{ c }}</option>
+                                </select>-->
 
 
-
-                                        <option *ngFor="let c of roles" [ngValue]="c">{{ c }}</option>
-
+                                <select (change)="roleSelected($event.target.value)" class="form-control" formControlName="role">
+                                    <!-- (change)="goTo($event.target.value)"-->
+                                    <option value="">Super_Admin</option>
+                                    <option value="receptionist">Receptionist</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="nurse">Nurse</option>
+                                    <option value="cashier">Cashier</option>
 
                                 </select>
                             </div>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-md-1">
                             <div class="form-group mrgn-top24">
-                                <button type="button" class="btn blue">Search</button>
+                                <button type="button" (click)="searchData(searchForm.value)" class="btn blue">Search</button>
                             </div>
                         </div>
                     </div></form>
@@ -68,81 +68,61 @@
                             <th width="64%" class="sorting_disabled" rowspan="1" colspan="1"> Email</th>
                             <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
-                        <tr role="row" class="filter">
-                            <td rowspan="1" colspan="1">Khalid</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Branch Name</td>
-                            <td rowspan="1" colspan="1">asad@sadad.com</td>
+                        <tr role="row" class="filter" *ngFor="let item of data">
+
+                            <td rowspan="1" colspan="1">{{item.userName}}</td>
+
+                            <!--<span style="display: none;" *ngFor="let br of item.branches"></span>-->
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                {{item?.branch?.name}}
+                            </td>
+                            <td rowspan="1" colspan="1">{{item.email}}</td>
                             <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
+
+                                <button (click)="updateUser(item.userType,item.id)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
+                                <button (click)="deleteUser(item.id)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
                             </td>
                         </tr>
-                        <tr role="row" class="filter off-wite-bg">
-                            <td rowspan="1" colspan="1">Khalid</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Branch Name</td>
-                            <td rowspan="1" colspan="1">asad@sadad.com</td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter">
-                            <td rowspan="1" colspan="1">Khalid</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Branch Name</td>
-                            <td rowspan="1" colspan="1">asad@sadad.com</td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter off-wite-bg">
-                            <td rowspan="1" colspan="1">Khalid</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Branch Name</td>
-                            <td rowspan="1" colspan="1">asad@sadad.com</td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter">
-                            <td rowspan="1" colspan="1">Khalid</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Branch Name</td>
-                            <td rowspan="1" colspan="1">asad@sadad.com</td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter off-wite-bg">
-                            <td rowspan="1" colspan="1">Khalid</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Branch Name</td>
-                            <td rowspan="1" colspan="1">asad@sadad.com</td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        <tr role="row" class="filter">
-                            <td rowspan="1" colspan="1">Khalid</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">Branch Name</td>
-                            <td rowspan="1" colspan="1">asad@sadad.com</td>
-                            <td rowspan="1" colspan="1">
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
-                            </td>
-                        </tr>
-                        </thead>
+                            </thead>
                     </table>
                 </div>
             </div>
         </div>
         <div class="clearfix"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12">
+            <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                <ul class="pagination" style="visibility: visible;">
+                    <li class="prev">
+                        <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
+                           (click)="getUserFromServer(0)">
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="prev">
+                        <a title="Prev" *ngIf="prePage"
+                           (click)="getUserFromServer(currPage - 1)">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    </li>
+                    <li [ngClass]="{active: page === currPage}"
+                        *ngFor="let page of pages">
+                        <a (click)="getUserFromServer(page)">{{page+1}}</a>
+                    </li>
+                    <li class="next" *ngIf="nextPage">
+                        <a (click)="getUserFromServer(currPage + 1)" title="Next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                        <a (click)="getUserFromServer(pages.length - 1)" title="Last">
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p></p>
+        </div>
     </div>
 </div>

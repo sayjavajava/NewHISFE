@@ -4,66 +4,40 @@
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Manage Staff</h4>
-                    <div class="form-group col-md-3 no-padding mrgn-top14">
-                            <select class="form-control" (change)="goTo($event.target.value)">
-                                <option value="receptionist">Receptionist</option>
-                                <option value="doctor">Doctor</option>
-                                <option value="nurse">Nurse</option>
-                                <option value="cashier">Cashier</option>
+                    <!-- <div class="form-group col-md-3 no-padding mrgn-top14">
+                         <select class="form-control" (change)="goTo($event.target.value)">
+                             <option value="receptionist">Receptionist</option>
+                             <option value="doctor">Doctor</option>
+                             <option value="nurse">Nurse</option>
+                             <option value="cashier">Cashier</option>
 
-                            </select></div>
+                         </select></div>-->
                 </div>
-                <form action="#" id="form_sample_1" class="form-horizontal" novalidate>
+
+                <form [formGroup]="userForm"  class="form-horizontal">
+                    <!-- (ngSubmit)="addData(userForm.value)"-->
                     <div class="form-body">
                         <div class="row">
 
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">First Name
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="name" data-required="1" value="Khalid"
-                                               class="form-control"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Last Name
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input name="email" type="text" value="Mehmood" class="form-control"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Username
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input name="username" type="text" value="aksjdh" class="form-control"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Primary Branch
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" name="select">
-                                            <option value="">Select...</option>
-                                            <option value="Category 1">Yop mail</option>
-                                            <option value="Category 2">Yop mail</option>
-                                            <option value="Category 3">Yop mail</option>
-                                            <option value="Category 4">Yop mail</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!--                                <div class="form-group" [ngClass]="displayFieldCss('username')">
+                                                                    <div class="col-sm-12">
+                                                                        <label for="username" class="control-label required">Name</label>
+                                                                        <input type="text" id="username" class="form-control" formControlName="username">
+                                                                        <app-field-error-display [displayError]="isFieldValid('username')" errorMsg="Please inform your name">
+                                                                        </app-field-error-display>
+                                                                    </div>
+                                                                </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Role
-                                        <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" (change)="goTo($event.target.value)">
+                                        <select class="form-control" (change)="goTo($event.target.value)"
+                                                formControlName="changeUser">
+                                            <!-- (change)="goTo($event.target.value)"-->
                                             <option value="receptionist">Receptionist</option>
                                             <option value="doctor">Doctor</option>
                                             <option value="nurse">Nurse</option>
@@ -72,36 +46,105 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="form-group" [ngClass]="displayFieldCss('firstName')">
+
+                                    <label class="control-label col-md-4">First Name
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text"  formControlName="firstName" data-required="1"
+                                               class="form-control">
+                                        <span class="text-danger" *ngIf="userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched">{{firstNameError}}</span>
+                                        <!-- <app-field-error-display [displayError]="isFieldValid('firstName')" errorMsg="Name is required">
+                                         </app-field-error-display>-->
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Last Name
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input formControlName="lastName" type="text" class="form-control"></div>
+                                </div>
+
+                                <div class="form-group" ngClass="displayFieldCss('userName')">
+                                    <label class="control-label col-md-4">Username
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" formControlName="userName" class="form-control">
+                                        <span class="text-danger" *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
+                                           <span *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
+                                           <span *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
+                                          <span *ngIf="userForm.controls['userName'].errors.pattern">User name not valid</span>
+                                        </span>
+                                        <!--<app-field-error-display [displayError]="isFieldValid('userName')" errorMsg="user name is required">
+                                        </app-field-error-display>-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Primary Branch
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+
+                                        <select class="form-control" (change)="getBranch($event.target.value)"  formControlName="primaryBranch" placeholder="Select Branch">
+                                            <option value="primary">Primary</option>
+                                            <option value="lahore">Lahore</option>
+                                            <option value="karachi">Karachi</option>
+
+                                        </select>
+                                        <span class="text-danger" *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">{{primaryBranchError}}</span>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                     <label class="control-label col-md-4">Role
+                                         <span class="required" aria-required="true"> * </span>
+                                     </label>
+                                     <div class="col-md-8">
+                                         <select class="form-control" (change)="goTo($event.target.value)">
+                                             <option value="receptionist">Receptionist</option>
+                                             <option value="doctor">Doctor</option>
+                                             <option value="nurse">Nurse</option>
+                                             <option value="cashier">Cashier</option>
+
+                                         </select>
+                                     </div>
+                                 </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Email Address
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="email" name="Email" value="asd@sadad.com" data-required="1"
-                                               class="form-control"></div>
+                                        <input type="email" formControlName="email"
+                                               class="form-control">
+                                        <span class="text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">
+                                              <span *ngIf="userForm.controls['email'].errors.required">Email is required </span>
+                                            <span *ngIf="userForm.controls['email'].errors.pattern">Email is not valid</span>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" ngClass="displayFieldCss">
                                     <label class="control-label col-md-4">Restrict Branches
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Primary Office
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Lahore Office
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Karachi Office
-                                                <span></span>
+                                                <div *ngFor="let item of RestrictBranch">
+                                                    <input type="checkbox" formControlName="restrictBranch"
+                                                           name={{item.name}}
+                                                           value="{{item.id}}"
+                                                           (change)="selectRestrictBranch($event,item)">
+                                                    {{item.name}}
+
+                                                </div>
                                             </label>
                                             </address>
                                         </div>
+                                        <span class="text-danger" *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
+
                                     </div>
                                 </div>
                                 <div *ngIf="department" class="form-group">
@@ -110,32 +153,21 @@
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Dermatology
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Plastic Surgery
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Dental
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Skin Care Laser
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Massage Clinic
-                                                <span></span>
+                                            <address><label>
+                                                <div *ngFor="let item of departmentList">
+                                                    <input type="checkbox" formControlName="departmentControl"
+                                                           name={{item.name}}
+                                                           value="{{item.id}}"
+                                                           (change)="selectDepartment($event,item)">
+                                                    {{item.name}}
+
+                                                    <span></span>
+                                                </div>
+
                                             </label>
                                             </address>
                                         </div>
+                                        <span class="text-danger" *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
                                     </div>
                                 </div>
 
@@ -147,7 +179,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input name="password" type="password" value="password" class="form-control">
+                                        <input type="password" formControlName="password" class="form-control">
+                                        <span class="text-danger" *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">
+                                            <span *ngIf="userForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
+                                           <span *ngIf="userForm.controls['password'].errors.required">{{passwordError}} </span>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -155,23 +191,33 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input name="password" type="password" value="password" class="form-control">
+                                        <input type="password" formControlName="confirmPassword" class="form-control">
+                                        <span class="text-danger" *ngIf="!userForm.controls['confirmPassword'].valid && userForm.controls['confirmPassword'].touched">{{confirmPasswordError}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Home Phone
                                     </label>
                                     <div class="col-md-8">
-                                        <input name="home phone" type="text" value="(918) 273-8129"
+                                        <input formControlName="homePhone" type="text"
                                                class="form-control">
+                                        <span class="text-danger" *ngIf="!userForm.controls['homePhone'].valid && userForm.controls['homePhone'].touched">
+                                           <span *ngIf="userForm.controls['homePhone'].errors.minlength"> minimum 7 charachters</span>
+                                            <span *ngIf="userForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Cell Phone
                                     </label>
                                     <div class="col-md-8">
-                                        <input name="home phone" type="text" value="(192) 837-8912"
+                                        <input formControlName="cellPhone" type="text"
                                                class="form-control">
+                                        <span class="text-danger" *ngIf="!userForm.controls['cellPhone'].valid && userForm.controls['cellPhone'].touched">
+                                           <span *ngIf="userForm.controls['cellPhone'].errors.minlength"> minimum 10 charachters</span>
+                                           <span *ngIf="userForm.controls['cellPhone'].errors.maxlength"> maximun 11 charachters</span>
+                                            <span *ngIf="userForm.controls['cellPhone'].errors.pattern">Phone Number is not valid</span>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -179,7 +225,8 @@
                                     <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" class=""><span></span></label>
+                                            <input type="checkbox" formControlName="sendBillingReport"
+                                                   class=""><span></span></label>
                                     </div>
                                 </div>
 
@@ -187,7 +234,8 @@
                                     <label class="control-label col-md-4 col-xs-6">Use Recept Dashboard?</label>
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"><span></span></label>
+                                            <input type="checkbox"
+                                                   formControlName="useReceptDashboard"><span></span></label>
                                     </div>
                                 </div>
 
@@ -195,8 +243,8 @@
                                     <label class="control-label col-md-4 col-xs-6">Other Doctor Dashboard?</label>
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"><span></span>
-                                            <select class="form-control" name="select">
+                                            <input type="checkbox" formControlName="otherDoctorDashBoard"><span></span>
+                                            <select class="form-control" formControlName="otherDashboard">
                                                 <option value="">Select...</option>
                                                 <option value="Category 1">Doctor</option>
                                                 <option value="Category 2">Doctor</option>
@@ -211,7 +259,7 @@
                                     <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
                                     <div class="col-md-8 col-xs-6">
-                                        <input type="text" value="1" name="" class="form-control">
+                                        <input type="text" formControlName="accountExpiry" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -219,7 +267,7 @@
                                     </label>
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"><span></span></label>
+                                            <input type="checkbox" formControlName="active"><span></span></label>
                                     </div>
                                 </div>
 
@@ -229,16 +277,19 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" name="select">
-                                            <option value="">30</option>
-                                            <option value="Category 1">40</option>
-                                            <option value="Category 2">50</option>
-                                            <option value="Category 3">60</option>
-                                            <option value="Category 4">70</option>
+                                        <select class="form-control"  (change)="checkupIntervalMethod($event.target.value)"  formControlName="interval">
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                            <option value="60">60</option>
+
                                         </select>
+                                        <span class="text-danger" *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
                                     </div>
                                 </div>
-
 
 
                             </div>
@@ -252,56 +303,19 @@
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Consultation
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Consultation - Complimentary
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Botox Axilla
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Botox Full Face
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Botox Upper Face
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Gummy Smile
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Mesotherapy For Hair
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Tesoyal Kiss 1ml
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Restylance Vital 1ml
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Restylane Sub Lidocaine 2ml
-                                                <span></span>
-                                            </label>
+                                                <div *ngFor="let item of servicesList">
+                                                    <input type="checkbox" formControlName="servicesControl"
+                                                           name={{item.name}}
+                                                           value="{{item.id}}"
+                                                           (change)="selectServices($event,item)">
+                                                    {{item.name}}
+
+
+                                                </div></label>
                                             </address>
                                         </div>
+                                        <span class="text-danger" *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
+
                                     </div>
                                 </div>
 
@@ -328,7 +342,7 @@
                                     <label class="control-label col-md-4">Allow Discount
                                     </label>
                                     <div class="col-md-8">
-                                        <input name="email" type="text" value="15%" class="form-control"></div>
+                                        <input formControlName="allowDiscount" type="text" class="form-control"></div>
                                 </div>
 
 
@@ -339,35 +353,32 @@
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Dr. Ahmed
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Dr. Usman
-                                                <span></span>
-                                            </label>
-                                            </address>
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <input type="checkbox"> Dr. Junaid
-                                                <span></span>
+                                                <div *ngFor="let item of doctorsList">
+                                                    <input type="checkbox" formControlName="nurseDutyWithDoctor"
+                                                           name={{item.name}}
+                                                           value="{{item.id}}"
+                                                           (change)="dutyWithDoctor($event,item)">
+                                                    {{item.name}}
+
+                                                    <span></span></div>
                                             </label>
                                             </address>
                                         </div>
+                                        <span class="text-danger" *ngIf="!userForm.controls['nurseDutyWithDoctor'].valid && userForm.controls['nurseDutyWithDoctor'].touched">please select Doctor </span>
                                     </div>
                                 </div>
                                 <div *ngIf="managepatientrecord" class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Manage Patients Records</label>
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" class=""><span></span></label>
+                                            <input type="checkbox" formControlName="managePatientRecords" class=""><span></span></label>
                                     </div>
                                 </div>
                                 <div *ngIf="managepatientinvoices" class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Manage Patients Invoices</label>
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"><span></span></label>
+                                            <input type="checkbox" formControlName="managePatientInvoices"><span></span></label>
                                     </div>
                                 </div>
 
@@ -376,146 +387,110 @@
                                     <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
                                     </label>
                                     <div class="col-md-8  col-xs-12">
-                                        <div class="width6 pull-left no-padding"><label
+                                        <div class="width6 col-md-1 pull-left no-padding"><label
                                                 class="mt-checkbox pdng-lft18 mt-checkbox-outline chckbox">
-                                            <input type="checkbox" class=""><span></span></label></div>
-                                        <div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
-                                            From
-                                        </div>
-                                        <div class=" col-md-5 col-xs-5 pull-left pdng-lr-5">
-                                            <div class="input-icon">
-                                                <i class="fa fa-clock-o"></i>
-                                                <input type="text" class="form-control timepicker timepicker-default">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 width6 pull-left no-padding text-center label-control2">
-                                            To
-                                        </div>
-                                        <div class=" col-md-4 col-xs-4 no-padding pull-left">
-                                            <div class="input-icon">
-                                                <i class="fa fa-clock-o"></i>
-                                                <input type="text" class="form-control timepicker timepicker-default">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <input type="checkbox" class=""
+                                                   formControlName="shift2"><span></span></label></div>
 
+                                        <div class="mrgn-top8">
+
+                                            <a href="#" class="col-md-2 width12"><button type="button" (click)="secondShiftFrom()">From</button></a>
+                                            <input class="col-md-4" type="time"  value="{{secondShiftFromTime}}">
+                                            &emsp;
+                                            <a href="#" class="col-md-2 width12"> <button type="button" (click)="secondShiftTo()">To</button></a>
+                                            <input class="col-md-4" type="time" value="{{secondShiftToTime}}">
+                                        </div>
+
+                                        <div>
+
+                                        </div>
+
+                                    </div>
                                 </div>
 
                             </div>
-                            <div class="col-md-6">
-                                <div *ngIf="dutytimmingshift1" class="form-group">
-                                    <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                    <div class="col-md-8 col-xs-12">
-                                        <div class="width6 pull-left no-padding"><label
-                                                class="mt-checkbox pdng-lft18 mt-checkbox-outline chckbox">
-                                            <input type="checkbox" class=""><span></span></label></div>
-                                        <div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
-                                            From
-                                        </div>
-                                        <div class=" col-md-5 col-xs-5 pull-left pdng-lr-5">
-                                            <div class="input-icon">
-                                                <i class="fa fa-clock-o"></i>
-                                                <input type="text" class="form-control timepicker timepicker-default">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 width6 pull-left no-padding text-center label-control2">
-                                            To
-                                        </div>
-                                        <div class=" col-md-4 col-xs-4 no-padding pull-left">
-                                            <div class="input-icon">
-                                                <i class="fa fa-clock-o"></i>
-                                                <input type="text" class="form-control timepicker timepicker-default">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div *ngIf="vacation" class="form-group">
-                                    <label class="control-label col-md-4 col-xs-12"> Vacation:
-                                    </label>
-                                    <div class="col-md-8  col-xs-12">
-                                        <div class="width6 pull-left no-padding"><label
-                                                class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" class=""><span></span></label></div>
-                                        <div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
-                                            From
-                                        </div>
-                                        <div class=" col-md-5 col-xs-5 pull-left pdng-lr-5">
-                                            <input class="form-control form-control-inline input-medium date-picker"
-                                                   size="16" type="text" value="">
-                                        </div>
-                                        <div class="col-md-1 width6 pull-left no-padding text-center label-control2">
-                                            To
-                                        </div>
-                                        <div class=" col-md-4 col-xs-4 no-padding pull-left">
-                                            <input class="form-control form-control-inline input-medium date-picker"
-                                                   size="16" type="text" value="">
-                                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div *ngIf="dutytimmingshift1" class="form-group">
+                                <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-8 col-xs-12">
+                                    <div class="width6 pull-left no-padding"><label
+                                            class="mt-checkbox pdng-lft18 mt-checkbox-outline chckbox">
+                                        <input type="checkbox" formControlName="shift1" class=""><span></span></label>
+                                    </div>
+                                    <div class="mrgn-top8">
+                                        <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftFrom()">From</button></a>
+                                        <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
+                                        &emsp;
+                                        <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftTo()">To</button></a>
+                                        <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
                                     </div>
                                 </div>
-                                <div *ngIf="vacationweek" class="form-group">
-                                    <label class="control-label col-md-4 col-xs-12"> Vacation:
-                                    </label>
-                                    <div class="col-md-8 col-xs-12 text-center">
-                                        <div class="col-md-1 col-width25 col-xs-3">
-                                            <div class="form-group">
-                                                <label>Monday</label>
-                                                <input class="form-control spinner" type="checkbox" class="">
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 col-width25 col-xs-3">
-                                            <div class="form-group">
-                                                <label>Tuesday</label>
-                                                <input class="form-control spinner" type="checkbox" class="">
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 col-width25 col-xs-3">
-                                            <div class="form-group">
-                                                <label>Wednesday</label>
-                                                <input class="form-control spinner" type="checkbox" class="">
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 col-width25 col-xs-3">
-                                            <div class="form-group">
-                                                <label>Thursday</label>
-                                                <input class="form-control spinner" type="checkbox" class="">
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 col-width25 col-xs-3">
-                                            <div class="form-group">
-                                                <label>Friday</label>
-                                                <input class="form-control spinner" type="checkbox" class="">
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 col-width25 col-xs-3">
-                                            <div class="form-group">
-                                                <label>Saturday</label>
-                                                <input class="form-control spinner" type="checkbox" class="">
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 col-width25 col-xs-3">
-                                            <div class="form-group">
-                                                <label>Sunday</label>
-                                                <input class="form-control spinner" type="checkbox" class="">
-                                                <span></span>
-                                            </div>
-                                        </div>
+                                <span class="text-danger" *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched" >Duty Shift is required</span>
+                            </div>
+
+                            <div *ngIf="vacation" class="form-group">
+                                <label class="control-label col-md-4 col-xs-12"> Vacation:
+                                </label>
+                                <div class="col-md-8  col-xs-12">
+                                    <div class="width6 pull-left no-padding"><label
+                                            class="mt-checkbox mt-checkbox-outline chckbox">
+                                        <input type="checkbox" formControlName="vacation"
+                                               class=""><span></span></label></div>
+                                    <!--<div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
+                                        From
+                                    </div>-->
+                                    <div class=" col-md-6 col-xs-5 pull-left">
+                                        <mat-form-field class="mrgn-lft8">
+                                            <input matInput [matDatepicker]="from" placeholder="From"
+                                                   formControlName="dateFrom">
+                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                            <mat-datepicker #from></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>&emsp;
+
+                                    <div class=" col-md-4 col-xs-4 pull-left">
+                                        <mat-form-field style="margin-left: -18px;">
+                                            <input matInput [matDatepicker]="to" placeholder="To"
+                                                   formControlName="dateTo">
+                                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                                            <mat-datepicker #to></mat-datepicker>
+                                        </mat-form-field>
                                     </div>
                                 </div>
+                            </div>
+                            <div *ngIf="vacationweek" class="form-group">
+                                <label class="control-label col-md-4 col-xs-12"> Working Days:
+                                </label>
+                                <div class="col-md-8 col-xs-12 text-center">
+
+                                    <div *ngFor="let item of workingDays" class="">
+
+                                        <div class=" col-md-1 col-width25 col-xs-3">
+                                            <input type="checkbox" class="form-control spinner"
+                                                   value="{{item.id}}"
+                                                   (change)="selectWorkingDays($event,item)">
+                                            {{item.name}}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                         </div>
                         <div class="hr">
                             <div class="col-md-12 text-center">
-                                <button type="button" class="btn blue"><i class="fa fa-plus"></i> Create
+                                <button (click)="addData(userForm.value)" class="btn blue"><i class="fa fa-plus"></i> Create
                                 </button>
+                                <button (click)="cancel()" class="btn default"><i class="fa fa-default"></i> Cancel
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -524,4 +499,8 @@
         </div>
         <div class="clearfix"></div>
     </div>
+
+    <!--<p>Form value: {{ userForm.value | json }}</p>-->
+
+
 </div>

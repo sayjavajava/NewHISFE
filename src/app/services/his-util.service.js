@@ -22,6 +22,7 @@ var HISUtilService = (function () {
             window.localStorage.removeItem(btoa('access_token'));
             window.localStorage.removeItem(btoa('refresh_token'));
             window.localStorage.removeItem(btoa('expire_in'));
+            window.localStorage.removeItem(atob('permissions'));
             this.router.navigate(['/login']);
         }
     };

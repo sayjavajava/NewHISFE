@@ -2,6 +2,8 @@
 import {NgModule, OnInit} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 // App Components
 import {AppComponent} from './components/app.component';
 import {MainComponent} from './components/dashboard/main.component';
@@ -16,6 +18,7 @@ import {ContentComponent} from './components/dashboard/content.component';
 import {NotFound404Component} from './components/errors/not-found-404.component';
 // Routes
 import {routes} from './app.routes';
+
 // Services
 import {RequestsService} from './services/requests.service';
 import {HISUtilService} from './services/his-util.service';
@@ -38,17 +41,28 @@ import {MedicalServiceComponent} from './components/dashboard/setting/medical-se
 import {NurseComponent} from './components/dashboard/setting/nurse.component';
 import {ReceptionistComponent} from './components/dashboard/setting/receptionist.component';
 import {BranchComponent} from './components/dashboard/setting/branch.component';
-import {AddCashierComponent} from './components/dashboard/setting/addcashier.component';
+import { UpdateCashierComponent} from './components/dashboard/setting/updatecashier.component';
 import {RolePermissionsComponent} from './components/dashboard/setting/role-permissions.component';
-import {AdddoctorComponent} from './components/dashboard/setting/adddoctor.component';
-import {AddNurseComponent} from './components/dashboard/setting/addnurse.component';
+import {UpdatedoctorComponent} from './components/dashboard/setting/updatedoctor.component';
+import {UpdateNurseComponent} from './components/dashboard/setting/updatenurse.component';
 import {AddReceptionistComponent} from './components/dashboard/setting/addreceptionist.component';
 import {AddBranchComponent} from './components/dashboard/setting/addbranch.component';
-import {MatButtonModule, MatSnackBarModule} from '@angular/material';
+import {
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIcon,
+    MatIconModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatSnackBarModule
+} from '@angular/material';
 import {NotificationService} from './services/notification.service';
 import {OrganizationComponent} from './components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from './components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from './components/dashboard/setting/addstaff.component';
+import {ErrordisplayComponent} from './components/dashboard/setting/errordisplay.component';
+import {ConfirmationdialogComponent} from './components/dashboard/confirmationdialog.component';
+import {ConformationDialogService} from './services/ConformationDialogService';
 
 
 @NgModule({
@@ -60,8 +74,10 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         AppConfig,
         PermissionsService,
         {provide: ToastOptions, useClass: CustomOption},
-        UserSharedService
+        UserSharedService,
+        ConformationDialogService
     ],
+    entryComponents: [ConfirmationdialogComponent],
     imports: [
         // Modules
         BrowserModule,
@@ -72,6 +88,13 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         MatButtonModule,
         HttpClientModule,
         MatSnackBarModule,
+        AmazingTimePickerModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatIconModule,
+
 
     ],
     declarations: [
@@ -100,15 +123,18 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         NurseComponent,
         ReceptionistComponent,
         BranchComponent,
-        AddCashierComponent,
+        UpdateCashierComponent,
         RolePermissionsComponent,
-        AdddoctorComponent,
-        AddNurseComponent,
+        UpdatedoctorComponent,
+        UpdateNurseComponent,
         AddReceptionistComponent,
         AddBranchComponent,
         OrganizationComponent,
         AddOrganizationComponent,
-        AddStaffComponent
+        AddStaffComponent,
+        ErrordisplayComponent,
+        ConfirmationdialogComponent,
+
     ],
     bootstrap: [AppComponent]
 })

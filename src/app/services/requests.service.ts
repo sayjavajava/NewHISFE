@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import {Router} from '@angular/router';
 import {AppConfig} from '../configuration/app.config';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Receptionist} from '../model/Receptionist';
 
 @Injectable()
 export class RequestsService {
@@ -56,22 +57,35 @@ export class RequestsService {
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader});
     }
 
+    deleteRequest(url:any){
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.delete(this.getBEAPIServer() + url,{headers: reqHeader});
+
+    }
     postRequest(url: any, _params: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
-        return this.http.post(this.getBEAPIServer() + url, _params, {headers: reqHeader});
+        return this.http.post(this.getBEAPIServer() + url,  _params, {headers: reqHeader});
     }
 
-    /*  putRequest(url: any, _params: any) {
-          const headers = new Headers();
-          if (this.getToken()) {
-              headers.append('Authorization', 'Bearer ' + this.getToken());
-          }
-          headers.append('Content-Type', 'application/json');
-          return this.http.put(this.getBEAPIServer() + url, _params, {headers: headers})
-              .map((response: Response) => {
-                  return response.json();
-              }).catch(this.handleError);
-      }*/
+
+    findById(url:any): Observable<any> {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.get<Receptionist>(this.getBEAPIServer() + url, {headers: reqHeader})
+            .map((data: any) => {
+                return data.responseData as Object;
+            });
+            ;
+            //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
+    }
+
+    putRequest(url: any,params: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        console.log('iam put');
+        return this.http.put(this.getBEAPIServer()+ url,params, {headers: reqHeader});
+    }
 
 }
