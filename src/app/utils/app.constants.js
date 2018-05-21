@@ -42,6 +42,7 @@ var AppConstants = (function () {
     AppConstants.UPDATE_MEDICAL_SERVICES_URL = '/setting/medicalService/update';
     AppConstants.DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
+    AppConstants.MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

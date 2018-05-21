@@ -10,6 +10,10 @@
                                     <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
+                            <button class="btn mt-sweetalert btn green-meadow"
+                                    (click)="refreshMedicalServices()">
+                                Refresh
+                            </button>
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
                         </div>
@@ -17,53 +21,62 @@
 
                 </div>
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <div class="form-group font-siz11">
                             <label>Service ID:</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <input type="number" min="0" step="1"
+                                   class="form-control" placeholder="Service Id"
+                                   [(ngModel)]="searchMSModel.searchServiceId">
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group font-siz11">
                             <label>Service Name</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control"
+                                   placeholder="Service Name"
+                            [(ngModel)]="searchMSModel.searchServiceName">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group font-siz11">
                             <label>Branch</label>
-                            <select class="form-control">
-                                <option>Select the Department</option>
-                                <option>Select the Department 1</option>
-                                <option>Select the Department 2</option>
-                                <option>Select the Department 3</option>
-                                <option>Select the Department 4</option>
-                                <option>Select the Department 5</option>
+                            <select class="form-control" name="branchDrp"
+                                    [ngModelOptions]="{standalone:true}"
+                                    [(ngModel)]="searchMSModel.searchBranchId">
+                                <option value="0">-- Select --</option>
+                                <option *ngFor="let branch of branches"
+                                        value={{branch.id}}>
+                                    {{branch.name}}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group font-siz11">
                             <label>Department:</label>
-                            <select class="form-control">
-                                <option>Select the Department</option>
-                                <option>Select the Department 1</option>
-                                <option>Select the Department 2</option>
-                                <option>Select the Department 3</option>
-                                <option>Select the Department 4</option>
-                                <option>Select the Department 5</option>
+                            <select class="form-control" name="dptDrp"
+                                    [ngModelOptions]="{standalone:true}"
+                                    [(ngModel)]="searchMSModel.departmentId">
+                                <option value="0">-- Select --</option>
+                                <option *ngFor="let department of departments"
+                                        value={{department.id}}>
+                                    {{department.name}}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group font-siz11">
                             <label>Service Fee:</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <input type="number" min="0" step="1" class="form-control"
+                                   placeholder="Service Fee"
+                                   [(ngModel)]="searchMSModel.searchServiceFee">
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-12" align="right">
                         <div class="form-group mrgn-top24">
-                            <button type="button" class="btn blue">Search</button>
+                            <button type="button" class="btn blue"
+                            (click)="searchByMedicalServiceParams(0)">Search</button>
                         </div>
                     </div>
                 </div>
@@ -82,7 +95,7 @@
                             <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
-                        <tr role="row" *ngFor="let item of data; let i = index;">
+                        <tr role="row" *ngFor="let item of dataMD">
                             <td class="font-green-dark"><strong>{{item.id}}</strong></td>
                             <td class="font-green-dark"><strong>{{item.title}}</strong></td>
                             <td>{{item.branchName}}</td>
