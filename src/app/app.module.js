@@ -10,6 +10,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
+var amazing_time_picker_1 = require("amazing-time-picker");
+var datepicker_1 = require("@angular/material/datepicker");
 // App Components
 var app_component_1 = require("./components/app.component");
 var main_component_1 = require("./components/dashboard/main.component");
@@ -45,10 +47,10 @@ var medical_service_component_1 = require("./components/dashboard/setting/medica
 var nurse_component_1 = require("./components/dashboard/setting/nurse.component");
 var receptionist_component_1 = require("./components/dashboard/setting/receptionist.component");
 var branch_component_1 = require("./components/dashboard/setting/branch.component");
-var addcashier_component_1 = require("./components/dashboard/setting/addcashier.component");
+var updatecashier_component_1 = require("./components/dashboard/setting/updatecashier.component");
 var role_permissions_component_1 = require("./components/dashboard/setting/role-permissions.component");
-var adddoctor_component_1 = require("./components/dashboard/setting/adddoctor.component");
-var addnurse_component_1 = require("./components/dashboard/setting/addnurse.component");
+var updatedoctor_component_1 = require("./components/dashboard/setting/updatedoctor.component");
+var updatenurse_component_1 = require("./components/dashboard/setting/updatenurse.component");
 var addreceptionist_component_1 = require("./components/dashboard/setting/addreceptionist.component");
 var addbranch_component_1 = require("./components/dashboard/setting/addbranch.component");
 var material_1 = require("@angular/material");
@@ -56,6 +58,10 @@ var notification_service_1 = require("./services/notification.service");
 var organization_component_1 = require("./components/dashboard/setting/organization.component");
 var addorganization_component_1 = require("./components/dashboard/setting/addorganization.component");
 var addstaff_component_1 = require("./components/dashboard/setting/addstaff.component");
+var errordisplay_component_1 = require("./components/dashboard/setting/errordisplay.component");
+var ConformationDialogService_1 = require("./services/ConformationDialogService");
+var confirmationdialog_component_1 = require("./components/dashboard/confirmationdialog.component");
+var update_branch_component_1 = require("./components/dashboard/setting/update-branch.component");
 var version_component_1 = require("./components/dashboard/setting/version.component");
 var code_version_component_1 = require("./components/dashboard/setting/code-version.component");
 var add_medical_service_component_1 = require("./components/dashboard/setting/add-medical-service.component");
@@ -77,8 +83,8 @@ var AppModule = (function () {
                 app_config_1.AppConfig,
                 permissions_service_1.PermissionsService,
                 { provide: ng2_toastr_1.ToastOptions, useClass: CustomOption_1.CustomOption },
-                user_shared_service_1.UserSharedService
-            ],
+                user_shared_service_1.UserSharedService, ConformationDialogService_1.ConformationDialogService
+            ], entryComponents: [confirmationdialog_component_1.ConfirmationdialogComponent],
             imports: [
                 // Modules
                 platform_browser_1.BrowserModule,
@@ -89,6 +95,15 @@ var AppModule = (function () {
                 material_1.MatButtonModule,
                 http_1.HttpClientModule,
                 material_1.MatSnackBarModule,
+                amazing_time_picker_1.AmazingTimePickerModule,
+                material_1.MatIconModule,
+                material_1.MatDialogModule,
+                amazing_time_picker_1.AmazingTimePickerModule,
+                material_1.MatFormFieldModule,
+                datepicker_1.MatDatepickerModule,
+                material_1.MatNativeDateModule,
+                material_1.MatInputModule,
+                material_1.MatIconModule,
             ],
             declarations: [
                 // App Components
@@ -119,17 +134,23 @@ var AppModule = (function () {
                 nurse_component_1.NurseComponent,
                 receptionist_component_1.ReceptionistComponent,
                 branch_component_1.BranchComponent,
-                addcashier_component_1.AddCashierComponent,
+                updatecashier_component_1.UpdateCashierComponent,
                 role_permissions_component_1.RolePermissionsComponent,
-                adddoctor_component_1.AdddoctorComponent,
-                addnurse_component_1.AddNurseComponent,
+                updatedoctor_component_1.UpdatedoctorComponent,
+                updatenurse_component_1.UpdateNurseComponent,
                 addreceptionist_component_1.AddReceptionistComponent,
                 addbranch_component_1.AddBranchComponent,
                 organization_component_1.OrganizationComponent,
                 addorganization_component_1.AddOrganizationComponent,
                 addstaff_component_1.AddStaffComponent,
+                confirmationdialog_component_1.ConfirmationdialogComponent,
+                update_branch_component_1.UpdateBranchComponent,
+                addstaff_component_1.AddStaffComponent,
                 service_tax_component_1.ServiceTaxComponent,
                 not_found_404_setting_component_1.NotFound404SettingComponent,
+                addstaff_component_1.AddStaffComponent,
+                errordisplay_component_1.ErrordisplayComponent,
+                confirmationdialog_component_1.ConfirmationdialogComponent,
             ],
             bootstrap: [app_component_1.AppComponent]
         })

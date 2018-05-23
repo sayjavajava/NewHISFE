@@ -7,18 +7,22 @@ export class AppConstants {
 
     public static ACCESS_TOKEN = 'access_token';
     public static EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
-    public static USER_BY_ROLE= '/user/role/';
-    public static ADD_BRANCH= '/branch/add';
-    public static BRANCHES_NAME= '/branch/name';
-    public static BRANCH_SEARCH= '/branch/search/';
+    public static USER_BY_ROLE = '/user/role/';
     public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';
     public static DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     public static SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
     public static SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
     public static UPDATE_CLINICAL_DEPARTMENT_URL = '/setting/department/update';
-    public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     public static CREATE_USER_ENDPOINT = '/user/add';
-    public static USER__SEARCH = '/user/search/';
+    public static USER_SEARCH = '/user/search/';
+    public static FETCH_ALL_USERS_URI = '/user/';
+
+    ////////////////////// Branch URLs ///////////////////////////////
+    public static ADD_BRANCH = '/branch/create';
+    public static UPDATE_BRANCH = '/setting/update/';
+    public static BRANCHES_NAME = '/branch/name';
+    public static BRANCH_SEARCH = '/branch/search/';
+    public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
@@ -49,8 +53,6 @@ export class AppConstants {
     public static SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     public static SERVICE_TAX_UPDATE_URL = '/setting/tax/update';
     public static SERVICE_TAX_SEARCH_URL = '/setting/tax/search/';
-
-    public static FETCH_ALL_TAX_URL = '/setting/tax/';
 
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';

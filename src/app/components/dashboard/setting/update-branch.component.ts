@@ -1,24 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from "@angular/core";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
-import {ActivatedRoute, Router} from '@angular/router';
-import {RequestsService} from '../../../services/requests.service';
-import {NotificationService} from '../../../services/notification.service';
-import {User} from '../../../model/User';
-import {AmazingTimePickerService} from 'amazing-time-picker';
-import {Branch} from '../../../model/Branch';
-import {ExamRooms} from '../../../model/ExamRooms';
-import {AppConstants} from '../../../utils/app.constants';
+import {ActivatedRoute, Router} from "@angular/router";
+import {RequestsService} from "../../../services/requests.service";
+import {NotificationService} from "../../../services/notification.service";
+import {AmazingTimePickerService} from "amazing-time-picker";
+import {Branch} from "../../../model/Branch";
+import {ExamRooms} from "../../../model/ExamRooms";
+import {AppConstants} from "../../../utils/app.constants";
 
 
 @Component({
-    selector: 'updatebranch-component',
+    selector: 'update-branch-component',
     templateUrl: '../../../templates/dashboard/setting/update-branch.template.html',
 })
 export class UpdateBranchComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
-                private fb: FormBuilder, private notificationService: NotificationService,
+    constructor(private route: ActivatedRoute,
+                private router: Router,
+                private requestService: RequestsService,
+                private fb: FormBuilder,
+                private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
+
         this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(
                 (response: Response) => {
@@ -114,15 +117,14 @@ export class UpdateBranchComponent implements OnInit {
                         officeHoursEnd: branch.officeHoursEnd,
                         noOfExamRooms: branch.noOfExamRooms,
                         state: branch.state,
-                        city: branch.city,   
+                        city: branch.city,
                         primaryDoctor: branch.username,
                         fax: branch.fax,
                         formattedAddress: branch.formattedAddress,
                         country: branch.country,
-                        address:branch.address,
+                        address: branch.address,
                         zipCode: branch.zipCode,
-                        officePhone:branch.officePhone,
-
+                        officePhone: branch.officePhone,
 
 
                     });
@@ -136,9 +138,9 @@ export class UpdateBranchComponent implements OnInit {
                     });
 
                     this.scheduleForm.patchValue({
-                        showBranchOnline: branch.showBranchOnline,
-                        allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
-                    }
+                            showBranchOnline: branch.showBranchOnline,
+                            allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
+                        }
                     );
                     console.log(branch.zipCode);
                     this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
@@ -154,18 +156,14 @@ export class UpdateBranchComponent implements OnInit {
     }
 
     addBranch(data: any, value: any) {
-        console.log('i am invalid');
         if (this.branchForm.valid) {
-
             let branchObject = this.prepareSaveBranch();
-            console.log('Tax: ' + branchObject.billingTaxID);
             if (value === 'done') {
 
-                this.requestService.putRequest('/branch/edit/' + this.id, branchObject)
+                this.requestService.putRequest(AppConstants.UPDATE_BRANCH + this.id, branchObject)
                     .subscribe(function (response) {
                         if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
                             this.notificationService.success(' Branch has been Updated Successfully');
-
                         }
                     }, function (error) {
                         this.error = error.error.error_description;

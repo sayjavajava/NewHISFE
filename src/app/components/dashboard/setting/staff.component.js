@@ -48,7 +48,7 @@ var StaffComponent = (function () {
         if (this.searchForm.valid) {
             console.log('Valid ');
             var searchUserObj = new SearchUser_1.SearchUser(data.name, data.email, data.role);
-            this.requestService.getRequest(app_constants_1.AppConstants.USER__SEARCH + this.pageNo + '?name=' + data.name + '&email=' + data.email + '&role=' + this.selectedRole)
+            this.requestService.getRequest(app_constants_1.AppConstants.USER_SEARCH + this.pageNo + '?name=' + data.name + '&email=' + data.email + '&role=' + this.selectedRole)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     _this.nextPage = response['responseData']['nextPage'];
@@ -92,7 +92,7 @@ var StaffComponent = (function () {
         if (page > 0) {
             page = page;
         }
-        this.requestService.getRequest('/user/all/' + page)
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_USERS_URI + page)
             .subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.nextPage = response['responseData']['nextPage'];

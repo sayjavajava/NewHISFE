@@ -128,12 +128,10 @@ var UpdateBranchComponent = (function () {
         }
     };
     UpdateBranchComponent.prototype.addBranch = function (data, value) {
-        console.log('i am invalid');
         if (this.branchForm.valid) {
             var branchObject = this.prepareSaveBranch();
-            console.log('Tax: ' + branchObject.billingTaxID);
             if (value === 'done') {
-                this.requestService.putRequest('/branch/edit/' + this.id, branchObject)
+                this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, branchObject)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
                         this.notificationService.success(' Branch has been Updated Successfully');
@@ -261,11 +259,14 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent = __decorate([
         core_1.Component({
-            selector: 'updatebranch-component',
+            selector: 'update-branch-component',
             templateUrl: '../../../templates/dashboard/setting/update-branch.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService,
-            forms_1.FormBuilder, notification_service_1.NotificationService,
+        __metadata("design:paramtypes", [router_1.ActivatedRoute,
+            router_1.Router,
+            requests_service_1.RequestsService,
+            forms_1.FormBuilder,
+            notification_service_1.NotificationService,
             amazing_time_picker_1.AmazingTimePickerService])
     ], UpdateBranchComponent);
     return UpdateBranchComponent;
