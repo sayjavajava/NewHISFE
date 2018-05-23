@@ -173,8 +173,7 @@ export class VersionComponent implements OnInit {
     deleteICDVersion(iCDVersionId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                AppConstants.ICD_VERSION_DELETE_URL+ iCDVersionId,
-                {})
+                AppConstants.ICD_VERSION_DELETE_URL + iCDVersionId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_VERSION_DEL_SUC_11') {

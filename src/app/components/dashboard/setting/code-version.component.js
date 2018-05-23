@@ -93,7 +93,7 @@ var CodeVersionComponent = (function () {
     CodeVersionComponent.prototype.deleteCodeVersion = function (associateICDCVId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {
                     _this.notificationService.success(response['responseMessage'], 'ICD');

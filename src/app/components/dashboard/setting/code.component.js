@@ -54,7 +54,7 @@ var CodeComponent = (function () {
     CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE_URL + codeId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE_URL + codeId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Code');

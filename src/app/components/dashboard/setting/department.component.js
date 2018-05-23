@@ -58,7 +58,7 @@ var DepartmentComponent = (function () {
     DepartmentComponent.prototype.deleteDepartment = function (dptId) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'CLI_DPT_SUC_02') {
                     _this.getPageWiseDepartmentFromServer(_this.currPage);
@@ -87,6 +87,13 @@ var DepartmentComponent = (function () {
                 _this.currPage = response['responseData']['currPage'];
                 _this.pages = response['responseData']['pages'];
                 _this.data = response['responseData']['data'];
+            }
+            else {
+                _this.nextPage = 0;
+                _this.prePage = 0;
+                _this.currPage = 0;
+                _this.pages = [];
+                _this.data = null;
             }
         }, function (error) {
             //console.log(error.json())

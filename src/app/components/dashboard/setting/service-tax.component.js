@@ -87,7 +87,7 @@ var ServiceTaxComponent = (function () {
         if (localStorage.getItem(btoa('access_token'))) {
             if (!confirm("Are you soure?"))
                 return;
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.SERVICE_TAX_DELETE_URL + taxId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.SERVICE_TAX_DELETE_URL + taxId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'SER_TAX_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Tax');

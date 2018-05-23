@@ -95,8 +95,7 @@ export class ServiceTaxComponent implements OnInit {
         if (localStorage.getItem(btoa('access_token'))) {
             if (!confirm("Are you soure?")) return;
             this.requestsService.deleteRequest(
-                AppConstants.SERVICE_TAX_DELETE_URL + taxId,
-                {})
+                AppConstants.SERVICE_TAX_DELETE_URL + taxId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SER_TAX_SUC_02') {

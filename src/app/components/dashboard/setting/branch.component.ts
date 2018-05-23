@@ -145,7 +145,7 @@ export class BranchComponent implements OnInit {
             .confirm('Delete', 'Are you sure you want to do this?')
             .subscribe(res => {
                 if (id) {
-                    this.requestService.deleteRequest('/branch/delete/' + id).subscribe((data: Response) => {
+                    this.requestService.deleteRequest(AppConstants.DELETE_BRANCH_URI + id).subscribe((data: Response) => {
                         if (data['responseCode'] === 'BRANCH_DEL_SUC_01') {
                             this.notificationService.success('User has been Deleted Successfully');
                             this.getBranchFromServer(this.currPage);

@@ -64,7 +64,7 @@ export class DepartmentComponent implements OnInit {
     deleteDepartment(dptId: number) {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId, {})
+                AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'CLI_DPT_SUC_02') {
@@ -97,6 +97,12 @@ export class DepartmentComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.data = response['responseData']['data'];
+                    } else {
+                        this.nextPage = 0;
+                        this.prePage = 0;
+                        this.currPage = 0;
+                        this.pages = [];
+                        this.data = null;
                     }
                 },
                 (error: any) => {

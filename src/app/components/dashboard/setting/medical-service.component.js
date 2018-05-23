@@ -68,7 +68,7 @@ var MedicalServiceComponent = (function () {
     MedicalServiceComponent.prototype.deleteMedicalServices = function (msId, dptId, branchId) {
         var _this = this;
         if (msId > 0) {
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Medical Service');
@@ -85,7 +85,7 @@ var MedicalServiceComponent = (function () {
     MedicalServiceComponent.prototype.searchByMedicalServiceParams = function (page) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.searchMSModel.searchServiceId = this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId : 0;
+            //this.searchMSModel.searchServiceId = this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId : 0;
             this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
             this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
             this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;

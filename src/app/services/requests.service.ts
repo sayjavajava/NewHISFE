@@ -42,12 +42,6 @@ export class RequestsService {
         return this.http.post(URI, _params, {headers: reqHeader});
     }
 
-    deleteRequest(url: any, _params: any) {
-        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
-        reqHeader.append('Content-Type', 'application/json');
-        return this.http.delete(this.getBEAPIServer() + url, {headers: reqHeader});
-    };
-
     getRequest(url: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
@@ -57,17 +51,17 @@ export class RequestsService {
     postRequest(url: any, _params: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
-        return this.http.post(this.getBEAPIServer() + url,  _params, {headers: reqHeader});
+        return this.http.post(this.getBEAPIServer() + url, _params, {headers: reqHeader});
     }
 
-    deleteRequest(url:any){
+    deleteRequest(url: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
-        return this.http.delete(this.getBEAPIServer() + url,{headers: reqHeader});
+        return this.http.delete(this.getBEAPIServer() + url, {headers: reqHeader});
 
     }
 
-    findById(url:any): Observable<any> {
+    findById(url: any): Observable<any> {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader})
@@ -83,6 +77,7 @@ export class RequestsService {
         reqHeader.append('Content-Type', 'application/json');
         return this.http.put(this.getBEAPIServer() + url, _params, {headers: reqHeader});
     }
+
     getRequestWithParam(url: any, param: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');

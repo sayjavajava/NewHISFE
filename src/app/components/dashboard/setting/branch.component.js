@@ -123,7 +123,7 @@ var BranchComponent = (function () {
             .confirm('Delete', 'Are you sure you want to do this?')
             .subscribe(function (res) {
             if (id) {
-                _this.requestService.deleteRequest('/branch/delete/' + id).subscribe(function (data) {
+                _this.requestService.deleteRequest(app_constants_1.AppConstants.DELETE_BRANCH_URI + id).subscribe(function (data) {
                     if (data['responseCode'] === 'BRANCH_DEL_SUC_01') {
                         _this.notificationService.success('User has been Deleted Successfully');
                         _this.getBranchFromServer(_this.currPage);

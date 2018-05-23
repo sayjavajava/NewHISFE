@@ -21,20 +21,20 @@
 
                 </div>
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
-                    <div class="col-md-2">
-                        <div class="form-group font-siz11">
-                            <label>Service ID:</label>
-                            <input type="number" min="0" step="1"
-                                   class="form-control" placeholder="Service Id"
-                                   [(ngModel)]="searchMSModel.searchServiceId">
-                        </div>
-                    </div>
+                    <!--   <div class="col-md-2">
+                           <div class="form-group font-siz11">
+                               <label>Service ID:</label>
+                               <input type="number" min="0" step="1"
+                                      class="form-control" placeholder="Service Id"
+                                      [(ngModel)]="searchMSModel.searchServiceId">
+                           </div>
+                       </div>-->
                     <div class="col-md-2">
                         <div class="form-group font-siz11">
                             <label>Service Name</label>
                             <input type="text" class="form-control"
                                    placeholder="Service Name"
-                            [(ngModel)]="searchMSModel.searchServiceName">
+                                   [(ngModel)]="searchMSModel.searchServiceName">
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -73,10 +73,11 @@
                                    [(ngModel)]="searchMSModel.searchServiceFee">
                         </div>
                     </div>
-                    <div class="col-md-12" align="right">
+                    <div class="col-md-2">
                         <div class="form-group mrgn-top24">
                             <button type="button" class="btn blue"
-                            (click)="searchByMedicalServiceParams(0)">Search</button>
+                                    (click)="searchByMedicalServiceParams(0)">Search
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -85,18 +86,18 @@
                            id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
                         <thead>
                         <tr role="row" class="off-wite-bg">
-                            <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Id</th>
+                            <!--<th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Id</th>-->
                             <th width="24%" class="sorting_disabled" rowspan="1" colspan="1"> Title</th>
-                            <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Branch</th>
-                            <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Department</th>
-                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Services Fee</th>
-                            <th width="3%" class="sorting_disabled" rowspan="1" colspan="1"> Services Tax</th>
-                            <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Services Cost</th>
+                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Branch</th>
+                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Department</th>
+                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Fee</th>
+                            <th width="3%" class="sorting_disabled" rowspan="1" colspan="1"> Tax</th>
+                            <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Cost</th>
                             <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" *ngFor="let item of dataMD">
-                            <td class="font-green-dark"><strong>{{item.id}}</strong></td>
+                            <!--<td class="font-green-dark"><strong>{{item.id}}</strong></td>-->
                             <td class="font-green-dark"><strong>{{item.title}}</strong></td>
                             <td>{{item.branchName}}</td>
                             <td>{{item.dptName}}</td>

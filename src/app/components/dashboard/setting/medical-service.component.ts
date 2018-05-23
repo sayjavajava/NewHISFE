@@ -81,8 +81,7 @@ export class MedicalServiceComponent implements OnInit {
     deleteMedicalServices(msId: number, dptId: number, branchId: number) {
         if (msId > 0) {
             this.requestsService.deleteRequest(
-                AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId,
-                {})
+                AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -101,11 +100,11 @@ export class MedicalServiceComponent implements OnInit {
 
     searchByMedicalServiceParams(page: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.searchMSModel.searchServiceId = this.searchMSModel.searchServiceId>0 ? this.searchMSModel.searchServiceId: 0;
-            this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length>0 ? this.searchMSModel.searchServiceName: "";
-            this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId>0 ? this.searchMSModel.searchBranchId: 0;
-            this.searchMSModel.departmentId = this.searchMSModel.departmentId>0 ? this.searchMSModel.departmentId: 0;
-            this.searchMSModel.searchServiceFee = this.searchMSModel.searchServiceFee>0 ? this.searchMSModel.searchServiceFee: 0;
+            //this.searchMSModel.searchServiceId = this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId : 0;
+            this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
+            this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
+            this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
+            this.searchMSModel.searchServiceFee = this.searchMSModel.searchServiceFee > 0 ? this.searchMSModel.searchServiceFee : 0;
             this.searchMSModel.searched = true;
             this.requestsService.getRequest(
                 AppConstants.MEDICAL_SERVICE_SEARCH + page
@@ -122,14 +121,14 @@ export class MedicalServiceComponent implements OnInit {
                             this.currPage = response['responseData']['currPage'];
                             this.pages = response['responseData']['pages'];
                             this.dataMD = response['responseData']['data'];
-                            this.notificationService.success(response['responseMessage'],'Medical Services')
+                            this.notificationService.success(response['responseMessage'], 'Medical Services')
                         } else {
                             this.nextPage = 0;
                             this.prePage = 0;
                             this.currPage = 0;
                             this.pages = [];
                             this.dataMD = [];
-                            this.notificationService.error(response['responseMessage'],'Medical Services');
+                            this.notificationService.error(response['responseMessage'], 'Medical Services');
                         }
                     },
                     (error: any) => {

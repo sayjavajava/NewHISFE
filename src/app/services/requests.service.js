@@ -45,12 +45,6 @@ var RequestsService = (function () {
         var URI = this.getBEAPIServer() + url + '?username=' + _params['userName'] + '&password=' + _params['password'] + '&grant_type=' + _params['grantType'];
         return this.http.post(URI, _params, { headers: reqHeader });
     };
-    RequestsService.prototype.deleteRequest = function (url, _params) {
-        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
-        reqHeader.append('Content-Type', 'application/json');
-        return this.http.delete(this.getBEAPIServer() + url, { headers: reqHeader });
-    };
-    ;
     RequestsService.prototype.getRequest = function (url) {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         reqHeader.append('Content-Type', 'application/json');

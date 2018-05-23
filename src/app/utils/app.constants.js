@@ -20,11 +20,12 @@ var AppConstants = (function () {
     AppConstants.USER_SEARCH = '/user/search/';
     AppConstants.FETCH_ALL_USERS_URI = '/user/';
     ////////////////////// Branch URLs ///////////////////////////////
-    AppConstants.ADD_BRANCH = '/branch/create';
+    AppConstants.ADD_BRANCH = '/setting/branch/create';
     AppConstants.UPDATE_BRANCH = '/setting/update/';
-    AppConstants.BRANCHES_NAME = '/branch/name';
-    AppConstants.BRANCH_SEARCH = '/branch/search/';
-    AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    AppConstants.DELETE_BRANCH_URI = '/setting/delete/';
+    AppConstants.BRANCHES_NAME = '/setting/branch/name';
+    AppConstants.BRANCH_SEARCH = '/setting/branch/search/';
+    AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/all';
     AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
@@ -48,7 +49,6 @@ var AppConstants = (function () {
     AppConstants.PERMISSION_BY_ROLE = '/setting/rolePermission/role';
     AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
     ////////////////////// Service Tax URLs ///////////////////////////////
-    AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     AppConstants.SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';

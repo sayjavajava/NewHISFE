@@ -70,8 +70,7 @@ export class EmailTemplateComponent implements OnInit {
         if (localStorage.getItem(btoa('access_token'))) {
             if (!confirm("Are you source.")) return;
             this.requestsService.deleteRequest(
-                AppConstants.EMAIL_TEMPLATE_DELETE_URL + id,
-                {})
+                AppConstants.EMAIL_TEMPLATE_DELETE_URL + id)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'EMAIL_TEMP_SUC_06') {
@@ -109,7 +108,7 @@ export class EmailTemplateComponent implements OnInit {
         if (localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(
-                AppConstants.EMAIL_TEMPLATE_SEARCH_URL + page +'?title=' + this.searchTitle)
+                AppConstants.EMAIL_TEMPLATE_SEARCH_URL + page + '?title=' + this.searchTitle)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'EMAIL_TEMP_SUC_10') {

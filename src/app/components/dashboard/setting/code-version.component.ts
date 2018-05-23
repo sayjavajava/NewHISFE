@@ -106,8 +106,7 @@ export class CodeVersionComponent implements OnInit {
     deleteCodeVersion(associateICDCVId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId,
-                {})
+                AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {

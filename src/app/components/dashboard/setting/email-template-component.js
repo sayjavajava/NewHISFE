@@ -63,7 +63,7 @@ var EmailTemplateComponent = (function () {
         if (localStorage.getItem(btoa('access_token'))) {
             if (!confirm("Are you source."))
                 return;
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.EMAIL_TEMPLATE_DELETE_URL + id, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.EMAIL_TEMPLATE_DELETE_URL + id)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'EMAIL_TEMP_SUC_06') {
                     _this.notificationService.success(response['responseMessage'], 'Email Template');

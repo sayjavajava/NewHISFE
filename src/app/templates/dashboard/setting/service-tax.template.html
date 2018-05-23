@@ -140,7 +140,7 @@
                                            class="form-control"
                                            [(ngModel)]="serviceTax.name"
                                            placeholder="Enter Name" name="name"
-                                           pattern="^[a-zA-Z 0-9_-]{0,60}$" required
+                                           pattern="^[a-zA-Z% 0-9_-]{0,60}$" required
                                            #name="ngModel">
                                     <span *ngIf="name.invalid && name.touched"
                                           class="col-md-9 select pdng-lr-5 text-danger">Please enter valid name.
