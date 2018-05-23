@@ -1,0 +1,111 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Create Email Template</h4>
+                </div>
+                <form action="#" id="emailTemplateForm" #form="ngForm">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-3">Email Title:
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="title"
+                                               class="form-control"
+                                               required
+                                               placeholder="Enter Title"
+                                               [(ngModel)]="emailTempModel.title"
+                                               pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                               #title="ngModel">
+                                    </div>
+                                    <span *ngIf="title.invalid && title.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter valid title.
+                                    </span>
+                                </div>
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-3">Email Subject:
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text"
+                                               class="form-control"
+                                               name="subject"
+                                               placeholder="Enter Subject"
+                                               [(ngModel)]="emailTempModel.subject"
+                                               pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                               #subject="ngModel">
+
+                                    </div>
+                                    <span *ngIf="subject.invalid && subject.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter valid subject.
+                                    </span>
+                                </div>
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-3">Email Type:
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="select" [(ngModel)]="emailTempModel.type">
+                                            <option value="Email Type A"> Email Type A</option>
+                                            <option value="Email Type B"> Email Type B</option>
+                                            <option value="Email Type C"> Email Type C</option>
+                                            <option value="Email Type D"> Email Type D</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <textarea class="wysihtml5 form-control"
+                                              rows="6"
+                                              required name="emailTemplate"
+                                              [(ngModel)]="emailTempModel.emailTemplate"
+                                              #emailTemplate="ngModel">
+
+                                    </textarea>
+                                    <span *ngIf="emailTemplate.invalid && emailTemplate.touched">
+                                        Please enter some data in email template
+                                    </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bordered pdng-all">
+                                        <h3 class="block">Tags</h3>
+                                        <div class="tag-txt">
+                                            <p>-@first_name@</p>
+                                            <p>-@last_name@</p>
+                                            <p>-@email@</p>
+                                            <p>-@mobile@</p>
+                                            <p>-@link@</p>
+                                        </div>
+                                        <div class="mrgn-top14 tag-txt">
+                                            <strong>Note</strong>
+                                            <p>Must insert the ‘@’ sign while using such label
+                                                mentioned above</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr">
+                            <div class="col-md-12 text-center">
+                                <a routerLink="/dashboard/setting/email-template" class="nav-link">
+                                    <button type="button" class="btn  btn-default"> Cancel</button>
+                                </a>
+                                <button type="button" class="btn blue" (click)="saveEmailTemplate(form)"> Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

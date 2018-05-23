@@ -36,6 +36,13 @@ export class AppConstants {
 
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_TAX_URL ='/setting/tax/';
+    ////////////////////// Email Template URLs ///////////////////////////////
+    public static EMAIL_TEMPLATE_FETCH_ALL_URL ='/setting/emailTemplate/';
+    public static EMAIL_TEMPLATE_DELETE_URL = '/setting/emailTemplate/delete/?id=';
+    public static EMAIL_TEMPLATE_SAVE_URL = '/setting/emailTemplate/save';
+    public static EMAIL_TEMPLATE_EDIT_URL = '/setting/emailTemplate/get/';
+    public static EMAIL_TEMPLATE_UPDATE_URL = '/setting/emailTemplate/update';
+    public static EMAIL_TEMPLATE_SEARCH_URL = '/setting/emailTemplate/search/';
 
 
 

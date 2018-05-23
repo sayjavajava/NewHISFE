@@ -53,6 +53,9 @@ import {VersionComponent} from './components/dashboard/setting/version.component
 import {CodeVersionComponent} from './components/dashboard/setting/code-version.component';
 import {AddMedicalServiceComponent} from './components/dashboard/setting/add-medical-service.component';
 import {ServiceTaxComponent} from './components/dashboard/setting/service-tax.component';
+import {EmailTemplateComponent} from "./components/dashboard/setting/email-template-component";
+import {AddEmailTemplateComponent} from "./components/dashboard/setting/add-email-template.component";
+import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-email-template.component";
 
 @NgModule({
     providers: [
@@ -118,6 +121,9 @@ import {ServiceTaxComponent} from './components/dashboard/setting/service-tax.co
         AddOrganizationComponent,
         AddStaffComponent,
         ServiceTaxComponent,
+        EmailTemplateComponent,
+        AddEmailTemplateComponent,
+        EditEmailTemplateComponent,
     ],
     bootstrap: [AppComponent]
 })

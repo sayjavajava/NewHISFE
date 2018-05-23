@@ -54,7 +54,7 @@ export class ServiceTaxComponent implements OnInit {
             );
     }
 
-    deleteTax(taxId: any) {
+    /*deleteTax(taxId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
                 AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId,
@@ -76,6 +76,6 @@ export class ServiceTaxComponent implements OnInit {
         } else {
             this.router.navigate(['/login']);
         }
-    }
+    }*/
 
 }

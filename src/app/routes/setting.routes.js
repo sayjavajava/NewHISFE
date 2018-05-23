@@ -21,6 +21,9 @@ var version_component_1 = require("../components/dashboard/setting/version.compo
 var code_version_component_1 = require("../components/dashboard/setting/code-version.component");
 var add_medical_service_component_1 = require("../components/dashboard/setting/add-medical-service.component");
 var service_tax_component_1 = require("../components/dashboard/setting/service-tax.component");
+var email_template_component_1 = require("../components/dashboard/setting/email-template-component");
+var add_email_template_component_1 = require("../components/dashboard/setting/add-email-template.component");
+var edit_email_template_component_1 = require("../components/dashboard/setting/edit-email-template.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -45,6 +48,9 @@ exports.SettingRoutes = [
     { path: 'medicalServices/add', component: add_medical_service_component_1.AddMedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
     { path: 'service-tax', component: service_tax_component_1.ServiceTaxComponent },
+    { path: 'email-template', component: email_template_component_1.EmailTemplateComponent },
+    { path: 'email-template/add', component: add_email_template_component_1.AddEmailTemplateComponent },
+    { path: 'email-template/edit/:id', component: edit_email_template_component_1.EditEmailTemplateComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

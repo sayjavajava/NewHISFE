@@ -46,27 +46,6 @@ var ServiceTaxComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
-    ServiceTaxComponent.prototype.deleteTax = function (taxId) {
-        var _this = this;
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId, {})
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {
-                    _this.notificationService.success(response['responseMessage'], 'ICD');
-                    _this.getPageWiseICDs(_this.currPage);
-                }
-                else {
-                    _this.getPageWiseICDs(_this.currPage);
-                    _this.notificationService.error(response['responseMessage'], 'ICD');
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
-        }
-        else {
-            this.router.navigate(['/login']);
-        }
-    };
     ServiceTaxComponent = __decorate([
         core_1.Component({
             selector: 'service-tax-component',

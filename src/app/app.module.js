@@ -60,6 +60,9 @@ var version_component_1 = require("./components/dashboard/setting/version.compon
 var code_version_component_1 = require("./components/dashboard/setting/code-version.component");
 var add_medical_service_component_1 = require("./components/dashboard/setting/add-medical-service.component");
 var service_tax_component_1 = require("./components/dashboard/setting/service-tax.component");
+var email_template_component_1 = require("./components/dashboard/setting/email-template-component");
+var add_email_template_component_1 = require("./components/dashboard/setting/add-email-template.component");
+var edit_email_template_component_1 = require("./components/dashboard/setting/edit-email-template.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -126,6 +129,9 @@ var AppModule = (function () {
                 addorganization_component_1.AddOrganizationComponent,
                 addstaff_component_1.AddStaffComponent,
                 service_tax_component_1.ServiceTaxComponent,
+                email_template_component_1.EmailTemplateComponent,
+                add_email_template_component_1.AddEmailTemplateComponent,
+                edit_email_template_component_1.EditEmailTemplateComponent,
             ],
             bootstrap: [app_component_1.AppComponent]
         })
