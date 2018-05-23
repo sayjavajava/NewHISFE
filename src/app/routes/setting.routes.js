@@ -19,6 +19,9 @@ var version_component_1 = require("../components/dashboard/setting/version.compo
 var code_version_component_1 = require("../components/dashboard/setting/code-version.component");
 var add_medical_service_component_1 = require("../components/dashboard/setting/add-medical-service.component");
 var service_tax_component_1 = require("../components/dashboard/setting/service-tax.component");
+var email_template_component_1 = require("../components/dashboard/setting/email-template-component");
+var add_email_template_component_1 = require("../components/dashboard/setting/add-email-template.component");
+var edit_email_template_component_1 = require("../components/dashboard/setting/edit-email-template.component");
 var edit_medical_service_component_1 = require("../components/dashboard/setting/edit-medical-service.component");
 var not_found_404_setting_component_1 = require("../components/dashboard/setting/not-found-404-setting.component");
 exports.SettingRoutes = [
@@ -44,7 +47,10 @@ exports.SettingRoutes = [
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
     { path: 'service-tax', component: service_tax_component_1.ServiceTaxComponent },
     { path: '404-not-found', component: not_found_404_setting_component_1.NotFound404SettingComponent },
-    { path: '**', redirectTo: '404' },
     { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
+    { path: 'email-template', component: email_template_component_1.EmailTemplateComponent },
+    { path: 'email-template/add', component: add_email_template_component_1.AddEmailTemplateComponent },
+    { path: 'email-template/edit/:id', component: edit_email_template_component_1.EditEmailTemplateComponent },
+    { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

@@ -50,13 +50,22 @@ export class AppConstants {
     public static ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
 
     ////////////////////// Service Tax URLs ///////////////////////////////
+    public static FETCH_ALL_TAX_URL ='/setting/tax/';
     public static FETCH_ALL_TAX_URL = '/setting/tax/';
     public static SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     public static SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     public static SERVICE_TAX_UPDATE_URL = '/setting/tax/update';
     public static SERVICE_TAX_SEARCH_URL = '/setting/tax/search/';
 
-    ////////////////////// Service Tax URLs ///////////////////////////////
+    ////////////////////// Email Template URLs ///////////////////////////////
+    public static EMAIL_TEMPLATE_FETCH_ALL_URL ='/setting/emailTemplate/';
+    public static EMAIL_TEMPLATE_DELETE_URL = '/setting/emailTemplate/delete/?id=';
+    public static EMAIL_TEMPLATE_SAVE_URL = '/setting/emailTemplate/save';
+    public static EMAIL_TEMPLATE_EDIT_URL = '/setting/emailTemplate/get/';
+    public static EMAIL_TEMPLATE_UPDATE_URL = '/setting/emailTemplate/update';
+    public static EMAIL_TEMPLATE_SEARCH_URL = '/setting/emailTemplate/search/';
+
+    ////////////////////// Medical Service URLs ///////////////////////////////
     public static FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
     public static SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
     public static UPDATE_MEDICAL_SERVICES_URL = '/setting/medicalService/update';

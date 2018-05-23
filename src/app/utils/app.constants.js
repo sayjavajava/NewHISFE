@@ -49,11 +49,19 @@ var AppConstants = (function () {
     AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
+    AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     AppConstants.SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     AppConstants.SERVICE_TAX_UPDATE_URL = '/setting/tax/update';
     AppConstants.SERVICE_TAX_SEARCH_URL = '/setting/tax/search/';
-    ////////////////////// Service Tax URLs ///////////////////////////////
+    ////////////////////// Email Template URLs ///////////////////////////////
+    AppConstants.EMAIL_TEMPLATE_FETCH_ALL_URL = '/setting/emailTemplate/';
+    AppConstants.EMAIL_TEMPLATE_DELETE_URL = '/setting/emailTemplate/delete/?id=';
+    AppConstants.EMAIL_TEMPLATE_SAVE_URL = '/setting/emailTemplate/save';
+    AppConstants.EMAIL_TEMPLATE_EDIT_URL = '/setting/emailTemplate/get/';
+    AppConstants.EMAIL_TEMPLATE_UPDATE_URL = '/setting/emailTemplate/update';
+    AppConstants.EMAIL_TEMPLATE_SEARCH_URL = '/setting/emailTemplate/search/';
+    ////////////////////// Medical Service URLs ///////////////////////////////
     AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
     AppConstants.SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
     AppConstants.UPDATE_MEDICAL_SERVICES_URL = '/setting/medicalService/update';

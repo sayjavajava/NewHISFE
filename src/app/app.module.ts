@@ -71,6 +71,9 @@ import {AddMedicalServiceComponent} from "./components/dashboard/setting/add-med
 import {ServiceTaxComponent} from "./components/dashboard/setting/service-tax.component";
 import {EditMedicalServiceComponent} from "./components/dashboard/setting/edit-medical-service.component";
 import {NotFound404SettingComponent} from "./components/dashboard/setting/not-found-404-setting.component";
+import {EmailTemplateComponent} from "./components/dashboard/setting/email-template-component";
+import {AddEmailTemplateComponent} from "./components/dashboard/setting/add-email-template.component";
+import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-email-template.component";
 
 @NgModule({
     providers: [
@@ -150,6 +153,9 @@ import {NotFound404SettingComponent} from "./components/dashboard/setting/not-fo
         UpdateBranchComponent,
         AddStaffComponent,
         ServiceTaxComponent,
+        EmailTemplateComponent,
+        AddEmailTemplateComponent,
+        EditEmailTemplateComponent,
         NotFound404SettingComponent,
         AddStaffComponent,
         ErrordisplayComponent,

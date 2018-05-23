@@ -18,6 +18,9 @@ import {VersionComponent} from '../components/dashboard/setting/version.componen
 import {CodeVersionComponent} from '../components/dashboard/setting/code-version.component';
 import {AddMedicalServiceComponent} from '../components/dashboard/setting/add-medical-service.component';
 import {ServiceTaxComponent} from '../components/dashboard/setting/service-tax.component';
+import {EmailTemplateComponent} from "../components/dashboard/setting/email-template-component";
+import {AddEmailTemplateComponent} from "../components/dashboard/setting/add-email-template.component";
+import {EditEmailTemplateComponent} from "../components/dashboard/setting/edit-email-template.component";
 import {EditMedicalServiceComponent} from "../components/dashboard/setting/edit-medical-service.component";
 import {NotFound404SettingComponent} from "../components/dashboard/setting/not-found-404-setting.component";
 
@@ -45,6 +48,9 @@ export const SettingRoutes: Routes = [
     {path: 'role-permissions', component: RolePermissionsComponent},
     {path: 'service-tax', component: ServiceTaxComponent},
     {path: '404-not-found', component: NotFound404SettingComponent},
-    {path: '**', redirectTo: '404'},
     {path:'branch/edit/:id',component: UpdateBranchComponent},
+    {path: 'email-template', component: EmailTemplateComponent},
+    {path: 'email-template/add', component: AddEmailTemplateComponent},
+    {path: 'email-template/edit/:id', component: EditEmailTemplateComponent},
+    {path: '**', redirectTo: '404'}
 ];
