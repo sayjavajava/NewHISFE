@@ -77,7 +77,6 @@ import {NotFound404SettingComponent} from "./components/dashboard/setting/not-fo
         MatButtonModule,
         HttpClientModule,
         MatSnackBarModule,
-
     ],
     declarations: [
         // App Components

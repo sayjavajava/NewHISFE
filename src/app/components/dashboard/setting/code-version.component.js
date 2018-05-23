@@ -93,7 +93,7 @@ var CodeVersionComponent = (function () {
     CodeVersionComponent.prototype.deleteCodeVersion = function (associateICDCVId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId, {})
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {
                     _this.notificationService.success(response['responseMessage'], 'ICD');
@@ -137,7 +137,7 @@ var CodeVersionComponent = (function () {
         }
         this.iCDCVM.iCDCodes = this.iCDCodes;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE_VERSION, JSON.parse(JSON.stringify(this.iCDCVM))).subscribe(function (response) {
+            this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_SAVE_URL, JSON.parse(JSON.stringify(this.iCDCVM))).subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_ASSOCIATE_SUC_18') {
                     _this.iCDCVM = new ICDCodeVersionModel_1.ICDCodeVersionModel();
                     _this.notificationService.success(response['responseMessage'], 'ICD');

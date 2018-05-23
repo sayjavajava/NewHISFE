@@ -72,7 +72,7 @@ var VersionComponent = (function () {
         var _this = this;
         if (versionForm.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.putRequest(app_constants_1.AppConstants.ICD_VERSION, JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
+                this.requestsService.putRequest(app_constants_1.AppConstants.ICD_VERSION_UPDATE_URL, JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_VERSION_UPDATE_SUC_07') {
                         _this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
                         _this.notificationService.success(response['responseMessage'], 'ICD');
@@ -128,7 +128,7 @@ var VersionComponent = (function () {
         var _this = this;
         if (form.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.postRequest(app_constants_1.AppConstants.ICD_VERSION, JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
+                this.requestsService.postRequest(app_constants_1.AppConstants.ICD_VERSION_SAVE_URL, JSON.parse(JSON.stringify(this.iCDVersionModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_VERSION_SUC_08') {
                         _this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
                         _this.notificationService.success(response['responseMessage'], 'ICD');
@@ -153,7 +153,7 @@ var VersionComponent = (function () {
     VersionComponent.prototype.deleteICDVersion = function (iCDVersionId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_VERSION_DELETE + iCDVersionId, {})
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_VERSION_DELETE_URL + iCDVersionId, {})
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_VERSION_DEL_SUC_11') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Version');

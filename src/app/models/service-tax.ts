@@ -1,14 +1,14 @@
 export class ServiceTax {
-    private id: number;
-    private name: string;
-    private description: number;
-    private rate: number;
-    private fromDate: string;
-    private toDate: string;
-    private active: boolean;
-    private deleted: boolean;
-    private updatedOn: number;
-    private createdOn: number;
+    id: number = 0;
+    name: string = "";
+    description: string = "";
+    rate: number = 0.0;
+    fromDate: string;
+    toDate: string;
+    active: boolean = false;
+    deleted: boolean = false;
+    updatedOn: number;
+    createdOn: number;
 
     constructor() {
     }

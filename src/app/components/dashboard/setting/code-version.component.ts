@@ -106,7 +106,7 @@ export class CodeVersionComponent implements OnInit {
     deleteCodeVersion(associateICDCVId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                AppConstants.ICD_CODE_VERSION_DELETE + associateICDCVId,
+                AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId,
                 {})
                 .subscribe(
                     (response: Response) => {
@@ -158,7 +158,7 @@ export class CodeVersionComponent implements OnInit {
         this.iCDCVM.iCDCodes = this.iCDCodes;
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.postRequest(
-                AppConstants.ICD_CODE_VERSION,
+                AppConstants.ICD_CODE_VERSION_SAVE_URL,
                 JSON.parse(JSON.stringify(this.iCDCVM))
             ).subscribe(
                 (response: Response) => {

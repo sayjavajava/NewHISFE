@@ -58,7 +58,7 @@ export class CodeComponent implements OnInit {
     deleteICD(codeId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.deleteRequest(
-                AppConstants.ICD_CODE_DELETE + codeId,
+                AppConstants.ICD_CODE_DELETE_URL + codeId,
                 {})
                 .subscribe(
                     (response: Response) => {
@@ -105,7 +105,7 @@ export class CodeComponent implements OnInit {
         if (form.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
-                    AppConstants.ICD_CODE,
+                    AppConstants.ICD_CODE_SAVE_URL,
                     JSON.parse(JSON.stringify(this.iCDModel))
                 ).subscribe(
                     (response: Response) => {
@@ -136,7 +136,7 @@ export class CodeComponent implements OnInit {
         if (updateCodeForm.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(
-                    AppConstants.ICD_CODE,
+                    AppConstants.ICD_CODE_UPDATE_URL,
                     JSON.parse(JSON.stringify(this.iCDModel))
                 ).subscribe(
                     (response: Response) => {
