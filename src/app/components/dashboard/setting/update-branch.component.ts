@@ -1,39 +1,28 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+
+import {ActivatedRoute, Router} from '@angular/router';
 import {RequestsService} from '../../../services/requests.service';
-import {Router} from '@angular/router';
 import {NotificationService} from '../../../services/notification.service';
-import {Branch} from '../../../model/Branch';
+import {User} from '../../../model/User';
 import {AmazingTimePickerService} from 'amazing-time-picker';
-import {AppConstants} from '../../../utils/app.constants';
+import {Branch} from '../../../model/Branch';
 import {ExamRooms} from '../../../model/ExamRooms';
+import {AppConstants} from '../../../utils/app.constants';
+
 
 @Component({
-    selector: 'addbranch-component',
-    templateUrl: '../../../templates/dashboard/setting/addbranch.template.html',
+    selector: 'updatebranch-component',
+    templateUrl: '../../../templates/dashboard/setting/update-branch.template.html',
 })
-export class AddBranchComponent implements OnInit {
-
-
-    error: any;
-    branchForm: FormGroup;
-    examRooms: any = [];
-    officeHoursStart: string;
-    officeHoursEnd: string;
-    userSelected: string = 'doctor';
-    pDoctor: any = [];
-    responseBranch: Branch;
-    billingForm: FormGroup;
-    scheduleForm: FormGroup;
-
-
-    constructor(private router: Router, private requestService: RequestsService,
+export class UpdateBranchComponent implements OnInit {
+    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
         this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseStatus'] === 'SUCCESS') {
+                    if (response['responseCode'] === 'USER_SUC_01') {
                         let data = response['responseData'];
                         let userNameData = data;
                         this.pDoctor = response['responseData'];
@@ -43,34 +32,33 @@ export class AddBranchComponent implements OnInit {
                 (error: any) => {
                     this.error = error.error.error;
                 })
-
     }
 
+    private sub: any;
+    id: number;
+    examRooms: any = [];
+    officeHoursStart: string;
+    officeHoursEnd: string;
+    userSelected: string = 'doctor';
+    pDoctor: any = [];
+    error: any;
+    branchForm: FormGroup;
+    billingForm: FormGroup;
+    scheduleForm: FormGroup;
+    branch: Branch;
+
     ngOnInit() {
-        this.createBranchMendatoryForm();
-        console.log('user found:' + this.pDoctor.length);
         this.createBranchForm();
+        this.sub = this.route.params.subscribe(params => {
+            this.id = params['id'];
+            console.log(this.id);
+        });
+        this.createBillingForm();
         this.createScheduleForm();
-
-
+        this.patchData();
     }
 
     createBranchForm() {
-        this.billingForm = this.fb.group({
-            'billingBranch': [null],
-            'billingName': [null],
-            'billingTaxID': [null],
-        })
-    }
-
-    createScheduleForm() {
-        this.scheduleForm = this.fb.group({
-            'showBranchOnline': '',
-            'allowOnlineSchedulingInBranch': '',
-        })
-    }
-
-    createBranchMendatoryForm() {
         this.branchForm = this.fb.group({
 
             'branchName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -88,6 +76,109 @@ export class AddBranchComponent implements OnInit {
             'noOfExamRooms': [null],
             'examRooms': this.fb.array([this.createExamRoom()]),
         })
+    }
+
+    createBillingForm() {
+        this.billingForm = this.fb.group({
+            'billingBranch': [null],
+            'billingName': [null],
+            'billingTaxID': [null],
+        })
+    }
+
+    createScheduleForm() {
+        this.scheduleForm = this.fb.group({
+            'showBranchOnline': '',
+            'allowOnlineSchedulingInBranch': '',
+        })
+    }
+
+
+    createExamRoom(): FormGroup {
+        return this.fb.group({
+            'examName': '',
+            'allowOnlineScheduling': '',
+        });
+    }
+
+
+    public patchData() {
+        if (this.id) {
+
+            this.requestService.findById('/branch/' + this.id).subscribe(
+                branch => {
+                    //  this.id = user.id;
+                    this.branchForm.patchValue({
+                        branchName: branch.branchName,
+                        officeHoursStart: branch.officeHoursStart,
+                        officeHoursEnd: branch.officeHoursEnd,
+                        noOfExamRooms: branch.noOfExamRooms,
+                        state: branch.state,
+                        city: branch.city,   
+                        primaryDoctor: branch.username,
+                        fax: branch.fax,
+                        formattedAddress: branch.formattedAddress,
+                        country: branch.country,
+                        address:branch.address,
+                        zipCode: branch.zipCode,
+                        officePhone:branch.officePhone,
+
+
+
+                    });
+
+                    this.billingForm.patchValue({
+                        billingBranch: branch.billingBranch,
+                        billingName: branch.billingName,
+                        billingTaxID: branch.billingTaxID
+
+
+                    });
+
+                    this.scheduleForm.patchValue({
+                        showBranchOnline: branch.showBranchOnline,
+                        allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
+                    }
+                    );
+                    console.log(branch.zipCode);
+                    this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
+                    this.addFields(branch.rooms);
+                    this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
+                }, (error: any) => {
+                    //console.log(error.json());
+                    this.error = error.error.error_description;
+
+                });
+        }
+
+    }
+
+    addBranch(data: any, value: any) {
+        console.log('i am invalid');
+        if (this.branchForm.valid) {
+
+            let branchObject = this.prepareSaveBranch();
+            console.log('Tax: ' + branchObject.billingTaxID);
+            if (value === 'done') {
+
+                this.requestService.putRequest('/branch/edit/' + this.id, branchObject)
+                    .subscribe(function (response) {
+                        if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
+                            this.notificationService.success(' Branch has been Updated Successfully');
+
+                        }
+                    }, function (error) {
+                        this.error = error.error.error_description;
+                        this.notificationService.error('ERROR', 'Branch is not updated ');
+                    });
+
+                console.log(this.branchForm.value);
+            }
+            else {
+                console.log('i am else');
+                this.validateAllFormFields(this.branchForm);
+            }
+        }
     }
 
     prepareSaveBranch(): Branch {
@@ -116,9 +207,7 @@ export class AddBranchComponent implements OnInit {
             fax: formModel.fax,
             formattedAddress: formModel.formattedAddress,
 
-
             examRooms: secretLairsDeepCopy,
-
 
             billingBranch: billingModel.billingBranch,
             billingName: billingModel.billingName,
@@ -131,39 +220,18 @@ export class AddBranchComponent implements OnInit {
         return saveBranchModel;
     }
 
-    addBranch(data: any, value: string) {
 
-        if (this.branchForm.valid) {
-            console.log('i am  submit' + data);
-            /*let branch = new Branch(data.branchName, data.officeHoursStart, data.officeHoursEnd, data.noOfExamRooms
-                , data.state, data.city, data.primaryDoctor, data.zipCode, data.address, data.officePhone, data.fax, data.formattedAddress
-            );*/
-
-            let branchObject = this.prepareSaveBranch();
-            console.log('Tax: ' + branchObject.billingTaxID);
-
-
-            if (value === 'done') {
-                this.requestService.postRequest(AppConstants.ADD_BRANCH, branchObject)
-                    .subscribe(function (response) {
-                        if (response['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
-                            //   this.responseBranch = response['responseData'];
-                            this.notificationService.success(' Branch has been Create Successfully');
-
-                        }
-                    }, function (error) {
-                        //console.log(error.json());
-                        this.error = error.error.error_description;
-                        this.notificationService.error('ERROR', 'Branch is not Created');
-                    });
-                // this.makeService(receptionist);
-                console.log(this.branchForm.value);
-            }
-
-        } else {
-            this.validateAllFormFields(this.branchForm);
-        }
+    isFieldValid(field: string) {
+        return !this.branchForm.get(field).valid && this.branchForm.get(field).touched;
     }
+
+    displayFieldCss(field: string) {
+        return {
+            'has-error': this.isFieldValid(field),
+            'has-feedback': this.isFieldValid(field)
+        };
+    }
+
 
     validateAllFormFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(field => {
@@ -177,19 +245,9 @@ export class AddBranchComponent implements OnInit {
         });
     }
 
-    createExamRoom(): FormGroup {
-        return this.fb.group({
-            'examName': '',
-            'allowOnlineScheduling': '',
-        });
+    cancel() {
+        this.router.navigate(['/dashboard/setting/staff']);
     }
-
-    addFields(no: number): void {
-        this.examRooms = this.branchForm.get('examRooms') as FormArray;
-        for (var i = 0; i < no; i++) {
-            this.examRooms.push(this.createExamRoom());
-        }
-      }
 
     getOfficeHoursStart() {
         const amazingTimePicker = this.amazingTimePickerService.open();
@@ -211,7 +269,6 @@ export class AddBranchComponent implements OnInit {
 
     getDoctor(value: any) {
         if (value) {
-
             this.branchForm.controls['primaryDoctor'].setValue(value);
         }
     }
@@ -224,7 +281,7 @@ export class AddBranchComponent implements OnInit {
 
     getState(value: any) {
         if (value) {
-            this.branchForm.controls['state'].setValue(value);
+            this.branchForm.controls['country'].setValue(value);
         }
     }
 
@@ -248,13 +305,13 @@ export class AddBranchComponent implements OnInit {
         }
     }
 
+    addFields(no: number): void {
+        this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        for (var i = 0; i < no; i++) {
+            this.examRooms.push(this.createExamRoom());
+        }
 
-    /*    billingName: formModel.billingName,
-        billingBranch: formModel.billingBranch,
-        billingTaxID: formModel.billingTaxID,
-
-        showBranchOnline: formModel.showBranchOnline,
-        allowOnlineSchedulingInBranch: formModel.allowOnlineSchedulingInBranch,*/
+    }
 
 
 }

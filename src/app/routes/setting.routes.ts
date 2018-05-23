@@ -13,6 +13,7 @@ import {AddBranchComponent} from '../components/dashboard/setting/addbranch.comp
 import {OrganizationComponent} from '../components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from '../components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from '../components/dashboard/setting/addstaff.component';
+import {UpdateBranchComponent} from '../components/dashboard/setting/update-branch.component';
 import {VersionComponent} from '../components/dashboard/setting/version.component';
 import {CodeVersionComponent} from '../components/dashboard/setting/code-version.component';
 import {AddMedicalServiceComponent} from '../components/dashboard/setting/add-medical-service.component';
@@ -44,5 +45,6 @@ export const SettingRoutes: Routes = [
     {path: 'role-permissions', component: RolePermissionsComponent},
     {path: 'service-tax', component: ServiceTaxComponent},
     {path: '404-not-found', component: NotFound404SettingComponent},
-    {path: '**', redirectTo: '404'}
+    {path: '**', redirectTo: '404'},
+    {path:'branch/edit/:id',component: UpdateBranchComponent},
 ];

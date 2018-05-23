@@ -42,9 +42,9 @@
                                                 <label class="control-label col-md-3">Primary Doctor
                                                 </label>
                                                 <div class="col-md-9">
-                                                    <select class="form-control"
+                                                    <select class="form-control" formControlName="primaryDoctor"
                                                             (change)="getDoctor($event.target.value)"
-                                                            formControlName="primaryDoctor" placeholder="Select Branch">
+                                                             placeholder="Select Branch">
                                                         <option *ngFor="let doc of pDoctor" [value]="doc.id">
                                                             {{doc.userName}}
                                                         </option>
@@ -70,7 +70,7 @@
                                                 <label class="control-label col-md-3">State
                                                 </label>
                                                 <div class="col-md-9">
-                                                    <select class="form-control"
+                                                    <select class="form-control" formControlName="state"
                                                             (change)="getState($event.target.value)">
                                                         <option value="">Select...</option>
                                                         <option value="Riyadh">Riyadh</option>
@@ -94,7 +94,8 @@
                                                 </label>
                                                 <div class="col-md-9">
                                                     <select class="form-control"
-                                                            (change)="getZipCode($event.target.value)">
+                                                            (change)="getZipCode($event.target.value)"
+                                                            formControlName="zipCode">
                                                         <option value="">Select...</option>
                                                         <option value="1154">1154</option>
                                                         <option value="2157">2157</option>
@@ -251,7 +252,7 @@
                                             <label class="control-label col-md-3">Billing Branch
                                             </label>
                                             <div class="col-md-9">
-                                                <select class="form-control"
+                                                <select class="form-control" formControlName="billingBranch"
                                                         (change)="getBillingBranch($event.target.value)">
                                                     <option value="">Select...</option>
                                                     <option value="lahore">Lahore</option>

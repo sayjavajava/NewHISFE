@@ -2,7 +2,7 @@
 import {NgModule, OnInit} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AmazingTimePickerModule } from 'amazing-time-picker';
+import {AmazingTimePickerModule} from 'amazing-time-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 // App Components
 import {AppComponent} from './components/app.component';
@@ -41,17 +41,14 @@ import {MedicalServiceComponent} from './components/dashboard/setting/medical-se
 import {NurseComponent} from './components/dashboard/setting/nurse.component';
 import {ReceptionistComponent} from './components/dashboard/setting/receptionist.component';
 import {BranchComponent} from './components/dashboard/setting/branch.component';
-import { UpdateCashierComponent} from './components/dashboard/setting/updatecashier.component';
+import {UpdateCashierComponent} from './components/dashboard/setting/updatecashier.component';
 import {RolePermissionsComponent} from './components/dashboard/setting/role-permissions.component';
 import {UpdatedoctorComponent} from './components/dashboard/setting/updatedoctor.component';
 import {UpdateNurseComponent} from './components/dashboard/setting/updatenurse.component';
 import {AddReceptionistComponent} from './components/dashboard/setting/addreceptionist.component';
 import {AddBranchComponent} from './components/dashboard/setting/addbranch.component';
-import { MatButtonModule,  MatFormFieldModule,
-    MatIcon,
-    MatIconModule,
-    MatInputModule,
-    MatNativeDateModule,
+import {
+    MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule,
     MatSnackBarModule
 } from '@angular/material';
 import {NotificationService} from './services/notification.service';
@@ -59,8 +56,10 @@ import {OrganizationComponent} from './components/dashboard/setting/organization
 import {AddOrganizationComponent} from './components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from './components/dashboard/setting/addstaff.component';
 import {ErrordisplayComponent} from './components/dashboard/setting/errordisplay.component';
-import {ConfirmationdialogComponent} from './components/dashboard/confirmationdialog.component';
 import {ConformationDialogService} from './services/ConformationDialogService';
+import {ConfirmationdialogComponent} from './components/dashboard/confirmationdialog.component';
+import {UpdateBranchComponent} from './components/dashboard/setting/update-branch.component';
+
 
 import {VersionComponent} from './components/dashboard/setting/version.component';
 import {CodeVersionComponent} from './components/dashboard/setting/code-version.component';
@@ -78,10 +77,8 @@ import {NotFound404SettingComponent} from "./components/dashboard/setting/not-fo
         AppConfig,
         PermissionsService,
         {provide: ToastOptions, useClass: CustomOption},
-        UserSharedService,
-        ConformationDialogService
-    ],
-    entryComponents: [ConfirmationdialogComponent],
+        UserSharedService, ConformationDialogService
+    ], entryComponents: [ConfirmationdialogComponent],
     imports: [
         // Modules
         BrowserModule,
@@ -92,6 +89,9 @@ import {NotFound404SettingComponent} from "./components/dashboard/setting/not-fo
         MatButtonModule,
         HttpClientModule,
         MatSnackBarModule,
+        AmazingTimePickerModule,
+        MatIconModule,
+        MatDialogModule,
         AmazingTimePickerModule,
         MatFormFieldModule,
         MatDatepickerModule,
@@ -141,6 +141,9 @@ import {NotFound404SettingComponent} from "./components/dashboard/setting/not-fo
         AddBranchComponent,
         OrganizationComponent,
         AddOrganizationComponent,
+        AddStaffComponent,
+        ConfirmationdialogComponent,
+        UpdateBranchComponent,
         AddStaffComponent,
         ServiceTaxComponent,
         NotFound404SettingComponent,

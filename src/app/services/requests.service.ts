@@ -4,8 +4,8 @@ import {Router} from '@angular/router';
 import {AppConfig} from '../configuration/app.config';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {RoleAndPermission} from '../models/roleandpermission';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Receptionist} from '../model/Receptionist';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class RequestsService {
@@ -54,16 +54,28 @@ export class RequestsService {
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader});
     }
 
+    postRequest(url: any, _params: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.post(this.getBEAPIServer() + url,  _params, {headers: reqHeader});
+    }
+
     deleteRequest(url:any){
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
         return this.http.delete(this.getBEAPIServer() + url,{headers: reqHeader});
 
     }
-    postRequest(url: any, _params: any) {
+
+    findById(url:any): Observable<any> {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
-        return this.http.post(this.getBEAPIServer() + url,  _params, {headers: reqHeader});
+        return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader})
+            .map((data: any) => {
+                return data.responseData as Object;
+            });
+        ;
+        //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
     }
 
     putRequest(url: any, _params: any) {
@@ -77,23 +89,4 @@ export class RequestsService {
         let params = new HttpParams().set('name', param);
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params});
     }
-
-    findById(url:any): Observable<any> {
-        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
-        reqHeader.append('Content-Type', 'application/json');
-        return this.http.get<Receptionist>(this.getBEAPIServer() + url, {headers: reqHeader})
-            .map((data: any) => {
-                return data.responseData as Object;
-            });
-            ;
-            //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
-    }
-
-    putRequest(url: any,params: any) {
-        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
-        reqHeader.append('Content-Type', 'application/json');
-        console.log('iam put');
-        return this.http.put(this.getBEAPIServer()+ url,params, {headers: reqHeader});
-    }
-
 }
