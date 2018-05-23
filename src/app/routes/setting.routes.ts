@@ -16,6 +16,7 @@ import {AddBranchComponent} from '../components/dashboard/setting/addbranch.comp
 import {OrganizationComponent} from '../components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from '../components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from '../components/dashboard/setting/addstaff.component';
+import {UpdateBranchComponent} from '../components/dashboard/setting/update-branch.component';
 
 
 export const SettingRoutes: Routes = [
@@ -38,5 +39,6 @@ export const SettingRoutes: Routes = [
     {path: 'icd', component: ICDComponent},
     {path:'medicalservices',component:MedicalServiceComponent},
     {path:'role-permissions',component:RolePermissionsComponent},
-    {path: '**', redirectTo: '404'}
+    {path: '**', redirectTo: '404'},
+    {path:'branch/edit/:id',component: UpdateBranchComponent},
 ];

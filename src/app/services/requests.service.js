@@ -63,6 +63,26 @@ var RequestsService = (function () {
         reqHeader.append('Content-Type', 'application/json');
         return this.http.post(this.getBEAPIServer() + url, _params, { headers: reqHeader });
     };
+    RequestsService.prototype.deleteRequest = function (url) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.delete(this.getBEAPIServer() + url, { headers: reqHeader });
+    };
+    RequestsService.prototype.findById = function (url) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader })
+            .map(function (data) {
+            return data.responseData;
+        });
+        ;
+        //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
+    };
+    RequestsService.prototype.putRequest = function (url, params) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.put(this.getBEAPIServer() + url, params, { headers: reqHeader });
+    };
     RequestsService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient,

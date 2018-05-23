@@ -17,6 +17,7 @@ var addbranch_component_1 = require("../components/dashboard/setting/addbranch.c
 var organization_component_1 = require("../components/dashboard/setting/organization.component");
 var addorganization_component_1 = require("../components/dashboard/setting/addorganization.component");
 var addstaff_component_1 = require("../components/dashboard/setting/addstaff.component");
+var update_branch_component_1 = require("../components/dashboard/setting/update-branch.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -37,6 +38,7 @@ exports.SettingRoutes = [
     { path: 'icd', component: icd_component_1.ICDComponent },
     { path: 'medicalservices', component: medical_service_component_1.MedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
-    { path: '**', redirectTo: '404' }
+    { path: '**', redirectTo: '404' },
+    { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
 ];
 //# sourceMappingURL=setting.routes.js.map

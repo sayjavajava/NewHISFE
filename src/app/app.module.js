@@ -56,6 +56,10 @@ var notification_service_1 = require("./services/notification.service");
 var organization_component_1 = require("./components/dashboard/setting/organization.component");
 var addorganization_component_1 = require("./components/dashboard/setting/addorganization.component");
 var addstaff_component_1 = require("./components/dashboard/setting/addstaff.component");
+var amazing_time_picker_1 = require("amazing-time-picker");
+var ConformationDialogService_1 = require("./services/ConformationDialogService");
+var confirmationdialog_component_1 = require("./components/dashboard/confirmationdialog.component");
+var update_branch_component_1 = require("./components/dashboard/setting/update-branch.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -71,8 +75,8 @@ var AppModule = (function () {
                 app_config_1.AppConfig,
                 permissions_service_1.PermissionsService,
                 { provide: ng2_toastr_1.ToastOptions, useClass: CustomOption_1.CustomOption },
-                user_shared_service_1.UserSharedService
-            ],
+                user_shared_service_1.UserSharedService, ConformationDialogService_1.ConformationDialogService
+            ], entryComponents: [confirmationdialog_component_1.ConfirmationdialogComponent],
             imports: [
                 // Modules
                 platform_browser_1.BrowserModule,
@@ -83,6 +87,9 @@ var AppModule = (function () {
                 material_1.MatButtonModule,
                 http_1.HttpClientModule,
                 material_1.MatSnackBarModule,
+                amazing_time_picker_1.AmazingTimePickerModule,
+                material_1.MatIconModule,
+                material_1.MatDialogModule
             ],
             declarations: [
                 // App Components
@@ -116,7 +123,9 @@ var AppModule = (function () {
                 addbranch_component_1.AddBranchComponent,
                 organization_component_1.OrganizationComponent,
                 addorganization_component_1.AddOrganizationComponent,
-                addstaff_component_1.AddStaffComponent
+                addstaff_component_1.AddStaffComponent,
+                confirmationdialog_component_1.ConfirmationdialogComponent,
+                update_branch_component_1.UpdateBranchComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

@@ -62,6 +62,30 @@ export class RequestsService {
         return this.http.post(this.getBEAPIServer() + url, _params, {headers: reqHeader});
     }
 
+    deleteRequest(url:any){
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.delete(this.getBEAPIServer() + url,{headers: reqHeader});
+
+    }
+
+    findById(url:any): Observable<any> {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader})
+            .map((data: any) => {
+                return data.responseData as Object;
+            });
+        ;
+        //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
+    }
+
+    putRequest(url: any,params: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        return this.http.put(this.getBEAPIServer()+ url,params, {headers: reqHeader});
+    }
+
     /*  putRequest(url: any, _params: any) {
           const headers = new Headers();
           if (this.getToken()) {

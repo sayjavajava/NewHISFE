@@ -44,11 +44,16 @@ import {AdddoctorComponent} from './components/dashboard/setting/adddoctor.compo
 import {AddNurseComponent} from './components/dashboard/setting/addnurse.component';
 import {AddReceptionistComponent} from './components/dashboard/setting/addreceptionist.component';
 import {AddBranchComponent} from './components/dashboard/setting/addbranch.component';
-import {MatButtonModule, MatSnackBarModule} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatIconModule, MatSnackBarModule} from '@angular/material';
 import {NotificationService} from './services/notification.service';
 import {OrganizationComponent} from './components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from './components/dashboard/setting/addorganization.component';
 import {AddStaffComponent} from './components/dashboard/setting/addstaff.component';
+import {AmazingTimePickerModule} from 'amazing-time-picker';
+import {ConformationDialogService} from './services/ConformationDialogService';
+import {ConfirmationdialogComponent} from './components/dashboard/confirmationdialog.component';
+import {UpdateBranchComponent} from './components/dashboard/setting/update-branch.component';
+
 
 
 @NgModule({
@@ -60,8 +65,9 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         AppConfig,
         PermissionsService,
         {provide: ToastOptions, useClass: CustomOption},
-        UserSharedService
-    ],
+        UserSharedService,ConformationDialogService
+
+    ],entryComponents:[ConfirmationdialogComponent],
     imports: [
         // Modules
         BrowserModule,
@@ -72,6 +78,9 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         MatButtonModule,
         HttpClientModule,
         MatSnackBarModule,
+        AmazingTimePickerModule,
+        MatIconModule,
+        MatDialogModule
 
     ],
     declarations: [
@@ -108,7 +117,9 @@ import {AddStaffComponent} from './components/dashboard/setting/addstaff.compone
         AddBranchComponent,
         OrganizationComponent,
         AddOrganizationComponent,
-        AddStaffComponent
+        AddStaffComponent,
+        ConfirmationdialogComponent,
+        UpdateBranchComponent
     ],
     bootstrap: [AppComponent]
 })
