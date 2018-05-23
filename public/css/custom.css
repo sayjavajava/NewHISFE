@@ -33,6 +33,8 @@ p, h3, h4{margin:0; padding:0;}
 .label-control2 { line-height: 35px; padding-top:0px !important; font-size: 12px !important;}
 .patient-profile .control-label { line-height: 18px;}
 .mrgn-btm10{margin-bottom: 10px;}
+.mrgn-top8{margin-top: 8px;}
+.mrgn-lft8{margin-left: 8px;}
 .mrgn-top14{margin-top: 14px;}
 .mrgn-top24{margin-top: 24px;}
 .font-smaller{ font-size:70%;}
@@ -225,6 +227,7 @@ p, h3, h4{margin:0; padding:0;}
 .green-txt{font-size: 20px; font-weight: normal; color: #178833;}
 .total-txt{font-size: 14px; text-transform: uppercase; font-weight: 600; color:#000;}
 .width6{width:6% !important;}
+.width12{width:12% !important;}
 .width40{width:40px !important;}
 .intro-txt{font-size: 20px; font-weight: 600; margin: 10px 0;}
 .openday-txt p{width: 100%; text-align: right;}

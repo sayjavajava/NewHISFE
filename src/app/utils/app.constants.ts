@@ -13,6 +13,8 @@ export class AppConstants {
     public static SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
     public static UPDATE_CLINICAL_DEPARTMENT_URL = '/setting/department/update';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    public static CREATE_USER_ENDPOINT = '/user/add';
+    public static USER__SEARCH = '/user/search/';
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
@@ -53,5 +55,4 @@ export class AppConstants {
     public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     public static FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     public static MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
-
 }

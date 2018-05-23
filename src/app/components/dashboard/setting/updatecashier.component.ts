@@ -1,41 +1,29 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {RequestsService} from '../../../services/requests.service';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from './PasswordValidation';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RequestsService} from '../../../services/requests.service';
+import {NotificationService} from '../../../services/notification.service';
 import {User} from '../../../model/User';
 import {Receptionist} from '../../../model/Receptionist';
-import {NotificationService} from '../../../services/notification.service';
+import {UserEditModel} from '../../../model/UserEditModel';
 
 
 @Component({
-    selector: 'addreceptionist-component',
-    templateUrl: '../../../templates/dashboard/setting/addreceptionist.template.html',
+  selector: 'addcashier-component',
+  templateUrl: '../../../templates/dashboard/setting/updatecashier.template.html',
 })
-export class AddReceptionistComponent implements OnInit {
+export class UpdateCashierComponent implements OnInit {
+    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
+                private fb: FormBuilder, private notificationService: NotificationService) {
 
+    }
     private sub: any;
     id: number;
     responseUser: any[];
     error: any;
     userForm: FormGroup;
-    receptionist: Receptionist;
-
-    firstNameError: string = 'First name is required';
-    userNameError: string = 'User name is required';
-    emailError: string = 'Email is required';
-    passwordError: string = 'Password is required';
-    confirmPasswordError: string = 'Password must be equal';
-    primaryBranchError: string = 'Select Primary Branch';
-    restrictBranchError: string = 'Select Restrict Branch';
-    departmentError: string = 'Select one or more Departments';
-    serviceError: string = 'Select one or more Services';
-    dutyTimmingShiftError: string = 'Select Duty Time';
-
-    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
-                private fb: FormBuilder, private notificationService: NotificationService) {
-
-    }
+    receptionist: UserEditModel;
 
     ngOnInit() {
         this.createUserForm();
@@ -116,13 +104,12 @@ export class AddReceptionistComponent implements OnInit {
 
     }
 
-
-    addReceptionist(data: any) {
+    addCashier(data: any) {
         console.log('i am invalid');
         if (this.userForm.valid) {
 
-            console.log('i am receptionist submit' + data);
-            let receptionist = new User({
+            console.log('i am cashier submit' + data);
+            let cashier = new User({
                 userType: 'receptionist',
                 firstName: data.firstName,
                 lastName: data.lastName,
@@ -143,7 +130,7 @@ export class AddReceptionistComponent implements OnInit {
 
             });
 
-            this.makeService(receptionist);
+            this.makeService(cashier);
 
         } else {
             console.log('i am else');
@@ -197,8 +184,8 @@ export class AddReceptionistComponent implements OnInit {
             }
         });
     }
-
     cancel(){
         this.router.navigate(['/dashboard/setting/staff']);
     }
+
 }

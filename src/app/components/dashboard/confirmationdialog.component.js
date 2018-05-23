@@ -10,19 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var AdddoctorComponent = (function () {
-    function AdddoctorComponent() {
+var material_1 = require("@angular/material");
+var ConfirmationdialogComponent = (function () {
+    function ConfirmationdialogComponent(dialogRef) {
+        this.dialogRef = dialogRef;
     }
-    AdddoctorComponent.prototype.ngOnInit = function () {
+    ConfirmationdialogComponent.prototype.ngOnInit = function () {
     };
-    AdddoctorComponent = __decorate([
+    ConfirmationdialogComponent = __decorate([
         core_1.Component({
-            selector: 'adddoctor-component',
-            templateUrl: '../../../templates/dashboard/setting/adddoctor.template.html',
+            selector: 'confirmationdialog-component',
+            templateUrl: '../../templates/dashboard/confirmationdialog.template.html',
         }),
-        __metadata("design:paramtypes", [])
-    ], AdddoctorComponent);
-    return AdddoctorComponent;
+        __metadata("design:paramtypes", [material_1.MatDialogRef])
+    ], ConfirmationdialogComponent);
+    return ConfirmationdialogComponent;
 }());
-exports.AdddoctorComponent = AdddoctorComponent;
-//# sourceMappingURL=adddoctor.component.js.map
+exports.ConfirmationdialogComponent = ConfirmationdialogComponent;
+//# sourceMappingURL=confirmationdialog.component.js.map

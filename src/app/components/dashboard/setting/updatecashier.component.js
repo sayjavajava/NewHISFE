@@ -10,31 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var requests_service_1 = require("../../../services/requests.service");
 var forms_1 = require("@angular/forms");
 var PasswordValidation_1 = require("./PasswordValidation");
-var User_1 = require("../../../model/User");
+var router_1 = require("@angular/router");
+var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
-var AddReceptionistComponent = (function () {
-    function AddReceptionistComponent(route, router, requestService, fb, notificationService) {
+var User_1 = require("../../../model/User");
+var UpdateCashierComponent = (function () {
+    function UpdateCashierComponent(route, router, requestService, fb, notificationService) {
         this.route = route;
         this.router = router;
         this.requestService = requestService;
         this.fb = fb;
         this.notificationService = notificationService;
-        this.firstNameError = 'First name is required';
-        this.userNameError = 'User name is required';
-        this.emailError = 'Email is required';
-        this.passwordError = 'Password is required';
-        this.confirmPasswordError = 'Password must be equal';
-        this.primaryBranchError = 'Select Primary Branch';
-        this.restrictBranchError = 'Select Restrict Branch';
-        this.departmentError = 'Select one or more Departments';
-        this.serviceError = 'Select one or more Services';
-        this.dutyTimmingShiftError = 'Select Duty Time';
     }
-    AddReceptionistComponent.prototype.ngOnInit = function () {
+    UpdateCashierComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createUserForm();
         this.sub = this.route.params.subscribe(function (params) {
@@ -43,7 +33,7 @@ var AddReceptionistComponent = (function () {
         });
         this.patchData();
     };
-    AddReceptionistComponent.prototype.createUserForm = function () {
+    UpdateCashierComponent.prototype.createUserForm = function () {
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
@@ -78,7 +68,7 @@ var AddReceptionistComponent = (function () {
             validator: PasswordValidation_1.CustomValidators.Match('password', 'confirmPassword')
         });
     };
-    AddReceptionistComponent.prototype.patchData = function () {
+    UpdateCashierComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
             this.requestService.findById('/user/' + this.id).subscribe(function (receptionist) {
@@ -104,11 +94,11 @@ var AddReceptionistComponent = (function () {
             });
         }
     };
-    AddReceptionistComponent.prototype.addReceptionist = function (data) {
+    UpdateCashierComponent.prototype.addCashier = function (data) {
         console.log('i am invalid');
         if (this.userForm.valid) {
-            console.log('i am receptionist submit' + data);
-            var receptionist = new User_1.User({
+            console.log('i am cashier submit' + data);
+            var cashier = new User_1.User({
                 userType: 'receptionist',
                 firstName: data.firstName,
                 lastName: data.lastName,
@@ -127,14 +117,14 @@ var AddReceptionistComponent = (function () {
                 active: data.active,
                 allowDiscount: data.allowDiscount,
             });
-            this.makeService(receptionist);
+            this.makeService(cashier);
         }
         else {
             console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     };
-    AddReceptionistComponent.prototype.makeService = function (user) {
+    UpdateCashierComponent.prototype.makeService = function (user) {
         var _this = this;
         this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
@@ -149,21 +139,21 @@ var AddReceptionistComponent = (function () {
             _this.notificationService.error('ERROR', 'User is not Updated');
         });
     };
-    AddReceptionistComponent.prototype.isFieldValid = function (field) {
+    UpdateCashierComponent.prototype.isFieldValid = function (field) {
         return !this.userForm.get(field).valid && this.userForm.get(field).touched;
     };
-    AddReceptionistComponent.prototype.displayFieldCss = function (field) {
+    UpdateCashierComponent.prototype.displayFieldCss = function (field) {
         return {
             'has-error': this.isFieldValid(field),
             'has-feedback': this.isFieldValid(field)
         };
     };
-    AddReceptionistComponent.prototype.getBranch = function (value) {
+    UpdateCashierComponent.prototype.getBranch = function (value) {
         if (value) {
             this.userForm.controls['primaryBranch'].setValue(value);
         }
     };
-    AddReceptionistComponent.prototype.validateAllFormFields = function (formGroup) {
+    UpdateCashierComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
         Object.keys(formGroup.controls).forEach(function (field) {
             //console.log(field);
@@ -176,18 +166,18 @@ var AddReceptionistComponent = (function () {
             }
         });
     };
-    AddReceptionistComponent.prototype.cancel = function () {
+    UpdateCashierComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);
     };
-    AddReceptionistComponent = __decorate([
+    UpdateCashierComponent = __decorate([
         core_1.Component({
-            selector: 'addreceptionist-component',
-            templateUrl: '../../../templates/dashboard/setting/addreceptionist.template.html',
+            selector: 'addcashier-component',
+            templateUrl: '../../../templates/dashboard/setting/updatecashier.template.html',
         }),
         __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService,
             forms_1.FormBuilder, notification_service_1.NotificationService])
-    ], AddReceptionistComponent);
-    return AddReceptionistComponent;
+    ], UpdateCashierComponent);
+    return UpdateCashierComponent;
 }());
-exports.AddReceptionistComponent = AddReceptionistComponent;
-//# sourceMappingURL=addreceptionist.component.js.map
+exports.UpdateCashierComponent = UpdateCashierComponent;
+//# sourceMappingURL=updatecashier.component.js.map
