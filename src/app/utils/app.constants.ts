@@ -23,6 +23,8 @@ export class AppConstants {
     public static BRANCHES_NAME = '/branch/name';
     public static BRANCH_SEARCH = '/branch/search/';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    public static FETCH_BRANCHES_BY_ID = '/setting/branch/get';
+
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';

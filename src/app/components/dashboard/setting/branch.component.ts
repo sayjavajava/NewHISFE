@@ -120,7 +120,7 @@ export class BranchComponent implements OnInit {
 
         }
         this.requestService.getRequest(
-            '/branch/all/' + page)
+            AppConstants.FETCH_ALL_BRANCHES_URL + page)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BRANCH_SUC_01') {

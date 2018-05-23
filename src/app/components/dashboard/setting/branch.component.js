@@ -102,7 +102,7 @@ var BranchComponent = (function () {
         if (page > 0) {
             page = page;
         }
-        this.requestService.getRequest('/branch/all/' + page)
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + page)
             .subscribe(function (response) {
             if (response['responseCode'] === 'BRANCH_SUC_01') {
                 _this.nextPage = response['responseData']['nextPage'];

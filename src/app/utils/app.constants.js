@@ -25,6 +25,7 @@ var AppConstants = (function () {
     AppConstants.BRANCHES_NAME = '/branch/name';
     AppConstants.BRANCH_SEARCH = '/branch/search/';
     AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
