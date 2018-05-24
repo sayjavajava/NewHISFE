@@ -60,6 +60,10 @@ var ServiceTaxComponent = (function () {
     ServiceTaxComponent.prototype.saveServiceTax = function (form) {
         var _this = this;
         if (form.valid) {
+            if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
+                this.notificationService.error('Please enter valid tax', 'Tax');
+                return;
+            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(app_constants_1.AppConstants.SERVICE_TAX_SAVE_URL, this.serviceTax).subscribe(function (response) {
                     if (response['responseCode'] === 'SER_TAX_SUC_03') {
@@ -112,6 +116,10 @@ var ServiceTaxComponent = (function () {
     ServiceTaxComponent.prototype.updateServiceTax = function (updateServiceTaxForm) {
         var _this = this;
         if (updateServiceTaxForm.valid) {
+            if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
+                this.notificationService.error('Please enter valid tax', 'Tax');
+                return;
+            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(app_constants_1.AppConstants.SERVICE_TAX_UPDATE_URL, this.serviceTax).subscribe(function (response) {
                     if (response['responseCode'] === 'SER_TAX_SUC_06') {

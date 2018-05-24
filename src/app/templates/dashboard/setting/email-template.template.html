@@ -25,7 +25,8 @@
                             <input type="text"
                                    class="form-control"
                                    [(ngModel)]="searchTitle"
-                                   placeholder="Enter Title">
+                                   placeholder="Enter Title"
+                            (keydown.enter)="searchByTitle(0)">
                         </div>
                     </div>
                     <div class="col-md-1">

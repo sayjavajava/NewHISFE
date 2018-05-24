@@ -36,7 +36,6 @@ var AddEmailTemplateComponent = (function () {
                         _this.emailTempModel = new EmailTemplateModel_1.EmailTemplateModel();
                         _this.notificationService.success(response['responseMessage'], 'Email Template');
                         _this.router.navigate(['dashboard/setting/email-template']);
-                        // this.refreshICDsVersionTable(0);
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Email Template');

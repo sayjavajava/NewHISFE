@@ -100,12 +100,26 @@ export class MedicalServiceComponent implements OnInit {
 
     searchByMedicalServiceParams(page: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            //this.searchMSModel.searchServiceId = this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId : 0;
+            this.searchMSModel.searchServiceId = /*this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId :*/ 0;
             this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
             this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
             this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
             this.searchMSModel.searchServiceFee = this.searchMSModel.searchServiceFee > 0 ? this.searchMSModel.searchServiceFee : 0;
             this.searchMSModel.searched = true;
+            /**
+             * if all not selected then we are going to refresh the page, it means default condition
+             *
+             * **/
+            if (this.searchMSModel.searchServiceId === 0 &&
+                this.searchMSModel.searchServiceName.length === 0 &&
+                this.searchMSModel.searchBranchId === 0 &&
+                this.searchMSModel.departmentId === 0 &&
+                this.searchMSModel.searchServiceFee === 0){
+
+                this.refreshMedicalServices();
+                return;
+            }
+
             this.requestsService.getRequest(
                 AppConstants.MEDICAL_SERVICE_SEARCH + page
                 + '?serviceId=' + this.searchMSModel.searchServiceId

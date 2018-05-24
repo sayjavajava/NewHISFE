@@ -63,9 +63,8 @@ export class EditEmailTemplateComponent implements OnInit {
                             this.emailTempModel = new EmailTemplateModel();
                             this.notificationService.success(response['responseMessage'], 'Email Template');
                             this.router.navigate(['dashboard/setting/email-template']);
-                            // this.refreshICDsVersionTable(0);
                         } else {
-                            this.notificationService.error('ICD', response['responseMessage'])
+                            this.notificationService.error(response['responseMessage'], 'Email Template');
                         }
                     },
                     (error: any) => {
