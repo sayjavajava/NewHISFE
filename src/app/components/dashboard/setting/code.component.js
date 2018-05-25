@@ -54,14 +54,16 @@ var CodeComponent = (function () {
     CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE_URL + codeId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Code');
-                    _this.getPageWiseICDs(_this.currPage);
+                    _this.getICDsFromServer(0);
                 }
                 else {
-                    _this.getPageWiseICDs(_this.currPage);
+                    _this.getICDsFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'ICD Code');
                 }
             }, function (error) {

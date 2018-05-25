@@ -21,7 +21,9 @@ export class DepartmentComponent implements OnInit {
     pages: number[] = [];
     data: any;
     searchDepart: string;
+    searched: boolean = false;
     selectedDepartment: ClinicalDepartment = new ClinicalDepartment();
+
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -36,6 +38,20 @@ export class DepartmentComponent implements OnInit {
         } else {
             this.router.navigate(['/login']);
         }
+    }
+
+    getPageWiseDepartment(page: number) {
+        this.data = [];
+        if (this.searched) {
+            this.searchClinicalDepartment(page);
+        } else {
+            this.getPageWiseDepartmentFromServer(page);
+        }
+    }
+
+    refreshPage() {
+        this.searched = false;
+        this.getPageWiseDepartmentFromServer(0);
     }
 
     getPageWiseDepartmentFromServer(page: number) {
@@ -63,15 +79,18 @@ export class DepartmentComponent implements OnInit {
 
     deleteDepartment(dptId: number) {
         if (window.localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
                 AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'CLI_DPT_SUC_02') {
                             this.getPageWiseDepartmentFromServer(this.currPage);
-                            this.notificationService.success(response['responseMessage'], 'Clinical Department')
+                            this.notificationService.success(response['responseMessage'], 'Clinical Department');
+                            this.getPageWiseDepartmentFromServer(0);
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Clinical Department')
+                            this.getPageWiseDepartmentFromServer(0);
+                            this.notificationService.error(response['responseMessage'], 'Clinical Department');
                         }
                     },
                     (error: any) => {
@@ -86,9 +105,10 @@ export class DepartmentComponent implements OnInit {
     }
 
 
-    searchClinicalDepartment() {
+    searchClinicalDepartment(page: any) {
+        this.searched = true;
         this.requestsService.getRequest(
-            AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL + '0?name=' + this.searchDepart)
+            AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL + page + '?name=' + this.searchDepart)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
@@ -136,6 +156,8 @@ export class DepartmentComponent implements OnInit {
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
                 );
+        } else {
+            this.notificationService.error('Required fields missing', 'Clinical Department');
         }
     }
 
@@ -164,6 +186,8 @@ export class DepartmentComponent implements OnInit {
 
                     }
                 );
+        } else {
+            this.notificationService.error('Required fields missing', 'Clinical Department');
         }
     }
 

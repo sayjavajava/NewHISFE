@@ -80,14 +80,16 @@ export class MedicalServiceComponent implements OnInit {
 
     deleteMedicalServices(msId: number, dptId: number, branchId: number) {
         if (msId > 0) {
+            if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
                 AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
                             this.notificationService.success(response['responseMessage'], 'Medical Service');
-                            this.getMedicalServicesFromServer(this.currPage);
+                            this.getMedicalServicesFromServer(0);
                         } else {
+                            this.getMedicalServicesFromServer(0);
                             this.notificationService.error(response['responseMessage'], 'Medical Service');
                         }
                     },

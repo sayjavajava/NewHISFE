@@ -153,14 +153,16 @@ var VersionComponent = (function () {
     VersionComponent.prototype.deleteICDVersion = function (iCDVersionId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_VERSION_DELETE_URL + iCDVersionId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_VERSION_DEL_SUC_11') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Version');
-                    _this.getPageWiseICDsVersion(_this.currPage);
+                    _this.getVersionsFromServer(0);
                 }
                 else {
-                    _this.getPageWiseICDsVersion(_this.currPage);
+                    _this.getVersionsFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'ICD Version');
                 }
             }, function (error) {

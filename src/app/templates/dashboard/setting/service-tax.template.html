@@ -43,7 +43,7 @@
                            id="datatable_ajax">
                         <thead>
                         <tr role="row" class="off-wite-bg">
-                            <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> Name</th>
+                            <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Name</th>
                             <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> Rate (%)</th>
                             <th width="5%" class="sorting_disabled" rowspan="1" colspan="1"> From </th>
                             <th width="5%" class="sorting_disabled" rowspan="1" colspan="1"> To </th>
@@ -52,7 +52,7 @@
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" *ngFor="let item of dataTaxes; let i = index;">
-                            <td rowspan="1" colspan="1" class="font-green-dark"><strong>{{item.name}}</strong></td>
+                            <td rowspan="1" colspan="1" class="font-green-dark col-txt-left"><strong>{{item.name}}</strong></td>
                             <td rowspan="1" colspan="1">{{item.rate}}</td>
                             <td rowspan="1" colspan="1">{{item.fromDate}}</td>
                             <td rowspan="1" colspan="1">{{item.toDate}}</td>
@@ -154,7 +154,7 @@
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="number"
                                            class="form-control"
-                                           pattern="[0-9.]*"
+                                           pattern="^\d+(\.\d{1,3})?$"
                                            [(ngModel)]="serviceTax.rate"
                                            disabled="{{isUpdateServiceTax}}"
                                            placeholder="Enter rate" name="rate"
@@ -162,7 +162,7 @@
                                            required
                                            #rate="ngModel">
                                 </div>
-                                <span *ngIf="rate.invalid && rate.touched"
+                                <span *ngIf="rate.invalid && rate.touched || rate.value>100"
                                       class="col-md-9 select pdng-lr-5 text-danger">
                                         Please enter valid rate.
                                 </span>

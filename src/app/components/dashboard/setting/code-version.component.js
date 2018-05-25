@@ -26,6 +26,7 @@ var CodeVersionComponent = (function () {
         this.pages = [];
         this.data = [];
         this.searchCodeVersion = "";
+        this.searchCodeVersionCode = "";
     }
     CodeVersionComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code Version';
@@ -93,14 +94,16 @@ var CodeVersionComponent = (function () {
     CodeVersionComponent.prototype.deleteCodeVersion = function (associateICDCVId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {
                     _this.notificationService.success(response['responseMessage'], 'ICD');
-                    _this.getPageWiseICDs(_this.currPage);
+                    _this.getCodeVersionsFromServer(0);
                 }
                 else {
-                    _this.getPageWiseICDs(_this.currPage);
+                    _this.getCodeVersionsFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'ICD');
                 }
             }, function (error) {
@@ -159,7 +162,9 @@ var CodeVersionComponent = (function () {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
-            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_SEARCH + page + '?versionName=' + this.searchCodeVersion)
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_SEARCH + page +
+                '?versionName=' + this.searchCodeVersion +
+                '&searchCodeVersionCode=' + this.searchCodeVersionCode)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_02') {
                     _this.nextPage = response['responseData']['nextPage'];

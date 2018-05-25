@@ -68,13 +68,16 @@ var MedicalServiceComponent = (function () {
     MedicalServiceComponent.prototype.deleteMedicalServices = function (msId, dptId, branchId) {
         var _this = this;
         if (msId > 0) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Medical Service');
-                    _this.getMedicalServicesFromServer(_this.currPage);
+                    _this.getMedicalServicesFromServer(0);
                 }
                 else {
+                    _this.getMedicalServicesFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'Medical Service');
                 }
             }, function (error) {
