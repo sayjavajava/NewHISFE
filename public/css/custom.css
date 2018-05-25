@@ -1,0 +1,234 @@
+/* here you can put your own css to customize and override the theme */
+p, h3, h4{margin:0; padding:0;}
+.login-bg{ background:url(../images/bg/4.jpg); background-size:cover;}
+.login-footer{ width:100%;text-align: center; max-width:360px; margin:10px auto;}
+.login-footer p{ color:#fff;}
+.login-form a{ color:#32c5d2;}
+.login-footer a{ color:#32c5d2;}
+.page-sidebar .page-sidebar-menu > li, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li{ border-bottom:1px solid #ddd;}
+.header-top-menu{line-height: 58px;}
+.header-top-menu ul{ list-style:none;}
+.header-top-menu li{ display:inline-block;}
+.header-top-menu a{ font-size:14px; color:#fff;}
+.header-top-menu a:hover{color:#fff; text-decoration:none;}
+.side-bar-toggle-menu{margin: 70px 34px 0 0 !important;}
+.col-width25{width: 25% !important;}
+.flt-lft{float: left;}
+.hr{ width:100%; float:left; margin-bottom:10px;}
+.page-header.navbar .hor-menu .navbar-nav>li>a{ padding: 20px;}
+.hedr-menu-top li{list-style:none;}
+.dropdown-nav{ background:#0153a7 !important; color:#fff !important;}
+.hedr-menu-top li a:hover{ background:#004b97 !important;}
+.hr h4, .hr h3, .hr h2{font-weight: 500;}
+.no-padding{ padding:0 !important;}
+.no-margin{ margin:0 !important;}
+.pdng-lft18{padding-left:18px !important;}
+.padding-10{ padding:10px !important;}
+.padding-b-10{ padding-bottom:10px !important;}
+.padding-t-10{ padding-top:10px !important;}
+.pdngall3{padding: 3px !important;}
+.pdng-lr-5{padding-left:5px !important; padding-right:5px !important;}
+.no-padding-rgt{ padding-right:0 !important;}
+.control-label { line-height: 35px; padding-top:0px !important; font-size: 12px !important;}
+.label-control2 { line-height: 35px; padding-top:0px !important; font-size: 12px !important;}
+.patient-profile .control-label { line-height: 18px;}
+.mrgn-btm10{margin-bottom: 10px;}
+.mrgn-top8{margin-top: 8px;}
+.mrgn-lft8{margin-left: 8px;}
+.mrgn-top14{margin-top: 14px;}
+.mrgn-top24{margin-top: 24px;}
+.font-smaller{ font-size:70%;}
+.label-lineheight{line-height: 16px !important;}
+.patient-icon i{font-size: 60px; margin-top: 20px; color: #dddddd;}
+/*.input-group-btn{display: none;}*/
+.border-non{border:none !important;}
+.pls-icon i{padding: 6px 10px;}
+.bootstrap-touchspin .input-group-btn-vertical i{font-size:12px !important;}
+.white-bck{background: #fff; padding:10px;}
+.frm-stng select, .frm-stng input, .frm-stng textarea {width: 90%; float: left;}
+.profile-userpic { margin:0 auto; width:100%; max-width:300px;}
+.profile-userpic img { float: none; margin: 0 auto; border:1px solid #ddd; width: 100%; height: 100%; -webkit-border-radius: 50% !important; -moz-border-radius: 50% !important;  border-radius: 50% !important;}
+.view-pro {
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f2f2f2 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#f2f2f2 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #ffffff 0%,#f2f2f2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
+    border: 1px solid #ccc;
+    border-radius: 10px !important;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.bg-danger-light {
+    background-color: #f9dcdb;
+    background-image: linear-gradient(to bottom, #f9dedd, #f2cecd);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #9c6462;
+    float: left;
+    border-radius: 3px;
+    padding: 3px 10px;
+    border: 1px solid #e2c1bf;
+    margin: 0 2px 2px 0;
+}
+.bg-gray-meadow{background:#b1b1b1 !important;}
+.sub-total{float: left; width: 100%;}
+.sub-total ul{list-style:none; padding:0; float:left; width: 100%;}
+.sub-total li{width:100%; float:left; padding-top: 10px; padding-bottom: 15px;}
+.sub-total li span{}
+.sub-total li span:first-child{float:left; font-weight:bold;}
+.sub-total li span:last-child{float:right;}
+.sar-total{background:#faf9f9; border:1px solid #eee; padding:10px;}
+.hdr-bckgrnd{background:#0153a7; color:#fff; text-align:left;}
+.shipng-icon{width: 5%; border: 1px solid #c2cad8; border-radius: 50% !important; float: left; text-align: center; margin-top: 4px; margin-left: 6px; color:#c2cad8;}
+.small-txt{line-height:40px; padding-left:12px;}
+.txt-rigt{text-align: right; padding-right: 20px;}
+.hedng-bck-clr{ background:#fcf1f1;}
+.tbl-brdr-radus{border-radius: 6px !important;}
+.tbl-pdng th, .tbl-pdng td{padding: 4px !important; font-size:12px !important;}
+.tbl-pdng th{font-weight: normal !important; color: #000 !important;}
+.off-wite-bg{background: #fafafa !important;}
+.heading{background:#000 !important;}
+.btn-grn{color: #fff; background-color: #36c6d3; border-color: #2bb8c4;}
+.bdr-top{border-top: 1px solid #ddd;}
+.bdr-btm{border-bottom: 1px solid #ddd;}
+.padding{padding: 10px !important;}
+.txt-size{line-height: 30px !important; margin-top: 0px !important; padding-top: 0 !important; text-align: right;}
+.tol-tip{position: relative; right: 0; top: 5px; width: 10%;}
+.tol-tip i{margin-left: 10px;}
+.txt-size-label{text-align: right;}
+.txt-size-p{margin-top: 6px;}
+.selct-file-btn{border-radius: 10px; padding: 0; background: #f6f6f6; border-color: #ddd;}
+.selct-file-btn input{display:inline-block !important;}
+.selct-file-btn h3{font-size: 14px; font-weight: bold; color: #ccc;}
+.round-table{border-radius: 3px !important; border: 1px solid #ddd; padding: 10px;}
+.round-bck{border: 1px solid #82b8dd; border-radius: 3px !important; background: #abd8f7;}
+.tbl-brdrs th, .tbl-brdrs td, .tbl-brdrs tr, .tbl-brdrs>thead>tr>th, .tbl-brdrs>thead>tr>td{border:none;}
+.font-siz{font-size:12px;}
+.font-siz11 label{font-size:11px;}
+.txt-size-mrgn{margin-right: 8px !important; font-size: 12px !important; padding-left: 26px !important; margin-bottom:0 !important;}
+.page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a{font-size:14px !important;}
+.custom-td-size input, .custom-td-size textarea{width: 100%;}
+.slct-txts a{font-size:16px; color:#000; margin-right:20px; font-weight:bold;}
+.slct-txts a:hover{color:#0153a7; text-decoration:none;}
+.slctfile-box{background: #fff; border: 1px solid #c7c7c7; border-radius: 5px !important; padding: 2px;}
+.set-width{width: 33%; float: left; margin-right: 1px;}
+.mt-action-dot{display:inline-block;width:12px;height:12px;background-color:red;border-radius:50%!important;margin-left:5px;margin-right:5px}
+.menu-stng{margin-top:0 !important; margin-right:0 !important; background:#004b97 !important; width:100%; text-align: right; opacity:1 !important;}
+.chckbox span{ margin-top:10px !important;}
+.checkbox-box{border:1px solid #c2cad8; background:#fff; padding:10px;}
+.checkbox-box address, .checkbox-box address label{ margin-bottom:2px !important;}
+.funkyradio div {
+  clear: both;
+  overflow: hidden;
+}
+
+.funkyradio label {
+  width: 100%;
+  border-radius: 5px !important;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+  background: #f1f1f1;
+  color:#C2C2C2;
+}
+
+.funkyradio input[type="radio"]:empty,
+.funkyradio input[type="checkbox"]:empty {
+  display: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label,
+.funkyradio input[type="checkbox"]:empty ~ label {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 4.25em;
+  margin-top: 0.5em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.funkyradio input[type="radio"]:checked ~ label:before, .funkyradio input[type="checkbox"]:checked ~ label:before {
+    content: '\2714';
+    text-indent: .9em;
+    color: #333;
+    background-color: #ccc;
+}
+.funkyradio input[type="radio"]:empty ~ label:before,
+.funkyradio input[type="checkbox"]:empty ~ label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 3em;
+  background: #D1D3D4;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+  color: #777;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #C2C2C2;
+}
+
+.funkyradio input[type="radio"]:checked ~ label,
+.funkyradio input[type="checkbox"]:checked ~ label {
+  color: #000;
+}
+
+.funkyradio input[type="radio"]:checked ~ label:before,
+.funkyradio input[type="checkbox"]:checked ~ label:before {
+  text-indent: .9em;
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio input[type="radio"]:focus ~ label:before,
+.funkyradio input[type="checkbox"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #999;
+}
+
+.funkyradio-default input[type="radio"]:checked ~ label:before,
+.funkyradio-default input[type="checkbox"]:checked ~ label:before {
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio-primary input[type="radio"]:checked ~ label:before,
+.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+  content: '\2714';
+  color: #fff;
+  background-color: #337ab7;
+}
+
+.funkyradio-success input[type="radio"]:checked ~ label:before,
+.funkyradio-success input[type="checkbox"]:checked ~ label:before {
+  content: '\2714';
+  color: #fff;
+  background-color: #5cb85c;
+}
+.color-bg{background:#E1E5EC; width:70px; height:34px;}
+.box-width-size{width: 120px;}
+.kit-items-link a{ font-size:14px; font-weight:normal; color:#659be0; margin-right:20px; line-height:34px;}
+.kit-items-link a:hover{color:#337ab7; text-decoration:none;}
+.addkit-txt-heading{margin-top: -24px; background: #fff; float: left;}
+.green-txt{font-size: 20px; font-weight: normal; color: #178833;}
+.total-txt{font-size: 14px; text-transform: uppercase; font-weight: 600; color:#000;}
+.width6{width:6% !important;}
+.width12{width:12% !important;}
+.width40{width:40px !important;}
+@media (max-width:480px) {
+.small-menu-bck{ background:#5294d0;}
+.side-bar-toggle-menu {margin: 70px 6px 0 0 !important;}
+}
+.his-loader{ width:100%; height:100%;background-color:rgba(255, 255, 255, 0.9); position:fixed; z-index:999;}
+.his-loader-img{ position:fixed; top:37%; left:43%; width:150px;}
+.his-loader-img img{width:100%;}

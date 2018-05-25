@@ -1,0 +1,10 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<p>{{ title }}</p>
+<p>{{ message }}</p>
+<br/>
+<br/>
+<button type="button"  mat-raised-button
+        (click)="dialogRef.close(true)"><mat-icon>done</mat-icon></button>
+<button type="button"  mat-raised-button
+        (click)="dialogRef.close()">Cancel</button>

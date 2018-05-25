@@ -1,0 +1,164 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Manage Medical Services
+                        <div class="pull-right">
+                            <a routerLink="add">
+                                <button class="btn mt-sweetalert btn green-meadow">
+                                    <i class="fa fa-plus"></i> Add
+                                </button>
+                            </a>
+                            <button class="btn mt-sweetalert btn green-meadow"
+                                    (click)="refreshMedicalServices()">
+                                Refresh
+                            </button>
+                            <span><button class="btn btn-default btn-outline"> <i
+                                    class=" icon-clock"></i> Print </button></span>
+                        </div>
+                    </h4>
+
+                </div>
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <!--   <div class="col-md-2">
+                           <div class="form-group font-siz11">
+                               <label>Service ID:</label>
+                               <input type="number" min="0" step="1"
+                                      class="form-control" placeholder="Service Id"
+                                      [(ngModel)]="searchMSModel.searchServiceId">
+                           </div>
+                       </div>-->
+                    <div class="col-md-2">
+                        <div class="form-group font-siz11">
+                            <label>Service Name</label>
+                            <input type="text" class="form-control"
+                                   placeholder="Service Name"
+                                   [(ngModel)]="searchMSModel.searchServiceName">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group font-siz11">
+                            <label>Branch</label>
+                            <select class="form-control" name="branchDrp"
+                                    [ngModelOptions]="{standalone:true}"
+                                    [(ngModel)]="searchMSModel.searchBranchId">
+                                <option value="0">-- Select --</option>
+                                <option *ngFor="let branch of branches"
+                                        value={{branch.id}}>
+                                    {{branch.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group font-siz11">
+                            <label>Department:</label>
+                            <select class="form-control" name="dptDrp"
+                                    [ngModelOptions]="{standalone:true}"
+                                    [(ngModel)]="searchMSModel.departmentId">
+                                <option value="0">-- Select --</option>
+                                <option *ngFor="let department of departments"
+                                        value={{department.id}}>
+                                    {{department.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group font-siz11">
+                            <label>Service Fee:</label>
+                            <input type="number" min="0" step="1" class="form-control"
+                                   placeholder="Service Fee"
+                                   [(ngModel)]="searchMSModel.searchServiceFee">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mrgn-top24">
+                            <button type="button" class="btn blue"
+                                    (click)="searchByMedicalServiceParams(0)">Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-scrollable">
+                    <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                           id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
+                        <thead>
+                        <tr role="row" class="off-wite-bg">
+                            <!--<th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Id</th>-->
+                            <th width="24%" class="sorting_disabled" rowspan="1" colspan="1"> Title</th>
+                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Branch</th>
+                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Department</th>
+                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Fee</th>
+                            <th width="3%" class="sorting_disabled" rowspan="1" colspan="1"> Tax</th>
+                            <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Cost</th>
+                            <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
+                            <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
+                        </tr>
+                        <tr role="row" *ngFor="let item of dataMD">
+                            <!--<td class="font-green-dark"><strong>{{item.id}}</strong></td>-->
+                            <td class="font-green-dark"><strong>{{item.title}}</strong></td>
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.dptName}}</td>
+                            <td>{{item.fee}}</td>
+                            <td>{{item.taxRate}}</td>
+                            <td>{{item.cost}}</td>
+                            <td><span
+                                    [ngClass]="{'bg-green-meadow': item.status === true, 'bg-red-meadow': item.status === false}"
+                                    class="mt-action-dot"></span></td>
+                            <td>
+
+                                <button class="btn mt-sweetalert btn green-meadow"
+                                        routerLink="/dashboard/setting/medicalServices/edit/{{item.id}}">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-default btn-outline btn-sm"
+                                        (click)="deleteMedicalServices(item.id, item.dptId, item.branchId)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev">
+                            <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
+                               (click)="getPageWiseMedicalServicesFromServer(0)">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev">
+                            <a title="Prev" *ngIf="prePage"
+                               (click)="getPageWiseMedicalServicesFromServer(currPage - 1)">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWiseMedicalServicesFromServer(page)">{{page+1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getPageWiseMedicalServicesFromServer(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getPageWiseMedicalServicesFromServer(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p></p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

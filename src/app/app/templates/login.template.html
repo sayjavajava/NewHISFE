@@ -1,0 +1,105 @@
+<div class="app-content-body">
+    <div class="user-login-5">
+        <div class="row bs-reset">
+            <div class="col-md-6 bs-reset mt-login-5-bsfix">
+                <div class="login-bg" style="background-image:url(/public/images/bg/bg1.jpg)">
+                </div>
+            </div>
+            <div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
+                <div class="login-content">
+                    <h1>Welcome to HIS</h1>
+                    <p>Implementation of Hospital Information system helps in managing all hospital operational
+                        aspects.
+                        It supports in avoiding record management complexities and eliminate risk as well as work
+                        burden.
+                        Whatever your Health Care management requirements are, log in now to get the best available
+                        solution
+                    </p>
+                    <form id="loginForm" class="login-form" #form="ngForm">
+                        <div class="alert alert-danger" *ngIf="error">
+                            <button class="close" (click)="hideErrorMessage()"></button>
+                            <span>{{error}} </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="wrap-input100 validate-input">
+                                    <input class="form-control form-control-solid placeholder-no-fix form-group input100"
+                                           type="text" required (keyup.enter)="login(form)" [(ngModel)]="username"
+                                           name="username" #name="ngModel" pattern="[a-zA-Z0-9-_. @]+"/>
+                                    <span class="focus-input100" data-placeholder="Enter UserName or Email"></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="wrap-input100 validate-input">
+                                    <input class="form-control form-control-solid placeholder-no-fix form-group input100"
+                                           type="password" name="pass" required
+                                           (keyup.enter)="login(form)" [(ngModel)]="password"
+                                           #pass="ngModel"/>
+                                    <span class="focus-input100" data-placeholder="Password"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="rem-password">
+                                    <label class="rememberme mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox" name="remember" value="1"/> Remember me
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 text-right">
+                                <div class="forgot-password">
+                                    <a href="javascript:;" id="forget-password" class="forget-password">Forgot
+                                        Password?</a>
+                                </div>
+                                <button class="btn green" (click)="login(form)" type="button">Sign In</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- BEGIN FORGOT PASSWORD FORM -->
+                    <!--  <form class="forget-form" action="javascript:;" method="post">
+                          <h3 class="font-green">Forgot Password ?</h3>
+                          <p> Enter your e-mail address below to reset your password. </p>
+                          <div class="form-group">
+                              <input class="form-control placeholder-no-fix form-group" type="text" autocomplete="off"
+                                     placeholder="Email" name="email"/></div>
+                          <div class="form-actions">
+                              <button type="button" id="back-btn" class="btn green btn-outline">Back</button>
+                              <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
+                          </div>
+                      </form>-->
+                    <!-- END FORGOT PASSWORD FORM -->
+                </div>
+                <div class="login-footer">
+                    <div class="row bs-reset">
+                        <div class="col-xs-6 col-xs-offset-1">
+                            <div class="login-copyright">
+                                <p>Copyright &copy; HIS 2018</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-5 bs-reset">
+                            <!--<ul class="login-social">
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-dribbble"></i>
+                                    </a>
+                                </li>
+                            </ul>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
