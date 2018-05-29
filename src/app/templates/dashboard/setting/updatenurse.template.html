@@ -59,10 +59,12 @@
                                     </label>
                                     <div class="col-md-8">
 
-                                        <select class="form-control" (change)="getBranch($event.target.value)"  formControlName="primaryBranch" placeholder="Select Branch">
-                                            <option value="primary">Primary</option>
-                                            <option value="lahore">Lahore</option>
-                                            <option value="karachi">Karachi</option>
+                                        <select class="form-control"
+                                                (change)="getSelectedBranch($event.target.value)"
+                                                formControlName="primaryBranch" placeholder="Select Branch">
+                                            <option *ngFor="let br of branchesList" [value]="br.name">
+                                                {{br.name}}
+                                            </option>
 
                                         </select>
                                         <span class="text-danger" *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">Select Primary Branch</span>
@@ -80,18 +82,18 @@
 
                                     </div>
                                 </div>
-                                <div class="form-group" >
-                                    <label class="control-label col-md-4">Restrict Branches
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Visit Branches
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of RestrictBranch">
+                                                <div *ngFor="let item of branchesList">
                                                     <input type="checkbox" formControlName="restrictBranch"
-                                                           name={{item.name}}
-                                                           value="{{item.id}}"
-                                                           (change)="selectRestrictBranch($event,item)">
+                                                           name={{item}}
+                                                           value="{{item}}"
+                                                           (change)="selectVisitBranches($event,item)">
                                                     {{item.name}}
 
                                                 </div>
@@ -170,12 +172,13 @@
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <input type="checkbox" formControlName="otherDoctorDashBoard"><span></span>
-                                            <select class="form-control" formControlName="otherDashboard">
-                                                <option value="">Select...</option>
-                                                <option value="Category 1">Doctor</option>
-                                                <option value="Category 2">Doctor</option>
-                                                <option value="Category 3">Doctor</option>
-                                                <option value="Category 4">Doctor</option>
+                                            <select class="form-control"
+                                                    (change)="getSelectedDashboard($event.target.value)"
+                                                    formControlName="otherDashboard" placeholder="Dashoboard">
+                                                <option *ngFor="let br of primaryDoctor" [value]="br.userName">
+                                                    {{br.userName}}
+                                                </option>
+
                                             </select>
                                         </label>
                                     </div>
@@ -185,9 +188,15 @@
                                     <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
                                     <div class="col-md-8 col-xs-6">
-                                        <input type="text" formControlName="accountExpiry" class="form-control">
+                                        <mat-form-field class="mrgn-lft8">
+                                            <input matInput [matDatepicker]="from" placeholder="Expiry Date"
+                                                   formControlName="accountExpiry">
+                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                            <mat-datepicker #from></mat-datepicker>
+                                        </mat-form-field>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Active
                                     </label>
@@ -217,12 +226,12 @@
                                 <div class="col-md-8">
                                     <div class="checkbox-box" id="not-due">
                                         <address><label class="mt-checkbox mt-checkbox-outline">
-                                            <div *ngFor="let item of doctorsList">
+                                            <div *ngFor="let item of primaryDoctor">
                                                 <input type="checkbox" formControlName="nurseDutyWithDoctor"
                                                        name={{item.name}}
                                                        value="{{item.id}}"
                                                        (change)="dutyWithDoctor($event,item)">
-                                                {{item.name}}
+                                                {{item.userName}}
 
                                                 <span></span></div>
                                         </label>

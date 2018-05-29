@@ -141,6 +141,7 @@ var StaffComponent = (function () {
                 _this.requestService.deleteRequest('/user/delete/' + id).subscribe(function (data) {
                     if (data['responseCode'] === 'USER_DEL_SUC_01') {
                         _this.notificationService.success('User has been Deleted Successfully');
+                        _this.getUserFromServer(0);
                     }
                 }, function (error) {
                     _this.error = error.error.error_description;

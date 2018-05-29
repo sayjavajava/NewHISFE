@@ -7,6 +7,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {User} from '../../../model/User';
 import {Receptionist} from '../../../model/Receptionist';
 import {UserEditModel} from '../../../model/UserEditModel';
+import {AppConstants} from '../../../utils/app.constants';
 
 
 @Component({
@@ -16,14 +17,19 @@ import {UserEditModel} from '../../../model/UserEditModel';
 export class UpdateCashierComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService) {
-
+                this.allBranches();
+                this.allDoctors();
     }
     private sub: any;
     id: number;
     responseUser: any[];
+    branchesList:any=[];
+    primaryDoctor:any=[];
     error: any;
+    userSelected:string='doctor';
     userForm: FormGroup;
-    receptionist: UserEditModel;
+    cashier: UserEditModel;
+    selectedVisitBranches:any=[];
 
     ngOnInit() {
         this.createUserForm();
@@ -33,6 +39,35 @@ export class UpdateCashierComponent implements OnInit {
         });
         this.patchData();
     }
+    allDoctors() {
+        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseStatus'] === 'SUCCESS') {
+                        let data = response['responseData'];
+                        let userNameData = data;
+                        this.primaryDoctor = response['responseData'];
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                });
+
+    }
+    allBranches() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        this.branchesList = response['responseData'];
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+
 
     createUserForm() {
         this.userForm = this.fb.group({
@@ -53,7 +88,7 @@ export class UpdateCashierComponent implements OnInit {
                 'useReceptDashboard': '',
                 'shift2': '',
                 'vacation': '',
-                'otherDoctorDashboard': '',
+                'otherDoctorDashBoard': '',
                 'accountExpiry': [null],
                 'active': '',
                 'dateFrom': [null],
@@ -75,24 +110,24 @@ export class UpdateCashierComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
-
-            this.requestService.findById('/user/' + this.id).subscribe(
-                receptionist => {
+            this.requestService.findById(AppConstants.FETCH_USER_BY_ID + this.id).subscribe(
+                cashier => {
                     //  this.id = user.id;
                     this.userForm.patchValue({
-                        firstName: receptionist.profile.firstName,
-                        lastName: receptionist.profile.lastName,
-                        email: receptionist.email,
-                        homePhone: receptionist.profile.homePhone,
-                        cellPhone: receptionist.profile.cellPhone,
-                        sendBillingReport: receptionist.profile.sendBillingReport,
-                        userName: receptionist.username,
-                        active: receptionist.active,
-                        accountExpiry: receptionist.profile.accountExpiry,
-                        otherDashboard: receptionist.profile.otherDashboard,
-                        useReceptDashboard: receptionist.profile.useReceptDashBoard,
-                        otherDoctorDashBoard: receptionist.profile.otherDoctorDashBoard,
-                        primaryBranch: receptionist.primaryBranch
+                        firstName: cashier.profile.firstName,
+                        lastName: cashier.profile.lastName,
+                        email: cashier.email,
+                        homePhone: cashier.profile.homePhone,
+                        cellPhone: cashier.profile.cellPhone,
+                        sendBillingReport: cashier.profile.sendBillingReport,
+                        userName: cashier.userName,
+                        active: cashier.profile.active,
+                        accountExpiry: cashier.profile.accountExpiry,
+                        otherDashboard: cashier.profile.otherDashboard,
+                        useReceptDashboard: cashier.profile.useReceptDashBoard,
+                        otherDoctorDashBoard: cashier.profile.otherDoctorDashBoard,
+                        allowDiscount:cashier.profile.allowDiscount,
+                        primaryBranch: cashier.branch.name,
                     });
 
                 }, (error: any) => {
@@ -110,7 +145,7 @@ export class UpdateCashierComponent implements OnInit {
 
             console.log('i am cashier submit' + data);
             let cashier = new User({
-                userType: 'receptionist',
+                userType: 'cashier',
                 firstName: data.firstName,
                 lastName: data.lastName,
                 userName: data.userName,
@@ -123,7 +158,7 @@ export class UpdateCashierComponent implements OnInit {
                 accountExpiry: data.accountExpiry,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
-                selectedRestrictBranch: data.selectedRestrictBranch,
+                selectedVisitBranches: this.selectedVisitBranches,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
@@ -184,8 +219,38 @@ export class UpdateCashierComponent implements OnInit {
             }
         });
     }
+
+    selectVisitBranches(event: any, item: any) {
+        console.log(item);
+        if (event.target.checked) {
+            this.selectedVisitBranches.push(item.id);
+        }
+        else {
+            let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
+
+            let index = this.selectedVisitBranches.indexOf(updateItem);
+
+            this.selectedVisitBranches.splice(index, 1);
+        }
+        console.log(this.selectedVisitBranches);
+
+    }
+    findIndexToUpdate(type: any) {
+        return type.name === this;
+    }
+    getSelectedDashboard(value: any) {
+        if (value) {
+            this.userForm.controls['otherDashboard'].setValue(value);
+
+        }
+    }
     cancel(){
         this.router.navigate(['/dashboard/setting/staff']);
+    }
+    getSelectedBranch(value: any) {
+        if (value) {
+            this.userForm.controls['primaryBranch'].setValue(value);
+        }
     }
 
 }

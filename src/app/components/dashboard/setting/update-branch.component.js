@@ -26,6 +26,7 @@ var UpdateBranchComponent = (function () {
         this.notificationService = notificationService;
         this.amazingTimePickerService = amazingTimePickerService;
         this.examRooms = [];
+        this.branchesList = [];
         this.userSelected = 'doctor';
         this.pDoctor = [];
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
@@ -39,6 +40,7 @@ var UpdateBranchComponent = (function () {
         }, function (error) {
             _this.error = error.error.error;
         });
+        this.allBranches();
     }
     UpdateBranchComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -88,16 +90,27 @@ var UpdateBranchComponent = (function () {
             'allowOnlineScheduling': '',
         });
     };
+    UpdateBranchComponent.prototype.allBranches = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.BRANCHES_NAME)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BRANCH_SUC_01') {
+                _this.branchesList = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
     UpdateBranchComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
-            this.requestService.findById('/branch/' + this.id).subscribe(function (branch) {
+            this.requestService.findById(app_constants_1.AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(function (branch) {
                 //  this.id = user.id;
                 _this.branchForm.patchValue({
                     branchName: branch.branchName,
                     officeHoursStart: branch.officeHoursStart,
                     officeHoursEnd: branch.officeHoursEnd,
-                    noOfExamRooms: branch.noOfExamRooms,
+                    noOfExamRooms: branch.rooms,
                     state: branch.state,
                     city: branch.city,
                     primaryDoctor: branch.username,
@@ -147,6 +160,10 @@ var UpdateBranchComponent = (function () {
                 this.validateAllFormFields(this.branchForm);
             }
         }
+    };
+    UpdateBranchComponent.prototype.deleteField = function (index) {
+        this.examRooms = this.branchForm.get('examRooms');
+        this.examRooms.removeAt(index);
     };
     UpdateBranchComponent.prototype.prepareSaveBranch = function () {
         var formModel = this.branchForm.value;

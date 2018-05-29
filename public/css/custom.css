@@ -390,5 +390,5 @@ p, h3, h4{margin:0; padding:0;}
     transition:all 1s ease;
 }
 .active{
-    color:#f55 !important;
+    /*color:#f55 !important;*/
 }

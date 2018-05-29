@@ -168,6 +168,7 @@ export class StaffComponent implements OnInit {
                     this.requestService.deleteRequest('/user/delete/' + id).subscribe((data: Response) => {
                         if (data['responseCode'] === 'USER_DEL_SUC_01') {
                             this.notificationService.success('User has been Deleted Successfully');
+                            this.getUserFromServer(0);
 
                         }
                     }, error => {

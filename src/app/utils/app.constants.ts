@@ -16,15 +16,15 @@ export class AppConstants {
     public static CREATE_USER_ENDPOINT = '/user/add';
     public static USER_SEARCH = '/user/search/';
     public static FETCH_ALL_USERS_URI = '/user/';
-
+    public static FETCH_USER_BY_ID='/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     public static ADD_BRANCH = '/setting/branch/create';
     public static UPDATE_BRANCH = '/setting/update/';
-    public static DELETE_BRANCH_URI = '/setting/delete/';
+    public static DELETE_BRANCH_URI = '/setting/branch/delete/';
     public static BRANCHES_NAME = '/setting/branch/name';
     public static BRANCH_SEARCH = '/setting/branch/search/';
-    public static FETCH_ALL_BRANCHES_URL = '/setting/branch/all';
-    public static FETCH_BRANCHES_BY_ID = '/setting/branch/get';
+    public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';

@@ -217,6 +217,7 @@
                                                             Schediling
                                                             <span></span>
                                                         </label>
+                                                        <button class="btn-link" type="button" (click)="deleteField(i)">Delete</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -252,12 +253,12 @@
                                             <label class="control-label col-md-3">Billing Branch
                                             </label>
                                             <div class="col-md-9">
-                                                <select class="form-control" formControlName="billingBranch"
-                                                        (change)="getBillingBranch($event.target.value)">
-                                                    <option value="">Select...</option>
-                                                    <option value="lahore">Lahore</option>
-                                                    <option value="karachi">Karachi</option>
-                                                    <option value="jeddah">Jeddah</option>
+                                                <select class="form-control"
+                                                        (change)="getSelectedBranch($event.target.value)"
+                                                        formControlName="billingBranch" placeholder="Select Branch">
+                                                    <option *ngFor="let br of branchesList" [value]="br">
+                                                        {{br}}
+                                                    </option>
 
                                                 </select>
                                             </div>

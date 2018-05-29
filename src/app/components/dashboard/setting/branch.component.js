@@ -20,7 +20,6 @@ var app_constants_1 = require("../../../utils/app.constants");
 var searchBranch_1 = require("../../../model/searchBranch");
 var BranchComponent = (function () {
     function BranchComponent(requestService, router, notificationService, fb, matDialog, confirmationDialogService) {
-        var _this = this;
         this.requestService = requestService;
         this.router = router;
         this.notificationService = notificationService;
@@ -31,17 +30,8 @@ var BranchComponent = (function () {
         this.pageNo = 0;
         this.selectedRole = 'SUPER_ADMIN';
         this.branchesList = [];
-        this.requestService.getRequest(app_constants_1.AppConstants.BRANCHES_NAME)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'BRANCH_SUC_01') {
-                var data = response['responseData'];
-                var userNameData = data;
-                _this.branchesList = response['responseData'];
-                console.log(_this.branchesList);
-            }
-        }, function (error) {
-            _this.error = error.error.error;
-        });
+        this.allBranches();
+        this.allDepartments();
     }
     BranchComponent.prototype.ngOnInit = function () {
         this.searchForm = this.fb.group({
@@ -49,16 +39,36 @@ var BranchComponent = (function () {
             'department': [null],
             'description': [null]
         });
-        //   this.searchForm.controls['role'].setValue(this.default, {onlySelf: true});
         this.getBranchFromServer(0);
+    };
+    BranchComponent.prototype.allBranches = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.BRANCHES_NAME)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BRANCH_SUC_01') {
+                _this.branchesList = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    BranchComponent.prototype.allDepartments = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                _this.departments = response['responseData'];
+                console.log('dept' + _this.departments);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
     };
     BranchComponent.prototype.searchData = function (data) {
         var _this = this;
-        console.log('I am in ');
         if (this.searchForm.valid) {
-            console.log('Valid ');
             var searchUserObj = new searchBranch_1.SearchBranch(data.branch, data.department, data.description);
-            this.requestService.getRequest(app_constants_1.AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department + '&description=' + data.description)
+            this.requestService.getRequest(app_constants_1.AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'BRANCH_SUC_01') {
                     _this.nextPage = response['responseData']['nextPage'];
@@ -113,7 +123,6 @@ var BranchComponent = (function () {
                 var data = response['responseData']['data'];
             }
         }, function (error) {
-            //  this.HISUtilService.tokenExpired(error.error.error);
             _this.error = error.error.error;
         });
     };
@@ -142,6 +151,12 @@ var BranchComponent = (function () {
     BranchComponent.prototype.getSelectedBranch = function (value) {
         if (value) {
             this.searchForm.controls['branch'].setValue(value);
+        }
+    };
+    BranchComponent.prototype.getSelectedDepartment = function (value) {
+        if (value) {
+            console.log('sel:' + value);
+            this.searchForm.controls['department'].setValue(value);
         }
     };
     BranchComponent = __decorate([

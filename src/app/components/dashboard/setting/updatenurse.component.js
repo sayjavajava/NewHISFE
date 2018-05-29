@@ -16,6 +16,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var router_1 = require("@angular/router");
+var app_constants_1 = require("../../../utils/app.constants");
 var UpdateNurseComponent = (function () {
     function UpdateNurseComponent(route, router, requestService, fb, notificationService, amazingTimePickerService) {
         this.route = route;
@@ -26,31 +27,17 @@ var UpdateNurseComponent = (function () {
         this.amazingTimePickerService = amazingTimePickerService;
         this.selectedDepartment = [];
         this.selectedServices = [];
+        this.dutyWithDoctors = [];
         this.selectedVacationWeek = [];
-        this.selectedRestrictBranch = [];
+        this.selectedVisitBranches = [];
         this.selectedDoctors = [];
-        this.branches = [
-            { id: 1, name: 'Primary' },
-            { id: 2, name: 'Lahore' },
-            { id: 3, name: 'Karachi' },
-        ];
-        this.departmentList = [
-            { id: 1, name: 'Dermatolgy' },
-            { id: 2, name: 'Plasticsurgery' },
-            { id: 3, name: 'Dental' },
-            { id: 4, name: 'DkinCareLaser' },
-            { id: 5, name: 'MessageClinic' },
-        ];
-        this.RestrictBranch = [
-            { id: 1, name: 'PrimaryOffice' },
-            { id: 2, name: 'LahoreOffice' },
-            { id: 3, name: 'KarachiOffice' },
-        ];
-        this.doctorsList = [
-            { id: 1, name: 'Dr.Zahra' },
-            { id: 2, name: 'Dr.kobler' },
-            { id: 3, name: 'Dr.Nimra' },
-        ];
+        this.branchesList = [];
+        this.primaryDoctor = [];
+        this.departmentList = [];
+        this.userSelected = 'doctor';
+        this.allBranches();
+        this.allDepartments();
+        this.allDoctors();
     }
     UpdateNurseComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -60,6 +47,41 @@ var UpdateNurseComponent = (function () {
             console.log(_this.id);
         });
         this.patchData();
+    };
+    UpdateNurseComponent.prototype.allBranches = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BR_SUC_01') {
+                _this.branchesList = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    UpdateNurseComponent.prototype.allDoctors = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+            .subscribe(function (response) {
+            if (response['responseStatus'] === 'SUCCESS') {
+                var data = response['responseData'];
+                var userNameData = data;
+                _this.primaryDoctor = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    UpdateNurseComponent.prototype.allDepartments = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                _this.departmentList = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
     };
     UpdateNurseComponent.prototype.createUserForm = function () {
         this.userForm = this.fb.group({
@@ -89,7 +111,7 @@ var UpdateNurseComponent = (function () {
     UpdateNurseComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
-            this.requestService.findById('/user/' + this.id).subscribe(function (user) {
+            this.requestService.findById(app_constants_1.AppConstants.FETCH_USER_BY_ID + this.id).subscribe(function (user) {
                 //  this.id = user.id;
                 _this.userForm.patchValue({
                     firstName: user.profile.firstName,
@@ -98,15 +120,15 @@ var UpdateNurseComponent = (function () {
                     homePhone: user.profile.homePhone,
                     cellPhone: user.profile.cellPhone,
                     sendBillingReport: user.profile.sendBillingReport,
-                    userName: user.username,
-                    active: user.active,
+                    userName: user.userName,
+                    active: user.profile.active,
                     accountExpiry: user.profile.accountExpiry,
                     otherDashboard: user.profile.otherDashboard,
                     useReceptDashboard: user.profile.useReceptDashBoard,
                     otherDoctorDashBoard: user.profile.otherDoctorDashBoard,
                     managePatientRecords: user.profile.managePatientRecords,
                     managePatientInvoices: user.profile.managePatientInvoices,
-                    primaryBranch: user.primaryBranch,
+                    primaryBranch: user.branch.name,
                     interval: user.profile.check
                 });
             }, function (error) {
@@ -118,7 +140,6 @@ var UpdateNurseComponent = (function () {
     UpdateNurseComponent.prototype.addUser = function (data) {
         console.log('i am invalid');
         if (this.userForm.valid) {
-            console.log('i am doctor submit' + data);
             var nurse = new User_1.User({
                 userType: 'nurse',
                 firstName: data.firstName,
@@ -133,13 +154,13 @@ var UpdateNurseComponent = (function () {
                 accountExpiry: data.accountExpiry,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
-                selectedRestrictBranch: data.selectedRestrictBranch,
+                selectedVisitBranches: this.selectedVisitBranches,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 managePatientRecords: data.managePatientRecords,
                 managePatientInvoices: data.managePatientInvoices,
-                selectedDoctors: data.selectedDoctors,
-                selectedDepartment: data.selectedDepartment,
+                dutyWithDoctors: this.dutyWithDoctors,
+                selectedDepartment: this.selectedDepartment,
             });
             this.makeService(nurse);
         }
@@ -193,41 +214,46 @@ var UpdateNurseComponent = (function () {
     UpdateNurseComponent.prototype.selectDepartment = function (event, item) {
         console.log(event.checked);
         if (event.target.checked) {
-            this.selectedDepartment.push(item);
+            this.selectedDepartment.push(item.id);
         }
         else {
-            var updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.name);
+            var updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
             var index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
         console.log(this.selectedDepartment);
     };
-    UpdateNurseComponent.prototype.selectRestrictBranch = function (event, item) {
+    UpdateNurseComponent.prototype.selectVisitBranches = function (event, item) {
         console.log(item);
         if (event.target.checked) {
-            this.selectedRestrictBranch.push(item);
+            this.selectedVisitBranches.push(item.id);
         }
         else {
-            var updateItem = this.selectedRestrictBranch.find(this.findIndexToUpdate, item.name);
-            var index = this.selectedRestrictBranch.indexOf(updateItem);
-            this.selectedRestrictBranch.splice(index, 1);
+            var updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
+            var index = this.selectedVisitBranches.indexOf(updateItem);
+            this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedRestrictBranch);
-    };
-    UpdateNurseComponent.prototype.findIndexToUpdate = function (type) {
-        return type.name === this;
+        console.log(this.selectedVisitBranches);
     };
     UpdateNurseComponent.prototype.dutyWithDoctor = function (event, item) {
         console.log(item);
         if (event.target.checked) {
-            this.selectedDoctors.push(item);
+            this.dutyWithDoctors.push(item.id);
         }
         else {
-            var updateItem = this.selectedDoctors.find(this.findIndexToUpdate, item.name);
-            var index = this.selectedDoctors.indexOf(updateItem);
-            this.selectedDoctors.splice(index, 1);
+            var updateItem = this.dutyWithDoctors.find(this.findIndexToUpdate, item.id);
+            var index = this.dutyWithDoctors.indexOf(updateItem);
+            this.dutyWithDoctors.splice(index, 1);
         }
-        console.log(this.selectedDoctors);
+        console.log(this.dutyWithDoctors);
+    };
+    UpdateNurseComponent.prototype.findIndexToUpdate = function (type) {
+        return type.name === this;
+    };
+    UpdateNurseComponent.prototype.getSelectedDashboard = function (value) {
+        if (value) {
+            this.userForm.controls['otherDashboard'].setValue(value);
+        }
     };
     UpdateNurseComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);

@@ -34,12 +34,14 @@ export class UpdateBranchComponent implements OnInit {
                 },
                 (error: any) => {
                     this.error = error.error.error;
-                })
+                });
+        this.allBranches();
     }
 
     private sub: any;
     id: number;
     examRooms: any = [];
+    branchesList:any=[];
     officeHoursStart: string;
     officeHoursEnd: string;
     userSelected: string = 'doctor';
@@ -104,18 +106,31 @@ export class UpdateBranchComponent implements OnInit {
         });
     }
 
+    allBranches() {
+        this.requestService.getRequest(AppConstants.BRANCHES_NAME)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BRANCH_SUC_01') {
+                        this.branchesList = response['responseData'];
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
 
     public patchData() {
         if (this.id) {
 
-            this.requestService.findById('/branch/' + this.id).subscribe(
+            this.requestService.findById(AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(
                 branch => {
                     //  this.id = user.id;
                     this.branchForm.patchValue({
                         branchName: branch.branchName,
                         officeHoursStart: branch.officeHoursStart,
                         officeHoursEnd: branch.officeHoursEnd,
-                        noOfExamRooms: branch.noOfExamRooms,
+                        noOfExamRooms: branch.rooms,
                         state: branch.state,
                         city: branch.city,
                         primaryDoctor: branch.username,
@@ -177,6 +192,10 @@ export class UpdateBranchComponent implements OnInit {
                 this.validateAllFormFields(this.branchForm);
             }
         }
+    }
+    deleteField(index: number) {
+        this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        this.examRooms.removeAt(index);
     }
 
     prepareSaveBranch(): Branch {

@@ -1,41 +1,35 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {RequestsService} from '../../../services/requests.service';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from './PasswordValidation';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RequestsService} from '../../../services/requests.service';
+import {NotificationService} from '../../../services/notification.service';
 import {User} from '../../../model/User';
 import {Receptionist} from '../../../model/Receptionist';
-import {NotificationService} from '../../../services/notification.service';
+import {UserEditModel} from '../../../model/UserEditModel';
+import {AppConstants} from '../../../utils/app.constants';
 
 
 @Component({
-    selector: 'addreceptionist-component',
-    templateUrl: '../../../templates/dashboard/setting/addreceptionist.template.html',
+    selector: 'addcashier-component',
+    templateUrl: '../../../templates/dashboard/setting/update-receptionist.template.html',
 })
-export class AddReceptionistComponent implements OnInit {
-
+export class UpdateReceptionistComponent implements OnInit {
+    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
+                private fb: FormBuilder, private notificationService: NotificationService) {
+        this.allBranches();
+        this.allDoctors();
+    }
     private sub: any;
     id: number;
     responseUser: any[];
+    branchesList:any=[];
+    primaryDoctor:any=[];
     error: any;
+    userSelected:string='doctor';
     userForm: FormGroup;
-    receptionist: Receptionist;
-
-    firstNameError: string = 'First name is required';
-    userNameError: string = 'User name is required';
-    emailError: string = 'Email is required';
-    passwordError: string = 'Password is required';
-    confirmPasswordError: string = 'Password must be equal';
-    primaryBranchError: string = 'Select Primary Branch';
-    restrictBranchError: string = 'Select Restrict Branch';
-    departmentError: string = 'Select one or more Departments';
-    serviceError: string = 'Select one or more Services';
-    dutyTimmingShiftError: string = 'Select Duty Time';
-
-    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
-                private fb: FormBuilder, private notificationService: NotificationService) {
-
-    }
+    receptionist: UserEditModel;
+    selectedVisitBranches:any=[];
 
     ngOnInit() {
         this.createUserForm();
@@ -45,6 +39,35 @@ export class AddReceptionistComponent implements OnInit {
         });
         this.patchData();
     }
+    allDoctors() {
+        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseStatus'] === 'SUCCESS') {
+                        let data = response['responseData'];
+                        let userNameData = data;
+                        this.primaryDoctor = response['responseData'];
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                });
+
+    }
+    allBranches() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        this.branchesList = response['responseData'];
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+
 
     createUserForm() {
         this.userForm = this.fb.group({
@@ -65,7 +88,7 @@ export class AddReceptionistComponent implements OnInit {
                 'useReceptDashboard': '',
                 'shift2': '',
                 'vacation': '',
-                'otherDoctorDashboard': '',
+                'otherDoctorDashBoard': '',
                 'accountExpiry': [null],
                 'active': '',
                 'dateFrom': [null],
@@ -87,8 +110,7 @@ export class AddReceptionistComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
-
-            this.requestService.findById('/user/' + this.id).subscribe(
+            this.requestService.findById(AppConstants.FETCH_USER_BY_ID + this.id).subscribe(
                 receptionist => {
                     //  this.id = user.id;
                     this.userForm.patchValue({
@@ -98,13 +120,14 @@ export class AddReceptionistComponent implements OnInit {
                         homePhone: receptionist.profile.homePhone,
                         cellPhone: receptionist.profile.cellPhone,
                         sendBillingReport: receptionist.profile.sendBillingReport,
-                        userName: receptionist.username,
-                        active: receptionist.active,
+                        userName: receptionist.userName,
+                        active: receptionist.profile.active,
                         accountExpiry: receptionist.profile.accountExpiry,
                         otherDashboard: receptionist.profile.otherDashboard,
                         useReceptDashboard: receptionist.profile.useReceptDashBoard,
                         otherDoctorDashBoard: receptionist.profile.otherDoctorDashBoard,
-                        primaryBranch: receptionist.primaryBranch
+                        allowDiscount:receptionist.profile.allowDiscount,
+                        primaryBranch: receptionist.branch.name,
                     });
 
                 }, (error: any) => {
@@ -116,13 +139,12 @@ export class AddReceptionistComponent implements OnInit {
 
     }
 
-
-    addReceptionist(data: any) {
+    addCashier(data: any) {
         console.log('i am invalid');
         if (this.userForm.valid) {
 
-            console.log('i am receptionist submit' + data);
-            let receptionist = new User({
+            console.log('i am cashier submit' + data);
+            let cashier = new User({
                 userType: 'receptionist',
                 firstName: data.firstName,
                 lastName: data.lastName,
@@ -136,14 +158,14 @@ export class AddReceptionistComponent implements OnInit {
                 accountExpiry: data.accountExpiry,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
-                selectedRestrictBranch: data.selectedRestrictBranch,
+                selectedVisitBranches: this.selectedVisitBranches,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
 
             });
 
-            this.makeService(receptionist);
+            this.makeService(cashier);
 
         } else {
             console.log('i am else');
@@ -198,7 +220,37 @@ export class AddReceptionistComponent implements OnInit {
         });
     }
 
+    selectVisitBranches(event: any, item: any) {
+        console.log(item);
+        if (event.target.checked) {
+            this.selectedVisitBranches.push(item.id);
+        }
+        else {
+            let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
+
+            let index = this.selectedVisitBranches.indexOf(updateItem);
+
+            this.selectedVisitBranches.splice(index, 1);
+        }
+        console.log(this.selectedVisitBranches);
+
+    }
+    findIndexToUpdate(type: any) {
+        return type.name === this;
+    }
+    getSelectedDashboard(value: any) {
+        if (value) {
+            this.userForm.controls['otherDashboard'].setValue(value);
+
+        }
+    }
     cancel(){
         this.router.navigate(['/dashboard/setting/staff']);
     }
+    getSelectedBranch(value: any) {
+        if (value) {
+            this.userForm.controls['primaryBranch'].setValue(value);
+        }
+    }
+
 }
