@@ -38,6 +38,7 @@ export interface  IUser {
     selectedDepartment ?: any[];
     selectedServices ?: any[];
     selectedWorkingDays ?: any[];
+    departmentControl ?:any[];
     selectedDoctors ?: any[];
 
 }

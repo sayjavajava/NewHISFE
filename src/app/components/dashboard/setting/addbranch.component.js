@@ -109,17 +109,13 @@ var AddBranchComponent = (function () {
     AddBranchComponent.prototype.addBranch = function (data, value) {
         if (this.branchForm.valid) {
             console.log('i am  submit' + data);
-            /*let branch = new Branch(data.branchName, data.officeHoursStart, data.officeHoursEnd, data.noOfExamRooms
-                , data.state, data.city, data.primaryDoctor, data.zipCode, data.address, data.officePhone, data.fax, data.formattedAddress
-            );*/
             var branchObject = this.prepareSaveBranch();
             console.log('Tax: ' + branchObject.billingTaxID);
             if (value === 'done') {
                 this.requestService.postRequest(app_constants_1.AppConstants.ADD_BRANCH, branchObject)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
-                        //   this.responseBranch = response['responseData'];
-                        this.notificationService.success(' Branch has been Create Successfully');
+                        this.notificationService.success(' Branch has been Created Successfully');
                     }
                 }, function (error) {
                     //console.log(error.json());

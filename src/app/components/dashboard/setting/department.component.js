@@ -16,7 +16,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var user_shared_service_1 = require("../../../services/user.shared.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var notification_service_1 = require("../../../services/notification.service");
-var clinical_department_1 = require("../../../models/clinical-department");
+var clinical_department_1 = require("../../../model/clinical-department");
 var _ = require("lodash");
 var DepartmentComponent = (function () {
     function DepartmentComponent(requestsService, router, userSharedService, HISUtilService, notificationService) {

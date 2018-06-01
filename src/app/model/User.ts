@@ -40,7 +40,7 @@ export class User {
     selectedServices ?: any[];
     selectedWorkingDays ?: WorkingDays[];
     selectedDoctors ?: any[];
-
+    departmentControl ?:any[];
 
 
     constructor(user:IUser){
@@ -82,6 +82,7 @@ export class User {
 
         this.dateFrom=user.dateFrom;
         this.dateTo=user.dateTo;
+
 
     }
 }

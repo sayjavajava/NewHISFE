@@ -74,6 +74,13 @@ import {NotFound404SettingComponent} from "./components/dashboard/setting/not-fo
 import {EmailTemplateComponent} from "./components/dashboard/setting/email-template-component";
 import {AddEmailTemplateComponent} from "./components/dashboard/setting/add-email-template.component";
 import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-email-template.component";
+import {UpdateOrganizationComponent} from './components/dashboard/setting/update-organization.component';
+
+import { DemoUtilsModule } from '../demo-utils/module';
+import { CalendarModule } from 'angular-calendar';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {SchedulerComponent} from './components/scheduler.component';
+
 
 @NgModule({
     providers: [
@@ -105,6 +112,9 @@ import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-em
         MatNativeDateModule,
         MatInputModule,
         MatIconModule,
+        CalendarModule.forRoot(),
+        NgbModalModule.forRoot(),
+        DemoUtilsModule
 
 
     ],
@@ -116,7 +126,7 @@ import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-em
         DepartmentComponent,
         DashboardComponent,
         DoctorDashboardComponent,
-
+        SchedulerComponent,
 
         // Dashboard Components
         HeaderComponent,
@@ -160,6 +170,7 @@ import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-em
         AddStaffComponent,
         ErrordisplayComponent,
         ConfirmationdialogComponent,
+        UpdateOrganizationComponent
 
     ],
     bootstrap: [AppComponent]

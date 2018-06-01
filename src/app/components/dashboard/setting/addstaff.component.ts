@@ -8,7 +8,7 @@ import {RequestsService} from '../../../services/requests.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {NotificationService} from '../../../services/notification.service';
 import {CustomValidators} from './PasswordValidation';
-import {WorkingDays} from '../../../model/WorkingDays';
+
 
 
 @Component({
@@ -414,7 +414,7 @@ export class AddStaffComponent implements OnInit {
             (response: Response) => {
                 if (response['responseCode'] === 'USER_ADD_SUCCESS_01') {
                     this.responseUser = response['responseData'];
-                    this.notificationService.success(this.responseUser['username'] + '' + 'has been Create Successfully');
+                    this.notificationService.success(this.responseUser['username'] + '' + 'has been Created Successfully');
                     this.router.navigate(['/dashboard/setting/staff']);
                 }
             }

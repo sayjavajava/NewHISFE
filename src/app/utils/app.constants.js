@@ -68,6 +68,13 @@ var AppConstants = (function () {
     AppConstants.DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     AppConstants.MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
+    ////////////////////// Organization URLs ///////////////////////////////
+    AppConstants.ORGANIZATION_CREATE_URL = '/setting/organization/create';
+    AppConstants.TIMEZONE_FETCH_URL = '/setting/organization/timezone';
+    AppConstants.FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
+    AppConstants.FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
+    AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
+    AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

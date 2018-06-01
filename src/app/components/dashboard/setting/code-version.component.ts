@@ -3,9 +3,9 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {Router} from "@angular/router";
-import {ICDVersionModel} from "../../../models/ICDVersionModel";
-import {ICDCodeVersionModel} from "../../../models/ICDCodeVersionModel";
-import {ICDCodeModel} from "../../../models/ICDCodeModel";
+import {ICDVersionModel} from "../../../model/ICDVersionModel";
+import {ICDCodeVersionModel} from "../../../model/ICDCodeVersionModel";
+import {ICDCodeModel} from "../../../model/ICDCodeModel";
 import {AppConstants} from "../../../utils/app.constants";
 
 @Component({

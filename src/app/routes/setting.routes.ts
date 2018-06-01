@@ -23,6 +23,7 @@ import {AddEmailTemplateComponent} from "../components/dashboard/setting/add-ema
 import {EditEmailTemplateComponent} from "../components/dashboard/setting/edit-email-template.component";
 import {EditMedicalServiceComponent} from "../components/dashboard/setting/edit-medical-service.component";
 import {NotFound404SettingComponent} from "../components/dashboard/setting/not-found-404-setting.component";
+import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
 
 
 export const SettingRoutes: Routes = [
@@ -30,6 +31,7 @@ export const SettingRoutes: Routes = [
     {path: '', redirectTo: 'organization', pathMatch: 'full'},
     {path: 'organization', component: OrganizationComponent},
     {path: 'organization/add', component: AddOrganizationComponent},
+    {path:'organization/edit/:id',component: UpdateOrganizationComponent},
     {path: 'branch', component: BranchComponent},
     {path: 'branch/add', component: AddBranchComponent},
     {path: 'staff', component: StaffComponent},

@@ -24,11 +24,13 @@ var add_email_template_component_1 = require("../components/dashboard/setting/ad
 var edit_email_template_component_1 = require("../components/dashboard/setting/edit-email-template.component");
 var edit_medical_service_component_1 = require("../components/dashboard/setting/edit-medical-service.component");
 var not_found_404_setting_component_1 = require("../components/dashboard/setting/not-found-404-setting.component");
+var update_organization_component_1 = require("../components/dashboard/setting/update-organization.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
     { path: 'organization', component: organization_component_1.OrganizationComponent },
     { path: 'organization/add', component: addorganization_component_1.AddOrganizationComponent },
+    { path: 'organization/edit/:id', component: update_organization_component_1.UpdateOrganizationComponent },
     { path: 'branch', component: branch_component_1.BranchComponent },
     { path: 'branch/add', component: addbranch_component_1.AddBranchComponent },
     { path: 'staff', component: staff_component_1.StaffComponent },

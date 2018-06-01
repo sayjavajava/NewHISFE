@@ -14,7 +14,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
-var EmailTemplateModel_1 = require("../../../models/EmailTemplateModel");
+var EmailTemplateModel_1 = require("../../../model/EmailTemplateModel");
 var router_1 = require("@angular/router");
 var EditEmailTemplateComponent = (function () {
     function EditEmailTemplateComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {

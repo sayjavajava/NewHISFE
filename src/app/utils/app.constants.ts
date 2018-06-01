@@ -71,4 +71,12 @@ export class AppConstants {
     public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     public static FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     public static MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
+
+    ////////////////////// Organization URLs ///////////////////////////////
+    public static ORGANIZATION_CREATE_URL = '/setting/organization/create';
+    public static TIMEZONE_FETCH_URL = '/setting/organization/timezone';
+    public static FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
+    public static FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
+    public static FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
+    public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
 }
