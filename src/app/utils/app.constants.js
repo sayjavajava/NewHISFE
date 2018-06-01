@@ -22,7 +22,7 @@ var AppConstants = (function () {
     AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
-    AppConstants.UPDATE_BRANCH = '/setting/update/';
+    AppConstants.UPDATE_BRANCH = '/setting/branch/update/';
     AppConstants.DELETE_BRANCH_URI = '/setting/branch/delete/';
     AppConstants.BRANCHES_NAME = '/setting/branch/name';
     AppConstants.BRANCH_SEARCH = '/setting/branch/search/';

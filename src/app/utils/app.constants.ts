@@ -19,7 +19,7 @@ export class AppConstants {
     public static FETCH_USER_BY_ID='/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     public static ADD_BRANCH = '/setting/branch/create';
-    public static UPDATE_BRANCH = '/setting/update/';
+    public static UPDATE_BRANCH = '/setting/branch/update/';
     public static DELETE_BRANCH_URI = '/setting/branch/delete/';
     public static BRANCHES_NAME = '/setting/branch/name';
     public static BRANCH_SEARCH = '/setting/branch/search/';
