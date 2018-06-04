@@ -19,7 +19,7 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_1_1">
-                            <form action="#" id="form_sample_1" class="form-horizontal" novalidate>
+                            <form [formGroup]="orgForm"  class="form-horizontal">
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-7">
@@ -28,32 +28,89 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" name="name" data-required="1" value="Khalid"
+                                                    <input type="text" formControlName="firstName"
                                                            class="form-control"></div>
+                                                <span class="text-danger" *ngIf="orgForm.controls['firstName'].invalid && orgForm.controls['firstName'].touched">{{firstNameError}}</span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Last Name
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" name="name" data-required="1" value="Khalid"
+                                                    <input type="text" formControlName="lastName"
                                                            class="form-control"></div>
+                                            </div>
+
+                                            <div class="form-group" ngClass="displayFieldCss('userName')">
+                                                <label class="control-label col-md-4">Username
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="userName" class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['userName'].valid && orgForm.controls['userName'].touched">
+                                           <span *ngIf="orgForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
+                                           <span *ngIf="orgForm.controls['userName'].errors.required">userName is required </span>
+                                          <span *ngIf="orgForm.controls['userName'].errors.pattern">User name not valid</span>
+                                          </span>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Email Address
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="email" formControlName="email"
+                                                           class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['email'].valid && orgForm.controls['email'].touched">
+                                              <span *ngIf="orgForm.controls['email'].errors.required">Email is required </span>
+                                            <span *ngIf="orgForm.controls['email'].errors.pattern">Email is not valid</span>
+                                        </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Password
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="password" formControlName="password" class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['password'].valid && orgForm.controls['password'].touched">
+                                            <span *ngIf="orgForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
+                                           <span *ngIf="orgForm.controls['password'].errors.required">password is required </span>
+                                           </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Confirm Password
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="password" formControlName="confirmPassword" class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['confirmPassword'].valid && orgForm.controls['confirmPassword'].touched">pass must be match</span>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Company Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" name="name" data-required="1" value="Khalid"
+                                                    <input type="text" formControlName="companyName"
                                                            class="form-control"></div>
+                                                <span class="text-danger" *ngIf="!orgForm.controls['companyName'].valid && orgForm.controls['companyName'].touched">
+                                                <span *ngIf="orgForm.controls['companyName'].errors.minlength"> minimum 4 charachters</span>
+                                                <span *ngIf="orgForm.controls['companyName'].errors.required">Company Name is required </span>
+                                                <span *ngIf="orgForm.controls['companyName'].errors.pattern">Company name not valid</span>
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Specialty
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <select class="form-control" name="select">
+                                                    <select class="form-control" name="select" formControlName="specialty">
                                                         <option value="">Select...</option>
-                                                        <option value="Category 1">Cardiologist</option>
-                                                        <option value="Category 2">Cardiologist</option>
+                                                        <option value="cardiologist">Cardiologist</option>
+                                                        <option value="dermatologist">dermatologist</option>
                                                         <option value="Category 3">Cardiologist</option>
                                                         <option value="Category 4">Cardiologist</option>
                                                     </select>
@@ -63,12 +120,13 @@
                                                 <label class="control-label col-md-4">Timezone
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <select class="form-control" name="select">
-                                                        <option value="">Select...</option>
-                                                        <option value="Category 1">(GMT-0500) US/Eastern</option>
-                                                        <option value="Category 2">(GMT-0500) US/Eastern</option>
-                                                        <option value="Category 3">(GMT-0500) US/Eastern</option>
-                                                        <option value="Category 4">(GMT-0500) US/Eastern</option>
+                                                    <select class="form-control"
+                                                            (change)="getSelectedTimezone($event.target.value)"
+                                                            formControlName="timeZone" placeholder="Select Timezone">
+                                                            <option *ngFor="let tz of timezoneList" [value]="tz.name">
+                                                            {{tz.name}}
+                                                        </option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -76,30 +134,40 @@
                                                 <label class="control-label col-md-4">Website
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input name="home phone" type="text" value="" class="form-control">
+                                                    <input type="text" formControlName="website" class="form-control">
                                                 </div>
+                                                <span class="text-danger" *ngIf="!orgForm.controls['website'].valid && orgForm.controls['website'].touched">
+                                                    <span *ngIf="orgForm.controls['website'].errors.pattern">Web Url is not valid</span>
+                                        </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Home Phone
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input name="home phone" type="text" value="" class="form-control">
+                                                    <input  type="text"  formControlName="homePhone" class="form-control">
                                                 </div>
+                                                <span class="text-danger" *ngIf="!orgForm.controls['homePhone'].valid && orgForm.controls['homePhone'].touched">
+                                                    <span *ngIf="orgForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span>
+                                        </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Office Phone
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input name="home phone" type="text" value="(876) 785-6757"
+                                                    <input  type="text" formControlName="officePhone"
                                                            class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['officePhone'].valid && orgForm.controls['officePhone'].touched">
+                                                        <span *ngIf="orgForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span></span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Cell Phone
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input name="home phone" type="text" value="(876) 785-6757"
+                                                    <input type="text" formControlName="cellPhone"
                                                            class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['cellPhone'].valid && orgForm.controls['cellPhone'].touched">
+                                                        <span *ngIf="orgForm.controls['cellPhone'].errors.pattern">Phone Number is not valid</span></span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -107,8 +175,10 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" name="name" data-required="1" value=""
+                                                    <input type="text" formControlName="appointmentSerial"
                                                            class="form-control"></div>
+                                                <span class="text-danger" *ngIf="!orgForm.controls['appointmentSerial'].valid && orgForm.controls['appointmentSerial'].touched">
+                                                        <span *ngIf="orgForm.controls['appointmentSerial'].errors.required">Serial is required</span></span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Practice Business Logo
@@ -123,7 +193,7 @@
                                     </div>
                                     <div class="hr">
                                         <div class="col-md-12 text-center">
-                                            <button type="button" class="btn blue"> Update Entire Profile</button>
+                                            <button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'')"> Update Entire Profile</button>
                                         </div>
                                     </div>
                                 </div>
@@ -133,19 +203,21 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="hr"><h4 class="text-info">Calendar Settings</h4></div>
-                                    <form action="#" id="form_sample_1" class="form-horizontal" novalidate>
+                                    <form [formGroup]="generalForm"  class="form-horizontal">
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Default Branch
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-5">
-                                                <select class="form-control" name="select">
-                                                    <option value="">Select...</option>
-                                                    <option value="Category 1">Primary Office</option>
-                                                    <option value="Category 2">Primary Office</option>
-                                                    <option value="Category 3">Primary Office</option>
-                                                    <option value="Category 4">Primary Office</option>
-                                                </select></div>
+                                                <select class="form-control"
+                                                        (change)="getSelectedBranch($event.target.value)"
+                                                        formControlName="defaultBranch" placeholder="Select Branch">
+                                                        <option *ngFor="let br of branchesList" [value]="br.id">
+                                                        {{br.name}}
+                                                        </option>
+
+                                                </select>
+                                            </div>
                                             <div class="col-md-4">Default Branch on Calendar</div>
                                         </div>
                                         <div class="form-group">
@@ -153,24 +225,34 @@
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-5">
-                                                <select class="form-control" name="select">
-                                                    <option value="">Select...</option>
-                                                    <option value="Category 1">Primary Office</option>
-                                                    <option value="Category 2">Primary Office</option>
-                                                    <option value="Category 3">Primary Office</option>
-                                                    <option value="Category 4">Primary Office</option>
-                                                </select></div>
+                                                <select class="form-control"  (change)="getDurationOfExam($event.target.value)"  formControlName="durationOfExam">
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="40">40</option>
+                                                    <option value="50">50</option>
+                                                    <option value="60">60</option>
+
+                                                </select>
+                                            </div>
                                             <div class="col-md-4">Default duration of an exam in minutes</div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Duration of Follow-up
                                             </label>
                                             <div class="col-md-5">
-                                                <input type="text" name="name" data-required="1" value=""
-                                                       class="form-control"></div>
+                                                <mat-form-field class="mrgn-lft8">
+                                                    <input matInput [matDatepicker]="followUp" placeholder="Duration"
+                                                           formControlName="followUpExam">
+                                                    <mat-datepicker-toggle matSuffix [for]="followUp"></mat-datepicker-toggle>
+                                                    <mat-datepicker #followUp></mat-datepicker>
+                                                </mat-form-field>
+
+                                            </div>
                                             <div class="col-md-4">Default duration of a free folow-up exam in days</div>
                                         </div>
-                                        <div class="form-group">
+                                      <div class="form-group">
                                             <label class="control-label col-md-3">Appointment Default Color
                                             </label>
                                             <div class="col-md-5">
@@ -198,93 +280,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="hr"><h4 class="text-info">Appointment Settings</h4></div>
-                                        <div class="form-group no-margin no-padding">
-                                            <label class="control-label label-lineheight col-md-3">Hide Patients Phone
-                                                Numbers
-                                            </label>
-                                            <div class="col-md-9">
-                                                <label class="mt-checkbox mt-checkbox-outline">
-                                                    <input type="checkbox"> Hide patients phone number form the existing
-                                                    patients list
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group no-margin no-padding">
-                                            <label class="control-label label-lineheight col-md-3">Access to online
-                                                scheduling
-                                            </label>
-                                            <div class="col-md-9">
-                                                <label class="mt-checkbox mt-checkbox-outline">
-                                                    <input type="checkbox"> Allows patinets to self-schedule
-                                                    appointments via onpatient
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group no-margin no-padding">
-                                            <label class="control-label label-lineheight col-md-3">Patent's Statement
-                                                Balance
-                                            </label>
-                                            <div class="col-md-9">
-                                                <label class="mt-checkbox mt-checkbox-outline">
-                                                    <input type="checkbox"> Show patient's statement balance.
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group no-margin no-padding">
-                                            <label class="control-label label-lineheight col-md-3">Patent's Current
-                                                Balance
-                                            </label>
-                                            <div class="col-md-9">
-                                                <label class="mt-checkbox mt-checkbox-outline">
-                                                    <input type="checkbox"> Show patient's current balance.
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group no-margin no-padding">
-                                            <label class="control-label label-lineheight col-md-3">Appointment Count
-                                            </label>
-                                            <div class="col-md-9">
-                                                <label class="mt-checkbox mt-checkbox-outline">
-                                                    <input type="checkbox"> Show patient's appointments count
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group no-margin no-padding">
-                                            <label class="control-label label-lineheight col-md-3">Auto Appointment
-                                                Reminders
-                                            </label>
-                                            <div class="col-md-9">
-                                                <label class="mt-checkbox mt-checkbox-outline">
-                                                    <input type="checkbox"> Enable to automatically choose the patient's
-                                                    most recent reminders when scheduling appointments
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group no-margin no-padding">
-                                            <label class="control-label label-lineheight col-md-3">Automated Patient
-                                                Emails
-                                            </label>
-                                            <div class="col-md-9">
-                                                <label class="mt-checkbox mt-checkbox-outline">
-                                                    <input type="checkbox"> Automatically send emails to patients with
-                                                    link to Patient Portal after next visit
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
+
                                     </form>
                                 </div>
                             </div>
                             <div class="hr">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn blue"> Save</button>
+                                    <button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'done')"> Save</button>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +326,7 @@
                             </div>
                             <div class="hr">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn blue"> Update Entire Profile</button>
+                                    <button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'done')"> Update Entire Profile</button>
                                 </div>
                             </div>
                         </div>

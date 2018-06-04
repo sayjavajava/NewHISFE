@@ -3,7 +3,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {Router} from "@angular/router";
-import {ICDVersionModel} from "../../../models/ICDVersionModel";
+import {ICDVersionModel} from "../../../model/ICDVersionModel";
 import {NgForm} from "@angular/forms";
 import {AppConstants} from "../../../utils/app.constants";
 

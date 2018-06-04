@@ -26,6 +26,7 @@ import {NotFound404SettingComponent} from "../components/dashboard/setting/not-f
 import {UpdateNurseComponent} from '../components/dashboard/setting/updatenurse.component';
 import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedoctor.component';
 import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
+import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
 
 
 export const SettingRoutes: Routes = [
@@ -33,6 +34,7 @@ export const SettingRoutes: Routes = [
     {path: '', redirectTo: 'organization', pathMatch: 'full'},
     {path: 'organization', component: OrganizationComponent},
     {path: 'organization/add', component: AddOrganizationComponent},
+    {path:'organization/edit/:id',component: UpdateOrganizationComponent},
     {path: 'branch', component: BranchComponent},
     {path: 'branch/add', component: AddBranchComponent},
     {path: 'staff', component: StaffComponent},

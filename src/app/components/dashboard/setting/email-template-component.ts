@@ -3,7 +3,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {EmailTemplateModel} from "../../../models/EmailTemplateModel";
+import {EmailTemplateModel} from "../../../model/EmailTemplateModel";
 import {Router} from "@angular/router";
 
 

@@ -3,10 +3,10 @@ import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {MedicalService} from '../../../models/medical-service';
-import {Branch} from "../../../models/branch";
-import {ClinicalDepartment} from "../../../models/clinical-department";
-import {MedicalServiceSearchModel} from "../../../models/MedicalServiceSearchModel";
+import {MedicalService} from '../../../model/medical-service';
+import {Branch} from "../../../model/branch";
+import {ClinicalDepartment} from "../../../model/clinical-department";
+import {MedicalServiceSearchModel} from "../../../model/MedicalServiceSearchModel";
 
 
 @Component({

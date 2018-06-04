@@ -27,11 +27,13 @@ var not_found_404_setting_component_1 = require("../components/dashboard/setting
 var updatenurse_component_1 = require("../components/dashboard/setting/updatenurse.component");
 var updatedoctor_component_1 = require("../components/dashboard/setting/updatedoctor.component");
 var updatecashier_component_1 = require("../components/dashboard/setting/updatecashier.component");
+var update_organization_component_1 = require("../components/dashboard/setting/update-organization.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
     { path: 'organization', component: organization_component_1.OrganizationComponent },
     { path: 'organization/add', component: addorganization_component_1.AddOrganizationComponent },
+    { path: 'organization/edit/:id', component: update_organization_component_1.UpdateOrganizationComponent },
     { path: 'branch', component: branch_component_1.BranchComponent },
     { path: 'branch/add', component: addbranch_component_1.AddBranchComponent },
     { path: 'staff', component: staff_component_1.StaffComponent },

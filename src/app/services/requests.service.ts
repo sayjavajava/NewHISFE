@@ -3,7 +3,7 @@ import 'rxjs/Rx';
 import {Router} from '@angular/router';
 import {AppConfig} from '../configuration/app.config';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {RoleAndPermission} from '../models/roleandpermission';
+import {RoleAndPermission} from '../model/roleandpermission';
 import {Receptionist} from '../model/Receptionist';
 import {Observable} from "rxjs/Observable";
 

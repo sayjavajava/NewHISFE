@@ -3,7 +3,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {ServiceTax} from '../../../models/service-tax';
+import {ServiceTax} from '../../../model/service-tax';
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 

@@ -162,11 +162,9 @@ export class BranchComponent implements OnInit {
 
                         }
                     }, error => {
-                        this.error = error.error.error_description;
                         this.notificationService.error('ERROR', 'User Unable to Delete ');
 
                     });
-                    // this.router.navigate(['/home']);
                 }
             });
     }

@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var notification_service_1 = require("../../../services/notification.service");
-var ICDCodeModel_1 = require("../../../models/ICDCodeModel");
+var ICDCodeModel_1 = require("../../../model/ICDCodeModel");
 var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var router_1 = require("@angular/router");

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
-import {ICDCodeModel} from '../../../models/ICDCodeModel';
+import {ICDCodeModel} from '../../../model/ICDCodeModel';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {Router} from '@angular/router';

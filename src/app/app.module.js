@@ -71,6 +71,11 @@ var not_found_404_setting_component_1 = require("./components/dashboard/setting/
 var email_template_component_1 = require("./components/dashboard/setting/email-template-component");
 var add_email_template_component_1 = require("./components/dashboard/setting/add-email-template.component");
 var edit_email_template_component_1 = require("./components/dashboard/setting/edit-email-template.component");
+var update_organization_component_1 = require("./components/dashboard/setting/update-organization.component");
+var module_1 = require("../demo-utils/module");
+var angular_calendar_1 = require("angular-calendar");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var scheduler_component_1 = require("./components/scheduler.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -107,6 +112,9 @@ var AppModule = (function () {
                 material_1.MatNativeDateModule,
                 material_1.MatInputModule,
                 material_1.MatIconModule,
+                angular_calendar_1.CalendarModule.forRoot(),
+                ng_bootstrap_1.NgbModalModule.forRoot(),
+                module_1.DemoUtilsModule
             ],
             declarations: [
                 // App Components
@@ -116,6 +124,7 @@ var AppModule = (function () {
                 department_component_1.DepartmentComponent,
                 dashboard_component_1.DashboardComponent,
                 doctor_dashboard_component_1.DoctorDashboardComponent,
+                scheduler_component_1.SchedulerComponent,
                 // Dashboard Components
                 header_component_1.HeaderComponent,
                 navigation_component_1.NavigationComponent,
@@ -157,6 +166,7 @@ var AppModule = (function () {
                 addstaff_component_1.AddStaffComponent,
                 errordisplay_component_1.ErrordisplayComponent,
                 confirmationdialog_component_1.ConfirmationdialogComponent,
+                update_organization_component_1.UpdateOrganizationComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

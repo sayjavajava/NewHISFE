@@ -42,6 +42,7 @@ export class User {
     selectedDoctors ?: any[];
     departmentControl ?:any[];
     dutyWithDoctors ?: any[];
+    departmentControl ?:any[];
 
 
     constructor(user:IUser){

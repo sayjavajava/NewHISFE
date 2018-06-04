@@ -6,7 +6,7 @@ import {UserSharedService} from '../../../services/user.shared.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {NotificationService} from '../../../services/notification.service';
 import {NgForm} from '@angular/forms';
-import {ClinicalDepartment} from '../../../models/clinical-department';
+import {ClinicalDepartment} from '../../../model/clinical-department';
 import * as _ from 'lodash'
 
 @Component({

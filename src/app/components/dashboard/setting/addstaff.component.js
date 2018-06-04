@@ -396,7 +396,7 @@ var AddStaffComponent = (function () {
         this.requestsService.postRequest('/user/add', user).subscribe(function (response) {
             if (response['responseCode'] === 'USER_ADD_SUCCESS_01') {
                 _this.responseUser = response['responseData'];
-                _this.notificationService.success(_this.responseUser['username'] + '' + 'has been Create Successfully');
+                _this.notificationService.success(_this.responseUser['username'] + '' + 'has been Created Successfully');
                 _this.router.navigate(['/dashboard/setting/staff']);
             }
         }, function (error) {

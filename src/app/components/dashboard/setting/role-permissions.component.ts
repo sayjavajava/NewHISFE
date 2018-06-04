@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {RequestsService} from '../../../services/requests.service';
-import {RoleAndPermission} from '../../../models/roleandpermission';
+import {RoleAndPermission} from '../../../model/roleandpermission';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
 
