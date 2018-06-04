@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
-                    <h4 class="text-info">Update Receiptionist</h4>
+                    <h4 class="text-info">Update Cashier</h4>
                 </div>
                 <form [formGroup]="userForm" class="form-horizontal">
                     <div class="form-body">
@@ -52,31 +52,19 @@
                                     </label>
                                     <div class="col-md-8">
 
-                                        <select class="form-control" (change)="getBranch($event.target.value)"
+                                        <select class="form-control"
+                                                (change)="getSelectedBranch($event.target.value)"
                                                 formControlName="primaryBranch" placeholder="Select Branch">
-                                            <option value="primary">Primary</option>
-                                            <option value="lahore">Lahore</option>
-                                            <option value="karachi">Karachi</option>
+                                            <option *ngFor="let br of branchesList" [value]="br.name">
+                                                {{br.name}}
+                                            </option>
 
                                         </select>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">{{primaryBranchError}}</span>
                                     </div>
                                 </div>
-                                <!-- <div class="form-group">
-                                     <label class="control-label col-md-4">Role
-                                         <span class="required" aria-required="true"> * </span>
-                                     </label>
-                                     <div class="col-md-8">
-                                         <select class="form-control" (change)="goTo($event.target.value)">
-                                             <option value="receptionist">Receptionist</option>
-                                             <option value="doctor">Doctor</option>
-                                             <option value="nurse">Nurse</option>
-                                             <option value="cashier">Cashier</option>
 
-                                         </select>
-                                     </div>
-                                 </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Email Address
                                         <span class="required" aria-required="true"> * </span>
@@ -89,36 +77,35 @@
 
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Restrict Branches
+                                <div class="form-group" >
+                                    <label class="control-label col-md-4">Visit Branches
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of RestrictBranch">
+                                                <div *ngFor="let item of branchesList">
                                                     <input type="checkbox" formControlName="restrictBranch"
-                                                           name={{item.name}}
-                                                           value="{{item.id}}"
-                                                           (change)="selectRestrictBranch($event,item)">
+                                                           name={{item}}
+                                                           value="{{item}}"
+                                                           (change)="selectVisitBranches($event,item)">
                                                     {{item.name}}
 
                                                 </div>
                                             </label>
                                             </address>
                                         </div>
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
+                                        <span class="text-danger" *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
 
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div  class="form-group">
                                     <label class="control-label col-md-4">Allow Discount
                                     </label>
                                     <div class="col-md-8">
-                                        <input name="email" type="text" formControlName="allowDiscount"
-                                               class="form-control"></div>
+                                        <input formControlName="allowDiscount" type="checkbox" class="form-control"></div>
                                 </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -153,51 +140,60 @@
                                                    formControlName="useReceptDashboard"><span></span></label>
                                     </div>
                                 </div>
+                                <!-- <div class="form-group">
+                                     <label class="control-label col-md-4">Use Doctor Dashboard?</label>
+                                     <div class="col-md-8">
+                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                             <input type="checkbox"><span></span></label>
+                                     </div>
+                                 </div>-->
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Use Doctor Dashboard?</label>
-                                    <div class="col-md-8">
+                                    <label class="control-label col-md-4 col-xs-6">Other Doctor Dashboard?</label>
+                                    <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"><span></span></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Other Doctor Dashboard?</label>
-                                    <div class="col-md-8">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"><span></span>
-                                            <select class="form-control" name="select">
-                                                <option value="">Select...</option>
-                                                <option value="Category 1">Doctor</option>
-                                                <option value="Category 2">Doctor</option>
-                                                <option value="Category 3">Doctor</option>
-                                                <option value="Category 4">Doctor</option>
+                                            <input type="checkbox" formControlName="otherDoctorDashBoard"><span></span>
+                                            <select class="form-control"
+                                                    (change)="getSelectedDashboard($event.target.value)"
+                                                    formControlName="otherDashboard" placeholder="Dashoboard">
+                                                <option *ngFor="let br of primaryDoctor" [value]="br.userName">
+                                                    {{br.userName}}
+                                                </option>
+
                                             </select>
                                         </label>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Account Expiry
+                                    <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
-                                    <div class="col-md-8">
-                                        <input type="text" formControlName="accountExpiry" name="" class="form-control">
+                                    <div class="col-md-8 col-xs-6">
+                                        <mat-form-field class="mrgn-lft8">
+                                            <input matInput [matDatepicker]="from" placeholder="Expiry Date"
+                                                   formControlName="accountExpiry">
+                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                            <mat-datepicker #from></mat-datepicker>
+                                        </mat-form-field>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Active
+                                    <label class="control-label col-md-4 col-xs-6">Active
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <input type="checkbox" formControlName="active"><span></span></label>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                         <div class="hr">
                             <div class="col-md-12 text-center">
-                                <button (click)="addReceptionist(userForm.value)" class="btn blue"><i
+                                <button (click)="addCashier(userForm.value)" class="btn blue"><i
                                         class="fa fa-plus"></i> Create
                                 </button>
-                                <button (click)="cancel()" class="btn btn-default"><i
+                                <button (click)="cancel()" class="btn default"><i
                                         class="fa fa-cancel"></i> Cancel
                                 </button>
 

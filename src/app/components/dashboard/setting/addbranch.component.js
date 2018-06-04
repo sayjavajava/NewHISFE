@@ -27,6 +27,7 @@ var AddBranchComponent = (function () {
         this.examRooms = [];
         this.userSelected = 'doctor';
         this.pDoctor = [];
+        this.branchesList = [];
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
@@ -38,6 +39,7 @@ var AddBranchComponent = (function () {
         }, function (error) {
             _this.error = error.error.error;
         });
+        this.allBranches();
     }
     AddBranchComponent.prototype.ngOnInit = function () {
         this.createBranchMendatoryForm();
@@ -106,28 +108,29 @@ var AddBranchComponent = (function () {
         };
         return saveBranchModel;
     };
+    AddBranchComponent.prototype.allBranches = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.BRANCHES_NAME)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BRANCH_SUC_01') {
+                _this.branchesList = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
     AddBranchComponent.prototype.addBranch = function (data, value) {
         if (this.branchForm.valid) {
-            console.log('i am  submit' + data);
-            /*let branch = new Branch(data.branchName, data.officeHoursStart, data.officeHoursEnd, data.noOfExamRooms
-                , data.state, data.city, data.primaryDoctor, data.zipCode, data.address, data.officePhone, data.fax, data.formattedAddress
-            );*/
             var branchObject = this.prepareSaveBranch();
-            console.log('Tax: ' + branchObject.billingTaxID);
             if (value === 'done') {
                 this.requestService.postRequest(app_constants_1.AppConstants.ADD_BRANCH, branchObject)
                     .subscribe(function (response) {
-                    if (response['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
-                        //   this.responseBranch = response['responseData'];
-                        this.notificationService.success(' Branch has been Create Successfully');
+                    if (data['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
+                        this.notificationService.success('Branch is Created Successfully');
                     }
                 }, function (error) {
-                    //console.log(error.json());
-                    this.error = error.error.error_description;
                     this.notificationService.error('ERROR', 'Branch is not Created');
                 });
-                // this.makeService(receptionist);
-                console.log(this.branchForm.value);
             }
         }
         else {
@@ -137,7 +140,6 @@ var AddBranchComponent = (function () {
     AddBranchComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
         Object.keys(formGroup.controls).forEach(function (field) {
-            //console.log(field);
             var control = formGroup.get(field);
             if (control instanceof forms_1.FormControl) {
                 control.markAsTouched({ onlySelf: true });
@@ -158,6 +160,10 @@ var AddBranchComponent = (function () {
         for (var i = 0; i < no; i++) {
             this.examRooms.push(this.createExamRoom());
         }
+    };
+    AddBranchComponent.prototype.deleteField = function (index) {
+        this.examRooms = this.branchForm.get('examRooms');
+        this.examRooms.removeAt(index);
     };
     AddBranchComponent.prototype.getOfficeHoursStart = function () {
         var _this = this;
@@ -202,9 +208,15 @@ var AddBranchComponent = (function () {
     };
     AddBranchComponent.prototype.getNoOfExamRooms = function (value) {
         if (value) {
+            // this.examRooms=[];
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);
+        }
+    };
+    AddBranchComponent.prototype.getSelectedBranch = function (value) {
+        if (value) {
+            this.billingForm.controls['billingBranch'].setValue(value);
         }
     };
     AddBranchComponent = __decorate([

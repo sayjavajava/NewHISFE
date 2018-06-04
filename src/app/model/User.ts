@@ -14,7 +14,7 @@ export class User {
     primaryBranch: string;
     interval: number;
     email: string;
-    selectedRestrictBranch: any[];
+    selectedVisitBranches: any[];
     otherDashboard: string;
     sendBillingReport: boolean;
     useReceptDashboard: boolean;
@@ -40,7 +40,8 @@ export class User {
     selectedServices ?: any[];
     selectedWorkingDays ?: WorkingDays[];
     selectedDoctors ?: any[];
-
+    departmentControl ?:any[];
+    dutyWithDoctors ?: any[];
 
 
     constructor(user:IUser){
@@ -64,10 +65,10 @@ export class User {
         this.accountExpiry=user.accountExpiry;
         this.active=user.active;
         this.interval=user.interval;
-
+        this.dutyWithDoctors=user.dutyWithDoctors;
 
         this.selectedServices=user.selectedServices;
-        this.selectedRestrictBranch=user.selectedRestrictBranch;
+        this.selectedVisitBranches=user.selectedVisitBranches;
         this.selectedDoctors=user.selectedDoctors;
         this.firstShiftFromTime=user.firstShiftFromTime;
         this.firstShiftToTime=user.firstShiftToTime;
@@ -82,6 +83,7 @@ export class User {
 
         this.dateFrom=user.dateFrom;
         this.dateTo=user.dateTo;
+
 
     }
 }

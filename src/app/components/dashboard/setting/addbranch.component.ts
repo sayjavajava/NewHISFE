@@ -22,6 +22,7 @@ export class AddBranchComponent implements OnInit {
     officeHoursEnd: string;
     userSelected: string = 'doctor';
     pDoctor: any = [];
+    branchesList: any = [];
     responseBranch: Branch;
     billingForm: FormGroup;
     scheduleForm: FormGroup;
@@ -42,7 +43,8 @@ export class AddBranchComponent implements OnInit {
                 },
                 (error: any) => {
                     this.error = error.error.error;
-                })
+                });
+        this.allBranches();
 
     }
 
@@ -115,11 +117,7 @@ export class AddBranchComponent implements OnInit {
             officePhone: formModel.officePhone,
             fax: formModel.fax,
             formattedAddress: formModel.formattedAddress,
-
-
             examRooms: secretLairsDeepCopy,
-
-
             billingBranch: billingModel.billingBranch,
             billingName: billingModel.billingName,
             billingTaxID: billingModel.billingTaxID,
@@ -131,33 +129,34 @@ export class AddBranchComponent implements OnInit {
         return saveBranchModel;
     }
 
+    allBranches() {
+        this.requestService.getRequest(AppConstants.BRANCHES_NAME)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BRANCH_SUC_01') {
+                        this.branchesList = response['responseData'];
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+
     addBranch(data: any, value: string) {
 
         if (this.branchForm.valid) {
-            console.log('i am  submit' + data);
-            /*let branch = new Branch(data.branchName, data.officeHoursStart, data.officeHoursEnd, data.noOfExamRooms
-                , data.state, data.city, data.primaryDoctor, data.zipCode, data.address, data.officePhone, data.fax, data.formattedAddress
-            );*/
-
             let branchObject = this.prepareSaveBranch();
-            console.log('Tax: ' + branchObject.billingTaxID);
-
-
             if (value === 'done') {
                 this.requestService.postRequest(AppConstants.ADD_BRANCH, branchObject)
                     .subscribe(function (response) {
-                        if (response['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
-                            //   this.responseBranch = response['responseData'];
-                            this.notificationService.success(' Branch has been Create Successfully');
+                        if (data['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
+                            this.notificationService.success('Branch is Created Successfully');
 
                         }
                     }, function (error) {
-                        //console.log(error.json());
-                        this.error = error.error.error_description;
                         this.notificationService.error('ERROR', 'Branch is not Created');
                     });
-                // this.makeService(receptionist);
-                console.log(this.branchForm.value);
             }
 
         } else {
@@ -167,7 +166,6 @@ export class AddBranchComponent implements OnInit {
 
     validateAllFormFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(field => {
-            //console.log(field);
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
                 control.markAsTouched({onlySelf: true});
@@ -189,15 +187,19 @@ export class AddBranchComponent implements OnInit {
         for (var i = 0; i < no; i++) {
             this.examRooms.push(this.createExamRoom());
         }
-      }
+    }
+
+    deleteField(index: number) {
+        this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        this.examRooms.removeAt(index);
+    }
 
     getOfficeHoursStart() {
         const amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(time => {
             this.officeHoursStart = time;
             this.branchForm.controls['officeHoursStart'].setValue(time);
-
-        })
+            })
     }
 
     getOfficeHoursEnd() {
@@ -242,19 +244,16 @@ export class AddBranchComponent implements OnInit {
 
     getNoOfExamRooms(value: any) {
         if (value) {
+            // this.examRooms=[];
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);
         }
     }
 
-
-    /*    billingName: formModel.billingName,
-        billingBranch: formModel.billingBranch,
-        billingTaxID: formModel.billingTaxID,
-
-        showBranchOnline: formModel.showBranchOnline,
-        allowOnlineSchedulingInBranch: formModel.allowOnlineSchedulingInBranch,*/
-
-
+    getSelectedBranch(value: any) {
+        if (value) {
+            this.billingForm.controls['billingBranch'].setValue(value);
+        }
+    }
 }

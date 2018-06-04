@@ -8,7 +8,7 @@ import {NurseComponent} from '../components/dashboard/setting/nurse.component';
 import {ReceptionistComponent} from '../components/dashboard/setting/receptionist.component';
 import {BranchComponent} from '../components/dashboard/setting/branch.component';
 import {RolePermissionsComponent} from '../components/dashboard/setting/role-permissions.component';
-import {AddReceptionistComponent} from '../components/dashboard/setting/addreceptionist.component';
+import {UpdateReceptionistComponent} from '../components/dashboard/setting/update-receptionist.component';
 import {AddBranchComponent} from '../components/dashboard/setting/addbranch.component';
 import {OrganizationComponent} from '../components/dashboard/setting/organization.component';
 import {AddOrganizationComponent} from '../components/dashboard/setting/addorganization.component';
@@ -23,6 +23,9 @@ import {AddEmailTemplateComponent} from "../components/dashboard/setting/add-ema
 import {EditEmailTemplateComponent} from "../components/dashboard/setting/edit-email-template.component";
 import {EditMedicalServiceComponent} from "../components/dashboard/setting/edit-medical-service.component";
 import {NotFound404SettingComponent} from "../components/dashboard/setting/not-found-404-setting.component";
+import {UpdateNurseComponent} from '../components/dashboard/setting/updatenurse.component';
+import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedoctor.component';
+import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
 
 
 export const SettingRoutes: Routes = [
@@ -38,7 +41,11 @@ export const SettingRoutes: Routes = [
     {path: 'department', component: DepartmentComponent},
     {path: 'cashier', component: CashierComponent},
     {path: 'receptionist', component: ReceptionistComponent},
-    {path: 'receptionist/add', component: AddReceptionistComponent},
+    {path: 'nurse/edit/:id', component: UpdateNurseComponent},
+    {path: 'doctor/edit/:id', component: UpdatedoctorComponent},
+    {path: 'cashier/edit/:id', component: UpdateCashierComponent},
+    {path: 'receptionist/edit/:id', component: UpdateReceptionistComponent},
+    {path: 'branch/edit/:id', component: UpdateBranchComponent},
     {path: 'code', component: CodeComponent},
     {path: 'version', component: VersionComponent},
     {path: 'codeVersion', component: CodeVersionComponent},

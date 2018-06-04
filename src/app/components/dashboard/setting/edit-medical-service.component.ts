@@ -8,7 +8,7 @@ import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {MedicalService} from '../../../models/medical-service';
 import {NgForm} from '@angular/forms';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({

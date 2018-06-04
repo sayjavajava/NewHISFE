@@ -144,14 +144,13 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
 
-                                                <div class="mrgn-top8 col-md-5">
+                                                <div class="col-md-9">
 
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
 
-                                                    <input class="col-md-4" type="time"
+                                                    <input class="col-md-6" type="time"
                                                            formControlName="officeHoursStart"
                                                            value="{{officeHoursStart}}">
-
 
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
@@ -166,11 +165,11 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
 
-                                                <div class="mrgn-top8 col-md-5">
+                                                <div class="col-md-9">
 
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
 
-                                                    <input class="col-md-4" type="time" formControlName="officeHoursEnd"
+                                                    <input class="col-md-6" type="time" formControlName="officeHoursEnd"
                                                            value="{{officeHoursEnd}}">
 
                                                 </div>
@@ -180,7 +179,6 @@
 
                                         </span>
                                             </div>
-
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-3">Number of Exam Rooms
@@ -216,8 +214,11 @@
                                                             Schediling
                                                             <span></span>
                                                         </label>
+                                                        <button  type="button" class="btn-link" (click)="deleteField(i)">Delete</button>
                                                     </div>
                                                 </div>
+
+
                                             </div>
 
                                             <!-- Chosen name: {{
@@ -252,11 +253,11 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <select class="form-control"
-                                                        (change)="getBillingBranch($event.target.value)">
-                                                    <option value="">Select...</option>
-                                                    <option value="lahore">Lahore</option>
-                                                    <option value="karachi">Karachi</option>
-                                                    <option value="jeddah">Jeddah</option>
+                                                        (change)="getSelectedBranch($event.target.value)"
+                                                        formControlName="billingBranch" placeholder="Select Branch">
+                                                    <option *ngFor="let br of branchesList" [value]="br">
+                                                        {{br}}
+                                                    </option>
 
                                                 </select>
                                             </div>

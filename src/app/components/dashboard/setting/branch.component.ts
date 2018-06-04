@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {RequestsService} from '../../../services/requests.service';
 import {Router} from '@angular/router';
@@ -9,8 +9,8 @@ import {AppConstants} from '../../../utils/app.constants';
 import {SearchBranch} from '../../../model/searchBranch';
 
 @Component({
-  selector: 'branch-component',
-  templateUrl: '../../../templates/dashboard/setting/branch.template.html',
+    selector: 'branch-component',
+    templateUrl: '../../../templates/dashboard/setting/branch.template.html',
 })
 export class BranchComponent implements OnInit {
     nextPage: number;
@@ -18,34 +18,23 @@ export class BranchComponent implements OnInit {
     currPage: number;
     pages: number[] = [];
     data: any[];
+    departments: any[];
     error: any;
     pageNo: number = 0;
-    branch:any;
-    selectedRole:string='SUPER_ADMIN';
-    branchesList:any=[];
+    branch: any;
+    selectedRole: string = 'SUPER_ADMIN';
+    branchesList: any = [];
 
     searchForm: FormGroup;
     responseUser: any[];
 
 
     constructor(private requestService: RequestsService, private router: Router,
-                private notificationService: NotificationService,private fb:FormBuilder,
-                private matDialog:MatDialog,private confirmationDialogService:ConformationDialogService
-                ) {
-        this.requestService.getRequest(AppConstants.BRANCHES_NAME)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'BRANCH_SUC_01') {
-                        let data = response['responseData'];
-                        let userNameData = data;
-                        this.branchesList = response['responseData'];
-                        console.log(this.branchesList);
-                    }
-                },
-                (error: any) => {
-                    this.error = error.error.error;
-                })
-
+                private notificationService: NotificationService, private fb: FormBuilder,
+                private matDialog: MatDialog, private confirmationDialogService: ConformationDialogService
+    ) {
+        this.allBranches();
+        this.allDepartments();
 
     }
 
@@ -55,18 +44,42 @@ export class BranchComponent implements OnInit {
             'department': [null],
             'description': [null]
         });
-     //   this.searchForm.controls['role'].setValue(this.default, {onlySelf: true});
         this.getBranchFromServer(0);
     }
 
+    allBranches() {
+        this.requestService.getRequest(AppConstants.BRANCHES_NAME)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BRANCH_SUC_01') {
+                        this.branchesList = response['responseData'];
+                        }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+
+    allDepartments() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                        this.departments = response['responseData'];
+                        console.log('dept' + this.departments);
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+
+    }
 
     searchData(data: SearchBranch) {
-        console.log('I am in ');
         if (this.searchForm.valid) {
-            console.log('Valid ');
             let searchUserObj = new SearchBranch(data.branch, data.department, data.description);
 
-            this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo+'?branch='+data.branch +'&department='+data.department +'&description='+data.description)
+            this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
                 .subscribe(
                     (response: Response) => {
 
@@ -83,13 +96,13 @@ export class BranchComponent implements OnInit {
 
                         this.error = error.error.error;
                     })
-        }else {this.validateAllFormFields(this.searchForm)}
+        } else {
+            this.validateAllFormFields(this.searchForm)
+        }
     }
 
 
-
-    validateAllFormFields(formGroup: FormGroup)
-    {
+    validateAllFormFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(field => {
             //console.log(field);
             const control = formGroup.get(field);
@@ -101,8 +114,7 @@ export class BranchComponent implements OnInit {
         });
     }
 
-    isFieldValid(field: string)
-    {
+    isFieldValid(field: string) {
         return !this.searchForm.get(field).valid && this.searchForm.get(field).touched;
     }
 
@@ -113,8 +125,7 @@ export class BranchComponent implements OnInit {
         };
     }
 
-    getBranchFromServer(page: number)
-    {
+    getBranchFromServer(page: number) {
         if (page > 0) {
             page = page;
 
@@ -129,12 +140,11 @@ export class BranchComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.data = response['responseData']['data'];
-                        let data=response['responseData']['data'];
+                        let data = response['responseData']['data'];
 
-                        }
+                    }
                 },
                 (error: any) => {
-                    //  this.HISUtilService.tokenExpired(error.error.error);
                     this.error = error.error.error;
                 }
             );
@@ -161,13 +171,20 @@ export class BranchComponent implements OnInit {
             });
     }
 
-       updateBranch(id: any) {
+    updateBranch(id: any) {
         this.router.navigate(['/dashboard/setting/branch/edit/', id]);
-        }
+    }
 
-        getSelectedBranch(value: any) {
+    getSelectedBranch(value: any) {
         if (value) {
             this.searchForm.controls['branch'].setValue(value);
+        }
+    }
+
+    getSelectedDepartment(value: any) {
+        if (value) {
+            console.log('sel:'+ value);
+            this.searchForm.controls['department'].setValue(value);
         }
     }
 

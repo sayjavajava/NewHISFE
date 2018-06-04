@@ -51,7 +51,7 @@ var updatecashier_component_1 = require("./components/dashboard/setting/updateca
 var role_permissions_component_1 = require("./components/dashboard/setting/role-permissions.component");
 var updatedoctor_component_1 = require("./components/dashboard/setting/updatedoctor.component");
 var updatenurse_component_1 = require("./components/dashboard/setting/updatenurse.component");
-var addreceptionist_component_1 = require("./components/dashboard/setting/addreceptionist.component");
+var update_receptionist_component_1 = require("./components/dashboard/setting/update-receptionist.component");
 var addbranch_component_1 = require("./components/dashboard/setting/addbranch.component");
 var material_1 = require("@angular/material");
 var notification_service_1 = require("./services/notification.service");
@@ -141,7 +141,7 @@ var AppModule = (function () {
                 role_permissions_component_1.RolePermissionsComponent,
                 updatedoctor_component_1.UpdatedoctorComponent,
                 updatenurse_component_1.UpdateNurseComponent,
-                addreceptionist_component_1.AddReceptionistComponent,
+                update_receptionist_component_1.UpdateReceptionistComponent,
                 addbranch_component_1.AddBranchComponent,
                 organization_component_1.OrganizationComponent,
                 addorganization_component_1.AddOrganizationComponent,

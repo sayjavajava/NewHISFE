@@ -10,7 +10,6 @@
                              <option value="doctor">Doctor</option>
                              <option value="nurse">Nurse</option>
                              <option value="cashier">Cashier</option>
-
                          </select></div>-->
                 </div>
 
@@ -89,29 +88,18 @@
                                     </label>
                                     <div class="col-md-8">
 
-                                        <select class="form-control" (change)="getBranch($event.target.value)"  formControlName="primaryBranch" placeholder="Select Branch">
-                                            <option value="primary">Primary</option>
-                                            <option value="lahore">Lahore</option>
-                                            <option value="karachi">Karachi</option>
+                                        <select class="form-control"
+                                                (change)="getSelectedBranch($event.target.value)"
+                                                formControlName="primaryBranch" placeholder="Select Branch">
+                                            <option *ngFor="let br of branchesList" [value]="br.name">
+                                                {{br.name}}
+                                            </option>
 
                                         </select>
                                         <span class="text-danger" *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">{{primaryBranchError}}</span>
                                     </div>
                                 </div>
-                                <!-- <div class="form-group">
-                                     <label class="control-label col-md-4">Role
-                                         <span class="required" aria-required="true"> * </span>
-                                     </label>
-                                     <div class="col-md-8">
-                                         <select class="form-control" (change)="goTo($event.target.value)">
-                                             <option value="receptionist">Receptionist</option>
-                                             <option value="doctor">Doctor</option>
-                                             <option value="nurse">Nurse</option>
-                                             <option value="cashier">Cashier</option>
 
-                                         </select>
-                                     </div>
-                                 </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Email Address
                                         <span class="required" aria-required="true"> * </span>
@@ -126,17 +114,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group" ngClass="displayFieldCss">
-                                    <label class="control-label col-md-4">Restrict Branches
+                                    <label class="control-label col-md-4">Visit Branches
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of RestrictBranch">
+                                                <div *ngFor="let item of branchesList">
                                                     <input type="checkbox" formControlName="restrictBranch"
-                                                           name={{item.name}}
-                                                           value="{{item.id}}"
-                                                           (change)="selectRestrictBranch($event,item)">
+                                                           name={{item}}
+                                                           value="{{item}}"
+                                                           (change)="selectVisitBranches($event,item)">
                                                     {{item.name}}
 
                                                 </div>
@@ -231,7 +219,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Use Recept Dashboard?</label>
+                                    <label class="control-label col-md-4 col-xs-6">Use Receipt Dashboard?</label>
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <input type="checkbox"
@@ -244,12 +232,13 @@
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <input type="checkbox" formControlName="otherDoctorDashBoard"><span></span>
-                                            <select class="form-control" formControlName="otherDashboard">
-                                                <option value="">Select...</option>
-                                                <option value="Category 1">Doctor</option>
-                                                <option value="Category 2">Doctor</option>
-                                                <option value="Category 3">Doctor</option>
-                                                <option value="Category 4">Doctor</option>
+                                            <select class="form-control"
+                                                    (change)="getSelectedDashboard($event.target.value)"
+                                                    formControlName="otherDashboard" placeholder="Dashoboard">
+                                                <option *ngFor="let br of primaryDoctor" [value]="br.userName">
+                                                    {{br.userName}}
+                                                </option>
+
                                             </select>
                                         </label>
                                     </div>
@@ -259,7 +248,12 @@
                                     <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
                                     <div class="col-md-8 col-xs-6">
-                                        <input type="text" formControlName="accountExpiry" class="form-control">
+                                        <mat-form-field class="mrgn-lft8">
+                                            <input matInput [matDatepicker]="from" placeholder="Expiry Date"
+                                                   formControlName="accountExpiry">
+                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                            <mat-datepicker #from></mat-datepicker>
+                                        </mat-form-field>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -308,7 +302,7 @@
                                                            name={{item.name}}
                                                            value="{{item.id}}"
                                                            (change)="selectServices($event,item)">
-                                                    {{item.name}}
+                                                    {{item.title}}
 
 
                                                 </div></label>
@@ -323,7 +317,7 @@
                                     <label class="control-label col-md-4">Allow Discount
                                     </label>
                                     <div class="col-md-8">
-                                        <input formControlName="allowDiscount" type="text" class="form-control"></div>
+                                        <input formControlName="allowDiscount" type="checkbox" class="form-control"></div>
                                 </div>
 
 
@@ -334,12 +328,12 @@
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of doctorsList">
+                                                <div *ngFor="let item of primaryDoctor">
                                                     <input type="checkbox" formControlName="nurseDutyWithDoctor"
                                                            name={{item.name}}
                                                            value="{{item.id}}"
                                                            (change)="dutyWithDoctor($event,item)">
-                                                    {{item.name}}
+                                                    {{item.userName}}
 
                                                     <span></span></div>
                                             </label>
@@ -375,10 +369,10 @@
 
                                         <div class="mrgn-top8">
 
-                                            <a href="#" class="col-md-2 width12"><button type="button" (click)="secondShiftFrom()">From</button></a>
+                                            <span class="col-md-2 width12"><button type="button" (click)="secondShiftFrom()">From</button></span>
                                             <input class="col-md-4" type="time"  value="{{secondShiftFromTime}}">
                                             &emsp;
-                                            <a href="#" class="col-md-2 width12"> <button type="button" (click)="secondShiftTo()">To</button></a>
+                                            <span class="col-md-2 width12"> <button type="button" (click)="secondShiftTo()">To</button></span>
                                             <input class="col-md-4" type="time" value="{{secondShiftToTime}}">
                                         </div>
 
@@ -393,77 +387,77 @@
 
                         </div>
                         <div class="row">
-                        <div class="col-md-6">
-                            <div *ngIf="dutytimmingshift1" class="form-group">
-                                <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
-                                    <span class="required" aria-required="true"> * </span>
-                                </label>
-                                <div class="col-md-8 col-xs-12">
-                                    <div class="width6 pull-left no-padding"><label
-                                            class="mt-checkbox pdng-lft18 mt-checkbox-outline chckbox">
-                                        <input type="checkbox" formControlName="shift1" class=""><span></span></label>
-                                    </div>
-                                    <div class="mrgn-top8">
-                                        <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftFrom()">From</button></a>
-                                        <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
-                                        &emsp;
-                                        <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftTo()">To</button></a>
-                                        <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
-                                    </div>
-                                </div>
-                                <span class="text-danger" *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched" >Duty Shift is required</span>
-                            </div>
-
-                            <div *ngIf="vacation" class="form-group">
-                                <label class="control-label col-md-4 col-xs-12"> Vacation:
-                                </label>
-                                <div class="col-md-8  col-xs-12">
-                                    <div class="width6 pull-left no-padding"><label
-                                            class="mt-checkbox mt-checkbox-outline chckbox">
-                                        <input type="checkbox" formControlName="vacation"
-                                               class=""><span></span></label></div>
-                                    <!--<div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
-                                        From
-                                    </div>-->
-                                    <div class=" col-md-6 col-xs-5 pull-left">
-                                        <mat-form-field class="mrgn-lft8">
-                                            <input matInput [matDatepicker]="from" placeholder="From"
-                                                   formControlName="dateFrom">
-                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                                            <mat-datepicker #from></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>&emsp;
-
-                                    <div class=" col-md-4 col-xs-4 pull-left">
-                                        <mat-form-field style="margin-left: -18px;">
-                                            <input matInput [matDatepicker]="to" placeholder="To"
-                                                   formControlName="dateTo">
-                                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
-                                            <mat-datepicker #to></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="vacationweek" class="form-group">
-                                <label class="control-label col-md-4 col-xs-12"> Working Days:
-                                </label>
-                                <div class="col-md-8 col-xs-12 text-center">
-
-                                    <div *ngFor="let item of workingDays" class="">
-
-                                        <div class=" col-md-1 col-width25 col-xs-3">
-                                            <input type="checkbox" class="form-control spinner"
-                                                   value="{{item.id}}"
-                                                   (change)="selectWorkingDays($event,item)">
-                                            {{item.name}}
+                            <div class="col-md-6">
+                                <div *ngIf="dutytimmingshift1" class="form-group">
+                                    <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8 col-xs-12">
+                                        <div class="width6 pull-left no-padding"><label
+                                                class="mt-checkbox pdng-lft18 mt-checkbox-outline chckbox">
+                                            <input type="checkbox" formControlName="shift1" class=""><span></span></label>
                                         </div>
+                                        <div class="mrgn-top8">
+                                            <span class="col-md-2 width12"><button type="button" (click)="firstShiftFrom()">From</button></span>
+                                            <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
+                                            &emsp;
+                                            <span class="col-md-2 width12"><button type="button" (click)="firstShiftTo()">To</button></span>
+                                            <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
+                                        </div>
+                                    </div>
+                                    <span class="text-danger" *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched" >Duty Shift is required</span>
+                                </div>
 
+                                <div *ngIf="vacation" class="form-group">
+                                    <label class="control-label col-md-4 col-xs-12"> Vacation:
+                                    </label>
+                                    <div class="col-md-8  col-xs-12">
+                                        <div class="width6 pull-left no-padding"><label
+                                                class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <input type="checkbox" formControlName="vacation"
+                                                   class=""><span></span></label></div>
+                                        <!--<div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
+                                            From
+                                        </div>-->
+                                        <div class=" col-md-6 col-xs-5 pull-left">
+                                            <mat-form-field class="mrgn-lft8">
+                                                <input matInput [matDatepicker]="from" placeholder="From"
+                                                       formControlName="dateFrom">
+                                                <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                                <mat-datepicker #from></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>&emsp;
+
+                                        <div class=" col-md-4 col-xs-4 pull-left">
+                                            <mat-form-field style="margin-left: -18px;">
+                                                <input matInput [matDatepicker]="to" placeholder="To"
+                                                       formControlName="dateTo">
+                                                <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                                                <mat-datepicker #to></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
                                 </div>
+                                <div *ngIf="vacationweek" class="form-group">
+                                    <label class="control-label col-md-4 col-xs-12"> Working Days:
+                                    </label>
+                                    <div class="col-md-8 col-xs-12 text-center">
+
+                                        <div *ngFor="let item of workingDays" class="">
+
+                                            <div class=" col-md-1 col-width25 col-xs-3">
+                                                <input type="checkbox" class="form-control spinner"
+                                                       value="{{item.id}}"
+                                                       (change)="selectWorkingDays($event,item)">
+                                                {{item.name}}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
-
-
-                        </div>
                         </div>
                         <div class="hr">
                             <div class="col-md-12 text-center">

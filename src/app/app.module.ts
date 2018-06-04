@@ -44,7 +44,7 @@ import {UpdateCashierComponent} from "./components/dashboard/setting/updatecashi
 import {RolePermissionsComponent} from "./components/dashboard/setting/role-permissions.component";
 import {UpdatedoctorComponent} from "./components/dashboard/setting/updatedoctor.component";
 import {UpdateNurseComponent} from "./components/dashboard/setting/updatenurse.component";
-import {AddReceptionistComponent} from "./components/dashboard/setting/addreceptionist.component";
+import {UpdateReceptionistComponent} from "./components/dashboard/setting/update-receptionist.component";
 import {AddBranchComponent} from "./components/dashboard/setting/addbranch.component";
 import {
     MatButtonModule,
@@ -144,7 +144,7 @@ import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-em
         RolePermissionsComponent,
         UpdatedoctorComponent,
         UpdateNurseComponent,
-        AddReceptionistComponent,
+        UpdateReceptionistComponent,
         AddBranchComponent,
         OrganizationComponent,
         AddOrganizationComponent,

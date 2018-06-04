@@ -38,7 +38,7 @@ var RolePermissionsComponent = (function () {
     RolePermissionsComponent.prototype.createForm = function () {
         this.roleForm = this.fb.group({
             'name': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(5), forms_1.Validators.maxLength(30)])],
-            'description': [null, forms_1.Validators.required],
+            'description': [null],
             'active': ''
         });
     };
@@ -66,7 +66,6 @@ var RolePermissionsComponent = (function () {
                 _this.notificationService.error(response['responseMessage']);
             }
         }, function (error) {
-            //console.log(error.json());
             _this.notificationService.error(error.error.error_description);
             _this.hisUtilService.tokenExpired(error.error);
         });

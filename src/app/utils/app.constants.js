@@ -19,14 +19,15 @@ var AppConstants = (function () {
     AppConstants.CREATE_USER_ENDPOINT = '/user/add';
     AppConstants.USER_SEARCH = '/user/search/';
     AppConstants.FETCH_ALL_USERS_URI = '/user/';
+    AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
-    AppConstants.UPDATE_BRANCH = '/setting/update/';
-    AppConstants.DELETE_BRANCH_URI = '/setting/delete/';
+    AppConstants.UPDATE_BRANCH = '/setting/branch/update/';
+    AppConstants.DELETE_BRANCH_URI = '/setting/branch/delete/';
     AppConstants.BRANCHES_NAME = '/setting/branch/name';
     AppConstants.BRANCH_SEARCH = '/setting/branch/search/';
-    AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/all';
-    AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get';
+    AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
