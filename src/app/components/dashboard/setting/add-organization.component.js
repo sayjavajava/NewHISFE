@@ -35,12 +35,12 @@ var AddOrganizationComponent = (function () {
     };
     AddOrganizationComponent.prototype.createProfileForm = function () {
         this.orgForm = this.fb.group({
-            'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
+            'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
-            'companyName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
-            'password': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+            'companyName': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'password': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'confirmPassword': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'homePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'cellPhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
@@ -162,13 +162,15 @@ var AddOrganizationComponent = (function () {
     };
     AddOrganizationComponent = __decorate([
         core_1.Component({
-            selector: 'addorganization-component',
-            templateUrl: '../../../templates/dashboard/setting/addorganization.template.html',
+            selector: 'add-organization-component',
+            templateUrl: '../../../templates/dashboard/setting/add-organization.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.Router, forms_1.FormBuilder, requests_service_1.RequestsService, notification_service_1.NotificationService,
+        __metadata("design:paramtypes", [router_1.Router, forms_1.FormBuilder,
+            requests_service_1.RequestsService,
+            notification_service_1.NotificationService,
             amazing_time_picker_1.AmazingTimePickerService])
     ], AddOrganizationComponent);
     return AddOrganizationComponent;
 }());
 exports.AddOrganizationComponent = AddOrganizationComponent;
-//# sourceMappingURL=addorganization.component.js.map
+//# sourceMappingURL=add-organization.component.js.map

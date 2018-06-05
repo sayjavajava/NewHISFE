@@ -12,7 +12,7 @@ var role_permissions_component_1 = require("../components/dashboard/setting/role
 var update_receptionist_component_1 = require("../components/dashboard/setting/update-receptionist.component");
 var addbranch_component_1 = require("../components/dashboard/setting/addbranch.component");
 var organization_component_1 = require("../components/dashboard/setting/organization.component");
-var addorganization_component_1 = require("../components/dashboard/setting/addorganization.component");
+var add_organization_component_1 = require("../components/dashboard/setting/add-organization.component");
 var addstaff_component_1 = require("../components/dashboard/setting/addstaff.component");
 var update_branch_component_1 = require("../components/dashboard/setting/update-branch.component");
 var version_component_1 = require("../components/dashboard/setting/version.component");
@@ -32,7 +32,7 @@ exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
     { path: 'organization', component: organization_component_1.OrganizationComponent },
-    { path: 'organization/add', component: addorganization_component_1.AddOrganizationComponent },
+    { path: 'organization/add', component: add_organization_component_1.AddOrganizationComponent },
     { path: 'organization/edit/:id', component: update_organization_component_1.UpdateOrganizationComponent },
     { path: 'branch', component: branch_component_1.BranchComponent },
     { path: 'branch/add', component: addbranch_component_1.AddBranchComponent },

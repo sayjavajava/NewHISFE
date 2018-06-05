@@ -57,7 +57,7 @@ import {
 } from "@angular/material";
 import {NotificationService} from "./services/notification.service";
 import {OrganizationComponent} from "./components/dashboard/setting/organization.component";
-import {AddOrganizationComponent} from "./components/dashboard/setting/addorganization.component";
+import {AddOrganizationComponent} from "./components/dashboard/setting/add-organization.component";
 import {AddStaffComponent} from "./components/dashboard/setting/addstaff.component";
 import {ErrordisplayComponent} from "./components/dashboard/setting/errordisplay.component";
 import {ConformationDialogService} from "./services/ConformationDialogService";
@@ -75,12 +75,6 @@ import {EmailTemplateComponent} from "./components/dashboard/setting/email-templ
 import {AddEmailTemplateComponent} from "./components/dashboard/setting/add-email-template.component";
 import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-email-template.component";
 import {UpdateOrganizationComponent} from './components/dashboard/setting/update-organization.component';
-
-import { DemoUtilsModule } from '../demo-utils/module';
-import { CalendarModule } from 'angular-calendar';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import {SchedulerComponent} from './components/scheduler.component';
-
 
 @NgModule({
     providers: [
@@ -112,11 +106,6 @@ import {SchedulerComponent} from './components/scheduler.component';
         MatNativeDateModule,
         MatInputModule,
         MatIconModule,
-        CalendarModule.forRoot(),
-        NgbModalModule.forRoot(),
-        DemoUtilsModule
-
-
     ],
     declarations: [
         // App Components
@@ -126,7 +115,6 @@ import {SchedulerComponent} from './components/scheduler.component';
         DepartmentComponent,
         DashboardComponent,
         DoctorDashboardComponent,
-        SchedulerComponent,
 
         // Dashboard Components
         HeaderComponent,

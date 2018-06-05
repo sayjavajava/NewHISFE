@@ -11,7 +11,7 @@ import {RolePermissionsComponent} from '../components/dashboard/setting/role-per
 import {UpdateReceptionistComponent} from '../components/dashboard/setting/update-receptionist.component';
 import {AddBranchComponent} from '../components/dashboard/setting/addbranch.component';
 import {OrganizationComponent} from '../components/dashboard/setting/organization.component';
-import {AddOrganizationComponent} from '../components/dashboard/setting/addorganization.component';
+import {AddOrganizationComponent} from '../components/dashboard/setting/add-organization.component';
 import {AddStaffComponent} from '../components/dashboard/setting/addstaff.component';
 import {UpdateBranchComponent} from '../components/dashboard/setting/update-branch.component';
 import {VersionComponent} from '../components/dashboard/setting/version.component';

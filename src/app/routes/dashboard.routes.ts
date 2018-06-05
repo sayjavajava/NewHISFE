@@ -11,6 +11,7 @@ export const DashboardRoutes: Routes = [
     {path: '', component: ContentComponent},
     {path: 'doctor', component: DoctorDashboardComponent},
     {path: 'setting', component: SettingComponent, children: SettingRoutes},
+    {path: 'patient', component: SettingComponent, children: SettingRoutes},
     {path: 'customer/404-not-found', component: NotFound404Component},
     {path: '404-not-found', component: NotFound404Component},
     {path: '**', redirectTo: '404'}

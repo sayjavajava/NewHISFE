@@ -10,6 +10,7 @@ exports.DashboardRoutes = [
     { path: '', component: content_component_1.ContentComponent },
     { path: 'doctor', component: doctor_dashboard_component_1.DoctorDashboardComponent },
     { path: 'setting', component: setting_component_1.SettingComponent, children: setting_routes_1.SettingRoutes },
+    { path: 'patient', component: setting_component_1.SettingComponent, children: setting_routes_1.SettingRoutes },
     { path: 'customer/404-not-found', component: not_found_404_component_1.NotFound404Component },
     { path: '404-not-found', component: not_found_404_component_1.NotFound404Component },
     { path: '**', redirectTo: '404' }
