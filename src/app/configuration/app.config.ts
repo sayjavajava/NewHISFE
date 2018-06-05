@@ -23,6 +23,13 @@ export class AppConfig {
     /*                             Dev                                   */
     /*********************************************************************/
 
+    // public static BE_HTTP_PROTOCOL = 'http';
+    // public static BE_HTTP_SEPARATOR = '://';
+    // public static BE_API_ENDPOINT = '192.168.1.87';
+    // public static BE_API_PORT = '8080';
+    // public static BE_API_CONTEXT_PATH = 'his';
+    // public static BE_ACCESS_CLIENT = 'HISClient';
+    // public static BE_ACCESS_SECRET = 'HISSecret';
 
     /*********************************************************************/
     /*                             QA                                   */
