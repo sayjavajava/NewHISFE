@@ -85,7 +85,6 @@ export class DepartmentComponent implements OnInit {
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'CLI_DPT_SUC_02') {
-                            this.getPageWiseDepartmentFromServer(this.currPage);
                             this.notificationService.success(response['responseMessage'], 'Clinical Department');
                             this.getPageWiseDepartmentFromServer(0);
                         } else {
@@ -94,7 +93,6 @@ export class DepartmentComponent implements OnInit {
                         }
                     },
                     (error: any) => {
-                        //console.log(error.json())
                         this.notificationService.error(error.error, 'Clinical Department')
                         this.HISUtilService.tokenExpired(error.error.error);
                     }

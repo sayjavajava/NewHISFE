@@ -72,6 +72,12 @@ var email_template_component_1 = require("./components/dashboard/setting/email-t
 var add_email_template_component_1 = require("./components/dashboard/setting/add-email-template.component");
 var edit_email_template_component_1 = require("./components/dashboard/setting/edit-email-template.component");
 var update_organization_component_1 = require("./components/dashboard/setting/update-organization.component");
+var manage_patient_component_1 = require("./components/dashboard/patient/manage-patient.component");
+var patient_navigation_component_1 = require("./components/dashboard/patient/patient-navigation.component");
+var patient_dashboard_component_1 = require("./components/dashboard/patient/patient-dashboard.component");
+var add_patient_component_1 = require("./components/dashboard/patient/add-patient.component");
+var patient_reports_component_1 = require("./components/dashboard/patient/patient-reports.component");
+var patient_component_1 = require("./components/dashboard/patient/patient.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -123,9 +129,15 @@ var AppModule = (function () {
                 footer_component_1.FooterComponent,
                 content_component_1.ContentComponent,
                 not_found_404_component_1.NotFound404Component,
+                manage_patient_component_1.ManagePatientComponent,
+                patient_dashboard_component_1.PatientDashboardComponent,
+                add_patient_component_1.AddPatientComponent,
+                patient_reports_component_1.PatientReportsComponent,
+                patient_component_1.PatientComponent,
                 //Setting Components
                 setting_component_1.SettingComponent,
                 setting_navigation_component_1.SettingNavigationComponent,
+                patient_navigation_component_1.PatientNavigationComponent,
                 staff_component_1.StaffComponent,
                 code_component_1.CodeComponent,
                 version_component_1.VersionComponent,

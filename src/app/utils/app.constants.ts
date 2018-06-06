@@ -79,4 +79,9 @@ export class AppConstants {
     public static FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
     public static FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
     public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
+
+    ////////////////////// Medical Service URLs ///////////////////////////////
+    public static FETCH_ALL_PATIENT_URL = '/patient/';
+    public static PATIENT_DELETE_URI = '/patient/delete/';
+
 }

@@ -77,7 +77,6 @@ var DepartmentComponent = (function () {
             this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'CLI_DPT_SUC_02') {
-                    _this.getPageWiseDepartmentFromServer(_this.currPage);
                     _this.notificationService.success(response['responseMessage'], 'Clinical Department');
                     _this.getPageWiseDepartmentFromServer(0);
                 }
@@ -86,7 +85,6 @@ var DepartmentComponent = (function () {
                     _this.notificationService.error(response['responseMessage'], 'Clinical Department');
                 }
             }, function (error) {
-                //console.log(error.json())
                 _this.notificationService.error(error.error, 'Clinical Department');
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
