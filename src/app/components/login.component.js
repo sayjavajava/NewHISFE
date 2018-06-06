@@ -25,6 +25,12 @@ var LoginComponent = (function () {
     }
     ;
     LoginComponent.prototype.ngOnInit = function () {
+        if (window.localStorage.getItem(btoa('access_token'))) {
+            this.router.navigate(['dashboard']);
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
     };
     LoginComponent.prototype.login = function (form) {
         var _this = this;

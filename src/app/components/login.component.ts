@@ -24,6 +24,11 @@ export class LoginComponent {
     };
 
     ngOnInit() {
+        if (window.localStorage.getItem(btoa('access_token'))) {
+            this.router.navigate(['dashboard']);
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 
     login(form: NgForm) {
