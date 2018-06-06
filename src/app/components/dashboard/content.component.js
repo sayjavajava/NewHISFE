@@ -34,11 +34,22 @@ var ContentComponent = (function () {
                     _this.userSharedService.lastName = response['responseData'].lastName;
                     _this.userSharedService.profileImg = response['responseData'].profileImg;
                     _this.userSharedService.roles = response['responseData'].commaSeparatedRoles;
-                    console.log(_this.userSharedService.roles);
                     _this.firstName = _this.userSharedService.firstName;
                     _this.lastName = _this.userSharedService.lastName;
                     _this.profileImg = _this.userSharedService.profileImg;
                     _this.roles = _this.userSharedService.roles;
+                    _this.requestsService.getRequest('/user/dashboard')
+                        .subscribe(function (response) {
+                        if (response['responseCode'] === 'ADM_SUC_04') {
+                            _this.patientCount = response['responseData'].patientCount;
+                            _this.appointmentsCount = response['responseData'].appointmentsCount;
+                            _this.medicalServicesCount = response['responseData'].medicalServicesCount;
+                            _this.icdsCount = response['responseData'].icdsCount;
+                        }
+                    }, function (error) {
+                        //console.log(error.json())
+                        _this.HISUtilService.tokenExpired(error.error.error);
+                    });
                 }
             }, function (error) {
                 //console.log(error.json())

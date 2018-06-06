@@ -35,6 +35,7 @@ p, h3, h4{margin:0; padding:0;}
 .mrgn-btm10{margin-bottom: 10px;}
 .mrgn-top8{margin-top: 8px;}
 .mrgn-lft8{margin-left: 8px;}
+.mrgn-lft0{margin-left: 0px !important;}
 .mrgn-top14{margin-top: 14px;}
 .mrgn-top24{margin-top: 24px;}
 .font-smaller{ font-size:70%;}

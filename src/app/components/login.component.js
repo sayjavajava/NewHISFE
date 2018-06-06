@@ -57,6 +57,7 @@ var LoginComponent = (function () {
                             _this.sharedService.profileImg = response['responseData'].profileImg;
                             _this.sharedService.roles = response['responseData'].commaSeparatedRoles;
                             _this.permissionService.loadPermissions(response['responseData'].permissions);
+                            // super admin Dashboard
                             _this.router.navigate(['/dashboard']);
                         }
                         else {

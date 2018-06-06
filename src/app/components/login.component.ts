@@ -63,6 +63,7 @@ export class LoginComponent {
                                             this.sharedService.roles = response['responseData'].commaSeparatedRoles;
                                             this.permissionService.loadPermissions(response['responseData'].permissions);
 
+                                            // super admin Dashboard
                                             this.router.navigate(['/dashboard']);
                                         } else {
                                             this.router.navigate(['/login']);
