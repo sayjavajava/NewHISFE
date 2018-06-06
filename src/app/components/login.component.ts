@@ -35,7 +35,7 @@ export class LoginComponent {
         if (form.valid) {
             this.requestsService.postRequestOauth2Token(
                 '/oauth/token'
-                , { 
+                , {
                     'userName': this.username,
                     'password': this.password,
                     'grantType': 'password',
@@ -60,7 +60,7 @@ export class LoginComponent {
                                             this.sharedService.firstName = response['responseData'].firstName;
                                             this.sharedService.lastName = response['responseData'].lastName;
                                             this.sharedService.profileImg = response['responseData'].profileImg;
-                                            this.sharedService.role = response['responseData'].role;
+                                            this.sharedService.roles = response['responseData'].commaSeparatedRoles;
                                             this.permissionService.loadPermissions(response['responseData'].permissions);
 
                                             this.router.navigate(['/dashboard']);

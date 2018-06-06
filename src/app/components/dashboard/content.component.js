@@ -29,18 +29,18 @@ var ContentComponent = (function () {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest('/user/loggedInUser')
                 .subscribe(function (response) {
-                if (response['responseCode'] === 'ADM_SUC_01') {
+                if (response['responseCode'] === 'ADM_SUC_03') {
                     _this.userSharedService.firstName = response['responseData'].firstName;
                     _this.userSharedService.lastName = response['responseData'].lastName;
                     _this.userSharedService.profileImg = response['responseData'].profileImg;
-                    _this.userSharedService.role = response['responseData'].role;
+                    _this.userSharedService.roles = response['responseData'].commaSeparatedRoles;
+                    console.log(_this.userSharedService.roles);
                     _this.firstName = _this.userSharedService.firstName;
                     _this.lastName = _this.userSharedService.lastName;
                     _this.profileImg = _this.userSharedService.profileImg;
-                    _this.role = _this.userSharedService.role;
+                    _this.roles = _this.userSharedService.roles;
                 }
             }, function (error) {
-                // this.apUtilServer.tokenExpired(error.json()['error']);
                 //console.log(error.json())
                 _this.HISUtilService.tokenExpired(error.error.error);
             });

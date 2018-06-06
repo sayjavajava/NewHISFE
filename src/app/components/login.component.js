@@ -55,7 +55,7 @@ var LoginComponent = (function () {
                             _this.sharedService.firstName = response['responseData'].firstName;
                             _this.sharedService.lastName = response['responseData'].lastName;
                             _this.sharedService.profileImg = response['responseData'].profileImg;
-                            _this.sharedService.role = response['responseData'].role;
+                            _this.sharedService.roles = response['responseData'].commaSeparatedRoles;
                             _this.permissionService.loadPermissions(response['responseData'].permissions);
                             _this.router.navigate(['/dashboard']);
                         }
