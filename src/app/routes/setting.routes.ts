@@ -28,7 +28,6 @@ import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedocto
 import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
 import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
 
-
 export const SettingRoutes: Routes = [
     // Setting Pages
     {path: '', redirectTo: 'organization', pathMatch: 'full'},
@@ -57,7 +56,7 @@ export const SettingRoutes: Routes = [
     {path: 'role-permissions', component: RolePermissionsComponent},
     {path: 'service-tax', component: ServiceTaxComponent},
     {path: '404-not-found', component: NotFound404SettingComponent},
-    {path:'branch/edit/:id',component: UpdateBranchComponent},
+    {path: 'branch/edit/:id',component: UpdateBranchComponent},
     {path: 'email-template', component: EmailTemplateComponent},
     {path: 'email-template/add', component: AddEmailTemplateComponent},
     {path: 'email-template/edit/:id', component: EditEmailTemplateComponent},

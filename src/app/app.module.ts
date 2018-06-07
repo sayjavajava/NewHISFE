@@ -75,6 +75,12 @@ import {EmailTemplateComponent} from "./components/dashboard/setting/email-templ
 import {AddEmailTemplateComponent} from "./components/dashboard/setting/add-email-template.component";
 import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-email-template.component";
 import {UpdateOrganizationComponent} from './components/dashboard/setting/update-organization.component';
+import {ManagePatientComponent} from "./components/dashboard/patient/manage-patient.component";
+import {PatientNavigationComponent} from "./components/dashboard/patient/patient-navigation.component";
+import {PatientDashboardComponent} from "./components/dashboard/patient/patient-dashboard.component";
+import {AddPatientComponent} from "./components/dashboard/patient/add-patient.component";
+import {PatientReportsComponent} from "./components/dashboard/patient/patient-reports.component";
+import {PatientComponent} from "./components/dashboard/patient/patient.component";
 
 @NgModule({
     providers: [
@@ -122,10 +128,16 @@ import {UpdateOrganizationComponent} from './components/dashboard/setting/update
         FooterComponent,
         ContentComponent,
         NotFound404Component,
+        ManagePatientComponent,
+        PatientDashboardComponent,
+        AddPatientComponent,
+        PatientReportsComponent,
+        PatientComponent,
 
         //Setting Components
         SettingComponent,
         SettingNavigationComponent,
+        PatientNavigationComponent,
         StaffComponent,
         CodeComponent,
         VersionComponent,

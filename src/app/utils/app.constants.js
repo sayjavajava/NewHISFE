@@ -76,6 +76,9 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
     AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
     AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
+    ////////////////////// Medical Service URLs ///////////////////////////////
+    AppConstants.FETCH_ALL_PATIENT_URL = '/patient/';
+    AppConstants.PATIENT_DELETE_URI = '/patient/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
