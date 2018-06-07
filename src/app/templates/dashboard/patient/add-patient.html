@@ -22,13 +22,13 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Primary Doctor</label>
                                     <div class="col-md-8">
-                                        <select class="form-control" name="select">
+                                        <select class="form-control" name="select" >
                                             <option value="">Select...</option>
-                                            <option value="Category 1">Ali Muhammad</option>
-                                            <option value="Category 2">Ali Muhammad</option>
-                                            <option value="Category 3">Ali Muhammad</option>
-                                            <option value="Category 4">Ali Muhammad</option>
-                                        </select></div>
+                                            <option *ngFor="let doc of doctors" [value]="doc.id">
+                                                {{doc.userName}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Group

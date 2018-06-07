@@ -13,11 +13,24 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var requests_service_1 = require("../../../services/requests.service");
 var router_1 = require("@angular/router");
+var app_constants_1 = require("../../../utils/app.constants");
+var his_util_service_1 = require("../../../services/his-util.service");
 var AddPatientComponent = (function () {
-    function AddPatientComponent(requestsService, router, titleService) {
+    function AddPatientComponent(requestsService, router, titleService, HISUTilService) {
+        var _this = this;
         this.requestsService = requestsService;
         this.router = router;
         this.titleService = titleService;
+        this.HISUTilService = HISUTilService;
+        this.doctors = [];
+        this.requestsService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + 'DOCTOR')
+            .subscribe(function (response) {
+            if (response['responseStatus'] === 'SUCCESS') {
+                _this.doctors = response['responseData'];
+            }
+        }, function (error) {
+            _this.HISUTilService.tokenExpired(error.error.error);
+        });
     }
     ;
     AddPatientComponent.prototype.ngOnInit = function () {
@@ -30,7 +43,8 @@ var AddPatientComponent = (function () {
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,
-            platform_browser_1.Title])
+            platform_browser_1.Title,
+            his_util_service_1.HISUtilService])
     ], AddPatientComponent);
     return AddPatientComponent;
 }());
