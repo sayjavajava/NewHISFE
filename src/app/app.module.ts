@@ -74,13 +74,19 @@ import {NotFound404SettingComponent} from "./components/dashboard/setting/not-fo
 import {EmailTemplateComponent} from "./components/dashboard/setting/email-template-component";
 import {AddEmailTemplateComponent} from "./components/dashboard/setting/add-email-template.component";
 import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-email-template.component";
-import {UpdateOrganizationComponent} from './components/dashboard/setting/update-organization.component';
+import {UpdateOrganizationComponent} from "./components/dashboard/setting/update-organization.component";
 import {ManagePatientComponent} from "./components/dashboard/patient/manage-patient.component";
 import {PatientNavigationComponent} from "./components/dashboard/patient/patient-navigation.component";
 import {PatientDashboardComponent} from "./components/dashboard/patient/patient-dashboard.component";
 import {AddPatientComponent} from "./components/dashboard/patient/add-patient.component";
 import {PatientReportsComponent} from "./components/dashboard/patient/patient-reports.component";
 import {PatientComponent} from "./components/dashboard/patient/patient.component";
+import {AppointmentComponent} from "./components/dashboard/appointment/appointment.component";
+import {AppointmentDashboardComponent} from "./components/dashboard/appointment/appointment-dashboard.component";
+import {ManageAppointmentComponent} from "./components/dashboard/appointment/manage-appointment.component";
+import {AddAppointmentComponent} from "./components/dashboard/appointment/add-appointment.component";
+import {AppointmentReportsComponent} from "./components/dashboard/appointment/appointment-reports.component";
+import {AppointmentNavigationComponent} from "./components/dashboard/appointment/appointment-navigation.component";
 
 @NgModule({
     providers: [
@@ -133,6 +139,12 @@ import {PatientComponent} from "./components/dashboard/patient/patient.component
         AddPatientComponent,
         PatientReportsComponent,
         PatientComponent,
+        AppointmentComponent,
+        AppointmentDashboardComponent,
+        ManageAppointmentComponent,
+        AddAppointmentComponent,
+        AppointmentReportsComponent,
+        AppointmentNavigationComponent,
 
         //Setting Components
         SettingComponent,

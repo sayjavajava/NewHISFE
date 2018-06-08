@@ -79,6 +79,8 @@ var AppConstants = (function () {
     ////////////////////// Medical Service URLs ///////////////////////////////
     AppConstants.FETCH_ALL_PATIENT_URL = '/patient/';
     AppConstants.PATIENT_DELETE_URI = '/patient/delete/';
+    ////////////////////// Appointments URLs ///////////////////////////////
+    AppConstants.FETCH_PAGINATED_PATIENTS_URL = '/appointment/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

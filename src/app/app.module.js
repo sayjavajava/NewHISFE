@@ -78,6 +78,12 @@ var patient_dashboard_component_1 = require("./components/dashboard/patient/pati
 var add_patient_component_1 = require("./components/dashboard/patient/add-patient.component");
 var patient_reports_component_1 = require("./components/dashboard/patient/patient-reports.component");
 var patient_component_1 = require("./components/dashboard/patient/patient.component");
+var appointment_component_1 = require("./components/dashboard/appointment/appointment.component");
+var appointment_dashboard_component_1 = require("./components/dashboard/appointment/appointment-dashboard.component");
+var manage_appointment_component_1 = require("./components/dashboard/appointment/manage-appointment.component");
+var add_appointment_component_1 = require("./components/dashboard/appointment/add-appointment.component");
+var appointment_reports_component_1 = require("./components/dashboard/appointment/appointment-reports.component");
+var appointment_navigation_component_1 = require("./components/dashboard/appointment/appointment-navigation.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -134,6 +140,12 @@ var AppModule = (function () {
                 add_patient_component_1.AddPatientComponent,
                 patient_reports_component_1.PatientReportsComponent,
                 patient_component_1.PatientComponent,
+                appointment_component_1.AppointmentComponent,
+                appointment_dashboard_component_1.AppointmentDashboardComponent,
+                manage_appointment_component_1.ManageAppointmentComponent,
+                add_appointment_component_1.AddAppointmentComponent,
+                appointment_reports_component_1.AppointmentReportsComponent,
+                appointment_navigation_component_1.AppointmentNavigationComponent,
                 //Setting Components
                 setting_component_1.SettingComponent,
                 setting_navigation_component_1.SettingNavigationComponent,

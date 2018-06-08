@@ -84,4 +84,7 @@ export class AppConstants {
     public static FETCH_ALL_PATIENT_URL = '/patient/';
     public static PATIENT_DELETE_URI = '/patient/delete/';
 
+    ////////////////////// Appointments URLs ///////////////////////////////
+    public static FETCH_PAGINATED_PATIENTS_URL = '/appointment/';
+
 }
