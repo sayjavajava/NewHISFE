@@ -62,7 +62,7 @@
                                         <select class="form-control"
                                                 (change)="getSelectedBranch($event.target.value)"
                                                 formControlName="primaryBranch" placeholder="Select Branch">
-                                            <option *ngFor="let br of branchesList" [value]="br.name">
+                                            <option *ngFor="let br of branchesList" [value]="br.id">
                                                 {{br.name}}
                                             </option>
 

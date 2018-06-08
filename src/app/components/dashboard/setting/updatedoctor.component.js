@@ -33,6 +33,7 @@ var UpdatedoctorComponent = (function () {
         this.departmentList = [];
         this.selectedUser = 'doctor';
         this.userSelected = 'doctor';
+        this.defaultBranch = 'primaryBranch';
         this.matches = [];
         this.branchesList = [];
         this.servicesList = [];
@@ -67,6 +68,9 @@ var UpdatedoctorComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -77,12 +81,17 @@ var UpdatedoctorComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
-                var data = response['responseData'];
-                var userNameData = data;
                 _this.primaryDoctor = response['responseData'];
             }
         }, function (error) {
             _this.error = error.error.error;
+        });
+    };
+    UpdatedoctorComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
         });
     };
     UpdatedoctorComponent.prototype.allDepartments = function () {
@@ -180,7 +189,6 @@ var UpdatedoctorComponent = (function () {
                     shift2: user.dutyShift.dutyTimmingShift2,
                     secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
                     vacation: user.vacation.status,
-                    //dateFrom:user.vacation.startDate,
                     dateFrom: user.profile.accountExpiry,
                     dateTo: user.vacation.endDate,
                 });
@@ -272,7 +280,6 @@ var UpdatedoctorComponent = (function () {
         var _this = this;
         this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
-                console.log('saved00');
                 _this.responseUser = response['responseData'];
                 _this.notificationService.success('User has been updated Successfully');
                 _this.router.navigate(['/dashboard/setting/staff']);
@@ -413,7 +420,13 @@ var UpdatedoctorComponent = (function () {
         }
     };
     UpdatedoctorComponent.prototype.getSelectedBranch = function (value) {
-        if (value) {
+        console.log(value);
+        if (value === undefined) {
+            console.log('i am esss');
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+        }
+        else {
+            console.log('i am too' + value);
             this.userForm.controls['primaryBranch'].setValue(value);
         }
     };

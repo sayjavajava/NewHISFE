@@ -34,6 +34,7 @@ var UpdateNurseComponent = (function () {
         this.branchesList = [];
         this.primaryDoctor = [];
         this.departmentList = [];
+        this.defaultBranch = 'primaryBranch';
         this.userSelected = 'doctor';
         this.allBranches();
         this.allDepartments();
@@ -54,6 +55,10 @@ var UpdateNurseComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -81,6 +86,13 @@ var UpdateNurseComponent = (function () {
             }
         }, function (error) {
             _this.error = error.error.error;
+        });
+    };
+    UpdateNurseComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
         });
     };
     UpdateNurseComponent.prototype.createUserForm = function () {
@@ -253,6 +265,15 @@ var UpdateNurseComponent = (function () {
     UpdateNurseComponent.prototype.getSelectedDashboard = function (value) {
         if (value) {
             this.userForm.controls['otherDashboard'].setValue(value);
+        }
+    };
+    UpdateNurseComponent.prototype.getSelectedBranch = function (value) {
+        console.log(value);
+        if (value === undefined) {
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+        }
+        else {
+            this.userForm.controls['primaryBranch'].setValue(value);
         }
     };
     UpdateNurseComponent.prototype.cancel = function () {

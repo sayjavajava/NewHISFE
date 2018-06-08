@@ -39,6 +39,7 @@ export class UpdateNurseComponent implements OnInit {
     primaryDoctor: any = [];
     departmentList: any = [];
     error: string;
+    defaultBranch:string='primaryBranch';
     responseUser: any[];
     private sub: any;
     id: number;
@@ -67,12 +68,18 @@ export class UpdateNurseComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                     //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                    if(this.branchesList.length > 1){
+                        this.removeBranch();
+                     }
                     }
+
                 },
                 (error: any) => {
                     this.error = error.error.error;
                 })
     }
+
 
     allDoctors() {
         this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
@@ -82,8 +89,7 @@ export class UpdateNurseComponent implements OnInit {
                         let data = response['responseData'];
                         let userNameData = data;
                         this.primaryDoctor = response['responseData'];
-
-                    }
+                        }
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -104,6 +110,11 @@ export class UpdateNurseComponent implements OnInit {
                     this.error = error.error.error;
                 })
 
+    }
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+        });
     }
 
     createUserForm() {
@@ -308,6 +319,15 @@ export class UpdateNurseComponent implements OnInit {
             this.userForm.controls['otherDashboard'].setValue(value);
 
         }
+    }
+    getSelectedBranch(value: any) {
+        console.log(value);
+        if (value === undefined) {
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+        }
+        else {
+            this.userForm.controls['primaryBranch'].setValue(value);}
+
     }
 
     cancel() {

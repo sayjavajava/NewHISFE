@@ -8,8 +8,8 @@ import {RequestsService} from '../../../services/requests.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {NotificationService} from '../../../services/notification.service';
 import {CustomValidators} from './PasswordValidation';
-
-
+import {RoleAndPermission} from '../../../model/roleandpermission';
+import {BranchResponse} from '../../../model/BranchResponse';
 
 @Component({
     selector: 'addstaff-component',
@@ -17,7 +17,7 @@ import {CustomValidators} from './PasswordValidation';
 })
 export class AddStaffComponent implements OnInit {
 
-    selectedUser: string = 'receptionist';
+    selectedUser: string = 'RECEPTIONIST';
     allowdiscount: boolean = true;
     department: boolean;
     checkUpInterval: boolean;
@@ -29,6 +29,7 @@ export class AddStaffComponent implements OnInit {
     dutywithdoctor: boolean;
     managepatientrecord: boolean;
     managepatientinvoices: boolean;
+    allDBRoles:RoleAndPermission[];
     userForm: FormGroup;
     selectedDepartment: any = [];
     dutyWithDoctors:any=[];
@@ -44,24 +45,13 @@ export class AddStaffComponent implements OnInit {
     error: string;
     responseUser: any[];
     userSelected: string = 'doctor';
-
-    branches = [
-        {id: 1, name: 'Primary'},
-        {id: 2, name: 'Lahore'},
-        {id: 3, name: 'Karachi'},
-    ];
+    defaultBranch:string='primaryBranch';
 
 
-    branchesList: any = [];
+    branchesList: any=[];
     departmentList: any = [];
     primaryDoctor: any = []
     servicesList: any[] = [];
-    RestrictBranch = [
-        {id: 1, name: 'PrimaryOffice'},
-        {id: 2, name: 'LahoreOffice'},
-        {id: 3, name: 'KarachiOffice'},
-    ];
-
     workingDays = [
         {name: 'Monday'},
         {name: 'Tuesday'},
@@ -72,12 +62,6 @@ export class AddStaffComponent implements OnInit {
         {name: 'Sunday'},
 
     ];
-    doctorsList = [
-        {id: 1, name: 'Dr.Zahra'},
-        {id: 2, name: 'Dr.kobler'},
-        {id: 3, name: 'Dr.Nimra'},
-    ];
-
     firstNameError: string = 'First name is required';
     userNameError: string = 'User name is required';
     emailError: string = 'Email is required';
@@ -91,36 +75,53 @@ export class AddStaffComponent implements OnInit {
 
     constructor(private router: Router, private  fb: FormBuilder, private requestsService: RequestsService, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
+        this.allRoles();
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
         this.allServices();
-    }
+
+        }
 
     ngOnInit() {
         this.createUserForm();
-        //this.userForm.get('changeUser').patchValue('receptionist');
-        //  this.userForm.get('primaryBranch').patchValue('lahore');
-        /*        this.userForm.get('changeUser').valueChanges
-                    .subscribe(value => {
-                        this.createUserForm();
-        //                setTimeout(()=>{ this.setValidate(value);},5000)
-                        this.setValidate(value);
-                    });*/
-
     }
-
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item.name === this.defaultBranch) this.branchesList.splice(index,1);
+        });
+    }
     allBranches() {
         this.requestsService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-                        }
+                      if(this.branchesList.length > 1){
+                        this.removeBranch();
+                    }
+                    }
                 },
                 (error: any) => {
                     this.error = error.error.error;
                 })
+    }
+
+    allRoles() {
+        this.requestsService.getRequest(
+            AppConstants.PERMISSION_ENDPOINT)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ROL_PER_SUC_02') {
+                        let resources = response['responseData'];
+                        let resource = resources['allRoleAndPermissions'];
+                        this.allDBRoles = resource;
+                    }
+                },
+                (error: any) => {
+
+                }
+            );
     }
 
     allDoctors() {
@@ -175,7 +176,7 @@ export class AddStaffComponent implements OnInit {
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
                 'password': [null, Validators.compose([Validators.required, Validators.minLength(6)])],
                 'confirmPassword': [null, Validators.compose([Validators.required])],
                 'homePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
@@ -215,7 +216,7 @@ export class AddStaffComponent implements OnInit {
         if (this.userForm.valid) {
             console.log('i am valid' + this.selectedUser);
 
-            if (this.selectedUser === 'cashier') {
+            if (this.selectedUser === 'CASHIER') {
 
                 let cashier = new User({
                     firstName: data.firstName,
@@ -241,7 +242,7 @@ export class AddStaffComponent implements OnInit {
 
             }
 
-            if (this.selectedUser === 'receptionist') {
+            if (this.selectedUser === 'RECEPTIONIST') {
 
                 let receptionist = new User({
                     firstName: data.firstName,
@@ -267,7 +268,7 @@ export class AddStaffComponent implements OnInit {
                 this.makeService(receptionist);
             }
 
-            if (this.selectedUser === 'nurse') {
+            if (this.selectedUser === 'NURSE') {
 
                 let nurse = new User({
                     firstName: data.firstName,
@@ -295,7 +296,7 @@ export class AddStaffComponent implements OnInit {
                 this.makeService(nurse);
             }
 
-            if (this.selectedUser === 'doctor') {
+            if (this.selectedUser === 'DOCTOR') {
 
                 let doctor = new User({
                     firstName: data.firstName,
@@ -678,16 +679,16 @@ export class AddStaffComponent implements OnInit {
     checkPermission(user: string) {
         this.changeState();
         switch (user) {
-            case 'doctor':
+            case 'DOCTOR':
                 this.doctorPermissions();
                 break;
-            case 'nurse':
+            case 'NURSE':
                 this.nursePermissions();
                 break;
-            case 'receptionist':
+            case 'RECEPTIONIST':
                 this.receptionistPermissions();
                 break;
-            case 'cashier':
+            case 'CASHIER':
                 this.cashierPermissions();
                 break;
             default:
@@ -742,9 +743,8 @@ export class AddStaffComponent implements OnInit {
 
     getSelectedBranch(value: any) {
         if (value) {
-            this.userForm.controls['primaryBranch'].setValue(value);
-        }
-    }
+            this.userForm.controls['primaryBranch'].setValue(value);}
+            }
 
     getSelectedDashboard(value: any) {
         if (value) {

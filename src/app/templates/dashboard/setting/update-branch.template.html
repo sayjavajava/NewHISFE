@@ -42,8 +42,9 @@
                                                 <label class="control-label col-md-3">Primary Doctor
                                                 </label>
                                                 <div class="col-md-9">
-                                                    <select class="form-control" formControlName="primaryDoctor"
+                                                    <select class="form-control"
                                                             (change)="getDoctor($event.target.value)"
+                                                            formControlName="primaryDoctor"
                                                              placeholder="Select Branch">
                                                         <option *ngFor="let doc of pDoctor" [value]="doc.id">
                                                             {{doc.userName}}
@@ -311,8 +312,7 @@
                             </div>
                             <div class="hr">
                                 <div class="col-md-12 text-center">
-                                    <button (click)="addBranch(billingForm.value,'done')" class="btn blue"><i
-                                            class="fa fa-plus"></i> Save
+                                    <button (click)="addBranch(billingForm.value,'done')" class="btn blue"> Save
                                     </button>
                                 </div>
                             </div>

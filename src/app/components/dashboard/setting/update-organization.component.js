@@ -24,6 +24,7 @@ var UpdateOrganizationComponent = (function () {
         this.notificationService = notificationService;
         this.timezoneList = [];
         this.branchesList = [];
+        this.defaultBranch = 'primaryBranch';
         this.allTimezone();
         this.allBranches();
     }
@@ -72,10 +73,13 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.allBranches = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                if (_this.branchesList.length > 1) {
+                    _this.branchesList.splice(_this.branchesList.indexOf({ name: _this.defaultBranch }), 1);
+                }
             }
         }, function (error) {
         });

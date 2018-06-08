@@ -37,10 +37,7 @@
                                         <select class="form-control" (change)="goTo($event.target.value)"
                                                 formControlName="changeUser">
                                             <!-- (change)="goTo($event.target.value)"-->
-                                            <option value="receptionist">Receptionist</option>
-                                            <option value="doctor">Doctor</option>
-                                            <option value="nurse">Nurse</option>
-                                            <option value="cashier">Cashier</option>
+                                            <option *ngFor="let r of allDBRoles" value="{{r.name}}">{{ r.name }}</option>
 
                                         </select>
                                     </div>
@@ -91,7 +88,7 @@
                                         <select class="form-control"
                                                 (change)="getSelectedBranch($event.target.value)"
                                                 formControlName="primaryBranch" placeholder="Select Branch">
-                                            <option *ngFor="let br of branchesList" [value]="br.name">
+                                            <option *ngFor="let br of branchesList" [value]="br.id">
                                                 {{br.name}}
                                             </option>
 

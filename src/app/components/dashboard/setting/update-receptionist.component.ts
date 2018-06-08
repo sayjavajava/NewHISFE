@@ -26,6 +26,7 @@ export class UpdateReceptionistComponent implements OnInit {
     branchesList:any=[];
     primaryDoctor:any=[];
     error: any;
+    defaultBranch:string='primaryBranch';
     userSelected:string='doctor';
     userForm: FormGroup;
     receptionist: UserEditModel;
@@ -61,6 +62,10 @@ export class UpdateReceptionistComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                     //  this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                     if(this.branchesList.length >1 ){
+                      this.removeBranch();
+                     }
                     }
                 },
                 (error: any) => {
@@ -137,6 +142,11 @@ export class UpdateReceptionistComponent implements OnInit {
                 });
         }
 
+    }
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+        });
     }
 
     addCashier(data: any) {
@@ -248,9 +258,15 @@ export class UpdateReceptionistComponent implements OnInit {
         this.router.navigate(['/dashboard/setting/staff']);
     }
     getSelectedBranch(value: any) {
-        if (value) {
-            this.userForm.controls['primaryBranch'].setValue(value);
+        console.log(value);
+        if (value === undefined) {
+            console.log('i am esss');
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
+        else {
+            console.log('i am too' + value);
+            this.userForm.controls['primaryBranch'].setValue(value);}
+
     }
 
 }

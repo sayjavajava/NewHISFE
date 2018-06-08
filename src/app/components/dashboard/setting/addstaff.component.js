@@ -25,7 +25,7 @@ var AddStaffComponent = (function () {
         this.requestsService = requestsService;
         this.notificationService = notificationService;
         this.amazingTimePickerService = amazingTimePickerService;
-        this.selectedUser = 'receptionist';
+        this.selectedUser = 'RECEPTIONIST';
         this.allowdiscount = true;
         this.selectedDepartment = [];
         this.dutyWithDoctors = [];
@@ -34,20 +34,11 @@ var AddStaffComponent = (function () {
         this.selectedVisitBranches = [];
         this.selectedDoctors = [];
         this.userSelected = 'doctor';
-        this.branches = [
-            { id: 1, name: 'Primary' },
-            { id: 2, name: 'Lahore' },
-            { id: 3, name: 'Karachi' },
-        ];
+        this.defaultBranch = 'primaryBranch';
         this.branchesList = [];
         this.departmentList = [];
         this.primaryDoctor = [];
         this.servicesList = [];
-        this.RestrictBranch = [
-            { id: 1, name: 'PrimaryOffice' },
-            { id: 2, name: 'LahoreOffice' },
-            { id: 3, name: 'KarachiOffice' },
-        ];
         this.workingDays = [
             { name: 'Monday' },
             { name: 'Tuesday' },
@@ -56,11 +47,6 @@ var AddStaffComponent = (function () {
             { name: 'Friday' },
             { name: 'Satureday' },
             { name: 'Sunday' },
-        ];
-        this.doctorsList = [
-            { id: 1, name: 'Dr.Zahra' },
-            { id: 2, name: 'Dr.kobler' },
-            { id: 3, name: 'Dr.Nimra' },
         ];
         this.firstNameError = 'First name is required';
         this.userNameError = 'User name is required';
@@ -72,6 +58,7 @@ var AddStaffComponent = (function () {
         this.departmentError = 'Select one or more Departments';
         this.serviceError = 'Select one or more Services';
         this.dutyTimmingShiftError = 'Select Duty Time';
+        this.allRoles();
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
@@ -79,14 +66,13 @@ var AddStaffComponent = (function () {
     }
     AddStaffComponent.prototype.ngOnInit = function () {
         this.createUserForm();
-        //this.userForm.get('changeUser').patchValue('receptionist');
-        //  this.userForm.get('primaryBranch').patchValue('lahore');
-        /*        this.userForm.get('changeUser').valueChanges
-                    .subscribe(value => {
-                        this.createUserForm();
-        //                setTimeout(()=>{ this.setValidate(value);},5000)
-                        this.setValidate(value);
-                    });*/
+    };
+    AddStaffComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item.name === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
+        });
     };
     AddStaffComponent.prototype.allBranches = function () {
         var _this = this;
@@ -94,9 +80,24 @@ var AddStaffComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
             }
         }, function (error) {
             _this.error = error.error.error;
+        });
+    };
+    AddStaffComponent.prototype.allRoles = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.PERMISSION_ENDPOINT)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'ROL_PER_SUC_02') {
+                var resources = response['responseData'];
+                var resource = resources['allRoleAndPermissions'];
+                _this.allDBRoles = resource;
+            }
+        }, function (error) {
         });
     };
     AddStaffComponent.prototype.allDoctors = function () {
@@ -140,7 +141,7 @@ var AddStaffComponent = (function () {
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
             'password': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(6)])],
             'confirmPassword': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'homePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
@@ -175,7 +176,7 @@ var AddStaffComponent = (function () {
         console.log('i am submit' + data);
         if (this.userForm.valid) {
             console.log('i am valid' + this.selectedUser);
-            if (this.selectedUser === 'cashier') {
+            if (this.selectedUser === 'CASHIER') {
                 var cashier = new User_1.User({
                     firstName: data.firstName,
                     lastName: data.lastName,
@@ -197,7 +198,7 @@ var AddStaffComponent = (function () {
                 });
                 this.makeService(cashier);
             }
-            if (this.selectedUser === 'receptionist') {
+            if (this.selectedUser === 'RECEPTIONIST') {
                 var receptionist = new User_1.User({
                     firstName: data.firstName,
                     lastName: data.lastName,
@@ -220,7 +221,7 @@ var AddStaffComponent = (function () {
                 });
                 this.makeService(receptionist);
             }
-            if (this.selectedUser === 'nurse') {
+            if (this.selectedUser === 'NURSE') {
                 var nurse = new User_1.User({
                     firstName: data.firstName,
                     lastName: data.lastName,
@@ -246,7 +247,7 @@ var AddStaffComponent = (function () {
                 });
                 this.makeService(nurse);
             }
-            if (this.selectedUser === 'doctor') {
+            if (this.selectedUser === 'DOCTOR') {
                 var doctor = new User_1.User({
                     firstName: data.firstName,
                     lastName: data.lastName,
@@ -571,16 +572,16 @@ var AddStaffComponent = (function () {
     AddStaffComponent.prototype.checkPermission = function (user) {
         this.changeState();
         switch (user) {
-            case 'doctor':
+            case 'DOCTOR':
                 this.doctorPermissions();
                 break;
-            case 'nurse':
+            case 'NURSE':
                 this.nursePermissions();
                 break;
-            case 'receptionist':
+            case 'RECEPTIONIST':
                 this.receptionistPermissions();
                 break;
-            case 'cashier':
+            case 'CASHIER':
                 this.cashierPermissions();
                 break;
             default:

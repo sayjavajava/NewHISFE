@@ -17,6 +17,7 @@ export class AddOrganizationComponent implements OnInit {
     timezoneList: any = [];
     orgForm: FormGroup;
     generalForm: FormGroup;
+    defaultBranch:string ='primaryBranch';
 
     constructor(private router: Router, private  fb: FormBuilder,
                 private requestService: RequestsService,
@@ -77,16 +78,25 @@ export class AddOrganizationComponent implements OnInit {
     }
 
     allBranches() {
-        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL +'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-                    }
+                        if(this.branchesList.length > 1){
+                            this.removeBranch();
+                            }
+                        }
+
                 },
                 (error: any) => {
 
                 })
+    }
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item.name === this.defaultBranch) this.branchesList.splice(index,1);
+        });
     }
 
     allTimezone() {

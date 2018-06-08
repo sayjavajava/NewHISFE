@@ -26,6 +26,7 @@ var AddOrganizationComponent = (function () {
         this.amazingTimePickerService = amazingTimePickerService;
         this.branchesList = [];
         this.timezoneList = [];
+        this.defaultBranch = 'primaryBranch';
         this.allBranches();
         this.allTimezone();
     }
@@ -73,12 +74,22 @@ var AddOrganizationComponent = (function () {
     };
     AddOrganizationComponent.prototype.allBranches = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
             }
         }, function (error) {
+        });
+    };
+    AddOrganizationComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item.name === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
         });
     };
     AddOrganizationComponent.prototype.allTimezone = function () {

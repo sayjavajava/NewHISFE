@@ -26,6 +26,7 @@ var UpdateCashierComponent = (function () {
         this.notificationService = notificationService;
         this.branchesList = [];
         this.primaryDoctor = [];
+        this.defaultBranch = 'primaryBranch';
         this.userSelected = 'doctor';
         this.selectedVisitBranches = [];
         this.allBranches();
@@ -59,6 +60,10 @@ var UpdateCashierComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -126,6 +131,13 @@ var UpdateCashierComponent = (function () {
             });
         }
     };
+    UpdateCashierComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
+        });
+    };
     UpdateCashierComponent.prototype.addCashier = function (data) {
         console.log('i am invalid');
         if (this.userForm.valid) {
@@ -180,11 +192,6 @@ var UpdateCashierComponent = (function () {
             'has-feedback': this.isFieldValid(field)
         };
     };
-    UpdateCashierComponent.prototype.getBranch = function (value) {
-        if (value) {
-            this.userForm.controls['primaryBranch'].setValue(value);
-        }
-    };
     UpdateCashierComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
         Object.keys(formGroup.controls).forEach(function (field) {
@@ -222,7 +229,13 @@ var UpdateCashierComponent = (function () {
         this.router.navigate(['/dashboard/setting/staff']);
     };
     UpdateCashierComponent.prototype.getSelectedBranch = function (value) {
-        if (value) {
+        console.log(value);
+        if (value === undefined) {
+            console.log('i am esss');
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+        }
+        else {
+            console.log('i am too' + value);
             this.userForm.controls['primaryBranch'].setValue(value);
         }
     };

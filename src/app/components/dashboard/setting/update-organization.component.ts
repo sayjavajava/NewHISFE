@@ -28,6 +28,7 @@ export class UpdateOrganizationComponent implements OnInit {
     generalForm: FormGroup;
     timezoneList: any = [];
     branchesList: any = [];
+    defaultBranch : string ='primaryBranch';
 
     //organization :Organization;
     ngOnInit() {
@@ -81,11 +82,14 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
     allBranches() {
-        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                        if(this.branchesList.length > 1){
+                            this.branchesList.splice(this.branchesList.indexOf({name :this.defaultBranch}),1);
+                        }
                     }
                 },
                 (error: any) => {
