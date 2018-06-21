@@ -11,9 +11,8 @@
                                 </button>
                             </a>
                             <button class="btn mt-sweetalert btn blue"
-                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                    data-type="success" data-allow-outside-click="true"
-                                    data-confirm-button-class="btn-success"> Refresh
+                                    data-confirm-button-class="btn-success"
+                                    (click)="refreshPatient()"> Refresh
                             </button>
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
@@ -26,12 +25,16 @@
                         <div class="col-md-4">
                             <div class="form-group font-siz11">
                                 <input type="text" class="form-control"
-                                       placeholder="Patient Name">
+                                       placeholder="Patient User Name"
+                                       [(ngModel)]="searchUserName"
+                                       (keydown.enter)="searchByUserName(0,'PATIENT')">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
-                                <button type="button" class="btn blue">Search
+                                <button type="button" name="searchUserName"
+                                        class="btn blue"
+                                        (click)="searchByUserName(0,'PATIENT')">Search
                                 </button>
                             </div>
                         </div>

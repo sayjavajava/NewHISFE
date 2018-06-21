@@ -82,6 +82,7 @@ var AppConstants = (function () {
     AppConstants.PATIENT_SAVE_URL = '/user/patient/save';
     AppConstants.PATIENT_FETCH_URL = '/user/patient/get/';
     AppConstants.PATIENT_UPDATE_URL = '/user/patient/update';
+    AppConstants.SEARCH_ALL_PATIENT_URL = '/user/patient/search';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
