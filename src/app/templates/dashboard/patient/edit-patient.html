@@ -1,6 +1,6 @@
 <div class="page-content-wrapper">
     <div class="page-content mrgn-lft0">
-        <h3 class="hr text-info">New Patient</h3>
+        <h3 class="hr text-info">Update Patient</h3>
         <div class="portlet-body">
             <ul class="nav nav-tabs">
                 <li class="active">
@@ -178,7 +178,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="email" name="email" required
+                                        <input type="email" name="email" required readonly
                                                [(ngModel)]="patient.email" #email="ngModel"
                                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                                                class="form-control">
@@ -196,7 +196,7 @@
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="patient.userName"
-                                               required
+                                               required readonly
                                                placeholder="Enter user Name"
                                                name="userName"
                                                pattern="^[a-zA-Z0-9-]{11,16}$"
@@ -586,7 +586,7 @@
                 <div class="hr">
                     <div class="col-md-12">
                         <div class="hr mrgn-top14">
-                            <button data-repeater-create="" class="btn blue" (click)="savePatient(form)"> Save</button>
+                            <button data-repeater-create="" class="btn blue" (click)="updatePatient(form)"> Update </button>
                             <a routerLink="/dashboard/patient/manage" class="nav-link">
                                 <button type="button" class="btn  btn-default"> Cancel</button>
                             </a>

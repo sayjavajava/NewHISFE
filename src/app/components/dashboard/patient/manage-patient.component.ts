@@ -5,12 +5,15 @@ import {Router} from "@angular/router";
 import {AppConstants} from "../../../utils/app.constants";
 import {HISUtilService} from "../../../services/his-util.service";
 import {NotificationService} from "../../../services/notification.service";
+import {UserTypeEnum} from "../../../enums/user-type-enum";
+import {Patient} from "../../../model/patient";
 
 @Component({
     selector: 'manage-patient',
     templateUrl: '../../../templates/dashboard/patient/manage-patient.html',
 })
 export class ManagePatientComponent implements OnInit {
+    patient: Patient = new Patient();
     nextPage: any;
     prePage: any;
     currPage: any;
@@ -26,11 +29,11 @@ export class ManagePatientComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Patient');
-        this.getAllPaginatedPatientFromServer(0,'PATIENT');
+        this.getAllPaginatedPatientFromServer(0,UserTypeEnum.PATIENT);
     }
 
     getPageWisePatients(page: number) {
-        this.getAllPaginatedPatientFromServer(page,'PATIENT');
+        this.getAllPaginatedPatientFromServer(page,UserTypeEnum.PATIENT);
     }
 
     getAllPaginatedPatientFromServer(page: number,userType:any) {
@@ -63,9 +66,9 @@ export class ManagePatientComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'PATIENT_SUC_06') {
                             this.notificationService.success(response['responseMessage'], 'Patient');
-                            this.getAllPaginatedPatientFromServer(0,'PATIENT');
+                            this.getAllPaginatedPatientFromServer(0,UserTypeEnum.PATIENT);
                         } else {
-                            this.getAllPaginatedPatientFromServer(0,'PATIENT');
+                            this.getAllPaginatedPatientFromServer(0,UserTypeEnum.PATIENT);
                             this.notificationService.error(response['responseMessage'], 'Patient');
                         }
                     },

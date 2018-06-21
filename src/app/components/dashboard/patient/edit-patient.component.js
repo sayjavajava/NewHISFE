@@ -18,14 +18,15 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var patient_1 = require("../../../model/patient");
 var notification_service_1 = require("../../../services/notification.service");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
-var AddPatientComponent = (function () {
-    function AddPatientComponent(requestsService, router, titleService, HISUTilService, notificationService) {
+var EditPatientComponent = (function () {
+    function EditPatientComponent(requestsService, router, titleService, HISUTilService, notificationService, activatedRoute) {
         var _this = this;
         this.requestsService = requestsService;
         this.router = router;
         this.titleService = titleService;
         this.HISUTilService = HISUTilService;
         this.notificationService = notificationService;
+        this.activatedRoute = activatedRoute;
         this.patient = new patient_1.Patient();
         this.doctors = [];
         this.requestsService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + user_type_enum_1.UserTypeEnum.DOCTOR)
@@ -36,12 +37,26 @@ var AddPatientComponent = (function () {
         }, function (error) {
             _this.HISUTilService.tokenExpired(error.error.error);
         });
+        this.activatedRoute.params.subscribe(function (params) {
+            _this.selectedPatientId = Number(params['id']);
+            _this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + _this.selectedPatientId).subscribe(function (response) {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    _this.patient = response['responseData'];
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Patient');
+                    // this.router.navigate(['404-not-found'])
+                }
+            }, function (error) {
+                _this.HISUTilService.tokenExpired(error.error.error);
+            });
+        });
     }
     ;
-    AddPatientComponent.prototype.ngOnInit = function () {
-        this.titleService.setTitle('HIS | Add Patient');
+    EditPatientComponent.prototype.ngOnInit = function () {
+        this.titleService.setTitle('HIS | Update Patient');
     };
-    AddPatientComponent.prototype.savePatient = function (form) {
+    EditPatientComponent.prototype.updatePatient = function (form) {
         var _this = this;
         if (!form.valid ||
             this.patient.titlePrefix === "-1" ||
@@ -55,8 +70,8 @@ var AddPatientComponent = (function () {
         }
         else {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.postRequest(app_constants_1.AppConstants.PATIENT_SAVE_URL, this.patient).subscribe(function (response) {
-                    if (response['responseCode'] === 'PATIENT_SUC_04') {
+                this.requestsService.putRequest(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient).subscribe(function (response) {
+                    if (response['responseCode'] === 'PATIENT_SUC_08') {
                         _this.patient = new patient_1.Patient();
                         _this.notificationService.success(response['responseMessage'], 'Patient');
                         _this.router.navigate(['/dashboard/patient/manage']);
@@ -65,7 +80,7 @@ var AddPatientComponent = (function () {
                         _this.notificationService.error(response['responseMessage'], 'Patient');
                     }
                 }, function (error) {
-                    _this.notificationService.success(Response['responseMessage'], 'Patient');
+                    _this.notificationService.error("Error", 'Patient');
                     _this.HISUTilService.tokenExpired(error.error.error);
                 });
             }
@@ -74,18 +89,19 @@ var AddPatientComponent = (function () {
             }
         }
     };
-    AddPatientComponent = __decorate([
+    EditPatientComponent = __decorate([
         core_1.Component({
             selector: 'add-patient',
-            templateUrl: '../../../templates/dashboard/patient/add-patient.html',
+            templateUrl: '../../../templates/dashboard/patient/edit-patient.html',
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,
             platform_browser_1.Title,
             his_util_service_1.HISUtilService,
-            notification_service_1.NotificationService])
-    ], AddPatientComponent);
-    return AddPatientComponent;
+            notification_service_1.NotificationService,
+            router_1.ActivatedRoute])
+    ], EditPatientComponent);
+    return EditPatientComponent;
 }());
-exports.AddPatientComponent = AddPatientComponent;
-//# sourceMappingURL=add-patient.component.js.map
+exports.EditPatientComponent = EditPatientComponent;
+//# sourceMappingURL=edit-patient.component.js.map
