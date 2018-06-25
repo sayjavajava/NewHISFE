@@ -24,6 +24,14 @@ var Patient = (function () {
         this.patientSSN = "";
         this.dob = "";
         this.gender = "MALE";
+        this.races = [
+            { id: 1, nameRace: 'American Indian or Alaska Native', selected: false },
+            { id: 2, nameRace: 'Asian', selected: false },
+            { id: 3, nameRace: 'Black or African American', selected: false },
+            { id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false },
+            { id: 5, nameRace: 'White', selected: false },
+            { id: 6, nameRace: 'Other Race', selected: false }
+        ];
         this.country = "SAUDI ARAB";
         this.streetAddress = "";
         this.zipCode = "";
@@ -43,14 +51,14 @@ var Patient = (function () {
         this.cardIssuedDate = "";
         this.cardExpiryDate = "";
         this.primaryInsuranceNotes = "";
-        this.races = [
-            { id: 1, nameRace: 'American Indian or Alaska Native', selected: false },
-            { id: 2, nameRace: 'Asian', selected: false },
-            { id: 3, nameRace: 'Black or African American', selected: false },
-            { id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false },
-            { id: 5, nameRace: 'White', selected: false },
-            { id: 6, nameRace: 'Other RAce', selected: false }
-        ];
+        /*this.races = [
+            {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
+            {id: 2, nameRace: 'Asian', selected: false},
+            {id: 3, nameRace: 'Black or African American', selected: false},
+            {id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false},
+            {id: 5, nameRace: 'White', selected: false},
+            {id: 6, nameRace: 'Other RAce', selected: false}
+        ];*/
     }
     return Patient;
 }());

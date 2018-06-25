@@ -36,6 +36,17 @@ var AddPatientComponent = (function () {
         }, function (error) {
             _this.HISUTilService.tokenExpired(error.error.error);
         });
+        /*this.requestsService.getRequest(AppConstants.RACE_FETCH_URL)
+            .subscribe(
+                (response:Response) =>{
+                    if (response['responseStatus'] === 'SUCCESS'){
+                        this.patient.races = response['responseData'];
+                    }
+                },
+                (error:any) =>{
+                    this.HISUTilService.tokenExpired(error.error.error);
+                }
+            );*/
     }
     ;
     AddPatientComponent.prototype.ngOnInit = function () {

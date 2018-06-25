@@ -87,5 +87,6 @@ export class AppConstants {
     public static PATIENT_FETCH_URL = '/user/patient/get/';
     public static PATIENT_UPDATE_URL = '/user/patient/update';
     public static SEARCH_ALL_PATIENT_URL = '/user/patient/search';
+    public static RACE_FETCH_URL = '/user/patient/races';
 
 }

@@ -27,7 +27,14 @@ export class Patient {
     patientSSN: string = "";
     dob: string = "";
     gender: string = "MALE";
-    races: Race[];
+    races: Race[] = [
+        {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
+        {id: 2, nameRace: 'Asian', selected: false},
+        {id: 3, nameRace: 'Black or African American', selected: false},
+        {id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false},
+        {id: 5, nameRace: 'White', selected: false},
+        {id: 6, nameRace: 'Other Race', selected: false}
+    ];
     country: string = "SAUDI ARAB";
     streetAddress: string = "";
     zipCode: string = "";
@@ -55,13 +62,13 @@ export class Patient {
 
 
     constructor() {
-        this.races = [
+        /*this.races = [
             {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
             {id: 2, nameRace: 'Asian', selected: false},
             {id: 3, nameRace: 'Black or African American', selected: false},
             {id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false},
             {id: 5, nameRace: 'White', selected: false},
             {id: 6, nameRace: 'Other RAce', selected: false}
-        ];
+        ];*/
     }
 }

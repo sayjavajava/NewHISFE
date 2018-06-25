@@ -42,6 +42,7 @@ var EditPatientComponent = (function () {
             _this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + _this.selectedPatientId).subscribe(function (response) {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     _this.patient = response['responseData'];
+                    _this.patient.races = JSON.parse(response['responseData'].racesString);
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Patient');
