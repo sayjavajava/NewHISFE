@@ -5,15 +5,14 @@
                 <div class="hr">
                     <h4 class="text-info">Manage Patients
                         <div class="pull-right">
-                            <a href="#responsive" data-toggle="modal">
+                            <a routerLink="/dashboard/patient/add">
                                 <button class="btn mt-sweetalert btn green-meadow">
                                     <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
                             <button class="btn mt-sweetalert btn blue"
-                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                    data-type="success" data-allow-outside-click="true"
-                                    data-confirm-button-class="btn-success"> Refresh
+                                    data-confirm-button-class="btn-success"
+                                    (click)="refreshPatient()"> Refresh
                             </button>
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
@@ -26,12 +25,16 @@
                         <div class="col-md-4">
                             <div class="form-group font-siz11">
                                 <input type="text" class="form-control"
-                                       placeholder="Patient Name">
+                                       placeholder="Patient User Name"
+                                       [(ngModel)]="searchUserName"
+                                       (keydown.enter)="searchByUserName(0,'PATIENT')">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
-                                <button type="button" class="btn blue">Search
+                                <button type="button" name="searchUserName"
+                                        class="btn blue"
+                                        (click)="searchByUserName(0,'PATIENT')">Search
                                 </button>
                             </div>
                         </div>
@@ -42,25 +45,27 @@
                                id="datatable_ajax" role="grid">
                             <thead>
                             <tr role="row" class="off-wite-bg">
-                                <th width="20%" class="c-text-left padding"> Name</th>
+                                <th width="10%" class="c-text-left padding"> User Name</th>
                                 <th width="50%"> Email</th>
+                                <th width="10%"> Type</th>
                                 <th width="8%"> Status</th>
                                 <th width="16%"> Action</th>
                             </tr>
                             <tr role="row" *ngFor="let item of data; let i = index;" class="filter">
-                                <td class="c-text-left padding font-green-dark"><strong>{{item.profileWrapper.firstName}}</strong></td>
+                                <td class="c-text-left padding font-green-dark"><strong>{{item.userName}}</strong></td>
                                 <td class="c-text-left">{{item.email}}</td>
+                                <td class="c-text-left">{{item.userType}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">
                                     {{item.active === true ? 'Active' : 'In-Active'}}
                                 </td>
                                 <td class="sorting_disabled">
-                                    <a routerLink="" data-toggle="modal">
+                                    <a routerLink="/dashboard/patient/edit/{{item.userId}}">
                                         <button class="btn btn-default btn-outline btn-sm">
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </a>
                                     <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="deletePatient(item.id)">
+                                            (click)="deletePatient(item.userId)">
                                         <i class="fa fa-remove"></i>
                                     </button>
                                 </td>

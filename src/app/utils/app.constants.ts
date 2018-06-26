@@ -80,8 +80,13 @@ export class AppConstants {
     public static FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
     public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
 
-    ////////////////////// Medical Service URLs ///////////////////////////////
-    public static FETCH_ALL_PATIENT_URL = '/patient/';
-    public static PATIENT_DELETE_URI = '/patient/delete/';
+    ////////////////////// Patient URLs ///////////////////////////////
+    public static FETCH_ALL_PATIENT_URL = '/user/patient/';
+    public static PATIENT_DELETE_URI = '/user/patient/delete/';
+    public static PATIENT_SAVE_URL = '/user/patient/save';
+    public static PATIENT_FETCH_URL = '/user/patient/get/';
+    public static PATIENT_UPDATE_URL = '/user/patient/update';
+    public static SEARCH_ALL_PATIENT_URL = '/user/patient/search';
+    public static RACE_FETCH_URL = '/user/patient/races';
 
 }

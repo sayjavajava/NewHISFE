@@ -16,6 +16,8 @@ var router_1 = require("@angular/router");
 var app_constants_1 = require("../../../utils/app.constants");
 var his_util_service_1 = require("../../../services/his-util.service");
 var notification_service_1 = require("../../../services/notification.service");
+var user_type_enum_1 = require("../../../enums/user-type-enum");
+var patient_1 = require("../../../model/patient");
 var ManagePatientComponent = (function () {
     function ManagePatientComponent(requestsService, router, titleService, HISUtilService, notificationService) {
         this.requestsService = requestsService;
@@ -23,15 +25,23 @@ var ManagePatientComponent = (function () {
         this.titleService = titleService;
         this.HISUtilService = HISUtilService;
         this.notificationService = notificationService;
+        this.patient = new patient_1.Patient();
         this.pages = [];
+        this.searchUserName = "";
+        this.searched = false;
     }
     ;
     ManagePatientComponent.prototype.ngOnInit = function () {
         this.titleService.setTitle('HIS | Patient');
-        this.getAllPaginatedPatientFromServer(0, 'PATIENT');
+        this.getAllPaginatedPatientFromServer(0, user_type_enum_1.UserTypeEnum.PATIENT);
     };
     ManagePatientComponent.prototype.getPageWisePatients = function (page) {
-        this.getAllPaginatedPatientFromServer(page, 'PATIENT');
+        if (this.searched) {
+            this.searchByUserName(page, user_type_enum_1.UserTypeEnum.PATIENT);
+        }
+        else {
+            this.getAllPaginatedPatientFromServer(page, user_type_enum_1.UserTypeEnum.PATIENT);
+        }
     };
     ManagePatientComponent.prototype.getAllPaginatedPatientFromServer = function (page, userType) {
         var _this = this;
@@ -60,21 +70,48 @@ var ManagePatientComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'PATIENT_SUC_06') {
                     _this.notificationService.success(response['responseMessage'], 'Patient');
-                    _this.getAllPaginatedPatientFromServer(0, 'PATIENT');
+                    _this.getAllPaginatedPatientFromServer(0, user_type_enum_1.UserTypeEnum.PATIENT);
                 }
                 else {
-                    _this.getAllPaginatedPatientFromServer(0, 'PATIENT');
+                    _this.getAllPaginatedPatientFromServer(0, user_type_enum_1.UserTypeEnum.PATIENT);
                     _this.notificationService.error(response['responseMessage'], 'Patient');
                 }
             }, function (error) {
                 //console.log(error.json())
-                _this.notificationService.error(error.error, 'Patient');
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
         }
         else {
             this.router.navigate(['/login']);
         }
+    };
+    ManagePatientComponent.prototype.searchByUserName = function (page, userType) {
+        var _this = this;
+        this.searched = true;
+        if (page > 0) {
+            page = page;
+        }
+        this.requestsService.getRequest(app_constants_1.AppConstants.SEARCH_ALL_PATIENT_URL + page + '?userType=' + userType + '&userName=' + this.searchUserName)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'PATIENT_SUC_11') {
+                _this.nextPage = response['responseData']['nextPage'];
+                _this.prePage = response['responseData']['prePage'];
+                _this.currPage = response['responseData']['currPage'];
+                _this.pages = response['responseData']['pages'];
+                _this.data = response['responseData']['data'];
+                _this.notificationService.success(response['responseMessage'], 'Patient');
+            }
+            else {
+                _this.notificationService.success(response['responseMessage'], 'Patient');
+            }
+        }, function (error) {
+            _this.HISUtilService.tokenExpired(error.error.error);
+        });
+    };
+    ManagePatientComponent.prototype.refreshPatient = function () {
+        this.searched = false;
+        this.searchUserName = "";
+        this.getAllPaginatedPatientFromServer(0, user_type_enum_1.UserTypeEnum.PATIENT.valueOf());
     };
     ManagePatientComponent = __decorate([
         core_1.Component({

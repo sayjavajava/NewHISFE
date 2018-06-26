@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Title} from "@angular/platform-browser";
 import {RequestsService} from "../../../services/requests.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AppConstants} from "../../../utils/app.constants";
 import {HISUtilService} from "../../../services/his-util.service";
 import {Patient} from "../../../model/patient";
@@ -11,18 +11,19 @@ import {UserTypeEnum} from "../../../enums/user-type-enum";
 
 @Component({
     selector: 'add-patient',
-    templateUrl: '../../../templates/dashboard/patient/add-patient.html',
+    templateUrl: '../../../templates/dashboard/patient/edit-patient.html',
 })
-export class AddPatientComponent implements OnInit {
+export class EditPatientComponent implements OnInit {
     patient: Patient = new Patient();
-
+    selectedPatientId:any;
     doctors: any = [];
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private titleService: Title,
                 private HISUTilService: HISUtilService,
-                private notificationService: NotificationService) {
+                private notificationService: NotificationService,
+                private activatedRoute: ActivatedRoute) {
 
         this.requestsService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
             .subscribe(
@@ -35,24 +36,32 @@ export class AddPatientComponent implements OnInit {
                     this.HISUTilService.tokenExpired(error.error.error);
                 });
 
-        /*this.requestsService.getRequest(AppConstants.RACE_FETCH_URL)
-         .subscribe(
-         (response:Response) =>{
-         if (response['responseStatus'] === 'SUCCESS'){
-         this.patient.races = response['responseData'];
-         }
-         },
-         (error:any) =>{
-         this.HISUTilService.tokenExpired(error.error.error);
-         }
-         );*/
+        this.activatedRoute.params.subscribe(
+            params => {
+                this.selectedPatientId = Number(params['id']);
+                this.requestsService.getRequest(
+                    AppConstants.PATIENT_FETCH_URL + this.selectedPatientId
+                ).subscribe(
+                    response => {
+                        if (response['responseCode'] === 'USER_SUC_01') {
+                            this.patient = response['responseData'];
+                            this.patient.races = JSON.parse(response['responseData'].racesString);
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Patient');
+                            // this.router.navigate(['404-not-found'])
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUTilService.tokenExpired(error.error.error);
+                    });
+            });
     };
 
     ngOnInit() {
-        this.titleService.setTitle('HIS | Add Patient');
+        this.titleService.setTitle('HIS | Update Patient');
     }
 
-    savePatient(insuranceForm: NgForm, demographicForm: NgForm, patientForm: NgForm, contactForm: NgForm) {
+    updatePatient(insuranceForm: NgForm, demographicForm: NgForm, patientForm: NgForm, contactForm: NgForm) {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid || contactForm.invalid) {
             if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
@@ -84,12 +93,12 @@ export class AddPatientComponent implements OnInit {
             return;
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.postRequest(
-                    AppConstants.PATIENT_SAVE_URL,
+                this.requestsService.putRequest(
+                    AppConstants.PATIENT_UPDATE_URL,
                     this.patient
                 ).subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'PATIENT_SUC_04') {
+                        if (response['responseCode'] === 'PATIENT_SUC_08') {
                             this.patient = new Patient();
                             this.notificationService.success(response['responseMessage'], 'Patient');
                             this.router.navigate(['/dashboard/patient/manage']);
@@ -98,7 +107,7 @@ export class AddPatientComponent implements OnInit {
                         }
                     },
                     (error: any) => {
-                        this.notificationService.success(Response['responseMessage'], 'Patient');
+                        this.notificationService.error("Error", 'Patient');
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );

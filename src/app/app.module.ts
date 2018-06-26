@@ -81,6 +81,8 @@ import {PatientDashboardComponent} from "./components/dashboard/patient/patient-
 import {AddPatientComponent} from "./components/dashboard/patient/add-patient.component";
 import {PatientReportsComponent} from "./components/dashboard/patient/patient-reports.component";
 import {PatientComponent} from "./components/dashboard/patient/patient.component";
+import {EditPatientComponent} from "./components/dashboard/patient/edit-patient.component";
+
 
 @NgModule({
     providers: [
@@ -133,6 +135,7 @@ import {PatientComponent} from "./components/dashboard/patient/patient.component
         AddPatientComponent,
         PatientReportsComponent,
         PatientComponent,
+        EditPatientComponent,
 
         //Setting Components
         SettingComponent,
@@ -170,7 +173,7 @@ import {PatientComponent} from "./components/dashboard/patient/patient.component
         AddStaffComponent,
         ErrordisplayComponent,
         ConfirmationdialogComponent,
-        UpdateOrganizationComponent
+        UpdateOrganizationComponent,
 
     ],
     bootstrap: [AppComponent]

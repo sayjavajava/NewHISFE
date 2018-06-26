@@ -1,6 +1,6 @@
 <div class="page-content-wrapper">
     <div class="page-content mrgn-lft0">
-        <h3 class="hr text-info">New Patient</h3>
+        <h3 class="hr text-info">Update Patient</h3>
         <div class="portlet-body">
             <ul class="nav nav-tabs">
                 <li class="active">
@@ -20,13 +20,10 @@
                             <h3 class="hr green-txt">Important Information</h3>
                             <form id="patientForm" class="form-horizontal" #patientForm="ngForm">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Primary Doctor
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
+                                    <label class="control-label col-md-4">Primary Doctor</label>
                                     <div class="col-md-8">
-                                        <select id="selectedDoctor" [(ngModel)]="patient.selectedDoctor"
+                                        <select id="icdVersions" [(ngModel)]="patient.selectedDoctor"
                                                 #selectedDoctor="ngModel" name="selectedDoctor"
-                                                required
                                                 class="form-control">
                                             <option [ngValue]="-1" selected>---Select---</option>
                                             <option *ngFor="let doc of doctors" [value]="doc.id">
@@ -41,7 +38,6 @@
                                     </label>
                                     <div class="col-md-8">
                                         <select class="form-control"
-                                                id="titlePrefix"
                                                 name="titlePrefix"
                                                 #titlePrefix="ngModel"
                                                 [(ngModel)]="patient.titlePrefix">
@@ -59,27 +55,24 @@
                                     <label class="control-label col-md-4">First Name
                                     </label>
                                     <div class="col-md-8 select pdng-lr-4">
-                                        <input type="text" id="firstName"
+                                        <input type="text"
                                                class="form-control" [(ngModel)]="patient.firstName"
                                                placeholder="Enter first name" name="firstName"
                                                pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                #firstName="ngModel">
-                                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-                                             class="alert alert-danger">
-                                            First name required,min 1 , max 60 characters long
-                                        </div>
+                                    </div>
+                                    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                                         class="alert alert-danger">
+                                        First name required,min 1 , max 60 characters long
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Middle Name
                                     </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="patient.middleName"
-                                               placeholder="Enter  middle Name"
-                                               id="middleName"
-                                               name="middleName"
+                                               placeholder="Enter  middle Name" name="middleName"
                                                pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                #middleName="ngModel">
                                         <div *ngIf="middleName.invalid && (middleName.dirty || middleName.touched)"
@@ -93,7 +86,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
-                                               [(ngModel)]="patient.lastName" id="lastName"
+                                               [(ngModel)]="patient.lastName"
                                                placeholder="Enter last Name" name="lastName"
                                                pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                #lastName="ngModel">
@@ -108,7 +101,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
-                                               [(ngModel)]="patient.foreignName" id="foreignName"
+                                               [(ngModel)]="patient.foreignName"
                                                placeholder="Enter foreign Name" name="foreignName"
                                                pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                #foreignName="ngModel">
@@ -138,7 +131,7 @@
                                     <label class="control-label col-md-4">Home Phone
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="number" nclass="form-control"
+                                        <input type="number" class="form-control"
                                                [(ngModel)]="patient.homePhone"
                                                placeholder="Enter home Phone" name="homePhone"
                                                #homePhone="ngModel">
@@ -154,9 +147,9 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input type="number" class="form-control"
-                                               [(ngModel)]="patient.cellPhone" required
+                                               [(ngModel)]="patient.cellPhone"
                                                placeholder="Enter cell Phone"
-                                               name="cellPhone" id="cellPhone"
+                                               name="cellPhone"
                                                #cellPhone="ngModel">
                                         <div *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)"
                                              class="alert alert-danger">
@@ -191,7 +184,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 no-padding">
-                                            <input type="number" placeholder="Ext."
+                                            <input type="number" placeholder="Ext"
                                                    class="form-control"
                                                    [(ngModel)]="patient.officeExtension"
                                                    name="officeExtension"
@@ -208,7 +201,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="email" name="email" id="email" required
+                                        <input type="email" name="email" required readonly
                                                [(ngModel)]="patient.email" #email="ngModel"
                                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                                                class="form-control">
@@ -225,15 +218,11 @@
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="patient.userName"
-                                               required id="userName"
+                                               readonly
                                                placeholder="Enter user Name"
                                                name="userName"
-                                               pattern="^[a-zA-Z0-9- _]{1,50}$"
                                                #userName="ngModel">
-                                        <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
-                                             class="alert alert-danger">
-                                            please provide valid user name
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -309,14 +298,14 @@
                                     </label>
                                     <div class="col-md-8 select ">
                                         <input type="date" class="form-control form-control-inline input-medium"
-                                               [(ngModel)]="patient.dob" id="dob"
+                                               [(ngModel)]="patient.dob"
                                                (ngModelChange)="patient.dob = $event"
                                                name="dob" #dob="ngModel">
-                                        <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"
-                                             class="alert alert-danger">
-                                            please provide valid Date of Birth
-                                        </div>
                                     </div>
+                                    <span *ngIf="dob.invalid && dob.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid from Date.
+                                    </span>
                                 </div>
 
                                 <div class="form-group">
@@ -401,7 +390,6 @@
                                         <input type="text" class="form-control"
                                                [(ngModel)]="patient.city"
                                                name="city"
-                                               pattern="^[a-zA-Z -]{1,30}$"
                                                #city="ngModel">
                                         <div *ngIf="city.invalid && (city.dirty || city.touched)"
                                              class="alert alert-danger">
@@ -456,7 +444,6 @@
                                                [(ngModel)]="patient.emergencyContactName"
                                                name="emergencyContactName"
                                                #emergencyContactName="ngModel">
-
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -529,8 +516,7 @@
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" name="insuranceIdNumber"
                                                #insuranceIdNumber="ngModel"
-                                               [(ngModel)]="patient.insuranceIdNumber">
-                                    </div>
+                                               [(ngModel)]="patient.insuranceIdNumber"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Insurance Group Number
@@ -637,7 +623,8 @@
                     <div class="col-md-12">
                         <div class="hr mrgn-top14">
                             <button data-repeater-create="" class="btn blue"
-                                    (click)="savePatient(insuranceForm,demographicForm,patientForm,contactForm)"> Save
+                                    (click)="updatePatient(insuranceForm,demographicForm,patientForm,contactForm)">
+                                Update
                             </button>
                             <a routerLink="/dashboard/patient/manage" class="nav-link">
                                 <button type="button" class="btn  btn-default"> Cancel</button>
