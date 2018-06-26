@@ -309,7 +309,7 @@
                                     </label>
                                     <div class="col-md-8 select ">
                                         <input type="date" class="form-control form-control-inline input-medium"
-                                               [(ngModel)]="patient.dob" required id="dob"
+                                               [(ngModel)]="patient.dob" id="dob"
                                                (ngModelChange)="patient.dob = $event"
                                                name="dob" #dob="ngModel">
                                         <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"

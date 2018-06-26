@@ -61,14 +61,34 @@ export class EditPatientComponent implements OnInit {
         this.titleService.setTitle('HIS | Update Patient');
     }
 
-    updatePatient(form: NgForm) {
-        if (!form.valid ||
-            this.patient.titlePrefix === "-1" ||
-            this.patient.selectedDoctor <= 0 ||
-            this.patient.firstName.length <= 0 ||
-            this.patient.cellPhone.length <= 0 ||
-            this.patient.userName.length <= 0 ||
-            this.patient.email.length <= 0) {
+    updatePatient(insuranceForm: NgForm, demographicForm: NgForm, patientForm: NgForm, contactForm: NgForm) {
+        if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid || contactForm.invalid) {
+            if (this.patient.selectedDoctor <= 0) {
+                this.notificationService.error('Please select primary doctor', 'Patient');
+                document.getElementById("selectedDoctor").focus();
+                return;
+            } else if (this.patient.titlePrefix === "-1") {
+                this.notificationService.error('Please select title', 'Patient');
+                document.getElementById("titlePrefix").focus();
+                return;
+            } else if (this.patient.cellPhone.length <= 0) {
+                this.notificationService.error('Please provide cell phone number', 'Patient');
+                document.getElementById("cellPhone").focus();
+                return;
+            } else if (this.patient.email.length <= 0) {
+                this.notificationService.error('Please provide email', 'Patient');
+                document.getElementById("email").focus();
+                return;
+            } else if (this.patient.userName.length <= 0) {
+                this.notificationService.error('Please provide user name', 'Patient');
+                document.getElementById("userName").focus();
+                return;
+            } /*else if (this.patient.dob.length<=0) {
+                this.notificationService.error('Please provide user name', 'Patient');
+                // document.getElementById("dob").style.color = "red";
+                document.getElementById("dob").focus();
+                return;
+            }*/
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         } else {

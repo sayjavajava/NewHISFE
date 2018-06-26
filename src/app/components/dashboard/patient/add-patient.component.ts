@@ -74,12 +74,12 @@ export class AddPatientComponent implements OnInit {
                 this.notificationService.error('Please provide user name', 'Patient');
                 document.getElementById("userName").focus();
                 return;
-            } else if (this.patient.dob.length<=0) {
+            } /*else if (this.patient.dob.length<=0) {
                 this.notificationService.error('Please provide user name', 'Patient');
                 // document.getElementById("dob").style.color = "red";
                 document.getElementById("dob").focus();
                 return;
-            }
+            }*/
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         } else {
