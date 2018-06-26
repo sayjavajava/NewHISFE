@@ -37,30 +37,55 @@ var AddPatientComponent = (function () {
             _this.HISUTilService.tokenExpired(error.error.error);
         });
         /*this.requestsService.getRequest(AppConstants.RACE_FETCH_URL)
-            .subscribe(
-                (response:Response) =>{
-                    if (response['responseStatus'] === 'SUCCESS'){
-                        this.patient.races = response['responseData'];
-                    }
-                },
-                (error:any) =>{
-                    this.HISUTilService.tokenExpired(error.error.error);
-                }
-            );*/
+         .subscribe(
+         (response:Response) =>{
+         if (response['responseStatus'] === 'SUCCESS'){
+         this.patient.races = response['responseData'];
+         }
+         },
+         (error:any) =>{
+         this.HISUTilService.tokenExpired(error.error.error);
+         }
+         );*/
     }
     ;
     AddPatientComponent.prototype.ngOnInit = function () {
         this.titleService.setTitle('HIS | Add Patient');
     };
-    AddPatientComponent.prototype.savePatient = function (form) {
+    AddPatientComponent.prototype.savePatient = function (insuranceForm, demographicForm, patientForm, contactForm) {
         var _this = this;
-        if (!form.valid ||
-            this.patient.titlePrefix === "-1" ||
-            this.patient.selectedDoctor <= 0 ||
-            this.patient.firstName.length <= 0 ||
-            this.patient.cellPhone.length <= 0 ||
-            this.patient.userName.length <= 0 ||
-            this.patient.email.length <= 0) {
+        if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid || contactForm.invalid) {
+            if (this.patient.selectedDoctor <= 0) {
+                this.notificationService.error('Please select primary doctor', 'Patient');
+                document.getElementById("selectedDoctor").focus();
+                return;
+            }
+            else if (this.patient.titlePrefix === "-1") {
+                this.notificationService.error('Please select title', 'Patient');
+                document.getElementById("titlePrefix").focus();
+                return;
+            }
+            else if (this.patient.cellPhone.length <= 0) {
+                this.notificationService.error('Please provide cell phone number', 'Patient');
+                document.getElementById("cellPhone").focus();
+                return;
+            }
+            else if (this.patient.email.length <= 0) {
+                this.notificationService.error('Please provide email', 'Patient');
+                document.getElementById("email").focus();
+                return;
+            }
+            else if (this.patient.userName.length <= 0) {
+                this.notificationService.error('Please provide user name', 'Patient');
+                document.getElementById("userName").focus();
+                return;
+            }
+            else if (this.patient.dob.length <= 0) {
+                this.notificationService.error('Please provide user name', 'Patient');
+                // document.getElementById("dob").style.color = "red";
+                document.getElementById("dob").focus();
+                return;
+            }
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         }
