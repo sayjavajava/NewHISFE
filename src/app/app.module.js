@@ -84,6 +84,10 @@ var manage_appointment_component_1 = require("./components/dashboard/appointment
 var add_appointment_component_1 = require("./components/dashboard/appointment/add-appointment.component");
 var appointment_reports_component_1 = require("./components/dashboard/appointment/appointment-reports.component");
 var appointment_navigation_component_1 = require("./components/dashboard/appointment/appointment-navigation.component");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var angular_calendar_1 = require("angular-calendar");
+var module_1 = require("../demo-utils/module");
+var edit_appointment_component_1 = require("./components/dashboard/appointment/edit-appointment.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -120,6 +124,9 @@ var AppModule = (function () {
                 material_1.MatNativeDateModule,
                 material_1.MatInputModule,
                 material_1.MatIconModule,
+                ng_bootstrap_1.NgbModalModule.forRoot(),
+                angular_calendar_1.CalendarModule.forRoot(),
+                module_1.DemoUtilsModule
             ],
             declarations: [
                 // App Components
@@ -182,7 +189,8 @@ var AppModule = (function () {
                 addstaff_component_1.AddStaffComponent,
                 errordisplay_component_1.ErrordisplayComponent,
                 confirmationdialog_component_1.ConfirmationdialogComponent,
-                update_organization_component_1.UpdateOrganizationComponent
+                update_organization_component_1.UpdateOrganizationComponent,
+                edit_appointment_component_1.EditAppointmentComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

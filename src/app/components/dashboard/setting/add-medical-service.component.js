@@ -35,7 +35,7 @@ var AddMedicalServiceComponent = (function () {
     };
     AddMedicalServiceComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branches = response['responseData'];

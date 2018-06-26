@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'appointment-dashboard-component',
-    templateUrl: '../../../templates/dashboard/appointment/appointment-dashboard.html',
+    templateUrl: '../../../templates/dashboard/appointment/appointment-dashboard.template.html',
 })
 export class AppointmentDashboardComponent implements OnInit {
 

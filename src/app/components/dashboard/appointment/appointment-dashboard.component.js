@@ -26,7 +26,7 @@ var AppointmentDashboardComponent = (function () {
     AppointmentDashboardComponent = __decorate([
         core_1.Component({
             selector: 'appointment-dashboard-component',
-            templateUrl: '../../../templates/dashboard/appointment/appointment-dashboard.html',
+            templateUrl: '../../../templates/dashboard/appointment/appointment-dashboard.template.html',
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,

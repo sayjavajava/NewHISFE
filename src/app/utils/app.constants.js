@@ -80,7 +80,12 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_PATIENT_URL = '/patient/';
     AppConstants.PATIENT_DELETE_URI = '/patient/delete/';
     ////////////////////// Appointments URLs ///////////////////////////////
-    AppConstants.FETCH_PAGINATED_PATIENTS_URL = '/appointment/';
+    AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
+    AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
+    AppConstants.SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    AppConstants.FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
+    AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
+    AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

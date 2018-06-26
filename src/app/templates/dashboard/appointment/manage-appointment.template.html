@@ -11,11 +11,11 @@
                                     <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
-                            <button class="btn mt-sweetalert btn blue"
+                            <!--<button class="btn mt-sweetalert btn blue"
                                     data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                     data-type="success" data-allow-outside-click="true"
                                     data-confirm-button-class="btn-success"> Refresh
-                            </button>
+                            </button>-->
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
                         </div>
@@ -27,12 +27,14 @@
                         <div class="col-md-4">
                             <div class="form-group font-siz11">
                                 <input type="text" class="form-control"
-                                       placeholder="Patient Name">
+                                       placeholder="Patient"
+                                       [(ngModel)]="searchData"
+                                       (keydown.enter)="searchAppointment(0)">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
-                                <button type="button" class="btn blue">Search
+                                <button type="button" (click)="searchAppointment(0)" class="btn blue">Search
                                 </button>
                             </div>
                         </div>
@@ -55,22 +57,19 @@
                             </tr>
                             <tr role="row" *ngFor="let app of data; let i = index;" class="filter">
                                 <td class="c-text-left padding font-green-dark"><strong>{{app.id}}</strong></td>
-                                <td class="sorting_disabled">{{app.patientFirstName}} {{app.patientLastName}}</td>
-                                <td class="c-text-left">{{app.roomName}}</td>
+                                <td class="sorting_disabled">{{app.patient}} </td>
+                                <td class="c-text-left">{{app.examName}}</td>
                                 <td class="c-text-left">{{app.branchName}}</td>
                                 <td class="c-text-left">{{app.type}}</td>
-                                <td class="c-text-left">{{app.startedOn | date:'dd/MM/yyyy'}}</td>
-                                <td class="c-text-left">{{app.endedOn | date:'dd/MM/yyyy'}}</td>
+                                <td class="c-text-left">{{app.firstAppointmentOn | date:'dd/MM/yyyy'}}</td>
+                                <td class="c-text-left">{{app.lastAppointmentOn | date:'dd/MM/yyyy'}}</td>
                                 <td class="c-text-left">{{app.status}}</td>
-                                <td class="sorting_disabled">
-                                    <a routerLink="" data-toggle="modal">
-                                        <button class="btn btn-default btn-outline btn-sm">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                    </a>
-                                    <button class="btn btn-default btn-outline btn-sm">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
+                                <td rowspan="1" colspan="1">
+
+                                    <button (click)="updateAppointment(app.id)" class="btn btn-default btn-outline btn-sm"><i
+                                            class="fa fa-pencil"></i></button>
+                                    <button (click)="deleteAppointment(app.id)" class="btn btn-default btn-outline btn-sm"><i
+                                            class="fa fa-remove"></i></button>
                                 </td>
                             </tr>
                             </thead>

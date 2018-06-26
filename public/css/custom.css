@@ -12,6 +12,7 @@ p, h3, h4{margin:0; padding:0;}
 .header-top-menu a{ font-size:14px; color:#fff;}
 .header-top-menu a:hover{color:#fff; text-decoration:none;}
 .side-bar-toggle-menu{margin: 70px 34px 0 0 !important;}
+.col-width14{width: 14% !important;}
 .col-width25{width: 25% !important;}
 .flt-lft{float: left;}
 .hr{ width:100%; float:left; margin-bottom:10px;}
@@ -401,4 +402,32 @@ p, h3, h4{margin:0; padding:0;}
 .modal-scheduler {
     width: 1040px !important;
     margin: 30px auto;
+}
+
+.schedle-appint-modal {
+    width: 1030px;
+    /*height: 1030px;*/
+    overflow-y: initial !important
+}
+.schedule-body{
+
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+.calendr-iconalign{
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    z-index: 999;
+}
+.never-end{
+    float: right;
+    top: -64px;
+    position: relative;
+}
+.clndr-siz{
+    float: left;
+    width: 100%;
+    position: relative;
+    margin-left: 15px;
 }

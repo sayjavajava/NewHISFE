@@ -35,7 +35,7 @@ export class UpdateBranchComponent implements OnInit {
                 (error: any) => {
                     this.error = error.error.error;
                 });
-        this.allBranches();
+             this.allBranches();
     }
 
     private sub: any;
@@ -122,7 +122,6 @@ export class UpdateBranchComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
-
             this.requestService.findById(AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(
                 branch => {
                     //  this.id = user.id;
@@ -207,8 +206,6 @@ export class UpdateBranchComponent implements OnInit {
             (examRooms: ExamRooms) => Object.assign({}, examRooms)
         );
 
-        // return new `Hero` object containing a combination of original hero value(s)
-        // and deep copies of changed form model values
         const saveBranchModel: Branch = {
             branchName: formModel.branchName,
             officeHoursStart: formModel.officeHoursStart,

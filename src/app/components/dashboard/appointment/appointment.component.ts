@@ -14,6 +14,7 @@ export class AppointmentComponent implements OnInit {
                 private titleService: Title) {
     };
 
+
     ngOnInit() {
         this.titleService.setTitle('HIS | Appointments');
     }

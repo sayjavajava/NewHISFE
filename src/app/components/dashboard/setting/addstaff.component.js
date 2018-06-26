@@ -484,7 +484,6 @@ var AddStaffComponent = (function () {
         console.log(this.selectedWorkingDays);
     };
     AddStaffComponent.prototype.selectVisitBranches = function (event, item) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }

@@ -87,6 +87,11 @@ import {ManageAppointmentComponent} from "./components/dashboard/appointment/man
 import {AddAppointmentComponent} from "./components/dashboard/appointment/add-appointment.component";
 import {AppointmentReportsComponent} from "./components/dashboard/appointment/appointment-reports.component";
 import {AppointmentNavigationComponent} from "./components/dashboard/appointment/appointment-navigation.component";
+import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {CalendarModule} from 'angular-calendar';
+import { DemoUtilsModule } from '../demo-utils/module';
+import {EditAppointmentComponent} from './components/dashboard/appointment/edit-appointment.component';
+
 
 @NgModule({
     providers: [
@@ -118,6 +123,9 @@ import {AppointmentNavigationComponent} from "./components/dashboard/appointment
         MatNativeDateModule,
         MatInputModule,
         MatIconModule,
+        NgbModalModule.forRoot(),
+        CalendarModule.forRoot(),
+        DemoUtilsModule
     ],
     declarations: [
         // App Components
@@ -182,7 +190,8 @@ import {AppointmentNavigationComponent} from "./components/dashboard/appointment
         AddStaffComponent,
         ErrordisplayComponent,
         ConfirmationdialogComponent,
-        UpdateOrganizationComponent
+        UpdateOrganizationComponent,
+        EditAppointmentComponent
 
     ],
     bootstrap: [AppComponent]

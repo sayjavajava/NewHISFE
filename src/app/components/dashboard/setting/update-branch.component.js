@@ -170,8 +170,6 @@ var UpdateBranchComponent = (function () {
         var billingModel = this.billingForm.value;
         var scheduleModel = this.scheduleForm.value;
         var secretLairsDeepCopy = formModel.examRooms.map(function (examRooms) { return Object.assign({}, examRooms); });
-        // return new `Hero` object containing a combination of original hero value(s)
-        // and deep copies of changed form model values
         var saveBranchModel = {
             branchName: formModel.branchName,
             officeHoursStart: formModel.officeHoursStart,

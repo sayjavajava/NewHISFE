@@ -572,7 +572,6 @@ export class AddStaffComponent implements OnInit {
     }
 
     selectVisitBranches(event: any, item: any) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }

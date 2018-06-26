@@ -74,7 +74,6 @@ export class AddBranchComponent implements OnInit {
 
     createBranchMendatoryForm() {
         this.branchForm = this.fb.group({
-
             'branchName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
             'country': [null],
             'state': [null],

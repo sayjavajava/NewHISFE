@@ -85,6 +85,12 @@ export class AppConstants {
     public static PATIENT_DELETE_URI = '/patient/delete/';
 
     ////////////////////// Appointments URLs ///////////////////////////////
-    public static FETCH_PAGINATED_PATIENTS_URL = '/appointment/';
+    public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
+    public static CREATE_APPOINTMENT_URL = '/appointment/create';
+    public static SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    public static FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
+    public static UPDATE_APPOINTMENT = '/appointment/update/';
+    public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
+
 
 }
