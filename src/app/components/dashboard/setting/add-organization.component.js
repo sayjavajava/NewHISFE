@@ -26,6 +26,7 @@ var AddOrganizationComponent = (function () {
         this.amazingTimePickerService = amazingTimePickerService;
         this.branchesList = [];
         this.timezoneList = [];
+        this.defaultBranch = 'primaryBranch';
         this.allBranches();
         this.allTimezone();
     }
@@ -68,17 +69,27 @@ var AddOrganizationComponent = (function () {
     AddOrganizationComponent.prototype.getSelectedTimezone = function (value) {
         if (value) {
             this.orgForm.controls['timeZone'].setValue(value);
-            console.log(value);
+            //console.log(value);
         }
     };
     AddOrganizationComponent.prototype.allBranches = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
             }
         }, function (error) {
+        });
+    };
+    AddOrganizationComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item.name === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
         });
     };
     AddOrganizationComponent.prototype.allTimezone = function () {
@@ -95,14 +106,17 @@ var AddOrganizationComponent = (function () {
         if (this.orgForm.valid) {
             var orgObject = this.prepareSaveOrganization();
             if (value === 'done') {
-                var self = this;
+                var that = this;
                 this.requestService.postRequest(app_constants_1.AppConstants.ORGANIZATION_CREATE_URL, orgObject)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'ORG_SUC_01') {
-                        self.notificationService.success('Organization has been Created Successfully');
+                        that.notificationService.success(response['responseMessage'], 'Organization');
+                    }
+                    else {
+                        that.notificationService.error(response['responseMessage'], 'Organization');
                     }
                 }, function (error) {
-                    self.notificationService.error('ERROR', 'Organization is not Created');
+                    that.notificationService.error(error.error, 'Unable to create Organization.');
                 });
             }
         }

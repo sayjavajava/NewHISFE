@@ -47,7 +47,6 @@
                            id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
                         <thead>
                         <tr role="row" class="off-wite-bg">
-                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Name</th>
                             <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Company Name</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Cell Phone</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Website</th>
@@ -57,10 +56,6 @@
                         </tr>
 
                         <tr role="row" class="filter" *ngFor="let item of data">
-
-                            <td rowspan="1" colspan="1">{{item.userName}}</td>
-
-                            <!--<span style="display: none;" *ngFor="let br of item.branches"></span>-->
 
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.companyName}}

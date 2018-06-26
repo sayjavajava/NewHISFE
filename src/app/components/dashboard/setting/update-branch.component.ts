@@ -28,7 +28,7 @@ export class UpdateBranchComponent implements OnInit {
                     if (response['responseCode'] === 'USER_SUC_01') {
                         this.pDoctor = response['responseData'];
 
-                        }
+                    }
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -39,7 +39,7 @@ export class UpdateBranchComponent implements OnInit {
     private sub: any;
     id: number;
     examRooms: any = [];
-    branchesList:any=[];
+    branchesList: any = [];
     officeHoursStart: string;
     officeHoursEnd: string;
     userSelected: string = 'DOCTOR';
@@ -49,7 +49,8 @@ export class UpdateBranchComponent implements OnInit {
     billingForm: FormGroup;
     scheduleForm: FormGroup;
     branch: Branch;
-    defaultBranch:string='primary';
+    defaultBranch: string = 'primary';
+
     ngOnInit() {
         this.createBranchForm();
         this.sub = this.route.params.subscribe(params => {
@@ -165,28 +166,29 @@ export class UpdateBranchComponent implements OnInit {
 
     }
 
-    removeBranch(){
-        this.branchesList.forEach( (item: any, index :any) => {
-            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+    removeBranch() {
+        this.branchesList.forEach((item: any, index: any) => {
+            if (item === this.defaultBranch) this.branchesList.splice(index, 1);
         });
     }
+
     addBranch(data: any, value: any) {
         if (this.branchForm.valid) {
             let branchObject = this.prepareSaveBranch();
             if (value === 'done') {
-            var that =this;
+                var that = this;
                 this.requestService.putRequest(AppConstants.UPDATE_BRANCH + this.id, branchObject)
                     .subscribe(
                         (response: Response) => {
                             if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
-                            console.log('updated....');
-                            that.notificationService.success(' Branch has been Updated Successfully');
-                            that.router.navigate(['/dashboard/setting/branch']);
-                        }
-                    }, function (error) {
-                        this.error = error.error.error_description;
-                        this.notificationService.error('ERROR', 'Branch is not updated ');
-                    });
+                                console.log('updated....');
+                                that.notificationService.success(' Branch has been Updated Successfully');
+                                that.router.navigate(['/dashboard/setting/branch']);
+                            }
+                        }, function (error) {
+                            this.error = error.error.error_description;
+                            this.notificationService.error('ERROR', 'Branch is not updated ');
+                        });
 
                 console.log(this.branchForm.value);
             }
@@ -196,6 +198,7 @@ export class UpdateBranchComponent implements OnInit {
             }
         }
     }
+
     deleteField(index: number) {
         this.examRooms = this.branchForm.get('examRooms') as FormArray;
         this.examRooms.removeAt(index);

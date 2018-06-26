@@ -17,6 +17,7 @@ export class AddOrganizationComponent implements OnInit {
     timezoneList: any = [];
     orgForm: FormGroup;
     generalForm: FormGroup;
+    defaultBranch: string = 'primaryBranch';
 
     constructor(private router: Router, private  fb: FormBuilder,
                 private requestService: RequestsService,
@@ -72,21 +73,31 @@ export class AddOrganizationComponent implements OnInit {
     getSelectedTimezone(value: any) {
         if (value) {
             this.orgForm.controls['timeZone'].setValue(value);
-            console.log(value);
+            //console.log(value);
         }
     }
 
     allBranches() {
-        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                        if (this.branchesList.length > 1) {
+                            this.removeBranch();
+                        }
                     }
+
                 },
                 (error: any) => {
 
                 })
+    }
+
+    removeBranch() {
+        this.branchesList.forEach((item: any, index: any) => {
+            if (item.name === this.defaultBranch) this.branchesList.splice(index, 1);
+        });
     }
 
     allTimezone() {
@@ -107,14 +118,16 @@ export class AddOrganizationComponent implements OnInit {
         if (this.orgForm.valid) {
             let orgObject = this.prepareSaveOrganization();
             if (value === 'done') {
-                var self = this;
+                var that = this;
                 this.requestService.postRequest(AppConstants.ORGANIZATION_CREATE_URL, orgObject)
                     .subscribe(function (response) {
                         if (response['responseCode'] === 'ORG_SUC_01') {
-                            self.notificationService.success('Organization has been Created Successfully');
+                            that.notificationService.success(response['responseMessage'], 'Organization');
+                        } else {
+                            that.notificationService.error(response['responseMessage'], 'Organization');
                         }
                     }, function (error) {
-                        self.notificationService.error('ERROR', 'Organization is not Created');
+                        that.notificationService.error(error.error, 'Unable to create Organization.');
 
                     });
             }

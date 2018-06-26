@@ -153,7 +153,7 @@ var BranchComponent = (function () {
     };
     BranchComponent.prototype.getSelectedDepartment = function (value) {
         if (value) {
-            console.log('sel:' + value);
+            //console.log('sel:' + value);
             this.searchForm.controls['department'].setValue(value);
         }
     };
