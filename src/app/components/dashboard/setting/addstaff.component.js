@@ -637,7 +637,7 @@ var AddStaffComponent = (function () {
     AddStaffComponent = __decorate([
         core_1.Component({
             selector: 'addstaff-component',
-            templateUrl: '../../../templates/dashboard/setting/addstaff.template.html',
+            templateUrl: '../../../templates/dashboard/setting/add',
         }),
         __metadata("design:paramtypes", [router_1.Router, forms_1.FormBuilder, requests_service_1.RequestsService, notification_service_1.NotificationService,
             amazing_time_picker_1.AmazingTimePickerService])

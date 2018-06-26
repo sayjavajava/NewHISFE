@@ -26,11 +26,9 @@ export class UpdateBranchComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'USER_SUC_01') {
-                        let data = response['responseData'];
-                        let userNameData = data;
                         this.pDoctor = response['responseData'];
-                        console.log(this.pDoctor);
-                    }
+
+                        }
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -44,14 +42,14 @@ export class UpdateBranchComponent implements OnInit {
     branchesList:any=[];
     officeHoursStart: string;
     officeHoursEnd: string;
-    userSelected: string = 'doctor';
+    userSelected: string = 'DOCTOR';
     pDoctor: any = [];
     error: any;
     branchForm: FormGroup;
     billingForm: FormGroup;
     scheduleForm: FormGroup;
     branch: Branch;
-
+    defaultBranch:string='primary';
     ngOnInit() {
         this.createBranchForm();
         this.sub = this.route.params.subscribe(params => {
@@ -133,14 +131,13 @@ export class UpdateBranchComponent implements OnInit {
                         noOfExamRooms: branch.rooms,
                         state: branch.state,
                         city: branch.city,
-                        primaryDoctor: branch.username,
+                        primaryDoctor: branch.user.username,
                         fax: branch.fax,
                         formattedAddress: branch.formattedAddress,
                         country: branch.country,
                         address: branch.address,
                         zipCode: branch.zipCode,
                         officePhone: branch.officePhone,
-
 
                     });
 
@@ -149,7 +146,6 @@ export class UpdateBranchComponent implements OnInit {
                         billingName: branch.billingName,
                         billingTaxID: branch.billingTaxID
 
-
                     });
 
                     this.scheduleForm.patchValue({
@@ -157,7 +153,6 @@ export class UpdateBranchComponent implements OnInit {
                             allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
                         }
                     );
-                    console.log(branch.zipCode);
                     this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
                     this.addFields(branch.rooms);
                     this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
@@ -170,15 +165,23 @@ export class UpdateBranchComponent implements OnInit {
 
     }
 
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+        });
+    }
     addBranch(data: any, value: any) {
         if (this.branchForm.valid) {
             let branchObject = this.prepareSaveBranch();
             if (value === 'done') {
-
+            var that =this;
                 this.requestService.putRequest(AppConstants.UPDATE_BRANCH + this.id, branchObject)
-                    .subscribe(function (response) {
-                        if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
-                            this.notificationService.success(' Branch has been Updated Successfully');
+                    .subscribe(
+                        (response: Response) => {
+                            if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
+                            console.log('updated....');
+                            that.notificationService.success(' Branch has been Updated Successfully');
+                            that.router.navigate(['/dashboard/setting/branch']);
                         }
                     }, function (error) {
                         this.error = error.error.error_description;

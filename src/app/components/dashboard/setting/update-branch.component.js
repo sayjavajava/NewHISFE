@@ -27,15 +27,13 @@ var UpdateBranchComponent = (function () {
         this.amazingTimePickerService = amazingTimePickerService;
         this.examRooms = [];
         this.branchesList = [];
-        this.userSelected = 'doctor';
+        this.userSelected = 'DOCTOR';
         this.pDoctor = [];
+        this.defaultBranch = 'primary';
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
-                var data = response['responseData'];
-                var userNameData = data;
                 _this.pDoctor = response['responseData'];
-                console.log(_this.pDoctor);
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -113,7 +111,7 @@ var UpdateBranchComponent = (function () {
                     noOfExamRooms: branch.rooms,
                     state: branch.state,
                     city: branch.city,
-                    primaryDoctor: branch.username,
+                    primaryDoctor: branch.user.username,
                     fax: branch.fax,
                     formattedAddress: branch.formattedAddress,
                     country: branch.country,
@@ -130,7 +128,6 @@ var UpdateBranchComponent = (function () {
                     showBranchOnline: branch.showBranchOnline,
                     allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
                 });
-                console.log(branch.zipCode);
                 _this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
                 _this.addFields(branch.rooms);
                 _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
@@ -140,14 +137,24 @@ var UpdateBranchComponent = (function () {
             });
         }
     };
+    UpdateBranchComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
+        });
+    };
     UpdateBranchComponent.prototype.addBranch = function (data, value) {
         if (this.branchForm.valid) {
             var branchObject = this.prepareSaveBranch();
             if (value === 'done') {
+                var that = this;
                 this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, branchObject)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
-                        this.notificationService.success(' Branch has been Updated Successfully');
+                        console.log('updated....');
+                        that.notificationService.success(' Branch has been Updated Successfully');
+                        that.router.navigate(['/dashboard/setting/branch']);
                     }
                 }, function (error) {
                     this.error = error.error.error_description;

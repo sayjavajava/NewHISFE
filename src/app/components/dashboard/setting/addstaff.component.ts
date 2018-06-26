@@ -12,7 +12,7 @@ import {CustomValidators} from './PasswordValidation';
 
 @Component({
     selector: 'addstaff-component',
-    templateUrl: '../../../templates/dashboard/setting/addstaff.template.html',
+    templateUrl: '../../../templates/dashboard/setting/add',
 })
 export class AddStaffComponent implements OnInit {
 

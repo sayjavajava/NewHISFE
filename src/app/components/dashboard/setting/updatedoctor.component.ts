@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {CustomValidators} from './PasswordValidation';
+
 import {ActivatedRoute, Router} from '@angular/router';
 import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
@@ -45,6 +45,7 @@ export class UpdatedoctorComponent implements OnInit {
     id: number;
     userSelected:string='doctor';
     user: UserEditModel;
+    defaultBranch:string ='primaryBranch';
     matches: any = [];
     branchesList:any=[];
     servicesList:any=[];
@@ -84,6 +85,9 @@ export class UpdatedoctorComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                        if(this.branchesList.length >1){
+                            this.removeBranch();
+                        }
                     }
                 },
                 (error: any) => {
@@ -96,16 +100,18 @@ export class UpdatedoctorComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseStatus'] === 'SUCCESS') {
-                        let data = response['responseData'];
-                        let userNameData = data;
                         this.primaryDoctor = response['responseData'];
-
-                    }
+                        }
                 },
                 (error: any) => {
                     this.error = error.error.error;
                 });
 
+    }
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+        });
     }
 
 
@@ -212,7 +218,6 @@ export class UpdatedoctorComponent implements OnInit {
                         shift2: user.dutyShift.dutyTimmingShift2,
                         secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
                         vacation: user.vacation.status,
-                        //dateFrom:user.vacation.startDate,
                         dateFrom: user.profile.accountExpiry,
                         dateTo :user.vacation.endDate,
                      });
@@ -320,7 +325,7 @@ export class UpdatedoctorComponent implements OnInit {
         this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
-                    console.log('saved00')
+
                     this.responseUser = response['responseData'];
                     this.notificationService.success('User has been updated Successfully')
                     this.router.navigate(['/dashboard/setting/staff']);
@@ -494,9 +499,15 @@ export class UpdatedoctorComponent implements OnInit {
         }
     }
     getSelectedBranch(value: any) {
-        if (value) {
-            this.userForm.controls['primaryBranch'].setValue(value);
+        console.log(value);
+        if (value === undefined) {
+            console.log('i am esss');
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
+        else {
+            console.log('i am too' + value);
+            this.userForm.controls['primaryBranch'].setValue(value);}
+
     }
     selectVisitBranches(event: any, item: any) {
         console.log(item);

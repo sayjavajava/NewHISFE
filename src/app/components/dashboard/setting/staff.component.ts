@@ -129,14 +129,14 @@ export class StaffComponent implements OnInit {
 
     updateUser(item: any, id: any) {
 
-        if (item === 'doctor') {
+        if (item === 'DOCTOR') {
             console.log('iam doc');
             this.router.navigate(['/dashboard/setting/doctor/edit/', id]);
 
-        } else if (item === 'cashier') {
+        } else if (item === 'CASHIER') {
             this.router.navigate(['/dashboard/setting/cashier/edit/', id]);
         }
-        else if (item === 'nurse') {
+        else if (item === 'NURSE') {
             this.router.navigate(['/dashboard/setting/nurse/edit/', id]);
 
         }

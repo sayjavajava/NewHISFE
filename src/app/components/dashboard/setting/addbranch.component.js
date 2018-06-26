@@ -28,13 +28,16 @@ var AddBranchComponent = (function () {
         this.userSelected = 'doctor';
         this.pDoctor = [];
         this.branchesList = [];
+        this.defaultDoctor = 'primarydoctor';
+        this.defaultBranch = 'primaryBranch';
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
-                var data = response['responseData'];
-                var userNameData = data;
                 _this.pDoctor = response['responseData'];
-                console.log(_this.pDoctor);
+                if (_this.pDoctor.length > 1) {
+                    _this.removeDoctor();
+                }
+                //   this.pDoctor.indexOf({userName :this.defaultDoctor}) === -1 ? this.pDoctor.push({userName :this.defaultDoctor}) :console.log('');
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -43,7 +46,6 @@ var AddBranchComponent = (function () {
     }
     AddBranchComponent.prototype.ngOnInit = function () {
         this.createBranchMendatoryForm();
-        console.log('user found:' + this.pDoctor.length);
         this.createBranchForm();
         this.createScheduleForm();
     };
@@ -78,13 +80,25 @@ var AddBranchComponent = (function () {
             'examRooms': this.fb.array([this.createExamRoom()]),
         });
     };
+    AddBranchComponent.prototype.removeDoctor = function () {
+        var _this = this;
+        this.pDoctor.forEach(function (item, index) {
+            if (item.userName === _this.defaultDoctor)
+                _this.pDoctor.splice(index, 1);
+        });
+    };
+    AddBranchComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
+        });
+    };
     AddBranchComponent.prototype.prepareSaveBranch = function () {
         var formModel = this.branchForm.value;
         var billingModel = this.billingForm.value;
         var scheduleModel = this.scheduleForm.value;
         var secretLairsDeepCopy = formModel.examRooms.map(function (examRooms) { return Object.assign({}, examRooms); });
-        // return new `Hero` object containing a combination of original hero value(s)
-        // and deep copies of changed form model values
         var saveBranchModel = {
             branchName: formModel.branchName,
             officeHoursStart: formModel.officeHoursStart,
@@ -114,6 +128,9 @@ var AddBranchComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BRANCH_SUC_01') {
                 _this.branchesList = response['responseData'];
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
             }
         }, function (error) {
             _this.error = error.error.error;

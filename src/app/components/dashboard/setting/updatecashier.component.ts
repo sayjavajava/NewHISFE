@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
 import {User} from '../../../model/User';
-import {Receptionist} from '../../../model/Receptionist';
 import {UserEditModel} from '../../../model/UserEditModel';
 import {AppConstants} from '../../../utils/app.constants';
 
@@ -26,6 +25,7 @@ export class UpdateCashierComponent implements OnInit {
     branchesList:any=[];
     primaryDoctor:any=[];
     error: any;
+    defaultBranch:string='primaryBranch';
     userSelected:string='doctor';
     userForm: FormGroup;
     cashier: UserEditModel;
@@ -61,6 +61,10 @@ export class UpdateCashierComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                     //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                       if(this.branchesList.length > 1 ){
+                           this.removeBranch();
+                       }
                     }
                 },
                 (error: any) => {
@@ -138,6 +142,11 @@ export class UpdateCashierComponent implements OnInit {
         }
 
     }
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+        });
+    }
 
     addCashier(data: any) {
         console.log('i am invalid');
@@ -202,12 +211,6 @@ export class UpdateCashierComponent implements OnInit {
         };
     }
 
-    getBranch(value: any) {
-        if (value) {
-            this.userForm.controls['primaryBranch'].setValue(value);
-        }
-    }
-
     validateAllFormFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(field => {
             //console.log(field);
@@ -248,9 +251,15 @@ export class UpdateCashierComponent implements OnInit {
         this.router.navigate(['/dashboard/setting/staff']);
     }
     getSelectedBranch(value: any) {
-        if (value) {
-            this.userForm.controls['primaryBranch'].setValue(value);
+        console.log(value);
+        if (value === undefined) {
+            console.log('i am esss');
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
+        else {
+            console.log('i am too' + value);
+            this.userForm.controls['primaryBranch'].setValue(value);}
+
     }
 
 }
