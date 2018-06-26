@@ -11,7 +11,7 @@ import {UserTypeEnum} from "../../../enums/user-type-enum";
 
 @Component({
     selector: 'add-patient',
-    templateUrl: '../../../templates/dashboard/patient/edit-patient.html',
+    templateUrl: '../../../templates/dashboard/patient/edit-patient.template.html',
 })
 export class EditPatientComponent implements OnInit {
     patient: Patient = new Patient();

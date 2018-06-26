@@ -23,7 +23,7 @@ export class AppConstants {
     public static DELETE_BRANCH_URI = '/setting/branch/delete/';
     public static BRANCHES_NAME = '/setting/branch/name';
     public static BRANCH_SEARCH = '/setting/branch/search/';
-    public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    public static FETCH_ALL_BRANCHES_URL = '/setting/branch/all';
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
 
     ////////////////////// ICD URLs ///////////////////////////////

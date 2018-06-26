@@ -117,7 +117,7 @@ var EditPatientComponent = (function () {
     EditPatientComponent = __decorate([
         core_1.Component({
             selector: 'add-patient',
-            templateUrl: '../../../templates/dashboard/patient/edit-patient.html',
+            templateUrl: '../../../templates/dashboard/patient/edit-patient.template.html',
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,

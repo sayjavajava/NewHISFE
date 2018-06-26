@@ -10,7 +10,6 @@ import {NotificationService} from '../../../services/notification.service';
 import {CustomValidators} from './PasswordValidation';
 
 
-
 @Component({
     selector: 'addstaff-component',
     templateUrl: '../../../templates/dashboard/setting/addstaff.template.html',
@@ -31,7 +30,7 @@ export class AddStaffComponent implements OnInit {
     managepatientinvoices: boolean;
     userForm: FormGroup;
     selectedDepartment: any = [];
-    dutyWithDoctors:any=[];
+    dutyWithDoctors: any = [];
     selectedServices: any = [];
     selectedTime: string;
     secondShiftFromTime: string;
@@ -102,21 +101,21 @@ export class AddStaffComponent implements OnInit {
         //this.userForm.get('changeUser').patchValue('receptionist');
         //  this.userForm.get('primaryBranch').patchValue('lahore');
         /*        this.userForm.get('changeUser').valueChanges
-                    .subscribe(value => {
-                        this.createUserForm();
-        //                setTimeout(()=>{ this.setValidate(value);},5000)
-                        this.setValidate(value);
-                    });*/
+         .subscribe(value => {
+         this.createUserForm();
+         //                setTimeout(()=>{ this.setValidate(value);},5000)
+         this.setValidate(value);
+         });*/
 
     }
 
     allBranches() {
-        this.requestsService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+        this.requestsService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-                        }
+                    }
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -159,10 +158,10 @@ export class AddStaffComponent implements OnInit {
         this.requestsService.getRequest(AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
             .subscribe(
                 (response: Response) => {
-                    console.log('i am branch call');
+                    //console.log('i am branch call');
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
-                        console.log(this.servicesList);
+                        //console.log(this.servicesList);
                     }
                 },
                 (error: any) => {
@@ -179,7 +178,7 @@ export class AddStaffComponent implements OnInit {
                 'password': [null, Validators.compose([Validators.required, Validators.minLength(6)])],
                 'confirmPassword': [null, Validators.compose([Validators.required])],
                 'homePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-                'cellPhone': [null, Validators.compose([ Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
+                'cellPhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'primaryBranch': [null, Validators.required],
                 'interval': [null],
                 'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
@@ -211,9 +210,9 @@ export class AddStaffComponent implements OnInit {
     }
 
     addData(data: any) {
-        console.log('i am submit' + data);
+        //console.log('i am submit' + data);
         if (this.userForm.valid) {
-            console.log('i am valid' + this.selectedUser);
+            //console.log('i am valid' + this.selectedUser);
 
             if (this.selectedUser === 'cashier') {
 
@@ -260,7 +259,7 @@ export class AddStaffComponent implements OnInit {
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     allowDiscount: data.allowDiscount,
-                    selectedDoctors:this.selectedDoctors,
+                    selectedDoctors: this.selectedDoctors,
                     userType: this.selectedUser
                 });
 
@@ -289,7 +288,7 @@ export class AddStaffComponent implements OnInit {
                     managePatientInvoices: data.managePatientInvoices,
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
-                    dutyWithDoctors:this.dutyWithDoctors,
+                    dutyWithDoctors: this.dutyWithDoctors,
                     userType: this.selectedUser
                 });
                 this.makeService(nurse);
@@ -334,7 +333,7 @@ export class AddStaffComponent implements OnInit {
                 this.makeService(doctor);
             }
         } else {
-            console.log('i am invalid');
+            // console.log('i am invalid');
             this.validateAllFormFields(this.userForm);
         }
     }
@@ -366,10 +365,10 @@ export class AddStaffComponent implements OnInit {
         const restrictBranchControl = this.userForm.get('restrictBranch');
 
 
-        console.log('assignedUser' + userAssigned);
+        //console.log('assignedUser' + userAssigned);
 
         if (userAssigned === 'nurse') {
-            console.log('i am nurse');
+            //console.log('i am nurse');
             nurseDutyWithDoctorControl.setValidators(Validators.required);
             departmentControl.setValidators(Validators.required);
 
@@ -385,7 +384,7 @@ export class AddStaffComponent implements OnInit {
             departmentControl.markAsUntouched();
         }
         else if (userAssigned === 'doctor') {
-            console.log('i am doctor' + departmentControl);
+            //console.log('i am doctor' + departmentControl);
 
             departmentControl.setValidators(Validators.required);
             servicesControl.setValidators(Validators.required);
@@ -407,7 +406,7 @@ export class AddStaffComponent implements OnInit {
 
         }
         else {
-            console.log('i am in else ');
+            //console.log('i am in else ');
             firstNameControl.markAsUntouched();
             userNameControl.markAsUntouched();
             emailControl.markAsUntouched();
@@ -424,7 +423,7 @@ export class AddStaffComponent implements OnInit {
             nurseDutyWithDoctorControl.clearValidators();
 
         }
-        console.log('i am normal ');
+        // console.log('i am normal ');
         firstNameControl.updateValueAndValidity();
         userNameControl.updateValueAndValidity();
         emailControl.updateValueAndValidity();
@@ -460,7 +459,7 @@ export class AddStaffComponent implements OnInit {
     }
 
     makeService(user: any) {
-        console.log('i am make service ....');
+        //console.log('i am make service ....');
         this.requestsService.postRequest('/user/add', user).subscribe(
             (response: Response) => {
                 if (response['responseCode'] === 'USER_ADD_SUCCESS_01') {
@@ -481,7 +480,7 @@ export class AddStaffComponent implements OnInit {
         const amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(time => {
             this.secondShiftFromTime = time;
-            console.log(time);
+            //console.log(time);
         })
     }
 
@@ -537,7 +536,7 @@ export class AddStaffComponent implements OnInit {
     }
 
     selectDepartment(event: any, item: any) {
-        console.log(event.checked);
+        //console.log(event.checked);
 
         if (event.target.checked) {
 
@@ -550,12 +549,12 @@ export class AddStaffComponent implements OnInit {
 
             this.selectedDepartment.splice(index, 1);
         }
-        console.log(this.selectedDepartment);
+        //console.log(this.selectedDepartment);
 
     }
 
     selectWorkingDays(event: any, item: any) {
-        console.log(event.checked);
+        //console.log(event.checked);
 
         if (event.target.checked) {
             this.selectedWorkingDays.push(item.name);
@@ -572,7 +571,7 @@ export class AddStaffComponent implements OnInit {
     }
 
     selectVisitBranches(event: any, item: any) {
-        console.log(item);
+        //console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }
@@ -583,12 +582,12 @@ export class AddStaffComponent implements OnInit {
 
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
+        //console.log(this.selectedVisitBranches);
 
     }
 
     dutyWithDoctor(event: any, item: any) {
-        console.log(item);
+        //console.log(item);
         if (event.target.checked) {
             this.dutyWithDoctors.push(item.id);
         }
@@ -599,7 +598,7 @@ export class AddStaffComponent implements OnInit {
 
             this.dutyWithDoctors.splice(index, 1);
         }
-        console.log(this.dutyWithDoctors);
+        //console.log(this.dutyWithDoctors);
     }
 
     findIndexToUpdate(type: any) {
@@ -635,7 +634,7 @@ export class AddStaffComponent implements OnInit {
         this.clearFormFields();
 
 
-        console.log('i am goto' + this.selectedDepartment.length);
+        //console.log('i am goto' + this.selectedDepartment.length);
         if (value) {
             this.selectedUser = value;
             this.checkPermission(value);

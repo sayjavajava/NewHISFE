@@ -116,7 +116,7 @@ var ManagePatientComponent = (function () {
     ManagePatientComponent = __decorate([
         core_1.Component({
             selector: 'manage-patient',
-            templateUrl: '../../../templates/dashboard/patient/manage-patient.html',
+            templateUrl: '../../../templates/dashboard/patient/manage-patient.template.html',
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,

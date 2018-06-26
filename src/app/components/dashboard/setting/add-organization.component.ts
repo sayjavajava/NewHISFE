@@ -35,7 +35,7 @@ export class AddOrganizationComponent implements OnInit {
         this.orgForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+                'userName': [null, Validators.compose([Validators.required])],
                 'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'companyName': [null, Validators.compose([Validators.required])],
                 'password': [null, Validators.compose([Validators.required])],

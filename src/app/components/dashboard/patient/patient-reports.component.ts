@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'patient-reports',
-    templateUrl: '../../../templates/dashboard/patient/patient-reports.html',
+    templateUrl: '../../../templates/dashboard/patient/patient-reports.template.html',
 })
 export class PatientReportsComponent implements OnInit {
 

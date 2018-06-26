@@ -37,7 +37,7 @@ var AddOrganizationComponent = (function () {
         this.orgForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'companyName': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'password': [null, forms_1.Validators.compose([forms_1.Validators.required])],

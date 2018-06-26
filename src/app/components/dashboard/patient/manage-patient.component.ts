@@ -10,7 +10,7 @@ import {Patient} from "../../../model/patient";
 
 @Component({
     selector: 'manage-patient',
-    templateUrl: '../../../templates/dashboard/patient/manage-patient.html',
+    templateUrl: '../../../templates/dashboard/patient/manage-patient.template.html',
 })
 export class ManagePatientComponent implements OnInit {
     patient: Patient = new Patient();

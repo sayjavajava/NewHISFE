@@ -82,11 +82,11 @@ var AddStaffComponent = (function () {
         //this.userForm.get('changeUser').patchValue('receptionist');
         //  this.userForm.get('primaryBranch').patchValue('lahore');
         /*        this.userForm.get('changeUser').valueChanges
-                    .subscribe(value => {
-                        this.createUserForm();
-        //                setTimeout(()=>{ this.setValidate(value);},5000)
-                        this.setValidate(value);
-                    });*/
+         .subscribe(value => {
+         this.createUserForm();
+         //                setTimeout(()=>{ this.setValidate(value);},5000)
+         this.setValidate(value);
+         });*/
     };
     AddStaffComponent.prototype.allBranches = function () {
         var _this = this;
@@ -127,10 +127,10 @@ var AddStaffComponent = (function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
             .subscribe(function (response) {
-            console.log('i am branch call');
+            //console.log('i am branch call');
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
-                console.log(_this.servicesList);
+                //console.log(this.servicesList);
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -172,9 +172,9 @@ var AddStaffComponent = (function () {
         });
     };
     AddStaffComponent.prototype.addData = function (data) {
-        console.log('i am submit' + data);
+        //console.log('i am submit' + data);
         if (this.userForm.valid) {
-            console.log('i am valid' + this.selectedUser);
+            //console.log('i am valid' + this.selectedUser);
             if (this.selectedUser === 'cashier') {
                 var cashier = new User_1.User({
                     firstName: data.firstName,
@@ -283,7 +283,7 @@ var AddStaffComponent = (function () {
             }
         }
         else {
-            console.log('i am invalid');
+            // console.log('i am invalid');
             this.validateAllFormFields(this.userForm);
         }
     };
@@ -313,9 +313,9 @@ var AddStaffComponent = (function () {
         var emailControl = this.userForm.get('email');
         var primaryBranchControl = this.userForm.get('primaryBranch');
         var restrictBranchControl = this.userForm.get('restrictBranch');
-        console.log('assignedUser' + userAssigned);
+        //console.log('assignedUser' + userAssigned);
         if (userAssigned === 'nurse') {
-            console.log('i am nurse');
+            //console.log('i am nurse');
             nurseDutyWithDoctorControl.setValidators(forms_1.Validators.required);
             departmentControl.setValidators(forms_1.Validators.required);
             firstNameControl.markAsUntouched();
@@ -329,7 +329,7 @@ var AddStaffComponent = (function () {
             departmentControl.markAsUntouched();
         }
         else if (userAssigned === 'doctor') {
-            console.log('i am doctor' + departmentControl);
+            //console.log('i am doctor' + departmentControl);
             departmentControl.setValidators(forms_1.Validators.required);
             servicesControl.setValidators(forms_1.Validators.required);
             shift1Control.setValidators(forms_1.Validators.required);
@@ -347,7 +347,7 @@ var AddStaffComponent = (function () {
             shift1Control.markAsUntouched();
         }
         else {
-            console.log('i am in else ');
+            //console.log('i am in else ');
             firstNameControl.markAsUntouched();
             userNameControl.markAsUntouched();
             emailControl.markAsUntouched();
@@ -362,7 +362,7 @@ var AddStaffComponent = (function () {
             checkUpIntervalControl.clearValidators();
             nurseDutyWithDoctorControl.clearValidators();
         }
-        console.log('i am normal ');
+        // console.log('i am normal ');
         firstNameControl.updateValueAndValidity();
         userNameControl.updateValueAndValidity();
         emailControl.updateValueAndValidity();
@@ -392,7 +392,7 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.makeService = function (user) {
         var _this = this;
-        console.log('i am make service ....');
+        //console.log('i am make service ....');
         this.requestsService.postRequest('/user/add', user).subscribe(function (response) {
             if (response['responseCode'] === 'USER_ADD_SUCCESS_01') {
                 _this.responseUser = response['responseData'];
@@ -410,7 +410,7 @@ var AddStaffComponent = (function () {
         var amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(function (time) {
             _this.secondShiftFromTime = time;
-            console.log(time);
+            //console.log(time);
         });
     };
     AddStaffComponent.prototype.firstShiftFrom = function () {
@@ -460,7 +460,7 @@ var AddStaffComponent = (function () {
         }
     };
     AddStaffComponent.prototype.selectDepartment = function (event, item) {
-        console.log(event.checked);
+        //console.log(event.checked);
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }
@@ -469,10 +469,10 @@ var AddStaffComponent = (function () {
             var index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
-        console.log(this.selectedDepartment);
+        //console.log(this.selectedDepartment);
     };
     AddStaffComponent.prototype.selectWorkingDays = function (event, item) {
-        console.log(event.checked);
+        //console.log(event.checked);
         if (event.target.checked) {
             this.selectedWorkingDays.push(item.name);
         }
@@ -484,7 +484,7 @@ var AddStaffComponent = (function () {
         console.log(this.selectedWorkingDays);
     };
     AddStaffComponent.prototype.selectVisitBranches = function (event, item) {
-        console.log(item);
+        //console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }
@@ -493,10 +493,10 @@ var AddStaffComponent = (function () {
             var index = this.selectedVisitBranches.indexOf(updateItem);
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
+        //console.log(this.selectedVisitBranches);
     };
     AddStaffComponent.prototype.dutyWithDoctor = function (event, item) {
-        console.log(item);
+        //console.log(item);
         if (event.target.checked) {
             this.dutyWithDoctors.push(item.id);
         }
@@ -505,7 +505,7 @@ var AddStaffComponent = (function () {
             var index = this.dutyWithDoctors.indexOf(updateItem);
             this.dutyWithDoctors.splice(index, 1);
         }
-        console.log(this.dutyWithDoctors);
+        //console.log(this.dutyWithDoctors);
     };
     AddStaffComponent.prototype.findIndexToUpdate = function (type) {
         return type.name === this;
@@ -532,7 +532,7 @@ var AddStaffComponent = (function () {
         this.secondShiftFromTime = '';
         this.secondShiftToTime = '';
         this.clearFormFields();
-        console.log('i am goto' + this.selectedDepartment.length);
+        //console.log('i am goto' + this.selectedDepartment.length);
         if (value) {
             this.selectedUser = value;
             this.checkPermission(value);
