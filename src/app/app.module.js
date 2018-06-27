@@ -26,6 +26,7 @@ var content_component_1 = require("./components/dashboard/content.component");
 var not_found_404_component_1 = require("./components/errors/not-found-404.component");
 // Routes
 var app_routes_1 = require("./app.routes");
+var ngx_color_picker_1 = require("ngx-color-picker");
 // Services
 var requests_service_1 = require("./services/requests.service");
 var his_util_service_1 = require("./services/his-util.service");
@@ -78,7 +79,16 @@ var patient_dashboard_component_1 = require("./components/dashboard/patient/pati
 var add_patient_component_1 = require("./components/dashboard/patient/add-patient.component");
 var patient_reports_component_1 = require("./components/dashboard/patient/patient-reports.component");
 var patient_component_1 = require("./components/dashboard/patient/patient.component");
-var edit_patient_component_1 = require("./components/dashboard/patient/edit-patient.component");
+var appointment_component_1 = require("./components/dashboard/appointment/appointment.component");
+var appointment_dashboard_component_1 = require("./components/dashboard/appointment/appointment-dashboard.component");
+var manage_appointment_component_1 = require("./components/dashboard/appointment/manage-appointment.component");
+var add_appointment_component_1 = require("./components/dashboard/appointment/add-appointment.component");
+var appointment_reports_component_1 = require("./components/dashboard/appointment/appointment-reports.component");
+var appointment_navigation_component_1 = require("./components/dashboard/appointment/appointment-navigation.component");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var angular_calendar_1 = require("angular-calendar");
+var module_1 = require("../demo-utils/module");
+var edit_appointment_component_1 = require("./components/dashboard/appointment/edit-appointment.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -115,6 +125,10 @@ var AppModule = (function () {
                 material_1.MatNativeDateModule,
                 material_1.MatInputModule,
                 material_1.MatIconModule,
+                ngx_color_picker_1.ColorPickerModule,
+                ng_bootstrap_1.NgbModalModule.forRoot(),
+                angular_calendar_1.CalendarModule.forRoot(),
+                module_1.DemoUtilsModule
             ],
             declarations: [
                 // App Components
@@ -135,7 +149,12 @@ var AppModule = (function () {
                 add_patient_component_1.AddPatientComponent,
                 patient_reports_component_1.PatientReportsComponent,
                 patient_component_1.PatientComponent,
-                edit_patient_component_1.EditPatientComponent,
+                appointment_component_1.AppointmentComponent,
+                appointment_dashboard_component_1.AppointmentDashboardComponent,
+                manage_appointment_component_1.ManageAppointmentComponent,
+                add_appointment_component_1.AddAppointmentComponent,
+                appointment_reports_component_1.AppointmentReportsComponent,
+                appointment_navigation_component_1.AppointmentNavigationComponent,
                 //Setting Components
                 setting_component_1.SettingComponent,
                 setting_navigation_component_1.SettingNavigationComponent,
@@ -173,6 +192,7 @@ var AppModule = (function () {
                 errordisplay_component_1.ErrordisplayComponent,
                 confirmationdialog_component_1.ConfirmationdialogComponent,
                 update_organization_component_1.UpdateOrganizationComponent,
+                edit_appointment_component_1.EditAppointmentComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

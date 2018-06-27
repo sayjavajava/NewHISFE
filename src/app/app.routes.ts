@@ -4,6 +4,7 @@ import {LoginComponent} from "./components/login.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {DashboardRoutes} from "./routes/dashboard.routes";
 
+
 const AppRoutes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'index', component: MainComponent},

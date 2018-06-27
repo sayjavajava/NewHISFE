@@ -10,21 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var requests_service_1 = require("../../../services/requests.service");
 var router_1 = require("@angular/router");
-var material_1 = require("@angular/material");
-var SchedularDialogComponent = (function () {
-    function SchedularDialogComponent(router, dialog) {
+var AppointmentComponent = (function () {
+    function AppointmentComponent(requestsService, router, titleService) {
+        this.requestsService = requestsService;
         this.router = router;
-        this.dialog = dialog;
+        this.titleService = titleService;
     }
-    SchedularDialogComponent = __decorate([
+    ;
+    AppointmentComponent.prototype.ngOnInit = function () {
+        this.titleService.setTitle('HIS | Appointments');
+    };
+    AppointmentComponent = __decorate([
         core_1.Component({
-            selector: 'scheduler-dialog',
-            templateUrl: '../templates/scheduler-dialog.template.html',
+            selector: 'appointment-component',
+            templateUrl: '../../../templates/dashboard/appointment/appointment.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.Router, material_1.MatDialog])
-    ], SchedularDialogComponent);
-    return SchedularDialogComponent;
+        __metadata("design:paramtypes", [requests_service_1.RequestsService,
+            router_1.Router,
+            platform_browser_1.Title])
+    ], AppointmentComponent);
+    return AppointmentComponent;
 }());
-exports.SchedularDialogComponent = SchedularDialogComponent;
-//# sourceMappingURL=schedular-dialog.component.js.map
+exports.AppointmentComponent = AppointmentComponent;
+//# sourceMappingURL=appointment.component.js.map

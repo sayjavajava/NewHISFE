@@ -76,14 +76,16 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
     AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
     AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
-    ////////////////////// Patient URLs ///////////////////////////////
-    AppConstants.FETCH_ALL_PATIENT_URL = '/user/patient/';
-    AppConstants.PATIENT_DELETE_URI = '/user/patient/delete/';
-    AppConstants.PATIENT_SAVE_URL = '/user/patient/save';
-    AppConstants.PATIENT_FETCH_URL = '/user/patient/get/';
-    AppConstants.PATIENT_UPDATE_URL = '/user/patient/update';
-    AppConstants.SEARCH_ALL_PATIENT_URL = '/user/patient/search';
-    AppConstants.RACE_FETCH_URL = '/user/patient/races';
+    ////////////////////// Medical Service URLs ///////////////////////////////
+    AppConstants.FETCH_ALL_PATIENT_URL = '/patient/';
+    AppConstants.PATIENT_DELETE_URI = '/patient/delete/';
+    ////////////////////// Appointments URLs ///////////////////////////////
+    AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
+    AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
+    AppConstants.SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    AppConstants.FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
+    AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
+    AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

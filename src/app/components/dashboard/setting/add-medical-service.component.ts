@@ -36,7 +36,7 @@ export class AddMedicalServiceComponent implements OnInit {
 
     getBranchesFromServer() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_BRANCHES_URL)
+            AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {

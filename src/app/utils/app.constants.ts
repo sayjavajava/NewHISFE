@@ -89,4 +89,13 @@ export class AppConstants {
     public static SEARCH_ALL_PATIENT_URL = '/user/patient/search';
     public static RACE_FETCH_URL = '/user/patient/races';
 
+    ////////////////////// Appointments URLs ///////////////////////////////
+    public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
+    public static CREATE_APPOINTMENT_URL = '/appointment/create';
+    public static SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    public static FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
+    public static UPDATE_APPOINTMENT = '/appointment/update/';
+    public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
+
+
 }
