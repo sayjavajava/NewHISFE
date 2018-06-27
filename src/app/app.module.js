@@ -26,6 +26,7 @@ var content_component_1 = require("./components/dashboard/content.component");
 var not_found_404_component_1 = require("./components/errors/not-found-404.component");
 // Routes
 var app_routes_1 = require("./app.routes");
+var ngx_color_picker_1 = require("ngx-color-picker");
 // Services
 var requests_service_1 = require("./services/requests.service");
 var his_util_service_1 = require("./services/his-util.service");
@@ -124,6 +125,7 @@ var AppModule = (function () {
                 material_1.MatNativeDateModule,
                 material_1.MatInputModule,
                 material_1.MatIconModule,
+                ngx_color_picker_1.ColorPickerModule,
                 ng_bootstrap_1.NgbModalModule.forRoot(),
                 angular_calendar_1.CalendarModule.forRoot(),
                 module_1.DemoUtilsModule

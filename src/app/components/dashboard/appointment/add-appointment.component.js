@@ -13,20 +13,6 @@ var core_1 = require("@angular/core");
 var core_2 = require("@angular/core");
 var date_fns_1 = require("date-fns");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
-var colors = {
-    red: {
-        primary: '#2bad14',
-        secondary: '#FAE3E3'
-    },
-    blue: {
-        primary: '#1e90ff',
-        secondary: '#D1E8FF'
-    },
-    yellow: {
-        primary: '#e3bc08',
-        secondary: '#FDF1BA'
-    }
-};
 var material_1 = require("@angular/material");
 var app_constants_1 = require("../../../utils/app.constants");
 var forms_1 = require("@angular/forms");
@@ -44,6 +30,10 @@ var AddAppointmentComponent = (function () {
         this.notificationService = notificationService;
         this.router = router;
         this.requestsService = requestsService;
+        this.refresh = new ReplaySubject_1.ReplaySubject(1);
+        this.events = [];
+        this.eventsRequest = [];
+        this.activeDayIsOpen = true;
         this.title = 'app';
         this.page = 0;
         this.view = 'month';
@@ -99,14 +89,11 @@ var AddAppointmentComponent = (function () {
                 label: '<i class="fa fa-fw fa-times"></i>',
                 onClick: function (_a) {
                     var event = _a.event;
-                    _this.events = _this.events.filter(function (iEvent) { return iEvent !== event; });
+                    _this.eventsRequest = _this.eventsRequest.filter(function (iEvent) { return iEvent !== event; });
                     _this.handleEvent('Deleted', event);
                 }
             }
         ];
-        this.refresh = new ReplaySubject_1.ReplaySubject(1);
-        this.events = [];
-        this.activeDayIsOpen = true;
         this.getBranchesFromServer();
     }
     AddAppointmentComponent.prototype.ngOnInit = function () {
@@ -117,39 +104,38 @@ var AddAppointmentComponent = (function () {
                 for (var _i = 0, _a = response['responseData'].data; _i < _a.length; _i++) {
                     var apt = _a[_i];
                     _this.events.push({
-                        title: apt.title,
-                        start: apt.startedOn,
-                        end: apt.followUpDate,
-                        color: colors.red,
+                        title: apt.patient,
+                        start: date_fns_1.startOfDay(apt.startedOn),
+                        end: date_fns_1.startOfDay(apt.startedOn),
+                        color: {
+                            primary: apt.color,
+                            secondary: apt.color
+                        },
                         draggable: true,
-                        notes: 'any',
-                        email: 'email',
-                        patient: 'waqas',
-                        reason: 'malairia',
-                        status: 'confiremed',
-                        duration: 0,
-                        age: 'age',
-                        type: '',
-                        gender: 'Gender',
-                        cellPhone: 'Phone #',
-                        selectWorkingDays: _this.selectedRecurringDays,
-                        appointmentType: _this.selectedType,
+                        notes: apt.notes,
+                        email: apt.patient.email,
+                        patient: apt.patient.username,
+                        reason: apt.reason,
+                        status: apt.status,
+                        duration: apt.duration,
+                        age: apt.age,
+                        type: apt.appointmentType,
+                        //cellPhone:apt.patient.profile.cellPhone,
+                        //selectWorkingDays:this.selectedRecurringDays,
+                        appointmentType: apt.appointmentType,
                         followUpDate: new Date(),
-                        followUpReason: 'reason',
-                        recurseEvery: 'rescurse',
+                        followUpReason: apt.followUpReason,
+                        recurseEvery: apt.recurseEvery,
                         neverEnds: false,
                         followUpReminder: false,
                         arrangeFollowUpReminder: false,
-                        firstAppointment: new Date(),
-                        lastAppointment: new Date(),
+                        firstAppointment: apt.firstAppointmentOn,
+                        lastAppointment: apt.lastAppointmentOn,
                         recurringAppointment: false,
-                        branch: 'select',
-                        examRoom: 'select',
-                        resizable: {
-                            beforeStart: true,
-                            afterEnd: true
-                        }
+                        branch: apt.branchName,
+                        examRoom: apt.examName,
                     });
+                    _this.refresh.next();
                 }
             }
         }, function (error) {
@@ -167,7 +153,7 @@ var AddAppointmentComponent = (function () {
     });
     AddAppointmentComponent.prototype.selectType = function () {
         // this.selectedOptions;
-        console.log('type:' + JSON.stringify(this.selectedOptions));
+        //console.log('type:' + JSON.stringify(this.selectedOptions));
         this.selectedType.length = 0;
         if (this.selectedOptions.indexOf('NewPatient') > -1) {
             this.newPatient = true;
@@ -214,15 +200,15 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.deleteEvent = function (action, event) {
         console.log('del:' + event.title);
-        this.events.splice(this.events.indexOf(event), 1);
+        this.eventsRequest.splice(this.eventsRequest.indexOf(event), 1);
         this.refresh.next();
     };
     AddAppointmentComponent.prototype.addEvent = function () {
-        this.events.push({
+        this.eventsRequest.push({
             title: 'Title',
             start: date_fns_1.startOfDay(new Date()),
             end: date_fns_1.endOfDay(new Date()),
-            color: colors.red,
+            colorHash: '',
             draggable: true,
             notes: 'any',
             email: 'email',
@@ -252,7 +238,6 @@ var AddAppointmentComponent = (function () {
                 afterEnd: true
             }
         });
-        console.log('i am log23' + this.selectedOptions + this.examRooms);
         this.refresh.next();
     };
     AddAppointmentComponent.prototype.selectRecurringDays = function (event, item) {
@@ -276,15 +261,17 @@ var AddAppointmentComponent = (function () {
         this.examRooms = this.filteredData[0].examRooms;
     };
     AddAppointmentComponent.prototype.saveAppointment = function (event) {
-        console.log('event :' + JSON.stringify(event));
+        var _this = this;
+        console.log('event :' + this.color);
         var self = this;
-        if (this.events.length != 0) {
-            var obj = new Appointment_1.Appointment(event.title, event.branch, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patient, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email);
+        if (this.eventsRequest.length != 0) {
+            var obj = new Appointment_1.Appointment(event.title, event.branch, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patient, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color);
             this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'APPT_SUC_02') {
                     self.notificationService.success('created successfully', 'Appointment');
                     self.router.navigate(['/dashboard/appointment/manage']);
+                    _this.eventsRequest.length = 0;
                 }
                 else {
                     self.notificationService.error('Appointment is not created', 'Appointment');
@@ -292,7 +279,8 @@ var AddAppointmentComponent = (function () {
             }, function (error) {
             });
         }
-        else { }
+        else {
+        }
     };
     __decorate([
         core_2.ViewChild('modalContent'),

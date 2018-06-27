@@ -135,8 +135,6 @@
         <br><br><br>
 
 
-
-
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
@@ -280,7 +278,7 @@
         <!--start-->
         <div id="create-responsive" class="modal fade" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog schedle-appint-modal">
-                <div class="modal-content" *ngFor="let event of events; let index = index">
+                <div class="modal-content" *ngFor="let event of eventsRequest; let index = index">
                     <div class="modal-header off-wite-bg">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title bold"> Schedule Appointment </h4>
@@ -439,53 +437,12 @@
                                                             <label class="control-label col-md-4">Color
                                                             </label>
                                                             <div class="col-md-8">
-                                                                <div class="minicolors box-width-size minicolors-theme-bootstrap minicolors-position-bottom minicolors-position-left">
-                                                                    <div class="minicolors minicolors-theme-bootstrap minicolors-position-bottom minicolors-position-left">
-                                                                        <input type="hidden" id="hidden-input"
-                                                                               class="demo minicolors-input"
-                                                                               value="#e6e6e6" size="7"><span
-                                                                            class="minicolors-swatch minicolors-sprite"><span
-                                                                            class="minicolors-swatch-color"
-                                                                            style="background-color: rgb(230, 230, 230);"></span></span>
-                                                                        <div class="minicolors-panel minicolors-slider-hue"
-                                                                             style="display: none;">
-                                                                            <div class="minicolors-slider minicolors-sprite">
-                                                                                <div class="minicolors-picker"
-                                                                                     style="top: 0px;"></div>
-                                                                            </div>
-                                                                            <div class="minicolors-opacity-slider minicolors-sprite">
-                                                                                <div class="minicolors-picker"></div>
-                                                                            </div>
-                                                                            <div class="minicolors-grid minicolors-sprite"
-                                                                                 style="background-color: rgb(255, 0, 0);">
-                                                                                <div class="minicolors-grid-inner"></div>
-                                                                                <div class="minicolors-picker"
-                                                                                     style="top: 14px; left: 0px;">
-                                                                                    <div></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="minicolors-panel minicolors-slider-hue"
-                                                                         style="display: none;">
-                                                                        <div class="minicolors-slider minicolors-sprite">
-                                                                            <div class="minicolors-picker"
-                                                                                 style="top: 136.709px;"></div>
-                                                                        </div>
-                                                                        <div class="minicolors-opacity-slider minicolors-sprite">
-                                                                            <div class="minicolors-picker"></div>
-                                                                        </div>
-                                                                        <div class="minicolors-grid minicolors-sprite"
-                                                                             style="background-color: rgb(255, 136, 0);">
-                                                                            <div class="minicolors-grid-inner"></div>
-                                                                            <div class="minicolors-picker"
-                                                                                 style="top: 15px; left: 0px;">
-                                                                                <div></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                                <input [(colorPicker)]="color" [value]="color" [style.background]="color" (keyup)="refresh.next()" [(ngModel)]="color"  />
+                                                                <!--<input [style.background]="color"
+                                                                       [colorPicker]="color"
+                                                                       [(ngModel)]="event.color"
+                                                                       (colorPickerChange)="color=$event"/>-->
+                                                                                                                 </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-4">Status:</label>
@@ -627,7 +584,7 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="mrgn-btm10 pull-right">
-                                                                <button type="button" data-dismiss="modal" (click)="events.splice(index, 1); refresh.next()"
+                                                                <button type="button" class="close" data-dismiss="modal" (click)="eventsRequest.splice(index, 1); refresh.next()"
                                                                         class="btn btn-sm blue btn-outline filter-submit margin-bottom">
                                                                     Cancel
                                                                 </button>
@@ -655,12 +612,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" (click)="events.splice(index, 1); refresh.next()" class="btn red"> Delete</button>
+                        <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)" class="btn red"> Delete</button>
                         <button type="button" (click)="saveAppointment(event)" data-dismiss="modal" class="btn blue"> Save &
                             Close
                         </button>
                         <button type="button" (click)="saveAppointment(event)" data-dismiss="modal" class="btn  blue"> Save</button>
-                        <button type="button" data-dismiss="modal" (click)="events.splice(index, 1); refresh.next()" class="btn btn-default btn-outline"> Cancel</button>
+                        <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)" class="btn btn-default btn-outline"> Cancel</button>
                     </div>
                 </div>
             </div>

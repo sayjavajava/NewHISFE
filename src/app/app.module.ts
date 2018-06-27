@@ -18,6 +18,7 @@ import {ContentComponent} from "./components/dashboard/content.component";
 import {NotFound404Component} from "./components/errors/not-found-404.component";
 // Routes
 import {routes} from "./app.routes";
+import { ColorPickerModule } from 'ngx-color-picker';
 // Services
 import {RequestsService} from "./services/requests.service";
 import {HISUtilService} from "./services/his-util.service";
@@ -123,6 +124,7 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         MatNativeDateModule,
         MatInputModule,
         MatIconModule,
+        ColorPickerModule,
         NgbModalModule.forRoot(),
         CalendarModule.forRoot(),
         DemoUtilsModule
