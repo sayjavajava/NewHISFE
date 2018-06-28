@@ -83,7 +83,7 @@ var AppConstants = (function () {
     AppConstants.PATIENT_FETCH_URL = '/user/patient/get/';
     AppConstants.PATIENT_UPDATE_URL = '/user/patient/update';
     AppConstants.SEARCH_ALL_PATIENT_URL = '/user/patient/search';
-    AppConstants.RACE_FETCH_URL = '/user/patient/races';
+    AppConstants.GET_ALL_PATIENT_URL = '/user/patient/all';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';

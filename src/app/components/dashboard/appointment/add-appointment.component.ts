@@ -34,6 +34,7 @@ export class AddAppointmentComponent implements OnInit {
     constructor(private modal: NgbModal, private dialog: MatDialog, private fb: FormBuilder,
                 private notificationService: NotificationService, private router: Router, private requestsService: RequestsService) {
         this.getBranchesFromServer();
+        this.getPatientFromServer();
     }
 
     refresh: Subject<any> = new ReplaySubject<any>(1);
@@ -42,7 +43,7 @@ export class AddAppointmentComponent implements OnInit {
     activeDayIsOpen: boolean = true;
     title = 'app';
     page: number = 0;
-    color:string;
+    color: string;
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
     view: string = 'month';
@@ -51,11 +52,12 @@ export class AddAppointmentComponent implements OnInit {
     viewDate: Date = new Date();
     data: any = [];
     branches: any[];
+    patients: any[];
     selectedType: any = [];
-    //selectedMedicalService: MedicalService = new MedicalService();
     appointmentType: any = [];
     examRooms: any = [];
     filteredData: any[];
+    selectedPatientId: number;
 
     modalData: {
         action: string;
@@ -140,8 +142,6 @@ export class AddAppointmentComponent implements OnInit {
                     //  this.hisUtilService.tokenExpired(error.error.error);
                 }
             );
-
-
     }
 
     get selectedOptions() {
@@ -151,8 +151,6 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     selectType() {
-        // this.selectedOptions;
-        //console.log('type:' + JSON.stringify(this.selectedOptions));
         this.selectedType.length = 0;
         if (this.selectedOptions.indexOf('NewPatient') > -1) {
             this.newPatient = true;
@@ -205,6 +203,21 @@ export class AddAppointmentComponent implements OnInit {
             );
     }
 
+    getPatientFromServer() {
+        this.requestsService.getRequest(
+            AppConstants.GET_ALL_PATIENT_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'PATIENT_SUC_11') {
+                        this.patients = response['responseData'];
+                    }
+                },
+                (error: any) => {
+
+                }
+            );
+    }
+
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
         if (isSameMonth(date, this.viewDate)) {
             if (
@@ -235,7 +248,6 @@ export class AddAppointmentComponent implements OnInit {
 
     deleteEvent(action: string, event: CalendarEvent): void {
 
-        console.log('del:' + event.title);
         this.eventsRequest.splice(this.eventsRequest.indexOf(event), 1);
         this.refresh.next();
     }
@@ -281,8 +293,6 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     selectRecurringDays(event: any, item: any) {
-        console.log(this.selectedType);
-
         if (event.target.checked) {
             this.selectedRecurringDays.push(item.name);
         }
@@ -293,8 +303,6 @@ export class AddAppointmentComponent implements OnInit {
 
             this.selectedRecurringDays.splice(index, 1);
         }
-        console.log(this.selectedRecurringDays);
-
     }
 
     findIndexToUpdate(type: any) {
@@ -302,19 +310,17 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     getExamRoom(event: any) {
-        console.log('i am called' + event + '' + this.examRooms.length);
         this.filteredData = this.branches.filter(x => x.id == event);
         this.examRooms = this.filteredData[0].examRooms;
 
     }
 
     saveAppointment(event: any) {
-        console.log('event :' + this.color);
         var self = this;
         if (this.eventsRequest.length != 0) {
             let obj = new Appointment(event.title, event.branch, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patient,
                 event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
-                event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email,this.color);
+                event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color);
             this.requestsService.postRequest(AppConstants.CREATE_APPOINTMENT_URL,
                 obj)
                 .subscribe(
@@ -322,7 +328,7 @@ export class AddAppointmentComponent implements OnInit {
                         if (response['responseCode'] === 'APPT_SUC_02') {
                             self.notificationService.success('created successfully', 'Appointment');
                             self.router.navigate(['/dashboard/appointment/manage']);
-                            this.eventsRequest.length=0;
+                            this.eventsRequest.length = 0;
                         } else {
                             self.notificationService.error('Appointment is not created', 'Appointment');
                         }
@@ -333,5 +339,4 @@ export class AddAppointmentComponent implements OnInit {
         } else {
         }
     }
-
 }

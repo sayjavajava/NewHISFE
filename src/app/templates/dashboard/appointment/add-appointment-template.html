@@ -184,7 +184,7 @@
                                 </td>
                                 <td>
 
-                                    <select class="form-control" (change)="onChange($event.target.value)"  >
+                                    <select class="form-control" (change)="onChange($event.target.value)">
                                         <!--[ngModelOptions]="{standalone:true}"-->
                                         <!--[(ngModel)]="event.branch"-->
                                         <option value="0">-- Select --</option>
@@ -294,7 +294,7 @@
                                                    class="font-blue bold"> Appointment </a>
                                             </li>
                                         </ul>
-                                        <div class="tab-content" >
+                                        <div class="tab-content">
                                             <div class="tab-pane fade active in" id="tab_1_1">
 
                                                 <div class="form-group">
@@ -308,7 +308,8 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="newPatient" class="hr padding round-table off-wite-bg mrgn-btm10">
+                                                <div *ngIf="newPatient"
+                                                     class="hr padding round-table off-wite-bg mrgn-btm10">
                                                     <div class="hr">
                                                         <div class="col-md-3">
                                                             <input type="text" value="" class="form-control"
@@ -356,17 +357,22 @@
                                                                             [ngModelOptions]="{standalone:true}"
                                                                             [(ngModel)]="event.patient">
                                                                         <option value="0">-- Select --</option>
-                                                                        <option *ngFor="let item of Patient; let i = index;"
-                                                                                value={{item.name}}
+                                                                        <option *ngFor="let item of patients; let i = index;"
+                                                                                value="{{item.userName}}"
                                                                                 (keyup)="refresh.next()">
-                                                                            {{item.name}}
+                                                                            {{item.profileWrapper.firstName}}
+                                                                            {{item.profileWrapper.lastName}}
+                                                                            ({{item.email}})
                                                                         </option>
                                                                     </select>
                                                                     <div class="">
-                                                                        <button class="btn btn-default btn-outline font-green-dark">
-                                                                            <i class=" fa fa-plus"></i></button>
-                                                                        <button class="btn btn-default btn-outline font-yellow-gold pull-right">
-                                                                            <i class=" fa fa-pencil"></i></button>
+                                                                        <button class="btn btn-default btn-outline font-green-dark"
+                                                                                routerLink="/dashboard/patient/add">
+                                                                            <i class=" fa fa-plus"></i>
+                                                                        </button>
+                                                                        <!-- <button class="btn btn-default btn-outline font-yellow-gold pull-right"
+                                                                             <i class=" fa fa-pencil"></i>
+                                                                         </button>-->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -408,7 +414,9 @@
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-4">Branch</label>
                                                             <div class="col-md-8">
-                                                                <select class="form-control" (change)="getExamRoom($event.target.value)"  name="branchDrp"
+                                                                <select class="form-control"
+                                                                        (change)="getExamRoom($event.target.value)"
+                                                                        name="branchDrp"
                                                                         [ngModelOptions]="{standalone:true}"
                                                                         [(ngModel)]="event.branch">
                                                                     <option value="0">-- Select --</option>
@@ -437,12 +445,14 @@
                                                             <label class="control-label col-md-4">Color
                                                             </label>
                                                             <div class="col-md-8">
-                                                                <input [(colorPicker)]="color" [value]="color" [style.background]="color" (keyup)="refresh.next()" [(ngModel)]="color"  />
+                                                                <input [(colorPicker)]="color" [value]="color"
+                                                                       [style.background]="color"
+                                                                       (keyup)="refresh.next()" [(ngModel)]="color"/>
                                                                 <!--<input [style.background]="color"
                                                                        [colorPicker]="color"
                                                                        [(ngModel)]="event.color"
                                                                        (colorPickerChange)="color=$event"/>-->
-                                                                                                                 </div>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-4">Status:</label>
@@ -519,7 +529,8 @@
                                                         <div class="hr">
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr">
-                                                                    <label class="control-label col-md-4">First Appointment
+                                                                    <label class="control-label col-md-4">First
+                                                                        Appointment
                                                                     </label>
                                                                     <div class="col-md-8">
                                                                         <mwl-demo-utils-date-time-picker
@@ -532,7 +543,8 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr">
-                                                                    <label class="control-label col-md-4">Last Appointment
+                                                                    <label class="control-label col-md-4">Last
+                                                                        Appointment
                                                                     </label>
                                                                     <div class="col-md-8">
                                                                         <mwl-demo-utils-date-time-picker
@@ -542,8 +554,10 @@
                                                                         </mwl-demo-utils-date-time-picker>
                                                                         <div class="col-md-4 never-end">
                                                                             <label class="mt-checkbox mt-checkbox-outline">
-                                                                                <input type="checkbox" [(ngModel)]="event.neverEnds"
-                                                                                       (keyup)="refresh.next()"> Never ends
+                                                                                <input type="checkbox"
+                                                                                       [(ngModel)]="event.neverEnds"
+                                                                                       (keyup)="refresh.next()"> Never
+                                                                                ends
                                                                                 <span></span>
                                                                             </label>
                                                                         </div>
@@ -563,7 +577,8 @@
                                                             around this date.</p>
                                                         <div class="col-md-6">
                                                             <div class="form-group hr">
-                                                                <label class="control-label col-md-4">Follow Up Date</label>
+                                                                <label class="control-label col-md-4">Follow Up
+                                                                    Date</label>
                                                                 <div class="col-md-8">
                                                                     <mwl-demo-utils-date-time-picker
                                                                             [(ngModel)]="event.followUpDate"
@@ -584,7 +599,8 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="mrgn-btm10 pull-right">
-                                                                <button type="button" class="close" data-dismiss="modal" (click)="eventsRequest.splice(index, 1); refresh.next()"
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        (click)="eventsRequest.splice(index, 1); refresh.next()"
                                                                         class="btn btn-sm blue btn-outline filter-submit margin-bottom">
                                                                     Cancel
                                                                 </button>
@@ -612,12 +628,19 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)" class="btn red"> Delete</button>
-                        <button type="button" (click)="saveAppointment(event)" data-dismiss="modal" class="btn blue"> Save &
+                        <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)"
+                                class="btn red"> Delete
+                        </button>
+                        <button type="button" (click)="saveAppointment(event)" data-dismiss="modal" class="btn blue">
+                            Save &
                             Close
                         </button>
-                        <button type="button" (click)="saveAppointment(event)" data-dismiss="modal" class="btn  blue"> Save</button>
-                        <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)" class="btn btn-default btn-outline"> Cancel</button>
+                        <button type="button" (click)="saveAppointment(event)" data-dismiss="modal" class="btn  blue">
+                            Save
+                        </button>
+                        <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)"
+                                class="btn btn-default btn-outline"> Cancel
+                        </button>
                     </div>
                 </div>
             </div>

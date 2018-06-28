@@ -16,7 +16,7 @@ export class AppConstants {
     public static CREATE_USER_ENDPOINT = '/user/add';
     public static USER_SEARCH = '/user/search/';
     public static FETCH_ALL_USERS_URI = '/user/';
-    public static FETCH_USER_BY_ID='/user/get/';
+    public static FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     public static ADD_BRANCH = '/setting/branch/create';
     public static UPDATE_BRANCH = '/setting/branch/update/';
@@ -50,14 +50,14 @@ export class AppConstants {
     public static ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
 
     ////////////////////// Service Tax URLs ///////////////////////////////
-    public static FETCH_ALL_TAX_URL ='/setting/tax/';
+    public static FETCH_ALL_TAX_URL = '/setting/tax/';
     public static SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     public static SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     public static SERVICE_TAX_UPDATE_URL = '/setting/tax/update';
     public static SERVICE_TAX_SEARCH_URL = '/setting/tax/search/';
 
     ////////////////////// Email Template URLs ///////////////////////////////
-    public static EMAIL_TEMPLATE_FETCH_ALL_URL ='/setting/emailTemplate/';
+    public static EMAIL_TEMPLATE_FETCH_ALL_URL = '/setting/emailTemplate/';
     public static EMAIL_TEMPLATE_DELETE_URL = '/setting/emailTemplate/delete/?id=';
     public static EMAIL_TEMPLATE_SAVE_URL = '/setting/emailTemplate/save';
     public static EMAIL_TEMPLATE_EDIT_URL = '/setting/emailTemplate/get/';
@@ -87,7 +87,7 @@ export class AppConstants {
     public static PATIENT_FETCH_URL = '/user/patient/get/';
     public static PATIENT_UPDATE_URL = '/user/patient/update';
     public static SEARCH_ALL_PATIENT_URL = '/user/patient/search';
-    public static RACE_FETCH_URL = '/user/patient/races';
+    public static GET_ALL_PATIENT_URL = '/user/patient/all';
 
     ////////////////////// Appointments URLs ///////////////////////////////
     public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
