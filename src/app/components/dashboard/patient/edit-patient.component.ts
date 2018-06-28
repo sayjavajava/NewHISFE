@@ -15,8 +15,9 @@ import {UserTypeEnum} from "../../../enums/user-type-enum";
 })
 export class EditPatientComponent implements OnInit {
     patient: Patient = new Patient();
-    selectedPatientId:any;
+    selectedPatientId: any;
     doctors: any = [];
+    file: File;
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -83,12 +84,13 @@ export class EditPatientComponent implements OnInit {
                 this.notificationService.error('Please provide user name', 'Patient');
                 document.getElementById("userName").focus();
                 return;
-            } /*else if (this.patient.dob.length<=0) {
-                this.notificationService.error('Please provide user name', 'Patient');
-                // document.getElementById("dob").style.color = "red";
-                document.getElementById("dob").focus();
-                return;
-            }*/
+            }
+            /*else if (this.patient.dob.length<=0) {
+             this.notificationService.error('Please provide user name', 'Patient');
+             // document.getElementById("dob").style.color = "red";
+             document.getElementById("dob").focus();
+             return;
+             }*/
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         } else {
@@ -114,6 +116,36 @@ export class EditPatientComponent implements OnInit {
             } else {
                 this.router.navigate(['/login']);
             }
+        }
+    }
+
+    uploadProfileImgOnChange(event: any) {
+        let fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            this.file = fileList[0];
+        }
+    }
+
+    uploadProfileImg() {
+        if (this.file.size <= 1048000) {
+            this.requestsService.postRequestMultipartFormData(
+                AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.userId
+                , this.file)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'USR_SUC_02') {
+                            this.notificationService.success(response['responseMessage'], 'Update Patient');
+                            //this.adminUpdateService.uploadProfileImage(response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1);
+                            //this.profileImg = response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1;
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                        this.HISUTilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
         }
     }
 }

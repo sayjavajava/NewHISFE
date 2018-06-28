@@ -11,7 +11,7 @@ export class Patient {
     middleName: string = "";
     lastName: string = "";
     foreignName: string = "";
-    patientPhoto: File;
+    profileImg: string;
     homePhone: string = "";
     cellPhone: string = "";
     disableSMSTxt: boolean = false;

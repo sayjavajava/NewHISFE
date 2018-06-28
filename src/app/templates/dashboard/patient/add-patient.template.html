@@ -30,7 +30,7 @@
                                                 class="form-control">
                                             <option [ngValue]="-1" selected>---Select---</option>
                                             <option *ngFor="let doc of doctors" [value]="doc.id">
-                                                {{doc.userName}}
+                                                {{doc.firstName}} {{doc.lastName}}
                                             </option>
                                         </select>
                                     </div>

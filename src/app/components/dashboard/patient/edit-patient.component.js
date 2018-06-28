@@ -84,12 +84,13 @@ var EditPatientComponent = (function () {
                 this.notificationService.error('Please provide user name', 'Patient');
                 document.getElementById("userName").focus();
                 return;
-            } /*else if (this.patient.dob.length<=0) {
-                this.notificationService.error('Please provide user name', 'Patient');
-                // document.getElementById("dob").style.color = "red";
-                document.getElementById("dob").focus();
-                return;
-            }*/
+            }
+            /*else if (this.patient.dob.length<=0) {
+             this.notificationService.error('Please provide user name', 'Patient');
+             // document.getElementById("dob").style.color = "red";
+             document.getElementById("dob").focus();
+             return;
+             }*/
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         }
@@ -112,6 +113,31 @@ var EditPatientComponent = (function () {
             else {
                 this.router.navigate(['/login']);
             }
+        }
+    };
+    EditPatientComponent.prototype.uploadProfileImgOnChange = function (event) {
+        var fileList = event.target.files;
+        if (fileList.length > 0) {
+            this.file = fileList[0];
+        }
+    };
+    EditPatientComponent.prototype.uploadProfileImg = function () {
+        var _this = this;
+        if (this.file.size <= 1048000) {
+            this.requestsService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.userId, this.file)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'USR_SUC_02') {
+                    _this.notificationService.success(response['responseMessage'], 'Update Patient');
+                    //this.adminUpdateService.uploadProfileImage(response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1);
+                    //this.profileImg = response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1;
+                }
+            }, function (error) {
+                _this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                _this.HISUTilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
         }
     };
     EditPatientComponent = __decorate([

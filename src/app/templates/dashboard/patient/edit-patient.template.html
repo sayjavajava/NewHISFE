@@ -27,7 +27,7 @@
                                                 class="form-control">
                                             <option [ngValue]="-1" selected>---Select---</option>
                                             <option *ngFor="let doc of doctors" [value]="doc.id">
-                                                {{doc.userName}}
+                                                {{doc.firstName}} {{doc.lastName}}
                                             </option>
                                         </select>
                                     </div>
@@ -115,11 +115,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="pull-left mrgn-top24">
-                                <img class="img-responsive" src="/public/images/patient-photo.jpg"/>
+                                <img class="img-responsive" src="/public/images/patient-photo.jpg"
+                                     *ngIf="patient.profileImg === null || patient.profileImg === ''"/>
+                                <img class="" src="{{patient.profileImg}}"
+                                     *ngIf="patient.profileImg != null">
                                 <div class="">
-                                    <p>Patient Photo</p>
-                                    <input type="file" id="patientPhotoId" name="patientPhotoId"
-                                           [(ngModel)]="patient.patientPhoto">
+                                    <input class="file" type="file" id="patientPhotoId" name="patientPhotoId"
+                                           (change)="uploadProfileImgOnChange($event)">
+                                </div>
+                                <div class="">
+                                    <button class="btn btn-default btn-outline"
+                                            (click)="uploadProfileImg()">
+                                        <i class=" icon-arrow-up"></i>
+                                        upload
+                                    </button>
                                 </div>
                             </div>
                         </div>
