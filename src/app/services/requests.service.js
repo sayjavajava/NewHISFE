@@ -87,6 +87,13 @@ var RequestsService = (function () {
         formData.append('file', data, data.name);
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };
+    RequestsService.prototype.postRequestMultipartFormAndData = function (url, data) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        var formData = new FormData();
+        formData.append('file', data, data.name);
+        formData.append('frontBack', data, data.name);
+        return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
+    };
     RequestsService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient,

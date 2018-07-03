@@ -614,14 +614,50 @@
                                     <label class="control-label col-md-4">Insurance Photo Front
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="file" [(ngModel)]="patient.photoFront" name="photoFront">
+                                        <!--<input type="file" [(ngModel)]="patient.photoFront" name="photoFront">-->
+                                        <div class="pull-left mrgn-top24">
+                                            <img class="img-responsive" src="/public/images/patient-photo.jpg"
+                                                 *ngIf="patient.photoFront === null || patient.photoFront === ''"/>
+                                            <img class="" src="{{patient.photoFront}}"
+                                                 *ngIf="patient.photoFront != null">
+                                            <div class="">
+                                                <input class="file" type="file" id="photoFront" name="photoFront"
+                                                       (change)="uploadProfileImgOnChange($event)">
+                                            </div>
+                                            <div class="">
+                                                <button class="btn btn-default btn-outline"
+                                                        (click)="uploadFrontImg()">
+                                                    <i class=" icon-arrow-up"></i>
+                                                    upload
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Insurance Photo Back
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="file" [(ngModel)]="patient.photoBack" name="photoBack">
+                                        <!--<input type="file" [(ngModel)]="patient.photoBack" name="photoBack">-->
+
+                                        <div class="pull-left mrgn-top24">
+                                            <img class="img-responsive" src="/public/images/patient-photo.jpg"
+                                                 *ngIf="patient.photoBack === null || patient.photoBack === ''"/>
+                                            <img class="" src="{{patient.photoBack}}"
+                                                 *ngIf="patient.photoBack != null">
+                                            <div class="">
+                                                <input class="file" type="file" id="photoBack" name="photoBack"
+                                                       (change)="uploadProfileImgOnChange($event)">
+                                            </div>
+                                            <div class="">
+                                                <button class="btn btn-default btn-outline"
+                                                        (click)="uploadBackImg()">
+                                                    <i class=" icon-arrow-up"></i>
+                                                    upload
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

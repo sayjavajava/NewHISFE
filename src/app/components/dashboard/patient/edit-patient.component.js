@@ -18,6 +18,7 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var patient_1 = require("../../../model/patient");
 var notification_service_1 = require("../../../services/notification.service");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
+var image_model_1 = require("../../../model/image-model");
 var EditPatientComponent = (function () {
     function EditPatientComponent(requestsService, router, titleService, HISUTilService, notificationService, activatedRoute) {
         var _this = this;
@@ -28,6 +29,7 @@ var EditPatientComponent = (function () {
         this.notificationService = notificationService;
         this.activatedRoute = activatedRoute;
         this.patient = new patient_1.Patient();
+        this.imageModel = new image_model_1.ImageModel();
         this.doctors = [];
         this.requestsService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + user_type_enum_1.UserTypeEnum.DOCTOR)
             .subscribe(function (response) {
@@ -130,6 +132,46 @@ var EditPatientComponent = (function () {
                     _this.notificationService.success(response['responseMessage'], 'Update Patient');
                     //this.adminUpdateService.uploadProfileImage(response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1);
                     //this.profileImg = response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1;
+                }
+            }, function (error) {
+                _this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                _this.HISUTilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
+        }
+    };
+    EditPatientComponent.prototype.uploadFrontImg = function () {
+        var _this = this;
+        if (this.file.size <= 1048000) {
+            this.requestsService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.userId, this.file)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'USR_SUC_03') {
+                    _this.notificationService.success(response['responseMessage'], 'Update Patient');
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Update Patient');
+                }
+            }, function (error) {
+                _this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                _this.HISUTilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
+        }
+    };
+    EditPatientComponent.prototype.uploadBackImg = function () {
+        var _this = this;
+        if (this.file.size <= 1048000) {
+            this.requestsService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.userId, this.file)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'USR_SUC_03') {
+                    _this.notificationService.success(response['responseMessage'], 'Update Patient');
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Update Patient');
                 }
             }, function (error) {
                 _this.notificationService.error('Profile Image uploading failed', 'Update Patient');

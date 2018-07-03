@@ -8,6 +8,8 @@ import {Patient} from "../../../model/patient";
 import {NotificationService} from "../../../services/notification.service";
 import {NgForm} from "@angular/forms";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
+import {ImageModel} from "../../../model/image-model";
+import any = jasmine.any;
 
 @Component({
     selector: 'add-patient',
@@ -15,6 +17,7 @@ import {UserTypeEnum} from "../../../enums/user-type-enum";
 })
 export class EditPatientComponent implements OnInit {
     patient: Patient = new Patient();
+    imageModel: ImageModel = new ImageModel();
     selectedPatientId: any;
     doctors: any = [];
     file: File;
@@ -148,4 +151,49 @@ export class EditPatientComponent implements OnInit {
             this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
         }
     }
+
+    uploadFrontImg() {
+        if (this.file.size <= 1048000) {
+            this.requestsService.postRequestMultipartFormData(
+                AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.userId, this.file)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'USR_SUC_03') {
+                            this.notificationService.success(response['responseMessage'], 'Update Patient');
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Update Patient');
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                        this.HISUTilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
+        }
+    }
+
+    uploadBackImg() {
+        if (this.file.size <= 1048000) {
+            this.requestsService.postRequestMultipartFormData(
+                AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.userId, this.file)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'USR_SUC_03') {
+                            this.notificationService.success(response['responseMessage'], 'Update Patient');
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Update Patient');
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                        this.HISUTilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
+        }
+    }
+
 }

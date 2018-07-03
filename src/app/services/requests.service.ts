@@ -92,5 +92,12 @@ export class RequestsService {
         formData.append('file', data, data.name);
         return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
     }
+    postRequestMultipartFormAndData(url: any, data: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        let formData: FormData = new FormData();
+        formData.append('file', data, data.name);
+        formData.append('frontBack', data, data.name);
+        return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
+    }
 
 }

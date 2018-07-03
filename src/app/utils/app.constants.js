@@ -85,6 +85,8 @@ var AppConstants = (function () {
     AppConstants.SEARCH_ALL_PATIENT_URL = '/user/patient/search';
     AppConstants.GET_ALL_PATIENT_URL = '/user/patient/all';
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/user/uploadProfileImg/';
+    AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/user/uploadImageFront/insurance/';
+    AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/user/uploadImageBack/insurance/';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';

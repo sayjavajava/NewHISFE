@@ -89,6 +89,9 @@ export class AppConstants {
     public static SEARCH_ALL_PATIENT_URL = '/user/patient/search';
     public static GET_ALL_PATIENT_URL = '/user/patient/all';
     public static UPLOAD_PATIENT_IMAGE_URL = '/user/uploadProfileImg/';
+    public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/user/uploadImageFront/insurance/';
+    public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/user/uploadImageBack/insurance/';
+
 
     ////////////////////// Appointments URLs ///////////////////////////////
     public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
