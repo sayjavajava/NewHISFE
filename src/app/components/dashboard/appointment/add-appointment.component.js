@@ -43,6 +43,7 @@ var AddAppointmentComponent = (function () {
         this.selectedType = [];
         this.appointmentType = [];
         this.examRooms = [];
+        this.test = 'lahore';
         this.status = [
             { id: 1, name: 'CONFIRMED' },
             { id: 2, name: 'CHECK_IN' },
@@ -105,8 +106,8 @@ var AddAppointmentComponent = (function () {
                     var apt = _a[_i];
                     _this.events.push({
                         title: apt.patient,
-                        start: date_fns_1.startOfDay(apt.startedOn),
-                        end: date_fns_1.startOfDay(apt.startedOn),
+                        start: date_fns_1.startOfDay(new Date(apt.startedOn)),
+                        end: date_fns_1.endOfDay(new Date(apt.ended)),
                         color: {
                             primary: apt.color,
                             secondary: apt.color
@@ -134,6 +135,8 @@ var AddAppointmentComponent = (function () {
                         recurringAppointment: false,
                         branch: apt.branchName,
                         examRoom: apt.examName,
+                        branchId: apt.branchId,
+                        roomId: apt.roomId,
                     });
                     _this.refresh.next();
                 }
@@ -204,13 +207,16 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.handleEvent = function (action, event) {
         this.modalData = { event: event, action: action };
-        this.modal.open(this.modalContent, { size: 'sm' });
+        // this.modal.open(this.modalContent, {size: 'lg'});
+        //  document.getElementById("exampleModalCenter2").click();
+        $("#exampleModalCenter2").modal('show');
     };
     AddAppointmentComponent.prototype.deleteEvent = function (action, event) {
         this.eventsRequest.splice(this.eventsRequest.indexOf(event), 1);
         this.refresh.next();
     };
     AddAppointmentComponent.prototype.addEvent = function () {
+        console.log('size:' + this.events.length);
         this.eventsRequest.push({
             title: 'Title',
             start: date_fns_1.startOfDay(new Date()),
@@ -247,6 +253,7 @@ var AddAppointmentComponent = (function () {
         this.refresh.next();
     };
     AddAppointmentComponent.prototype.selectRecurringDays = function (event, item) {
+        console.log(this.examRooms.lenght);
         if (event.target.checked) {
             this.selectedRecurringDays.push(item.name);
         }
@@ -260,8 +267,10 @@ var AddAppointmentComponent = (function () {
         return type.name === this;
     };
     AddAppointmentComponent.prototype.getExamRoom = function (event) {
-        this.filteredData = this.branches.filter(function (x) { return x.id == event; });
-        this.examRooms = this.filteredData[0].examRooms;
+        console.log(event);
+        var filteredData2 = this.branches.filter(function (x) { return x.id == 2; });
+        console.log(filteredData2);
+        this.examRooms = filteredData2[0].examRooms;
     };
     AddAppointmentComponent.prototype.saveAppointment = function (event) {
         var _this = this;

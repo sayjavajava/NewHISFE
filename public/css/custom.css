@@ -431,3 +431,7 @@ p, h3, h4{margin:0; padding:0;}
     position: relative;
     margin-left: 15px;
 }
+.secnd-modl{
+    width: 900px !important;
+    margin: 200px auto !important;
+}

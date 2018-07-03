@@ -235,13 +235,6 @@ export class AddBranchComponent implements OnInit {
             this.branchForm.controls['state'].setValue(value);
         }
     }
-
-    getBillingBranch(value: any) {
-        if (value) {
-            this.billingForm.controls['billingBranch'].setValue(value);
-        }
-    }
-
     getZipCode(value: any) {
         if (value) {
             this.branchForm.controls['zipCode'].setValue(value);
@@ -250,7 +243,7 @@ export class AddBranchComponent implements OnInit {
 
     getNoOfExamRooms(value: any) {
         if (value) {
-            // this.examRooms=[];
+
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);

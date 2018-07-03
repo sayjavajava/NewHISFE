@@ -25,6 +25,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {Router} from '@angular/router';
 import {Appointment} from '../../../model/Appointment';
 
+declare var $: any;
 @Component({
     selector: 'add-appointment-component',
     templateUrl: '../../../templates/dashboard/appointment/add-appointment-template.html',
@@ -57,6 +58,7 @@ export class AddAppointmentComponent implements OnInit {
     appointmentType: any = [];
     examRooms: any = [];
     filteredData: any[];
+    test :  string = 'lahore';
     selectedPatientId: number;
 
     modalData: {
@@ -101,8 +103,8 @@ export class AddAppointmentComponent implements OnInit {
                         for (let apt of response['responseData'].data) {
                             this.events.push({
                                 title: apt.patient,
-                                start: startOfDay(apt.startedOn),
-                                end: startOfDay(apt.startedOn),
+                                start: startOfDay(new Date(apt.startedOn)),
+                                end: endOfDay(new Date(apt.ended)),
                                 color: {
                                     primary: apt.color,
                                     secondary: apt.color
@@ -130,6 +132,8 @@ export class AddAppointmentComponent implements OnInit {
                                 recurringAppointment: false,
                                 branch: apt.branchName,
                                 examRoom: apt.examName,
+                                branchId: apt.branchId,
+                                roomId:apt.roomId,
 
                             });
                             this.refresh.next();
@@ -243,7 +247,10 @@ export class AddAppointmentComponent implements OnInit {
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = {event, action};
-        this.modal.open(this.modalContent, {size: 'sm'});
+       // this.modal.open(this.modalContent, {size: 'lg'});
+      //  document.getElementById("exampleModalCenter2").click();
+        $("#exampleModalCenter2").modal('show');
+
     }
 
     deleteEvent(action: string, event: CalendarEvent): void {
@@ -253,7 +260,7 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     addEvent(): void {
-
+     console.log('size:'+ this.events.length);
         this.eventsRequest.push({
             title: 'Title',
             start: startOfDay(new Date()),
@@ -293,6 +300,7 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     selectRecurringDays(event: any, item: any) {
+        console.log(this.examRooms.lenght);
         if (event.target.checked) {
             this.selectedRecurringDays.push(item.name);
         }
@@ -310,8 +318,10 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     getExamRoom(event: any) {
-        this.filteredData = this.branches.filter(x => x.id == event);
-        this.examRooms = this.filteredData[0].examRooms;
+        console.log(event);
+        var filteredData2  = this.branches.filter(x => x.id == 2);
+        console.log(filteredData2);
+        this.examRooms = filteredData2[0].examRooms;
 
     }
 

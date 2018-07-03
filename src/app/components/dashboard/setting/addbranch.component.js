@@ -213,11 +213,6 @@ var AddBranchComponent = (function () {
             this.branchForm.controls['state'].setValue(value);
         }
     };
-    AddBranchComponent.prototype.getBillingBranch = function (value) {
-        if (value) {
-            this.billingForm.controls['billingBranch'].setValue(value);
-        }
-    };
     AddBranchComponent.prototype.getZipCode = function (value) {
         if (value) {
             this.branchForm.controls['zipCode'].setValue(value);
@@ -225,7 +220,6 @@ var AddBranchComponent = (function () {
     };
     AddBranchComponent.prototype.getNoOfExamRooms = function (value) {
         if (value) {
-            // this.examRooms=[];
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);
