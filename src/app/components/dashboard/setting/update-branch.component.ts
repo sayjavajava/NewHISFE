@@ -26,29 +26,30 @@ export class UpdateBranchComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'USER_SUC_01') {
-                        let data = response['responseData'];
-                        let userNameData = data;
                         this.pDoctor = response['responseData'];
-                        console.log(this.pDoctor);
+
                     }
                 },
                 (error: any) => {
                     this.error = error.error.error;
-                })
+                });
+             this.allBranches();
     }
 
     private sub: any;
     id: number;
     examRooms: any = [];
+    branchesList: any = [];
     officeHoursStart: string;
     officeHoursEnd: string;
-    userSelected: string = 'doctor';
+    userSelected: string = 'DOCTOR';
     pDoctor: any = [];
     error: any;
     branchForm: FormGroup;
     billingForm: FormGroup;
     scheduleForm: FormGroup;
     branch: Branch;
+    defaultBranch: string = 'primary';
 
     ngOnInit() {
         this.createBranchForm();
@@ -104,10 +105,22 @@ export class UpdateBranchComponent implements OnInit {
         });
     }
 
+    allBranches() {
+        this.requestService.getRequest(AppConstants.BRANCHES_NAME)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BRANCH_SUC_01') {
+                        this.branchesList = response['responseData'];
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
 
     public patchData() {
         if (this.id) {
-
             this.requestService.findById(AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(
                 branch => {
                     //  this.id = user.id;
@@ -115,17 +128,16 @@ export class UpdateBranchComponent implements OnInit {
                         branchName: branch.branchName,
                         officeHoursStart: branch.officeHoursStart,
                         officeHoursEnd: branch.officeHoursEnd,
-                        noOfExamRooms: branch.noOfExamRooms,
+                        noOfExamRooms: branch.rooms,
                         state: branch.state,
                         city: branch.city,
-                        primaryDoctor: branch.username,
+                        primaryDoctor: branch.user.username,
                         fax: branch.fax,
                         formattedAddress: branch.formattedAddress,
                         country: branch.country,
                         address: branch.address,
                         zipCode: branch.zipCode,
                         officePhone: branch.officePhone,
-
 
                     });
 
@@ -134,7 +146,6 @@ export class UpdateBranchComponent implements OnInit {
                         billingName: branch.billingName,
                         billingTaxID: branch.billingTaxID
 
-
                     });
 
                     this.scheduleForm.patchValue({
@@ -142,7 +153,6 @@ export class UpdateBranchComponent implements OnInit {
                             allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
                         }
                     );
-                    console.log(branch.zipCode);
                     this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
                     this.addFields(branch.rooms);
                     this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
@@ -155,20 +165,29 @@ export class UpdateBranchComponent implements OnInit {
 
     }
 
+    removeBranch() {
+        this.branchesList.forEach((item: any, index: any) => {
+            if (item === this.defaultBranch) this.branchesList.splice(index, 1);
+        });
+    }
+
     addBranch(data: any, value: any) {
         if (this.branchForm.valid) {
             let branchObject = this.prepareSaveBranch();
             if (value === 'done') {
-
+                var that = this;
                 this.requestService.putRequest(AppConstants.UPDATE_BRANCH + this.id, branchObject)
-                    .subscribe(function (response) {
-                        if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
-                            this.notificationService.success(' Branch has been Updated Successfully');
-                        }
-                    }, function (error) {
-                        this.error = error.error.error_description;
-                        this.notificationService.error('ERROR', 'Branch is not updated ');
-                    });
+                    .subscribe(
+                        (response: Response) => {
+                            if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
+                                console.log('updated....');
+                                that.notificationService.success(' Branch has been Updated Successfully');
+                                that.router.navigate(['/dashboard/setting/branch']);
+                            }
+                        }, function (error) {
+                            this.error = error.error.error_description;
+                            this.notificationService.error('ERROR', 'Branch is not updated ');
+                        });
 
                 console.log(this.branchForm.value);
             }
@@ -177,6 +196,11 @@ export class UpdateBranchComponent implements OnInit {
                 this.validateAllFormFields(this.branchForm);
             }
         }
+    }
+
+    deleteField(index: number) {
+        this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        this.examRooms.removeAt(index);
     }
 
     prepareSaveBranch(): Branch {
@@ -188,8 +212,6 @@ export class UpdateBranchComponent implements OnInit {
             (examRooms: ExamRooms) => Object.assign({}, examRooms)
         );
 
-        // return new `Hero` object containing a combination of original hero value(s)
-        // and deep copies of changed form model values
         const saveBranchModel: Branch = {
             branchName: formModel.branchName,
             officeHoursStart: formModel.officeHoursStart,

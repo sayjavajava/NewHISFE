@@ -15,8 +15,11 @@ export class ContentComponent implements OnInit {
     firstName: string;
     lastName: string;
     profileImg: string;
-    userDesignation: string;
-    role: string;
+    roles: string;
+    patientCount: number;
+    appointmentsCount: number;
+    medicalServicesCount: number;
+    icdsCount: number;
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -32,20 +35,36 @@ export class ContentComponent implements OnInit {
                 '/user/loggedInUser')
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'ADM_SUC_01') {
+                        if (response['responseCode'] === 'ADM_SUC_03') {
                             this.userSharedService.firstName = response['responseData'].firstName;
                             this.userSharedService.lastName = response['responseData'].lastName;
                             this.userSharedService.profileImg = response['responseData'].profileImg;
-                            this.userSharedService.role = response['responseData'].role;
+                            this.userSharedService.roles = response['responseData'].commaSeparatedRoles;
 
                             this.firstName = this.userSharedService.firstName;
                             this.lastName = this.userSharedService.lastName;
                             this.profileImg = this.userSharedService.profileImg;
-                            this.role = this.userSharedService.role;
+                            this.roles = this.userSharedService.roles;
+
+                            this.requestsService.getRequest(
+                                '/user/dashboard')
+                                .subscribe(
+                                    (response: Response) => {
+                                        if (response['responseCode'] === 'ADM_SUC_04') {
+                                            this.patientCount = response['responseData'].patientCount;
+                                            this.appointmentsCount = response['responseData'].appointmentsCount;
+                                            this.medicalServicesCount = response['responseData'].medicalServicesCount;
+                                            this.icdsCount = response['responseData'].icdsCount;
+                                        }
+                                    },
+                                    (error: any) => {
+                                        //console.log(error.json())
+                                        this.HISUtilService.tokenExpired(error.error.error);
+                                    }
+                                );
                         }
                     },
                     (error: any) => {
-                        // this.apUtilServer.tokenExpired(error.json()['error']);
                         //console.log(error.json())
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
@@ -53,8 +72,6 @@ export class ContentComponent implements OnInit {
         } else {
             this.router.navigate(['/login']);
         }
-
-
     }
 
     logout() {

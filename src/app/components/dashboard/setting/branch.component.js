@@ -138,10 +138,8 @@ var BranchComponent = (function () {
                         _this.getBranchFromServer(_this.currPage);
                     }
                 }, function (error) {
-                    _this.error = error.error.error_description;
                     _this.notificationService.error('ERROR', 'User Unable to Delete ');
                 });
-                // this.router.navigate(['/home']);
             }
         });
     };
@@ -155,7 +153,7 @@ var BranchComponent = (function () {
     };
     BranchComponent.prototype.getSelectedDepartment = function (value) {
         if (value) {
-            console.log('sel:' + value);
+            //console.log('sel:' + value);
             this.searchForm.controls['department'].setValue(value);
         }
     };

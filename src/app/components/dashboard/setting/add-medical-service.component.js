@@ -14,7 +14,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
-var medical_service_1 = require("../../../models/medical-service");
+var medical_service_1 = require("../../../model/medical-service");
 var _ = require("lodash");
 var router_1 = require("@angular/router");
 var AddMedicalServiceComponent = (function () {
@@ -35,7 +35,7 @@ var AddMedicalServiceComponent = (function () {
     };
     AddMedicalServiceComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branches = response['responseData'];

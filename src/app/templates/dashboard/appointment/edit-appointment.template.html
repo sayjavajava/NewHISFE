@@ -1,0 +1,376 @@
+<!--<div id="create-responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog schedle-appint-modal">
+        <div class="modal-content">
+            <div class="modal-header off-wite-bg">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold"> Schedule Appointment </h4>
+            </div>-->
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+
+              <div class="col-md-12 col-xs-12">
+                  <form [formGroup]="appointmentForm" (ngSubmit)="saveAppointment(appointmentForm.value)" class="form-horizontal">
+                    <div class="hr">
+                      <h4 class="text-info"> </h4>
+                     </div>
+                      <div class="form-body" style="height:1100px" data-always-visible="1" data-rail-visible1="1">
+                     <div class="row">
+                        <div class=" col-md-12">
+                            <div class="portlet-body">
+
+                                <div>
+                                    <div>
+                                        <div class="hr padding round-table off-wite-bg mrgn-btm10">
+                                            <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div *ngFor="let item of Type" class="col-sm-3 pdng-lr-5">
+                                                    <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="checkbox" formControlName="appointmentType"
+                                                               name={{item}}
+                                                               value="{{item}}"
+                                                               (change)="selectTypes($event,item)">
+                                                        {{item.name}}
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="hr" *ngIf="newPatient">
+                                                <div class="col-md-3">
+                                                    <input type="text" formControlName="title" value="" class="form-control"
+                                                           placeholder="First Name"
+                                                           (keyup)="refresh.next()">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input
+                                                            type="text" placeholder="age"  formControlName="age"
+                                                            class="form-control">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <select class="form-control" (change)="selectGender($event.target.value)"  formControlName="gender">
+                                                        <option value="Male"> Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input  formControlName="email"
+                                                            type="text"
+                                                            class="form-control"
+                                                            (keyup)="refresh.next()">
+                                                </div>
+                                                <div class="col-md-3 mrgn-top8">
+                                                    <input
+                                                            type="text"  formControlName="cellPhone"
+                                                            class="form-control"
+                                                            (keyup)="refresh.next()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hr padding round-table off-wite-bg">
+                                            <div class="col-md-6">
+                                                <div class="form-group hr">
+                                                    <label class="col-md-3 control-label">Patient</label>
+                                                    <div class="col-md-9">
+                                                        <div class="ptn-apontmt-sch">
+                                                            <input type="text"  formControlName="patient"
+                                                                    class="form-control"
+                                                                    (keyup)="refresh.next()">
+                                                            <div class="">
+                                                                <button class="btn btn-default btn-outline font-green-dark">
+                                                                    <i class=" fa fa-plus"></i></button>
+                                                                <button class="btn btn-default btn-outline font-yellow-gold pull-right">
+                                                                    <i class=" fa fa-pencil"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group hr">
+                                                    <label class="col-md-3 control-label">Reason:</label>
+                                                    <div class="col-md-9 col-xs-12">
+                                                        <textarea
+                                                                rows="3"  formControlName="reason"
+                                                                class="form-control"
+                                                                (keyup)="refresh.next()"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group hr">
+                                                    <label class="col-md-3 control-label">Scheduled:</label>
+                                                    <div class="col-md-9 col-xs-12">
+
+                                                            <mwl-demo-utils-date-time-picker
+                                                                   formControlName="start"
+                                                                   placeholder="Not set" class="clndr-siz">
+                                                            </mwl-demo-utils-date-time-picker>
+
+                                                        <div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
+                                                            Time
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group hr">
+                                                    <label class="col-md-3 control-label">Duration:</label>
+                                                    <div class="col-md-8 col-xs-12">
+                                                        <input
+                                                                type="text"  formControlName="duration"
+                                                                class="form-control"
+
+                                                                (keyup)="refresh.next()">
+                                                    </div>
+                                                    <div class="col-md-1 label-control2 pdng-lr-5">minutes
+                                                    </div>
+                                                </div>
+                                                <div class="form-group hr">
+                                                    <label class="col-md-3 control-label">Notes:</label>
+                                                    <div class="col-md-9 col-xs-12">
+                                                        <input
+                                                                type="textarea"  formControlName="notes"
+                                                                rows="3"
+                                                                class="form-control"
+                                                                (keyup)="refresh.next()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group hr">
+                                                    <label class="control-label col-md-4">Branch</label>
+                                                    <div class="col-md-8">
+                                                        <select class="form-control"  formControlName="branchDrp" (change)="getExamRoom($event.target.value)"
+                                                                >
+                                                            <option value="0">-- Select --</option>
+                                                            <option *ngFor="let item of branches; let i = index;"
+                                                                    value={{item.id}} (keyup)="refresh.next()">
+                                                                {{item.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group hr">
+                                                    <label class="control-label col-md-4">Exam:</label>
+                                                    <div class="col-md-8">
+                                                        <select class="form-control"  formControlName="exmDrp">
+                                                            <option value="0">-- Select --</option>
+                                                            <option *ngFor="let item of examRooms; let i = index;"
+                                                                    value={{item.id}} (keyup)="refresh.next()">
+                                                                {{item.examName}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group hr">
+                                                    <label class="control-label col-md-4">Color
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <div class="minicolors box-width-size minicolors-theme-bootstrap minicolors-position-bottom minicolors-position-left">
+                                                            <div class="minicolors minicolors-theme-bootstrap minicolors-position-bottom minicolors-position-left">
+                                                                <input type="hidden" id="hidden-input"
+                                                                       class="demo minicolors-input"
+                                                                       value="#e6e6e6" size="7"><span
+                                                                    class="minicolors-swatch minicolors-sprite"><span
+                                                                    class="minicolors-swatch-color"
+                                                                    style="background-color: rgb(230, 230, 230);"></span></span>
+                                                                <div class="minicolors-panel minicolors-slider-hue"
+                                                                     style="display: none;">
+                                                                    <div class="minicolors-slider minicolors-sprite">
+                                                                        <div class="minicolors-picker"
+                                                                             style="top: 0px;"></div>
+                                                                    </div>
+                                                                    <div class="minicolors-opacity-slider minicolors-sprite">
+                                                                        <div class="minicolors-picker"></div>
+                                                                    </div>
+                                                                    <div class="minicolors-grid minicolors-sprite"
+                                                                         style="background-color: rgb(255, 0, 0);">
+                                                                        <div class="minicolors-grid-inner"></div>
+                                                                        <div class="minicolors-picker"
+                                                                             style="top: 14px; left: 0px;">
+                                                                            <div></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="minicolors-panel minicolors-slider-hue"
+                                                                 style="display: none;">
+                                                                <div class="minicolors-slider minicolors-sprite">
+                                                                    <div class="minicolors-picker"
+                                                                         style="top: 136.709px;"></div>
+                                                                </div>
+                                                                <div class="minicolors-opacity-slider minicolors-sprite">
+                                                                    <div class="minicolors-picker"></div>
+                                                                </div>
+                                                                <div class="minicolors-grid minicolors-sprite"
+                                                                     style="background-color: rgb(255, 136, 0);">
+                                                                    <div class="minicolors-grid-inner"></div>
+                                                                    <div class="minicolors-picker"
+                                                                         style="top: 15px; left: 0px;">
+                                                                        <div></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group hr">
+                                                    <label class="control-label col-md-4">Status:</label>
+                                                    <div class="col-md-8">
+                                                        <select class="form-control"  formControlName="statusDrp"
+                                                             >
+                                                            <option value="0">-- Select --</option>
+                                                            <option *ngFor="let item of status; let i = index;"
+                                                                    value={{item.name}}
+                                                                    (keyup)="refresh.next()">
+                                                                {{item.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hr">
+                                            <label class="mt-checkbox mt-checkbox-outline col-md-12">
+                                                <input type="checkbox"   formControlName="recurring"
+                                                       (keyup)="refresh.next()"> Recurring Appointment
+                                                <span></span>
+                                            </label>
+                                            <div class="hr off-wite-bg round-table">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2 col-xs-12"> Working
+                                                        Days:
+                                                    </label>
+                                                    <div class="col-md-10 col-xs-12 text-center">
+
+                                                        <div *ngFor="let item of recurringDays" class="">
+
+                                                            <div class=" col-md-1 col-width14 col-xs-3">
+                                                                <input type="checkbox"  formControlName="recurringDays"
+                                                                       class="form-control spinner"
+                                                                       value="{{item.id}}"
+                                                                       (change)="selectRecurringDays($event,item)">
+                                                                {{item.name}}
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                <div class="form-group hr">
+                                                    <label class="control-label col-md-4">Recurs every
+                                                    </label>
+                                                    <div class="col-md-7 no-padding">
+                                                        <input
+                                                                type="text" formControlName="recurseEvery"
+                                                                class="form-control"
+                                                                (keyup)="refresh.next()">
+                                                    </div>
+                                                    <div class="col-md-1">Week(s)</div>
+                                                </div>
+                                                </div>
+                                                <div class="hr">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group hr">
+                                                            <label class="control-label col-md-4">First Appointment
+                                                            </label>
+                                                            <div class="col-md-8">
+                                                                <mwl-demo-utils-date-time-picker
+                                                                        formControlName="firstAppointment"
+                                                                        placeholder="Not set">
+                                                                </mwl-demo-utils-date-time-picker>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group hr">
+                                                            <label class="control-label col-md-4">Last Appointment
+                                                            </label>
+                                                            <div class="col-md-8">
+                                                                <mwl-demo-utils-date-time-picker
+                                                                        formControlName="lastAppointment"
+                                                                        placeholder="Not set">
+                                                                </mwl-demo-utils-date-time-picker>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="hr">
+                                                    <div class="col-md-4">
+                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                            <input type="checkbox"  formControlName="neverEnds"
+                                                                   (keyup)="refresh.next()"> Never ends
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label class="mt-checkbox mt-checkbox-outline col-md-12">
+                                                <input type="checkbox"  formControlName="followUpReminder"
+                                                       (keyup)="refresh.next()"> Arrange a Follow-up Reminder
+                                                <span></span>
+                                            </label>
+                                            <div class="hr off-wite-bg round-table">
+                                                <p>Patient will be reminded to make a follow up appointment
+                                                    around this date.</p>
+                                                <div class="row mrgn-top14">
+                                                <div class="col-md-6">
+                                                <div class="form-group hr">
+                                                    <label class="control-label col-md-4">Follow Up Date</label>
+                                                    <div class="col-md-8">
+                                                        <mwl-demo-utils-date-time-picker
+                                                                formControlName="followUpDate"
+                                                                placeholder="Not set">
+                                                        </mwl-demo-utils-date-time-picker>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                <div class="form-group hr">
+                                                    <label class="control-label col-md-4">Reason
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" formControlName="reason" data-required="1"
+                                                               value="" class="form-control"></div>
+                                                </div>
+                                                </div>
+                                                    <div class="col-md-12">
+                                                <div class="mrgn-btm10 pull-right">
+                                                    <button type="button" data-dismiss="modal" (click)="cancel()"
+                                                            class="btn btn-sm blue btn-outline filter-submit margin-bottom">
+                                                        Cancel
+                                                    </button>
+                                                    <button type="submit"
+                                                            data-dismiss="modal"
+                                                            class="btn btn-sm green btn-outline filter-submit margin-bottom">
+                                                        Save
+                                                    </button>
+                                                    <!--<button type="button" data-dismiss="modal"
+                                                            class="btn btn-sm red btn-outline filter-cancel"
+                                                            (click)="events.splice(index, 1); refresh.next()">
+                                                        Delete
+                                                    </button>-->
+                                                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix margin-bottom-20"></div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+              <div class="modal-footer">
+
+                <button type="submit" data-dismiss="modal" class="btn  blue"> Save</button>
+                <button type="button" data-dismiss="modal" (click)="cancel()" class="btn btn-default btn-outline"> Cancel</button>
+              </div>
+          </form>
+        </div>
+    </div>
+</div>
+</div>
+
+

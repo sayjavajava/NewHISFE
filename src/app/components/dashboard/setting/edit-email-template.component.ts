@@ -3,7 +3,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {EmailTemplateModel} from "../../../models/EmailTemplateModel";
+import {EmailTemplateModel} from "../../../model/EmailTemplateModel";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 
@@ -63,9 +63,8 @@ export class EditEmailTemplateComponent implements OnInit {
                             this.emailTempModel = new EmailTemplateModel();
                             this.notificationService.success(response['responseMessage'], 'Email Template');
                             this.router.navigate(['dashboard/setting/email-template']);
-                            // this.refreshICDsVersionTable(0);
                         } else {
-                            this.notificationService.error('ICD', response['responseMessage'])
+                            this.notificationService.error(response['responseMessage'], 'Email Template');
                         }
                     },
                     (error: any) => {

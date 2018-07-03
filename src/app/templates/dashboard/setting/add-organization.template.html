@@ -1,0 +1,339 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Organization</h4>
+                </div>
+                <div class="portlet-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Profile </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> General </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Usage </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab_1_1">
+                            <form [formGroup]="orgForm"  class="form-horizontal">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">First Name
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="firstName"
+                                                           class="form-control"></div>
+                                                <span class="text-danger" *ngIf="orgForm.controls['firstName'].invalid && orgForm.controls['firstName'].touched">{{firstNameError}}</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Last Name
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="lastName"
+                                                           class="form-control"></div>
+                                            </div>
+
+                                            <div class="form-group" ngClass="displayFieldCss('userName')">
+                                                <label class="control-label col-md-4">Username
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="userName" class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['userName'].valid && orgForm.controls['userName'].touched">
+                                           <span *ngIf="orgForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
+                                           <span *ngIf="orgForm.controls['userName'].errors.required">userName is required </span>
+                                          <span *ngIf="orgForm.controls['userName'].errors.pattern">User name not valid</span>
+                                          </span>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Email Address
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="email" formControlName="email"
+                                                           class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['email'].valid && orgForm.controls['email'].touched">
+                                              <span *ngIf="orgForm.controls['email'].errors.required">Email is required </span>
+                                            <span *ngIf="orgForm.controls['email'].errors.pattern">Email is not valid</span>
+                                        </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Password
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="password" formControlName="password" class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['password'].valid && orgForm.controls['password'].touched">
+                                            <span *ngIf="orgForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
+                                           <span *ngIf="orgForm.controls['password'].errors.required">password is required </span>
+                                           </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Confirm Password
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="password" formControlName="confirmPassword" class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['confirmPassword'].valid && orgForm.controls['confirmPassword'].touched">pass must be match</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Company Name
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="companyName"
+                                                           class="form-control"></div>
+                                                <span class="text-danger" *ngIf="!orgForm.controls['companyName'].valid && orgForm.controls['companyName'].touched">
+                                                <span *ngIf="orgForm.controls['companyName'].errors.minlength"> minimum 4 charachters</span>
+                                                <span *ngIf="orgForm.controls['companyName'].errors.required">Company Name is required </span>
+                                                <span *ngIf="orgForm.controls['companyName'].errors.pattern">Company name not valid</span>
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Specialty
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="select" formControlName="specialty">
+                                                        <option value="">Select...</option>
+                                                        <option value="cardiologist">Cardiologist</option>
+                                                        <option value="dermatologist">dermatologist</option>
+                                                        <option value="Category 3">Cardiologist</option>
+                                                        <option value="Category 4">Cardiologist</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Timezone
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control"
+                                                            (change)="getSelectedTimezone($event.target.value)"
+                                                            formControlName="timeZone" placeholder="Select Timezone">
+                                                            <option *ngFor="let tz of timezoneList" [value]="tz.name">
+                                                            {{tz.name}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Website
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="website" class="form-control">
+                                                </div>
+                                                <span class="text-danger" *ngIf="!orgForm.controls['website'].valid && orgForm.controls['website'].touched">
+                                                    <span *ngIf="orgForm.controls['website'].errors.pattern">Web Url is not valid</span>
+                                        </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Home Phone
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input  type="text"  formControlName="homePhone" class="form-control">
+                                                </div>
+                                                <span class="text-danger" *ngIf="!orgForm.controls['homePhone'].valid && orgForm.controls['homePhone'].touched">
+                                                    <span *ngIf="orgForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span>
+                                        </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Office Phone
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input  type="text" formControlName="officePhone"
+                                                           class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['officePhone'].valid && orgForm.controls['officePhone'].touched">
+                                                        <span *ngIf="orgForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Cell Phone
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="cellPhone"
+                                                           class="form-control">
+                                                    <span class="text-danger" *ngIf="!orgForm.controls['cellPhone'].valid && orgForm.controls['cellPhone'].touched">
+                                                        <span *ngIf="orgForm.controls['cellPhone'].errors.pattern">Phone Number is not valid</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Appointments Serial Start
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="appointmentSerial"
+                                                           class="form-control"></div>
+                                                <span class="text-danger" *ngIf="!orgForm.controls['appointmentSerial'].valid && orgForm.controls['appointmentSerial'].touched">
+                                                        <span *ngIf="orgForm.controls['appointmentSerial'].errors.required">Serial is required</span></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Practice Business Logo
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="file" id="exampleInputFile">
+                                                    <p class="help-block"> Will be attached to emails & offical
+                                                        forms </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hr">
+                                        <div class="col-md-12 text-center">
+                                            <button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'')"> Update Entire Profile</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="tab_1_2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="hr"><h4 class="text-info">Calendar Settings</h4></div>
+                                    <form [formGroup]="generalForm"  class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Default Branch
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-5">
+                                                <select class="form-control"
+                                                        (change)="getSelectedBranch($event.target.value)"
+                                                        formControlName="defaultBranch" placeholder="Select Branch">
+                                                        <option *ngFor="let br of branchesList" [value]="br.id">
+                                                        {{br.name}}
+                                                        </option>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">Default Branch on Calendar</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Duration of Exam
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-5">
+                                                <select class="form-control"  (change)="getDurationOfExam($event.target.value)"  formControlName="durationOfExam">
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="40">40</option>
+                                                    <option value="50">50</option>
+                                                    <option value="60">60</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">Default duration of an exam in minutes</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Duration of Follow-up
+                                            </label>
+                                            <div class="col-md-5">
+                                                <mat-form-field class="mrgn-lft8">
+                                                    <input matInput [matDatepicker]="followUp" placeholder="Duration"
+                                                           formControlName="followUpExam">
+                                                    <mat-datepicker-toggle matSuffix [for]="followUp"></mat-datepicker-toggle>
+                                                    <mat-datepicker #followUp></mat-datepicker>
+                                                </mat-form-field>
+
+                                            </div>
+                                            <div class="col-md-4">Default duration of a free folow-up exam in days</div>
+                                        </div>
+                                      <div class="form-group">
+                                            <label class="control-label col-md-3">Appointment Default Color
+                                            </label>
+                                            <div class="col-md-5">
+                                                <div class="minicolors box-width-size minicolors-theme-bootstrap minicolors-position-bottom minicolors-position-left minicolors-focus">
+                                                    <input type="hidden" id="hidden-input" class="demo minicolors-input"
+                                                           value="#e6e6e6" size="7">
+                                                    <div class="minicolors-panel minicolors-slider-hue"
+                                                         style="display: block;">
+                                                        <div class="minicolors-slider minicolors-sprite">
+                                                            <div class="minicolors-picker"
+                                                                 style="top: 136.709px;"></div>
+                                                        </div>
+                                                        <div class="minicolors-opacity-slider minicolors-sprite">
+                                                            <div class="minicolors-picker"></div>
+                                                        </div>
+                                                        <div class="minicolors-grid minicolors-sprite"
+                                                             style="background-color: rgb(255, 136, 0);">
+                                                            <div class="minicolors-grid-inner"></div>
+                                                            <div class="minicolors-picker"
+                                                                 style="top: 15px; left: 0px;">
+                                                                <div></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="hr">
+                                <div class="col-md-12 text-center">
+                                    <button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'done')"> Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab_1_3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="hr"><h4 class="text-info">SMS / Email Messages</h4></div>
+                                    <div class="table-scrollable tbl-brdr-radus">
+                                        <table class="table table-hover table-light">
+                                            <thead>
+                                            <tr class="hedng-bck-clr tbl-pdng">
+                                                <th> Feature</th>
+                                                <th> Usage for this month</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="tbl-pdng off-wite-bg">
+                                                <td>Total Appointments Auto SMS sent by system</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr class="tbl-pdng">
+                                                <td>Total Appointments Auto SMS sent by system</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr class="tbl-pdng off-wite-bg">
+                                                <td>Total Appointments Auto SMS sent by system</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr class="tbl-pdng">
+                                                <td>Total Appointments Auto SMS sent by system</td>
+                                                <td>0</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr">
+                                <div class="col-md-12 text-center">
+                                    <!--<button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'done')"> Update Entire Profile</button>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

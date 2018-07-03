@@ -29,18 +29,29 @@ var ContentComponent = (function () {
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest('/user/loggedInUser')
                 .subscribe(function (response) {
-                if (response['responseCode'] === 'ADM_SUC_01') {
+                if (response['responseCode'] === 'ADM_SUC_03') {
                     _this.userSharedService.firstName = response['responseData'].firstName;
                     _this.userSharedService.lastName = response['responseData'].lastName;
                     _this.userSharedService.profileImg = response['responseData'].profileImg;
-                    _this.userSharedService.role = response['responseData'].role;
+                    _this.userSharedService.roles = response['responseData'].commaSeparatedRoles;
                     _this.firstName = _this.userSharedService.firstName;
                     _this.lastName = _this.userSharedService.lastName;
                     _this.profileImg = _this.userSharedService.profileImg;
-                    _this.role = _this.userSharedService.role;
+                    _this.roles = _this.userSharedService.roles;
+                    _this.requestsService.getRequest('/user/dashboard')
+                        .subscribe(function (response) {
+                        if (response['responseCode'] === 'ADM_SUC_04') {
+                            _this.patientCount = response['responseData'].patientCount;
+                            _this.appointmentsCount = response['responseData'].appointmentsCount;
+                            _this.medicalServicesCount = response['responseData'].medicalServicesCount;
+                            _this.icdsCount = response['responseData'].icdsCount;
+                        }
+                    }, function (error) {
+                        //console.log(error.json())
+                        _this.HISUtilService.tokenExpired(error.error.error);
+                    });
                 }
             }, function (error) {
-                // this.apUtilServer.tokenExpired(error.json()['error']);
                 //console.log(error.json())
                 _this.HISUtilService.tokenExpired(error.error.error);
             });

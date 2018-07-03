@@ -18,40 +18,42 @@
                 </div>
                 <div class="">
                     <form [formGroup]="searchForm">
-                    <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
-                        <div class="col-md-3">
-                            <div class="form-group font-siz11">
-                                <label>Branch</label>
-                                <select class="form-control"
-                                        (change)="getSelectedBranch($event.target.value)"
-                                        formControlName="branch" placeholder="Select Branch">
-                                       <option *ngFor="let br of branchesList" [value]="br">
-                                        {{br}}
-                                    </option>
+                        <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                            <div class="col-md-3">
+                                <div class="form-group font-siz11">
+                                    <label>Branch</label>
+                                    <select class="form-control"
+                                            (change)="getSelectedBranch($event.target.value)"
+                                            formControlName="branch" placeholder="Select Branch">
+                                        <option *ngFor="let br of branchesList" [value]="br">
+                                            {{br}}
+                                        </option>
 
-                                </select>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group font-siz11">
+                                    <label>Department:</label>
+                                    <select class="form-control"
+                                            (change)="getSelectedDepartment($event.target.value)"
+                                            formControlName="department" placeholder="Select Department">
+                                        <option *ngFor="let dp of departments" [value]="dp.name">
+                                            {{dp.name}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group mrgn-top24">
+                                    <button type="button" (click)="searchData(searchForm.value)" class="btn blue">
+                                        Search
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group font-siz11">
-                                <label>Department:</label>
-                                <select class="form-control"
-                                        (change)="getSelectedDepartment($event.target.value)"
-                                        formControlName="department" placeholder="Select Department">
-                                    <option *ngFor="let dp of departments" [value]="dp.name">
-                                        {{dp.name}}
-                                    </option>
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-1">
-                            <div class="form-group mrgn-top24">
-                                <button type="button" (click)="searchData(searchForm.value)" class="btn blue">Search</button>
-                            </div>
-                        </div>
-                    </div>
                     </form>
                 </div>
 
@@ -70,12 +72,10 @@
 
                         <tr role="row" class="filter" *ngFor="let item of data">
 
-                            <td rowspan="1" colspan="1">{{item.name}}</td>
-
-                            <!--<span style="display: none;" *ngFor="let br of item.branches"></span>-->
+                            <td rowspan="1" colspan="1" class="font-green-dark"><strong>{{item.name}}</strong></td>
 
                             <td class="sorting_disabled" rowspan="1" colspan="1">
-                                {{item.country}}
+                                {{item.primaryDoctor}}
                             </td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.country}}
@@ -84,8 +84,10 @@
                             <td rowspan="1" colspan="1">{{item.rooms}}</td>
                             <td rowspan="1" colspan="1">
 
-                                <button (click)="updateBranch(item.id)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button (click)="deleteBranch(item.id)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
+                                <button (click)="updateBranch(item.id)" class="btn btn-default btn-outline btn-sm"><i
+                                        class="fa fa-pencil"></i></button>
+                                <button (click)="deleteBranch(item.id)" class="btn btn-default btn-outline btn-sm"><i
+                                        class="fa fa-remove"></i></button>
                             </td>
                         </tr>
                         </thead>
@@ -93,44 +95,42 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev">
+                            <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
+                               (click)="getBranchFromServer(0)">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev">
+                            <a title="Prev" *ngIf="prePage"
+                               (click)="getBranchFromServer(currPage - 1)">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getBranchFromServer(page)">{{page+1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getUserFromServer(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getBranchFromServer(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+                <p></p>
+            </div>
+        </div>
         <div class="clearfix"></div>
     </div>
-
-
-    <div class="row">
-        <div class="col-md-12 col-xs-12 col-sm-12">
-            <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
-                <ul class="pagination" style="visibility: visible;">
-                    <li class="prev">
-                        <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
-                           (click)="getBranchFromServer(0)">
-                            <i class="fa fa-angle-double-left"></i>
-                        </a>
-                    </li>
-                    <li class="prev">
-                        <a title="Prev" *ngIf="prePage"
-                           (click)="getBranchFromServer(currPage - 1)">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                    </li>
-                    <li [ngClass]="{active: page === currPage}"
-                        *ngFor="let page of pages">
-                        <a (click)="getBranchFromServer(page)">{{page+1}}</a>
-                    </li>
-                    <li class="next" *ngIf="nextPage">
-                        <a (click)="getUserFromServer(currPage + 1)" title="Next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </li>
-                    <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
-                        <a (click)="getBranchFromServer(pages.length - 1)" title="Last">
-                            <i class="fa fa-angle-double-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <p></p>
-        </div>
-    </div>
-
 </div>

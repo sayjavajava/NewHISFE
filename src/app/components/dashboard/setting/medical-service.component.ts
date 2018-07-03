@@ -3,10 +3,10 @@ import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {MedicalService} from '../../../models/medical-service';
-import {Branch} from "../../../models/branch";
-import {ClinicalDepartment} from "../../../models/clinical-department";
-import {MedicalServiceSearchModel} from "../../../models/MedicalServiceSearchModel";
+import {MedicalService} from '../../../model/medical-service';
+import {Branch} from "../../../model/branch";
+import {ClinicalDepartment} from "../../../model/clinical-department";
+import {MedicalServiceSearchModel} from "../../../model/MedicalServiceSearchModel";
 
 
 @Component({
@@ -80,14 +80,16 @@ export class MedicalServiceComponent implements OnInit {
 
     deleteMedicalServices(msId: number, dptId: number, branchId: number) {
         if (msId > 0) {
+            if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
                 AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
                             this.notificationService.success(response['responseMessage'], 'Medical Service');
-                            this.getMedicalServicesFromServer(this.currPage);
+                            this.getMedicalServicesFromServer(0);
                         } else {
+                            this.getMedicalServicesFromServer(0);
                             this.notificationService.error(response['responseMessage'], 'Medical Service');
                         }
                     },
@@ -100,12 +102,26 @@ export class MedicalServiceComponent implements OnInit {
 
     searchByMedicalServiceParams(page: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            //this.searchMSModel.searchServiceId = this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId : 0;
+            this.searchMSModel.searchServiceId = /*this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId :*/ 0;
             this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
             this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
             this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
             this.searchMSModel.searchServiceFee = this.searchMSModel.searchServiceFee > 0 ? this.searchMSModel.searchServiceFee : 0;
             this.searchMSModel.searched = true;
+            /**
+             * if all not selected then we are going to refresh the page, it means default condition
+             *
+             * **/
+            if (this.searchMSModel.searchServiceId === 0 &&
+                this.searchMSModel.searchServiceName.length === 0 &&
+                this.searchMSModel.searchBranchId === 0 &&
+                this.searchMSModel.departmentId === 0 &&
+                this.searchMSModel.searchServiceFee === 0){
+
+                this.refreshMedicalServices();
+                return;
+            }
+
             this.requestsService.getRequest(
                 AppConstants.MEDICAL_SERVICE_SEARCH + page
                 + '?serviceId=' + this.searchMSModel.searchServiceId

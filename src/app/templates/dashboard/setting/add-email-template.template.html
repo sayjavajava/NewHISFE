@@ -52,10 +52,8 @@
                                     </label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="select" [(ngModel)]="emailTempModel.type">
-                                            <option value="Email Type A"> Email Type A</option>
-                                            <option value="Email Type B"> Email Type B</option>
-                                            <option value="Email Type C"> Email Type C</option>
-                                            <option value="Email Type D"> Email Type D</option>
+                                            <option value="CREATE_BRANCH">Create Branch</option>
+                                            <option value="CREATE_ORGANIZATION">Create Organization</option>
                                         </select>
                                     </div>
                                 </div>
@@ -71,7 +69,8 @@
                                               #emailTemplate="ngModel">
 
                                     </textarea>
-                                    <span *ngIf="emailTemplate.invalid && emailTemplate.touched">
+                                    <span *ngIf="emailTemplate.invalid && emailTemplate.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
                                         Please enter some data in email template
                                     </span>
                                 </div>

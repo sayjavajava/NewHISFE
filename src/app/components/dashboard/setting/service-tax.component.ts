@@ -3,7 +3,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {ServiceTax} from '../../../models/service-tax';
+import {ServiceTax} from '../../../model/service-tax';
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 
@@ -65,6 +65,10 @@ export class ServiceTaxComponent implements OnInit {
 
     saveServiceTax(form: NgForm) {
         if (form.valid) {
+            if (this.serviceTax.rate<0 || this.serviceTax.rate>100) {
+                this.notificationService.error('Please enter valid tax', 'Tax');
+                return
+            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
                     AppConstants.SERVICE_TAX_SAVE_URL,
@@ -122,6 +126,10 @@ export class ServiceTaxComponent implements OnInit {
 
     updateServiceTax(updateServiceTaxForm: NgForm) {
         if (updateServiceTaxForm.valid) {
+            if (this.serviceTax.rate<0 || this.serviceTax.rate>100) {
+                this.notificationService.error('Please enter valid tax', 'Tax');
+                return
+            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(
                     AppConstants.SERVICE_TAX_UPDATE_URL, this.serviceTax

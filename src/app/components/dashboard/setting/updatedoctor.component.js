@@ -28,37 +28,16 @@ var UpdatedoctorComponent = (function () {
         this.selectedDepartment = [];
         this.selectedServices = [];
         this.selectedWorkingDays = [];
-        this.selectedRestrictBranch = [];
+        this.selectedVisitBranches = [];
         this.selectedDoctors = [];
-        this.branches = [
-            { id: 1, name: 'Primary' },
-            { id: 2, name: 'Lahore' },
-            { id: 3, name: 'Karachi' },
-        ];
-        this.departmentList = [
-            { id: 1, name: 'Dermatolgy' },
-            { id: 2, name: 'Plasticsurgery' },
-            { id: 3, name: 'Dental' },
-            { id: 4, name: 'DkinCareLaser' },
-            { id: 5, name: 'MessageClinic' },
-        ];
-        this.servicesList = [{ id: 1, name: 'Consultation' },
-            { id: 2, name: 'Consultation-Complimentary' },
-            { id: 3, name: 'BotoxAxilla' },
-            { id: 4, name: 'BotoxFullFace' },
-            { id: 5, name: 'BotoxUpperFace' },
-            { id: 6, name: 'GummySmile' },
-            { id: 7, name: 'MesotherapyForHair' },
-            { id: 8, name: 'TesoyalKiss1ml' },
-            { id: 9, name: 'RestylanceVital1ml' },
-            { id: 10, name: 'RestylanceVital1ml' },
-            { id: 10, name: 'RestyLaneSubLidocain2ml' },
-        ];
-        this.RestrictBranch = [
-            { id: 1, name: 'PrimaryOffice' },
-            { id: 2, name: 'LahoreOffice' },
-            { id: 3, name: 'KarachiOffice' },
-        ];
+        this.departmentList = [];
+        this.selectedUser = 'doctor';
+        this.userSelected = 'doctor';
+        this.defaultBranch = 'primaryBranch';
+        this.matches = [];
+        this.branchesList = [];
+        this.servicesList = [];
+        this.primaryDoctor = [];
         this.workingDays = [
             { id: 1, name: 'Monday' },
             { id: 2, name: 'Tuesday' },
@@ -68,13 +47,11 @@ var UpdatedoctorComponent = (function () {
             { id: 6, name: 'Satureday' },
             { id: 7, name: 'Sunday' },
         ];
-        this.doctorsList = [
-            { id: 1, name: 'Dr.Zahra' },
-            { id: 2, name: 'Dr.kobler' },
-            { id: 3, name: 'Dr.Nimra' },
-        ];
-        this.matches = [];
         this.date = new forms_1.FormControl(new Date());
+        this.allBranches();
+        this.allServices();
+        this.allDepartments();
+        this.allDoctors();
     }
     UpdatedoctorComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -84,7 +61,62 @@ var UpdatedoctorComponent = (function () {
             console.log(_this.id);
         });
         this.patchData();
-        //console.log('value:'+this.userForm.controls['firstName'].value);
+    };
+    UpdatedoctorComponent.prototype.allBranches = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BR_SUC_01') {
+                _this.branchesList = response['responseData'];
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    UpdatedoctorComponent.prototype.allDoctors = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+            .subscribe(function (response) {
+            if (response['responseStatus'] === 'SUCCESS') {
+                _this.primaryDoctor = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    UpdatedoctorComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
+        });
+    };
+    UpdatedoctorComponent.prototype.allDepartments = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                _this.departmentList = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    UpdatedoctorComponent.prototype.allServices = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+            .subscribe(function (response) {
+            console.log('i am branch call');
+            if (response['responseCode'] === 'MED_SER_SUC_01') {
+                _this.servicesList = response['responseData'];
+                console.log(_this.servicesList);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
     };
     UpdatedoctorComponent.prototype.createUserForm = function () {
         this.userForm = this.fb.group({
@@ -151,14 +183,14 @@ var UpdatedoctorComponent = (function () {
                     otherDashboard: user.profile.otherDashboard,
                     useReceptDashboard: user.profile.useReceptDashBoard,
                     otherDoctorDashBoard: user.profile.otherDoctorDashBoard,
-                    primaryBranch: user.primaryBranch,
+                    primaryBranch: user.branch.name,
                     interval: user.profile.checkUpInterval,
                     shift1: user.dutyShift.dutyTimmingShift1,
                     shift2: user.dutyShift.dutyTimmingShift2,
                     secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
                     vacation: user.vacation.status,
-                    //dateFrom:user.vacation.startDate,
-                    dateFrom: '',
+                    dateFrom: user.profile.accountExpiry,
+                    dateTo: user.vacation.endDate,
                 });
                 _this.userForm.controls['workingDaysContorl'].patchValue({
                     sunday: _this.checkAvailabilty('sunday', user.profile.workingDays),
@@ -172,10 +204,7 @@ var UpdatedoctorComponent = (function () {
                 _this.secondShiftFromTime = user.dutyShift.startTimeShift2,
                     _this.secondShiftToTime = user.dutyShift.endTimeShift2,
                     _this.firstShiftFromTime = user.dutyShift.startTimeShift1,
-                    _this.firstShiftToTime = user.dutyShift.endTimeShift1,
-                    _this.userForm.controls['dateFrom'].setValue(new Date(8 / 17 / 2019));
-                _this.date.setValue(new Date(2017, 12, 12));
-                console.log(user.profile.workingDays);
+                    _this.firstShiftToTime = user.dutyShift.endTimeShift1;
             }, function (error) {
                 //console.log(error.json());
                 _this.error = error.error.error_description;
@@ -206,9 +235,7 @@ var UpdatedoctorComponent = (function () {
             for (var key in result) {
                 this.selectedWorkingDays.push(result[key].key);
             }
-            console.log('i am doctor submit' + data);
             var doctor = new User_1.User({
-                userType: 'doctor',
                 firstName: data.firstName,
                 lastName: data.lastName,
                 userName: data.userName,
@@ -218,16 +245,16 @@ var UpdatedoctorComponent = (function () {
                 sendBillingReport: data.sendBillingReport,
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
+                otherDoctorDashBoard: data.otherDoctorDashBoard,
                 accountExpiry: data.accountExpiry,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
-                selectedRestrictBranch: data.selectedRestrictBranch,
-                otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
-                selectedDoctors: data.selectedDoctors,
-                selectedDepartment: data.selectedDepartment,
+                selectedDoctors: this.selectedDoctors,
+                selectedDepartment: this.selectedDepartment,
+                selectedServices: this.selectedServices,
                 interval: data.interval,
-                selectedServices: data.selectedServices,
+                selectedVisitBranches: this.selectedVisitBranches,
                 shift1: data.shift1,
                 shift2: data.shift2,
                 secondShiftToTime: this.secondShiftToTime,
@@ -238,6 +265,7 @@ var UpdatedoctorComponent = (function () {
                 dateTo: data.dateTo,
                 dateFrom: data.dateFrom,
                 selectedWorkingDays: this.selectedWorkingDays,
+                userType: this.selectedUser
             });
             this.makeService(doctor);
             console.log('sel days' + this.selectedWorkingDays);
@@ -252,7 +280,6 @@ var UpdatedoctorComponent = (function () {
         var _this = this;
         this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
-                console.log('saved00');
                 _this.responseUser = response['responseData'];
                 _this.notificationService.success('User has been updated Successfully');
                 _this.router.navigate(['/dashboard/setting/staff']);
@@ -340,10 +367,10 @@ var UpdatedoctorComponent = (function () {
     UpdatedoctorComponent.prototype.selectDepartment = function (event, item) {
         console.log(event.checked);
         if (event.target.checked) {
-            this.selectedDepartment.push(item);
+            this.selectedDepartment.push(item.id);
         }
         else {
-            var updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.name);
+            var updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
             var index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
@@ -364,30 +391,56 @@ var UpdatedoctorComponent = (function () {
     UpdatedoctorComponent.prototype.selectRestrictBranch = function (event, item) {
         console.log(item);
         if (event.target.checked) {
-            this.selectedRestrictBranch.push(item);
+            this.selectedVisitBranches.push(item.id);
         }
         else {
-            var updateItem = this.selectedRestrictBranch.find(this.findIndexToUpdate, item.name);
-            var index = this.selectedRestrictBranch.indexOf(updateItem);
-            this.selectedRestrictBranch.splice(index, 1);
+            var updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
+            var index = this.selectedVisitBranches.indexOf(updateItem);
+            this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedRestrictBranch);
+        console.log(this.selectedVisitBranches);
     };
     UpdatedoctorComponent.prototype.findIndexToUpdate = function (type) {
         return type.name === this;
     };
     UpdatedoctorComponent.prototype.selectServices = function (event, item) {
-        console.log(event.checked);
-        console.log(item);
         if (event.target.checked) {
-            this.selectedServices.push(item);
+            this.selectedServices.push(item.id);
         }
         else {
-            var updateItem = this.selectedServices.find(this.findIndexToUpdate, item.name);
+            var updateItem = this.selectedServices.find(this.findIndexToUpdate, item.id);
             var index = this.selectedServices.indexOf(updateItem);
             this.selectedServices.splice(index, 1);
         }
         console.log(this.selectedServices);
+    };
+    UpdatedoctorComponent.prototype.getSelectedDashboard = function (value) {
+        if (value) {
+            this.userForm.controls['otherDashboard'].setValue(value);
+        }
+    };
+    UpdatedoctorComponent.prototype.getSelectedBranch = function (value) {
+        console.log(value);
+        if (value === undefined) {
+            console.log('i am esss');
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+        }
+        else {
+            console.log('i am too' + value);
+            this.userForm.controls['primaryBranch'].setValue(value);
+        }
+    };
+    UpdatedoctorComponent.prototype.selectVisitBranches = function (event, item) {
+        console.log(item);
+        if (event.target.checked) {
+            this.selectedVisitBranches.push(item.id);
+        }
+        else {
+            var updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
+            var index = this.selectedVisitBranches.indexOf(updateItem);
+            this.selectedVisitBranches.splice(index, 1);
+        }
+        console.log(this.selectedVisitBranches);
     };
     UpdatedoctorComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);

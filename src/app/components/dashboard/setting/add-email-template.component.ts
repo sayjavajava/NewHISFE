@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
-import {EmailTemplateModel} from "../../../models/EmailTemplateModel";
+import {EmailTemplateModel} from "../../../model/EmailTemplateModel";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {AppConstants} from "../../../utils/app.constants";
@@ -39,7 +39,6 @@ export class AddEmailTemplateComponent implements OnInit {
                             this.emailTempModel = new EmailTemplateModel();
                             this.notificationService.success(response['responseMessage'], 'Email Template');
                             this.router.navigate(['dashboard/setting/email-template']);
-                            // this.refreshICDsVersionTable(0);
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Email Template')
                         }

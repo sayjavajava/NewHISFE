@@ -16,7 +16,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var user_shared_service_1 = require("../../../services/user.shared.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var notification_service_1 = require("../../../services/notification.service");
-var clinical_department_1 = require("../../../models/clinical-department");
+var clinical_department_1 = require("../../../model/clinical-department");
 var _ = require("lodash");
 var DepartmentComponent = (function () {
     function DepartmentComponent(requestsService, router, userSharedService, HISUtilService, notificationService) {
@@ -26,6 +26,7 @@ var DepartmentComponent = (function () {
         this.HISUtilService = HISUtilService;
         this.notificationService = notificationService;
         this.pages = [];
+        this.searched = false;
         this.selectedDepartment = new clinical_department_1.ClinicalDepartment();
     }
     DepartmentComponent.prototype.ngOnInit = function () {
@@ -35,6 +36,19 @@ var DepartmentComponent = (function () {
         else {
             this.router.navigate(['/login']);
         }
+    };
+    DepartmentComponent.prototype.getPageWiseDepartment = function (page) {
+        this.data = [];
+        if (this.searched) {
+            this.searchClinicalDepartment(page);
+        }
+        else {
+            this.getPageWiseDepartmentFromServer(page);
+        }
+    };
+    DepartmentComponent.prototype.refreshPage = function () {
+        this.searched = false;
+        this.getPageWiseDepartmentFromServer(0);
     };
     DepartmentComponent.prototype.getPageWiseDepartmentFromServer = function (page) {
         var _this = this;
@@ -58,17 +72,19 @@ var DepartmentComponent = (function () {
     DepartmentComponent.prototype.deleteDepartment = function (dptId) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'CLI_DPT_SUC_02') {
-                    _this.getPageWiseDepartmentFromServer(_this.currPage);
                     _this.notificationService.success(response['responseMessage'], 'Clinical Department');
+                    _this.getPageWiseDepartmentFromServer(0);
                 }
                 else {
+                    _this.getPageWiseDepartmentFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'Clinical Department');
                 }
             }, function (error) {
-                //console.log(error.json())
                 _this.notificationService.error(error.error, 'Clinical Department');
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
@@ -77,9 +93,10 @@ var DepartmentComponent = (function () {
             this.router.navigate(['/login']);
         }
     };
-    DepartmentComponent.prototype.searchClinicalDepartment = function () {
+    DepartmentComponent.prototype.searchClinicalDepartment = function (page) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL + '0?name=' + this.searchDepart)
+        this.searched = true;
+        this.requestsService.getRequest(app_constants_1.AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL + page + '?name=' + this.searchDepart)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -121,6 +138,9 @@ var DepartmentComponent = (function () {
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
         }
+        else {
+            this.notificationService.error('Required fields missing', 'Clinical Department');
+        }
     };
     DepartmentComponent.prototype.updateClinicalDepartment = function (form) {
         var _this = this;
@@ -142,6 +162,9 @@ var DepartmentComponent = (function () {
                 //console.log(error.json())
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
+        }
+        else {
+            this.notificationService.error('Required fields missing', 'Clinical Department');
         }
     };
     DepartmentComponent.prototype.onUpdatePopupLoad = function (department) {

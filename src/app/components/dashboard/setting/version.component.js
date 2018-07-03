@@ -14,7 +14,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var router_1 = require("@angular/router");
-var ICDVersionModel_1 = require("../../../models/ICDVersionModel");
+var ICDVersionModel_1 = require("../../../model/ICDVersionModel");
 var app_constants_1 = require("../../../utils/app.constants");
 var VersionComponent = (function () {
     function VersionComponent(notificationService, requestsService, HISUtilService, router) {
@@ -153,14 +153,16 @@ var VersionComponent = (function () {
     VersionComponent.prototype.deleteICDVersion = function (iCDVersionId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_VERSION_DELETE_URL + iCDVersionId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_VERSION_DEL_SUC_11') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Version');
-                    _this.getPageWiseICDsVersion(_this.currPage);
+                    _this.getVersionsFromServer(0);
                 }
                 else {
-                    _this.getPageWiseICDsVersion(_this.currPage);
+                    _this.getVersionsFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'ICD Version');
                 }
             }, function (error) {

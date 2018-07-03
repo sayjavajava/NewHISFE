@@ -24,13 +24,18 @@ export class LoginComponent {
     };
 
     ngOnInit() {
+        if (window.localStorage.getItem(btoa('access_token'))) {
+            this.router.navigate(['dashboard']);
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 
     login(form: NgForm) {
         if (form.valid) {
             this.requestsService.postRequestOauth2Token(
                 '/oauth/token'
-                , { 
+                , {
                     'userName': this.username,
                     'password': this.password,
                     'grantType': 'password',
@@ -55,9 +60,10 @@ export class LoginComponent {
                                             this.sharedService.firstName = response['responseData'].firstName;
                                             this.sharedService.lastName = response['responseData'].lastName;
                                             this.sharedService.profileImg = response['responseData'].profileImg;
-                                            this.sharedService.role = response['responseData'].role;
+                                            this.sharedService.roles = response['responseData'].commaSeparatedRoles;
                                             this.permissionService.loadPermissions(response['responseData'].permissions);
 
+                                            // super admin Dashboard
                                             this.router.navigate(['/dashboard']);
                                         } else {
                                             this.router.navigate(['/login']);

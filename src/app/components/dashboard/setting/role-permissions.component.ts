@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {RequestsService} from '../../../services/requests.service';
-import {RoleAndPermission} from '../../../models/roleandpermission';
+import {RoleAndPermission} from '../../../model/roleandpermission';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
 
@@ -48,7 +48,7 @@ export class RolePermissionsComponent implements OnInit {
     createForm() {
         this.roleForm = this.fb.group({
             'name': [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30)])],
-            'description': [null, Validators.required],
+            'description': [null],
             'active': ''
         });
     }
@@ -81,7 +81,6 @@ export class RolePermissionsComponent implements OnInit {
                     }
                 },
                 (error: any) => {
-                    //console.log(error.json());
                     this.notificationService.error(error.error.error_description);
                     this.hisUtilService.tokenExpired(error.error);
 
@@ -206,7 +205,7 @@ export class RolePermissionsComponent implements OnInit {
         for (let rp of this.allDBPermissions) {
             var checkbox = (<HTMLInputElement>document.getElementById('chkbox-' + rp.id));
             checkbox.checked = false;
-        }
+          }
         this.addedRolePermissionsIds = new Array();
         this.permissionByRole(this.selectedRole);
 

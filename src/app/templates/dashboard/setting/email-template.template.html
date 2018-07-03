@@ -25,7 +25,8 @@
                             <input type="text"
                                    class="form-control"
                                    [(ngModel)]="searchTitle"
-                                   placeholder="Enter Title">
+                                   placeholder="Enter Title"
+                            (keydown.enter)="searchByTitle(0)">
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -43,14 +44,14 @@
                            id="datatable_ajax">
                         <thead>
                         <tr role="row" class="off-wite-bg">
-                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Title</th>
+                            <th width="10%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Title</th>
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Subject</th>
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Type</th>
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" *ngFor="let item of dataEmailTemplate">
-                            <td rowspan="1" colspan="1" class="font-green-dark"><strong>{{item.title}}</strong></td>
+                            <td rowspan="1" colspan="1" class="font-green-dark col-txt-left"><strong>{{item.title}}</strong></td>
                             <td rowspan="1" colspan="1">{{item.subject}}</td>
                             <td rowspan="1" colspan="1">{{item.type}}</td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">

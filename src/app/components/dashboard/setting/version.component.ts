@@ -3,7 +3,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {Router} from "@angular/router";
-import {ICDVersionModel} from "../../../models/ICDVersionModel";
+import {ICDVersionModel} from "../../../model/ICDVersionModel";
 import {NgForm} from "@angular/forms";
 import {AppConstants} from "../../../utils/app.constants";
 
@@ -172,15 +172,16 @@ export class VersionComponent implements OnInit {
 
     deleteICDVersion(iCDVersionId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
                 AppConstants.ICD_VERSION_DELETE_URL + iCDVersionId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_VERSION_DEL_SUC_11') {
                             this.notificationService.success(response['responseMessage'], 'ICD Version');
-                            this.getPageWiseICDsVersion(this.currPage);
+                            this.getVersionsFromServer(0);
                         } else {
-                            this.getPageWiseICDsVersion(this.currPage);
+                            this.getVersionsFromServer(0);
                             this.notificationService.error(response['responseMessage'], 'ICD Version');
                         }
                     },

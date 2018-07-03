@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var notification_service_1 = require("../../../services/notification.service");
-var ICDCodeModel_1 = require("../../../models/ICDCodeModel");
+var ICDCodeModel_1 = require("../../../model/ICDCodeModel");
 var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var router_1 = require("@angular/router");
@@ -54,14 +54,16 @@ var CodeComponent = (function () {
     CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE_URL + codeId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'ICD Code');
-                    _this.getPageWiseICDs(_this.currPage);
+                    _this.getICDsFromServer(0);
                 }
                 else {
-                    _this.getPageWiseICDs(_this.currPage);
+                    _this.getICDsFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'ICD Code');
                 }
             }, function (error) {

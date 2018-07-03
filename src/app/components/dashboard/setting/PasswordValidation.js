@@ -9,10 +9,10 @@ var CustomValidators = (function () {
             var secondControlValue = AC.get(secondControlName).value; // to get value in input tag
             if (firstControlValue != secondControlValue) {
                 AC.get(secondControlName).setErrors({ MatchFields: true });
-                console.log(false);
+                //console.log(false);
             }
             else {
-                console.log(true);
+                //console.log(true);
                 return null;
             }
         };

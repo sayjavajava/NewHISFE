@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {CustomValidators} from './PasswordValidation';
+
 import {ActivatedRoute, Router} from '@angular/router';
 import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
@@ -35,50 +35,21 @@ export class UpdatedoctorComponent implements OnInit {
     firstShiftFromTime: string;
     firstShiftToTime: string;
     selectedWorkingDays: any = [];
-    selectedRestrictBranch: any = [];
+    selectedVisitBranches: any = [];
     selectedDoctors: any = [];
-
+    departmentList:any=[];
+    selectedUser:string='doctor';
     error: string;
     responseUser: any[];
     private sub: any;
     id: number;
+    userSelected:string='doctor';
     user: UserEditModel;
-
-    branches = [
-        {id: 1, name: 'Primary'},
-        {id: 2, name: 'Lahore'},
-        {id: 3, name: 'Karachi'},
-    ];
-
-
-    departmentList = [
-        {id: 1, name: 'Dermatolgy'},
-        {id: 2, name: 'Plasticsurgery'},
-        {id: 3, name: 'Dental'},
-        {id: 4, name: 'DkinCareLaser'},
-        {id: 5, name: 'MessageClinic'},
-
-    ];
-
-    servicesList = [{id: 1, name: 'Consultation'},
-        {id: 2, name: 'Consultation-Complimentary'},
-        {id: 3, name: 'BotoxAxilla'},
-        {id: 4, name: 'BotoxFullFace'},
-        {id: 5, name: 'BotoxUpperFace'},
-        {id: 6, name: 'GummySmile'},
-        {id: 7, name: 'MesotherapyForHair'},
-        {id: 8, name: 'TesoyalKiss1ml'},
-        {id: 9, name: 'RestylanceVital1ml'},
-        {id: 10, name: 'RestylanceVital1ml'},
-        {id: 10, name: 'RestyLaneSubLidocain2ml'},
-    ];
-
-    RestrictBranch = [
-        {id: 1, name: 'PrimaryOffice'},
-        {id: 2, name: 'LahoreOffice'},
-        {id: 3, name: 'KarachiOffice'},
-    ];
-
+    defaultBranch:string ='primaryBranch';
+    matches: any = [];
+    branchesList:any=[];
+    servicesList:any=[];
+    primaryDoctor:any=[];
     workingDays = [
         {id: 1, name: 'Monday'},
         {id: 2, name: 'Tuesday'},
@@ -87,20 +58,14 @@ export class UpdatedoctorComponent implements OnInit {
         {id: 5, name: 'Friday'},
         {id: 6, name: 'Satureday'},
         {id: 7, name: 'Sunday'},
-
     ];
-    doctorsList = [
-        {id: 1, name: 'Dr.Zahra'},
-        {id: 2, name: 'Dr.kobler'},
-        {id: 3, name: 'Dr.Nimra'},
-    ];
-
-    matches: any = [];
-
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
-
+           this.allBranches();
+           this.allServices();
+           this.allDepartments();
+           this.allDoctors();
     }
 
     date = new FormControl(new Date());
@@ -111,7 +76,73 @@ export class UpdatedoctorComponent implements OnInit {
             console.log(this.id);
         });
         this.patchData();
-        //console.log('value:'+this.userForm.controls['firstName'].value);
+
+        }
+
+    allBranches() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        this.branchesList = response['responseData'];
+                        if(this.branchesList.length >1){
+                            this.removeBranch();
+                        }
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+
+    allDoctors() {
+        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseStatus'] === 'SUCCESS') {
+                        this.primaryDoctor = response['responseData'];
+                        }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                });
+
+    }
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+        });
+    }
+
+
+    allDepartments() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                        this.departmentList = response['responseData'];
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+
+    }
+
+    allServices() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+            .subscribe(
+                (response: Response) => {
+                    console.log('i am branch call');
+                    if (response['responseCode'] === 'MED_SER_SUC_01') {
+                        this.servicesList = response['responseData'];
+                        console.log(this.servicesList);
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
 
     }
 
@@ -153,16 +184,11 @@ export class UpdatedoctorComponent implements OnInit {
                     satureday: new FormControl(''),
                     wednesday: new FormControl(''),
 
-                    /*   new FormControl('Wednesday'),
-                       new FormControl('Thurseday'),
-                       new FormControl('Friday'),
-                       new FormControl('Satureday'),*/
                 })
 
             }
         )
     }
-
 
     get workingDaysContorl(): FormArray {
         return this.userForm.get('workingDaysContorl') as FormArray;
@@ -186,17 +212,15 @@ export class UpdatedoctorComponent implements OnInit {
                         otherDashboard: user.profile.otherDashboard,
                         useReceptDashboard: user.profile.useReceptDashBoard,
                         otherDoctorDashBoard: user.profile.otherDoctorDashBoard,
-                        primaryBranch: user.primaryBranch,
+                        primaryBranch: user.branch.name,
                         interval: user.profile.checkUpInterval,
                         shift1: user.dutyShift.dutyTimmingShift1,
                         shift2: user.dutyShift.dutyTimmingShift2,
                         secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
                         vacation: user.vacation.status,
-                        //dateFrom:user.vacation.startDate,
-                        dateFrom: '',
-
-
-                    });
+                        dateFrom: user.profile.accountExpiry,
+                        dateTo :user.vacation.endDate,
+                     });
                     this.userForm.controls['workingDaysContorl'].patchValue({
 
                         sunday: this.checkAvailabilty('sunday', user.profile.workingDays),
@@ -211,10 +235,7 @@ export class UpdatedoctorComponent implements OnInit {
                     this.secondShiftFromTime = user.dutyShift.startTimeShift2,
                         this.secondShiftToTime = user.dutyShift.endTimeShift2,
                         this.firstShiftFromTime = user.dutyShift.startTimeShift1,
-                        this.firstShiftToTime = user.dutyShift.endTimeShift1,
-                        this.userForm.controls['dateFrom'].setValue(new Date(8/17/2019));
-                        this.date.setValue(new Date(2017,12,12));
-                    console.log(user.profile.workingDays);
+                        this.firstShiftToTime = user.dutyShift.endTimeShift1
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -255,40 +276,39 @@ export class UpdatedoctorComponent implements OnInit {
 
             }
 
-            console.log('i am doctor submit' + data);
             let doctor = new User({
-                userType: 'doctor',
-                firstName: data.firstName,
-                lastName: data.lastName,
-                userName: data.userName,
-                password: data.password,
-                homePhone: data.homePhone,
-                cellPhone: data.cellPhone,
-                sendBillingReport: data.sendBillingReport,
-                useReceptDashboard: data.useReceptDashboard,
-                otherDashboard: data.otherDashboard,
-                accountExpiry: data.accountExpiry,
-                primaryBranch: data.primaryBranch,
-                email: data.email,
-                selectedRestrictBranch: data.selectedRestrictBranch,
-                otherDoctorDashBoard: data.otherDoctorDashBoard,
-                active: data.active,
 
-                selectedDoctors: data.selectedDoctors,
-                selectedDepartment: data.selectedDepartment,
-                interval: data.interval,
-                selectedServices: data.selectedServices,
-                shift1: data.shift1,
-                shift2: data.shift2,
-                secondShiftToTime: this.secondShiftToTime,
-                secondShiftFromTime: this.secondShiftFromTime,
-                firstShiftToTime: this.firstShiftToTime,
-                firstShiftFromTime: this.firstShiftFromTime,
-                vacation: data.vacation,
-                dateTo: data.dateTo,
-                dateFrom: data.dateFrom,
-                selectedWorkingDays: this.selectedWorkingDays,
-            });
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    userName: data.userName,
+                    password: data.password,
+                    homePhone: data.homePhone,
+                    cellPhone: data.cellPhone,
+                    sendBillingReport: data.sendBillingReport,
+                    useReceptDashboard: data.useReceptDashboard,
+                    otherDashboard: data.otherDashboard,
+                    otherDoctorDashBoard: data.otherDoctorDashBoard,
+                    accountExpiry: data.accountExpiry,
+                    primaryBranch: data.primaryBranch,
+                    email: data.email,
+                    active: data.active,
+                    selectedDoctors: this.selectedDoctors,
+                    selectedDepartment: this.selectedDepartment,
+                    selectedServices: this.selectedServices,
+                    interval: data.interval,
+                    selectedVisitBranches: this.selectedVisitBranches,
+                    shift1: data.shift1,
+                    shift2: data.shift2,
+                    secondShiftToTime: this.secondShiftToTime,
+                    secondShiftFromTime: this.secondShiftFromTime,
+                    firstShiftToTime: this.firstShiftToTime,
+                    firstShiftFromTime: this.firstShiftFromTime,
+                    vacation: data.vacation,
+                    dateTo: data.dateTo,
+                    dateFrom: data.dateFrom,
+                    selectedWorkingDays: this.selectedWorkingDays,
+                    userType: this.selectedUser
+                });
             this.makeService(doctor);
             console.log('sel days' + this.selectedWorkingDays);
             this.workingDays.length = 0;
@@ -305,7 +325,7 @@ export class UpdatedoctorComponent implements OnInit {
         this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
-                    console.log('saved00')
+
                     this.responseUser = response['responseData'];
                     this.notificationService.success('User has been updated Successfully')
                     this.router.navigate(['/dashboard/setting/staff']);
@@ -404,10 +424,10 @@ export class UpdatedoctorComponent implements OnInit {
 
         if (event.target.checked) {
 
-            this.selectedDepartment.push(item);
+            this.selectedDepartment.push(item.id);
         }
         else {
-            let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.name);
+            let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
 
             let index = this.selectedDepartment.indexOf(updateItem);
 
@@ -437,16 +457,16 @@ export class UpdatedoctorComponent implements OnInit {
     selectRestrictBranch(event: any, item: any) {
         console.log(item);
         if (event.target.checked) {
-            this.selectedRestrictBranch.push(item);
+            this.selectedVisitBranches.push(item.id);
         }
         else {
-            let updateItem = this.selectedRestrictBranch.find(this.findIndexToUpdate, item.name);
+            let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
 
-            let index = this.selectedRestrictBranch.indexOf(updateItem);
+            let index = this.selectedVisitBranches.indexOf(updateItem);
 
-            this.selectedRestrictBranch.splice(index, 1);
+            this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedRestrictBranch);
+        console.log(this.selectedVisitBranches);
 
     }
 
@@ -457,13 +477,11 @@ export class UpdatedoctorComponent implements OnInit {
 
     selectServices(event: any, item: any) {
 
-        console.log(event.checked);
-        console.log(item);
         if (event.target.checked) {
-            this.selectedServices.push(item);
+            this.selectedServices.push(item.id);
         }
         else {
-            let updateItem = this.selectedServices.find(this.findIndexToUpdate, item.name);
+            let updateItem = this.selectedServices.find(this.findIndexToUpdate, item.id);
 
             let index = this.selectedServices.indexOf(updateItem);
 
@@ -471,6 +489,39 @@ export class UpdatedoctorComponent implements OnInit {
 
         }
         console.log(this.selectedServices);
+
+    }
+
+    getSelectedDashboard(value: any) {
+        if (value) {
+            this.userForm.controls['otherDashboard'].setValue(value);
+
+        }
+    }
+    getSelectedBranch(value: any) {
+        console.log(value);
+        if (value === undefined) {
+            console.log('i am esss');
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+        }
+        else {
+            console.log('i am too' + value);
+            this.userForm.controls['primaryBranch'].setValue(value);}
+
+    }
+    selectVisitBranches(event: any, item: any) {
+        console.log(item);
+        if (event.target.checked) {
+            this.selectedVisitBranches.push(item.id);
+        }
+        else {
+            let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
+
+            let index = this.selectedVisitBranches.indexOf(updateItem);
+
+            this.selectedVisitBranches.splice(index, 1);
+        }
+        console.log(this.selectedVisitBranches);
 
     }
 

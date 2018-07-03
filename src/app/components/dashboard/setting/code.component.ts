@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
-import {ICDCodeModel} from '../../../models/ICDCodeModel';
+import {ICDCodeModel} from '../../../model/ICDCodeModel';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {Router} from '@angular/router';
@@ -57,15 +57,16 @@ export class CodeComponent implements OnInit {
 
     deleteICD(codeId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
                 AppConstants.ICD_CODE_DELETE_URL + codeId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'ICD Code');
-                            this.getPageWiseICDs(this.currPage);
+                            this.getICDsFromServer(0);
                         } else {
-                            this.getPageWiseICDs(this.currPage);
+                            this.getICDsFromServer(0);
                             this.notificationService.error(response['responseMessage'], 'ICD Code');
                         }
                     },

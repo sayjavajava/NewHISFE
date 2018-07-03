@@ -22,8 +22,8 @@ var AppConstants = (function () {
     AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
-    AppConstants.UPDATE_BRANCH = '/setting/update/';
-    AppConstants.DELETE_BRANCH_URI = '/setting/delete/';
+    AppConstants.UPDATE_BRANCH = '/setting/branch/update/';
+    AppConstants.DELETE_BRANCH_URI = '/setting/branch/delete/';
     AppConstants.BRANCHES_NAME = '/setting/branch/name';
     AppConstants.BRANCH_SEARCH = '/setting/branch/search/';
     AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
@@ -69,6 +69,28 @@ var AppConstants = (function () {
     AppConstants.DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     AppConstants.MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
+    ////////////////////// Organization URLs ///////////////////////////////
+    AppConstants.ORGANIZATION_CREATE_URL = '/setting/organization/create';
+    AppConstants.TIMEZONE_FETCH_URL = '/setting/organization/timezone';
+    AppConstants.FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
+    AppConstants.FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
+    AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
+    AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
+    ////////////////////// Patient URLs ///////////////////////////////
+    AppConstants.FETCH_ALL_PATIENT_URL = '/user/patient/';
+    AppConstants.PATIENT_DELETE_URI = '/user/patient/delete/';
+    AppConstants.PATIENT_SAVE_URL = '/user/patient/save';
+    AppConstants.PATIENT_FETCH_URL = '/user/patient/get/';
+    AppConstants.PATIENT_UPDATE_URL = '/user/patient/update';
+    AppConstants.SEARCH_ALL_PATIENT_URL = '/user/patient/search';
+    AppConstants.GET_ALL_PATIENT_URL = '/user/patient/all';
+    ////////////////////// Appointments URLs ///////////////////////////////
+    AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
+    AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
+    AppConstants.SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    AppConstants.FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
+    AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
+    AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

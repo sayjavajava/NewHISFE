@@ -23,41 +23,39 @@ export class AddBranchComponent implements OnInit {
     userSelected: string = 'doctor';
     pDoctor: any = [];
     branchesList: any = [];
-    responseBranch: Branch;
+    defaultDoctor:string='primarydoctor';
+    defaultBranch:string='primaryBranch';
     billingForm: FormGroup;
     scheduleForm: FormGroup;
-
 
     constructor(private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
-        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
-            .subscribe(
+                this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+               .subscribe(
                 (response: Response) => {
                     if (response['responseStatus'] === 'SUCCESS') {
-                        let data = response['responseData'];
-                        let userNameData = data;
                         this.pDoctor = response['responseData'];
-                        console.log(this.pDoctor);
+                        if(this.pDoctor.length > 1 ){
+                            this.removeDoctor();
+                        }
+                     //   this.pDoctor.indexOf({userName :this.defaultDoctor}) === -1 ? this.pDoctor.push({userName :this.defaultDoctor}) :console.log('');
+
                     }
                 },
                 (error: any) => {
                     this.error = error.error.error;
                 });
-        this.allBranches();
-
-    }
+                this.allBranches();
+        }
 
     ngOnInit() {
         this.createBranchMendatoryForm();
-        console.log('user found:' + this.pDoctor.length);
         this.createBranchForm();
         this.createScheduleForm();
 
-
-    }
-
-    createBranchForm() {
+        }
+     createBranchForm() {
         this.billingForm = this.fb.group({
             'billingBranch': [null],
             'billingName': [null],
@@ -74,7 +72,6 @@ export class AddBranchComponent implements OnInit {
 
     createBranchMendatoryForm() {
         this.branchForm = this.fb.group({
-
             'branchName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
             'country': [null],
             'state': [null],
@@ -91,6 +88,16 @@ export class AddBranchComponent implements OnInit {
             'examRooms': this.fb.array([this.createExamRoom()]),
         })
     }
+    removeDoctor(){
+        this.pDoctor.forEach( (item: any, index :any) => {
+            if(item.userName === this.defaultDoctor) this.pDoctor.splice(index,1);
+        });
+    }
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+        });
+    }
 
     prepareSaveBranch(): Branch {
         const formModel = this.branchForm.value;
@@ -101,8 +108,6 @@ export class AddBranchComponent implements OnInit {
             (examRooms: ExamRooms) => Object.assign({}, examRooms)
         );
 
-        // return new `Hero` object containing a combination of original hero value(s)
-        // and deep copies of changed form model values
         const saveBranchModel: Branch = {
             branchName: formModel.branchName,
             officeHoursStart: formModel.officeHoursStart,
@@ -135,6 +140,9 @@ export class AddBranchComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BRANCH_SUC_01') {
                         this.branchesList = response['responseData'];
+                        if(this.branchesList.length > 1 ){
+                            this.removeBranch();
+                        }
 
                     }
                 },
@@ -144,10 +152,9 @@ export class AddBranchComponent implements OnInit {
     }
 
     addBranch(data: any, value: string) {
-
         if (this.branchForm.valid) {
             let branchObject = this.prepareSaveBranch();
-            if (value === 'done') {
+             if (value === 'done') {
                 this.requestService.postRequest(AppConstants.ADD_BRANCH, branchObject)
                     .subscribe(function (response) {
                         if (data['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
@@ -213,7 +220,6 @@ export class AddBranchComponent implements OnInit {
 
     getDoctor(value: any) {
         if (value) {
-
             this.branchForm.controls['primaryDoctor'].setValue(value);
         }
     }
@@ -229,13 +235,6 @@ export class AddBranchComponent implements OnInit {
             this.branchForm.controls['state'].setValue(value);
         }
     }
-
-    getBillingBranch(value: any) {
-        if (value) {
-            this.billingForm.controls['billingBranch'].setValue(value);
-        }
-    }
-
     getZipCode(value: any) {
         if (value) {
             this.branchForm.controls['zipCode'].setValue(value);
@@ -244,7 +243,7 @@ export class AddBranchComponent implements OnInit {
 
     getNoOfExamRooms(value: any) {
         if (value) {
-            // this.examRooms=[];
+
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);

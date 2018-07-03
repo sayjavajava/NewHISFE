@@ -13,7 +13,7 @@ export interface  IUser {
     cellPhone: number;
     primaryBranch: string;
     email: string;
-    selectedRestrictBranch: any[];
+    selectedVisitBranches: any[];
     otherDashboard: string;
     sendBillingReport: boolean;
     useReceptDashboard: boolean;
@@ -40,5 +40,6 @@ export interface  IUser {
     selectedWorkingDays ?: any[];
     departmentControl ?:any[];
     selectedDoctors ?: any[];
+    dutyWithDoctors ?: any[];
 
 }

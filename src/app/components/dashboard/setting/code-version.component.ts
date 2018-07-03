@@ -3,9 +3,9 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {Router} from "@angular/router";
-import {ICDVersionModel} from "../../../models/ICDVersionModel";
-import {ICDCodeVersionModel} from "../../../models/ICDCodeVersionModel";
-import {ICDCodeModel} from "../../../models/ICDCodeModel";
+import {ICDVersionModel} from "../../../model/ICDVersionModel";
+import {ICDCodeVersionModel} from "../../../model/ICDCodeVersionModel";
+import {ICDCodeModel} from "../../../model/ICDCodeModel";
 import {AppConstants} from "../../../utils/app.constants";
 
 @Component({
@@ -22,6 +22,7 @@ export class CodeVersionComponent implements OnInit {
     pages: number[] = [];
     data: ICDCodeVersionModel[] = [];
     searchCodeVersion: string = "";
+    searchCodeVersionCode: string = "";
     searched: boolean;
 
     constructor(private notificationService: NotificationService,
@@ -105,15 +106,16 @@ export class CodeVersionComponent implements OnInit {
 
     deleteCodeVersion(associateICDCVId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
                 AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_CODE_VERSION_DEL_SUC_17') {
                             this.notificationService.success(response['responseMessage'], 'ICD');
-                            this.getPageWiseICDs(this.currPage);
+                            this.getCodeVersionsFromServer(0);
                         } else {
-                            this.getPageWiseICDs(this.currPage);
+                            this.getCodeVersionsFromServer(0);
                             this.notificationService.error(response['responseMessage'], 'ICD');
                         }
                     },
@@ -183,7 +185,9 @@ export class CodeVersionComponent implements OnInit {
         if (localStorage.getItem(btoa('access_token'))) {
             this.searched = true;
             this.requestsService.getRequest(
-                AppConstants.ICD_CODE_VERSION_SEARCH + page + '?versionName=' + this.searchCodeVersion)
+                AppConstants.ICD_CODE_VERSION_SEARCH + page +
+                '?versionName=' + this.searchCodeVersion +
+            '&searchCodeVersionCode=' + this.searchCodeVersionCode)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_02') {

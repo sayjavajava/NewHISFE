@@ -29,19 +29,19 @@ var HeaderComponent = (function () {
             this.firstName = this.userSharedService.firstName;
             this.lastName = this.userSharedService.lastName;
             this.profileImg = this.userSharedService.profileImg;
-            this.role = this.userSharedService.role;
+            this.role = this.userSharedService.roles;
             this.requestsService.getRequest('/user/loggedInUser')
                 .subscribe(function (response) {
-                if (response['responseCode'] === 'ADM_SUC_01') {
+                if (response['responseCode'] === 'ADM_SUC_03') {
                     _this.userSharedService.firstName = response['responseData'].firstName;
                     _this.userSharedService.lastName = response['responseData'].lastName;
                     _this.userSharedService.profileImg = response['responseData'].profileImg;
-                    _this.userSharedService.role = response['responseData'].role;
+                    _this.userSharedService.roles = response['responseData'].commaSeparatedRoles;
                     _this.permissionService.loadPermissions(response['responseData'].permissions);
                     _this.firstName = _this.userSharedService.firstName;
                     _this.lastName = _this.userSharedService.lastName;
                     _this.profileImg = _this.userSharedService.profileImg;
-                    _this.role = _this.userSharedService.role;
+                    _this.role = _this.userSharedService.roles;
                 }
             }, function (error) {
                 //console.log(error.json())

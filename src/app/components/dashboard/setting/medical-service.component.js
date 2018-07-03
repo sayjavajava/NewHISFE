@@ -14,7 +14,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
-var MedicalServiceSearchModel_1 = require("../../../models/MedicalServiceSearchModel");
+var MedicalServiceSearchModel_1 = require("../../../model/MedicalServiceSearchModel");
 var MedicalServiceComponent = (function () {
     function MedicalServiceComponent(notificationService, requestsService, HISUtilService) {
         this.notificationService = notificationService;
@@ -68,13 +68,16 @@ var MedicalServiceComponent = (function () {
     MedicalServiceComponent.prototype.deleteMedicalServices = function (msId, dptId, branchId) {
         var _this = this;
         if (msId > 0) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Medical Service');
-                    _this.getMedicalServicesFromServer(_this.currPage);
+                    _this.getMedicalServicesFromServer(0);
                 }
                 else {
+                    _this.getMedicalServicesFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'Medical Service');
                 }
             }, function (error) {
@@ -85,12 +88,24 @@ var MedicalServiceComponent = (function () {
     MedicalServiceComponent.prototype.searchByMedicalServiceParams = function (page) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            //this.searchMSModel.searchServiceId = this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId : 0;
+            this.searchMSModel.searchServiceId = 0;
             this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
             this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
             this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
             this.searchMSModel.searchServiceFee = this.searchMSModel.searchServiceFee > 0 ? this.searchMSModel.searchServiceFee : 0;
             this.searchMSModel.searched = true;
+            /**
+             * if all not selected then we are going to refresh the page, it means default condition
+             *
+             * **/
+            if (this.searchMSModel.searchServiceId === 0 &&
+                this.searchMSModel.searchServiceName.length === 0 &&
+                this.searchMSModel.searchBranchId === 0 &&
+                this.searchMSModel.departmentId === 0 &&
+                this.searchMSModel.searchServiceFee === 0) {
+                this.refreshMedicalServices();
+                return;
+            }
             this.requestsService.getRequest(app_constants_1.AppConstants.MEDICAL_SERVICE_SEARCH + page
                 + '?serviceId=' + this.searchMSModel.searchServiceId
                 + '&serviceName=' + this.searchMSModel.searchServiceName

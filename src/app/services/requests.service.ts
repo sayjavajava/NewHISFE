@@ -3,9 +3,10 @@ import 'rxjs/Rx';
 import {Router} from '@angular/router';
 import {AppConfig} from '../configuration/app.config';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {RoleAndPermission} from '../models/roleandpermission';
+import {RoleAndPermission} from '../model/roleandpermission';
 import {Receptionist} from '../model/Receptionist';
 import {Observable} from "rxjs/Observable";
+import {RequestOptions} from "@angular/http";
 
 @Injectable()
 export class RequestsService {
@@ -84,4 +85,12 @@ export class RequestsService {
         let params = new HttpParams().set('name', param);
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params});
     }
+
+    postRequestMultipartFormData(url: any, data: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        let formData: FormData = new FormData();
+        formData.append('file', data, data.name);
+        return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
+    }
+
 }

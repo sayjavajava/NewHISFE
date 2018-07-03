@@ -18,6 +18,7 @@ import {ContentComponent} from "./components/dashboard/content.component";
 import {NotFound404Component} from "./components/errors/not-found-404.component";
 // Routes
 import {routes} from "./app.routes";
+import { ColorPickerModule } from 'ngx-color-picker';
 // Services
 import {RequestsService} from "./services/requests.service";
 import {HISUtilService} from "./services/his-util.service";
@@ -44,7 +45,7 @@ import {UpdateCashierComponent} from "./components/dashboard/setting/updatecashi
 import {RolePermissionsComponent} from "./components/dashboard/setting/role-permissions.component";
 import {UpdatedoctorComponent} from "./components/dashboard/setting/updatedoctor.component";
 import {UpdateNurseComponent} from "./components/dashboard/setting/updatenurse.component";
-import {AddReceptionistComponent} from "./components/dashboard/setting/addreceptionist.component";
+import {UpdateReceptionistComponent} from "./components/dashboard/setting/update-receptionist.component";
 import {AddBranchComponent} from "./components/dashboard/setting/addbranch.component";
 import {
     MatButtonModule,
@@ -57,7 +58,7 @@ import {
 } from "@angular/material";
 import {NotificationService} from "./services/notification.service";
 import {OrganizationComponent} from "./components/dashboard/setting/organization.component";
-import {AddOrganizationComponent} from "./components/dashboard/setting/addorganization.component";
+import {AddOrganizationComponent} from "./components/dashboard/setting/add-organization.component";
 import {AddStaffComponent} from "./components/dashboard/setting/addstaff.component";
 import {ErrordisplayComponent} from "./components/dashboard/setting/errordisplay.component";
 import {ConformationDialogService} from "./services/ConformationDialogService";
@@ -74,6 +75,26 @@ import {NotFound404SettingComponent} from "./components/dashboard/setting/not-fo
 import {EmailTemplateComponent} from "./components/dashboard/setting/email-template-component";
 import {AddEmailTemplateComponent} from "./components/dashboard/setting/add-email-template.component";
 import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-email-template.component";
+import {UpdateOrganizationComponent} from "./components/dashboard/setting/update-organization.component";
+import {ManagePatientComponent} from "./components/dashboard/patient/manage-patient.component";
+import {PatientNavigationComponent} from "./components/dashboard/patient/patient-navigation.component";
+import {PatientDashboardComponent} from "./components/dashboard/patient/patient-dashboard.component";
+import {AddPatientComponent} from "./components/dashboard/patient/add-patient.component";
+import {PatientReportsComponent} from "./components/dashboard/patient/patient-reports.component";
+import {PatientComponent} from "./components/dashboard/patient/patient.component";
+import {EditPatientComponent} from "./components/dashboard/patient/edit-patient.component";
+
+import {AppointmentComponent} from "./components/dashboard/appointment/appointment.component";
+import {AppointmentDashboardComponent} from "./components/dashboard/appointment/appointment-dashboard.component";
+import {ManageAppointmentComponent} from "./components/dashboard/appointment/manage-appointment.component";
+import {AddAppointmentComponent} from "./components/dashboard/appointment/add-appointment.component";
+import {AppointmentReportsComponent} from "./components/dashboard/appointment/appointment-reports.component";
+import {AppointmentNavigationComponent} from "./components/dashboard/appointment/appointment-navigation.component";
+import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {CalendarModule} from 'angular-calendar';
+import { DemoUtilsModule } from '../demo-utils/module';
+import {EditAppointmentComponent} from './components/dashboard/appointment/edit-appointment.component';
+
 
 @NgModule({
     providers: [
@@ -105,8 +126,10 @@ import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-em
         MatNativeDateModule,
         MatInputModule,
         MatIconModule,
-
-
+        ColorPickerModule,
+        NgbModalModule.forRoot(),
+        CalendarModule.forRoot(),
+        DemoUtilsModule
     ],
     declarations: [
         // App Components
@@ -117,17 +140,29 @@ import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-em
         DashboardComponent,
         DoctorDashboardComponent,
 
-
         // Dashboard Components
         HeaderComponent,
         NavigationComponent,
         FooterComponent,
         ContentComponent,
         NotFound404Component,
+        ManagePatientComponent,
+        PatientDashboardComponent,
+        AddPatientComponent,
+        PatientReportsComponent,
+        PatientComponent,
+        EditPatientComponent,
+        AppointmentComponent,
+        AppointmentDashboardComponent,
+        ManageAppointmentComponent,
+        AddAppointmentComponent,
+        AppointmentReportsComponent,
+        AppointmentNavigationComponent,
 
         //Setting Components
         SettingComponent,
         SettingNavigationComponent,
+        PatientNavigationComponent,
         StaffComponent,
         CodeComponent,
         VersionComponent,
@@ -144,7 +179,7 @@ import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-em
         RolePermissionsComponent,
         UpdatedoctorComponent,
         UpdateNurseComponent,
-        AddReceptionistComponent,
+        UpdateReceptionistComponent,
         AddBranchComponent,
         OrganizationComponent,
         AddOrganizationComponent,
@@ -160,6 +195,8 @@ import {EditEmailTemplateComponent} from "./components/dashboard/setting/edit-em
         AddStaffComponent,
         ErrordisplayComponent,
         ConfirmationdialogComponent,
+        UpdateOrganizationComponent,
+        EditAppointmentComponent
 
     ],
     bootstrap: [AppComponent]

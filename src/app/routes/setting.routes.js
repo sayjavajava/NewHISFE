@@ -9,10 +9,10 @@ var nurse_component_1 = require("../components/dashboard/setting/nurse.component
 var receptionist_component_1 = require("../components/dashboard/setting/receptionist.component");
 var branch_component_1 = require("../components/dashboard/setting/branch.component");
 var role_permissions_component_1 = require("../components/dashboard/setting/role-permissions.component");
-var addreceptionist_component_1 = require("../components/dashboard/setting/addreceptionist.component");
+var update_receptionist_component_1 = require("../components/dashboard/setting/update-receptionist.component");
 var addbranch_component_1 = require("../components/dashboard/setting/addbranch.component");
 var organization_component_1 = require("../components/dashboard/setting/organization.component");
-var addorganization_component_1 = require("../components/dashboard/setting/addorganization.component");
+var add_organization_component_1 = require("../components/dashboard/setting/add-organization.component");
 var addstaff_component_1 = require("../components/dashboard/setting/addstaff.component");
 var update_branch_component_1 = require("../components/dashboard/setting/update-branch.component");
 var version_component_1 = require("../components/dashboard/setting/version.component");
@@ -27,11 +27,13 @@ var not_found_404_setting_component_1 = require("../components/dashboard/setting
 var updatenurse_component_1 = require("../components/dashboard/setting/updatenurse.component");
 var updatedoctor_component_1 = require("../components/dashboard/setting/updatedoctor.component");
 var updatecashier_component_1 = require("../components/dashboard/setting/updatecashier.component");
+var update_organization_component_1 = require("../components/dashboard/setting/update-organization.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
     { path: 'organization', component: organization_component_1.OrganizationComponent },
-    { path: 'organization/add', component: addorganization_component_1.AddOrganizationComponent },
+    { path: 'organization/add', component: add_organization_component_1.AddOrganizationComponent },
+    { path: 'organization/edit/:id', component: update_organization_component_1.UpdateOrganizationComponent },
     { path: 'branch', component: branch_component_1.BranchComponent },
     { path: 'branch/add', component: addbranch_component_1.AddBranchComponent },
     { path: 'staff', component: staff_component_1.StaffComponent },
@@ -43,7 +45,7 @@ exports.SettingRoutes = [
     { path: 'nurse/edit/:id', component: updatenurse_component_1.UpdateNurseComponent },
     { path: 'doctor/edit/:id', component: updatedoctor_component_1.UpdatedoctorComponent },
     { path: 'cashier/edit/:id', component: updatecashier_component_1.UpdateCashierComponent },
-    { path: 'receptionist/edit/:id', component: addreceptionist_component_1.AddReceptionistComponent },
+    { path: 'receptionist/edit/:id', component: update_receptionist_component_1.UpdateReceptionistComponent },
     { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
     { path: 'code', component: code_component_1.CodeComponent },
     { path: 'version', component: version_component_1.VersionComponent },

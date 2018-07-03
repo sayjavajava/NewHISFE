@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var notification_service_1 = require("../../../services/notification.service");
 var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
-var EmailTemplateModel_1 = require("../../../models/EmailTemplateModel");
+var EmailTemplateModel_1 = require("../../../model/EmailTemplateModel");
 var router_1 = require("@angular/router");
 var app_constants_1 = require("../../../utils/app.constants");
 var AddEmailTemplateComponent = (function () {
@@ -36,7 +36,6 @@ var AddEmailTemplateComponent = (function () {
                         _this.emailTempModel = new EmailTemplateModel_1.EmailTemplateModel();
                         _this.notificationService.success(response['responseMessage'], 'Email Template');
                         _this.router.navigate(['dashboard/setting/email-template']);
-                        // this.refreshICDsVersionTable(0);
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Email Template');

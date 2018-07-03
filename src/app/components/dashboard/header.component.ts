@@ -30,22 +30,22 @@ export class HeaderComponent implements OnInit {
             this.firstName = this.userSharedService.firstName;
             this.lastName = this.userSharedService.lastName;
             this.profileImg = this.userSharedService.profileImg;
-            this.role = this.userSharedService.role;
+            this.role = this.userSharedService.roles;
             this.requestsService.getRequest(
                 '/user/loggedInUser')
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'ADM_SUC_01') {
+                        if (response['responseCode'] === 'ADM_SUC_03') {
                             this.userSharedService.firstName = response['responseData'].firstName;
                             this.userSharedService.lastName = response['responseData'].lastName;
                             this.userSharedService.profileImg = response['responseData'].profileImg;
-                            this.userSharedService.role = response['responseData'].role;
+                            this.userSharedService.roles = response['responseData'].commaSeparatedRoles;
                             this.permissionService.loadPermissions(response['responseData'].permissions);
 
                             this.firstName = this.userSharedService.firstName;
                             this.lastName = this.userSharedService.lastName;
                             this.profileImg = this.userSharedService.profileImg;
-                            this.role = this.userSharedService.role;
+                            this.role = this.userSharedService.roles;
                         }
                     },
                     (error: any) => {

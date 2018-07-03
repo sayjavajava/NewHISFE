@@ -8,10 +8,10 @@ import {NurseComponent} from '../components/dashboard/setting/nurse.component';
 import {ReceptionistComponent} from '../components/dashboard/setting/receptionist.component';
 import {BranchComponent} from '../components/dashboard/setting/branch.component';
 import {RolePermissionsComponent} from '../components/dashboard/setting/role-permissions.component';
-import {AddReceptionistComponent} from '../components/dashboard/setting/addreceptionist.component';
+import {UpdateReceptionistComponent} from '../components/dashboard/setting/update-receptionist.component';
 import {AddBranchComponent} from '../components/dashboard/setting/addbranch.component';
 import {OrganizationComponent} from '../components/dashboard/setting/organization.component';
-import {AddOrganizationComponent} from '../components/dashboard/setting/addorganization.component';
+import {AddOrganizationComponent} from '../components/dashboard/setting/add-organization.component';
 import {AddStaffComponent} from '../components/dashboard/setting/addstaff.component';
 import {UpdateBranchComponent} from '../components/dashboard/setting/update-branch.component';
 import {VersionComponent} from '../components/dashboard/setting/version.component';
@@ -26,13 +26,14 @@ import {NotFound404SettingComponent} from "../components/dashboard/setting/not-f
 import {UpdateNurseComponent} from '../components/dashboard/setting/updatenurse.component';
 import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedoctor.component';
 import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
-
+import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
 
 export const SettingRoutes: Routes = [
     // Setting Pages
     {path: '', redirectTo: 'organization', pathMatch: 'full'},
     {path: 'organization', component: OrganizationComponent},
     {path: 'organization/add', component: AddOrganizationComponent},
+    {path:'organization/edit/:id',component: UpdateOrganizationComponent},
     {path: 'branch', component: BranchComponent},
     {path: 'branch/add', component: AddBranchComponent},
     {path: 'staff', component: StaffComponent},
@@ -44,7 +45,7 @@ export const SettingRoutes: Routes = [
     {path: 'nurse/edit/:id', component: UpdateNurseComponent},
     {path: 'doctor/edit/:id', component: UpdatedoctorComponent},
     {path: 'cashier/edit/:id', component: UpdateCashierComponent},
-    {path: 'receptionist/edit/:id', component: AddReceptionistComponent},
+    {path: 'receptionist/edit/:id', component: UpdateReceptionistComponent},
     {path: 'branch/edit/:id', component: UpdateBranchComponent},
     {path: 'code', component: CodeComponent},
     {path: 'version', component: VersionComponent},
@@ -55,7 +56,7 @@ export const SettingRoutes: Routes = [
     {path: 'role-permissions', component: RolePermissionsComponent},
     {path: 'service-tax', component: ServiceTaxComponent},
     {path: '404-not-found', component: NotFound404SettingComponent},
-    {path:'branch/edit/:id',component: UpdateBranchComponent},
+    {path: 'branch/edit/:id',component: UpdateBranchComponent},
     {path: 'email-template', component: EmailTemplateComponent},
     {path: 'email-template/add', component: AddEmailTemplateComponent},
     {path: 'email-template/edit/:id', component: EditEmailTemplateComponent},

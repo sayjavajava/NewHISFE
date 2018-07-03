@@ -1,10 +1,12 @@
 import {Profile} from './Profile';
 import {DutyShift} from './DutyShift';
 import {Vacation} from './Vacation';
+import {BranchResponse} from './BranchResponse';
 export class UserEditModel {
     profile: Profile;
     dutyShift :DutyShift;
     vacation:Vacation;
+    branch:BranchResponse;
     id: number;
     email: string;
     firstName: string;
@@ -13,7 +15,6 @@ export class UserEditModel {
     password: string;
     primaryBranch: string;
     checkUpInterval: number;
-    selectedRestrictBranch: any[];
     accountExpiry: string;
     active: boolean;
     allowDiscount: string;

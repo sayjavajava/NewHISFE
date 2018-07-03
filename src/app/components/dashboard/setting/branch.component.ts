@@ -31,8 +31,7 @@ export class BranchComponent implements OnInit {
 
     constructor(private requestService: RequestsService, private router: Router,
                 private notificationService: NotificationService, private fb: FormBuilder,
-                private matDialog: MatDialog, private confirmationDialogService: ConformationDialogService
-    ) {
+                private matDialog: MatDialog, private confirmationDialogService: ConformationDialogService) {
         this.allBranches();
         this.allDepartments();
 
@@ -53,7 +52,7 @@ export class BranchComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BRANCH_SUC_01') {
                         this.branchesList = response['responseData'];
-                        }
+                    }
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -162,11 +161,9 @@ export class BranchComponent implements OnInit {
 
                         }
                     }, error => {
-                        this.error = error.error.error_description;
                         this.notificationService.error('ERROR', 'User Unable to Delete ');
 
                     });
-                    // this.router.navigate(['/home']);
                 }
             });
     }
@@ -183,7 +180,7 @@ export class BranchComponent implements OnInit {
 
     getSelectedDepartment(value: any) {
         if (value) {
-            console.log('sel:'+ value);
+            //console.log('sel:' + value);
             this.searchForm.controls['department'].setValue(value);
         }
     }

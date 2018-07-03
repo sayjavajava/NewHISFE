@@ -1,0 +1,652 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <h3 class="hr text-info">New Patient</h3>
+        <div class="portlet-body">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Important </a>
+                </li>
+                <li class="">
+                    <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> Demographics </a>
+                </li>
+                <li class="">
+                    <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Insurances </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="tab_1_1">
+                    <div class="row">
+                        <div class="col-md-6 bdr-btm">
+                            <h3 class="hr green-txt">Important Information</h3>
+                            <form id="patientForm" class="form-horizontal" #patientForm="ngForm">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Primary Doctor
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select id="selectedDoctor" [(ngModel)]="patient.selectedDoctor"
+                                                #selectedDoctor="ngModel" name="selectedDoctor"
+                                                required
+                                                class="form-control">
+                                            <option [ngValue]="-1" selected>---Select---</option>
+                                            <option *ngFor="let doc of doctors" [value]="doc.id">
+                                                {{doc.userName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Title
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control"
+                                                id="titlePrefix"
+                                                name="titlePrefix"
+                                                #titlePrefix="ngModel"
+                                                [(ngModel)]="patient.titlePrefix">
+                                            <option value="-1" selected>---Select---</option>
+                                            <option value="Mr">Mr</option>
+                                            <option value="Mrs">Mrs</option>
+                                            <option value="Miss">Miss</option>
+                                            <option value="Ms">Ms</option>
+                                            <option value="Sir">Sir</option>
+                                            <option value="Dr">Dr</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">First Name
+                                    </label>
+                                    <div class="col-md-8 select pdng-lr-4">
+                                        <input type="text" id="firstName"
+                                               class="form-control" [(ngModel)]="patient.firstName"
+                                               placeholder="Enter first name" name="firstName"
+                                               pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                               #firstName="ngModel">
+                                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                                             class="alert alert-danger">
+                                            First name required,min 1 , max 60 characters long
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Middle Name
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="patient.middleName"
+                                               placeholder="Enter  middle Name"
+                                               id="middleName"
+                                               name="middleName"
+                                               pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                               #middleName="ngModel">
+                                        <div *ngIf="middleName.invalid && (middleName.dirty || middleName.touched)"
+                                             class="alert alert-danger">
+                                            middle name required,min 1 , max 60 characters long
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Last Name
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="patient.lastName" id="lastName"
+                                               placeholder="Enter last Name" name="lastName"
+                                               pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                               #lastName="ngModel">
+                                        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                                             class="alert alert-danger">
+                                            last name required,min 1 , max 60 characters long
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Foreign Name
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="patient.foreignName" id="foreignName"
+                                               placeholder="Enter foreign Name" name="foreignName"
+                                               pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                               #foreignName="ngModel">
+                                        <div *ngIf="foreignName.invalid && (foreignName.dirty || foreignName.touched)"
+                                             class="alert alert-danger">
+                                            foreign name required,min 1 , max 60 characters long
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="pull-left mrgn-top24">
+                                <img class="img-responsive" src="/public/images/patient-photo.jpg"/>
+                                <div class="">
+                                    <p>Patient Photo</p>
+                                    <input type="file" id="patientPhotoId" name="patientPhotoId"
+                                           [(ngModel)]="patient.patientPhoto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 bdr-btm mrgn-top14">
+                            <form id="contactForm" class="form-horizontal" #contactForm="ngForm">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Home Phone
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control"
+                                               [(ngModel)]="patient.homePhone"
+                                               placeholder="Enter home Phone" name="homePhone"
+                                               #homePhone="ngModel">
+                                        <div *ngIf="homePhone.invalid && (homePhone.dirty || homePhone.touched)"
+                                             class="alert alert-danger">
+                                            please provide valid number
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Cell Phone
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control"
+                                               [(ngModel)]="patient.cellPhone" required
+                                               placeholder="Enter cell Phone"
+                                               name="cellPhone" id="cellPhone"
+                                               #cellPhone="ngModel">
+                                        <div *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)"
+                                             class="alert alert-danger">
+                                            please provide valid number
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Disable SMS/Txt
+                                    </label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">
+                                            <input type="checkbox" name="disableSMSTxt"
+                                                   #disableSMSTxt="ngModel"
+                                                   [(ngModel)]="patient.disableSMSTxt">
+                                            Disable all SMS/Txt Messages for this user
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label txt-size">Office Phone</label>
+                                    <div class="col-md-8">
+                                        <div class="col-md-6 no-padding  frm-stng">
+                                            <input type="number" class="form-control"
+                                                   [(ngModel)]="patient.officePhone"
+                                                   placeholder="Enter office Phone"
+                                                   name="officePhone"
+                                                   #officePhone="ngModel">
+                                            <div *ngIf="officePhone.invalid && (officePhone.dirty || officePhone.touched)"
+                                                 class="alert alert-danger">
+                                                please provide valid number
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 no-padding">
+                                            <input type="number" placeholder="Ext."
+                                                   class="form-control"
+                                                   [(ngModel)]="patient.officeExtension"
+                                                   name="officeExtension"
+                                                   #officeExtension="ngModel">
+                                            <div *ngIf="officeExtension.invalid && (officeExtension.dirty || officeExtension.touched)"
+                                                 class="alert alert-danger">
+                                                please provide valid number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Email
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="email" name="email" id="email" required
+                                               [(ngModel)]="patient.email" #email="ngModel"
+                                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                                               class="form-control">
+                                        <div *ngIf="email.invalid && (email.dirty || officeExtension.touched)"
+                                             class="alert alert-danger">
+                                            please provide valid email
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">User Name
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="patient.userName"
+                                               required id="userName"
+                                               placeholder="Enter user Name"
+                                               name="userName"
+                                               pattern="^[a-zA-Z0-9- _]{1,50}$"
+                                               #userName="ngModel">
+                                        <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+                                             class="alert alert-danger">
+                                            please provide valid user name
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Preferred Communication
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="preferredCommunication"
+                                                #preferredCommunication="ngModel"
+                                                [(ngModel)]="patient.preferredCommunication">
+                                            <option value="ENGLISH" selected>English</option>
+                                            <option value="ARABIC">Arabic</option>
+                                            <option value="URDU">Urdu</option>
+                                            <option value="CHINESE">Chinese</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Reminder Language
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="reminderLanguage"
+                                                #reminderLanguage="ngModel"
+                                                [(ngModel)]="patient.reminderLanguage">
+                                            <option value="ENGLISH" selected>English</option>
+                                            <option value="ARABIC">Arabic</option>
+                                            <option value="URDU">Urdu</option>
+                                            <option value="CHINESE">Chinese</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mrgn-top14">
+                                        <h3 class="green-txt hr">status User</h3>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">status User
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="checkbox"
+                                                       class="form-control"
+                                                       #statusUser="ngModel"
+                                                       name="statusUser"
+                                                       [(ngModel)]="patient.statusUser">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab_1_2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="green-txt">Demographics</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 bdr-btm">
+                            <form id="demographicForm" class="form-horizontal" #demographicForm="ngForm">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Patient SSN
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="patient.patientSSN"
+                                               name="patientSSN"
+                                               #patientSSN="ngModel">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Patient Date of Birth
+                                    </label>
+                                    <div class="col-md-8 select ">
+                                        <input type="date" class="form-control form-control-inline input-medium"
+                                               [(ngModel)]="patient.dob" id="dob"
+                                               (ngModelChange)="patient.dob = $event"
+                                               name="dob" #dob="ngModel">
+                                        <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"
+                                             class="alert alert-danger">
+                                            please provide valid Date of Birth
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Patient Gender
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="gender"
+                                                #gender="ngModel"
+                                                [(ngModel)]="patient.gender">
+                                            <option value="MALE">Male</option>
+                                            <option value="FEMALE">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Country
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="country"
+                                                #country="ngModel"
+                                                [(ngModel)]="patient.country">
+                                            <option value="SAUDI ARAB">Saudi Arab</option>
+                                            <option value="DUBAI">United States</option>
+                                            <option value="DUBAI">Dubai</option>
+                                            <option value="PAKISTAN">Pakistan</option>
+                                            <option value="CHINA">China</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Race
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-group select2-bootstrap-prepend col-md-12">
+                                            <div class="checkbox-box hr cod-higt" id="codesDiv">
+                                                <div class="col-md-8" *ngFor="let race of patient.races">
+                                                    <address>
+                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                            <input type="checkbox"
+                                                                   name="chk-{{race.id}}"
+                                                                   id="chk-{{race.id}}"
+                                                                   [(ngModel)]="race.selected">
+                                                            {{race.nameRace}}
+                                                            <span></span>
+                                                        </label>
+                                                    </address>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Street Address
+                                    </label>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" rows="3"
+                                                  placeholder=" Street Address"
+                                                  name="streetAddress"
+                                                  #streetAddress="ngModel"
+                                                  [(ngModel)]="patient.streetAddress">
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Zip Code
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control"
+                                               [(ngModel)]="patient.zipCode"
+                                               name="zipCode"
+                                               #zipCode="ngModel">
+                                        <div *ngIf="zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+                                             class="alert alert-danger">
+                                            please provide valid number
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">City
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="patient.city"
+                                               name="city"
+                                               pattern="^[a-zA-Z -]{1,30}$"
+                                               #city="ngModel">
+                                        <div *ngIf="city.invalid && (city.dirty || city.touched)"
+                                             class="alert alert-danger">
+                                            please provide city
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">State
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="state"
+                                                #state="ngModel"
+                                                [(ngModel)]="patient.state">
+                                            <option value="SAUDI ARAB" selected>Saudi Arab</option>
+                                            <option value="DUBAI">United States</option>
+                                            <option value="DUBAI">Dubai</option>
+                                            <option value="PAKISTAN">Pakistan</option>
+                                            <option value="CHINA">China</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Formatted Address
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               #formattedAddress="ngModel"
+                                               name="formattedAddress" [(ngModel)]="patient.formattedAddress">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Patient Marital Status
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="martialStatus"
+                                                #state="ngModel"
+                                                [(ngModel)]="patient.martial">
+                                            <option value="SINGLE">Single</option>
+                                            <option value="MARRIED">Married</option>
+                                            <option value="WIDOWED">Widowed</option>
+                                            <option value="DIVORCED">Divorced</option>
+                                            <option value="SEPARATED">Separated</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Emergency Contact Name
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="patient.emergencyContactName"
+                                               name="emergencyContactName"
+                                               #emergencyContactName="ngModel">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Emergency Contact Phone
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control"
+                                               [(ngModel)]="patient.emergencyContactPhone"
+                                               name="emergencyContactPhone"
+                                               #emergencyContactPhone="ngModel">
+                                        <div *ngIf="emergencyContactPhone.invalid && (emergencyContactPhone.dirty || emergencyContactPhone.touched)"
+                                             class="alert alert-danger">
+                                            please provide valid number
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Emergency Contact Relation
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="patient.emergencyContactRelation"
+                                               name="emergencyContactRelation"
+                                               #emergencyContactRelation="ngModel">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mrgn-top14">
+                            <h3 class="green-txt hr">Miscellaneous</h3>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">Signature On File
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="checkbox"
+                                           class="form-control"
+                                           #signatureOnFile="ngModel"
+                                           name="signatureOnFile"
+                                           [(ngModel)]="patient.signatureOnFile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab_1_3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="green-txt">Primary Insurance</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 bdr-btm">
+                            <form id="insuranceForm" class="form-horizontal" #insuranceForm="ngForm">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Insurance Company
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               #company="ngModel"
+                                               name="company" [(ngModel)]="patient.company">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Insurance ID Number
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="insuranceIdNumber"
+                                               #insuranceIdNumber="ngModel"
+                                               [(ngModel)]="patient.insuranceIdNumber">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Insurance Group Number
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="groupNumber"
+                                               #groupNumber="ngModel"
+                                               [(ngModel)]="patient.groupNumber" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Insurance Plan Name
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="planName"
+                                               #planName="ngModel"
+                                               [(ngModel)]="patient.planName"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Insurance Plan Type
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" [(ngModel)]="patient.planType" name="planType"
+                                               #planType="ngModel"
+                                               class="form-control"></div>
+                                </div>
+                                <!-- <div class="form-group">
+                                     <label class="col-md-4 control-label">Card Issued Date</label>
+                                     <div class="col-md-8">
+                                         <input class="form-control form-control-inline input-medium date-picker"
+                                                #cardIssuedDate="ngModel"
+                                                [(ngModel)]="patient.cardIssuedDate" name="cardIssuedDate">
+                                     </div>
+                                 </div>-->
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label txt-size ">Card Issued Date
+                                    </label>
+                                    <div class="col-md-8 select ">
+                                        <input type="date" class="form-control form-control-inline input-medium"
+                                               (ngModelChange)="patient.cardIssuedDate = $event"
+                                               #cardIssuedDate="ngModel"
+                                               [(ngModel)]="patient.cardIssuedDate" name="cardIssuedDate">
+                                    </div>
+                                    <span *ngIf="cardIssuedDate.invalid && cardIssuedDate.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid from Date.
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label txt-size ">Card expiry Date
+                                    </label>
+                                    <div class="col-md-8 select ">
+                                        <input type="date" class="form-control form-control-inline input-medium"
+                                               (ngModelChange)="patient.cardExpiryDate = $event"
+                                               #cardExpiryDate="ngModel"
+                                               [(ngModel)]="patient.cardExpiryDate" name="cardExpiryDate">
+                                    </div>
+                                    <span *ngIf="cardExpiryDate.invalid && cardExpiryDate.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid from Date.
+                                    </span>
+                                </div>
+
+                                <!--
+                                 <div class="form-group">
+                                     <label class="col-md-4 control-label">Card expiry Date</label>
+                                     <div class="col-md-8">
+                                         <input class="form-control form-control-inline input-medium date-picker"
+                                                #cardExpiryDate="ngModel"
+                                                [(ngModel)]="patient.cardExpiryDate" name="cardExpiryDate">
+                                     </div>
+                                 </div>-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Primary Insurance Notes
+                                    </label>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" rows="3" placeholder=""
+                                                  name="primaryInsuranceNotes"
+                                                  #primaryInsuranceNotes="ngModel"
+                                                  [(ngModel)]="patient.primaryInsuranceNotes"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Insurance Photo Front
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="file" [(ngModel)]="patient.photoFront" name="photoFront">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Insurance Photo Back
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="file" [(ngModel)]="patient.photoBack" name="photoBack">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr">
+                    <div class="col-md-12">
+                        <div class="hr mrgn-top14">
+                            <button data-repeater-create="" class="btn blue"
+                                    (click)="savePatient(insuranceForm,demographicForm,patientForm,contactForm)"> Save
+                            </button>
+                            <a routerLink="/dashboard/patient/manage" class="nav-link">
+                                <button type="button" class="btn  btn-default"> Cancel</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

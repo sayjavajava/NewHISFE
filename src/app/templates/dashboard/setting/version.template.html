@@ -46,14 +46,14 @@
                            id="datatable_ajax">
                         <thead>
                         <tr role="row" class="off-wite-bg">
-                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Name</th>
+                            <th width="20%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Name</th>
                             <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Title</th>
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" *ngFor="let item of data; let i = index;" class="filter">
-                            <td rowspan="1" colspan="1" class="font-green-dark"><strong>{{item.name}}</strong></td>
-                            <td rowspan="1" colspan="1" class="font-green-dark"><strong>{{item.title}}</strong></td>
+                            <td rowspan="1" colspan="1" class="font-green-dark col-txt-left"><strong>{{item.name}}</strong></td>
+                            <td rowspan="1" colspan="1">{{item.title}}</td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.status === true ? 'Active' : 'In-Active'}}
                             </td>

@@ -18,4 +18,4 @@ var Branch = (function () {
     return Branch;
 }());
 exports.Branch = Branch;
-//# sourceMappingURL=Branch.js.map
+//# sourceMappingURL=branch.js.map

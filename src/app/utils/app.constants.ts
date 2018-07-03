@@ -16,11 +16,11 @@ export class AppConstants {
     public static CREATE_USER_ENDPOINT = '/user/add';
     public static USER_SEARCH = '/user/search/';
     public static FETCH_ALL_USERS_URI = '/user/';
-    public static FETCH_USER_BY_ID='/user/get/';
+    public static FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     public static ADD_BRANCH = '/setting/branch/create';
-    public static UPDATE_BRANCH = '/setting/update/';
-    public static DELETE_BRANCH_URI = '/setting/delete/';
+    public static UPDATE_BRANCH = '/setting/branch/update/';
+    public static DELETE_BRANCH_URI = '/setting/branch/delete/';
     public static BRANCHES_NAME = '/setting/branch/name';
     public static BRANCH_SEARCH = '/setting/branch/search/';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
@@ -50,14 +50,14 @@ export class AppConstants {
     public static ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
 
     ////////////////////// Service Tax URLs ///////////////////////////////
-    public static FETCH_ALL_TAX_URL ='/setting/tax/';
+    public static FETCH_ALL_TAX_URL = '/setting/tax/';
     public static SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     public static SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     public static SERVICE_TAX_UPDATE_URL = '/setting/tax/update';
     public static SERVICE_TAX_SEARCH_URL = '/setting/tax/search/';
 
     ////////////////////// Email Template URLs ///////////////////////////////
-    public static EMAIL_TEMPLATE_FETCH_ALL_URL ='/setting/emailTemplate/';
+    public static EMAIL_TEMPLATE_FETCH_ALL_URL = '/setting/emailTemplate/';
     public static EMAIL_TEMPLATE_DELETE_URL = '/setting/emailTemplate/delete/?id=';
     public static EMAIL_TEMPLATE_SAVE_URL = '/setting/emailTemplate/save';
     public static EMAIL_TEMPLATE_EDIT_URL = '/setting/emailTemplate/get/';
@@ -71,4 +71,31 @@ export class AppConstants {
     public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     public static FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     public static MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
+
+    ////////////////////// Organization URLs ///////////////////////////////
+    public static ORGANIZATION_CREATE_URL = '/setting/organization/create';
+    public static TIMEZONE_FETCH_URL = '/setting/organization/timezone';
+    public static FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
+    public static FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
+    public static FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
+    public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
+
+    ////////////////////// Patient URLs ///////////////////////////////
+    public static FETCH_ALL_PATIENT_URL = '/user/patient/';
+    public static PATIENT_DELETE_URI = '/user/patient/delete/';
+    public static PATIENT_SAVE_URL = '/user/patient/save';
+    public static PATIENT_FETCH_URL = '/user/patient/get/';
+    public static PATIENT_UPDATE_URL = '/user/patient/update';
+    public static SEARCH_ALL_PATIENT_URL = '/user/patient/search';
+    public static GET_ALL_PATIENT_URL = '/user/patient/all';
+
+    ////////////////////// Appointments URLs ///////////////////////////////
+    public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
+    public static CREATE_APPOINTMENT_URL = '/appointment/create';
+    public static SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    public static FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
+    public static UPDATE_APPOINTMENT = '/appointment/update/';
+    public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
+
+
 }

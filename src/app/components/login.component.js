@@ -25,6 +25,12 @@ var LoginComponent = (function () {
     }
     ;
     LoginComponent.prototype.ngOnInit = function () {
+        if (window.localStorage.getItem(btoa('access_token'))) {
+            this.router.navigate(['dashboard']);
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
     };
     LoginComponent.prototype.login = function (form) {
         var _this = this;
@@ -49,8 +55,9 @@ var LoginComponent = (function () {
                             _this.sharedService.firstName = response['responseData'].firstName;
                             _this.sharedService.lastName = response['responseData'].lastName;
                             _this.sharedService.profileImg = response['responseData'].profileImg;
-                            _this.sharedService.role = response['responseData'].role;
+                            _this.sharedService.roles = response['responseData'].commaSeparatedRoles;
                             _this.permissionService.loadPermissions(response['responseData'].permissions);
+                            // super admin Dashboard
                             _this.router.navigate(['/dashboard']);
                         }
                         else {

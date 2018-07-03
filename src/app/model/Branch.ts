@@ -15,12 +15,9 @@ export class Branch {
     formattedAddress: string;
     examRooms:ExamRooms;
     country:string;
-
-
     billingName ?:string;
     billingBranch ?:string;
     billingTaxID ?:string;
-
     showBranchOnline ?:boolean;
     allowOnlineSchedulingInBranch ?:boolean;
 

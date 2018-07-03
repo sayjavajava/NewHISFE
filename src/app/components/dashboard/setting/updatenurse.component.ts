@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserEditModel} from '../../../model/UserEditModel';
 import {RequestsService} from '../../../services/requests.service';
@@ -6,10 +6,11 @@ import {NotificationService} from '../../../services/notification.service';
 import {User} from '../../../model/User';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AppConstants} from '../../../utils/app.constants';
 
 @Component({
-  selector: 'addnurse-component',
-  templateUrl: '../../../templates/dashboard/setting/updatenurse.template.html',
+    selector: 'addnurse-component',
+    templateUrl: '../../../templates/dashboard/setting/updatenurse.template.html',
 })
 export class UpdateNurseComponent implements OnInit {
 
@@ -25,55 +26,32 @@ export class UpdateNurseComponent implements OnInit {
     userForm: FormGroup;
     selectedDepartment: any = [];
     selectedServices: any = [];
+    dutyWithDoctors:any=[];
     selectedTime: string;
     secondShiftFromTime: string;
     secondShiftToTime: string;
     firstShiftFromTime: string;
     firstShiftToTime: string;
     selectedVacationWeek: any = [];
-    selectedRestrictBranch: any = [];
+    selectedVisitBranches: any = [];
     selectedDoctors: any = [];
+    branchesList: any = [];
+    primaryDoctor: any = [];
+    departmentList: any = [];
     error: string;
+    defaultBranch:string='primaryBranch';
     responseUser: any[];
     private sub: any;
     id: number;
+    userSelected: string = 'doctor';
     user: UserEditModel;
-
-    branches = [
-        {id: 1, name: 'Primary'},
-        {id: 2, name: 'Lahore'},
-        {id: 3, name: 'Karachi'},
-    ];
-
-    departmentList = [
-        {id: 1, name: 'Dermatolgy'},
-        {id: 2, name: 'Plasticsurgery'},
-        {id: 3, name: 'Dental'},
-        {id: 4, name: 'DkinCareLaser'},
-        {id: 5, name: 'MessageClinic'},
-
-    ];
-
-
-    RestrictBranch = [
-        {id: 1, name: 'PrimaryOffice'},
-        {id: 2, name: 'LahoreOffice'},
-        {id: 3, name: 'KarachiOffice'},
-    ];
-
-
-    doctorsList = [
-        {id: 1, name: 'Dr.Zahra'},
-        {id: 2, name: 'Dr.kobler'},
-        {id: 3, name: 'Dr.Nimra'},
-    ];
-
-
 
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService
-        , private amazingTimePickerService?: AmazingTimePickerService) {
-
+        ,private amazingTimePickerService?: AmazingTimePickerService) {
+        this.allBranches();
+        this.allDepartments();
+        this.allDoctors();
     }
 
     ngOnInit() {
@@ -83,6 +61,60 @@ export class UpdateNurseComponent implements OnInit {
             console.log(this.id);
         });
         this.patchData();
+    }
+    allBranches() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        this.branchesList = response['responseData'];
+                     //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                    if(this.branchesList.length > 1){
+                        this.removeBranch();
+                     }
+                    }
+
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+
+
+    allDoctors() {
+        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseStatus'] === 'SUCCESS') {
+                        let data = response['responseData'];
+                        let userNameData = data;
+                        this.primaryDoctor = response['responseData'];
+                        }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                });
+
+    }
+
+    allDepartments() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                        this.departmentList = response['responseData'];
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+
+    }
+    removeBranch(){
+        this.branchesList.forEach( (item: any, index :any) => {
+            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+        });
     }
 
     createUserForm() {
@@ -107,17 +139,15 @@ export class UpdateNurseComponent implements OnInit {
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
                 'departmentControl': [null],
-                'nurseDutyWithDoctor': [null,Validators.required],
+                'nurseDutyWithDoctor': [null, Validators.required],
 
             }
         )
     }
 
-
     public patchData() {
         if (this.id) {
-
-            this.requestService.findById('/user/' + this.id).subscribe(
+            this.requestService.findById(AppConstants.FETCH_USER_BY_ID + this.id).subscribe(
                 user => {
                     //  this.id = user.id;
                     this.userForm.patchValue({
@@ -127,16 +157,16 @@ export class UpdateNurseComponent implements OnInit {
                         homePhone: user.profile.homePhone,
                         cellPhone: user.profile.cellPhone,
                         sendBillingReport: user.profile.sendBillingReport,
-                        userName: user.username,
-                        active: user.active,
+                        userName: user.userName,
+                        active: user.profile.active,
                         accountExpiry: user.profile.accountExpiry,
                         otherDashboard: user.profile.otherDashboard,
                         useReceptDashboard: user.profile.useReceptDashBoard,
                         otherDoctorDashBoard: user.profile.otherDoctorDashBoard,
-                        managePatientRecords:user.profile.managePatientRecords,
-                        managePatientInvoices:user.profile.managePatientInvoices,
-                        primaryBranch: user.primaryBranch,
-                        interval:user.profile.check
+                        managePatientRecords: user.profile.managePatientRecords,
+                        managePatientInvoices: user.profile.managePatientInvoices,
+                        primaryBranch:user.branch.name,
+                        interval: user.profile.check
                     });
 
                 }, (error: any) => {
@@ -151,30 +181,27 @@ export class UpdateNurseComponent implements OnInit {
     addUser(data: any) {
         console.log('i am invalid');
         if (this.userForm.valid) {
-
-            console.log('i am doctor submit' + data);
             let nurse = new User({
-                    userType: 'nurse',
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    userName: data.userName,
-                    password: data.password,
-                    homePhone: data.homePhone,
-                    cellPhone: data.cellPhone,
-                    sendBillingReport: data.sendBillingReport,
-                    useReceptDashboard: data.useReceptDashboard,
-                    otherDashboard: data.otherDashboard,
-                    accountExpiry: data.accountExpiry,
-                    primaryBranch: data.primaryBranch,
-                    email: data.email,
-                    selectedRestrictBranch: data.selectedRestrictBranch,
-                    otherDoctorDashBoard: data.otherDoctorDashBoard,
-                    active: data.active,
-                    managePatientRecords: data.managePatientRecords,
-                    managePatientInvoices: data.managePatientInvoices,
-                    selectedDoctors: data.selectedDoctors,
-                    selectedDepartment: data.selectedDepartment,
-
+                userType: 'nurse',
+                firstName: data.firstName,
+                lastName: data.lastName,
+                userName: data.userName,
+                password: data.password,
+                homePhone: data.homePhone,
+                cellPhone: data.cellPhone,
+                sendBillingReport: data.sendBillingReport,
+                useReceptDashboard: data.useReceptDashboard,
+                otherDashboard: data.otherDashboard,
+                accountExpiry: data.accountExpiry,
+                primaryBranch: data.primaryBranch,
+                email: data.email,
+                selectedVisitBranches: this.selectedVisitBranches,
+                otherDoctorDashBoard: data.otherDoctorDashBoard,
+                active: data.active,
+                managePatientRecords: data.managePatientRecords,
+                managePatientInvoices: data.managePatientInvoices,
+                dutyWithDoctors: this.dutyWithDoctors,
+                selectedDepartment: this.selectedDepartment,
             });
             this.makeService(nurse);
 
@@ -237,10 +264,10 @@ export class UpdateNurseComponent implements OnInit {
 
         if (event.target.checked) {
 
-            this.selectedDepartment.push(item);
+            this.selectedDepartment.push(item.id);
         }
         else {
-            let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.name);
+            let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
 
             let index = this.selectedDepartment.indexOf(updateItem);
 
@@ -250,21 +277,35 @@ export class UpdateNurseComponent implements OnInit {
 
     }
 
-
-    selectRestrictBranch(event: any, item: any) {
+    selectVisitBranches(event: any, item: any) {
         console.log(item);
         if (event.target.checked) {
-            this.selectedRestrictBranch.push(item);
+            this.selectedVisitBranches.push(item.id);
         }
         else {
-            let updateItem = this.selectedRestrictBranch.find(this.findIndexToUpdate, item.name);
+            let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
 
-            let index = this.selectedRestrictBranch.indexOf(updateItem);
+            let index = this.selectedVisitBranches.indexOf(updateItem);
 
-            this.selectedRestrictBranch.splice(index, 1);
+            this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedRestrictBranch);
+        console.log(this.selectedVisitBranches);
 
+    }
+
+    dutyWithDoctor(event: any, item: any) {
+        console.log(item);
+        if (event.target.checked) {
+            this.dutyWithDoctors.push(item.id);
+        }
+        else {
+            let updateItem = this.dutyWithDoctors.find(this.findIndexToUpdate, item.id);
+
+            let index = this.dutyWithDoctors.indexOf(updateItem);
+
+            this.dutyWithDoctors.splice(index, 1);
+        }
+        console.log(this.dutyWithDoctors);
     }
 
 
@@ -272,21 +313,24 @@ export class UpdateNurseComponent implements OnInit {
         return type.name === this;
     }
 
-    dutyWithDoctor(event: any, item: any) {
-        console.log(item);
-        if (event.target.checked) {
-            this.selectedDoctors.push(item);
+
+    getSelectedDashboard(value: any) {
+        if (value) {
+            this.userForm.controls['otherDashboard'].setValue(value);
+
+        }
+    }
+    getSelectedBranch(value: any) {
+        console.log(value);
+        if (value === undefined) {
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
         else {
-            let updateItem = this.selectedDoctors.find(this.findIndexToUpdate, item.name);
+            this.userForm.controls['primaryBranch'].setValue(value);}
 
-            let index = this.selectedDoctors.indexOf(updateItem);
-
-            this.selectedDoctors.splice(index, 1);
-        }
-        console.log(this.selectedDoctors);
     }
-    cancel(){
+
+    cancel() {
         this.router.navigate(['/dashboard/setting/staff']);
     }
 

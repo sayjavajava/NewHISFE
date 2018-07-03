@@ -3,13 +3,19 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
-                    <h4 class="text-info">Department
+                    <h4 class="text-info">Departments
                         <div class="pull-right">
                             <a href="#responsive" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow" (click)="onAddPopupLoad()">
                                     <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
+                            <button class="btn mt-sweetalert btn blue"
+                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                    data-type="success" data-allow-outside-click="true"
+                                    (click)="getPageWiseDepartmentFromServer(0)"
+                                    data-confirm-button-class="btn-success"> Refresh
+                            </button>
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
                         </div>
@@ -23,12 +29,12 @@
                                 <input type="text" class="form-control"
                                        placeholder="Department Name"
                                        [(ngModel)]="searchDepart"
-                                       (keydown.enter)="searchClinicalDepartment()">
+                                       (keydown.enter)="searchClinicalDepartment(0)">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
-                                <button type="button" (click)="searchClinicalDepartment()" class="btn blue">Search
+                                <button type="button" (click)="searchClinicalDepartment(0)" class="btn blue">Search
                                 </button>
                             </div>
                         </div>
@@ -49,19 +55,12 @@
                                 <td class="c-text-left">{{item.description}}</td>
                                 <td>{{item.active === true ? 'Active' : 'In-Active'}}</td>
                                 <td class="sorting_disabled">
-                                    <!--<button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i>-->
-                                    <!--</button>-->
                                     <a href="#responsive" data-toggle="modal">
                                         <button class="btn btn-default btn-outline btn-sm"
                                                 (click)="onUpdatePopupLoad(item)"><i class="fa fa-pencil"></i>
 
                                         </button>
                                     </a>
-
-                                    <!--<a href="#responsive">-->
-                                    <!--< button class="btn btn-default btn-outline btn-sm" (click)="updateClinicalDepartment(form1)"><i class="fa fa-pencil"></i>-->
-                                    <!--</button>-->
-                                    <!--</a>-->
                                     <button class="btn btn-default btn-outline btn-sm"
                                             (click)="deleteDepartment(item.id)">
                                         <i class="fa fa-remove"></i>
@@ -80,26 +79,26 @@
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
                         <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
-                            <a (click)="getPageWiseDepartmentFromServer(0);" title="First">
+                            <a (click)="getPageWiseDepartment(0);" title="First">
                                 <i class="fa fa-angle-double-left"></i>
                             </a>
                         </li>
                         <li class="prev" *ngIf="prePage">
-                            <a (click)="getPageWiseDepartmentFromServer(currPage - 1)" title="Previous">
+                            <a (click)="getPageWiseDepartment(currPage - 1)" title="Previous">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
                         <li [ngClass]="{active: page === currPage}"
                             *ngFor="let page of pages">
-                            <a (click)="getPageWiseDepartmentFromServer(page)">{{page + 1}}</a>
+                            <a (click)="getPageWiseDepartment(page)">{{page + 1}}</a>
                         </li>
                         <li class="next" *ngIf="nextPage">
-                            <a (click)="getPageWiseDepartmentFromServer(currPage + 1)" title="Next">
+                            <a (click)="getPageWiseDepartment(currPage + 1)" title="Next">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
-                            <a (click)="getPageWiseDepartmentFromServer(pages.length - 1)" title="Last">
+                            <a (click)="getPageWiseDepartment(pages.length - 1)" title="Last">
                                 <i class="fa fa-angle-double-right"></i>
                             </a>
                         </li>
@@ -141,8 +140,20 @@
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <textarea class="form-control" rows="3"
-                                                      type="text" required [(ngModel)]="selectedDepartment.description"
-                                                      name="desc" #desc="ngModel"></textarea>
+                                                      type="text" [(ngModel)]="selectedDepartment.description"
+                                                      name="desc" #desc="ngModel">
+
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Status</label>
+                                        <div class="col-md-3 select pdng-lr-5">
+                                            <input type="checkbox"
+                                                   class="form-control"
+                                                   [(ngModel)]="selectedDepartment.active"
+                                                   name="active"
+                                                   #active="ngModel">
                                         </div>
                                     </div>
                                 </div>

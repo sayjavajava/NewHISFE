@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Branch} from '../../../models/branch';
-import {ServiceTax} from '../../../models/service-tax';
-import {ClinicalDepartment} from '../../../models/clinical-department';
+import {Branch} from '../../../model/branch';
+import {ServiceTax} from '../../../model/service-tax';
+import {ClinicalDepartment} from '../../../model/clinical-department';
 import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {MedicalService} from '../../../models/medical-service';
+import {MedicalService} from '../../../model/medical-service';
 import {NgForm} from '@angular/forms';
 import * as _ from 'lodash'
 import {Router} from '@angular/router';
@@ -36,7 +36,7 @@ export class AddMedicalServiceComponent implements OnInit {
 
     getBranchesFromServer() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_BRANCHES_URL)
+            AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {

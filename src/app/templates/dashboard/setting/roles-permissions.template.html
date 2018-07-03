@@ -79,10 +79,11 @@
                                                 aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <input type="text" class=" form-control" formControlName="name">
-                                            <span class="alert alert-info"
+                                            <span class="text-danger"
                                                   *ngIf="!roleForm.controls['name'].valid && roleForm.controls['name'].touched">
                                                 {{ titleAlert  }}
                                             </span>
+
                                         </div>
                                     </div>
                                     <div class="form-group hr">
@@ -92,10 +93,7 @@
 
                                             <textarea class="form-control" rows="3"
                                                       formControlName="description"></textarea>
-                                            <span class="alert alert-info"
-                                                  *ngIf="!roleForm.controls['description'].valid && roleForm.controls['description'].touched">
-                                                {{ descriptionAlert  }}
-                                            </span>
+
                                         </div>
                                     </div>
                                     <div class="form-group hr">
@@ -143,7 +141,7 @@
                                                 aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <input type="text" class=" form-control" formControlName="name">
-                                            <span class="alert alert-info"
+                                            <span class="text-danger"
                                                   *ngIf="!roleForm.controls['name'].valid && roleForm.controls['name'].touched">
                                                 {{ titleAlert  }}
                                             </span>
@@ -156,10 +154,7 @@
 
                                             <textarea class="form-control" rows="3"
                                                       formControlName="description"></textarea>
-                                            <span class="alert alert-info"
-                                                  *ngIf="!roleForm.controls['description'].valid && roleForm.controls['description'].touched">
-                                                {{ descriptionAlert  }}
-                                            </span>
+
                                         </div>
                                     </div>
                                     <div class="form-group hr">
@@ -174,7 +169,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" (click)="formReset()" class="btn btn-light">Reset</button>
+                            <button type="button" (click)="formReset()" data-dismiss="modal" #closeBtn class="btn btn-light">Close</button>
                             <button type="submit" [disabled]='!roleForm.valid' class="btn blue">Save</button>
 
                         </div>

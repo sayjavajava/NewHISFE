@@ -16,6 +16,7 @@ var router_1 = require("@angular/router");
 var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
+var app_constants_1 = require("../../../utils/app.constants");
 var UpdateCashierComponent = (function () {
     function UpdateCashierComponent(route, router, requestService, fb, notificationService) {
         this.route = route;
@@ -23,6 +24,13 @@ var UpdateCashierComponent = (function () {
         this.requestService = requestService;
         this.fb = fb;
         this.notificationService = notificationService;
+        this.branchesList = [];
+        this.primaryDoctor = [];
+        this.defaultBranch = 'primaryBranch';
+        this.userSelected = 'doctor';
+        this.selectedVisitBranches = [];
+        this.allBranches();
+        this.allDoctors();
     }
     UpdateCashierComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -32,6 +40,34 @@ var UpdateCashierComponent = (function () {
             console.log(_this.id);
         });
         this.patchData();
+    };
+    UpdateCashierComponent.prototype.allDoctors = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+            .subscribe(function (response) {
+            if (response['responseStatus'] === 'SUCCESS') {
+                var data = response['responseData'];
+                var userNameData = data;
+                _this.primaryDoctor = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    UpdateCashierComponent.prototype.allBranches = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BR_SUC_01') {
+                _this.branchesList = response['responseData'];
+                //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
     };
     UpdateCashierComponent.prototype.createUserForm = function () {
         this.userForm = this.fb.group({
@@ -52,7 +88,7 @@ var UpdateCashierComponent = (function () {
             'useReceptDashboard': '',
             'shift2': '',
             'vacation': '',
-            'otherDoctorDashboard': '',
+            'otherDoctorDashBoard': '',
             'accountExpiry': [null],
             'active': '',
             'dateFrom': [null],
@@ -71,22 +107,23 @@ var UpdateCashierComponent = (function () {
     UpdateCashierComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
-            this.requestService.findById('/user/' + this.id).subscribe(function (receptionist) {
+            this.requestService.findById(app_constants_1.AppConstants.FETCH_USER_BY_ID + this.id).subscribe(function (cashier) {
                 //  this.id = user.id;
                 _this.userForm.patchValue({
-                    firstName: receptionist.profile.firstName,
-                    lastName: receptionist.profile.lastName,
-                    email: receptionist.email,
-                    homePhone: receptionist.profile.homePhone,
-                    cellPhone: receptionist.profile.cellPhone,
-                    sendBillingReport: receptionist.profile.sendBillingReport,
-                    userName: receptionist.username,
-                    active: receptionist.active,
-                    accountExpiry: receptionist.profile.accountExpiry,
-                    otherDashboard: receptionist.profile.otherDashboard,
-                    useReceptDashboard: receptionist.profile.useReceptDashBoard,
-                    otherDoctorDashBoard: receptionist.profile.otherDoctorDashBoard,
-                    primaryBranch: receptionist.primaryBranch
+                    firstName: cashier.profile.firstName,
+                    lastName: cashier.profile.lastName,
+                    email: cashier.email,
+                    homePhone: cashier.profile.homePhone,
+                    cellPhone: cashier.profile.cellPhone,
+                    sendBillingReport: cashier.profile.sendBillingReport,
+                    userName: cashier.userName,
+                    active: cashier.profile.active,
+                    accountExpiry: cashier.profile.accountExpiry,
+                    otherDashboard: cashier.profile.otherDashboard,
+                    useReceptDashboard: cashier.profile.useReceptDashBoard,
+                    otherDoctorDashBoard: cashier.profile.otherDoctorDashBoard,
+                    allowDiscount: cashier.profile.allowDiscount,
+                    primaryBranch: cashier.branch.name,
                 });
             }, function (error) {
                 //console.log(error.json());
@@ -94,12 +131,19 @@ var UpdateCashierComponent = (function () {
             });
         }
     };
+    UpdateCashierComponent.prototype.removeBranch = function () {
+        var _this = this;
+        this.branchesList.forEach(function (item, index) {
+            if (item === _this.defaultBranch)
+                _this.branchesList.splice(index, 1);
+        });
+    };
     UpdateCashierComponent.prototype.addCashier = function (data) {
         console.log('i am invalid');
         if (this.userForm.valid) {
             console.log('i am cashier submit' + data);
             var cashier = new User_1.User({
-                userType: 'receptionist',
+                userType: 'cashier',
                 firstName: data.firstName,
                 lastName: data.lastName,
                 userName: data.userName,
@@ -112,7 +156,7 @@ var UpdateCashierComponent = (function () {
                 accountExpiry: data.accountExpiry,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
-                selectedRestrictBranch: data.selectedRestrictBranch,
+                selectedVisitBranches: this.selectedVisitBranches,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
@@ -148,11 +192,6 @@ var UpdateCashierComponent = (function () {
             'has-feedback': this.isFieldValid(field)
         };
     };
-    UpdateCashierComponent.prototype.getBranch = function (value) {
-        if (value) {
-            this.userForm.controls['primaryBranch'].setValue(value);
-        }
-    };
     UpdateCashierComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
         Object.keys(formGroup.controls).forEach(function (field) {
@@ -166,8 +205,39 @@ var UpdateCashierComponent = (function () {
             }
         });
     };
+    UpdateCashierComponent.prototype.selectVisitBranches = function (event, item) {
+        console.log(item);
+        if (event.target.checked) {
+            this.selectedVisitBranches.push(item.id);
+        }
+        else {
+            var updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
+            var index = this.selectedVisitBranches.indexOf(updateItem);
+            this.selectedVisitBranches.splice(index, 1);
+        }
+        console.log(this.selectedVisitBranches);
+    };
+    UpdateCashierComponent.prototype.findIndexToUpdate = function (type) {
+        return type.name === this;
+    };
+    UpdateCashierComponent.prototype.getSelectedDashboard = function (value) {
+        if (value) {
+            this.userForm.controls['otherDashboard'].setValue(value);
+        }
+    };
     UpdateCashierComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);
+    };
+    UpdateCashierComponent.prototype.getSelectedBranch = function (value) {
+        console.log(value);
+        if (value === undefined) {
+            console.log('i am esss');
+            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+        }
+        else {
+            console.log('i am too' + value);
+            this.userForm.controls['primaryBranch'].setValue(value);
+        }
     };
     UpdateCashierComponent = __decorate([
         core_1.Component({

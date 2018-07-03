@@ -1,7 +1,9 @@
 <div class="page-header navbar navbar-fixed-top">
     <div class="page-header-inner ">
         <div class="page-logo col-md-3">
-            <a routerLink="/dashboard"><img src="/public/images/logo.png" alt="logo" class="logo-default"></a>
+            <a routerLink="/dashboard">
+                <img src="/public/images/logo.png" alt="logo" class="logo-default">
+            </a>
             <!--<div class="menu-toggler sidebar-toggler side-bar-toggle-menu" title="Sidebar Menu"><span></span></div>-->
         </div>
         <a href="javascript:;" class="menu-toggler responsive-toggler menua" data-toggle="collapse"
@@ -16,7 +18,8 @@
                             <li aria-haspopup="true" class="">
                                 <a href="#" class="nav-link">Today Appointment</a>
                             </li>
-                            <li aria-haspopup="true" class=" " *ngIf="permissionService.hasPermission('MANAGE_DASHBOARD');">
+                            <li aria-haspopup="true" class=" "
+                                *ngIf="permissionService.hasPermission('MANAGE_DASHBOARD');">
                                 <a routerLink="/dashboard/doctor" class="nav-link">Doctor Dashboard</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
@@ -45,34 +48,34 @@
                         </a>
                         <ul class="dropdown-menu pull-left dropdown-nav">
                             <li aria-haspopup="true" class="">
-                                <a href="#" class="nav-link">Dashboard</a>
+                                <a routerLink="/dashboard/appointment/dashboard" class="nav-link">Dashboard</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Create New Appointment</a>
+                                <a routerLink="/dashboard/appointment/add" class="nav-link">Create New Appointment</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Appointments</a>
+                                <a routerLink="/dashboard/appointment/manage" class="nav-link">Appointments</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Reports</a>
+                                <a routerLink="/dashboard/appointment/reports" class="nav-link">Reports</a>
                             </li>
                         </ul>
                     </li>
                     <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
-                        <a href="javascript:;"> Patients
+                        <a routerLink="/dashboard/patient/manage"> Patients
                         </a>
                         <ul class="dropdown-menu pull-left dropdown-nav">
                             <li aria-haspopup="true" class="">
-                                <a href="#" class="nav-link">Dashboard</a>
+                                <a routerLink="/dashboard/patient/dashboard" class="nav-link">Dashboard</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Create New Patient</a>
+                                <a routerLink="/dashboard/patient/add" class="nav-link">Create New Patient</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Patients</a>
+                                <a routerLink="/dashboard/patient/manage" class="nav-link">Patients</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Reports</a>
+                                <a routerLink="/dashboard/patient/reports" class="nav-link">Reports</a>
                             </li>
                         </ul>
                     </li>

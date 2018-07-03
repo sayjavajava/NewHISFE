@@ -81,7 +81,7 @@ var AddReceptionistComponent = (function () {
     AddReceptionistComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
-            this.requestService.findById('/user/get/' + this.id).subscribe(function (receptionist) {
+            this.requestService.findById('/user/' + this.id).subscribe(function (receptionist) {
                 //  this.id = user.id;
                 _this.userForm.patchValue({
                     firstName: receptionist.profile.firstName,
