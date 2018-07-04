@@ -122,7 +122,7 @@ export class EditPatientComponent implements OnInit {
         }
     }
 
-    uploadProfileImgOnChange(event: any) {
+    uploadImgOnChange(event: any) {
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             this.file = fileList[0];
@@ -138,8 +138,7 @@ export class EditPatientComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_02') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
-                            //this.adminUpdateService.uploadProfileImage(response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1);
-                            //this.profileImg = response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1;
+                            this.file = null;
                         }
                     },
                     (error: any) => {
@@ -160,6 +159,7 @@ export class EditPatientComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
+                            this.file = null;
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Update Patient');
                         }
@@ -182,6 +182,7 @@ export class EditPatientComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
+                            this.file = null;
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Update Patient');
                         }

@@ -11,7 +11,8 @@ export class Patient {
     middleName: string = "";
     lastName: string = "";
     foreignName: string = "";
-    profileImg: string;
+    profileImgURL: string;
+    profileImg: File;
     homePhone: string = "";
     cellPhone: string = "";
     disableSMSTxt: boolean = false;
@@ -57,6 +58,8 @@ export class Patient {
     cardIssuedDate: string = "";
     cardExpiryDate: string = "";
     primaryInsuranceNotes: string = "";
+    photoBackURL:string
+    photoFrontURL:string
     photoFront: File;
     photoBack: File;
 

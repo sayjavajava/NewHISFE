@@ -116,12 +116,12 @@
                         <div class="col-md-6">
                             <div class="pull-left mrgn-top24">
                                 <img class="img-responsive" src="/public/images/patient-photo.jpg"
-                                     *ngIf="patient.profileImg === null || patient.profileImg === ''"/>
-                                <img class="" src="{{patient.profileImg}}"
-                                     *ngIf="patient.profileImg != null">
+                                     *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img class="" src="{{patient.profileImgURL}}"
+                                     *ngIf="patient.profileImgURL != null">
                                 <div class="">
-                                    <input class="file" type="file" id="patientPhotoId" name="patientPhotoId"
-                                           (change)="uploadProfileImgOnChange($event)">
+                                    <input class="file" type="file" id="profileImgURL" name="profileImgURL"
+                                           (change)="uploadImgOnChange($event)">
                                 </div>
                                 <div class="">
                                     <button class="btn btn-default btn-outline"
@@ -614,15 +614,15 @@
                                     <label class="control-label col-md-4">Insurance Photo Front
                                     </label>
                                     <div class="col-md-8">
-                                        <!--<input type="file" [(ngModel)]="patient.photoFront" name="photoFront">-->
+                                        <!--<input type="file" [(ngModel)]="patient.photoFrontURL" name="photoFrontURL">-->
                                         <div class="pull-left mrgn-top24">
                                             <img class="img-responsive" src="/public/images/patient-photo.jpg"
-                                                 *ngIf="patient.photoFront === null || patient.photoFront === ''"/>
-                                            <img class="" src="{{patient.photoFront}}"
-                                                 *ngIf="patient.photoFront != null">
+                                                 *ngIf="patient.photoFrontURL === null || patient.photoFrontURL === ''"/>
+                                            <img class="" src="{{patient.photoFrontURL}}"
+                                                 *ngIf="patient.photoFrontURL != null">
                                             <div class="">
-                                                <input class="file" type="file" id="photoFront" name="photoFront"
-                                                       (change)="uploadProfileImgOnChange($event)">
+                                                <input class="file" type="file" id="photoFrontURL" name="photoFrontURL"
+                                                       (change)="uploadImgOnChange($event)">
                                             </div>
                                             <div class="">
                                                 <button class="btn btn-default btn-outline"
@@ -639,16 +639,16 @@
                                     <label class="control-label col-md-4">Insurance Photo Back
                                     </label>
                                     <div class="col-md-8">
-                                        <!--<input type="file" [(ngModel)]="patient.photoBack" name="photoBack">-->
+                                        <!--<input type="file" [(ngModel)]="patient.photoBackURL" name="photoBackURL">-->
 
                                         <div class="pull-left mrgn-top24">
                                             <img class="img-responsive" src="/public/images/patient-photo.jpg"
-                                                 *ngIf="patient.photoBack === null || patient.photoBack === ''"/>
-                                            <img class="" src="{{patient.photoBack}}"
-                                                 *ngIf="patient.photoBack != null">
+                                                 *ngIf="patient.photoBackURL === null || patient.photoBackURL === ''"/>
+                                            <img class="" src="{{patient.photoBackURL}}"
+                                                 *ngIf="patient.photoBackURL != null">
                                             <div class="">
-                                                <input class="file" type="file" id="photoBack" name="photoBack"
-                                                       (change)="uploadProfileImgOnChange($event)">
+                                                <input class="file" type="file" id="photoBackURL" name="photoBackURL"
+                                                       (change)="uploadImgOnChange($event)">
                                             </div>
                                             <div class="">
                                                 <button class="btn btn-default btn-outline"

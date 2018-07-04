@@ -117,7 +117,7 @@ var EditPatientComponent = (function () {
             }
         }
     };
-    EditPatientComponent.prototype.uploadProfileImgOnChange = function (event) {
+    EditPatientComponent.prototype.uploadImgOnChange = function (event) {
         var fileList = event.target.files;
         if (fileList.length > 0) {
             this.file = fileList[0];
@@ -130,8 +130,7 @@ var EditPatientComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'USR_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Update Patient');
-                    //this.adminUpdateService.uploadProfileImage(response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1);
-                    //this.profileImg = response['responseData'].profileImgUrl + "?" + Math.floor(Math.random() * 50) + 1;
+                    _this.file = null;
                 }
             }, function (error) {
                 _this.notificationService.error('Profile Image uploading failed', 'Update Patient');
@@ -149,6 +148,7 @@ var EditPatientComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'USR_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'Update Patient');
+                    _this.file = null;
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Update Patient');
@@ -169,6 +169,7 @@ var EditPatientComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'USR_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'Update Patient');
+                    _this.file = null;
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Update Patient');
