@@ -121,8 +121,8 @@
                             </form>
                         </div>
                         <div class="col-md-6">
-                            <div class="pull-left mrgn-top24">
-                                <img class="img-responsive" src="/public/images/patient-photo.jpg"/>
+                            <div class="pull-left mrgn-top30">
+                                <img class="img-responsive img-width" src="/public/images/patient-photo.jpg"/>
                                 <div class="">
                                     <p>Patient Photo</p>
                                     <input type="file" id="patientPhotoId" name="patientPhotoId"
@@ -168,12 +168,21 @@
                                     <label class="control-label col-md-4">Disable SMS/Txt
                                     </label>
                                     <div class="col-md-8">
+                                        <!--
                                         <label class="control-label">
                                             <input type="checkbox" name="disableSMSTxt"
                                                    #disableSMSTxt="ngModel"
                                                    [(ngModel)]="patient.disableSMSTxt">
                                             Disable all SMS/Txt Messages for this user
                                         </label>
+                                        -->
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <input type="checkbox"
+                                                   class="form-control"
+                                                   #disableSMSTxt="ngModel"
+                                                   name="disableSMSTxt"
+                                                   [(ngModel)]="patient.disableSMSTxt"><span></span></label>
+
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -265,17 +274,18 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 mrgn-top14">
-                                        <h3 class="green-txt hr">status User</h3>
+                                    <div class="col-md-12 mrgn-top14">
+                                        <h3 class="green-txt hr">Status User</h3>
                                         <div class="form-group">
-                                            <label class="control-label col-md-4">status User
+                                            <label class="control-label col-md-4 col-xs-6">Status User
                                             </label>
-                                            <div class="col-md-8">
-                                                <input type="checkbox"
-                                                       class="form-control"
-                                                       #statusUser="ngModel"
-                                                       name="statusUser"
-                                                       [(ngModel)]="patient.statusUser">
+                                            <div class="col-md-8 col-xs-6">
+                                                <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                                    <input type="checkbox"
+                                                           class="form-control"
+                                                           #statusUser="ngModel"
+                                                           name="statusUser"
+                                                           [(ngModel)]="patient.statusUser"><span></span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -352,7 +362,7 @@
                                     <div class="col-md-8">
                                         <div class="input-group select2-bootstrap-prepend col-md-12">
                                             <div class="checkbox-box hr cod-higt" id="codesDiv">
-                                                <div class="col-md-8" *ngFor="let race of patient.races">
+                                                <div class="" *ngFor="let race of patient.races">
                                                     <address>
                                                         <label class="mt-checkbox mt-checkbox-outline">
                                                             <input type="checkbox"
@@ -491,14 +501,15 @@
                         <div class="col-md-6 mrgn-top14">
                             <h3 class="green-txt hr">Miscellaneous</h3>
                             <div class="form-group">
-                                <label class="control-label col-md-4">Signature On File
+                                <label class="control-label col-md-4 col-xs-6">Signature On File
                                 </label>
-                                <div class="col-md-8">
-                                    <input type="checkbox"
-                                           class="form-control"
-                                           #signatureOnFile="ngModel"
-                                           name="signatureOnFile"
-                                           [(ngModel)]="patient.signatureOnFile">
+                                <div class="col-md-8 col-xs-6">
+                                    <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                        <input type="checkbox"
+                                               class="form-control"
+                                               #signatureOnFile="ngModel"
+                                               name="signatureOnFile"
+                                               [(ngModel)]="patient.signatureOnFile"><span></span></label>
                                 </div>
                             </div>
                         </div>
