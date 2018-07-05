@@ -13,6 +13,7 @@ export class Patient {
     foreignName: string = "";
     profileImgURL: string;
     profileImg: File;
+    profileImgByteArray: any[];
     homePhone: string = "";
     cellPhone: string = "";
     disableSMSTxt: boolean = false;
@@ -61,7 +62,9 @@ export class Patient {
     photoBackURL:string
     photoFrontURL:string
     photoFront: File;
+    photoFrontByteArray:any[];
     photoBack: File;
+    photoBackByteArray:any[];
 
 
     constructor() {

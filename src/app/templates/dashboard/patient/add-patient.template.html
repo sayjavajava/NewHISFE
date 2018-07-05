@@ -126,7 +126,7 @@
                                 <div class="">
                                     <p>Patient Photo</p>
                                     <input type="file" id="profileImg" name="profileImg"
-                                           [(ngModel)]="patient.profileImg">
+                                           (change)="uploadImgOnChange($event,'profileImg')" >
                                 </div>
                             </div>
                         </div>
@@ -619,14 +619,14 @@
                                     <label class="control-label col-md-4">Insurance Photo Front
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="file" [(ngModel)]="patient.photoFront" name="photoFront">
+                                        <input type="file" (change)="uploadImgOnChange($event,'photoFront')" name="photoFront">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Insurance Photo Back
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="file" [(ngModel)]="patient.photoBack" name="photoBack">
+                                        <input type="file" (change)="uploadImgOnChange($event,'photoBack')" name="photoBack">
                                     </div>
                                 </div>
                             </form>
