@@ -27,11 +27,12 @@ export class Appointment{
     email:string;
     color:string;
     startedOn:Date | number | string;
+    roomId:number;
 
 
     constructor(title ?: string, branchId ?: number, start?: string, end?: string, draggable?: boolean,selectedRecurringDays ?:any[], appointmentType?: any[], notes?: string, patient?: string, reason?:
          string, status?: string, duration?: number, followUpDate?: Date, followUpReason?: string ,followUpReminder?:boolean,recurringAppointment?:boolean,recurseEvery?:string
-        ,firstAppointment?:string,lastAppointment?:string,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string
+        ,firstAppointment?:string,lastAppointment?:string,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string,roomId?:number
     ) {
         this.title = title;
         this.branchId = branchId;
@@ -58,6 +59,7 @@ export class Appointment{
         this.cellPhone=cellPhone;
         this.email=email;
         this.color=color;
+        this.roomId=roomId;
 
     }
 }

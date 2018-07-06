@@ -56,6 +56,7 @@
                                                             <select class="form-control" name="statusDrp"
                                                                     [ngModelOptions]="{standalone:true}"
                                                                     [(ngModel)]="modalData?.event.gender">
+                                                                <option [ngValue]="undefined" disabled  selected> Please select  </option>
                                                                 <option value="Male"> Male</option>
                                                                 <option value="Female">Female</option>
                                                             </select>
@@ -96,7 +97,7 @@
                                                                     </select>
                                                                     <div class="">
                                                                         <button
-                                                                                class="btn btn-default btn-outline font-green-dark"
+                                                                                class="btn btn-default btn-outline font-green-dark" data-dismiss="modal"
                                                                                 routerLink="/dashboard/patient/add">
                                                                             <i class=" fa fa-plus"></i>
                                                                         </button>
@@ -144,14 +145,14 @@
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-4">Branch</label>
                                                             <div class="col-md-8">
-                                                                <select class="form-control"
+                                                                <select #selectedBranch class="form-control"
 
-                                                                        (change)="getExamRoom($event.target.value)"
+                                                                        (change)="getExamRoom(selectedBranch.value)"
                                                                         name="branchDrp"
                                                                         [ngModelOptions]="{standalone:true}"
                                                                         [(ngModel)]="modalData?.event.branchId">
 
-                                                                    <option value="0">-- Select --</option>
+
                                                                     <option *ngFor="let item of branches;"
                                                                             [ngValue]="item.id" (keyup)="refresh.next()">
                                                                         {{item.name}}
@@ -336,7 +337,7 @@
                                                                         class="btn btn-sm blue btn-outline filter-submit margin-bottom">
                                                                     Cancel
                                                                 </button>
-                                                                <button type="button" (click)="updateAppointment(event)"
+                                                                <button type="button" (click)="updateAppointment(modalData?.event)"
                                                                         data-dismiss="modal"
                                                                         class="btn btn-sm green btn-outline filter-submit margin-bottom">
                                                                     Save
@@ -662,11 +663,12 @@
                                                                     [(ngModel)]="event.age" placeholder="age"
                                                                     (keyup)="refresh.next()">
                                                         </div>
-                                                        <div class="col-md-2">
+                                                        <div class="col-md-3">
                                                             <select class="form-control" name="statusDrp"
                                                                     [ngModelOptions]="{standalone:true}"
                                                                     [(ngModel)]="event.gender">
-                                                                <option value="Male"> Male</option>
+                                                                <option [ngValue]="undefined" disabled  selected> Please select </option>
+                                                                <option value="Male" selected> Male</option>
                                                                 <option value="Female">Female</option>
                                                             </select>
                                                         </div>
@@ -705,7 +707,7 @@
                                                                         </option>
                                                                     </select>
                                                                     <div class="">
-                                                                        <button class="btn btn-default btn-outline font-green-dark"
+                                                                        <button   class="btn btn-default btn-outline font-green-dark" data-dismiss="modal"
                                                                                 routerLink="/dashboard/patient/add">
                                                                             <i class=" fa fa-plus"></i>
                                                                         </button>
@@ -758,7 +760,6 @@
                                                                         name="branchDrp"
                                                                         [ngModelOptions]="{standalone:true}"
                                                                         [(ngModel)]="event.branch">
-                                                                    <option value="0">-- Select --</option>
                                                                     <option *ngFor="let item of branches; let i = index;"
                                                                             value={{item.id}} (keyup)="refresh.next()">
                                                                         {{item.name}}
@@ -938,9 +939,9 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="mrgn-btm10 pull-right">
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        (click)="eventsRequest.splice(index, 1); refresh.next()"
-                                                                        class="btn btn-sm blue btn-outline filter-submit margin-bottom">
+                                                                <button type="button" class="close"
+                                                                        (click)="eventsRequest.splice(index, 1)"
+                                                                        class="btn btn-sm blue btn-outline filter-submit margin-bottom" data-dismiss="modal">
                                                                     Cancel
                                                                 </button>
                                                                 <button type="button" (click)="saveAppointment(event)"
@@ -977,7 +978,7 @@
                         <button type="button" (click)="saveAppointment(event)" data-dismiss="modal" class="btn  blue">
                             Save
                         </button>
-                        <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)"
+                        <button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index, 1)"
                                 class="btn btn-default btn-outline"> Cancel
                         </button>
                     </div>

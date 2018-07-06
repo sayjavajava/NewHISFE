@@ -81,7 +81,6 @@ export class AddAppointmentComponent implements OnInit {
     Type = [
         {id: 1, name: 'Regular', checked: false},
         {id: 2, name: 'Walk-In', checked: false},
-        {id: 3, name: 'TransitionOfCare', checked: false},
         {id: 4, name: 'NewPatient', checked: false},
 
     ];
@@ -96,15 +95,16 @@ export class AddAppointmentComponent implements OnInit {
 
     ngOnInit() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL + this.page)
+            AppConstants.FETCH_APPOINTMENTS_URL)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'APPT_SUC_01') {
-                        for (let apt of response['responseData'].data) {
+                    if (response['responseCode'] ==='APPT_SUC_01') {
+                        for (let apt of response['responseData']) {
                             this.events.push({
+                                id:apt.id,
                                 title: apt.patient,
                                 start: startOfDay(new Date(apt.startedOn)),
-                                end: endOfDay(new Date(apt.ended)),
+                                end:endOfDay(new Date(apt.ended)),
                                 color: {
                                     primary: apt.color,
                                     secondary: apt.color
@@ -246,6 +246,7 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     handleEvent(action: string, event: CalendarEvent): void {
+     
         this.modalData = {event, action};
        // this.modal.open(this.modalContent, {size: 'lg'});
       //  document.getElementById("exampleModalCenter2").click();
@@ -256,13 +257,13 @@ export class AddAppointmentComponent implements OnInit {
     deleteEvent(action: string, event: CalendarEvent): void {
 
         this.eventsRequest.splice(this.eventsRequest.indexOf(event), 1);
-        this.refresh.next();
+        //this.refresh.next();
     }
 
     addEvent(): void {
-     console.log('size:'+ this.events.length);
+    
         this.eventsRequest.push({
-            title: 'Title',
+            title: 'Name',
             start: startOfDay(new Date()),
             end: endOfDay(new Date()),
             draggable: true,
@@ -318,9 +319,9 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     getExamRoom(event: any) {
-        console.log(event);
-        var filteredData2  = this.branches.filter(x => x.id == 2);
-        console.log(filteredData2);
+        var str = event;
+        var test2 =str.substring(2);
+        var filteredData2  = this.branches.filter(x => x.id == test2);
         this.examRooms = filteredData2[0].examRooms;
 
     }
@@ -349,4 +350,25 @@ export class AddAppointmentComponent implements OnInit {
         } else {
         }
     }
+
+    updateAppointment(event:any) {
+        var self = this;
+        let obj = new Appointment(event.title, event.branchId, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patient,
+            event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
+            event.firstAppointment, event.lastAppointment,event.roomId, event.age, event.cellPhone, event.gender, event.email,this.color,event.roomId);
+        this.requestsService.putRequest(AppConstants.UPDATE_APPOINTMENT + event.id,
+            obj).subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] ==='APPT_SUC_03') {
+                            self.notificationService.success('Updated successfully', 'Appointment');
+                            self.router.navigate(['/dashboard/appointment/manage']);
+                        } else {
+                            self.notificationService.error('Appointment is not created', 'Appointment');
+                        }
+                    },
+                    (error: any) => {
+
+                    });
+    }
+
 }

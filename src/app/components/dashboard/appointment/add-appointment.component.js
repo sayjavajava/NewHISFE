@@ -58,7 +58,6 @@ var AddAppointmentComponent = (function () {
         this.Type = [
             { id: 1, name: 'Regular', checked: false },
             { id: 2, name: 'Walk-In', checked: false },
-            { id: 3, name: 'TransitionOfCare', checked: false },
             { id: 4, name: 'NewPatient', checked: false },
         ];
         this.Patient = [
@@ -99,12 +98,13 @@ var AddAppointmentComponent = (function () {
     }
     AddAppointmentComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL + this.page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'APPT_SUC_01') {
-                for (var _i = 0, _a = response['responseData'].data; _i < _a.length; _i++) {
+                for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
                     var apt = _a[_i];
                     _this.events.push({
+                        id: apt.id,
                         title: apt.patient,
                         start: date_fns_1.startOfDay(new Date(apt.startedOn)),
                         end: date_fns_1.endOfDay(new Date(apt.ended)),
@@ -213,12 +213,11 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.deleteEvent = function (action, event) {
         this.eventsRequest.splice(this.eventsRequest.indexOf(event), 1);
-        this.refresh.next();
+        //this.refresh.next();
     };
     AddAppointmentComponent.prototype.addEvent = function () {
-        console.log('size:' + this.events.length);
         this.eventsRequest.push({
-            title: 'Title',
+            title: 'Name',
             start: date_fns_1.startOfDay(new Date()),
             end: date_fns_1.endOfDay(new Date()),
             draggable: true,
@@ -267,9 +266,9 @@ var AddAppointmentComponent = (function () {
         return type.name === this;
     };
     AddAppointmentComponent.prototype.getExamRoom = function (event) {
-        console.log(event);
-        var filteredData2 = this.branches.filter(function (x) { return x.id == 2; });
-        console.log(filteredData2);
+        var str = event;
+        var test2 = str.substring(2);
+        var filteredData2 = this.branches.filter(function (x) { return x.id == test2; });
         this.examRooms = filteredData2[0].examRooms;
     };
     AddAppointmentComponent.prototype.saveAppointment = function (event) {
@@ -292,6 +291,20 @@ var AddAppointmentComponent = (function () {
         }
         else {
         }
+    };
+    AddAppointmentComponent.prototype.updateAppointment = function (event) {
+        var self = this;
+        var obj = new Appointment_1.Appointment(event.title, event.branchId, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patient, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.roomId, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId);
+        this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_APPOINTMENT + event.id, obj).subscribe(function (response) {
+            if (response['responseCode'] === 'APPT_SUC_03') {
+                self.notificationService.success('Updated successfully', 'Appointment');
+                self.router.navigate(['/dashboard/appointment/manage']);
+            }
+            else {
+                self.notificationService.error('Appointment is not created', 'Appointment');
+            }
+        }, function (error) {
+        });
     };
     __decorate([
         core_2.ViewChild('modalContent'),
