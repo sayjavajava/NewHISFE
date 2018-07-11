@@ -1,32 +1,9 @@
 <div class="page-container">
-    <!--
-    <div class="page-sidebar-wrapper">
-        <div class="page-sidebar navbar-collapse collapse">
-            <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                <li class="sidebar-toggler-wrapper hide">
-                    <div class="sidebar-toggler"> <span></span> </div>
-                </li>
-                <li class="nav-item start active open"> <a href="demographics.html" class="nav-link"> <i class=" icon-users"></i> <span class="title">Demographics</span> </a> </li>
-                <li class="nav-item"> <a href="appointments.html" class="nav-link"> <i class=" icon-calendar"></i> <span class="title">Appointments</span> </a> </li>
-                <li class="nav-item"> <a href="clinical-dashboard.html" class="nav-link"> <i class=" icon-home"></i> <span class="title">Clinical Dashboard</span> </a> </li>
-                <li class="nav-item"> <a href="documents.html" class="nav-link"> <i class="icon-docs"></i> <span class="title">Documents</span> </a> </li>
-                <li class="nav-item"> <a href="problems-list.html" class="nav-link"> <i class="icon-list"></i> <span class="title">Problems list</span> </a> </li>
-                <li class="nav-item"> <a href="medical-list.html" class="nav-link"> <i class="icon-list"></i> <span class="title">Medical List </span> </a> </li>
-                <li class="nav-item"> <a href="allergy-list.html" class="nav-link"> <i class="icon-list"></i> <span class="title">AllergyList</span> </a> </li>
-                <li class="nav-item"> <a href="lab-orders.html" class="nav-link"> <i class=" icon-check"></i> <span class="title">Lab Orders</span> </a> </li>
-                <li class="nav-item"> <a href="onpatient-access.html" class="nav-link"> <i class="icon-user"></i> <span class="title">Onpatient Access</span> </a> </li>
-                <li class="nav-item"> <a href="communication.html" class="nav-link"> <i class=" icon-call-in"></i> <span class="title">Communication</span> </a> </li>
-                <li class="nav-item"> <a href="family-history.html" class="nav-link"> <i class=" icon-doc"></i> <span class="title">Family History</span> </a> </li>
-            </ul>
-
-        </div>
-    </div>
-    -->
     <div class="page-content-wrapper">
         <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
-                    <div class="hr"><h3 class="text-info">Doctor Dashboard</h3></div>
+                    <div class="hr"><h3 class="text-info">{{title}}</h3></div>
                     <div class="hr padding round-table off-wite-bg">
                         <div class="col-md-9 no-padding">
                             <h4 class="font-green-meadow">Show Appointments with Statuses:</h4>
@@ -142,6 +119,9 @@
                                     </a>
                                     <a title="Patient History" routerLink="/dashboard/patient/history">
                                         <i class="fa fa-hospital-o" style="font-size:18px"></i>
+                                    </a>
+                                    <a title="Patient History" routerLink="/dashboard/patient/history">
+                                        <i class="fa fa-plus" style="font-size:18px"></i>
                                     </a>
                                 </td>
                             </tr>

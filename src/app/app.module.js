@@ -46,6 +46,8 @@ var department_component_1 = require("./components/dashboard/setting/department.
 var cashier_component_1 = require("./components/dashboard/setting/cashier.component");
 var medical_service_component_1 = require("./components/dashboard/setting/medical-service.component");
 var nurse_component_1 = require("./components/dashboard/setting/nurse.component");
+var nurse_dashboard_component_1 = require("./components/dashboard/nurse/nurse-dashboard.component");
+var receptionist_dashboard_component_1 = require("./components/dashboard/receptionist/receptionist-dashboard.component");
 var receptionist_component_1 = require("./components/dashboard/setting/receptionist.component");
 var branch_component_1 = require("./components/dashboard/setting/branch.component");
 var updatecashier_component_1 = require("./components/dashboard/setting/updatecashier.component");
@@ -79,6 +81,8 @@ var patient_dashboard_component_1 = require("./components/dashboard/patient/pati
 var add_patient_component_1 = require("./components/dashboard/patient/add-patient.component");
 var patient_reports_component_1 = require("./components/dashboard/patient/patient-reports.component");
 var patient_component_1 = require("./components/dashboard/patient/patient.component");
+var patient_invoice_component_1 = require("./components/dashboard/patient/patient-invoice.component");
+var patient_history_component_1 = require("./components/dashboard/patient/patient-history.component");
 var edit_patient_component_1 = require("./components/dashboard/patient/edit-patient.component");
 var appointment_component_1 = require("./components/dashboard/appointment/appointment.component");
 var appointment_dashboard_component_1 = require("./components/dashboard/appointment/appointment-dashboard.component");
@@ -139,6 +143,8 @@ var AppModule = (function () {
                 department_component_1.DepartmentComponent,
                 dashboard_component_1.DashboardComponent,
                 doctor_dashboard_component_1.DoctorDashboardComponent,
+                nurse_dashboard_component_1.NurseDashboardComponent,
+                receptionist_dashboard_component_1.ReceptionistDashboardComponent,
                 // Dashboard Components
                 header_component_1.HeaderComponent,
                 navigation_component_1.NavigationComponent,
@@ -151,6 +157,8 @@ var AppModule = (function () {
                 patient_reports_component_1.PatientReportsComponent,
                 patient_component_1.PatientComponent,
                 edit_patient_component_1.EditPatientComponent,
+                patient_invoice_component_1.PatientInvoiceComponent,
+                patient_history_component_1.PatientHistoryComponent,
                 appointment_component_1.AppointmentComponent,
                 appointment_dashboard_component_1.AppointmentDashboardComponent,
                 manage_appointment_component_1.ManageAppointmentComponent,

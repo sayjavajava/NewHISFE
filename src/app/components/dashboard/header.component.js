@@ -68,6 +68,10 @@ var HeaderComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
+    HeaderComponent.prototype.goToUserDashBoard = function () {
+        //this.router.navigate(['/dashboard/'+window.localStorage.getItem(atob('user_type'))+'/']);
+        this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+    };
     HeaderComponent = __decorate([
         core_1.Component({
             selector: 'header-component',
