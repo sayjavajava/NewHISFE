@@ -22,7 +22,7 @@ var RequestsService = (function () {
     }
     ;
     RequestsService.prototype.getToken = function () {
-        return window.localStorage.getItem(btoa('access_token'));
+        return localStorage.getItem(btoa('access_token'));
     };
     RequestsService.prototype.getBEAPIServer = function () {
         var protocol = app_config_1.AppConfig.BE_HTTP_PROTOCOL; // http
@@ -87,11 +87,22 @@ var RequestsService = (function () {
         formData.append('file', data, data.name);
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };
-    RequestsService.prototype.postRequestMultipartFormAndData = function (url, data) {
+    RequestsService.prototype.postRequestMultipartFormAndData = function (url, data, profileImg, photoFront, photoBack) {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'multipart/form-data');
         var formData = new FormData();
-        formData.append('file', data, data.name);
-        formData.append('frontBack', data, data.name);
+        formData.append('patientRequest', new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+        if (profileImg != null) {
+            formData.append('profileImg', profileImg, profileImg.name);
+        }
+        if (photoFront != null) {
+            formData.append('photoFront', photoFront, photoFront.name);
+        }
+        if (photoBack != null) {
+            formData.append('photoBack', photoBack, photoBack.name);
+        }
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };
     RequestsService = __decorate([

@@ -16,7 +16,7 @@ export class RequestsService {
     };
 
     getToken() {
-        return window.localStorage.getItem(btoa('access_token'));
+        return localStorage.getItem(btoa('access_token'));
     }
 
     getBEAPIServer() {
@@ -92,11 +92,24 @@ export class RequestsService {
         formData.append('file', data, data.name);
         return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
     }
-    postRequestMultipartFormAndData(url: any, data: any) {
+
+    postRequestMultipartFormAndData(url: any, data: any, profileImg: File, photoFront: File, photoBack: File) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'multipart/form-data');
         let formData: FormData = new FormData();
-        formData.append('file', data, data.name);
-        formData.append('frontBack', data, data.name);
+        formData.append('patientRequest', new Blob([JSON.stringify(data)],
+            {
+                type: "application/json"
+            }));
+        if (profileImg != null) {
+            formData.append('profileImg', profileImg, profileImg.name);
+        }
+        if (photoFront != null) {
+            formData.append('photoFront', photoFront, photoFront.name);
+        }
+        if (photoBack != null) {
+            formData.append('photoBack', photoBack, photoBack.name);
+        }
         return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
     }
 

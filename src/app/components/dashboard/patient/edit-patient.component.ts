@@ -133,7 +133,7 @@ export class EditPatientComponent implements OnInit {
         if (this.file.size <= 1048000) {
             this.requestsService.postRequestMultipartFormData(
                 AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.userId
-                , this.file)
+                , this.file,)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_02') {

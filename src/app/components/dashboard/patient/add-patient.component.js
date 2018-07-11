@@ -46,7 +46,7 @@ var AddPatientComponent = (function () {
     };
     AddPatientComponent.prototype.uploadImgOnChange = function (event) {
         var fileList = event.target.files;
-        if (fileList.length > 0) {
+        if (fileList != null && fileList.length > 0) {
             if (event.target.name === "profileImg") {
                 this.profileImg = fileList[0];
             }
@@ -91,13 +91,12 @@ var AddPatientComponent = (function () {
         }
         else {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.postRequest(app_constants_1.AppConstants.PATIENT_SAVE_URL, this.patient).subscribe(function (response) {
+                this.requestsService.postRequestMultipartFormAndData(app_constants_1.AppConstants.PATIENT_SAVE_URL, this.patient, this.profileImg, this.photoFront, this.photoBack).subscribe(function (response) {
                     if (response['responseCode'] === 'PATIENT_SUC_04') {
                         _this.patient = new patient_1.Patient();
-                        _this.patient.userId = response['responseData'];
-                        _this.uploadProfileImg();
-                        _this.uploadFrontImg();
-                        _this.uploadBackImg();
+                        _this.profileImg = null;
+                        _this.photoFront = null;
+                        _this.photoBack = null;
                         _this.notificationService.success(response['responseMessage'], 'Patient');
                         _this.router.navigate(['/dashboard/patient/manage']);
                     }
@@ -112,66 +111,6 @@ var AddPatientComponent = (function () {
             else {
                 this.router.navigate(['/login']);
             }
-        }
-    };
-    AddPatientComponent.prototype.uploadProfileImg = function () {
-        var _this = this;
-        if (this.profileImg.size <= 1048000) {
-            this.requestsService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.userId, this.profileImg)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'USR_SUC_02') {
-                    //this.notificationService.success(response['responseMessage'], 'Update Patient');
-                    _this.profileImg = null;
-                }
-            }, function (error) {
-                //this.notificationService.error('Profile Image uploading failed', 'Update Patient');
-                _this.HISUTilService.tokenExpired(error.error.error);
-            });
-        }
-        else {
-            //this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
-        }
-    };
-    AddPatientComponent.prototype.uploadFrontImg = function () {
-        var _this = this;
-        if (this.photoFront.size <= 1048000) {
-            this.requestsService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.userId, this.photoFront)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'USR_SUC_03') {
-                    // /this.notificationService.success(response['responseMessage'], 'Update Patient');
-                    _this.photoFront = null;
-                }
-                else {
-                    //this.notificationService.error(response['responseMessage'], 'Update Patient');
-                }
-            }, function (error) {
-                // this.notificationService.error('Profile Image uploading failed', 'Update Patient');
-                _this.HISUTilService.tokenExpired(error.error.error);
-            });
-        }
-        else {
-            //this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
-        }
-    };
-    AddPatientComponent.prototype.uploadBackImg = function () {
-        var _this = this;
-        if (this.photoBack.size <= 1048000) {
-            this.requestsService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.userId, this.photoBack)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'USR_SUC_03') {
-                    //this.notificationService.success(response['responseMessage'], 'Update Patient');
-                    _this.photoBack = null;
-                }
-                else {
-                    // this.notificationService.error(response['responseMessage'], 'Update Patient');
-                }
-            }, function (error) {
-                //this.notificationService.error('Profile Image uploading failed', 'Update Patient');
-                _this.HISUTilService.tokenExpired(error.error.error);
-            });
-        }
-        else {
-            //this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
         }
     };
     AddPatientComponent = __decorate([
