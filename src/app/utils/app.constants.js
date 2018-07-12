@@ -94,6 +94,7 @@ var AppConstants = (function () {
     AppConstants.FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
     AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
     AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
+    AppConstants.FETCH_APPOINTMENTS_URL = '/appointment/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

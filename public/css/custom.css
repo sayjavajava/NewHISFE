@@ -433,6 +433,10 @@ p, h3, h4{margin:0; padding:0;}
     position: relative;
     margin-left: 15px;
 }
+.secnd-modl{
+    width: 900px !important;
+    margin: 200px auto !important;
+}
 .portlet{margin-bottom: 0px !important;}
 .form-control{height: 25px !important; padding: 2px 12px !important;}
 .form-group {margin-bottom: 0px;}

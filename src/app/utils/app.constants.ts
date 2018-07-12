@@ -100,6 +100,7 @@ export class AppConstants {
     public static FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
     public static UPDATE_APPOINTMENT = '/appointment/update/';
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
+    public static FETCH_APPOINTMENTS_URL = '/appointment/';
 
 
 }
