@@ -10,5 +10,5 @@ export class UserSharedService {
     email: string;
     userName: string;
     roles: string;
-
+    userType: string;
 }

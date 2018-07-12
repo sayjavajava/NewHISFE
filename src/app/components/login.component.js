@@ -57,8 +57,12 @@ var LoginComponent = (function () {
                             _this.sharedService.profileImg = response['responseData'].profileImg;
                             _this.sharedService.roles = response['responseData'].commaSeparatedRoles;
                             _this.permissionService.loadPermissions(response['responseData'].permissions);
-                            // super admin Dashboard
-                            _this.router.navigate(['/dashboard']);
+                            _this.sharedService.userType = btoa(response['responseData'].userType.toLowerCase());
+                            // logged in user's type based Dashboard
+                            window.localStorage.setItem(btoa('user_type'), _this.sharedService.userType);
+                            //console.log( this.sharedService.userType );
+                            //console.log( atob(localStorage.getItem(btoa('user_type'))) );
+                            _this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
                         }
                         else {
                             _this.router.navigate(['/login']);
@@ -66,6 +70,7 @@ var LoginComponent = (function () {
                             window.localStorage.removeItem(atob('refresh_token'));
                             window.localStorage.removeItem(atob('expire_in'));
                             window.localStorage.removeItem(atob('permissions'));
+                            //window.localStorage.removeItem(atob('user_type'));
                             _this.error = response['responseMessage'];
                         }
                     }, function (error) {

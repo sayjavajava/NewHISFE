@@ -1,7 +1,7 @@
 <div class="page-header navbar navbar-fixed-top">
     <div class="page-header-inner ">
         <div class="page-logo col-md-3">
-            <a routerLink="/dashboard">
+            <a (click)="goToUserDashBoard();"><!--(click)="goToUserDashBoard()" )> -->
                 <img src="/public/images/logo.png" alt="logo" class="logo-default">
             </a>
             <!--<div class="menu-toggler sidebar-toggler side-bar-toggle-menu" title="Sidebar Menu"><span></span></div>-->
@@ -47,15 +47,15 @@
                         <a href="javascript:;"> Scheduler
                         </a>
                         <ul class="dropdown-menu pull-left dropdown-nav">
-                            <li aria-haspopup="true" class="">
+                            <!--<li aria-haspopup="true" class="">
                                 <a routerLink="/dashboard/appointment/dashboard" class="nav-link">Dashboard</a>
-                            </li>
+                            </li>-->
                             <li aria-haspopup="true" class=" ">
                                 <a routerLink="/dashboard/appointment/add" class="nav-link">Create New Appointment</a>
                             </li>
-                            <li aria-haspopup="true" class=" ">
+                            <!--<li aria-haspopup="true" class=" ">
                                 <a routerLink="/dashboard/appointment/manage" class="nav-link">Appointments</a>
-                            </li>
+                            </li>-->
                             <li aria-haspopup="true" class=" ">
                                 <a routerLink="/dashboard/appointment/reports" class="nav-link">Reports</a>
                             </li>
@@ -65,9 +65,9 @@
                         <a routerLink="/dashboard/patient/manage"> Patients
                         </a>
                         <ul class="dropdown-menu pull-left dropdown-nav">
-                            <li aria-haspopup="true" class="">
+                            <!--<li aria-haspopup="true" class="">
                                 <a routerLink="/dashboard/patient/dashboard" class="nav-link">Dashboard</a>
-                            </li>
+                            </li>-->
                             <li aria-haspopup="true" class=" ">
                                 <a routerLink="/dashboard/patient/add" class="nav-link">Create New Patient</a>
                             </li>

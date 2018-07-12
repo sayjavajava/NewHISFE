@@ -8,12 +8,16 @@ import {PatientRoutes} from "./patient.routes";
 import {PatientComponent} from "../components/dashboard/patient/patient.component";
 import {AppointmentComponent} from "../components/dashboard/appointment/appointment.component";
 import {AppointmentRoutes} from "./appointments.routes";
-
+import {NurseDashboardComponent} from "../components/dashboard/nurse/nurse-dashboard.component";
+import {ReceptionistDashboardComponent} from "../components/dashboard/receptionist/receptionist-dashboard.component";
 
 export const DashboardRoutes: Routes = [
     // Dashboard Pages
     {path: '', component: ContentComponent},
+    {path: 'admin', component: ContentComponent},
     {path: 'doctor', component: DoctorDashboardComponent},
+    {path: 'nurse', component: NurseDashboardComponent},
+    {path: 'receptionist', component: ReceptionistDashboardComponent},
     {path: 'setting', component: SettingComponent, children: SettingRoutes},
     {path: 'patient', component: PatientComponent, children: PatientRoutes},
     {path: 'appointment', component: AppointmentComponent, children: AppointmentRoutes},

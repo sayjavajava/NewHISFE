@@ -79,4 +79,8 @@ export class HeaderComponent implements OnInit {
             );
     }
 
+    goToUserDashBoard(){
+        //this.router.navigate(['/dashboard/'+window.localStorage.getItem(atob('user_type'))+'/']);
+        this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
+    }
 }

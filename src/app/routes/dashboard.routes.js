@@ -9,10 +9,15 @@ var patient_routes_1 = require("./patient.routes");
 var patient_component_1 = require("../components/dashboard/patient/patient.component");
 var appointment_component_1 = require("../components/dashboard/appointment/appointment.component");
 var appointments_routes_1 = require("./appointments.routes");
+var nurse_dashboard_component_1 = require("../components/dashboard/nurse/nurse-dashboard.component");
+var receptionist_dashboard_component_1 = require("../components/dashboard/receptionist/receptionist-dashboard.component");
 exports.DashboardRoutes = [
     // Dashboard Pages
     { path: '', component: content_component_1.ContentComponent },
+    { path: 'admin', component: content_component_1.ContentComponent },
     { path: 'doctor', component: doctor_dashboard_component_1.DoctorDashboardComponent },
+    { path: 'nurse', component: nurse_dashboard_component_1.NurseDashboardComponent },
+    { path: 'receptionist', component: receptionist_dashboard_component_1.ReceptionistDashboardComponent },
     { path: 'setting', component: setting_component_1.SettingComponent, children: setting_routes_1.SettingRoutes },
     { path: 'patient', component: patient_component_1.PatientComponent, children: patient_routes_1.PatientRoutes },
     { path: 'appointment', component: appointment_component_1.AppointmentComponent, children: appointments_routes_1.AppointmentRoutes },

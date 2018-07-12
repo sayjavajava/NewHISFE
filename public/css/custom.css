@@ -14,6 +14,7 @@ p, h3, h4{margin:0; padding:0;}
 .side-bar-toggle-menu{margin: 70px 34px 0 0 !important;}
 .col-width14{width: 14% !important;}
 .col-width25{width: 25% !important;}
+.img-width{width: 60%;}
 .flt-lft{float: left;}
 .hr{ width:100%; float:left; margin-bottom:10px;}
 .page-header.navbar .hor-menu .navbar-nav>li>a{ padding: 20px;}
@@ -39,6 +40,7 @@ p, h3, h4{margin:0; padding:0;}
 .mrgn-lft0{margin-left: 0px !important;}
 .mrgn-top14{margin-top: 14px;}
 .mrgn-top24{margin-top: 24px;}
+.mrgn-top30{margin-top: 30px;}
 .font-smaller{ font-size:70%;}
 .label-lineheight{line-height: 16px !important;}
 .patient-icon i{font-size: 60px; margin-top: 20px; color: #dddddd;}
@@ -431,3 +433,12 @@ p, h3, h4{margin:0; padding:0;}
     position: relative;
     margin-left: 15px;
 }
+.portlet{margin-bottom: 0px !important;}
+.form-control{height: 25px !important; padding: 2px 12px !important;}
+.form-group {margin-bottom: 0px;}
+.form-control, output{font-size:12px;}
+.row {margin-top: 15px !important;}
+.mt-checkbox, .mt-radio{font-size: 12px !important;}
+.label-checkbox{font-size: 12px !important;}
+.time-form-control{border: 1px solid #c2cad8;}
+.branch-save-button{padding-right: 30px;}

@@ -39,6 +39,10 @@ import {DepartmentComponent} from "./components/dashboard/setting/department.com
 import {CashierComponent} from "./components/dashboard/setting/cashier.component";
 import {MedicalServiceComponent} from "./components/dashboard/setting/medical-service.component";
 import {NurseComponent} from "./components/dashboard/setting/nurse.component";
+
+import {NurseDashboardComponent} from "./components/dashboard/nurse/nurse-dashboard.component";
+import {ReceptionistDashboardComponent} from "./components/dashboard/receptionist/receptionist-dashboard.component";
+
 import {ReceptionistComponent} from "./components/dashboard/setting/receptionist.component";
 import {BranchComponent} from "./components/dashboard/setting/branch.component";
 import {UpdateCashierComponent} from "./components/dashboard/setting/updatecashier.component";
@@ -82,8 +86,9 @@ import {PatientDashboardComponent} from "./components/dashboard/patient/patient-
 import {AddPatientComponent} from "./components/dashboard/patient/add-patient.component";
 import {PatientReportsComponent} from "./components/dashboard/patient/patient-reports.component";
 import {PatientComponent} from "./components/dashboard/patient/patient.component";
+import {PatientInvoiceComponent} from "./components/dashboard/patient/patient-invoice.component";
+import {PatientHistoryComponent} from "./components/dashboard/patient/patient-history.component";
 import {EditPatientComponent} from "./components/dashboard/patient/edit-patient.component";
-
 import {AppointmentComponent} from "./components/dashboard/appointment/appointment.component";
 import {AppointmentDashboardComponent} from "./components/dashboard/appointment/appointment-dashboard.component";
 import {ManageAppointmentComponent} from "./components/dashboard/appointment/manage-appointment.component";
@@ -139,7 +144,8 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         DepartmentComponent,
         DashboardComponent,
         DoctorDashboardComponent,
-
+        NurseDashboardComponent,
+        ReceptionistDashboardComponent,
         // Dashboard Components
         HeaderComponent,
         NavigationComponent,
@@ -152,13 +158,14 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         PatientReportsComponent,
         PatientComponent,
         EditPatientComponent,
+        PatientInvoiceComponent,
+        PatientHistoryComponent,
         AppointmentComponent,
         AppointmentDashboardComponent,
         ManageAppointmentComponent,
         AddAppointmentComponent,
         AppointmentReportsComponent,
         AppointmentNavigationComponent,
-
         //Setting Components
         SettingComponent,
         SettingNavigationComponent,
