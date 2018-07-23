@@ -90,6 +90,7 @@ export class LoginComponent {
                             window.localStorage.removeItem(atob('refresh_token'));
                             window.localStorage.removeItem(atob('expire_in'));
                             window.localStorage.removeItem(atob('permissions'));
+                            window.localStorage.removeItem(atob('user_type'));
 
                         }
                     }, (error: any) => {

@@ -119,24 +119,28 @@
                                     <label class="control-label col-md-4">Visit Branches
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
-                                        <div class="checkbox-box" id="not-due">
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of branchesList">
-                                                    <input type="checkbox" formControlName="restrictBranch"
-                                                           name={{item}}
-                                                           value="{{item}}"
-                                                           (change)="selectVisitBranches($event,item)">
-                                                    {{item.name}}
-
+                                    <!--<div class="">-->
+                                        <div class="col-md-8" id="not-due">
+                                            <div class="input-group select2-bootstrap-prepend col-md-12">
+                                                <div class="checkbox-box hr cod-higt">
+                                                    <div *ngFor="let item of branchesList">
+                                                        <address>
+                                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" formControlName="restrictBranch" class="mt-checkbox mt-checkbox-outline"
+                                                                       name={{item}}
+                                                                       value="{{item}}"
+                                                                       (change)="selectVisitBranches($event,item)">
+                                                                {{item.name}}
+                                                                <span></span>
+                                                            </label>
+                                                        </address>
+                                                    </div>
                                                 </div>
-                                            </label>
-                                            </address>
+                                            </div>
                                         </div>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
-
-                                    </div>
+                                    <!--</div>-->
                                 </div>
                                 <div *ngIf="department" class="form-group">
                                     <label class="control-label col-md-4">Department
@@ -330,7 +334,9 @@
                                     <label class="control-label col-md-4">Allow Discount
                                     </label>
                                     <div class="col-md-8">
-                                        <input formControlName="allowDiscount" type="checkbox" class="form-control">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <input type="checkbox" formControlName="allowDiscount" class="form-control"><span></span>
+                                        </label>
                                     </div>
                                 </div>
 
@@ -385,13 +391,27 @@
 
                                         <div class="mrgn-top8">
 
-                                            <span class="col-md-2 width12"><button type="button"
+                                            <!--<span class="col-md-2 width12"><button type="button"
                                                                                    (click)="secondShiftFrom()">From</button></span>
                                             <input class="col-md-4" type="time" value="{{secondShiftFromTime}}">
                                             &emsp;
                                             <span class="col-md-2 width12"> <button type="button"
                                                                                     (click)="secondShiftTo()">To</button></span>
                                             <input class="col-md-4" type="time" value="{{secondShiftToTime}}">
+
+-->
+                                            <div class="col-md-2">
+                                                <button type="button" (click)="secondShiftFrom()">From</button>
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px">
+                                                <input type="time" style="width: 100px" value="{{secondShiftFromTime}}">
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px;margin-left: 30px;">
+                                                <button type="button" (click)="secondShiftTo()">To</button>
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px;margin-left: -37px;">
+                                                <input type="time" style="width: 100px" value="{{secondShiftToTime}}">
+                                            </div>
                                         </div>
 
                                         <div>
@@ -417,13 +437,26 @@
                                                    class=""><span></span></label>
                                         </div>
                                         <div class="mrgn-top8">
-                                            <span class="col-md-2 width12"><button type="button"
+                                           <!-- <span class="col-md-2 width12"><button type="button"
                                                                                    (click)="firstShiftFrom()">From</button></span>
                                             <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
                                             &emsp;
                                             <span class="col-md-2 width12"><button type="button"
                                                                                    (click)="firstShiftTo()">To</button></span>
                                             <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
+-->
+                                            <div class="col-md-2">
+                                                <button type="button" (click)="firstShiftFrom()">From</button>
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px">
+                                                <input type="time" style="width: 100px" value="{{firstShiftFromTime}}">
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px;margin-left: 30px;">
+                                                <button type="button" (click)="firstShiftTo()">To</button>
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px;margin-left: -37px;">
+                                                <input type="time" style="width: 100px" value="{{firstShiftToTime}}">
+                                            </div>
                                         </div>
                                     </div>
                                     <span class="text-danger"
@@ -442,7 +475,7 @@
                                             From
                                         </div>-->
                                         <div class=" col-md-6 col-xs-5 pull-left">
-                                            <mat-form-field class="mrgn-lft8">
+                                            <mat-form-field class="mrgn-lft8" style="width: 132px;">
                                                 <input matInput [matDatepicker]="from" placeholder="From"
                                                        formControlName="dateFrom">
                                                 <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
@@ -451,7 +484,7 @@
                                         </div>&emsp;
 
                                         <div class=" col-md-4 col-xs-4 pull-left">
-                                            <mat-form-field style="margin-left: -18px;">
+                                            <mat-form-field style="margin-left: -18px;"  style="width: 132px;">
                                                 <input matInput [matDatepicker]="to" placeholder="To"
                                                        formControlName="dateTo">
                                                 <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
@@ -464,16 +497,13 @@
                                     <label class="control-label col-md-4 col-xs-12"> Working Days:
                                     </label>
                                     <div class="col-md-8 col-xs-12 text-center">
-
                                         <div *ngFor="let item of workingDays" class="">
-
                                             <div class=" col-md-1 col-width25 col-xs-3">
                                                 <input type="checkbox" class="form-control spinner"
                                                        value="{{item.id}}"
                                                        (change)="selectWorkingDays($event,item)">
                                                 {{item.name}}
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

@@ -321,7 +321,7 @@ export class AddAppointmentComponent implements OnInit {
     getExamRoom(event: any) {
         var str = event;
         var test2 =str.substring(2);
-        var filteredData2  = this.branches.filter(x => x.id == test2);
+        var filteredData2  = this.branches.filter(x => x.id == event);
         this.examRooms = filteredData2[0].examRooms;
 
     }

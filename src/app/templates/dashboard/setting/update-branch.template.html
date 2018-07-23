@@ -24,10 +24,10 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Branch Name
+                                                <label class="control-label col-md-4">Branch Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <input type="text" formControlName="branchName"
                                                            class="form-control">
                                                     <span class="text-danger"
@@ -39,9 +39,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Primary Doctor
+                                                <label class="control-label col-md-4">Primary Doctor
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <select class="form-control"
                                                             (change)="getDoctor($event.target.value)"
                                                             formControlName="primaryDoctor"
@@ -54,9 +54,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Country
+                                                <label class="control-label col-md-4">Country
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <select class="form-control" formControlName="country"
                                                             (change)="getCountry($event.target.value)">
                                                         <option value="">Select...</option>
@@ -68,9 +68,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">State
+                                                <label class="control-label col-md-4">State
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <select class="form-control" formControlName="state"
                                                             (change)="getState($event.target.value)">
                                                         <option value="">Select...</option>
@@ -83,17 +83,17 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">City
+                                                <label class="control-label col-md-4">City
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <input type="text" formControlName="city" data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Zip Code
+                                                <label class="control-label col-md-4">Zip Code
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <select class="form-control"
                                                             (change)="getZipCode($event.target.value)"
                                                             formControlName="zipCode">
@@ -108,87 +108,43 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Address
+                                                <label class="control-label col-md-4">Address
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <textarea formControlName="address" class="form-control"
-                                                              rows="3"></textarea></div>
+                                                              rows="5"></textarea></div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Office Phone
+                                                <label class="control-label col-md-4">Office Phone
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <input name="home phone" formControlName="officePhone" type="text"
                                                            value="(876) 785-6757"
                                                            class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Fax
+                                                <label class="control-label col-md-4">Fax
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <input type="text" formControlName="fax" data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Formatted Address
+                                                <label class="control-label col-md-4">Formatted Address
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <input type="text" formControlName="formattedAddress"
                                                            data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-
+                                        <div class="col-md-5">
                                             <div class="form-group">
-                                                <label class="control-label col-md-3"> Office Start Time
+                                                <label class="control-label col-md-4">No of Exam Rooms
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-
-                                                <div class="mrgn-top8 col-md-5">
-
-                                                    <button type="button" (click)="getOfficeHoursStart()">Start</button>
-
-                                                    <input class="col-md-4" type="time"
-                                                           formControlName="officeHoursStart"
-                                                           value="{{officeHoursStart}}">
-
-
-                                                    <span class="text-danger"
-                                                          *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
-                                                    <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
-
-                                        </span></div>
-
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3"> Office End Time
-                                                    <span class="required" aria-required="true"> * </span>
-                                                </label>
-
-                                                <div class="mrgn-top8 col-md-5">
-
-                                                    <button type="button" (click)="getOfficeHoursEnd()">End</button>
-
-                                                    <input class="col-md-4" type="time" formControlName="officeHoursEnd"
-                                                           value="{{officeHoursEnd}}">
-
-                                                </div>
-                                                <span class="text-danger"
-                                                      *ngIf="!branchForm.controls['officeHoursEnd'].valid && branchForm.controls['officeHoursEnd'].touched">
-                                                    <span *ngIf="branchForm.controls['officeHoursEnd'].errors.required">End time  is required </span>
-
-                                        </span>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Number of Exam Rooms
-                                                    <span class="required" aria-required="true"> * </span>
-                                                </label>
-                                                <div class="col-md-5">
+                                                <div class="col-md-8">
                                                     <select class="form-control"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="">Select...</option>
@@ -199,34 +155,61 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4"> Office Start Time
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
 
+                                                <div class="col-md-8">
+                                                    <button type="button" (click)="getOfficeHoursStart()">Start</button>
+                                                    <input class="col-md-6" type="time"
+                                                           formControlName="officeHoursStart"
+                                                           value="{{officeHoursStart}}">
+                                                    <span class="text-danger"
+                                                          *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
+                                                    <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
 
-                                        <div formArrayName="examRooms"
-                                             *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
-                                            <div class="col-md-6" [formGroupName]="i">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Exam Name
-                                                    </label>
-                                                    <div class="col-md-5">
-                                                        <input type="text" class="form-control"
-                                                               formControlName="examName"></div>
-                                                    <div class="col-md-4">
-                                                        <label class="mt-checkbox mt-checkbox-outline">
-                                                            <input type="checkbox"
-                                                                   formControlName="allowOnlineScheduling"> Allow Online
-                                                            Schediling
-                                                            <span></span>
-                                                        </label>
-                                                        <button class="btn-link" type="button" (click)="deleteField(i)">
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                        </span></div>
+
                                             </div>
 
-                                            <!-- Chosen name: {{
-                                             branchForm.controls.examRooms.controls[i].controls.examName.value }}-->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4"> Office End Time
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+
+                                                <div class="col-md-8">
+
+                                                    <button type="button" (click)="getOfficeHoursEnd()">End</button>
+
+                                                    <input class="col-md-6" type="time" formControlName="officeHoursEnd"
+                                                           value="{{officeHoursEnd}}">
+
+                                                </div>
+                                                <span class="text-danger"
+                                                      *ngIf="!branchForm.controls['officeHoursEnd'].valid && branchForm.controls['officeHoursEnd'].touched">
+                                                    <span *ngIf="branchForm.controls['officeHoursEnd'].errors.required">End time  is required </span>
+
+                                        </span>
+                                            </div>
+                                            <div formArrayName="examRooms"
+                                                 *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
+                                                <div class="form-group" [formGroupName]="i">
+                                                    <label class="control-label col-md-4">Exam Rooms</label>
+                                                    <div class="col-md-3 no-padding-rgt">
+                                                        <input type="text" class="form-control"  style="width:89px !important;" formControlName="examName"></div>
+                                                    <div class="col-md-5 pdng-lr-5">
+                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                            <input type="checkbox"
+                                                                   formControlName="allowOnlineScheduling"> Allow Online Schediling <i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Chosen name: {{
+                                                 branchForm.controls.examRooms.controls[i].controls.examName.value }}-->
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="hr">
