@@ -226,19 +226,8 @@ export class CodeVersionComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                             this.iCDCVM.selectedICDCodes = [];
-                            this.iCDCVM.selectedICDCodes = response['responseData'];
-                            this.iCDCVM.description = response['responseData'][0].descriptionCodeVersion;
-                            for (let obj of this.iCDCodes) {
-                                obj.checkedCode = false;
-                            }
-                            for (let selectedICDCode  of this.iCDCVM.selectedICDCodes) {
-                                for (let obj of this.iCDCodes) {
-                                    if (obj.id === selectedICDCode.id) {
-                                        obj.checkedCode = true;
-                                    }
-                                }
-                            }
-
+                            this.iCDCodes  = response['responseData'].code;
+                            this.iCDCVM.description = response['responseData'].des;
                         } else {
                             for (let obj of this.iCDCodes) obj.checkedCode = false;
                         }
