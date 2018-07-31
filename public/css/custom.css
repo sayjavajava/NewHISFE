@@ -476,3 +476,7 @@ textarea {
     width: 160px !important;
     height: 45px !important;
 }
+
+.dashboard-menu{
+    margin-top: 60px;
+}

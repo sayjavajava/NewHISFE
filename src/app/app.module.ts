@@ -9,6 +9,7 @@ import {AppComponent} from "./components/app.component";
 import {MainComponent} from "./components/dashboard/main.component";
 import {LoginComponent} from "./components/login.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {MenuComponent} from "./components/dashboard/menu.component";
 // Dashboard Components
 import {HeaderComponent} from "./components/dashboard/header.component";
 import {NavigationComponent} from "./components/dashboard/navigation.component";
@@ -203,8 +204,8 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         ErrordisplayComponent,
         ConfirmationdialogComponent,
         UpdateOrganizationComponent,
-        EditAppointmentComponent
-
+        EditAppointmentComponent,
+        MenuComponent
     ],
     bootstrap: [AppComponent]
 })
