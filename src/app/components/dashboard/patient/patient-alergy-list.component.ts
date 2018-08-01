@@ -3,10 +3,10 @@ import {Router} from "@angular/router";
 
 
 @Component({
-    selector: 'patient-history',
-    templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
+    selector: 'patient-alergy-list',
+    templateUrl: '../../../templates/dashboard/patient/patient-alergy-list.template.html',
 })
-export class PatientHistoryComponent implements OnInit {
+export class PatientAlergyListComponent implements OnInit {
     constructor(private router: Router) {
     }
     ngOnInit(): void {

@@ -1,11 +1,12 @@
-<div class="page-container">
+<!--<div class="page-container">-->
     <!--<div class="page-sidebar-wrapper">
-        <div class="page-sidebar navbar-collapse collapse">
+        <div class="page-sidebar navbar-collapse collapse side-menu-mrgn">
+            <div class="menu-toggler sidebar-toggler menu-stng"><span></span></div>
             <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                 <li class="sidebar-toggler-wrapper hide">
                     <div class="sidebar-toggler"> <span></span> </div>
                 </li>
-                <li class="nav-item"> <a href="demographics.html" class="nav-link"> <i class=" icon-users"></i> <span class="title">Demographics</span> </a> </li>
+                <li class="nav-item"> <a href="#" routerLink="/dashboard/patient/demographic" class="nav-link"> <i class=" icon-users"></i> <span class="title">Demographics</span> </a> </li>
                 <li class="nav-item"> <a href="appointments.html" class="nav-link"> <i class=" icon-calendar"></i> <span class="title">Appointments</span> </a> </li>
                 <li class="nav-item start active open"> <a href="clinical-dashboard.html" class="nav-link"> <i class=" icon-home"></i> <span class="title">Clinical Dashboard</span> </a> </li>
                 <li class="nav-item"> <a href="documents.html" class="nav-link"> <i class="icon-docs"></i> <span class="title">Documents</span> </a> </li>
@@ -19,255 +20,257 @@
             </ul>
         </div>
     </div>-->
-    <div class="page-content-wrapper">
-        <div class="page-content">
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
-                        <div class="portlet-title">
-                            <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                                <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg" class="img-responsive"/></div>
+<patient-history-menu></patient-history-menu>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="portlet-title">
+                        <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
+                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg" class="img-responsive"/></div>
+                        </div>
+                        <div class="col-md-10 col-sm-8 col-xs-12">
+                            <div class="hr">
+                                <h1 class="page-title no-margin"> Dan Dan</h1>
+                                <small class="small-txt">( Male | 42 years old | April 18, 1973)</small>
                             </div>
-                            <div class="col-md-10 col-sm-8 col-xs-12">
-                                <div class="hr">
-                                    <h1 class="page-title no-margin"> Dan Dan</h1>
-                                    <small class="small-txt">( Male | 42 years old | April 18, 1973)</small>
+                            <div class="hr padding-b-10">
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Phone:</td>
+                                            <td class="font-red">Missing</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Address:</td>
+                                            <td class="font-red">No address on file</td>
+                                        </tr>
+                                    </table>
+
                                 </div>
-                                <div class="hr padding-b-10">
-                                    <div class="col-md-4 col-xs-12">
-                                        <table width="100%" border="0">
-                                            <tr>
-                                                <td class="txt-rigt">Phone:</td>
-                                                <td class="font-red">Missing</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="txt-rigt">Address:</td>
-                                                <td class="font-red">No address on file</td>
-                                            </tr>
-                                        </table>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Email:</td>
+                                            <td class="font-red">Missing</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Future Appt:</td>
+                                            <td class="font-red">Mon. Jul. 27, 2015</td>
+                                        </tr>
+                                    </table>
 
-                                    </div>
-                                    <div class="col-md-4 col-xs-12">
-                                        <table width="100%" border="0">
-                                            <tr>
-                                                <td class="txt-rigt">Email:</td>
-                                                <td class="font-red">Missing</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="txt-rigt">Future Appt:</td>
-                                                <td class="font-red">Mon. Jul. 27, 2015</td>
-                                            </tr>
-                                        </table>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Added:</td>
+                                            <td>Nov. 24, 2015</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Last Appt:</td>
+                                            <td>Mon. Jul. 27, 2015</td>
+                                        </tr>
+                                    </table>
 
-                                    </div>
-                                    <div class="col-md-4 col-xs-12">
-                                        <table width="100%" border="0">
-                                            <tr>
-                                                <td class="txt-rigt">Added:</td>
-                                                <td>Nov. 24, 2015</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="txt-rigt">Last Appt:</td>
-                                                <td>Mon. Jul. 27, 2015</td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">DADA0000002 </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>
+                        </div>
+                        <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">DADA0000002 </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>
+                    </div>
+                    <div class="hr no-margin">
+                        <div class="hr">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">Muhammad Imran</span> </div>
+                            </div>
                         </div>
                         <div class="hr no-margin">
-                            <div class="hr">
-                                <div class="portlet-title">
-                                    <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">Muhammad Imran</span> </div>
-                                </div>
+                            <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
+                            <span><button class="btn btn-default btn-outline btn-sm"> <i class=" icon-clock"></i> Shedule New Appointment </button></span>
+                            <div class=" pull-right"><div class="btn-group">
+                                <button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true"> Clinical Summary <i class="fa fa-angle-down"></i></button>
+                                <ul class="dropdown-menu"  role="menu">
+                                    <li> <a href="#">Download PDF</a> </li>
+                                    <li> <a href="#">Download C-CDA XML</a> </li>
+                                    <li> <a href="#">Display C-CDA XML</a> </li>
+                                    <li> <a href="#">(XML or PDF)</a> </li>
+                                </ul>
                             </div>
-                            <div class="hr no-margin">
-                                <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
-                                <span><button class="btn btn-default btn-outline btn-sm"> <i class=" icon-clock"></i> Shedule New Appointment </button></span>
-                                <div class=" pull-right"><div class="btn-group">
-                                    <button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true"> Clinical Summary <i class="fa fa-angle-down"></i></button>
-                                    <ul class="dropdown-menu"  role="menu">
-                                        <li> <a href="#">Download PDF</a> </li>
-                                        <li> <a href="#">Download C-CDA XML</a> </li>
-                                        <li> <a href="#">Display C-CDA XML</a> </li>
-                                        <li> <a href="#">(XML or PDF)</a> </li>
-                                    </ul>
-                                </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <div class="hr">
-                        <h4 class="text-info">Ongoing Problems</h4>
-                    </div>
-                    <div class="table-scrollable tbl-brdr-radus">
-                        <table class="table table-hover table-light">
-                            <thead>
-                            <tr class="hedng-bck-clr tbl-pdng">
-                                <th> Problem </th>
-                                <th> ICD-10-CM </th>
-                                <th> ICD-9-CM </th>
-                                <th> Diagnosis Date </th>
-                                <th> Status </th>
-                                <th> Notes </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="tbl-pdng">
-                                <td>No Problem information has been recorded for this patient.</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="tbl-pdng off-wite-bg">
-                                <td>No Problem information has been recorded for this patient.</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Ongoing Problems</h4>
+                </div>
+                <div class="table-scrollable tbl-brdr-radus">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Problem </th>
+                            <th> ICD-10-CM </th>
+                            <th> ICD-9-CM </th>
+                            <th> Diagnosis Date </th>
+                            <th> Status </th>
+                            <th> Notes </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng">
+                            <td>No Problem information has been recorded for this patient.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="tbl-pdng off-wite-bg">
+                            <td>No Problem information has been recorded for this patient.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <div class="hr">
-                        <h4 class="text-info">Active Allergies</h4>
-                    </div>
-                    <div class="table-scrollable tbl-brdr-radus">
-                        <table class="table table-hover table-light">
-                            <thead>
-                            <tr class="hedng-bck-clr tbl-pdng">
-                                <th> Medication </th>
-                                <th> Reaction </th>
-                                <th> Notes </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="tbl-pdng">
-                                <td>No Allergy information has been recorded for this patient.</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="tbl-pdng off-wite-bg">
-                                <td>No Allergy information has been recorded for this patient.</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Active Allergies</h4>
+                </div>
+                <div class="table-scrollable tbl-brdr-radus">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Medication </th>
+                            <th> Reaction </th>
+                            <th> Notes </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng">
+                            <td>No Allergy information has been recorded for this patient.</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="tbl-pdng off-wite-bg">
+                            <td>No Allergy information has been recorded for this patient.</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <div class="hr">
-                        <h4 class="text-info">Active Medications</h4>
-                    </div>
-                    <div class="table-scrollable tbl-brdr-radus">
-                        <table class="table table-hover table-light">
-                            <thead>
-                            <tr class="hedng-bck-clr tbl-pdng">
-                                <th> Medication </th>
-                                <th> Strengthe </th>
-                                <th> SIG </th>
-                                <th> SIG Note </th>
-                                <th> Dispense </th>
-                                <th> Refills </th>
-                                <th> Date </th>
-                                <th> Action </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="tbl-pdng">
-                                <td>No Medication information has been recorded for this patient.</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="tbl-pdng off-wite-bg">
-                                <td>No Medication information has been recorded for this patient.</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Active Medications</h4>
+                </div>
+                <div class="table-scrollable tbl-brdr-radus">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Medication </th>
+                            <th> Strengthe </th>
+                            <th> SIG </th>
+                            <th> SIG Note </th>
+                            <th> Dispense </th>
+                            <th> Refills </th>
+                            <th> Date </th>
+                            <th> Action </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng">
+                            <td>No Medication information has been recorded for this patient.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="tbl-pdng off-wite-bg">
+                            <td>No Medication information has been recorded for this patient.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <div class="hr">
-                        <h4 class="text-info">Lab Results</h4>
-                    </div>
-                    <div class="table-scrollable tbl-brdr-radus">
-                        <table class="table table-hover table-light">
-                            <thead>
-                            <tr class="hedng-bck-clr tbl-pdng">
-                                <th> LOINC Code </th>
-                                <th> Lab Description </th>
-                                <th> Date </th>
-                                <th> Sign off </th>
-                                <th> Status </th>
-                                <th> Result </th>
-                                <th> Comments </th>
-                                <th> Action </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="tbl-pdng">
-                                <td>No Problem information has been recorded for this patient.</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="tbl-pdng off-wite-bg">
-                                <td>No Problem information has been recorded for this patient.</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Lab Results</h4>
+                </div>
+                <div class="table-scrollable tbl-brdr-radus">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> LOINC Code </th>
+                            <th> Lab Description </th>
+                            <th> Date </th>
+                            <th> Sign off </th>
+                            <th> Status </th>
+                            <th> Result </th>
+                            <th> Comments </th>
+                            <th> Action </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng">
+                            <td>No Problem information has been recorded for this patient.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="tbl-pdng off-wite-bg">
+                            <td>No Problem information has been recorded for this patient.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="clearfix">
-                <a (click)="goToUserDashBoard();" class="nav-link">
-                    <button type="button" class="btn  btn-default"> Cancel</button>
-                </a>
-            </div>
+        </div>
+        <div class="clearfix">
+            <a (click)="goToUserDashBoard();" class="nav-link">
+                <button type="button" class="btn  btn-default"> Cancel</button>
+            </a>
         </div>
     </div>
 </div>
+<!--
+</div>-->
