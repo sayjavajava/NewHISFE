@@ -447,7 +447,7 @@ p, h3, h4{margin:0; padding:0;}
 .time-form-control{border: 1px solid #c2cad8;}
 .branch-save-button{padding-right: 30px;}
 
-input[type=text] {
+/*input[type=text] {
     width: 320px !important;
 }
 input[type=email]{
@@ -462,7 +462,7 @@ select {
 }
 textarea {
     width: 320px !important;
-}
+}*/
 
 .no-padding-rgt input[type=text] {
     width: 200px !important;
