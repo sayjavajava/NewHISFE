@@ -17,53 +17,75 @@ export class UpdateOrganizationComponent implements OnInit {
                 private fb: FormBuilder, private notificationService: NotificationService) {
         this.allTimezone();
         this.allBranches();
+
     }
 
     private sub: any;
+    private role: string;
     id: number;
     responseUser: any[];
     error: any;
-    orgForm: FormGroup;
+    proForm: FormGroup;
     generalForm: FormGroup;
+    accountForm: FormGroup
     timezoneList: any = [];
     branchesList: any = [];
-    defaultBranch : string ='primaryBranch';
+    defaultBranch: string = 'primaryBranch';
 
-    //organization :Organization;
+
     ngOnInit() {
         this.createProfileForm();
         this.createGenralForm();
+        this.createAccountForm();
 
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
 
         });
         this.patchData();
-        this.orgForm.controls['userName'].disable();
-        this.orgForm.controls['email'].disable();
+        this.proForm.controls['companyName'].disable();
+        this.accountForm.controls['userName'].disable();
 
     }
 
     createProfileForm() {
-        this.orgForm = this.fb.group({
-                'userName': [null],
-                'email': [null],
+        this.proForm = this.fb.group({
+                'companyEmail': [null],
                 'companyName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-                'homePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-                'cellPhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-                'officePhone':[null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-                'timeZone': [null],
+                'officePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'specialty': [null],
-                'appointmentSerial': [null, Validators.compose([Validators.required])],
+                'fax': [null],
+                'formName': ['PROFILE'],
+                'address': [null],
                 'website': [null, Validators.pattern('^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$')],
             }
         )
     }
+
     createGenralForm() {
         this.generalForm = this.fb.group({
             'defaultBranch': [null],
             'durationOfExam': [null],
-            'followUpExam': [null],
+            'durationFollowUp': [null],
+            'prefixSerialPatient': [null],
+            'prefixSerialUser': [null],
+            'formName': ['GENERAL'],
+            'prefixSerialDepartment': [null],
+            'prefixSerialAppointment': [null],
+            'prefixSerialInvoices': [null],
+        })
+    }
+
+    createAccountForm() {
+        this.accountForm = this.fb.group({
+            'firstName': [null],
+            'lastName': [null],
+            'userName': [null],
+            'userEmail': [null],
+            'cellPhone': [null],
+            'userAddress': [null],
+            'formName': ['ACCOUNT'],
+            'homePhone': [null],
         })
     }
 
@@ -81,13 +103,13 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
     allBranches() {
-        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-                        if(this.branchesList.length > 1){
-                            this.branchesList.splice(this.branchesList.indexOf({name :this.defaultBranch}),1);
+                        if (this.branchesList.length > 1) {
+                            this.branchesList.splice(this.branchesList.indexOf({name: this.defaultBranch}), 1);
                         }
                     }
                 },
@@ -98,28 +120,26 @@ export class UpdateOrganizationComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
-
             this.requestService.findById(AppConstants.FETCH_ORGANIZATION_BY_ID + this.id).subscribe(
                 organization => {
                     //  this.id = user.id;
-                    this.orgForm.patchValue({
+                    this.proForm.patchValue({
                         userName: organization.userName,
-                        email:organization.user.email,
+                        companyEmail: organization.companyEmail,
+                        fax: organization.fax,
                         countryName: organization.countryName,
                         homePhone: organization.homePhone,
-                        cellPhone: organization.cellPhone,
                         officePhone: organization.officePhone,
-                        appointmentSerial: organization.appointmentSerial,
-                        timeZone: organization.timezone,
+                        address: organization.address,
                         website: organization.website,
                         companyName: organization.companyName,
-                        specialty: organization.speciality.name
+                        specialty: organization.specialty
 
                     });
                     this.generalForm.patchValue({
                         defaultBranch: organization.defaultBranch,
                         durationOfExam: organization.durationOfExam,
-                        followUpExam: organization.followUpExam
+                        durationFollowUp: organization.durationFollowUp
                     })
                 }, (error: any) => {
                     //console.log(error.json());
@@ -131,7 +151,7 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
     isFieldValid(field: string) {
-        return !this.orgForm.get(field).valid && this.orgForm.get(field).touched;
+        return !this.proForm.get(field).valid && this.proForm.get(field).touched;
     }
 
     displayFieldCss(field: string) {
@@ -142,7 +162,7 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
     prepareSaveOrganization(): Organization {
-        const formModel = this.orgForm.value;
+        const formModel = this.proForm.value;
         const generalModel = this.generalForm.value;
         const saveBranchModel: Organization = {
             firstName: formModel.firstName,
@@ -168,13 +188,13 @@ export class UpdateOrganizationComponent implements OnInit {
         return saveBranchModel;
     }
 
-    addOrganization(data: any, value?:string) {
+    addOrganization(data: any, value?: string) {
         console.log('i m in');
-        if (this.orgForm.valid) {
+        if (this.proForm.valid) {
             let orgObject = this.prepareSaveOrganization();
             if (value === 'done') {
                 var self = this;
-                this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL+this.id, orgObject)
+                this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, orgObject)
                     .subscribe(function (response) {
                         if (response['responseCode'] === 'ORG_SUC_03') {
                             self.notificationService.success('Organization has been Update Successfully');
@@ -186,20 +206,66 @@ export class UpdateOrganizationComponent implements OnInit {
             }
 
         } else {
-            this.validateAllFormFields(this.orgForm);
+            this.validateAllFormFields(this.proForm);
         }
     }
+
+    saveProfile(data: FormData) {
+        var self = this;
+        this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
+            .subscribe(function (response) {
+                if (response['responseCode'] === 'ORG_SUC_03') {
+                    self.notificationService.success('Organization has been Update Successfully');
+                }
+            }, function (error) {
+                self.notificationService.error('ERROR', 'Organization is not Updated');
+
+            });
+    }
+
+    saveGeneralSettings(data: FormData) {
+        var self = this;
+        this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
+            .subscribe(function (response) {
+                if (response['responseCode'] === 'ORG_SUC_03') {
+                    self.notificationService.success('Organization has been Update Successfully');
+                }
+            }, function (error) {
+                self.notificationService.error('ERROR', 'Organization is not Updated');
+
+            });
+
+    }
+
+    saveAccount(data: FormData) {
+        var self = this;
+        //account url can be change
+        this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
+            .subscribe(function (response) {
+                if (response['responseCode'] === 'ORG_SUC_03') {
+                    self.notificationService.success('Organization has been Update Successfully');
+                }
+            }, function (error) {
+                self.notificationService.error('ERROR', 'Organization is not Updated');
+
+            });
+
+
+    }
+
     getSelectedTimezone(value: any) {
         if (value) {
-            this.orgForm.controls['timeZone'].setValue(value);
+            this.proForm.controls['timeZone'].setValue(value);
             console.log(value);
         }
     }
+
     getSelectedBranch(value: any) {
         if (value) {
             this.generalForm.controls['defaultBranch'].setValue(value);
         }
     }
+
     getDurationOfExam(value: any) {
         if (value) {
             this.generalForm.controls['durationOfExam'].setValue(value);

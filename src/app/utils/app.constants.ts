@@ -7,7 +7,7 @@ export class AppConstants {
 
     public static ACCESS_TOKEN = 'access_token';
     public static EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
-    public static USER_BY_ROLE = '/user/role/';
+    public static USER_BY_ROLE = '/user/role';
     public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';
     public static DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     public static SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';

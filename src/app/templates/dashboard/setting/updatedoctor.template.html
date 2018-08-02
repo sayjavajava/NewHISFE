@@ -149,40 +149,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" formControlName="sendBillingReport"
-                                                   class=""><span></span></label>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Use Recept Dashboard?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"
-                                                   formControlName="useReceptDashboard"><span></span></label>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Other Doctor Dashboard?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" formControlName="otherDoctorDashBoard"><span></span>
-                                            <select class="form-control"
-                                                    (change)="getSelectedDashboard($event.target.value)"
-                                                    formControlName="otherDashboard" placeholder="Dashoboard">
-                                                <option *ngFor="let br of primaryDoctor" [value]="br.userName">
-                                                    {{br.userName}}
-                                                </option>
-
-                                            </select>
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
@@ -262,12 +230,16 @@
                                                    formControlName="shift2"><span></span></label></div>
 
                                         <div class="mrgn-top8">
-                                            <a href="#" class="col-md-2 width12"><button type="button" (click)="secondShiftFrom()">From</button></a>
+
+                                            <span class="col-md-2 width12"><button type="button"
+                                                                                   (click)="secondShiftFrom()">From</button></span>
                                             <input class="col-md-4" type="time" value="{{secondShiftFromTime}}">
                                             &emsp;
-                                            <a href="#" class="col-md-2 width12"><button type="button" (click)="secondShiftTo()">To</button></a>
+                                            <span class="col-md-2 width12"> <button type="button"
+                                                                                    (click)="secondShiftTo()">To</button></span>
                                             <input class="col-md-4" type="time" value="{{secondShiftToTime}}">
                                         </div>
+
                                         <div>
 
                                         </div>
@@ -280,24 +252,28 @@
                         </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div  class="form-group">
                                 <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-8 col-xs-12">
                                     <div class="width6 pull-left no-padding"><label
                                             class="mt-checkbox pdng-lft18 mt-checkbox-outline chckbox">
-                                        <input type="checkbox" formControlName="shift1" class=""><span></span></label>
+                                        <input type="checkbox" formControlName="shift1"
+                                               class=""><span></span></label>
                                     </div>
                                     <div class="mrgn-top8">
-                                        <a href="#" class="col-md-2 width12"> <button type="button" (click)="firstShiftFrom()">From</button></a>
+                                            <span class="col-md-2 width12"><button type="button"
+                                                                                   (click)="firstShiftFrom()">From</button></span>
                                         <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
                                         &emsp;
-                                        <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftTo()">To</button></a>
+                                        <span class="col-md-2 width12"><button type="button"
+                                                                               (click)="firstShiftTo()">To</button></span>
                                         <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
                                     </div>
                                 </div>
-                                <span class="text-danger" *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched" >Duty Shift is required</span>
+                                <span class="text-danger"
+                                      *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
                             </div>
 
                             <div class="form-group">
@@ -352,7 +328,7 @@
 
 -->
                                     <div class=" col-md-1 col-width25 col-xs-3">
-                                        sunday: <input class="form-control spinner" type="checkbox" formControlName="sunday"  >
+                                        sunday: <input class="form-control spinner" type="checkbox" formControlName="sunday" >
                                     </div>
                                     <div class=" col-md-1 col-width25 col-xs-3">
                                         Monday: <input class="form-control spinner" type="checkbox" formControlName="monday">

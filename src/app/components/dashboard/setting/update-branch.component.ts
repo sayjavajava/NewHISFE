@@ -27,8 +27,7 @@ export class UpdateBranchComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'USER_SUC_01') {
                         this.pDoctor = response['responseData'];
-
-                    }
+                        }
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -100,8 +99,8 @@ export class UpdateBranchComponent implements OnInit {
 
     createExamRoom(): FormGroup {
         return this.fb.group({
-            'examName': '',
-            'allowOnlineScheduling': '',
+            'roomName': '',
+            'allowOnlineScheduling': '',   
         });
     }
 
@@ -131,9 +130,8 @@ export class UpdateBranchComponent implements OnInit {
                         noOfExamRooms: branch.rooms,
                         state: branch.state,
                         city: branch.city,
-                        primaryDoctor: branch.user.username,
+                       // primaryDoctor: branch.user.id,
                         fax: branch.fax,
-                        formattedAddress: branch.formattedAddress,
                         country: branch.country,
                         address: branch.address,
                         zipCode: branch.zipCode,
@@ -141,7 +139,7 @@ export class UpdateBranchComponent implements OnInit {
 
                     });
 
-                    this.billingForm.patchValue({
+               /*     this.billingForm.patchValue({
                         billingBranch: branch.billingBranch,
                         billingName: branch.billingName,
                         billingTaxID: branch.billingTaxID
@@ -152,7 +150,7 @@ export class UpdateBranchComponent implements OnInit {
                             showBranchOnline: branch.showBranchOnline,
                             allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
                         }
-                    );
+                    );*/
                     this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
                     this.addFields(branch.rooms);
                     this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
@@ -171,32 +169,27 @@ export class UpdateBranchComponent implements OnInit {
         });
     }
 
-    addBranch(data: any, value: any) {
+    addBranch(data: FormData) {
         if (this.branchForm.valid) {
-            let branchObject = this.prepareSaveBranch();
-            if (value === 'done') {
-                var that = this;
-                this.requestService.putRequest(AppConstants.UPDATE_BRANCH + this.id, branchObject)
-                    .subscribe(
-                        (response: Response) => {
-                            if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
-                                console.log('updated....');
-                                that.notificationService.success(' Branch has been Updated Successfully');
-                                that.router.navigate(['/dashboard/setting/branch']);
-                            }
-                        }, function (error) {
-                            this.error = error.error.error_description;
-                            this.notificationService.error('ERROR', 'Branch is not updated ');
-                        });
+          //  let branchObject = this.prepareSaveBranch();
+            var that = this;
+            this.requestService.putRequest(AppConstants.UPDATE_BRANCH + this.id,data)
+                .subscribe(
+                    (response: Response) => {
+                        that.router.navigate(['/dashboard/setting/branch']);
+                        if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
+                            console.log('updated...');
+                            that.notificationService.success(' Branch has been Updated Successfully');
+                            that.router.navigate(['/dashboard/setting/branch']);
+                        }
+                    }, function (error) {
+                        this.error = error.error.error_description;
+                        this.notificationService.error('ERROR', 'Branch is not updated ');
+                    });
 
-                console.log(this.branchForm.value);
-            }
-            else {
-                console.log('i am else');
+                  }
                 this.validateAllFormFields(this.branchForm);
-            }
         }
-    }
 
     deleteField(index: number) {
         this.examRooms = this.branchForm.get('examRooms') as FormArray;

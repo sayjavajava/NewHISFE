@@ -368,27 +368,82 @@
             </div>
         </div>
 
+        <!--search-->
+        <div class="row">
+
+            <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                <div class="col-md-3">
+                    <div class="form-group font-siz11">
+                        <label>Branch:</label>
+                        <select class="form-control">
+                            <option>Branch 1</option>
+                            <option>Branch 2</option>
+                            <option>Branch 3</option>
+                            <option>Branch 4</option>
+                            <option>Branch 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group font-siz11">
+                        <label>Department:</label>
+                        <select class="form-control">
+                            <option>Dermatology</option>
+                            <option>Dermatology</option>
+                            <option>Dermatology</option>
+                            <option>Dermatology</option>
+                            <option>Dermatology</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group font-siz11">
+                        <label>Doctor:</label>
+                        <select class="form-control">
+                            <option>Dr. Fadi A. Nassr</option>
+                            <option>Dr. Fadi A. Nassr 2</option>
+                            <option>Dr. Fadi A. Nassr 3</option>
+                            <option>Dr. Fadi A. Nassr 4</option>
+                            <option>Dr. Fadi A. Nassr 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group font-siz11">
+                        <label>Service:</label>
+                        <select class="form-control">
+                            <option>Offer (28Nov-7Dec) One</option>
+                            <option>Offer (28Nov-7Dec) One 2</option>
+                            <option>Offer (28Nov-7Dec) One 3</option>
+                            <option>Offer (28Nov-7Dec) One 4</option>
+                            <option>Offer (28Nov-7Dec) One 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group mrgn-top24">
+                        <button type="button" class="pull-right btn blue aptSearch">Search</button>
+
+                </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row text-center">
 
-            <!-- <h3>
-                 <button type="button" class="btn btn-primary pull-left" data-toggle="modal"
-                         data-target="#create-responsive"
-                         (click)="addEvent()">
 
-                     Add New
-                 </button>
-
-                 <div class="clearfix"></div>
-             </h3>-->
-            <div class="col-md-4">
+           <!-- <div class="col-md-4">
                 <div class="btn btn-primary " data-toggle="modal"
                      data-target="#create-responsive"
                      (click)="addEvent()"> Add New
 
                 </div>
             </div>
-
+-->
+           <!-- <div (mouseenter) ="mouseEnter('div a') "  (mouseleave) ="mouseLeave('div A')">
+                <h2>Div A</h2>
+            </div>
+-->
             <div class="col-md-4">
                 <div class="btn-group">
 
@@ -452,6 +507,8 @@
                     [activeDayIsOpen]="activeDayIsOpen"
                     (dayClicked)="dayClicked($event.day)"
                     (eventClicked)="handleEvent('Clicked again', $event.event)"
+                    (mouseover)="moveMouse('mouse moved',$event)"
+                    (mouseleave)="mouseLeave('mouseLeave',$event)"
                     (eventTimesChanged)="eventTimesChanged($event)">
             </mwl-calendar-month-view>
             <mwl-calendar-week-view
@@ -475,13 +532,13 @@
         <br><br><br>
 
 
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        <div class="modal fade" id="sideModal" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-scheduler" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-scheduler" style="width:250px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <h5 class="modal-title" >Appointment</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -496,13 +553,13 @@
                                 <th>Branch</th>
                                 <th>Status</th>
                                 <th>Notes</th>
-                                <th>Primary color</th>
+                              <!--  <th>Primary color</th>
                                 <th>Secondary color</th>
                                 <th>duration</th>
                                 <th>reason</th>
                                 <th>Starts at</th>
                                 <th>Ends at</th>
-                                <th>Remove</th>
+                                <th>Remove</th>-->
                             </tr>
                             </thead>
 
@@ -751,7 +808,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <!--<div class="col-md-6">
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-4">Branch</label>
                                                             <div class="col-md-8">
@@ -773,7 +830,7 @@
                                                                 <select class="form-control" name="exmDrp"
                                                                         [ngModelOptions]="{standalone:true}"
                                                                         [(ngModel)]="event.examRoom">
-                                                                    <option value="0">-- Select --</option>
+                                                                    <option value="0">&#45;&#45; Select &#45;&#45;</option>
                                                                     <option *ngFor="let item of examRooms; let i = index;"
                                                                             value={{item.id}} (keyup)="refresh.next()">
                                                                         {{item.examName}}
@@ -788,10 +845,10 @@
                                                                 <input [(colorPicker)]="color" [value]="color"
                                                                        [style.background]="color"
                                                                        (keyup)="refresh.next()" [(ngModel)]="color"/>
-                                                                <!--<input [style.background]="color"
+                                                                &lt;!&ndash;<input [style.background]="color"
                                                                        [colorPicker]="color"
                                                                        [(ngModel)]="event.color"
-                                                                       (colorPickerChange)="color=$event"/>-->
+                                                                       (colorPickerChange)="color=$event"/>&ndash;&gt;
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -800,7 +857,7 @@
                                                                 <select class="form-control" name="statusDrp"
                                                                         [ngModelOptions]="{standalone:true}"
                                                                         [(ngModel)]="event.status">
-                                                                    <option value="0">-- Select --</option>
+                                                                    <option value="0">&#45;&#45; Select &#45;&#45;</option>
                                                                     <option *ngFor="let item of status; let i = index;"
                                                                             value={{item.name}}
                                                                             (keyup)="refresh.next()">
@@ -821,9 +878,9 @@
                                                             <div class="col-md-2 text-center label-control2">minutes
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
-                                                <div class="hr">
+                                              <!--  <div class="hr">
                                                     <label class="mt-checkbox mt-checkbox-outline col-md-12">
                                                         <input type="checkbox" [(ngModel)]="event.recurringAppointment"
                                                                (keyup)="refresh.next()"> Recurring Appointment
@@ -949,16 +1006,16 @@
                                                                         class="btn btn-sm green btn-outline filter-submit margin-bottom">
                                                                     Save
                                                                 </button>
-                                                                <!--<button type="button" data-dismiss="modal"
+                                                                &lt;!&ndash;<button type="button" data-dismiss="modal"
                                                                         class="btn btn-sm red btn-outline filter-cancel"
                                                                         (click)="events.splice(index, 1); refresh.next()">
                                                                     Delete
-                                                                </button>-->
+                                                                </button>&ndash;&gt;
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </div>
                                         <div class="clearfix margin-bottom-20"></div>
@@ -986,6 +1043,41 @@
             </div>
         </div>
 
+
+
+
+
+        <!--start div-->
+        <div *ngIf="popup">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Disease</th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let event of events; let index = index">
+                    <td>
+                        <input
+                                type="text"
+                                class="form-control"
+                                [(ngModel)]="event.title"
+                                (keyup)="refresh.next()">
+                    </td>
+                    <td>
+                        <input
+                                type="text"
+                                class="form-control"
+                                [(ngModel)]="event.patient"
+                                (keyup)="refresh.next()">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="clearfix"></div>
     </div>

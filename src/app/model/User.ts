@@ -14,6 +14,7 @@ export class User {
     interval: number;
     email: string;
     selectedVisitBranches: any[];
+    selectedRoles:any[];
     otherDashboard: string;
     sendBillingReport: boolean;
     useReceptDashboard: boolean;
@@ -67,6 +68,7 @@ export class User {
 
         this.selectedServices = user.selectedServices;
         this.selectedVisitBranches = user.selectedVisitBranches;
+        this.selectedRoles = user.selectedRoles;
         this.selectedDoctors = user.selectedDoctors;
         this.firstShiftFromTime = user.firstShiftFromTime;
         this.firstShiftToTime = user.firstShiftToTime;

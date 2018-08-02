@@ -446,3 +446,9 @@ p, h3, h4{margin:0; padding:0;}
 .label-checkbox{font-size: 12px !important;}
 .time-form-control{border: 1px solid #c2cad8;}
 .branch-save-button{padding-right: 30px;}
+.searchBar{
+    height: 140px;
+}
+.aptSearch{
+    margin-top: -10px;
+}

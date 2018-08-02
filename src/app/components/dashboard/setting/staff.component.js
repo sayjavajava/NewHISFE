@@ -18,12 +18,14 @@ var SearchUser_1 = require("../../../model/SearchUser");
 var app_constants_1 = require("../../../utils/app.constants");
 var material_1 = require("@angular/material");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
+var his_util_service_1 = require("../../../services/his-util.service");
 var StaffComponent = (function () {
-    function StaffComponent(requestService, router, notificationService, fb, matDialog, confirmationDialogService) {
+    function StaffComponent(requestService, router, notificationService, fb, hisUtilService, matDialog, confirmationDialogService) {
         this.requestService = requestService;
         this.router = router;
         this.notificationService = notificationService;
         this.fb = fb;
+        this.hisUtilService = hisUtilService;
         this.matDialog = matDialog;
         this.confirmationDialogService = confirmationDialogService;
         this.roles = ['Doctor', 'Nurse', 'Receptionist', 'Cashier', 'SuperAdmin'];
@@ -100,14 +102,15 @@ var StaffComponent = (function () {
                 _this.currPage = response['responseData']['currPage'];
                 _this.pages = response['responseData']['pages'];
                 _this.data = response['responseData']['data'];
-                var data = response['responseData']['data'];
+                //  let data = response['responseData']['data'];
             }
         }, function (error) {
             //  this.HISUtilService.tokenExpired(error.error.error);
             _this.error = error.error.error;
         });
     };
-    StaffComponent.prototype.updateUser = function (item, id) {
+    StaffComponent.prototype.updateUser = function (item, id, staffId) {
+        this.hisUtilService.staffId(staffId);
         if (item === 'DOCTOR') {
             console.log('iam doc');
             this.router.navigate(['/dashboard/setting/doctor/edit/', id]);
@@ -157,7 +160,7 @@ var StaffComponent = (function () {
             templateUrl: '../../../templates/dashboard/setting/staff.template.html',
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService, router_1.Router,
-            notification_service_1.NotificationService, forms_1.FormBuilder,
+            notification_service_1.NotificationService, forms_1.FormBuilder, his_util_service_1.HISUtilService,
             material_1.MatDialog, ConformationDialogService_1.ConformationDialogService])
     ], StaffComponent);
     return StaffComponent;

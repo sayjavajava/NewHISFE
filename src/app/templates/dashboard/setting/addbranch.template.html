@@ -8,14 +8,14 @@
                 <div class="portlet-body">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Basic </a>
+                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Profile </a>
                         </li>
-                        <li class="">
+                       <!-- <li class="">
                             <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> Billing </a>
                         </li>
                         <li class="">
                             <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Online Schedule </a>
-                        </li>
+                        </li>-->
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_1_1">
@@ -38,7 +38,7 @@
                                         </span>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <!--<div class="form-group">
                                                 <label class="control-label col-md-4">Primary Doctor
                                                 </label>
                                                 <div class="col-md-8">
@@ -52,6 +52,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+-->
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Country
                                                 </label>
@@ -105,13 +106,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Address
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <textarea formControlName="address" class="form-control"
-                                                              rows="3"></textarea></div>
-                                            </div>
+
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Office Phone
                                                 </label>
@@ -126,10 +121,10 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="fax" data-required="1" value=""
-                                                           class="form-control"></div>
+                                                             class="form-control"></div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Formatted Address
+                                                <label class="control-label col-md-4">Address
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="formattedAddress"
@@ -142,7 +137,7 @@
                                                 <label class="control-label col-md-4">No of Exam Rooms
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-5">
                                                     <select class="form-control"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="">Select...</option>
@@ -201,7 +196,7 @@
                                                 </label>
                                                 <div class="col-md-2 no-padding-rgt">
                                                     <input type="text" class="form-control"
-                                                           formControlName="examName">
+                                                           formControlName="roomName">
                                                 </div>
                                                 <div class="col-md-5 pdng-lr-5">
                                                     <label class="mt-checkbox mt-checkbox-outline">
@@ -217,8 +212,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-10 no-padding">
-                                            <button (click)="addBranch(branchForm.value,'')" class="pull-right btn blue"><i
+                                        <div class="col-md-6 no-padding">
+                                            <button (click)="addBranch(branchForm.value)" class="pull-right btn blue"><i
                                                     class="fa fa-plus"></i> Create
                                             </button>
 

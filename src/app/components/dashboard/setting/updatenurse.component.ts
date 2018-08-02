@@ -7,6 +7,7 @@ import {User} from '../../../model/User';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppConstants} from '../../../utils/app.constants';
+import {HISUtilService} from '../../../services/his-util.service';
 
 @Component({
     selector: 'addnurse-component',
@@ -47,8 +48,8 @@ export class UpdateNurseComponent implements OnInit {
     user: UserEditModel;
 
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
-                private fb: FormBuilder, private notificationService: NotificationService
-        ,private amazingTimePickerService?: AmazingTimePickerService) {
+                private fb: FormBuilder, private notificationService: NotificationService,private hisUtilService: HISUtilService,
+        private amazingTimePickerService?: AmazingTimePickerService) {
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
@@ -147,26 +148,22 @@ export class UpdateNurseComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
-            this.requestService.findById(AppConstants.FETCH_USER_BY_ID + this.id).subscribe(
+            this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'NURSE').subscribe(
                 user => {
                     //  this.id = user.id;
                     this.userForm.patchValue({
-                        firstName: user.profile.firstName,
-                        lastName: user.profile.lastName,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
                         email: user.email,
-                        homePhone: user.profile.homePhone,
-                        cellPhone: user.profile.cellPhone,
-                        sendBillingReport: user.profile.sendBillingReport,
+                        homePhone: user.homePhone,
+                        cellPhone: user.cellPhone,
                         userName: user.userName,
-                        active: user.profile.active,
-                        accountExpiry: user.profile.accountExpiry,
-                        otherDashboard: user.profile.otherDashboard,
-                        useReceptDashboard: user.profile.useReceptDashBoard,
-                        otherDoctorDashBoard: user.profile.otherDoctorDashBoard,
-                        managePatientRecords: user.profile.managePatientRecords,
-                        managePatientInvoices: user.profile.managePatientInvoices,
-                        primaryBranch:user.branch.name,
-                        interval: user.profile.check
+                        active: user.active,
+                        accountExpiry: user.accountExpiry,
+                        managePatientRecords: user.managePatientRecords,
+                        managePatientInvoices: user.managePatientInvoices,
+                        primaryBranch:user.primaryBranchId,
+
                     });
 
                 }, (error: any) => {
@@ -214,7 +211,7 @@ export class UpdateNurseComponent implements OnInit {
 
     makeService(user: any) {
 
-        this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(
+        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
                     console.log('saved00')
@@ -294,7 +291,7 @@ export class UpdateNurseComponent implements OnInit {
     }
 
     dutyWithDoctor(event: any, item: any) {
-        console.log(item);
+        console.log('usertype'+item);
         if (event.target.checked) {
             this.dutyWithDoctors.push(item.id);
         }

@@ -41,5 +41,6 @@ export interface  IUser {
     departmentControl ?:any[];
     selectedDoctors ?: any[];
     dutyWithDoctors ?: any[];
+    selectedRoles ? : any[];
 
 }

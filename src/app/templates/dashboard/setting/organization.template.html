@@ -4,7 +4,7 @@
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Organization
-                        <div class="pull-right">
+                        <!--<div class="pull-right">
                             <a routerLink="/dashboard/setting/organization/add">
                                 <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
                                         data-message="Success Icon" data-type="success" data-allow-outside-click="true"
@@ -13,9 +13,9 @@
                             </a>
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
-                        </div>
-                    </h4>
-                </div>
+                        </div>-->
+                     </h4>
+                  </div>
                 <!--                <div class="">
                                     <form [formGroup]="searchForm">
                                         <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
@@ -48,7 +48,7 @@
                         <thead>
                         <tr role="row" class="off-wite-bg">
                             <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Company Name</th>
-                            <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Cell Phone</th>
+                            <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Office Phone</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Website</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Email</th>
                             <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
@@ -61,10 +61,10 @@
                                 {{item.companyName}}
                             </td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
-                                {{item.cellPhone}}
+                                {{item.officePhone}}
                             </td>
                             <td rowspan="1" colspan="1">{{item.website}}</td>
-                            <td rowspan="1" colspan="1">{{item.email}}</td>
+                            <td rowspan="1" colspan="1">{{item.companyEmail}}</td>
                             <td rowspan="1" colspan="1">
 
                                 <button (click)="updateOrganization(item.id)"
