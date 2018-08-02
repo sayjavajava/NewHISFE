@@ -22,11 +22,11 @@
                         <div class="col-md-3">
                             <div class="form-group font-siz11">
                                 <label>Name:</label>
-                                <input type="text" class="form-control" formControlName="name" placeholder="Enter Name">
+                                <input type="text" class="form-control" style="width: 250px !important" formControlName="name" placeholder="Enter Name">
                             </div>
 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group font-siz11">
                                 <label>Roles</label>
                                 <!--<select id="role"  (change)="roleSelected($event.target.value)" class="form-control" formControlName="role">
@@ -34,7 +34,7 @@
                                 </select>-->
 
 
-                                <select (change)="roleSelected($event.target.value)" class="form-control" formControlName="role">
+                                <select (change)="roleSelected($event.target.value)" class="form-control" formControlName="role" style="width: 250px !important">
                                     <!-- (change)="goTo($event.target.value)"-->
                                     <option value="">Super_Admin</option>
                                     <option value="receptionist">Receptionist</option>
@@ -45,13 +45,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group font-siz11">
                                 <label>Email:</label>
-                                <input type="text" class="form-control" formControlName="email" placeholder="Enter email">
+                                <input type="text" class="form-control" formControlName="email" placeholder="Enter email" style="width: 250px !important">
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <div class="form-group mrgn-top24">
                                 <button type="button" (click)="searchData(searchForm.value)" class="btn blue">Search</button>
                             </div>

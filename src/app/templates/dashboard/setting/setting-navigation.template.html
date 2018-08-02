@@ -1,10 +1,17 @@
+<!--
 <div class="page-sidebar-wrapper">
-    <div class="page-sidebar navbar-collapse collapse">
+    <div class="page-sidebar navbar-collapse collapse side-menu-mrgn">
         <div class="menu-toggler sidebar-toggler menu-stng"><span></span></div>
         <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true"
             data-slide-speed="200">
             <li class="sidebar-toggler-wrapper hide">
                 <div class="sidebar-toggler"><span></span></div>
+            </li>
+            <li class="nav-item" routerLinkActive="active open" *ngFor="let rights of userPermissions">
+                <a routerLink="{{rights.routeUrl}}" class="nav-link">
+                    <i class="fa fa-medkit"></i>
+                    <span class="title">{{rights.name}}</span>
+                </a>
             </li>
             <li class="nav-item" routerLinkActive="active open">
                 <a routerLink="organization" class="nav-link">
@@ -83,3 +90,5 @@
         </ul>
     </div>
 </div>
+-->
+<menu-component></menu-component>

@@ -115,9 +115,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="pull-left mrgn-top24">
-                                <img class="img-responsive" src="/public/images/patient-photo.jpg"
+                                <img class="img-responsive" style="width: 120px; height: 140px;" src="/public/images/patient-photo.jpg"
                                      *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
-                                <img class="" src="{{patient.profileImgURL}}"
+                                <img class="" style="width: 120px; height: 140px;" src="{{patient.profileImgURL}}"
                                      *ngIf="patient.profileImgURL != null">
                                 <div class="">
                                     <input class="file" type="file" id="profileImgURL" name="profileImgURL"
@@ -263,17 +263,18 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 mrgn-top14">
+                                    <div class="col-md-12 mrgn-top14">
                                         <h3 class="green-txt hr">status User</h3>
                                         <div class="form-group">
                                             <label class="control-label col-md-4">status User
                                             </label>
-                                            <div class="col-md-8">
-                                                <input type="checkbox"
-                                                       class="form-control"
-                                                       #statusUser="ngModel"
-                                                       name="statusUser"
-                                                       [(ngModel)]="patient.statusUser">
+                                            <div class="col-md-8 col-xs-6">
+                                                <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                                    <input type="checkbox"
+                                                           class="form-control"
+                                                           #statusUser="ngModel"
+                                                           name="statusUser"
+                                                           [(ngModel)]="patient.statusUser"><span></span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -350,7 +351,7 @@
                                     <div class="col-md-8">
                                         <div class="input-group select2-bootstrap-prepend col-md-12">
                                             <div class="checkbox-box hr cod-higt" id="codesDiv">
-                                                <div class="col-md-8" *ngFor="let race of patient.races">
+                                                <div *ngFor="let race of patient.races">
                                                     <address>
                                                         <label class="mt-checkbox mt-checkbox-outline">
                                                             <input type="checkbox"
@@ -489,12 +490,13 @@
                             <div class="form-group">
                                 <label class="control-label col-md-4">Signature On File
                                 </label>
-                                <div class="col-md-8">
-                                    <input type="checkbox"
-                                           class="form-control"
-                                           #signatureOnFile="ngModel"
-                                           name="signatureOnFile"
-                                           [(ngModel)]="patient.signatureOnFile">
+                                <div class="col-md-8 col-xs-6">
+                                    <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                        <input type="checkbox"
+                                               class="form-control"
+                                               #signatureOnFile="ngModel"
+                                               name="signatureOnFile"
+                                               [(ngModel)]="patient.signatureOnFile"><span></span></label>
                                 </div>
                             </div>
                         </div>
@@ -616,9 +618,9 @@
                                     <div class="col-md-8">
                                         <!--<input type="file" [(ngModel)]="patient.photoFrontURL" name="photoFrontURL">-->
                                         <div class="pull-left mrgn-top24">
-                                            <img class="img-responsive" src="/public/images/patient-photo.jpg"
+                                            <img class="img-responsive" style="width: 120px; height: 140px;" src="/public/images/patient-photo.jpg"
                                                  *ngIf="patient.photoFrontURL === null || patient.photoFrontURL === ''"/>
-                                            <img class="" src="{{patient.photoFrontURL}}"
+                                            <img class="" style="width: 120px; height: 140px;" src="{{patient.photoFrontURL}}"
                                                  *ngIf="patient.photoFrontURL != null">
                                             <div class="">
                                                 <input class="file" type="file" id="photoFrontURL" name="photoFrontURL"
@@ -642,9 +644,9 @@
                                         <!--<input type="file" [(ngModel)]="patient.photoBackURL" name="photoBackURL">-->
 
                                         <div class="pull-left mrgn-top24">
-                                            <img class="img-responsive" src="/public/images/patient-photo.jpg"
+                                            <img class="img-responsive" style="width: 120px; height: 140px;" src="/public/images/patient-photo.jpg"
                                                  *ngIf="patient.photoBackURL === null || patient.photoBackURL === ''"/>
-                                            <img class="" src="{{patient.photoBackURL}}"
+                                            <img class="" style="width: 120px; height: 140px;" src="{{patient.photoBackURL}}"
                                                  *ngIf="patient.photoBackURL != null">
                                             <div class="">
                                                 <input class="file" type="file" id="photoBackURL" name="photoBackURL"

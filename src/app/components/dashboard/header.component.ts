@@ -67,8 +67,7 @@ export class HeaderComponent implements OnInit {
                         window.localStorage.removeItem(btoa('access_token'));
                         window.localStorage.removeItem(btoa('refresh_token'));
                         window.localStorage.removeItem(btoa('expire_in'));
-                        window.localStorage.removeItem(atob('permissions'));
-
+                        window.localStorage.removeItem('permissions');
                         this.router.navigate(['/login']);
                     }
                 },
@@ -79,8 +78,8 @@ export class HeaderComponent implements OnInit {
             );
     }
 
-    goToUserDashBoard(){
+    goToUserDashBoard() {
         //this.router.navigate(['/dashboard/'+window.localStorage.getItem(atob('user_type'))+'/']);
-        this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
+        this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     }
 }

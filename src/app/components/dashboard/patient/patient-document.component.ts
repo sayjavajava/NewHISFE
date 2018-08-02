@@ -3,15 +3,14 @@ import {Router} from "@angular/router";
 
 
 @Component({
-    selector: 'patient-history',
-    templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
+    selector: 'patient-document',
+    templateUrl: '../../../templates/dashboard/patient/patient-documents.template.html',
 })
-export class PatientHistoryComponent implements OnInit {
+export class PatientDocumentsComponent implements OnInit {
     constructor(private router: Router) {
     }
     ngOnInit(): void {
         //throw new Error("Method not implemented.");
-
     }
 
     goToUserDashBoard(){

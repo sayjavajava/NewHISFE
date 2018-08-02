@@ -186,9 +186,18 @@ export class AddBranchComponent implements OnInit {
     }
 
     addFields(no: number): void {
+        this.removeAllFields();
         this.examRooms = this.branchForm.get('examRooms') as FormArray;
         for (var i = 0; i < no; i++) {
             this.examRooms.push(this.createExamRoom());
+        }
+    }
+
+    removeAllFields(){
+        this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        let examRoomLen = this.examRooms.length;
+        for (var i = 0; i < examRoomLen; i++) {
+            this.examRooms.removeAt(0);
         }
     }
 
@@ -239,7 +248,6 @@ export class AddBranchComponent implements OnInit {
 
     getNoOfExamRooms(value: any) {
         if (value) {
-
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);

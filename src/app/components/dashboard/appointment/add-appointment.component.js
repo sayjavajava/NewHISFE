@@ -283,7 +283,7 @@ var AddAppointmentComponent = (function () {
     AddAppointmentComponent.prototype.getExamRoom = function (event) {
         var str = event;
         var test2 = str.substring(2);
-        var filteredData2 = this.branches.filter(function (x) { return x.id == test2; });
+        var filteredData2 = this.branches.filter(function (x) { return x.id == event; });
         this.examRooms = filteredData2[0].examRooms;
     };
     AddAppointmentComponent.prototype.saveAppointment = function (event) {

@@ -4,11 +4,12 @@ import {RequestsService} from '../../services/requests.service';
 import {Title} from '@angular/platform-browser';
 
 @Component({
-    selector: 'dashboard-component',
-    templateUrl: '../../templates/dashboard/dashboard.template.html',
+    selector: 'menu-component',
+    templateUrl: '../../templates/dashboard/menu.template.html',
     styleUrls: [],
 })
-export class DashboardComponent implements OnInit{
+export class MenuComponent implements OnInit{
+    userPermissions: any[];
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -18,6 +19,8 @@ export class DashboardComponent implements OnInit{
     ngOnInit() {
         if (!window.localStorage.getItem(btoa('access_token'))) {
             this.router.navigate(['/login']);
+        }else {
+            this.userPermissions = JSON.parse( atob(window.localStorage.getItem( btoa('permissions')) ) );
         }
         this.titleService.setTitle('HIS | Dashboard');
     }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-
+import {Permission} from "../model/Permission"
 @Injectable()
 export class PermissionsService {
 
@@ -7,11 +7,11 @@ export class PermissionsService {
     }
 
     public loadPermissions(dbPermissions: any[]) {
-        let permissions: string[] = [];
+        let permissions: any[] = [];
         dbPermissions.forEach((item, index) => {
-            permissions[index] = item['name'];
+            permissions[index] = item;
         });
-        window.localStorage.setItem(btoa('permissions'), btoa(JSON.stringify(permissions)));
+        window.localStorage.setItem(  btoa('permissions' ), btoa(JSON.stringify(permissions)));
     }
 
     public unloadPermissions() {
@@ -19,19 +19,20 @@ export class PermissionsService {
     }
 
     public hasPermission(permission: string): boolean {
-        //console.log(permission);
         let hasPermission: boolean = false;
-        if (localStorage.getItem(btoa('permissions'))) {
-            var permissions: string[] = JSON.parse(atob(localStorage.getItem(btoa('permissions'))));
+        let permissions: Permission[];
+        const userPermissions = localStorage.getItem(btoa('permissions'));
+        if (userPermissions) {
+            permissions = JSON.parse(atob(userPermissions));
             permissions.forEach((item, index) => {
-                if (item === permission) {
+                //properties.hasOwnProperty('name') && properties.
+                if (item.name === permission) {
                     hasPermission = true;
                     return hasPermission;
                 }
             });
-            //console.log(hasPermission);
-            return hasPermission;
         }
+        return hasPermission;
     }
 
     ngOnInit() {

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {RequestsService} from '../../../services/requests.service';
 import {Router} from '@angular/router';
+import any = jasmine.any;
 
 
 @Component({
@@ -12,12 +13,14 @@ export class SettingNavigationComponent {
     lastName: string;
     profileImg: string;
     userDesignation: string;
+    userPermissions: any[];
 
     constructor(private requestsService: RequestsService,
                 private router: Router) {
     };
 
     ngOnInit() {
+        this.userPermissions = JSON.parse( atob(window.localStorage.getItem( btoa('permissions')) ) );
     }
 
 }

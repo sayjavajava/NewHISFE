@@ -230,16 +230,19 @@
                                                    formControlName="shift2"><span></span></label></div>
 
                                         <div class="mrgn-top8">
-
-                                            <span class="col-md-2 width12"><button type="button"
-                                                                                   (click)="secondShiftFrom()">From</button></span>
-                                            <input class="col-md-4" type="time" value="{{secondShiftFromTime}}">
-                                            &emsp;
-                                            <span class="col-md-2 width12"> <button type="button"
-                                                                                    (click)="secondShiftTo()">To</button></span>
-                                            <input class="col-md-4" type="time" value="{{secondShiftToTime}}">
+                                            <div class="col-md-2">
+                                                <button type="button" (click)="secondShiftFrom()">From</button>
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px">
+                                                <input type="time" style="width: 100px" value="{{secondShiftFromTime}}">
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px;margin-left: 30px;">
+                                                <button type="button" (click)="secondShiftTo()">To</button>
+                                            </div>
+                                            <div class="col-md-2" style="width: 72px;margin-left: -37px;">
+                                                <input type="time" style="width: 100px" value="{{secondShiftToTime}}">
+                                            </div>
                                         </div>
-
                                         <div>
 
                                         </div>
@@ -252,28 +255,38 @@
                         </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div  class="form-group">
+                            <div class="form-group">
                                 <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-8 col-xs-12">
                                     <div class="width6 pull-left no-padding"><label
                                             class="mt-checkbox pdng-lft18 mt-checkbox-outline chckbox">
-                                        <input type="checkbox" formControlName="shift1"
-                                               class=""><span></span></label>
+                                        <input type="checkbox" formControlName="shift1" class=""><span></span></label>
                                     </div>
                                     <div class="mrgn-top8">
-                                            <span class="col-md-2 width12"><button type="button"
-                                                                                   (click)="firstShiftFrom()">From</button></span>
+                                        <!--<a href="#" class="col-md-2 width12"> <button type="button" (click)="firstShiftFrom()">From</button></a>
                                         <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
                                         &emsp;
-                                        <span class="col-md-2 width12"><button type="button"
-                                                                               (click)="firstShiftTo()">To</button></span>
+                                        <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftTo()">To</button></a>
                                         <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
+
+-->
+                                        <div class="col-md-2">
+                                            <button type="button" (click)="firstShiftFrom()">From</button>
+                                        </div>
+                                        <div class="col-md-2" style="width: 72px">
+                                            <input type="time" style="width: 100px" value="{{firstShiftFromTime}}">
+                                        </div>
+                                        <div class="col-md-2" style="width: 72px;margin-left: 30px;">
+                                            <button type="button" (click)="firstShiftTo()">To</button>
+                                        </div>
+                                        <div class="col-md-2" style="width: 72px;margin-left: -37px;">
+                                            <input type="time" style="width: 100px" value="{{firstShiftToTime}}">
+                                        </div>
                                     </div>
                                 </div>
-                                <span class="text-danger"
-                                      *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
+                                <span class="text-danger" *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched" >Duty Shift is required</span>
                             </div>
 
                             <div class="form-group">

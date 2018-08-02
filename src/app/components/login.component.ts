@@ -65,8 +65,6 @@ export class LoginComponent {
                                             this.sharedService.userType = btoa( response['responseData'].userType.toLowerCase() );
                                             // logged in user's type based Dashboard
                                             window.localStorage.setItem(btoa('user_type'),  this.sharedService.userType );
-                                            //console.log( this.sharedService.userType );
-                                            //console.log( atob(localStorage.getItem(btoa('user_type'))) );
                                             this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
                                         } else {
                                             this.router.navigate(['/login']);
@@ -74,7 +72,7 @@ export class LoginComponent {
                                             window.localStorage.removeItem(atob('refresh_token'));
                                             window.localStorage.removeItem(atob('expire_in'));
                                             window.localStorage.removeItem(atob('permissions'));
-                                            //window.localStorage.removeItem(atob('user_type'));
+                                            window.localStorage.removeItem(atob('user_type'));
                                             this.error = response['responseMessage'];
                                         }
                                     },
@@ -90,6 +88,7 @@ export class LoginComponent {
                             window.localStorage.removeItem(atob('refresh_token'));
                             window.localStorage.removeItem(atob('expire_in'));
                             window.localStorage.removeItem(atob('permissions'));
+                            window.localStorage.removeItem(atob('user_type'));
 
                         }
                     }, (error: any) => {

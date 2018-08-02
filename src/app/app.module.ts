@@ -9,6 +9,8 @@ import {AppComponent} from "./components/app.component";
 import {MainComponent} from "./components/dashboard/main.component";
 import {LoginComponent} from "./components/login.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {MenuComponent} from "./components/dashboard/menu.component";
+import {PatientHistoryMenuComponent} from "./components/dashboard/patient/patient-history-menu.component";
 // Dashboard Components
 import {HeaderComponent} from "./components/dashboard/header.component";
 import {NavigationComponent} from "./components/dashboard/navigation.component";
@@ -88,6 +90,18 @@ import {PatientReportsComponent} from "./components/dashboard/patient/patient-re
 import {PatientComponent} from "./components/dashboard/patient/patient.component";
 import {PatientInvoiceComponent} from "./components/dashboard/patient/patient-invoice.component";
 import {PatientHistoryComponent} from "./components/dashboard/patient/patient-history.component";
+
+import {PatientDemographicComponent} from "./components/dashboard/patient/patient-demographic.component";
+import {PatientAppointmentComponent} from "./components/dashboard/patient/patient-appointment.component";
+
+import {PatientDocumentsComponent} from "./components/dashboard/patient/patient-document.component";
+import {PatientProblemListComponent} from "./components/dashboard/patient/patient-problem-list.component";
+import {PatientMedicalListComponent} from "./components/dashboard/patient/patient-medical-list.component";
+import {PatientAlergyListComponent} from "./components/dashboard/patient/patient-alergy-list.component";
+import {PatientLabOrdersComponent} from "./components/dashboard/patient/patient-lab-orders.component";
+import {PatientCommunicationComponent} from "./components/dashboard/patient/patient-communication.component";
+import {PatientFamilyHistoryComponent} from "./components/dashboard/patient/patient-family-history.component";
+
 import {EditPatientComponent} from "./components/dashboard/patient/edit-patient.component";
 import {AppointmentComponent} from "./components/dashboard/appointment/appointment.component";
 import {AppointmentDashboardComponent} from "./components/dashboard/appointment/appointment-dashboard.component";
@@ -159,13 +173,26 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         PatientComponent,
         EditPatientComponent,
         PatientInvoiceComponent,
+
         PatientHistoryComponent,
+        PatientDemographicComponent,
+        PatientAppointmentComponent,
+        PatientHistoryMenuComponent,
+        PatientDocumentsComponent,
+        PatientProblemListComponent,
+        PatientMedicalListComponent,
+        PatientAlergyListComponent,
+        PatientLabOrdersComponent,
+        PatientCommunicationComponent,
+        PatientFamilyHistoryComponent,
+
         AppointmentComponent,
         AppointmentDashboardComponent,
         ManageAppointmentComponent,
         AddAppointmentComponent,
         AppointmentReportsComponent,
         AppointmentNavigationComponent,
+
         //Setting Components
         SettingComponent,
         SettingNavigationComponent,
@@ -203,8 +230,8 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         ErrordisplayComponent,
         ConfirmationdialogComponent,
         UpdateOrganizationComponent,
-        EditAppointmentComponent
-
+        EditAppointmentComponent,
+        MenuComponent
     ],
     bootstrap: [AppComponent]
 })

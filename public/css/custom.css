@@ -39,7 +39,7 @@ p, h3, h4{margin:0; padding:0;}
 .mrgn-lft8{margin-left: 8px;}
 .mrgn-lft0{margin-left: 0px !important;}
 .mrgn-top14{margin-top: 14px;}
-.mrgn-top24{margin-top: 24px;}
+.mrgn-top24{margin-top: 19px;}
 .mrgn-top30{margin-top: 30px;}
 .font-smaller{ font-size:70%;}
 .label-lineheight{line-height: 16px !important;}
@@ -49,7 +49,7 @@ p, h3, h4{margin:0; padding:0;}
 .pls-icon i{padding: 6px 10px;}
 .bootstrap-touchspin .input-group-btn-vertical i{font-size:12px !important;}
 .white-bck{background: #fff; padding:10px;}
-.frm-stng select, .frm-stng input, .frm-stng textarea {width: 90%; float: left;}
+.frm-stng select, .frm-stng input, .frm-stng textarea, .scheduling-chkbx {width: 90%; float: left;}
 .profile-userpic { margin:0 auto; width:100%; max-width:300px;}
 .profile-userpic img { float: none; margin: 0 auto; border:1px solid #ddd; width: 70%; height: 100%; -webkit-border-radius: 50% !important; -moz-border-radius: 50% !important;  border-radius: 50% !important;}
 .view-pro {
@@ -446,6 +446,40 @@ p, h3, h4{margin:0; padding:0;}
 .label-checkbox{font-size: 12px !important;}
 .time-form-control{border: 1px solid #c2cad8;}
 .branch-save-button{padding-right: 30px;}
+
+/*input[type=text] {
+    width: 320px !important;
+}
+input[type=email]{
+    width: 320px !important;
+}
+input[type=password]{
+    width: 320px !important;
+}
+
+select {
+    width: 320px !important;
+}
+textarea {
+    width: 320px !important;
+}*/
+
+.no-padding-rgt input[type=text] {
+    width: 200px !important;
+}
+.side-menu-mrgn{
+    margin-top: 15px;
+    margin-left: 10px;
+}
+.page-logo{
+    padding: 0;
+    width: 160px !important;
+    height: 45px !important;
+}
+
+.dashboard-menu{
+    margin-top: 60px;
+}
 .searchBar{
     height: 140px;
 }
