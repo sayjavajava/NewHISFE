@@ -1,1 +1,0 @@
-{"version":3,"file":"searchBranch.js","sourceRoot":"","sources":["searchBranch.ts"],"names":[],"mappings":";;AAAA;IAOI,sBAAY,MAAe,EAAE,UAAmB,EAAE,WAAoB;QAClE,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,UAAU,GAAG,UAAU,CAAC;QAC7B,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACnC,CAAC;IACL,mBAAC;AAAD,CAAC,AAZD,IAYC;AAZY,oCAAY"}
