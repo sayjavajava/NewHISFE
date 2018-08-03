@@ -193,10 +193,10 @@
                                         <address><label class="mt-checkbox mt-checkbox-outline">
                                             <div *ngFor="let item of primaryDoctor">
                                                 <input type="checkbox" formControlName="nurseDutyWithDoctor"
-                                                       name={{item.userName}}
+                                                       name={{item.firstName}}
                                                        value="{{item.id}}"
                                                        (change)="dutyWithDoctor($event,item)">
-                                                {{item.userName}}
+                                                {{item.firstName}}{{item.lastName}}
 
                                                 <span></span></div>
                                         </label>

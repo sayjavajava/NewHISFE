@@ -169,11 +169,27 @@
                                                                     <option value="0">-- Select --</option>
                                                                     <option *ngFor="let item of examRooms; let i = index;"
                                                                             value={{item.id}} (keyup)="refresh.next()">
-                                                                        {{item.examName}}
+                                                                        {{item.roomName}}
                                                                     </option>
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group hr">
+                                                            <label class="control-label col-md-4">Doctor:</label>
+                                                            <div class="col-md-8">
+                                                                <select class="form-control" (change)="getSearchedDoctor($event.target.value)">
+                                                                    <!--[ngModelOptions]="{standalone:true}"-->
+                                                                    <!--[(ngModel)]="event.branch"-->
+                                                                    <option value="0">-- Select --</option>
+                                                                    <option *ngFor="let item of doctorsList; let i = index;"
+                                                                            value={{item.id}} (keyup)="refresh.next()">
+                                                                        {{item.firstName}} {{item.lastName}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-4">Color
                                                             </label>
@@ -372,19 +388,21 @@
         <div class="row">
 
             <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
-                <div class="col-md-3">
+                <div class="col-md-5">
                     <div class="form-group font-siz11">
                         <label>Branch:</label>
-                        <select class="form-control">
-                            <option>Branch 1</option>
-                            <option>Branch 2</option>
-                            <option>Branch 3</option>
-                            <option>Branch 4</option>
-                            <option>Branch 5</option>
+                        <select class="form-control" (change)="getSearchedBranch($event.target.value)">
+                            <!--[ngModelOptions]="{standalone:true}"-->
+                            <!--[(ngModel)]="event.branch"-->
+                            <option value="0">-- Select --</option>
+                            <option *ngFor="let item of branches; let i = index;"
+                                    value={{item.id}} (keyup)="refresh.next()">
+                                {{item.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+              <!--  <div class="col-md-3">
                     <div class="form-group font-siz11">
                         <label>Department:</label>
                         <select class="form-control">
@@ -395,20 +413,22 @@
                             <option>Dermatology</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-3">
+                </div>-->
+                <div class="col-md-5">
                     <div class="form-group font-siz11">
                         <label>Doctor:</label>
-                        <select class="form-control">
-                            <option>Dr. Fadi A. Nassr</option>
-                            <option>Dr. Fadi A. Nassr 2</option>
-                            <option>Dr. Fadi A. Nassr 3</option>
-                            <option>Dr. Fadi A. Nassr 4</option>
-                            <option>Dr. Fadi A. Nassr 5</option>
+                        <select class="form-control" (change)="getSearchedDoctor($event.target.value)">
+                            <!--[ngModelOptions]="{standalone:true}"-->
+                            <!--[(ngModel)]="event.branch"-->
+                            <option value="0">-- Select --</option>
+                            <option *ngFor="let item of doctorsList; let i = index;"
+                                    value={{item.id}} (keyup)="refresh.next()">
+                                {{item.firstName}} {{item.lastName}}
+                            </option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-2">
+              <!--  <div class="col-md-2">
                     <div class="form-group font-siz11">
                         <label>Service:</label>
                         <select class="form-control">
@@ -419,7 +439,7 @@
                             <option>Offer (28Nov-7Dec) One 5</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-md-1">
                     <div class="form-group mrgn-top24">
                         <button type="button" class="pull-right btn blue aptSearch">Search</button>

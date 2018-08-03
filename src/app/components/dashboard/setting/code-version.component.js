@@ -200,25 +200,12 @@ var CodeVersionComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                     _this.iCDCVM.selectedICDCodes = [];
-                    _this.iCDCVM.selectedICDCodes = response['responseData'];
-                    _this.iCDCVM.description = response['responseData'][0].descriptionCodeVersion;
-                    for (var _i = 0, _a = _this.iCDCodes; _i < _a.length; _i++) {
-                        var obj = _a[_i];
-                        obj.checkedCode = false;
-                    }
-                    for (var _b = 0, _c = _this.iCDCVM.selectedICDCodes; _b < _c.length; _b++) {
-                        var selectedICDCode = _c[_b];
-                        for (var _d = 0, _e = _this.iCDCodes; _d < _e.length; _d++) {
-                            var obj = _e[_d];
-                            if (obj.id === selectedICDCode.id) {
-                                obj.checkedCode = true;
-                            }
-                        }
-                    }
+                    _this.iCDCodes = response['responseData'].code;
+                    _this.iCDCVM.description = response['responseData'].des;
                 }
                 else {
-                    for (var _f = 0, _g = _this.iCDCodes; _f < _g.length; _f++) {
-                        var obj = _g[_f];
+                    for (var _i = 0, _a = _this.iCDCodes; _i < _a.length; _i++) {
+                        var obj = _a[_i];
                         obj.checkedCode = false;
                     }
                 }

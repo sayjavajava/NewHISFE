@@ -60,7 +60,7 @@ var HeaderComponent = (function () {
                 window.localStorage.removeItem(btoa('access_token'));
                 window.localStorage.removeItem(btoa('refresh_token'));
                 window.localStorage.removeItem(btoa('expire_in'));
-                window.localStorage.removeItem(atob('permissions'));
+                window.localStorage.removeItem('permissions');
                 _this.router.navigate(['/login']);
             }
         }, function (error) {

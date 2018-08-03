@@ -24,6 +24,7 @@ import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
 import {Router} from '@angular/router';
 import {Appointment} from '../../../model/Appointment';
+import {UserTypeEnum} from '../../../enums/user-type-enum';
 
 declare var $: any;
 @Component({
@@ -35,6 +36,7 @@ export class AddAppointmentComponent implements OnInit {
     constructor(private modal: NgbModal, private dialog: MatDialog, private fb: FormBuilder,
                 private notificationService: NotificationService, private router: Router, private requestsService: RequestsService) {
         this.getBranchesFromServer();
+        this.getDoctorsFromServer();
         this.getPatientFromServer();
     }
 
@@ -54,6 +56,7 @@ export class AddAppointmentComponent implements OnInit {
     viewDate: Date = new Date();
     data: any = [];
     branches: any[];
+    doctorsList:any[];
     patients: any[];
     selectedType: any = [];
     appointmentType: any = [];
@@ -61,6 +64,8 @@ export class AddAppointmentComponent implements OnInit {
     filteredData: any[];
     test :  string = 'lahore';
     selectedPatientId: number;
+    searchedDoctor :any ;
+    searchedBranch :any;
 
     modalData: {
         action: string;
@@ -166,12 +171,11 @@ export class AddAppointmentComponent implements OnInit {
     }
     moveMouse(action:string ,event: CalendarEvent){
         this.modalData={event,action};
-        console.log(event);
         this.popup=true;
     }
 
     mouseEnter(div : string){
-        console.log("mouse enter : " + div);
+      //  console.log("mouse enter : " + div);
     }
 
     mouseLeave(action:string,event:CalendarEvent){
@@ -213,6 +217,21 @@ export class AddAppointmentComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branches = response['responseData'];
+                    }
+                },
+                (error: any) => {
+
+                }
+            );
+    }
+
+    getDoctorsFromServer() {
+        this.requestsService.getRequest(
+            AppConstants.USER_BY_ROLE+'?name=' + UserTypeEnum.DOCTOR)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.doctorsList = response['responseData'];
                     }
                 },
                 (error: any) => {
@@ -314,6 +333,12 @@ export class AddAppointmentComponent implements OnInit {
         this.refresh.next();
 
     }
+    getSearchedBranch(value: any) {
+        this.searchedBranch = value;
+        }
+    getSearchedDoctor(value: any) {
+        this.searchedDoctor = value;
+    }
 
     selectRecurringDays(event: any, item: any) {
         console.log(this.examRooms.lenght);
@@ -334,9 +359,13 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     getExamRoom(event: any) {
-        var str = event;
-        var test2 =str.substring(2);
-        var filteredData2  = this.branches.filter(x => x.id == event);
+        let  roomId:number;
+        var sp = event.split(': ');
+        if(sp.length >1)
+        roomId = sp[1];
+        else
+        roomId=sp[0];
+        var filteredData2  = this.branches.filter(x => x.id == roomId);
         this.examRooms = filteredData2[0].examRooms;
 
     }

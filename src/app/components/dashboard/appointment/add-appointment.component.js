@@ -21,6 +21,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var router_1 = require("@angular/router");
 var Appointment_1 = require("../../../model/Appointment");
+var user_type_enum_1 = require("../../../enums/user-type-enum");
 var AddAppointmentComponent = (function () {
     function AddAppointmentComponent(modal, dialog, fb, notificationService, router, requestsService) {
         var _this = this;
@@ -95,6 +96,7 @@ var AddAppointmentComponent = (function () {
             }
         ];
         this.getBranchesFromServer();
+        this.getDoctorsFromServer();
         this.getPatientFromServer();
     }
     AddAppointmentComponent.prototype.ngOnInit = function () {
@@ -168,11 +170,10 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.moveMouse = function (action, event) {
         this.modalData = { event: event, action: action };
-        console.log(event);
         this.popup = true;
     };
     AddAppointmentComponent.prototype.mouseEnter = function (div) {
-        console.log("mouse enter : " + div);
+        //  console.log("mouse enter : " + div);
     };
     AddAppointmentComponent.prototype.mouseLeave = function (action, event) {
         this.popup = false;
@@ -183,6 +184,16 @@ var AddAppointmentComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branches = response['responseData'];
+            }
+        }, function (error) {
+        });
+    };
+    AddAppointmentComponent.prototype.getDoctorsFromServer = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + user_type_enum_1.UserTypeEnum.DOCTOR)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'USER_SUC_01') {
+                _this.doctorsList = response['responseData'];
             }
         }, function (error) {
         });
@@ -266,6 +277,12 @@ var AddAppointmentComponent = (function () {
         });
         this.refresh.next();
     };
+    AddAppointmentComponent.prototype.getSearchedBranch = function (value) {
+        this.searchedBranch = value;
+    };
+    AddAppointmentComponent.prototype.getSearchedDoctor = function (value) {
+        this.searchedDoctor = value;
+    };
     AddAppointmentComponent.prototype.selectRecurringDays = function (event, item) {
         console.log(this.examRooms.lenght);
         if (event.target.checked) {
@@ -281,9 +298,13 @@ var AddAppointmentComponent = (function () {
         return type.name === this;
     };
     AddAppointmentComponent.prototype.getExamRoom = function (event) {
-        var str = event;
-        var test2 = str.substring(2);
-        var filteredData2 = this.branches.filter(function (x) { return x.id == event; });
+        var roomId;
+        var sp = event.split(': ');
+        if (sp.length > 1)
+            roomId = sp[1];
+        else
+            roomId = sp[0];
+        var filteredData2 = this.branches.filter(function (x) { return x.id == roomId; });
         this.examRooms = filteredData2[0].examRooms;
     };
     AddAppointmentComponent.prototype.saveAppointment = function (event) {
