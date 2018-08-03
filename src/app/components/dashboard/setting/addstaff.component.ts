@@ -20,7 +20,7 @@ export class AddStaffComponent implements OnInit {
     selectedUser: string = 'RECEPTIONIST';
     allowdiscount: boolean = true;
     department: boolean;
-    checkUpInterval: boolean;   
+    checkUpInterval: boolean;
     dutytimmingshift1: boolean;
     dutytimmingshift2: boolean;
     vacation: boolean;
