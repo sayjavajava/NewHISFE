@@ -28,27 +28,29 @@ var UpdateOrganizationComponent = (function () {
         this.allTimezone();
         this.allBranches();
     }
+    //organization :Organization;
     UpdateOrganizationComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createProfileForm();
         this.createGenralForm();
-        this.createAccountForm();
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
         this.patchData();
-        this.proForm.controls['companyName'].disable();
-        this.accountForm.controls['userName'].disable();
+        this.orgForm.controls['userName'].disable();
+        this.orgForm.controls['email'].disable();
     };
     UpdateOrganizationComponent.prototype.createProfileForm = function () {
-        this.proForm = this.fb.group({
-            'companyEmail': [null],
+        this.orgForm = this.fb.group({
+            'userName': [null],
+            'email': [null],
             'companyName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
+            'homePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
+            'cellPhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'officePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
+            'timeZone': [null],
             'specialty': [null],
-            'fax': [null],
-            'formName': ['PROFILE'],
-            'address': [null],
+            'appointmentSerial': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'website': [null, forms_1.Validators.pattern('^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$')],
         });
     };
@@ -56,25 +58,7 @@ var UpdateOrganizationComponent = (function () {
         this.generalForm = this.fb.group({
             'defaultBranch': [null],
             'durationOfExam': [null],
-            'durationFollowUp': [null],
-            'prefixSerialPatient': [null],
-            'prefixSerialUser': [null],
-            'formName': ['GENERAL'],
-            'prefixSerialDepartment': [null],
-            'prefixSerialAppointment': [null],
-            'prefixSerialInvoices': [null],
-        });
-    };
-    UpdateOrganizationComponent.prototype.createAccountForm = function () {
-        this.accountForm = this.fb.group({
-            'firstName': [null],
-            'lastName': [null],
-            'userName': [null],
-            'userEmail': [null],
-            'cellPhone': [null],
-            'userAddress': [null],
-            'formName': ['ACCOUNT'],
-            'homePhone': [null],
+            'followUpExam': [null],
         });
     };
     UpdateOrganizationComponent.prototype.allTimezone = function () {
@@ -105,22 +89,23 @@ var UpdateOrganizationComponent = (function () {
         if (this.id) {
             this.requestService.findById(app_constants_1.AppConstants.FETCH_ORGANIZATION_BY_ID + this.id).subscribe(function (organization) {
                 //  this.id = user.id;
-                _this.proForm.patchValue({
+                _this.orgForm.patchValue({
                     userName: organization.userName,
-                    companyEmail: organization.companyEmail,
-                    fax: organization.fax,
+                    email: organization.user.email,
                     countryName: organization.countryName,
                     homePhone: organization.homePhone,
+                    cellPhone: organization.cellPhone,
                     officePhone: organization.officePhone,
-                    address: organization.address,
+                    appointmentSerial: organization.appointmentSerial,
+                    timeZone: organization.timezone,
                     website: organization.website,
                     companyName: organization.companyName,
-                    specialty: organization.specialty
+                    specialty: organization.speciality.name
                 });
                 _this.generalForm.patchValue({
                     defaultBranch: organization.defaultBranch,
                     durationOfExam: organization.durationOfExam,
-                    durationFollowUp: organization.durationFollowUp
+                    followUpExam: organization.followUpExam
                 });
             }, function (error) {
                 //console.log(error.json());
@@ -129,7 +114,7 @@ var UpdateOrganizationComponent = (function () {
         }
     };
     UpdateOrganizationComponent.prototype.isFieldValid = function (field) {
-        return !this.proForm.get(field).valid && this.proForm.get(field).touched;
+        return !this.orgForm.get(field).valid && this.orgForm.get(field).touched;
     };
     UpdateOrganizationComponent.prototype.displayFieldCss = function (field) {
         return {
@@ -138,7 +123,7 @@ var UpdateOrganizationComponent = (function () {
         };
     };
     UpdateOrganizationComponent.prototype.prepareSaveOrganization = function () {
-        var formModel = this.proForm.value;
+        var formModel = this.orgForm.value;
         var generalModel = this.generalForm.value;
         var saveBranchModel = {
             firstName: formModel.firstName,
@@ -163,7 +148,7 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.addOrganization = function (data, value) {
         console.log('i m in');
-        if (this.proForm.valid) {
+        if (this.orgForm.valid) {
             var orgObject = this.prepareSaveOrganization();
             if (value === 'done') {
                 var self = this;
@@ -178,46 +163,12 @@ var UpdateOrganizationComponent = (function () {
             }
         }
         else {
-            this.validateAllFormFields(this.proForm);
+            this.validateAllFormFields(this.orgForm);
         }
-    };
-    UpdateOrganizationComponent.prototype.saveProfile = function (data) {
-        var self = this;
-        this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'ORG_SUC_03') {
-                self.notificationService.success('Organization has been Update Successfully');
-            }
-        }, function (error) {
-            self.notificationService.error('ERROR', 'Organization is not Updated');
-        });
-    };
-    UpdateOrganizationComponent.prototype.saveGeneralSettings = function (data) {
-        var self = this;
-        this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'ORG_SUC_03') {
-                self.notificationService.success('Organization has been Update Successfully');
-            }
-        }, function (error) {
-            self.notificationService.error('ERROR', 'Organization is not Updated');
-        });
-    };
-    UpdateOrganizationComponent.prototype.saveAccount = function (data) {
-        var self = this;
-        //account url can be change
-        this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'ORG_SUC_03') {
-                self.notificationService.success('Organization has been Update Successfully');
-            }
-        }, function (error) {
-            self.notificationService.error('ERROR', 'Organization is not Updated');
-        });
     };
     UpdateOrganizationComponent.prototype.getSelectedTimezone = function (value) {
         if (value) {
-            this.proForm.controls['timeZone'].setValue(value);
+            this.orgForm.controls['timeZone'].setValue(value);
             console.log(value);
         }
     };

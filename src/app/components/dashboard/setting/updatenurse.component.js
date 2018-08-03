@@ -17,15 +17,13 @@ var User_1 = require("../../../model/User");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var router_1 = require("@angular/router");
 var app_constants_1 = require("../../../utils/app.constants");
-var his_util_service_1 = require("../../../services/his-util.service");
 var UpdateNurseComponent = (function () {
-    function UpdateNurseComponent(route, router, requestService, fb, notificationService, hisUtilService, amazingTimePickerService) {
+    function UpdateNurseComponent(route, router, requestService, fb, notificationService, amazingTimePickerService) {
         this.route = route;
         this.router = router;
         this.requestService = requestService;
         this.fb = fb;
         this.notificationService = notificationService;
-        this.hisUtilService = hisUtilService;
         this.amazingTimePickerService = amazingTimePickerService;
         this.selectedDepartment = [];
         this.selectedServices = [];
@@ -125,20 +123,25 @@ var UpdateNurseComponent = (function () {
     UpdateNurseComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
-            this.requestService.findByIdAndType(app_constants_1.AppConstants.FETCH_USER_BY_ID + this.id, 'NURSE').subscribe(function (user) {
+            this.requestService.findById(app_constants_1.AppConstants.FETCH_USER_BY_ID + this.id).subscribe(function (user) {
                 //  this.id = user.id;
                 _this.userForm.patchValue({
-                    firstName: user.firstName,
-                    lastName: user.lastName,
+                    firstName: user.profile.firstName,
+                    lastName: user.profile.lastName,
                     email: user.email,
-                    homePhone: user.homePhone,
-                    cellPhone: user.cellPhone,
+                    homePhone: user.profile.homePhone,
+                    cellPhone: user.profile.cellPhone,
+                    sendBillingReport: user.profile.sendBillingReport,
                     userName: user.userName,
-                    active: user.active,
-                    accountExpiry: user.accountExpiry,
-                    managePatientRecords: user.managePatientRecords,
-                    managePatientInvoices: user.managePatientInvoices,
-                    primaryBranch: user.primaryBranchId,
+                    active: user.profile.active,
+                    accountExpiry: user.profile.accountExpiry,
+                    otherDashboard: user.profile.otherDashboard,
+                    useReceptDashboard: user.profile.useReceptDashBoard,
+                    otherDoctorDashBoard: user.profile.otherDoctorDashBoard,
+                    managePatientRecords: user.profile.managePatientRecords,
+                    managePatientInvoices: user.profile.managePatientInvoices,
+                    primaryBranch: user.branch.name,
+                    interval: user.profile.check
                 });
             }, function (error) {
                 //console.log(error.json());
@@ -180,7 +183,7 @@ var UpdateNurseComponent = (function () {
     };
     UpdateNurseComponent.prototype.makeService = function (user) {
         var _this = this;
-        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(function (response) {
+        this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 console.log('saved00');
                 _this.responseUser = response['responseData'];
@@ -245,7 +248,7 @@ var UpdateNurseComponent = (function () {
         console.log(this.selectedVisitBranches);
     };
     UpdateNurseComponent.prototype.dutyWithDoctor = function (event, item) {
-        console.log('usertype' + item);
+        console.log(item);
         if (event.target.checked) {
             this.dutyWithDoctors.push(item.id);
         }
@@ -282,7 +285,7 @@ var UpdateNurseComponent = (function () {
             templateUrl: '../../../templates/dashboard/setting/updatenurse.template.html',
         }),
         __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService,
-            forms_1.FormBuilder, notification_service_1.NotificationService, his_util_service_1.HISUtilService,
+            forms_1.FormBuilder, notification_service_1.NotificationService,
             amazing_time_picker_1.AmazingTimePickerService])
     ], UpdateNurseComponent);
     return UpdateNurseComponent;
