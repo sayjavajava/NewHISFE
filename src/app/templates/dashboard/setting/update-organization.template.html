@@ -11,7 +11,10 @@
                             <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Profile </a>
                         </li>
                         <li class="">
-                            <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> General </a>
+                            <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> General Settings </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_1_5" data-toggle="tab" aria-expanded="false"> Account </a>
                         </li>
                         <li class="">
                             <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Usage </a>
@@ -19,68 +22,63 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_1_1">
-                            <form [formGroup]="orgForm"  class="form-horizontal">
+                            <form [formGroup]="proForm"  class="form-horizontal">
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-7">
-                                            <!--<div class="form-group">
-                                                <label class="control-label col-md-4">First Name
-                                                    <span class="required" aria-required="true"> * </span>
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" formControlName="firstName"
-                                                           class="form-control"></div>
-                                                <span class="text-danger" *ngIf="orgForm.controls['firstName'].invalid && orgForm.controls['firstName'].touched">{{firstNameError}}</span>
-                                            </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Last Name
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" formControlName="lastName"
-                                                           class="form-control"></div>
-                                            </div>
--->
-                                            <div class="form-group" ngClass="displayFieldCss('userName')">
-                                                <label class="control-label col-md-4">Username
-                                                    <span class="required" aria-required="true">  </span>
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" formControlName="userName" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Email Address
+                                                <label class="control-label col-md-4">Company Email
                                                     <span class="required" aria-required="true"> </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="email" formControlName="email"
+                                                    <input type="email" formControlName="companyEmail"
+                                                           class="form-control">
+
+                                                </div>
+                                                <input  formControlName="formName" value="PROFILE" type="hidden" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Fax   <span class="required" aria-required="true"> </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="fax"
                                                            class="form-control">
 
                                                 </div>
                                             </div>
 
-                                           <!-- <div class="form-group">
-                                                <label class="control-label col-md-4">Password
-                                                    <span class="required" aria-required="true"> * </span>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Address                                                    <span class="required" aria-required="true"> </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="password" formControlName="password" class="form-control">
-                                                    <span class="text-danger" *ngIf="!orgForm.controls['password'].valid && orgForm.controls['password'].touched">
-                                            <span *ngIf="orgForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
-                                           <span *ngIf="orgForm.controls['password'].errors.required">password is required </span>
-                                           </span>
+                                                    <input type="text" formControlName="address"
+                                                           class="form-control">
+
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Confirm Password
-                                                    <span class="required" aria-required="true"> * </span>
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="password" formControlName="confirmPassword" class="form-control">
-                                                    <span class="text-danger" *ngIf="!orgForm.controls['confirmPassword'].valid && orgForm.controls['confirmPassword'].touched">pass must be match</span>
-                                                </div>
-                                            </div>-->
+
+                                            <!-- <div class="form-group">
+                                                 <label class="control-label col-md-4">Password
+                                                     <span class="required" aria-required="true"> * </span>
+                                                 </label>
+                                                 <div class="col-md-8">
+                                                     <input type="password" formControlName="password" class="form-control">
+                                                     <span class="text-danger" *ngIf="!orgForm.controls['password'].valid && orgForm.controls['password'].touched">
+                                             <span *ngIf="orgForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
+                                            <span *ngIf="orgForm.controls['password'].errors.required">password is required </span>
+                                            </span>
+                                                 </div>
+                                             </div>
+                                             <div class="form-group">
+                                                 <label class="control-label col-md-4">Confirm Password
+                                                     <span class="required" aria-required="true"> * </span>
+                                                 </label>
+                                                 <div class="col-md-8">
+                                                     <input type="password" formControlName="confirmPassword" class="form-control">
+                                                     <span class="text-danger" *ngIf="!orgForm.controls['confirmPassword'].valid && orgForm.controls['confirmPassword'].touched">pass must be match</span>
+                                                 </div>
+                                             </div>-->
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Company Name
                                                     <span class="required" aria-required="true"> * </span>
@@ -88,9 +86,9 @@
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="companyName"
                                                            class="form-control"></div>
-                                                <span class="text-danger" *ngIf="!orgForm.controls['companyName'].valid && orgForm.controls['companyName'].touched">
-                                                <span *ngIf="orgForm.controls['companyName'].errors.minlength"> minimum 4 charachters</span>
-                                                <span *ngIf="orgForm.controls['companyName'].errors.required">Company Name is required </span>
+                                                <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
+                                                <span *ngIf="proForm.controls['companyName'].errors.minlength"> minimum 4 charachters</span>
+                                                <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
                                                 </span>
                                             </div>
                                             <div class="form-group">
@@ -107,37 +105,13 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Timezone
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <select class="form-control"
-                                                            (change)="getSelectedTimezone($event.target.value)"
-                                                            formControlName="timeZone" placeholder="Select Timezone">
-                                                        <option *ngFor="let tz of timezoneList" [value]="tz.name">
-                                                            {{tz.name}}
-                                                        </option>
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="control-label col-md-4">Website
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="website" class="form-control">
                                                 </div>
-                                                <span class="text-danger" *ngIf="!orgForm.controls['website'].valid && orgForm.controls['website'].touched">
-                                                    <span *ngIf="orgForm.controls['website'].errors.pattern">Web Url is not valid</span>
-                                        </span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Home Phone
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input  type="text"  formControlName="homePhone" class="form-control">
-                                                </div>
-                                                <span class="text-danger" *ngIf="!orgForm.controls['homePhone'].valid && orgForm.controls['homePhone'].touched">
-                                                    <span *ngIf="orgForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span>
+                                                <span class="text-danger" *ngIf="!proForm.controls['website'].valid && proForm.controls['website'].touched">
+                                                    <span *ngIf="proForm.controls['website'].errors.pattern">Web Url is not valid</span>
                                         </span>
                                             </div>
                                             <div class="form-group">
@@ -146,44 +120,26 @@
                                                 <div class="col-md-8">
                                                     <input  type="text" formControlName="officePhone"
                                                             class="form-control">
-                                                    <span class="text-danger" *ngIf="!orgForm.controls['officePhone'].valid && orgForm.controls['officePhone'].touched">
-                                                        <span *ngIf="orgForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span></span>
+                                                    <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
+                                                        <span *ngIf="proForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span></span>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Cell Phone
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" formControlName="cellPhone"
-                                                           class="form-control">
-                                                    <span class="text-danger" *ngIf="!orgForm.controls['cellPhone'].valid && orgForm.controls['cellPhone'].touched">
-                                                        <span *ngIf="orgForm.controls['cellPhone'].errors.pattern">Phone Number is not valid</span></span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Appointments Serial Start
-                                                    <span class="required" aria-required="true"> * </span>
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" formControlName="appointmentSerial"
-                                                           class="form-control"></div>
-                                                <span class="text-danger" *ngIf="!orgForm.controls['appointmentSerial'].valid && orgForm.controls['appointmentSerial'].touched">
-                                                        <span *ngIf="orgForm.controls['appointmentSerial'].errors.required">Serial is required</span></span>
-                                            </div>
+
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Practice Business Logo
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-5">
                                                     <input type="file" id="exampleInputFile">
                                                     <p class="help-block"> Will be attached to emails & offical
                                                         forms </p>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="hr">
                                         <div class="col-md-12 text-center">
-                                            <button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'')"> Update Entire Profile</button>
+                                            <button type="button" class="btn blue" (click)="saveProfile(proForm.value,'profile')"> Update</button>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +148,6 @@
                         <div class="tab-pane fade" id="tab_1_2">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="hr"><h4 class="text-info">Calendar Settings</h4></div>
                                     <form [formGroup]="generalForm"  class="form-horizontal">
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Default Branch
@@ -232,15 +187,105 @@
                                             <label class="control-label col-md-3">Duration of Follow-up
                                             </label>
                                             <div class="col-md-5">
-                                                <mat-form-field class="mrgn-lft8">
-                                                    <input matInput [matDatepicker]="followUp" placeholder="Duration"
-                                                           formControlName="followUpExam">
-                                                    <mat-datepicker-toggle matSuffix [for]="followUp"></mat-datepicker-toggle>
-                                                    <mat-datepicker #followUp></mat-datepicker>
-                                                </mat-form-field>
-
+                                                <input type="number" formControlName="durationFollowUp"
+                                                       class="form-control">
+                                                <input  formControlName="formName" value="GENERAL" type="hidden" />
                                             </div>
+
                                             <div class="col-md-4">Default duration of a free folow-up exam in days</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Prefix Serial Patient
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+
+                                            <div class="col-md-5">
+                                                <select class="form-control"    formControlName="prefixSerialPatient">
+                                                    <option value="5">5000</option>
+                                                    <option value="10">6000</option>
+                                                    <option value="20">7000</option>
+                                                    <option value="30">8000</option>
+                                                    <option value="40">9000</option>
+                                                    <option value="50">10000</option>
+                                                    <option value="60">11000</option>
+
+                                                </select>
+                                           </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Prefix Serial User
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-5">
+                                                <select class="form-control"    formControlName="prefixSerialUser">
+                                                    <option value="5">5000</option>
+                                                    <option value="10">6000</option>
+                                                    <option value="20">7000</option>
+                                                    <option value="30">8000</option>
+                                                    <option value="40">9000</option>
+                                                    <option value="50">10000</option>
+                                                    <option value="60">11000</option>
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Prefix Serial Department
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-5">
+                                                <select class="form-control"   formControlName="prefixSerialDepartment">
+                                                    <option value="5">5000</option>
+                                                    <option value="10">6000</option>
+                                                    <option value="20">7000</option>
+                                                    <option value="30">8000</option>
+                                                    <option value="40">9000</option>
+                                                    <option value="50">10000</option>
+                                                    <option value="60">11000</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Prefix Serial Appointment
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-5">
+                                                <select class="form-control"   formControlName="prefixSerialAppointment">
+                                                    <option value="5">5000</option>
+                                                    <option value="10">6000</option>
+                                                    <option value="20">7000</option>
+                                                    <option value="30">8000</option>
+                                                    <option value="40">9000</option>
+                                                    <option value="50">10000</option>
+                                                    <option value="60">11000</option>
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Prefix Serial Invoices
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-5">
+                                                <select class="form-control"    formControlName="prefixSerialInvoices">
+                                                    <option value="5">5000</option>
+                                                    <option value="10">6000</option>
+                                                    <option value="20">7000</option>
+                                                    <option value="30">8000</option>
+                                                    <option value="40">9000</option>
+                                                    <option value="50">10000</option>
+                                                    <option value="60">11000</option>
+
+                                                </select>
+                                            </div>
+
                                         </div>
 
                                     </form>
@@ -248,7 +293,80 @@
                             </div>
                             <div class="hr">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'done')"> Save</button>
+                                    <button type="button" class="btn blue" (click)="saveGeneralSettings(generalForm.value)"> Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab_1_5">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form [formGroup]="accountForm"  class="form-horizontal">
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">First Name
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="firstName"
+                                                           class="form-control"></div>
+                                                <input  formControlName="formName" value="ACCOUNT" type="hidden" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Last Name
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="lastName"
+                                                           class="form-control"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Email
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="userEmail"
+                                                           class="form-control"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Username
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="userName"
+                                                           class="form-control"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Cell Phone
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="cellPhone"
+                                                           class="form-control"></div>
+                                            </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">Home Phone
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" formControlName="homePhone"
+                                                                   class="form-control"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">Address
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" formControlName="userAddress"
+                                                                   class="form-control"></div>
+                                                    </div>
+
+                                        </div>
+                                            </div></div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="hr">
+                                <div class="col-md-12 text-center">
+                                    <button type="button" class="btn blue" (click)="saveAccount(accountForm.value)"> Save</button>
                                 </div>
                             </div>
                         </div>
@@ -288,7 +406,7 @@
                             </div>
                             <div class="hr">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn blue" (click)="addOrganization(orgForm.value,'done')"> Update Entire Profile</button>
+                                    <button type="button" class="btn blue" (click)="addOrganization(proForm.value,'done')"> Update</button>
                                 </div>
                             </div>
                         </div>

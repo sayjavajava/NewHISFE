@@ -156,12 +156,18 @@ export class BranchComponent implements OnInit {
                 if (id) {
                     this.requestService.deleteRequest(AppConstants.DELETE_BRANCH_URI + id).subscribe((data: Response) => {
                         if (data['responseCode'] === 'BRANCH_DEL_SUC_01') {
-                            this.notificationService.success('User has been Deleted Successfully');
+                            this.notificationService.success('Branch has been Deleted Successfully');
                             this.getBranchFromServer(this.currPage);
 
                         }
+                        if (data['responseCode'] === 'BRANCH_NOT_FOUND') {
+                            this.notificationService.warn('Branch is Accossiated ');
+                           // this.getBranchFromServer(this.currPage);
+
+                        }
+
                     }, error => {
-                        this.notificationService.error('ERROR', 'User Unable to Delete ');
+                        this.notificationService.error('ERROR', 'Branch is Associated with another Branch');
 
                     });
                 }

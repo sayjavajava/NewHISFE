@@ -32,7 +32,7 @@ export class ContentComponent implements OnInit {
 
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(
-                '/user/loggedInUser')
+                '/user/auth/loggedInUser')
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ADM_SUC_03') {
@@ -76,7 +76,7 @@ export class ContentComponent implements OnInit {
 
     logout() {
         this.requestsService.getRequest(
-            '/user/logout')
+            '/user/auth/logout')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'USR_AUTH_SUC_02') {

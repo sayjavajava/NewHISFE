@@ -23,7 +23,7 @@ export class AddBranchComponent implements OnInit {
     userSelected: string = 'doctor';
     pDoctor: any = [];
     branchesList: any = [];
-    defaultDoctor:string='primarydoctor';
+   // defaultDoctor:string='primarydoctor';
     defaultBranch:string='primaryBranch';
     billingForm: FormGroup;
     scheduleForm: FormGroup;
@@ -36,10 +36,6 @@ export class AddBranchComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseStatus'] === 'SUCCESS') {
                         this.pDoctor = response['responseData'];
-                        if(this.pDoctor.length > 1 ){
-                            this.removeDoctor();
-                        }
-                     //   this.pDoctor.indexOf({userName :this.defaultDoctor}) === -1 ? this.pDoctor.push({userName :this.defaultDoctor}) :console.log('');
 
                     }
                 },
@@ -88,11 +84,11 @@ export class AddBranchComponent implements OnInit {
             'examRooms': this.fb.array([this.createExamRoom()]),
         })
     }
-    removeDoctor(){
+/*    removeDoctor(){
         this.pDoctor.forEach( (item: any, index :any) => {
             if(item.userName === this.defaultDoctor) this.pDoctor.splice(index,1);
         });
-    }
+    }*/
     removeBranch(){
         this.branchesList.forEach( (item: any, index :any) => {
             if(item === this.defaultBranch) this.branchesList.splice(index,1);
@@ -151,20 +147,20 @@ export class AddBranchComponent implements OnInit {
                 })
     }
 
-    addBranch(data: any, value: string) {
+    addBranch(data: FormData) {
         if (this.branchForm.valid) {
-            let branchObject = this.prepareSaveBranch();
-             if (value === 'done') {
-                this.requestService.postRequest(AppConstants.ADD_BRANCH, branchObject)
-                    .subscribe(function (response) {
-                        if (data['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
+           // let branchObject = this.prepareSaveBranch();
+                this.requestService.postRequest(AppConstants.ADD_BRANCH, data)
+                    .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
                             this.notificationService.success('Branch is Created Successfully');
-
+                            this.router.navigate(['/dashboard/setting/branch'])
                         }
                     }, function (error) {
                         this.notificationService.error('ERROR', 'Branch is not Created');
                     });
-            }
+
 
         } else {
             this.validateAllFormFields(this.branchForm);
@@ -184,7 +180,7 @@ export class AddBranchComponent implements OnInit {
 
     createExamRoom(): FormGroup {
         return this.fb.group({
-            'examName': '',
+            'roomName': '',
             'allowOnlineScheduling': '',
         });
     }

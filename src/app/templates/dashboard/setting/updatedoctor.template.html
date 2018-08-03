@@ -149,40 +149,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" formControlName="sendBillingReport"
-                                                   class=""><span></span></label>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Use Recept Dashboard?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"
-                                                   formControlName="useReceptDashboard"><span></span></label>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Other Doctor Dashboard?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" formControlName="otherDoctorDashBoard"><span></span>
-                                            <select class="form-control"
-                                                    (change)="getSelectedDashboard($event.target.value)"
-                                                    formControlName="otherDashboard" placeholder="Dashoboard">
-                                                <option *ngFor="let br of primaryDoctor" [value]="br.userName">
-                                                    {{br.userName}}
-                                                </option>
-
-                                            </select>
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
@@ -355,61 +323,43 @@
                                 <label class="control-label col-md-4 col-xs-12"> Working Days:
                                 </label>
                                 <div class="col-md-8 col-xs-12 text-center" formGroupName="workingDaysContorl">
+
+                                   <!-- <div *ngFor="let item of workingDaysContorl.controls; let i= index " class="">
+
+                                        <div class=" col-md-1 col-width25 col-xs-3">
+                                           &lt;!&ndash; <input type="checkbox" class="form-control spinner"
+                                                   value="{{item.id}}"
+                                                   (change)="selectWorkingDays($event,item)">
+                                                    {{item.name}}&ndash;&gt;
+
+                                        <input  class="form-control spinner"
+                                               [formControlName]="i"
+                                               >
+                                            {{item.name}}
+                                        </div>
+                                    </div>
+
+-->
                                     <div class=" col-md-1 col-width25 col-xs-3">
-                                        Sunday:
-                                        <label class="mt-checkbox mt-checkbox-outline scheduling-chkbx">
-                                            <input type="checkbox" formControlName="sunday">
-                                            <span></span>
-                                        </label>
-                                        <!--sunday: <input class="form-control spinner" type="checkbox" formControlName="sunday"  >-->
+                                        sunday: <input class="form-control spinner" type="checkbox" formControlName="sunday" >
                                     </div>
                                     <div class=" col-md-1 col-width25 col-xs-3">
-                                        Monday:
-                                        <label class="mt-checkbox mt-checkbox-outline scheduling-chkbx">
-                                            <input type="checkbox" formControlName="monday">
-                                            <span></span>
-                                        </label>
-                                        <!--<input class="form-control spinner" type="checkbox" formControlName="monday">-->
+                                        Monday: <input class="form-control spinner" type="checkbox" formControlName="monday">
                                     </div>
                                         <div class=" col-md-1 col-width25 col-xs-3">
-                                            Tuesday:
-                                            <label class="mt-checkbox mt-checkbox-outline scheduling-chkbx">
-                                                <input type="checkbox" formControlName="tuesday">
-                                                <span></span>
-                                            </label>
-                                            <!--<input type="checkbox" class="form-control spinner" formControlName="tuesday">-->
+                                            Tuesday: <input type="checkbox" class="form-control spinner" formControlName="tuesday">
                                         </div>
                                         <div class=" col-md-1 col-width25 col-xs-3">
-                                            Wednesday:
-                                            <label class="mt-checkbox mt-checkbox-outline scheduling-chkbx">
-                                                <input type="checkbox" formControlName="wednesday">
-                                                <span></span>
-                                            </label>
-                                            <!--<input type="checkbox" class="form-control spinner" formControlName="wednesday">-->
+                                            Wednesday: <input type="checkbox" class="form-control spinner" formControlName="wednesday">
                                         </div>
                                         <div class=" col-md-1 col-width25 col-xs-3">
-                                            Thurseday:
-                                            <label class="mt-checkbox mt-checkbox-outline scheduling-chkbx">
-                                                <input type="checkbox" formControlName="thurseday">
-                                                <span></span>
-                                            </label>
-                                            <!--<input type="checkbox"  class="form-control spinner" formControlName="thurseday">-->
+                                            Thurseday: <input type="checkbox"  class="form-control spinner" formControlName="thurseday">
                                         </div>
                                         <div class=" col-md-1 col-width25 col-xs-3">
-                                            Friday:
-                                            <label class="mt-checkbox mt-checkbox-outline scheduling-chkbx">
-                                                <input type="checkbox" formControlName="friday">
-                                                <span></span>
-                                            </label>
-                                            <!--<input type="checkbox" class="form-control spinner" formControlName="friday">-->
+                                            Friday: <input type="checkbox" class="form-control spinner" formControlName="friday">
                                         </div>
                                         <div class=" col-md-1 col-width25 col-xs-3">
-                                            Saturday:
-                                            <label class="mt-checkbox mt-checkbox-outline scheduling-chkbx">
-                                                <input type="checkbox" formControlName="satureday">
-                                                <span></span>
-                                            </label>
-                                            <!--<input type="checkbox" class="form-control spinner" formControlName="satureday">-->
+                                            Satureday: <input type="checkbox" class="form-control spinner" formControlName="satureday">
                                         </div>
 
 

@@ -1,0 +1,109 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'bootstrap@2',
+1 verbose cli   '--save' ]
+2 info using npm@3.10.10
+3 info using node@v6.10.3
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData bootstrap@2
+8 silly fetchNamedPackageData bootstrap
+9 silly mapToRegistry name bootstrap
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'bootstrap',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'bootstrap',
+12 silly mapToRegistry   name: 'bootstrap',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/bootstrap
+14 verbose request uri https://registry.npmjs.org/bootstrap
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 5:14:54 PM
+17 verbose request id 8aee21605b8ad4b3
+18 http request GET https://registry.npmjs.org/bootstrap
+19 http 200 https://registry.npmjs.org/bootstrap
+20 verbose headers { date: 'Tue, 17 Jul 2018 12:14:55 GMT',
+20 verbose headers   'content-type': 'application/json; charset=UTF-8',
+20 verbose headers   'transfer-encoding': 'chunked',
+20 verbose headers   connection: 'keep-alive',
+20 verbose headers   'set-cookie': [ '__cfduid=dfd87f05672cc9f3d36d4cc00246ba0a41531829695; expires=Wed, 17-Jul-19 12:14:55 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+20 verbose headers   'cache-control': 'max-age=300',
+20 verbose headers   'cf-cache-status': 'HIT',
+20 verbose headers   'cf-ray': '43bca18b49d96041-MRS',
+20 verbose headers   etag: 'W/"f018f43768379c856680a1b1e32e65e0"',
+20 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+20 verbose headers   'last-modified': 'Thu, 12 Jul 2018 16:38:48 GMT',
+20 verbose headers   vary: 'accept-encoding, accept',
+20 verbose headers   server: 'cloudflare',
+20 verbose headers   'content-encoding': 'gzip' }
+21 silly get cb [ 200,
+21 silly get   { date: 'Tue, 17 Jul 2018 12:14:55 GMT',
+21 silly get     'content-type': 'application/json; charset=UTF-8',
+21 silly get     'transfer-encoding': 'chunked',
+21 silly get     connection: 'keep-alive',
+21 silly get     'set-cookie': [ '__cfduid=dfd87f05672cc9f3d36d4cc00246ba0a41531829695; expires=Wed, 17-Jul-19 12:14:55 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+21 silly get     'cache-control': 'max-age=300',
+21 silly get     'cf-cache-status': 'HIT',
+21 silly get     'cf-ray': '43bca18b49d96041-MRS',
+21 silly get     etag: 'W/"f018f43768379c856680a1b1e32e65e0"',
+21 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+21 silly get     'last-modified': 'Thu, 12 Jul 2018 16:38:48 GMT',
+21 silly get     vary: 'accept-encoding, accept',
+21 silly get     server: 'cloudflare',
+21 silly get     'content-encoding': 'gzip' } ]
+22 verbose get saving bootstrap to C:\Users\waqas.kamran\AppData\Roaming\npm-cache\registry.npmjs.org\bootstrap\.cache.json
+23 verbose correctMkdir C:\Users\waqas.kamran\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+24 silly fetchPackageMetaData Error: No compatible version found: bootstrap@2
+24 silly fetchPackageMetaData Valid install targets:
+24 silly fetchPackageMetaData 4.1.2, 4.1.1, 4.1.0, 4.0.0, 4.0.0-beta.3, 4.0.0-beta.2, 4.0.0-beta, 4.0.0-alpha.6, 4.0.0-alpha.5, 4.0.0-alpha.4, 4.0.0-alpha.3, 4.0.0-alpha.2, 3.3.7, 3.3.6, 3.3.5, 3.3.4, 3.3.2, 3.3.1, 3.3.0, 3.2.0, 3.1.1, 0.0.2, 0.0.1
+24 silly fetchPackageMetaData
+24 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (C:\Program Files\nodejs\node_modules\npm\lib\fetch-package-metadata.js:178:16)
+24 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+24 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:20:8
+24 silly fetchPackageMetaData     at saved (C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+24 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:241:18
+24 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:123:15)
+24 silly fetchPackageMetaData  error for bootstrap@2 { Error: No compatible version found: bootstrap@2
+24 silly fetchPackageMetaData Valid install targets:
+24 silly fetchPackageMetaData 4.1.2, 4.1.1, 4.1.0, 4.0.0, 4.0.0-beta.3, 4.0.0-beta.2, 4.0.0-beta, 4.0.0-alpha.6, 4.0.0-alpha.5, 4.0.0-alpha.4, 4.0.0-alpha.3, 4.0.0-alpha.2, 3.3.7, 3.3.6, 3.3.5, 3.3.4, 3.3.2, 3.3.1, 3.3.0, 3.2.0, 3.1.1, 0.0.2, 0.0.1
+24 silly fetchPackageMetaData
+24 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (C:\Program Files\nodejs\node_modules\npm\lib\fetch-package-metadata.js:178:16)
+24 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+24 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:20:8
+24 silly fetchPackageMetaData     at saved (C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+24 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:241:18
+24 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:123:15) code: 'ETARGET' }
+25 silly rollbackFailedOptional Starting
+26 silly rollbackFailedOptional Finishing
+27 silly runTopLevelLifecycles Finishing
+28 silly install printInstalled
+29 verbose stack Error: No compatible version found: bootstrap@2
+29 verbose stack Valid install targets:
+29 verbose stack 4.1.2, 4.1.1, 4.1.0, 4.0.0, 4.0.0-beta.3, 4.0.0-beta.2, 4.0.0-beta, 4.0.0-alpha.6, 4.0.0-alpha.5, 4.0.0-alpha.4, 4.0.0-alpha.3, 4.0.0-alpha.2, 3.3.7, 3.3.6, 3.3.5, 3.3.4, 3.3.2, 3.3.1, 3.3.0, 3.2.0, 3.1.1, 0.0.2, 0.0.1
+29 verbose stack
+29 verbose stack     at pickVersionFromRegistryDocument (C:\Program Files\nodejs\node_modules\npm\lib\fetch-package-metadata.js:178:16)
+29 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+29 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:20:8
+29 verbose stack     at saved (C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+29 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:241:18
+29 verbose stack     at FSReqWrap.oncomplete (fs.js:123:15)
+30 verbose cwd D:\Workspaces\HIS-FE
+31 error Windows_NT 10.0.10240
+32 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "bootstrap@2" "--save"
+33 error node v6.10.3
+34 error npm  v3.10.10
+35 error code ETARGET
+36 error notarget No compatible version found: bootstrap@2
+36 error notarget Valid install targets:
+36 error notarget 4.1.2, 4.1.1, 4.1.0, 4.0.0, 4.0.0-beta.3, 4.0.0-beta.2, 4.0.0-beta, 4.0.0-alpha.6, 4.0.0-alpha.5, 4.0.0-alpha.4, 4.0.0-alpha.3, 4.0.0-alpha.2, 3.3.7, 3.3.6, 3.3.5, 3.3.4, 3.3.2, 3.3.1, 3.3.0, 3.2.0, 3.1.1, 0.0.2, 0.0.1
+37 error notarget This is most likely not a problem with npm itself.
+37 error notarget In most cases you or one of your dependencies are requesting
+37 error notarget a package version that doesn't exist.
+38 verbose exit [ 1, true ]

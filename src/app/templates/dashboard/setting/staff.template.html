@@ -75,14 +75,14 @@
 
                             <!--<span style="display: none;" *ngFor="let br of item.branches"></span>-->
                             <td class="sorting_disabled" rowspan="1" colspan="1">
-                                {{item?.branch?.name}}
+                                {{item?.primaryBranch}}
                             </td>
-                            <td rowspan="1" colspan="1">{{item.userName}}</td>
+                            <td rowspan="1" colspan="1">{{item.username}}</td>
                             <td rowspan="1" colspan="1">{{item.email}}</td>
                             <td rowspan="1" colspan="1">
 
-                                <button (click)="updateUser(item.userType,item.id)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button (click)="deleteUser(item.id)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
+                                <button (click)="updateUser(item.userType,item.pId,item.uId)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
+                                <button (click)="deleteUser(item.uId)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
                             </td>
                         </tr>
                             </thead>

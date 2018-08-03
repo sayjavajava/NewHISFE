@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
             this.profileImg = this.userSharedService.profileImg;
             this.role = this.userSharedService.roles;
             this.requestsService.getRequest(
-                '/user/loggedInUser')
+                '/user/auth/loggedInUser')
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ADM_SUC_03') {
@@ -60,15 +60,14 @@ export class HeaderComponent implements OnInit {
 
     logout() {
         this.requestsService.getRequest(
-            '/user/logout')
+            '/user/auth/logout')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'USR_AUTH_SUC_02') {
                         window.localStorage.removeItem(btoa('access_token'));
                         window.localStorage.removeItem(btoa('refresh_token'));
                         window.localStorage.removeItem(btoa('expire_in'));
-                        window.localStorage.removeItem(atob('permissions'));
-
+                        window.localStorage.removeItem('permissions');
                         this.router.navigate(['/login']);
                     }
                 },
@@ -79,8 +78,8 @@ export class HeaderComponent implements OnInit {
             );
     }
 
-    goToUserDashBoard(){
+    goToUserDashBoard() {
         //this.router.navigate(['/dashboard/'+window.localStorage.getItem(atob('user_type'))+'/']);
-        this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
+        this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     }
 }

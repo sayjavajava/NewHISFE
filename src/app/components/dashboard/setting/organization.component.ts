@@ -23,10 +23,8 @@ export class OrganizationComponent implements OnInit {
     organization:any;
     selectedRole:string='SUPER_ADMIN';
     branchesList:any=[];
-
     searchForm: FormGroup;
     responseUser: any[];
-
 
     constructor(private requestService: RequestsService, private router: Router,
                 private notificationService: NotificationService,private fb:FormBuilder,

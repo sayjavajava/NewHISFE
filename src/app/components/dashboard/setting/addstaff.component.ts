@@ -29,7 +29,7 @@ export class AddStaffComponent implements OnInit {
     dutywithdoctor: boolean;
     managepatientrecord: boolean;
     managepatientinvoices: boolean;
-    allDBRoles:RoleAndPermission[];
+    allDBRoles: RoleAndPermission[];
     userForm: FormGroup;
     selectedDepartment: any = [];
     dutyWithDoctors: any = [];
@@ -41,14 +41,14 @@ export class AddStaffComponent implements OnInit {
     firstShiftToTime: string;
     selectedWorkingDays: any = [];
     selectedVisitBranches: any = [];
+    selectedRoles : any=[];
     selectedDoctors: any = [];
     error: string;
     responseUser: any[];
     userSelected: string = 'doctor';
-    defaultBranch:string='primaryBranch';
+    defaultBranch: string = 'primaryBranch';
 
-
-    branchesList: any=[];
+    branchesList: any = [];
     departmentList: any = [];
     primaryDoctor: any = []
     servicesList: any[] = [];
@@ -72,6 +72,13 @@ export class AddStaffComponent implements OnInit {
     departmentError: string = 'Select one or more Departments';
     serviceError: string = 'Select one or more Services';
     dutyTimmingShiftError: string = 'Select Duty Time';
+    allStaffTypes = [
+        {name: 'NURSE'},
+        {name: 'DOCTOR'},
+        {name: 'RECEPTIONIST'},
+        {name: 'CASHIER'}
+
+    ];
 
     constructor(private router: Router, private  fb: FormBuilder, private requestsService: RequestsService, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
@@ -81,25 +88,28 @@ export class AddStaffComponent implements OnInit {
         this.allDoctors();
         this.allServices();
 
-        }
+
+    }
 
     ngOnInit() {
         this.createUserForm();
+
     }
-    removeBranch(){
-        this.branchesList.forEach( (item: any, index :any) => {
-            if(item.name === this.defaultBranch) this.branchesList.splice(index,1);
+
+/*    removeBranch() {
+        this.branchesList.forEach((item: any, index: any) => {
+            if (item.name === this.defaultBranch) this.branchesList.splice(index, 1);
         });
-    }
+    }*/
+
     allBranches() {
         this.requestsService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-                        if(this.branchesList.length > 1){
-                        this.removeBranch();
-                    }}
+
+                    }
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -234,7 +244,8 @@ export class AddStaffComponent implements OnInit {
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     allowDiscount: data.allowDiscount,
-                    userType: this.selectedUser
+                    userType: this.selectedUser,
+                    selectedRoles : this.selectedRoles
                 });
 
                 this.makeService(cashier);
@@ -261,6 +272,7 @@ export class AddStaffComponent implements OnInit {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     selectedDoctors: this.selectedDoctors,
+                    selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
 
@@ -290,6 +302,7 @@ export class AddStaffComponent implements OnInit {
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
                     dutyWithDoctors: this.dutyWithDoctors,
+                    selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(nurse);
@@ -313,7 +326,6 @@ export class AddStaffComponent implements OnInit {
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
                     active: data.active,
-
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
                     interval: data.interval,
@@ -328,7 +340,7 @@ export class AddStaffComponent implements OnInit {
                     dateTo: data.dateTo,
                     dateFrom: data.dateFrom,
                     selectedWorkingDays: this.selectedWorkingDays,
-
+                    selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(doctor);
@@ -481,7 +493,7 @@ export class AddStaffComponent implements OnInit {
         const amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(time => {
             this.secondShiftFromTime = time;
-            //console.log(time);
+            console.log(this.secondShiftFromTime);
         })
     }
 
@@ -584,11 +596,23 @@ export class AddStaffComponent implements OnInit {
             this.selectedVisitBranches.splice(index, 1);
         }
         //console.log(this.selectedVisitBranches);
-
     }
+    selectRoles(event: any, item: any) {
+        //console.log(item);
+        if (event.target.checked) {
+            this.selectedRoles.push(item.id);
+        }
+        else {
+            let updateItem = this.selectedRoles.find(this.findIndexToUpdate, item.id);
+
+            let index = this.selectedRoles.indexOf(updateItem);
+
+            this.selectedRoles.splice(index, 1);
+        }
+}
 
     dutyWithDoctor(event: any, item: any) {
-        //console.log(item);
+       // console.log(item);
         if (event.target.checked) {
             this.dutyWithDoctors.push(item.id);
         }
@@ -677,6 +701,7 @@ export class AddStaffComponent implements OnInit {
 
     checkPermission(user: string) {
         this.changeState();
+        console.log("user:" + user);
         switch (user) {
             case 'DOCTOR':
                 this.doctorPermissions();

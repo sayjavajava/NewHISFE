@@ -150,41 +150,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" formControlName="sendBillingReport"
-                                                   class=""><span></span></label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Use Recept Dashboard?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"
-                                                   formControlName="useReceptDashboard"><span></span></label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Other Doctor Dashboard?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" formControlName="otherDoctorDashBoard"><span></span>
-                                            <select class="form-control"
-                                                    (change)="getSelectedDashboard($event.target.value)"
-                                                    formControlName="otherDashboard" placeholder="Dashoboard">
-                                                <option *ngFor="let br of primaryDoctor" [value]="br.userName">
-                                                    {{br.userName}}
-                                                </option>
-
-                                            </select>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
                                     <div class="col-md-8 col-xs-6">
@@ -228,7 +193,7 @@
                                         <address><label class="mt-checkbox mt-checkbox-outline">
                                             <div *ngFor="let item of primaryDoctor">
                                                 <input type="checkbox" formControlName="nurseDutyWithDoctor"
-                                                       name={{item.name}}
+                                                       name={{item.userName}}
                                                        value="{{item.id}}"
                                                        (change)="dutyWithDoctor($event,item)">
                                                 {{item.userName}}

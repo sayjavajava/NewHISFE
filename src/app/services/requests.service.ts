@@ -7,6 +7,7 @@ import {RoleAndPermission} from '../model/roleandpermission';
 import {Receptionist} from '../model/Receptionist';
 import {Observable} from "rxjs/Observable";
 import {RequestOptions} from "@angular/http";
+import {HttpParamsOptions} from '@angular/common/http/src/params';
 
 @Injectable()
 export class RequestsService {
@@ -66,6 +67,17 @@ export class RequestsService {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader})
+            .map((data: any) => {
+                return data.responseData as Object;
+            });
+        ;
+        //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
+    }
+    findByIdAndType(url: any,type:any): Observable<any> {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        let params = new HttpParams().set("userType",type);
+        return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader,params:params})
             .map((data: any) => {
                 return data.responseData as Object;
             });

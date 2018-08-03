@@ -7,6 +7,7 @@ import {SearchUser} from "../../../model/SearchUser";
 import {AppConstants} from "../../../utils/app.constants";
 import {MatDialog} from "@angular/material";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
+import {HISUtilService} from '../../../services/his-util.service';
 
 @Component({
     selector: 'staff-component',
@@ -31,8 +32,8 @@ export class StaffComponent implements OnInit {
 
 
     constructor(private requestService: RequestsService, private router: Router,
-                private notificationService: NotificationService, private fb: FormBuilder,
-                private matDialog: MatDialog, private confirmationDialogService: ConformationDialogService) {
+                private notificationService: NotificationService, private fb: FormBuilder,private hisUtilService: HISUtilService
+                ,private matDialog: MatDialog, private confirmationDialogService: ConformationDialogService) {
     }
 
     searchForm: FormGroup;
@@ -115,7 +116,7 @@ export class StaffComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.data = response['responseData']['data'];
-                        let data = response['responseData']['data'];
+                      //  let data = response['responseData']['data'];
 
 
                     }
@@ -127,8 +128,8 @@ export class StaffComponent implements OnInit {
             );
     }
 
-    updateUser(item: any, id: any) {
-
+    updateUser(item: any, id: any,staffId:number) {
+          this.hisUtilService.staffId(staffId);
         if (item === 'DOCTOR') {
             console.log('iam doc');
             this.router.navigate(['/dashboard/setting/doctor/edit/', id]);

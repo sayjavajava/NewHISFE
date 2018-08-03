@@ -9,6 +9,7 @@ import {User} from '../../../model/User';
 import {UserEditModel} from '../../../model/UserEditModel';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {AppConstants} from '../../../utils/app.constants';
+import {HISUtilService} from '../../../services/his-util.service';
 
 @Component({
     selector: 'adddoctor-component',
@@ -59,8 +60,8 @@ export class UpdatedoctorComponent implements OnInit {
         {id: 6, name: 'Satureday'},
         {id: 7, name: 'Sunday'},
     ];
-    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
-                private fb: FormBuilder, private notificationService: NotificationService
+    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService, private hisUtilService: HISUtilService
+                ,private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
            this.allBranches();
            this.allServices();
@@ -196,46 +197,58 @@ export class UpdatedoctorComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
-            this.requestService.findById(AppConstants.FETCH_USER_BY_ID + this.id).subscribe(
+            this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'DOCTOR').subscribe(
                 user => {
                     //  this.id = user.id;
                      this.userForm.patchValue({
-                        firstName: user.profile.firstName,
-                        lastName: user.profile.lastName,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
                         email: user.email,
-                        homePhone: user.profile.homePhone,
-                        cellPhone: user.profile.cellPhone,
-                        sendBillingReport: user.profile.sendBillingReport,
+                        homePhone: user.homePhone,
+                        cellPhone: user.cellPhone,
+                        sendBillingReport: user.sendBillingReport,
                         userName: user.userName,
-                        active: user.profile.active,
-                        accountExpiry: user.profile.accountExpiry,
-                        otherDashboard: user.profile.otherDashboard,
-                        useReceptDashboard: user.profile.useReceptDashBoard,
-                        otherDoctorDashBoard: user.profile.otherDoctorDashBoard,
-                        primaryBranch: user.branch.name,
-                        interval: user.profile.checkUpInterval,
-                        shift1: user.dutyShift.dutyTimmingShift1,
-                        shift2: user.dutyShift.dutyTimmingShift2,
-                        secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
-                        vacation: user.vacation.status,
-                        dateFrom: user.profile.accountExpiry,
-                        dateTo :user.vacation.endDate,
-                     });
-                    this.userForm.controls['workingDaysContorl'].patchValue({
+                        active: user.active,
 
-                        sunday: this.checkAvailabilty('sunday', user.profile.workingDays),
-                        monday: this.checkAvailabilty('monday', user.profile.workingDays),
-                        tuesday: this.checkAvailabilty('tuesday', user.profile.workingDays),
-                        thurseday: this.checkAvailabilty('thurseday', user.profile.workingDays),
-                        friday: this.checkAvailabilty('friday', user.profile.workingDays),
-                        satureday: this.checkAvailabilty('satureday', user.profile.workingDays),
-                        wednesday: this.checkAvailabilty('wednesday', user.profile.workingDays)
+                        otherDashboard: user.otherDashboard,
+                        useReceptDashboard: user.useReceptDashBoard,
+                        otherDoctorDashBoard: user.otherDoctorDashBoard,
+                        primaryBranch: user.primaryBranchId,
+                        interval: user.checkUpInterval,
+                       // shift1: user.dutyShift.dutyTimmingShift1,
+                       // shift2: user.dutyShift.dutyTimmingShift2,
+                      //  secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
+                        vacation: user.vacation,
+                     });
+                     if(user.expiryDate !=null){
+                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
+                     }
+                     if(user.dutyShifts[0].shiftName == 'MORNING'){
+                        // console.log('doneee'+user.dutyShifts[0].shiftName);
+
+                         this.userForm.controls['shift1'].setValue(true);
+                     }
+                    if(user.dutyShifts[1].shiftName == 'EVENING'){
+                        // console.log('doneee'+user.dutyShifts[0].shiftName);
+                        this.userForm.controls['shift2'].setValue(true);
+                    }
+                     if(user.vacation){
+                     this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
+                     this.userForm.controls['dateTo'].setValue(new Date(user.vacationTo));}
+                     this.userForm.controls['workingDaysContorl'].patchValue({
+                        sunday: this.checkAvailabilty('sunday', user.workingDays),
+                        monday: this.checkAvailabilty('monday', user.workingDays),
+                        tuesday: this.checkAvailabilty('tuesday', user.workingDays),
+                        thurseday: this.checkAvailabilty('thurseday', user.workingDays),
+                        friday: this.checkAvailabilty('friday', user.workingDays),
+                        satureday: this.checkAvailabilty('satureday', user.workingDays),
+                        wednesday: this.checkAvailabilty('wednesday', user.workingDays)
 
                     })
-                    this.secondShiftFromTime = user.dutyShift.startTimeShift2,
-                        this.secondShiftToTime = user.dutyShift.endTimeShift2,
-                        this.firstShiftFromTime = user.dutyShift.startTimeShift1,
-                        this.firstShiftToTime = user.dutyShift.endTimeShift1
+                        this.secondShiftFromTime = user.dutyShifts[0].startTime,
+                        this.secondShiftToTime = user.dutyShifts[0].endTime,
+                        this.firstShiftFromTime = user.dutyShifts[1].startTime,
+                        this.firstShiftToTime = user.dutyShifts[1].endTime
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -322,7 +335,7 @@ export class UpdatedoctorComponent implements OnInit {
 
     makeService(user: any) {
 
-        this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(
+        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
 
@@ -368,6 +381,7 @@ export class UpdatedoctorComponent implements OnInit {
     }
 
     secondShiftFrom() {
+        console.log('time from');
         const amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(time => {
             this.secondShiftFromTime = time;

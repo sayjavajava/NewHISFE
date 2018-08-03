@@ -239,7 +239,7 @@ p, h3, h4{margin:0; padding:0;}
 .pagintn-txt p{ margin-top:5px; color:#d5d4da; font-size:13px;}
 .profile-brdr{border: 1px solid #f2f2f2; background: #fff;}
 .pdng-all{padding: 12px 20px 15px;}
-.cod-higt{max-height: 65px; height: 200px; overflow-y: scroll;}
+.cod-higt{max-height: 150px; height: 200px; overflow-y: scroll;}
 .width460{width: 460px !important;}
 .bordered {
     border: 1px solid #e7ecf1!important;
@@ -447,7 +447,7 @@ p, h3, h4{margin:0; padding:0;}
 .time-form-control{border: 1px solid #c2cad8;}
 .branch-save-button{padding-right: 30px;}
 
-input[type=text] {
+/*input[type=text] {
     width: 320px !important;
 }
 input[type=email]{
@@ -462,7 +462,7 @@ select {
 }
 textarea {
     width: 320px !important;
-}
+}*/
 
 .no-padding-rgt input[type=text] {
     width: 200px !important;
@@ -475,4 +475,14 @@ textarea {
     padding: 0;
     width: 160px !important;
     height: 45px !important;
+}
+
+.dashboard-menu{
+    margin-top: 60px;
+}
+.searchBar{
+    height: 140px;
+}
+.aptSearch{
+    margin-top: -10px;
 }

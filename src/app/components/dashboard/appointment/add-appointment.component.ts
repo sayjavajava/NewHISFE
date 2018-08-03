@@ -43,6 +43,7 @@ export class AddAppointmentComponent implements OnInit {
     eventsRequest: CalendarEvent[] = [];
     activeDayIsOpen: boolean = true;
     title = 'app';
+    popup:boolean=false;
     page: number = 0;
     color: string;
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
@@ -163,6 +164,19 @@ export class AddAppointmentComponent implements OnInit {
         }
         this.selectedType.push(...this.selectedOptions);
     }
+    moveMouse(action:string ,event: CalendarEvent){
+        this.modalData={event,action};
+        console.log(event);
+        this.popup=true;
+    }
+
+    mouseEnter(div : string){
+        console.log("mouse enter : " + div);
+    }
+
+    mouseLeave(action:string,event:CalendarEvent){
+        this.popup=false;
+    }
 
     recurringDays = [
         {name: 'Monday'},
@@ -234,6 +248,7 @@ export class AddAppointmentComponent implements OnInit {
                 this.viewDate = date;
             }
         }
+        this.addEvent(date);
     }
 
     eventTimesChanged({
@@ -246,8 +261,8 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     handleEvent(action: string, event: CalendarEvent): void {
-     
         this.modalData = {event, action};
+        console.log(event);
        // this.modal.open(this.modalContent, {size: 'lg'});
       //  document.getElementById("exampleModalCenter2").click();
         $("#exampleModalCenter2").modal('show');
@@ -260,12 +275,12 @@ export class AddAppointmentComponent implements OnInit {
         //this.refresh.next();
     }
 
-    addEvent(): void {
-    
+    addEvent(date:any): void {
+        $("#exampleModalCenter2").modal('show');
         this.eventsRequest.push({
             title: 'Name',
-            start: startOfDay(new Date()),
-            end: endOfDay(new Date()),
+            start: startOfDay(date),
+            end: endOfDay(date),
             draggable: true,
             notes: '',
             email: 'email',

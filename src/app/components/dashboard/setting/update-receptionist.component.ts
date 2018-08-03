@@ -8,6 +8,7 @@ import {User} from '../../../model/User';
 import {Receptionist} from '../../../model/Receptionist';
 import {UserEditModel} from '../../../model/UserEditModel';
 import {AppConstants} from '../../../utils/app.constants';
+import {HISUtilService} from '../../../services/his-util.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import {AppConstants} from '../../../utils/app.constants';
 })
 export class UpdateReceptionistComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
-                private fb: FormBuilder, private notificationService: NotificationService) {
+                private hisUtilService: HISUtilService ,private fb: FormBuilder, private notificationService: NotificationService) {
         this.allBranches();
         this.allDoctors();
     }
@@ -115,24 +116,19 @@ export class UpdateReceptionistComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
-            this.requestService.findById(AppConstants.FETCH_USER_BY_ID + this.id).subscribe(
+            this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'RECEPTIONIST').subscribe(
                 receptionist => {
                     //  this.id = user.id;
                     this.userForm.patchValue({
-                        firstName: receptionist.profile.firstName,
-                        lastName: receptionist.profile.lastName,
+                        firstName: receptionist.firstName,
+                        lastName: receptionist.lastName,
                         email: receptionist.email,
-                        homePhone: receptionist.profile.homePhone,
-                        cellPhone: receptionist.profile.cellPhone,
-                        sendBillingReport: receptionist.profile.sendBillingReport,
+                        homePhone: receptionist.homePhone,
+                        cellPhone: receptionist.cellPhone,
                         userName: receptionist.userName,
-                        active: receptionist.profile.active,
-                        accountExpiry: receptionist.profile.accountExpiry,
-                        otherDashboard: receptionist.profile.otherDashboard,
-                        useReceptDashboard: receptionist.profile.useReceptDashBoard,
-                        otherDoctorDashBoard: receptionist.profile.otherDoctorDashBoard,
-                        allowDiscount:receptionist.profile.allowDiscount,
-                        primaryBranch: receptionist.branch.name,
+                        active: receptionist.active,
+                        accountExpiry: receptionist.expiryDate,
+                        primaryBranch: receptionist.primaryBranchId,
                     });
 
                 }, (error: any) => {
@@ -185,7 +181,7 @@ export class UpdateReceptionistComponent implements OnInit {
 
     makeService(user: any) {
 
-        this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(
+        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID,user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
                     console.log('saved00')

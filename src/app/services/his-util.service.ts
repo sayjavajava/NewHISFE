@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 
 @Injectable()
 export class HISUtilService {
+    staffID:Number;
     constructor(private router: Router) {
     };
 
@@ -20,6 +21,9 @@ export class HISUtilService {
 
     hidePopupWithCloseButtonId(closeButtonId: string){
         document.getElementById(closeButtonId).click();
+    }
+      staffId(id:number){
+        this.staffID=id;
     }
 
 }

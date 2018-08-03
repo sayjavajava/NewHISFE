@@ -19,8 +19,6 @@ export class DashboardComponent implements OnInit{
         if (!window.localStorage.getItem(btoa('access_token'))) {
             this.router.navigate(['/login']);
         }
-        // alert('DashboardComponent ngOnInit');
-        // alert(window.localStorage.getItem(btoa('access_token')));
         this.titleService.setTitle('HIS | Dashboard');
     }
 }

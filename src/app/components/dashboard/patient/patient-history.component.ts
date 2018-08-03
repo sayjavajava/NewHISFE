@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 
 
 @Component({
-    selector: 'patient-invoice',
+    selector: 'patient-history',
     templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
 })
 export class PatientHistoryComponent implements OnInit {
@@ -11,6 +11,7 @@ export class PatientHistoryComponent implements OnInit {
     }
     ngOnInit(): void {
         //throw new Error("Method not implemented.");
+
     }
 
     goToUserDashBoard(){

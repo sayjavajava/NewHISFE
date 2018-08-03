@@ -7,6 +7,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {User} from '../../../model/User';
 import {UserEditModel} from '../../../model/UserEditModel';
 import {AppConstants} from '../../../utils/app.constants';
+import {HISUtilService} from '../../../services/his-util.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import {AppConstants} from '../../../utils/app.constants';
   templateUrl: '../../../templates/dashboard/setting/updatecashier.template.html',
 })
 export class UpdateCashierComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
+    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private hisUtilService: HISUtilService,
                 private fb: FormBuilder, private notificationService: NotificationService) {
                 this.allBranches();
                 this.allDoctors();
@@ -114,24 +115,20 @@ export class UpdateCashierComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
-            this.requestService.findById(AppConstants.FETCH_USER_BY_ID + this.id).subscribe(
+            this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'CASHIER').subscribe(
                 cashier => {
                     //  this.id = user.id;
                     this.userForm.patchValue({
-                        firstName: cashier.profile.firstName,
-                        lastName: cashier.profile.lastName,
+                        firstName: cashier.firstName,
+                        lastName: cashier.lastName,
                         email: cashier.email,
-                        homePhone: cashier.profile.homePhone,
-                        cellPhone: cashier.profile.cellPhone,
-                        sendBillingReport: cashier.profile.sendBillingReport,
+                        homePhone: cashier.homePhone,
+                        cellPhone: cashier.cellPhone,
                         userName: cashier.userName,
-                        active: cashier.profile.active,
-                        accountExpiry: cashier.profile.accountExpiry,
-                        otherDashboard: cashier.profile.otherDashboard,
-                        useReceptDashboard: cashier.profile.useReceptDashBoard,
-                        otherDoctorDashBoard: cashier.profile.otherDoctorDashBoard,
-                        allowDiscount:cashier.profile.allowDiscount,
-                        primaryBranch: cashier.branch.name,
+                        active: cashier.active,
+                        accountExpiry: cashier.expiryDate,
+                        otherDashboard: cashier.otherDashboard,
+                        primaryBranch: cashier.primaryBranchId,
                     });
 
                 }, (error: any) => {
@@ -183,8 +180,7 @@ export class UpdateCashierComponent implements OnInit {
     }
 
     makeService(user: any) {
-
-        this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(
+        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
                     console.log('saved00')
