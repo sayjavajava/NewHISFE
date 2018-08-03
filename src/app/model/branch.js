@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Branch = (function () {
-    function Branch(branchName, officeHoursStart, officeHoursEnd, noOfExamRooms, state, city, primaryDoctor, zipCode, address, officePhone, fax, formattedAddress) {
+    function Branch(id, branchName, officeHoursStart, officeHoursEnd, noOfExamRooms, state, city, primaryDoctor, zipCode, address, officePhone, fax, formattedAddress, checked) {
+        this.id = id;
         this.branchName = branchName;
         this.officeHoursStart = officeHoursStart;
         this.officeHoursEnd = officeHoursEnd;
@@ -14,6 +15,7 @@ var Branch = (function () {
         this.officePhone = officePhone;
         this.fax = fax;
         this.formattedAddress = formattedAddress;
+        this.checkedBranch = checked;
     }
     return Branch;
 }());

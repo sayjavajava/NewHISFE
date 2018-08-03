@@ -15,7 +15,6 @@ var notification_service_1 = require("../../../services/notification.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var medical_service_1 = require("../../../model/medical-service");
-var _ = require("lodash");
 var router_1 = require("@angular/router");
 var AddMedicalServiceComponent = (function () {
     function AddMedicalServiceComponent(notificationService, requestsService, HISUtilService, router) {
@@ -23,12 +22,11 @@ var AddMedicalServiceComponent = (function () {
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
-        this.branches = [];
-        this.departments = [];
+        this.ms = new medical_service_1.MedicalService();
         this.taxes = [];
-        this.selectedMedicalService = new medical_service_1.MedicalService();
     }
     AddMedicalServiceComponent.prototype.ngOnInit = function () {
+        this.ms.tax.id = -1;
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
         this.getTaxesFromServer();
@@ -38,7 +36,7 @@ var AddMedicalServiceComponent = (function () {
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
-                _this.branches = response['responseData'];
+                _this.ms.branches = response['responseData'];
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
@@ -49,7 +47,7 @@ var AddMedicalServiceComponent = (function () {
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                _this.departments = response['responseData'];
+                _this.ms.departments = response['responseData'];
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
@@ -66,13 +64,10 @@ var AddMedicalServiceComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
-    AddMedicalServiceComponent.prototype.saveMedicalServices = function (form) {
+    AddMedicalServiceComponent.prototype.saveMedicalServices = function (msForm) {
         var _this = this;
-        _.each(form.form.controls, function (control) {
-            control['_touched'] = true;
-        });
-        if (form.valid) {
-            this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_MEDICAL_SERVICES_URL, this.selectedMedicalService)
+        if (msForm.valid) {
+            this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_MEDICAL_SERVICES_URL, this.ms)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Medical Service');
@@ -84,6 +79,9 @@ var AddMedicalServiceComponent = (function () {
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
+        }
+        else {
+            this.notificationService.error('Please provide required field data', 'Medical Service');
         }
     };
     AddMedicalServiceComponent = __decorate([

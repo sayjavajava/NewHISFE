@@ -68,7 +68,7 @@ var ServiceTaxComponent = (function () {
                 this.requestsService.postRequest(app_constants_1.AppConstants.SERVICE_TAX_SAVE_URL, this.serviceTax).subscribe(function (response) {
                     if (response['responseCode'] === 'SER_TAX_SUC_03') {
                         _this.notificationService.success(response['responseMessage'], 'Tax');
-                        _this.getPageWiseICDs(_this.currPage);
+                        _this.getPageWiseTax(_this.currPage);
                         document.getElementById('close-btn').click();
                     }
                     else {
@@ -95,10 +95,10 @@ var ServiceTaxComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'SER_TAX_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Tax');
-                    _this.getPageWiseICDs(_this.currPage);
+                    _this.getPageWiseTax(_this.currPage);
                 }
                 else {
-                    _this.getPageWiseICDs(_this.currPage);
+                    _this.getPageWiseTax(_this.currPage);
                     _this.notificationService.error(response['responseMessage'], 'Tax');
                 }
             }, function (error) {
@@ -126,7 +126,7 @@ var ServiceTaxComponent = (function () {
                         _this.serviceTax = new service_tax_1.ServiceTax();
                         _this.notificationService.success(response['responseMessage'], 'Tax');
                         document.getElementById('close-btn').click();
-                        _this.getPageWiseICDs(_this.currPage);
+                        _this.getPageWiseTax(_this.currPage);
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Tax');
@@ -143,7 +143,7 @@ var ServiceTaxComponent = (function () {
             this.notificationService.error('Required Fields are missing', 'Tax');
         }
     };
-    ServiceTaxComponent.prototype.getPageWiseICDs = function (page) {
+    ServiceTaxComponent.prototype.getPageWiseTax = function (page) {
         this.dataTaxes = [];
         if (this.isSearchedTax) {
             this.searchByTaxName();

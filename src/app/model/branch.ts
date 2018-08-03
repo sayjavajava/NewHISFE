@@ -1,6 +1,7 @@
 import {ExamRooms} from './ExamRooms';
 
 export class Branch {
+    id?: number;
     branchName: string;
     officeHoursStart: number;
     officeHoursEnd: number;
@@ -13,15 +14,18 @@ export class Branch {
     officePhone: number;
     fax: string;
     formattedAddress: string;
-    examRooms:ExamRooms;
-    country:string;
-    billingName ?:string;
-    billingBranch ?:string;
-    billingTaxID ?:string;
-    showBranchOnline ?:boolean;
-    allowOnlineSchedulingInBranch ?:boolean;
+    examRooms: ExamRooms;
+    country: string;
+    billingName ?: string;
+    billingBranch ?: string;
+    billingTaxID ?: string;
+    showBranchOnline ?: boolean;
+    allowOnlineSchedulingInBranch ?: boolean;
+    checkedBranch?: boolean;
 
-    constructor(branchName: string, officeHoursStart: number, officeHoursEnd: number, noOfExamRooms: number, state ?: string, city?: string, primaryDoctor ?: string, zipCode?: number, address?: string, officePhone?: number, fax?: string, formattedAddress?: string) {
+
+    constructor(id?: number, branchName?: string, officeHoursStart?: number, officeHoursEnd?: number, noOfExamRooms?: number, state ?: string, city?: string, primaryDoctor ?: string, zipCode?: number, address?: string, officePhone?: number, fax?: string, formattedAddress?: string, checked?: boolean) {
+        this.id = id;
         this.branchName = branchName;
         this.officeHoursStart = officeHoursStart;
         this.officeHoursEnd = officeHoursEnd;
@@ -34,5 +38,6 @@ export class Branch {
         this.officePhone = officePhone;
         this.fax = fax;
         this.formattedAddress = formattedAddress;
+        this.checkedBranch = checked;
     }
 }

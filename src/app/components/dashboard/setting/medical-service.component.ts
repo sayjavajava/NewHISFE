@@ -5,7 +5,7 @@ import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {MedicalService} from '../../../model/medical-service';
 import {Branch} from "../../../model/branch";
-import {ClinicalDepartment} from "../../../model/clinical-department";
+import {Department} from "../../../model/department";
 import {MedicalServiceSearchModel} from "../../../model/MedicalServiceSearchModel";
 
 
@@ -20,9 +20,8 @@ export class MedicalServiceComponent implements OnInit {
     currPage: any;
     pages: number[] = [];
     dataMD: MedicalService[] = [];
-
     branches: Branch[] = [];
-    departments: ClinicalDepartment[] = [];
+    departments: Department[] = [];
 
     searchMSModel: MedicalServiceSearchModel = new MedicalServiceSearchModel();
 
@@ -78,11 +77,51 @@ export class MedicalServiceComponent implements OnInit {
             );
     }
 
-    deleteMedicalServices(msId: number, dptId: number, branchId: number) {
-        if (msId > 0) {
+    deleteMedicalServices(ms:any) {
+        if (ms.id > 0) {
             if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
-                AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId)
+                AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + ms.id )
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'MED_SER_SUC_02') {
+                            this.notificationService.success(response['responseMessage'], 'Medical Service');
+                            this.getMedicalServicesFromServer(0);
+                        } else {
+                            this.getMedicalServicesFromServer(0);
+                            this.notificationService.error(response['responseMessage'], 'Medical Service');
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        }
+    }
+
+    getDepartmentsByMedicalServiceId(ms:any) {
+        if (ms.id > 0) {
+            this.requestsService.getRequest(
+                AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL + 'msId=' + ms.id )
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'MED_SER_SUC_02') {
+                            this.notificationService.success(response['responseMessage'], 'Medical Service');
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Medical Service');
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        }
+    }
+
+    getBranchesByMedicalServiceId(ms:any) {
+        if (ms.id > 0) {
+            this.requestsService.getRequest(
+                AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL + 'msId=' + ms.id )
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -182,6 +221,18 @@ export class MedicalServiceComponent implements OnInit {
                     this.HISUtilService.tokenExpired(error.error.error);
                 }
             );
+    }
+
+    showMyPopup(event:any,item:MedicalService){
+       if (event.target.name === "departmentId"){
+           // data-toggle="modal"
+       //    popupBranch
+       //  document.getElementById('popupBranch');/*.['aria-hidden'] = false;*/
+       } else if (event.target.name === "branchId"){
+       //    popupDepartment
+       //    data-toggle="modal"
+
+       }
     }
 
 }

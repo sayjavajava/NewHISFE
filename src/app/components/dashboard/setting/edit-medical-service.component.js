@@ -15,7 +15,6 @@ var notification_service_1 = require("../../../services/notification.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var medical_service_1 = require("../../../model/medical-service");
-var _ = require("lodash");
 var router_1 = require("@angular/router");
 var EditMedicalServiceComponent = (function () {
     function EditMedicalServiceComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
@@ -24,19 +23,14 @@ var EditMedicalServiceComponent = (function () {
         this.HISUtilService = HISUtilService;
         this.router = router;
         this.activatedRoute = activatedRoute;
-        this.branches = [];
-        this.departments = [];
-        this.taxes = [];
         this.selectedMS = new medical_service_1.MedicalService();
+        this.taxes = [];
     }
     EditMedicalServiceComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.getBranchesFromServer();
-        this.getDepartmentsFromServer();
-        this.getTaxesFromServer();
+        this.selectedMS.tax.id = -1;
         this.activatedRoute.params.subscribe(function (params) {
-            _this.selectedMedicalServiceId = Number(params['id']);
-            _this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL + _this.selectedMedicalServiceId).subscribe(function (response) {
+            _this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL + Number(params['id'])).subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_01') {
                     _this.selectedMS = response['responseData'];
                 }
@@ -47,28 +41,7 @@ var EditMedicalServiceComponent = (function () {
             }, function (error) {
             });
         });
-    };
-    EditMedicalServiceComponent.prototype.getBranchesFromServer = function () {
-        var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'BR_SUC_01') {
-                _this.branches = response['responseData'];
-            }
-        }, function (error) {
-            _this.HISUtilService.tokenExpired(error.error.error);
-        });
-    };
-    EditMedicalServiceComponent.prototype.getDepartmentsFromServer = function () {
-        var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                _this.departments = response['responseData'];
-            }
-        }, function (error) {
-            _this.HISUtilService.tokenExpired(error.error.error);
-        });
+        this.getTaxesFromServer();
     };
     EditMedicalServiceComponent.prototype.getTaxesFromServer = function () {
         var _this = this;
@@ -83,9 +56,6 @@ var EditMedicalServiceComponent = (function () {
     };
     EditMedicalServiceComponent.prototype.updateMedicalServices = function (form) {
         var _this = this;
-        _.each(form.form.controls, function (control) {
-            control['_touched'] = true;
-        });
         if (form.valid) {
             this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.selectedMS)
                 .subscribe(function (response) {

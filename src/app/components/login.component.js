@@ -85,6 +85,7 @@ var LoginComponent = (function () {
                     window.localStorage.removeItem(atob('refresh_token'));
                     window.localStorage.removeItem(atob('expire_in'));
                     window.localStorage.removeItem(atob('permissions'));
+                    window.localStorage.removeItem(atob('user_type'));
                 }
             }, function (error) {
                 //console.log(error);

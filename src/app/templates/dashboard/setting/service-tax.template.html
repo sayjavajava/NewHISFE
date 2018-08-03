@@ -85,27 +85,27 @@
                     <ul class="pagination" style="visibility: visible;">
                         <li class="prev">
                             <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
-                               (click)="getPageWiseICDs(0)">
+                               (click)="getPageWiseTax(0)">
                                 <i class="fa fa-angle-double-left"></i>
                             </a>
                         </li>
                         <li class="prev">
                             <a title="Prev" *ngIf="prePage"
-                               (click)="getPageWiseICDs(currPage - 1)">
+                               (click)="getPageWiseTax(currPage - 1)">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
                         <li [ngClass]="{active: page === currPage}"
                             *ngFor="let page of pages">
-                            <a (click)="getPageWiseICDs(page)">{{page+1}}</a>
+                            <a (click)="getPageWiseTax(page)">{{page+1}}</a>
                         </li>
                         <li class="next" *ngIf="nextPage">
-                            <a (click)="getPageWiseICDs(currPage + 1)" title="Next">
+                            <a (click)="getPageWiseTax(currPage + 1)" title="Next">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
-                            <a (click)="getPageWiseICDs(pages.length - 1)" title="Last">
+                            <a (click)="getPageWiseTax(pages.length - 1)" title="Last">
                                 <i class="fa fa-angle-double-right"></i>
                             </a>
                         </li>

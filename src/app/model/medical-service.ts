@@ -1,18 +1,21 @@
+import {Branch} from "./branch";
+import {Department} from "./department";
+import {Tax} from "./Tax";
 export class MedicalService {
 
     id: number = 0;
-    title: string;
-    fee: number;
-    cost: string;
+    name: string;
+    fee: number = 0;
+    cost: number = 0;
     status: boolean;
-    branchId: number = 0;
-    branchName: string;
-    dptId: number = 0;
-    dptName: string;
-    taxId: number = 0;
-    taxRate: number;
-    duration: number;
-    description:string;
+    branches: Branch[] = [];
+    checkedBranches:Branch[] = [];
+    departments: Department[] = [];
+    checkedDepartments: Department[] = [];
+    tax: Tax = new Tax();
+
+    duration: number = 0;
+    description: string;
 
     constructor() {
     }

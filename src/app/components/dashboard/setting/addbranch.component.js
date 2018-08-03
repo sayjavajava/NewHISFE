@@ -173,9 +173,17 @@ var AddBranchComponent = (function () {
         });
     };
     AddBranchComponent.prototype.addFields = function (no) {
+        this.removeAllFields();
         this.examRooms = this.branchForm.get('examRooms');
         for (var i = 0; i < no; i++) {
             this.examRooms.push(this.createExamRoom());
+        }
+    };
+    AddBranchComponent.prototype.removeAllFields = function () {
+        this.examRooms = this.branchForm.get('examRooms');
+        var examRoomLen = this.examRooms.length;
+        for (var i = 0; i < examRoomLen; i++) {
+            this.examRooms.removeAt(0);
         }
     };
     AddBranchComponent.prototype.deleteField = function (index) {

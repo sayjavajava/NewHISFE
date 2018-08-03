@@ -7,8 +7,6 @@ export class ServiceTax {
     toDate: string;
     active: boolean = false;
     deleted: boolean = false;
-    updatedOn: number;
-    createdOn: number;
 
     constructor() {
     }

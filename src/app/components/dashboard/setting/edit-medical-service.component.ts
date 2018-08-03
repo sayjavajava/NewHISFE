@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Branch} from '../../../model/branch';
-import {ServiceTax} from '../../../model/service-tax';
-import {ClinicalDepartment} from '../../../model/clinical-department';
-import {RequestsService} from '../../../services/requests.service';
-import {NotificationService} from '../../../services/notification.service';
-import {HISUtilService} from '../../../services/his-util.service';
-import {AppConstants} from '../../../utils/app.constants';
-import {MedicalService} from '../../../model/medical-service';
-import {NgForm} from '@angular/forms';
-import * as _ from 'lodash';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Component, OnInit} from "@angular/core";
+import {ServiceTax} from "../../../model/service-tax";
+import {RequestsService} from "../../../services/requests.service";
+import {NotificationService} from "../../../services/notification.service";
+import {HISUtilService} from "../../../services/his-util.service";
+import {AppConstants} from "../../../utils/app.constants";
+import {MedicalService} from "../../../model/medical-service";
+import {NgForm} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Department} from "../../../model/department";
+import {Branch} from "../../../model/branch";
+import {Tax} from "../../../model/Tax";
 
 @Component({
     selector: 'add-medical-services-component',
@@ -17,29 +17,23 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 })
 export class EditMedicalServiceComponent implements OnInit {
 
-    branches: Branch[] = [];
-    departments: ClinicalDepartment[] = [];
-    taxes: ServiceTax[] = [];
     selectedMS: MedicalService = new MedicalService();
-    selectedMedicalServiceId: number;
+    taxes: Tax[] = [];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute) {
+
     }
 
     ngOnInit() {
-        this.getBranchesFromServer();
-        this.getDepartmentsFromServer();
-        this.getTaxesFromServer();
-
+        this.selectedMS.tax.id = -1;
         this.activatedRoute.params.subscribe(
             params => {
-                this.selectedMedicalServiceId = Number(params['id']);
                 this.requestsService.getRequest(
-                    AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL + this.selectedMedicalServiceId
+                    AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL + Number(params['id'])
                 ).subscribe(
                     response => {
                         if (response['responseCode'] === 'MED_SER_SUC_01') {
@@ -53,36 +47,8 @@ export class EditMedicalServiceComponent implements OnInit {
 
                     });
             });
-    }
 
-    getBranchesFromServer() {
-        this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_BRANCHES_URL)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'BR_SUC_01') {
-                        this.branches = response['responseData'];
-                    }
-                },
-                (error: any) => {
-                    this.HISUtilService.tokenExpired(error.error.error);
-                }
-            );
-    }
-
-    getDepartmentsFromServer() {
-        this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                        this.departments = response['responseData'];
-                    }
-                },
-                (error: any) => {
-                    this.HISUtilService.tokenExpired(error.error.error);
-                }
-            );
+        this.getTaxesFromServer();
     }
 
     getTaxesFromServer() {
@@ -101,11 +67,8 @@ export class EditMedicalServiceComponent implements OnInit {
     }
 
     updateMedicalServices(form: NgForm) {
-        _.each(form.form.controls, function (control) {
-            control['_touched'] = true
-        });
         if (form.valid) {
-            this.requestsService.putRequest(AppConstants.UPDATE_MEDICAL_SERVICES_URL,this.selectedMS)
+            this.requestsService.putRequest(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.selectedMS)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -119,8 +82,8 @@ export class EditMedicalServiceComponent implements OnInit {
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
                 );
-        }else {
-            this.notificationService.error("Please provide required values.","Medical Service")
+        } else {
+            this.notificationService.error("Please provide required values.", "Medical Service")
         }
     }
 

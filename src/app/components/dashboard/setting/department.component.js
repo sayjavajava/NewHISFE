@@ -16,7 +16,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var user_shared_service_1 = require("../../../services/user.shared.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var notification_service_1 = require("../../../services/notification.service");
-var clinical_department_1 = require("../../../model/clinical-department");
+var department_1 = require("../../../model/department");
 var _ = require("lodash");
 var DepartmentComponent = (function () {
     function DepartmentComponent(requestsService, router, userSharedService, HISUtilService, notificationService) {
@@ -27,7 +27,7 @@ var DepartmentComponent = (function () {
         this.notificationService = notificationService;
         this.pages = [];
         this.searched = false;
-        this.selectedDepartment = new clinical_department_1.ClinicalDepartment();
+        this.selectedDepartment = new department_1.Department();
     }
     DepartmentComponent.prototype.ngOnInit = function () {
         if (window.localStorage.getItem(btoa('access_token'))) {
@@ -171,7 +171,7 @@ var DepartmentComponent = (function () {
         this.selectedDepartment = department;
     };
     DepartmentComponent.prototype.onAddPopupLoad = function () {
-        this.selectedDepartment = new clinical_department_1.ClinicalDepartment();
+        this.selectedDepartment = new department_1.Department();
     };
     DepartmentComponent = __decorate([
         core_1.Component({

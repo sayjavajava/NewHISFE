@@ -77,7 +77,7 @@ export class ServiceTaxComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'SER_TAX_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'Tax');
-                            this.getPageWiseICDs(this.currPage);
+                            this.getPageWiseTax(this.currPage);
                             document.getElementById('close-btn').click();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Tax');
@@ -104,9 +104,9 @@ export class ServiceTaxComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'SER_TAX_SUC_02') {
                             this.notificationService.success(response['responseMessage'], 'Tax');
-                            this.getPageWiseICDs(this.currPage);
+                            this.getPageWiseTax(this.currPage);
                         } else {
-                            this.getPageWiseICDs(this.currPage);
+                            this.getPageWiseTax(this.currPage);
                             this.notificationService.error(response['responseMessage'], 'Tax');
                         }
                     },
@@ -139,7 +139,7 @@ export class ServiceTaxComponent implements OnInit {
                             this.serviceTax = new ServiceTax();
                             this.notificationService.success(response['responseMessage'], 'Tax');
                             document.getElementById('close-btn').click();
-                            this.getPageWiseICDs(this.currPage);
+                            this.getPageWiseTax(this.currPage);
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Tax')
                         }
@@ -156,7 +156,7 @@ export class ServiceTaxComponent implements OnInit {
         }
     }
 
-    getPageWiseICDs(page: number) {
+    getPageWiseTax(page: number) {
         this.dataTaxes = [];
         if (this.isSearchedTax) {
             this.searchByTaxName();

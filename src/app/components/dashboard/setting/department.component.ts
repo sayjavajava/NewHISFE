@@ -6,7 +6,7 @@ import {UserSharedService} from '../../../services/user.shared.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {NotificationService} from '../../../services/notification.service';
 import {NgForm} from '@angular/forms';
-import {ClinicalDepartment} from '../../../model/clinical-department';
+import {Department} from '../../../model/department';
 import * as _ from 'lodash'
 
 @Component({
@@ -22,7 +22,7 @@ export class DepartmentComponent implements OnInit {
     data: any;
     searchDepart: string;
     searched: boolean = false;
-    selectedDepartment: ClinicalDepartment = new ClinicalDepartment();
+    selectedDepartment: Department = new Department();
 
 
     constructor(private requestsService: RequestsService,
@@ -189,11 +189,11 @@ export class DepartmentComponent implements OnInit {
         }
     }
 
-    onUpdatePopupLoad(department: ClinicalDepartment) {
+    onUpdatePopupLoad(department: Department) {
         this.selectedDepartment = department;
     }
 
     onAddPopupLoad() {
-        this.selectedDepartment = new ClinicalDepartment();
+        this.selectedDepartment = new Department();
     }
 }
