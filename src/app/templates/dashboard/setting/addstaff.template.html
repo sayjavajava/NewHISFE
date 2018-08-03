@@ -19,58 +19,58 @@
                         <div class="row">
 
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
 
-                                <!--                                <div class="form-group" [ngClass]="displayFieldCss('username')">
-                                                                    <div class="col-sm-12">
-                                                                        <label for="username" class="control-label required">Name</label>
-                                                                        <input type="text" id="username" class="form-control" formControlName="username">
-                                                                        <app-field-error-display [displayError]="isFieldValid('username')" errorMsg="Please inform your name">
-                                                                        </app-field-error-display>
-                                                                    </div>
-                                                                </div>-->
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Type
-                                    </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" (change)="goTo($event.target.value)"
-                                                formControlName="changeUser">
-                                            <!-- (change)="goTo($event.target.value)"-->
-                                            <option *ngFor="let r of allStaffTypes" value="{{r.name}}">{{ r.name }}
-                                            </option>
+                                    <!--                                <div class="form-group" [ngClass]="displayFieldCss('username')">
+                                                                        <div class="col-sm-12">
+                                                                            <label for="username" class="control-label required">Name</label>
+                                                                            <input type="text" id="username" class="form-control" formControlName="username">
+                                                                            <app-field-error-display [displayError]="isFieldValid('username')" errorMsg="Please inform your name">
+                                                                            </app-field-error-display>
+                                                                        </div>
+                                                                    </div>-->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Type
+                                        </label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" (change)="goTo($event.target.value)"
+                                                    formControlName="changeUser">
+                                                <!-- (change)="goTo($event.target.value)"-->
+                                                <option *ngFor="let r of allStaffTypes" value="{{r.name}}">{{ r.name }}
+                                                </option>
 
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div ngClass="displayFieldCss">
-                                    <label class="control-label col-md-4">Roles
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                    <div class="col-md-8">
-                                        <div class="checkbox-box" id="notdue">
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of allDBRoles" class="col-md-4">
-                                                    <input type="checkbox" formControlName="restrictBranch"
-                                                            name={{item.name}}
-                                                            value="{{item.id}}"
-                                                           (change)="selectRoles($event,item)">
-                                                    {{item.name}}
-
-                                                </div>
-                                            </label>
-                                            </address>
+                                            </select>
                                         </div>
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
-
                                     </div>
-                                    </div>
-                                </div>
 
-                                <div class="form-group mrgn-top14" [ngClass]="displayFieldCss('firstName')">
+                                    <div class="form-group">
+                                        <div ngClass="displayFieldCss">
+                                            <label class="control-label col-md-4">Roles
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                            <div class="checkbox-box" id="notdue">
+                                                <address><label class="mt-checkbox mt-checkbox-outline">
+                                                    <div *ngFor="let item of allDBRoles" class="col-md-4">
+                                                        <input type="checkbox" formControlName="restrictBranch"
+                                                                name={{item.name}}
+                                                                value="{{item.id}}"
+                                                               (change)="selectRoles($event,item)">
+                                                        {{item.name}}
+
+                                                    </div>
+                                                </label>
+                                                </address>
+                                            </div>
+                                            <span class="text-danger"
+                                                  *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
+
+                                        </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mrgn-top14" [ngClass]="displayFieldCss('firstName')">
 
                                     <label class="control-label col-md-4">First Name
                                         <span class="required" aria-required="true"> * </span>
@@ -85,15 +85,16 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Last Name
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input formControlName="lastName" type="text" class="form-control"></div>
-                                </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Last Name
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input formControlName="lastName" type="text" class="form-control">
+                                        </div>
+                                    </div>
 
 
-                                <div class="form-group">
+                                    <div class="form-group">
                                     <label class="control-label col-md-4">Primary Branch
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -112,24 +113,24 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Email Address
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input type="email" formControlName="email"
-                                               class="form-control">
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">
-                                              <span *ngIf="userForm.controls['email'].errors.required">Email is required </span>
-                                            <span *ngIf="userForm.controls['email'].errors.pattern">Email is not valid</span>
-                                        </span>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Email Address
+                                            <span class="required" aria-required="true"> * </span>
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input type="email" formControlName="email"
+                                                   class="form-control">
+                                            <span class="text-danger"
+                                                  *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">
+                                                  <span *ngIf="userForm.controls['email'].errors.required">Email is required </span>
+                                                <span *ngIf="userForm.controls['email'].errors.pattern">Email is not valid</span>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group" ngClass="displayFieldCss">
-                                    <label class="control-label col-md-4">Allow Branches
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
+                                    <div class="form-group" ngClass="displayFieldCss">
+                                        <label class="control-label col-md-4">Allow Branches
+                                            <span class="required" aria-required="true"> * </span>
+                                        </label>
                                     <!--<div class="">-->
                                         <div class="col-md-8" id="not-due">
                                             <div class="input-group select2-bootstrap-prepend col-md-12">
@@ -154,7 +155,7 @@
 
                                     </div>
                                 </div>
-                                <div *ngIf="department" class="form-group">
+                                    <div *ngIf="department" class="form-group">
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -340,17 +341,18 @@
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of servicesList">
-                                                    <input type="checkbox" formControlName="servicesControl"
-                                                           name={{item.name}}
-                                                           value="{{item.id}}"
-                                                           (change)="selectServices($event,item)">
-                                                    {{item.title}}
+                                            <address>
+                                                <label class="mt-checkbox mt-checkbox-outline">
+                                                    <div *ngFor="let item of servicesList">
+                                                        <input type="checkbox" formControlName="servicesControl"
+                                                               name={{item.name}}
+                                                               value="{{item.id}}"
+                                                               (change)="selectServices($event,item)">
+                                                        {{item.title}}
 
 
-                                                </div>
-                                            </label>
+                                                    </div>
+                                                </label>
                                             </address>
                                         </div>
                                         <span class="text-danger"
@@ -412,7 +414,8 @@
                                         <div class="width6 col-md-1 pull-left no-padding"><label
                                                 class="mt-checkbox pdng-lft18 mt-checkbox-outline chckbox">
                                             <input type="checkbox" class=""
-                                                   formControlName="shift2"><span></span></label></div>
+                                                   formControlName="shift2"><span></span></label>
+                                        </div>
 
                                         <div class="mrgn-top8">
 
@@ -492,10 +495,12 @@
                                     <label class="control-label col-md-4 col-xs-12"> Vacation:
                                     </label>
                                     <div class="col-md-8  col-xs-12">
-                                        <div class="width6 pull-left no-padding"><label
+                                        <div class="width6 pull-left no-padding">
+                                            <label
                                                 class="mt-checkbox mt-checkbox-outline chckbox">
                                             <input type="checkbox" formControlName="vacation"
-                                                   class=""><span></span></label></div>
+                                                   class=""><span></span></label>
+                                        </div>
                                         <!--<div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
                                             From
                                         </div>-->
@@ -546,9 +551,9 @@
 
                             </div>
                         </div>
-                    </div>
+
                 </form>
-            </div>
+            </div>    
         </div>
         <div class="clearfix"></div>
     </div>
