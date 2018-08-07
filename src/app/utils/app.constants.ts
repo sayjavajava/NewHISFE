@@ -81,16 +81,16 @@ export class AppConstants {
     public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
 
     ////////////////////// Patient URLs ///////////////////////////////
-    public static FETCH_ALL_PATIENT_URL = '/user/patient/';
-    public static PATIENT_DELETE_URI = '/user/patient/delete/';
-    public static PATIENT_SAVE_URL = '/user/patient/save';
-    public static PATIENT_FETCH_URL = '/user/patient/get/';
-    public static PATIENT_UPDATE_URL = '/user/patient/update';
-    public static SEARCH_ALL_PATIENT_URL = '/user/patient/search';
-    public static GET_ALL_PATIENT_URL = '/user/patient/all';
-    public static UPLOAD_PATIENT_IMAGE_URL = '/user/uploadProfileImg/';
-    public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/user/uploadImageFront/insurance/';
-    public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/user/uploadImageBack/insurance/';
+    public static FETCH_ALL_PATIENT_URL = '/patient/';
+    public static PATIENT_DELETE_URI = '/patient/delete/';
+    public static PATIENT_SAVE_URL = '/patient/save';
+    public static PATIENT_FETCH_URL = '/patient/get/';
+    public static PATIENT_UPDATE_URL = '/patient/update';
+    public static SEARCH_ALL_PATIENT_URL = '/patient/search';
+    public static GET_ALL_PATIENT_URL = '/patient/all';
+    public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
+    public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
+    public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
 
 
     ////////////////////// Appointments URLs ///////////////////////////////
