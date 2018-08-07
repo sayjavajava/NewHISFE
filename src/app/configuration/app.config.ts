@@ -1,6 +1,4 @@
-/**
- * Created by irfan on 10-Jul-17.
- */
+
 /* Deployment Profiles */
 
 /* Local Or Default */
@@ -47,3 +45,4 @@ export class AppConfig {
 
 
 }
+

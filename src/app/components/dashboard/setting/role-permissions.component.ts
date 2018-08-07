@@ -36,12 +36,11 @@ export class RolePermissionsComponent implements OnInit {
                 private fb: FormBuilder,
                 private hisUtilService: HISUtilService,
                 private elementRef: ElementRef) {
-        this.allRoles();
     }
 
     ngOnInit() {
         this.createForm();
-        this.allPermissions();
+        this.allRolePermissions();
         this.createSelectedForm();
     }
 
@@ -77,7 +76,7 @@ export class RolePermissionsComponent implements OnInit {
                         this.notificationService.success(response['responseMessage']);
                         this.closeModal();
                     } else {
-                        this.notificationService.error(response['responseMessage'])
+                        this.notificationService.error(response['responseMessage']);
                     }
                 },
                 (error: any) => {
@@ -87,7 +86,7 @@ export class RolePermissionsComponent implements OnInit {
                 });
     }
 
-    addPermission(formdata: any) {
+/*    addPermission(formdata: any) {
         let obj: RoleAndPermission = new RoleAndPermission(formdata.name, formdata.description, formdata.active, 'Permission');
         this.showForm = false;
         setTimeout(() => {
@@ -101,28 +100,28 @@ export class RolePermissionsComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'PER_SUC_01') {
                         this.notificationService.success(response['responseMessage']);
-                        this.allPermissions();
+                        this.allRolePermissions();
                     } else {
-                        this.notificationService.error(response['responseMessage'])
+                        this.notificationService.error(response['responseMessage']);
                     }
                 },
                 (error: any) => {
-                    //console.log(error.json());
+                    // console.log(error.json());
                     this.notificationService.error(error.error.error_description);
                     this.hisUtilService.tokenExpired(error.error);
 
                 });
-    }
+    }*/
 
-    allPermissions() {
+    allRolePermissions() {
         this.requestService.getRequest(
             AppConstants.PERMISSION_ENDPOINT)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'ROL_PER_SUC_02') {
                         let resources = response['responseData'];
-                        let resource = resources['allPermissions'];
-                        this.allDBPermissions = resource;
+                        this.allDBPermissions = resources['allPermissions'];
+                        this.allDBRoles = resources['allRoleAndPermissions'];
                     }
                 }, (error: any) => {
                     this.hisUtilService.tokenExpired(error.error.error);
@@ -130,22 +129,6 @@ export class RolePermissionsComponent implements OnInit {
             );
     }
 
-    allRoles() {
-        this.requestService.getRequest(
-            AppConstants.PERMISSION_ENDPOINT)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'ROL_PER_SUC_02') {
-                        let resources = response['responseData'];
-                        let resource = resources['allRoleAndPermissions'];
-                        this.allDBRoles = resource;
-                    }
-                },
-                (error: any) => {
-                    this.hisUtilService.tokenExpired(error.error.error);
-                }
-            );
-    }
 
     saveRolePermissions() {
         this.requestService.postRequest(
@@ -157,9 +140,9 @@ export class RolePermissionsComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'ROL_PER_SUC_03') {
-                        this.notificationService.success(response['responseMessage'], 'Roles & Permissions')
+                        this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
                     } else {
-                        this.notificationService.error(response['responseMessage'], 'Roles & Permissions')
+                        this.notificationService.error(response['responseMessage'], 'Roles & Permissions');
                     }
                 },
                 (error: any) => {
@@ -179,6 +162,7 @@ export class RolePermissionsComponent implements OnInit {
     }
 
     private permissionByRole(roleName: string) {
+        this.selectedRole = roleName;
         this.requestService.getRequestWithParam(AppConstants.PERMISSION_BY_ROLE, roleName)
             .subscribe(
                 (response: Response) => {
@@ -186,7 +170,7 @@ export class RolePermissionsComponent implements OnInit {
                         this.rolePermissions = response['responseData'];
                         for (let rp of this.rolePermissions) {
                             this.addedRolePermissionsIds.push(rp.id);
-                            var checkbox = (<HTMLInputElement>document.getElementById('chkbox-' + rp.id));
+                            let checkbox = (<HTMLInputElement>document.getElementById('chkbox-' + rp.id));
                             checkbox.checked = true;
                         }
                     }
@@ -201,13 +185,13 @@ export class RolePermissionsComponent implements OnInit {
         this.closeBtn.nativeElement.click();
     }
 
-    onRoleChange() {
+    onRoleChange(selectedRole: string) {
         for (let rp of this.allDBPermissions) {
-            var checkbox = (<HTMLInputElement>document.getElementById('chkbox-' + rp.id));
+            let checkbox = (<HTMLInputElement>document.getElementById('chkbox-' + rp.id));
             checkbox.checked = false;
           }
         this.addedRolePermissionsIds = new Array();
-        this.permissionByRole(this.selectedRole);
+        this.permissionByRole(selectedRole);
 
     }
 

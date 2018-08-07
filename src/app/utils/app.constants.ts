@@ -44,10 +44,10 @@ export class AppConstants {
     public static ICD_CODE_VERSION_SEARCH = '/setting/icd/codeVersion/search/';
     public static ICD_VERSION_CODES_VERSION = '/setting/icd/version/codes/?versionId=';
 
-    public static ROLE_ENDPOINT = '/setting/rolePermission/add';
+    public static ROLE_ENDPOINT = '/user/auth/addRole';
     public static PERMISSION_ENDPOINT = '/user/auth/authorities';
-    public static PERMISSION_BY_ROLE = '/setting/rolePermission/role';
-    public static ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
+    public static PERMISSION_BY_ROLE = '/user/auth/permission';
+    public static ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
 
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_TAX_URL = '/setting/tax/';
@@ -106,3 +106,4 @@ export class AppConstants {
 
 
 }
+
