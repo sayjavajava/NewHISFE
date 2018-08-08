@@ -19,6 +19,7 @@ var SettingNavigationComponent = (function () {
     }
     ;
     SettingNavigationComponent.prototype.ngOnInit = function () {
+        this.userPermissions = JSON.parse(atob(window.localStorage.getItem(btoa('permissions'))));
     };
     SettingNavigationComponent = __decorate([
         core_1.Component({

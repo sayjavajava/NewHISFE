@@ -13,30 +13,33 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var requests_service_1 = require("../../services/requests.service");
 var platform_browser_1 = require("@angular/platform-browser");
-var DashboardComponent = (function () {
-    function DashboardComponent(requestsService, router, titleService) {
+var MenuComponent = (function () {
+    function MenuComponent(requestsService, router, titleService) {
         this.requestsService = requestsService;
         this.router = router;
         this.titleService = titleService;
     }
     ;
-    DashboardComponent.prototype.ngOnInit = function () {
+    MenuComponent.prototype.ngOnInit = function () {
         if (!window.localStorage.getItem(btoa('access_token'))) {
             this.router.navigate(['/login']);
         }
+        else {
+            this.userPermissions = JSON.parse(atob(window.localStorage.getItem(btoa('permissions'))));
+        }
         this.titleService.setTitle('HIS | Dashboard');
     };
-    DashboardComponent = __decorate([
+    MenuComponent = __decorate([
         core_1.Component({
-            selector: 'dashboard-component',
-            templateUrl: '../../templates/dashboard/dashboard.template.html',
+            selector: 'menu-component',
+            templateUrl: '../../templates/dashboard/menu.template.html',
             styleUrls: [],
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,
             platform_browser_1.Title])
-    ], DashboardComponent);
-    return DashboardComponent;
+    ], MenuComponent);
+    return MenuComponent;
 }());
-exports.DashboardComponent = DashboardComponent;
-//# sourceMappingURL=dashboard.component.js.map
+exports.MenuComponent = MenuComponent;
+//# sourceMappingURL=menu.component.js.map

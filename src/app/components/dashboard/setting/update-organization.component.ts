@@ -59,7 +59,7 @@ export class UpdateOrganizationComponent implements OnInit {
                 'address': [null],
                 'website': [null, Validators.pattern('^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$')],
             }
-        )
+        );
     }
 
     createGenralForm() {
@@ -73,7 +73,7 @@ export class UpdateOrganizationComponent implements OnInit {
             'prefixSerialDepartment': [null],
             'prefixSerialAppointment': [null],
             'prefixSerialInvoices': [null],
-        })
+        });
     }
 
     createAccountForm() {

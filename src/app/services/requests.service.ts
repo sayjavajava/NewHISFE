@@ -98,6 +98,13 @@ export class RequestsService {
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params});
     }
 
+    searchWithParam(url :any ,param1 :any, param2:any){
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        let params = new HttpParams().set('doctorId', param1).set('branchId', param2);
+        return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params});
+    }
+
     postRequestMultipartFormData(url: any, data: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         let formData: FormData = new FormData();

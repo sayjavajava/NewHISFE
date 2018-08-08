@@ -70,6 +70,17 @@ var RequestsService = (function () {
         ;
         //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
     };
+    RequestsService.prototype.findByIdAndType = function (url, type) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        var params = new http_1.HttpParams().set("userType", type);
+        return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader, params: params })
+            .map(function (data) {
+            return data.responseData;
+        });
+        ;
+        //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
+    };
     RequestsService.prototype.putRequest = function (url, _params) {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         reqHeader.append('Content-Type', 'application/json');
@@ -79,6 +90,12 @@ var RequestsService = (function () {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         reqHeader.append('Content-Type', 'application/json');
         var params = new http_1.HttpParams().set('name', param);
+        return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader, params: params });
+    };
+    RequestsService.prototype.searchWithParam = function (url, param1, param2) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        var params = new http_1.HttpParams().set('doctorId', param1).set('branchId', param2);
         return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader, params: params });
     };
     RequestsService.prototype.postRequestMultipartFormData = function (url, data) {
