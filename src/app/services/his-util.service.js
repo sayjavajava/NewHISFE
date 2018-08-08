@@ -29,6 +29,9 @@ var HISUtilService = (function () {
     HISUtilService.prototype.hidePopupWithCloseButtonId = function (closeButtonId) {
         document.getElementById(closeButtonId).click();
     };
+    HISUtilService.prototype.staffId = function (id) {
+        this.staffID = id;
+    };
     HISUtilService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [router_1.Router])

@@ -35,6 +35,7 @@ var AddAppointmentComponent = (function () {
         this.eventsRequest = [];
         this.activeDayIsOpen = true;
         this.title = 'app';
+        this.popup = false;
         this.page = 0;
         this.view = 'month';
         this.newPatient = false;
@@ -165,6 +166,17 @@ var AddAppointmentComponent = (function () {
         (_a = this.selectedType).push.apply(_a, this.selectedOptions);
         var _a;
     };
+    AddAppointmentComponent.prototype.moveMouse = function (action, event) {
+        this.modalData = { event: event, action: action };
+        console.log(event);
+        this.popup = true;
+    };
+    AddAppointmentComponent.prototype.mouseEnter = function (div) {
+        console.log("mouse enter : " + div);
+    };
+    AddAppointmentComponent.prototype.mouseLeave = function (action, event) {
+        this.popup = false;
+    };
     AddAppointmentComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
@@ -197,6 +209,7 @@ var AddAppointmentComponent = (function () {
                 this.viewDate = date;
             }
         }
+        this.addEvent(date);
     };
     AddAppointmentComponent.prototype.eventTimesChanged = function (_a) {
         var event = _a.event, newStart = _a.newStart, newEnd = _a.newEnd;
@@ -207,6 +220,7 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.handleEvent = function (action, event) {
         this.modalData = { event: event, action: action };
+        console.log(event);
         // this.modal.open(this.modalContent, {size: 'lg'});
         //  document.getElementById("exampleModalCenter2").click();
         $("#exampleModalCenter2").modal('show');
@@ -215,11 +229,12 @@ var AddAppointmentComponent = (function () {
         this.eventsRequest.splice(this.eventsRequest.indexOf(event), 1);
         //this.refresh.next();
     };
-    AddAppointmentComponent.prototype.addEvent = function () {
+    AddAppointmentComponent.prototype.addEvent = function (date) {
+        $("#exampleModalCenter2").modal('show');
         this.eventsRequest.push({
             title: 'Name',
-            start: date_fns_1.startOfDay(new Date()),
-            end: date_fns_1.endOfDay(new Date()),
+            start: date_fns_1.startOfDay(date),
+            end: date_fns_1.endOfDay(date),
             draggable: true,
             notes: '',
             email: 'email',

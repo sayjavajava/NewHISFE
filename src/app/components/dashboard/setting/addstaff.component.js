@@ -32,6 +32,7 @@ var AddStaffComponent = (function () {
         this.selectedServices = [];
         this.selectedWorkingDays = [];
         this.selectedVisitBranches = [];
+        this.selectedRoles = [];
         this.selectedDoctors = [];
         this.userSelected = 'doctor';
         this.defaultBranch = 'primaryBranch';
@@ -58,6 +59,12 @@ var AddStaffComponent = (function () {
         this.departmentError = 'Select one or more Departments';
         this.serviceError = 'Select one or more Services';
         this.dutyTimmingShiftError = 'Select Duty Time';
+        this.allStaffTypes = [
+            { name: 'NURSE' },
+            { name: 'DOCTOR' },
+            { name: 'RECEPTIONIST' },
+            { name: 'CASHIER' }
+        ];
         this.allRoles();
         this.allBranches();
         this.allDepartments();
@@ -67,22 +74,17 @@ var AddStaffComponent = (function () {
     AddStaffComponent.prototype.ngOnInit = function () {
         this.createUserForm();
     };
-    AddStaffComponent.prototype.removeBranch = function () {
-        var _this = this;
-        this.branchesList.forEach(function (item, index) {
-            if (item.name === _this.defaultBranch)
-                _this.branchesList.splice(index, 1);
-        });
-    };
+    /*    removeBranch() {
+            this.branchesList.forEach((item: any, index: any) => {
+                if (item.name === this.defaultBranch) this.branchesList.splice(index, 1);
+            });
+        }*/
     AddStaffComponent.prototype.allBranches = function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
-                if (_this.branchesList.length > 1) {
-                    _this.removeBranch();
-                }
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -194,7 +196,8 @@ var AddStaffComponent = (function () {
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     allowDiscount: data.allowDiscount,
-                    userType: this.selectedUser
+                    userType: this.selectedUser,
+                    selectedRoles: this.selectedRoles
                 });
                 this.makeService(cashier);
             }
@@ -217,6 +220,7 @@ var AddStaffComponent = (function () {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     selectedDoctors: this.selectedDoctors,
+                    selectedRoles: this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(receptionist);
@@ -243,6 +247,7 @@ var AddStaffComponent = (function () {
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
                     dutyWithDoctors: this.dutyWithDoctors,
+                    selectedRoles: this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(nurse);
@@ -278,6 +283,7 @@ var AddStaffComponent = (function () {
                     dateTo: data.dateTo,
                     dateFrom: data.dateFrom,
                     selectedWorkingDays: this.selectedWorkingDays,
+                    selectedRoles: this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(doctor);
@@ -411,7 +417,7 @@ var AddStaffComponent = (function () {
         var amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(function (time) {
             _this.secondShiftFromTime = time;
-            //console.log(time);
+            console.log(_this.secondShiftFromTime);
         });
     };
     AddStaffComponent.prototype.firstShiftFrom = function () {
@@ -496,8 +502,19 @@ var AddStaffComponent = (function () {
         }
         //console.log(this.selectedVisitBranches);
     };
-    AddStaffComponent.prototype.dutyWithDoctor = function (event, item) {
+    AddStaffComponent.prototype.selectRoles = function (event, item) {
         //console.log(item);
+        if (event.target.checked) {
+            this.selectedRoles.push(item.id);
+        }
+        else {
+            var updateItem = this.selectedRoles.find(this.findIndexToUpdate, item.id);
+            var index = this.selectedRoles.indexOf(updateItem);
+            this.selectedRoles.splice(index, 1);
+        }
+    };
+    AddStaffComponent.prototype.dutyWithDoctor = function (event, item) {
+        // console.log(item);
         if (event.target.checked) {
             this.dutyWithDoctors.push(item.id);
         }
@@ -571,6 +588,7 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.checkPermission = function (user) {
         this.changeState();
+        console.log("user:" + user);
         switch (user) {
             case 'DOCTOR':
                 this.doctorPermissions();
