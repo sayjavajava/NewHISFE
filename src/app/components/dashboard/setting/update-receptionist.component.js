@@ -17,11 +17,13 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
 var app_constants_1 = require("../../../utils/app.constants");
+var his_util_service_1 = require("../../../services/his-util.service");
 var UpdateReceptionistComponent = (function () {
-    function UpdateReceptionistComponent(route, router, requestService, fb, notificationService) {
+    function UpdateReceptionistComponent(route, router, requestService, hisUtilService, fb, notificationService) {
         this.route = route;
         this.router = router;
         this.requestService = requestService;
+        this.hisUtilService = hisUtilService;
         this.fb = fb;
         this.notificationService = notificationService;
         this.branchesList = [];
@@ -107,23 +109,18 @@ var UpdateReceptionistComponent = (function () {
     UpdateReceptionistComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
-            this.requestService.findById(app_constants_1.AppConstants.FETCH_USER_BY_ID + this.id).subscribe(function (receptionist) {
+            this.requestService.findByIdAndType(app_constants_1.AppConstants.FETCH_USER_BY_ID + this.id, 'RECEPTIONIST').subscribe(function (receptionist) {
                 //  this.id = user.id;
                 _this.userForm.patchValue({
-                    firstName: receptionist.profile.firstName,
-                    lastName: receptionist.profile.lastName,
+                    firstName: receptionist.firstName,
+                    lastName: receptionist.lastName,
                     email: receptionist.email,
-                    homePhone: receptionist.profile.homePhone,
-                    cellPhone: receptionist.profile.cellPhone,
-                    sendBillingReport: receptionist.profile.sendBillingReport,
+                    homePhone: receptionist.homePhone,
+                    cellPhone: receptionist.cellPhone,
                     userName: receptionist.userName,
-                    active: receptionist.profile.active,
-                    accountExpiry: receptionist.profile.accountExpiry,
-                    otherDashboard: receptionist.profile.otherDashboard,
-                    useReceptDashboard: receptionist.profile.useReceptDashBoard,
-                    otherDoctorDashBoard: receptionist.profile.otherDoctorDashBoard,
-                    allowDiscount: receptionist.profile.allowDiscount,
-                    primaryBranch: receptionist.branch.name,
+                    active: receptionist.active,
+                    accountExpiry: receptionist.expiryDate,
+                    primaryBranch: receptionist.primaryBranchId,
                 });
             }, function (error) {
                 //console.log(error.json());
@@ -170,7 +167,7 @@ var UpdateReceptionistComponent = (function () {
     };
     UpdateReceptionistComponent.prototype.makeService = function (user) {
         var _this = this;
-        this.requestService.putRequest('/user/edit/' + this.id, user).subscribe(function (response) {
+        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 console.log('saved00');
                 _this.responseUser = response['responseData'];
@@ -250,7 +247,7 @@ var UpdateReceptionistComponent = (function () {
             templateUrl: '../../../templates/dashboard/setting/update-receptionist.template.html',
         }),
         __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService,
-            forms_1.FormBuilder, notification_service_1.NotificationService])
+            his_util_service_1.HISUtilService, forms_1.FormBuilder, notification_service_1.NotificationService])
     ], UpdateReceptionistComponent);
     return UpdateReceptionistComponent;
 }());

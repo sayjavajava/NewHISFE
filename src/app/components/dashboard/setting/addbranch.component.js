@@ -28,16 +28,12 @@ var AddBranchComponent = (function () {
         this.userSelected = 'doctor';
         this.pDoctor = [];
         this.branchesList = [];
-        this.defaultDoctor = 'primarydoctor';
+        // defaultDoctor:string='primarydoctor';
         this.defaultBranch = 'primaryBranch';
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 _this.pDoctor = response['responseData'];
-                if (_this.pDoctor.length > 1) {
-                    _this.removeDoctor();
-                }
-                //   this.pDoctor.indexOf({userName :this.defaultDoctor}) === -1 ? this.pDoctor.push({userName :this.defaultDoctor}) :console.log('');
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -80,13 +76,11 @@ var AddBranchComponent = (function () {
             'examRooms': this.fb.array([this.createExamRoom()]),
         });
     };
-    AddBranchComponent.prototype.removeDoctor = function () {
-        var _this = this;
-        this.pDoctor.forEach(function (item, index) {
-            if (item.userName === _this.defaultDoctor)
-                _this.pDoctor.splice(index, 1);
-        });
-    };
+    /*    removeDoctor(){
+            this.pDoctor.forEach( (item: any, index :any) => {
+                if(item.userName === this.defaultDoctor) this.pDoctor.splice(index,1);
+            });
+        }*/
     AddBranchComponent.prototype.removeBranch = function () {
         var _this = this;
         this.branchesList.forEach(function (item, index) {
@@ -136,19 +130,19 @@ var AddBranchComponent = (function () {
             _this.error = error.error.error;
         });
     };
-    AddBranchComponent.prototype.addBranch = function (data, value) {
+    AddBranchComponent.prototype.addBranch = function (data) {
+        var _this = this;
         if (this.branchForm.valid) {
-            var branchObject = this.prepareSaveBranch();
-            if (value === 'done') {
-                this.requestService.postRequest(app_constants_1.AppConstants.ADD_BRANCH, branchObject)
-                    .subscribe(function (response) {
-                    if (data['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
-                        this.notificationService.success('Branch is Created Successfully');
-                    }
-                }, function (error) {
-                    this.notificationService.error('ERROR', 'Branch is not Created');
-                });
-            }
+            // let branchObject = this.prepareSaveBranch();
+            this.requestService.postRequest(app_constants_1.AppConstants.ADD_BRANCH, data)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
+                    _this.notificationService.success('Branch is Created Successfully');
+                    _this.router.navigate(['/dashboard/setting/branch']);
+                }
+            }, function (error) {
+                this.notificationService.error('ERROR', 'Branch is not Created');
+            });
         }
         else {
             this.validateAllFormFields(this.branchForm);
@@ -168,7 +162,7 @@ var AddBranchComponent = (function () {
     };
     AddBranchComponent.prototype.createExamRoom = function () {
         return this.fb.group({
-            'examName': '',
+            'roomName': '',
             'allowOnlineScheduling': '',
         });
     };

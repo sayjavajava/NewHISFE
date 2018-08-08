@@ -11,24 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var PatientHistoryComponent = (function () {
-    function PatientHistoryComponent(router) {
+var PatientMedicalListComponent = (function () {
+    function PatientMedicalListComponent(router) {
         this.router = router;
     }
-    PatientHistoryComponent.prototype.ngOnInit = function () {
+    PatientMedicalListComponent.prototype.ngOnInit = function () {
         //throw new Error("Method not implemented.");
     };
-    PatientHistoryComponent.prototype.goToUserDashBoard = function () {
+    PatientMedicalListComponent.prototype.goToUserDashBoard = function () {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     };
-    PatientHistoryComponent = __decorate([
+    PatientMedicalListComponent = __decorate([
         core_1.Component({
-            selector: 'patient-history',
-            templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
+            selector: 'patient-medical-list',
+            templateUrl: '../../../templates/dashboard/patient/patient-medical-list.template.html',
         }),
         __metadata("design:paramtypes", [router_1.Router])
-    ], PatientHistoryComponent);
-    return PatientHistoryComponent;
+    ], PatientMedicalListComponent);
+    return PatientMedicalListComponent;
 }());
-exports.PatientHistoryComponent = PatientHistoryComponent;
-//# sourceMappingURL=patient-history.component.js.map
+exports.PatientMedicalListComponent = PatientMedicalListComponent;
+//# sourceMappingURL=patient-medical-list.component.js.map

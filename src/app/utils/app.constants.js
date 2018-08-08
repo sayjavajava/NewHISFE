@@ -10,7 +10,7 @@ var AppConstants = (function () {
     }
     AppConstants.ACCESS_TOKEN = 'access_token';
     AppConstants.EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
-    AppConstants.USER_BY_ROLE = '/user/role/';
+    AppConstants.USER_BY_ROLE = '/user/role';
     AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';
     AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
@@ -27,6 +27,7 @@ var AppConstants = (function () {
     AppConstants.BRANCHES_NAME = '/setting/branch/name';
     AppConstants.BRANCH_SEARCH = '/setting/branch/search/';
     AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    AppConstants.FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
     AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';

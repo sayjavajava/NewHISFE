@@ -134,11 +134,15 @@ var BranchComponent = (function () {
             if (id) {
                 _this.requestService.deleteRequest(app_constants_1.AppConstants.DELETE_BRANCH_URI + id).subscribe(function (data) {
                     if (data['responseCode'] === 'BRANCH_DEL_SUC_01') {
-                        _this.notificationService.success('User has been Deleted Successfully');
+                        _this.notificationService.success('Branch has been Deleted Successfully');
                         _this.getBranchFromServer(_this.currPage);
                     }
+                    if (data['responseCode'] === 'BRANCH_NOT_FOUND') {
+                        _this.notificationService.warn('Branch is Accossiated ');
+                        // this.getBranchFromServer(this.currPage);
+                    }
                 }, function (error) {
-                    _this.notificationService.error('ERROR', 'User Unable to Delete ');
+                    _this.notificationService.error('ERROR', 'Branch is Associated with another Branch');
                 });
             }
         });

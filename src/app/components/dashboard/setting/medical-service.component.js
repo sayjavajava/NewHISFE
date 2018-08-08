@@ -27,12 +27,12 @@ var MedicalServiceComponent = (function () {
         this.searchMSModel = new MedicalServiceSearchModel_1.MedicalServiceSearchModel();
     }
     MedicalServiceComponent.prototype.ngOnInit = function () {
+        this.getBranchesFromServer();
+        this.getDepartmentsFromServer();
         document.title = 'HIS | Medical Services';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getMedicalServicesFromServer(0);
         }
-        this.getBranchesFromServer();
-        this.getDepartmentsFromServer();
     };
     MedicalServiceComponent.prototype.refreshMedicalServices = function () {
         this.searchMSModel = new MedicalServiceSearchModel_1.MedicalServiceSearchModel();
@@ -122,7 +122,6 @@ var MedicalServiceComponent = (function () {
     MedicalServiceComponent.prototype.searchByMedicalServiceParams = function (page) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.searchMSModel.searchServiceId = 0;
             this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
             this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
             this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
@@ -141,8 +140,7 @@ var MedicalServiceComponent = (function () {
                 return;
             }
             this.requestsService.getRequest(app_constants_1.AppConstants.MEDICAL_SERVICE_SEARCH + page
-                + '?serviceId=' + this.searchMSModel.searchServiceId
-                + '&serviceName=' + this.searchMSModel.searchServiceName
+                + '?serviceName=' + this.searchMSModel.searchServiceName
                 + '&branchId=' + this.searchMSModel.searchBranchId
                 + '&departmentId=' + this.searchMSModel.departmentId
                 + '&serviceFee=' + this.searchMSModel.searchServiceFee)
@@ -170,7 +168,7 @@ var MedicalServiceComponent = (function () {
     };
     MedicalServiceComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL)
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_ALL_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branches = response['responseData'];

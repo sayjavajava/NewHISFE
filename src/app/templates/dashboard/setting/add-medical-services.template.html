@@ -29,7 +29,7 @@
                                     <label class="control-label col-md-3">Branch
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-9" style="wi">
                                         <div class="input-group select2-bootstrap-prepend">
                                             <div class="checkbox-box hr cod-higt" id="branchDiv">
                                                 <div class="col-md-6" *ngFor="let branch of ms.branches">
@@ -125,7 +125,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">Duration
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-7">
                                         <input class="form-control"
                                                type="number"
                                                [(ngModel)]="ms.duration" min="0"
@@ -133,7 +133,7 @@
                                                name="duration"
                                                #duration="ngModel"/>
                                     </div>
-                                    <div class="control-label col-md-1">
+                                    <div class="control-label col-md-2">
                                         Minutes
                                     </div>
                                     <span *ngIf="duration.invalid && duration.touched"

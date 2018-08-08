@@ -16,26 +16,27 @@ var PermissionsService = (function () {
     PermissionsService.prototype.loadPermissions = function (dbPermissions) {
         var permissions = [];
         dbPermissions.forEach(function (item, index) {
-            permissions[index] = item['name'];
+            permissions[index] = item;
         });
         window.localStorage.setItem(btoa('permissions'), btoa(JSON.stringify(permissions)));
     };
     PermissionsService.prototype.unloadPermissions = function () {
     };
     PermissionsService.prototype.hasPermission = function (permission) {
-        //console.log(permission);
         var hasPermission = false;
-        if (localStorage.getItem(btoa('permissions'))) {
-            var permissions = JSON.parse(atob(localStorage.getItem(btoa('permissions'))));
+        var permissions;
+        var userPermissions = localStorage.getItem(btoa('permissions'));
+        if (userPermissions) {
+            permissions = JSON.parse(atob(userPermissions));
             permissions.forEach(function (item, index) {
-                if (item === permission) {
+                //properties.hasOwnProperty('name') && properties.
+                if (item.name === permission) {
                     hasPermission = true;
                     return hasPermission;
                 }
             });
-            //console.log(hasPermission);
-            return hasPermission;
         }
+        return hasPermission;
     };
     PermissionsService.prototype.ngOnInit = function () {
     };

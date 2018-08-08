@@ -32,13 +32,13 @@ export class MedicalServiceComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getBranchesFromServer();
+        this.getDepartmentsFromServer();
+
         document.title = 'HIS | Medical Services';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getMedicalServicesFromServer(0);
         }
-
-        this.getBranchesFromServer();
-        this.getDepartmentsFromServer();
     }
 
     refreshMedicalServices() {
@@ -141,7 +141,6 @@ export class MedicalServiceComponent implements OnInit {
 
     searchByMedicalServiceParams(page: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.searchMSModel.searchServiceId = /*this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId :*/ 0;
             this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
             this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
             this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
@@ -163,8 +162,7 @@ export class MedicalServiceComponent implements OnInit {
 
             this.requestsService.getRequest(
                 AppConstants.MEDICAL_SERVICE_SEARCH + page
-                + '?serviceId=' + this.searchMSModel.searchServiceId
-                + '&serviceName=' + this.searchMSModel.searchServiceName
+                + '?serviceName=' + this.searchMSModel.searchServiceName
                 + '&branchId=' + this.searchMSModel.searchBranchId
                 + '&departmentId=' + this.searchMSModel.departmentId
                 + '&serviceFee=' + this.searchMSModel.searchServiceFee)
@@ -195,7 +193,7 @@ export class MedicalServiceComponent implements OnInit {
 
     getBranchesFromServer() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_BRANCHES_URL)
+            AppConstants.FETCH_ALL_BRANCHES_ALL_URL)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {

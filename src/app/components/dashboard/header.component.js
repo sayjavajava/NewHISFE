@@ -30,7 +30,7 @@ var HeaderComponent = (function () {
             this.lastName = this.userSharedService.lastName;
             this.profileImg = this.userSharedService.profileImg;
             this.role = this.userSharedService.roles;
-            this.requestsService.getRequest('/user/loggedInUser')
+            this.requestsService.getRequest('/user/auth/loggedInUser')
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ADM_SUC_03') {
                     _this.userSharedService.firstName = response['responseData'].firstName;
@@ -54,13 +54,13 @@ var HeaderComponent = (function () {
     };
     HeaderComponent.prototype.logout = function () {
         var _this = this;
-        this.requestsService.getRequest('/user/logout')
+        this.requestsService.getRequest('/user/auth/logout')
             .subscribe(function (response) {
             if (response['responseCode'] === 'USR_AUTH_SUC_02') {
                 window.localStorage.removeItem(btoa('access_token'));
                 window.localStorage.removeItem(btoa('refresh_token'));
                 window.localStorage.removeItem(btoa('expire_in'));
-                window.localStorage.removeItem(atob('permissions'));
+                window.localStorage.removeItem('permissions');
                 _this.router.navigate(['/login']);
             }
         }, function (error) {

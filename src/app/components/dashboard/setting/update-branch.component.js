@@ -84,7 +84,7 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent.prototype.createExamRoom = function () {
         return this.fb.group({
-            'examName': '',
+            'roomName': '',
             'allowOnlineScheduling': '',
         });
     };
@@ -111,23 +111,25 @@ var UpdateBranchComponent = (function () {
                     noOfExamRooms: branch.rooms,
                     state: branch.state,
                     city: branch.city,
-                    primaryDoctor: branch.user.username,
+                    // primaryDoctor: branch.user.id,
                     fax: branch.fax,
-                    formattedAddress: branch.formattedAddress,
                     country: branch.country,
                     address: branch.address,
                     zipCode: branch.zipCode,
                     officePhone: branch.officePhone,
                 });
-                _this.billingForm.patchValue({
-                    billingBranch: branch.billingBranch,
-                    billingName: branch.billingName,
-                    billingTaxID: branch.billingTaxID
-                });
-                _this.scheduleForm.patchValue({
-                    showBranchOnline: branch.showBranchOnline,
-                    allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
-                });
+                /*     this.billingForm.patchValue({
+                         billingBranch: branch.billingBranch,
+                         billingName: branch.billingName,
+                         billingTaxID: branch.billingTaxID
+ 
+                     });
+ 
+                     this.scheduleForm.patchValue({
+                             showBranchOnline: branch.showBranchOnline,
+                             allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
+                         }
+                     );*/
                 _this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
                 _this.addFields(branch.rooms);
                 _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
@@ -144,29 +146,24 @@ var UpdateBranchComponent = (function () {
                 _this.branchesList.splice(index, 1);
         });
     };
-    UpdateBranchComponent.prototype.addBranch = function (data, value) {
+    UpdateBranchComponent.prototype.addBranch = function (data) {
         if (this.branchForm.valid) {
-            var branchObject = this.prepareSaveBranch();
-            if (value === 'done') {
-                var that = this;
-                this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, branchObject)
-                    .subscribe(function (response) {
-                    if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
-                        console.log('updated....');
-                        that.notificationService.success(' Branch has been Updated Successfully');
-                        that.router.navigate(['/dashboard/setting/branch']);
-                    }
-                }, function (error) {
-                    this.error = error.error.error_description;
-                    this.notificationService.error('ERROR', 'Branch is not updated ');
-                });
-                console.log(this.branchForm.value);
-            }
-            else {
-                console.log('i am else');
-                this.validateAllFormFields(this.branchForm);
-            }
+            //  let branchObject = this.prepareSaveBranch();
+            var that = this;
+            this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, data)
+                .subscribe(function (response) {
+                that.router.navigate(['/dashboard/setting/branch']);
+                if (response['responseCode'] === 'BRANCH_UPDATE_SUC_01') {
+                    console.log('updated...');
+                    that.notificationService.success(' Branch has been Updated Successfully');
+                    that.router.navigate(['/dashboard/setting/branch']);
+                }
+            }, function (error) {
+                this.error = error.error.error_description;
+                this.notificationService.error('ERROR', 'Branch is not updated ');
+            });
         }
+        this.validateAllFormFields(this.branchForm);
     };
     UpdateBranchComponent.prototype.deleteField = function (index) {
         this.examRooms = this.branchForm.get('examRooms');
