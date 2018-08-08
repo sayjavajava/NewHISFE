@@ -46,10 +46,10 @@ var AppConstants = (function () {
     AppConstants.ICD_CODE_VERSION_DELETE_URL = '/setting/icd/codeVersion/delete?associateICDCVId=';
     AppConstants.ICD_CODE_VERSION_SEARCH = '/setting/icd/codeVersion/search/';
     AppConstants.ICD_VERSION_CODES_VERSION = '/setting/icd/version/codes/?versionId=';
-    AppConstants.ROLE_ENDPOINT = '/setting/rolePermission/add';
+    AppConstants.ROLE_ENDPOINT = '/user/auth/addRole';
     AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
-    AppConstants.PERMISSION_BY_ROLE = '/setting/rolePermission/role';
-    AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
+    AppConstants.PERMISSION_BY_ROLE = '/user/auth/permission';
+    AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';
@@ -70,8 +70,8 @@ var AppConstants = (function () {
     AppConstants.DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     AppConstants.MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
-    AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/id/';
-    AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/id/';
+    AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/';
+    AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/';
     ////////////////////// Organization URLs ///////////////////////////////
     AppConstants.ORGANIZATION_CREATE_URL = '/setting/organization/create';
     AppConstants.TIMEZONE_FETCH_URL = '/setting/organization/timezone';
