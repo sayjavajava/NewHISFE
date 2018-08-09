@@ -70,8 +70,8 @@ var AppConstants = (function () {
     AppConstants.DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     AppConstants.FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     AppConstants.MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
-    AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/id/';
-    AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/id/';
+    AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/';
+    AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/';
     ////////////////////// Organization URLs ///////////////////////////////
     AppConstants.ORGANIZATION_CREATE_URL = '/setting/organization/create';
     AppConstants.TIMEZONE_FETCH_URL = '/setting/organization/timezone';

@@ -24,6 +24,8 @@ var MedicalServiceComponent = (function () {
         this.dataMD = [];
         this.branches = [];
         this.departments = [];
+        this.checkedBranches = [];
+        this.checkedDepartments = [];
         this.searchMSModel = new MedicalServiceSearchModel_1.MedicalServiceSearchModel();
     }
     MedicalServiceComponent.prototype.ngOnInit = function () {
@@ -85,34 +87,42 @@ var MedicalServiceComponent = (function () {
             });
         }
     };
-    MedicalServiceComponent.prototype.getDepartmentsByMedicalServiceId = function (ms) {
+    MedicalServiceComponent.prototype.getCheckedDepartmentsByMedicalServiceId = function (ms) {
         var _this = this;
         if (ms.id > 0) {
-            this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL + 'msId=' + ms.id)
+            this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL + ms.id)
                 .subscribe(function (response) {
-                if (response['responseCode'] === 'MED_SER_SUC_02') {
-                    _this.notificationService.success(response['responseMessage'], 'Medical Service');
+                if (response['responseCode'] === 'MED_SER_SUC_01') {
+                    _this.checkedDepartments = response['responseData'];
                 }
                 else {
-                    _this.notificationService.error(response['responseMessage'], 'Medical Service');
+                    //this.notificationService.success('Service has no departments', 'Medical Services');
+                    //document.getElementById('close-btn-depart').click();
+                    _this.checkedDepartments = [];
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
         }
     };
-    MedicalServiceComponent.prototype.getBranchesByMedicalServiceId = function (ms) {
+    MedicalServiceComponent.prototype.clearList = function (event) {
+        if (event.target.name === 'close-btn-branch') {
+            this.checkedBranches = [];
+        }
+        else if (event.target.name === 'close-btn-depart') {
+            this.checkedDepartments = [];
+        }
+    };
+    MedicalServiceComponent.prototype.getCheckedBranchesByMedicalServiceId = function (ms) {
         var _this = this;
         if (ms.id > 0) {
-            this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL + 'msId=' + ms.id)
+            this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL + ms.id)
                 .subscribe(function (response) {
-                if (response['responseCode'] === 'MED_SER_SUC_02') {
-                    _this.notificationService.success(response['responseMessage'], 'Medical Service');
-                    _this.getMedicalServicesFromServer(0);
+                if (response['responseCode'] === 'MED_SER_SUC_01') {
+                    _this.checkedBranches = response['responseData'];
                 }
                 else {
-                    _this.getMedicalServicesFromServer(0);
-                    _this.notificationService.error(response['responseMessage'], 'Medical Service');
+                    _this.checkedBranches = [];
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
@@ -187,17 +197,6 @@ var MedicalServiceComponent = (function () {
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
-    };
-    MedicalServiceComponent.prototype.showMyPopup = function (event, item) {
-        if (event.target.name === "departmentId") {
-            // data-toggle="modal"
-            //    popupBranch
-            //  document.getElementById('popupBranch');/*.['aria-hidden'] = false;*/
-        }
-        else if (event.target.name === "branchId") {
-            //    popupDepartment
-            //    data-toggle="modal"
-        }
     };
     MedicalServiceComponent = __decorate([
         core_1.Component({
