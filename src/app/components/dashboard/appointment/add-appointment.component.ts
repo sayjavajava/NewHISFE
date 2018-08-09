@@ -113,8 +113,8 @@ export class AddAppointmentComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'APPT_SUC_01') {
                         for (let apt of response['responseData']) {
-                            console.log(apt.appointmentConvertedTime);
-                            console.log(apt.appointmentEndedConvertedTime);
+                            console.log('tested' +apt.appointmentConvertedTime);
+                            console.log('endTime'+ apt.appointmentEndedConvertedTime);
                             this.events.push({
                                 id: apt.id,
                                 title: apt.patient,

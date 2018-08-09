@@ -77,6 +77,7 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
     AppConstants.FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
     AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
+    AppConstants.FETCH_ORG_ACCOUNT_URL = '/setting/organization/account';
     AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
     ////////////////////// Patient URLs ///////////////////////////////
     AppConstants.FETCH_ALL_PATIENT_URL = '/user/patient/';

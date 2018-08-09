@@ -109,8 +109,8 @@ var AddAppointmentComponent = (function () {
             if (response['responseCode'] === 'APPT_SUC_01') {
                 for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
                     var apt = _a[_i];
-                    console.log(apt.appointmentConvertedTime);
-                    console.log(apt.appointmentEndedConvertedTime);
+                    console.log('tested' + apt.appointmentConvertedTime);
+                    console.log('endTime' + apt.appointmentEndedConvertedTime);
                     _this.events.push({
                         id: apt.id,
                         title: apt.patient,
