@@ -1,9 +1,14 @@
+import DateTimeFormat = Intl.DateTimeFormat;
+
 
 
 export class Appointment{
     title:string;
     branchId:number;
-    start :string;
+    scheduleDate :string;
+    appointmentStartedOn : string;
+    appointmentEndedOn :string;
+    scheduleDateAndTime : string | DateTimeFormat
     end:string;
     draggable:boolean;
     appointmentType:any[];
@@ -28,15 +33,18 @@ export class Appointment{
     color:string;
     startedOn:Date | number | string;
     roomId:number;
+    doctorId:number;
 
 
-    constructor(title ?: string, branchId ?: number, start?: string, end?: string, draggable?: boolean,selectedRecurringDays ?:any[], appointmentType?: any[], notes?: string, patient?: string, reason?:
+    constructor(title ?: string, branchId ?: number, doctorId ?: number,scheduleDateAndTime ?:DateTimeFormat, scheduleDate?: string, end?: string, draggable?: boolean,selectedRecurringDays ?:any[], appointmentType?: any[], notes?: string, patient?: string, reason?:
          string, status?: string, duration?: number, followUpDate?: Date, followUpReason?: string ,followUpReminder?:boolean,recurringAppointment?:boolean,recurseEvery?:string
         ,firstAppointment?:string,lastAppointment?:string,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string,roomId?:number
     ) {
         this.title = title;
         this.branchId = branchId;
-        this.start = start;
+        this.doctorId=doctorId;
+        this.scheduleDateAndTime = scheduleDateAndTime;
+        this.scheduleDate = scheduleDate;
         this.selectedRecurringDays=selectedRecurringDays;
         this.end = end;
         this.draggable = draggable;

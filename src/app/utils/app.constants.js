@@ -46,10 +46,10 @@ var AppConstants = (function () {
     AppConstants.ICD_CODE_VERSION_DELETE_URL = '/setting/icd/codeVersion/delete?associateICDCVId=';
     AppConstants.ICD_CODE_VERSION_SEARCH = '/setting/icd/codeVersion/search/';
     AppConstants.ICD_VERSION_CODES_VERSION = '/setting/icd/version/codes/?versionId=';
-    AppConstants.ROLE_ENDPOINT = '/setting/rolePermission/add';
+    AppConstants.ROLE_ENDPOINT = '/user/auth/addRole';
     AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
-    AppConstants.PERMISSION_BY_ROLE = '/setting/rolePermission/role';
-    AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
+    AppConstants.PERMISSION_BY_ROLE = '/user/auth/permission';
+    AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';

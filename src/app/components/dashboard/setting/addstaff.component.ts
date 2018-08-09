@@ -11,6 +11,7 @@ import {CustomValidators} from './PasswordValidation';
 import {RoleAndPermission} from '../../../model/roleandpermission';
 
 import {BranchResponse} from '../../../model/BranchResponse';
+import {UserTypeEnum} from '../../../enums/user-type-enum';
 @Component({
     selector: 'addstaff-component',
     templateUrl: '../../../templates/dashboard/setting/addstaff.template.html',
@@ -52,6 +53,7 @@ export class AddStaffComponent implements OnInit {
     departmentList: any = [];
     primaryDoctor: any = []
     servicesList: any[] = [];
+    doctorsList :any =[];
     workingDays = [
         {name: 'Monday'},
         {name: 'Tuesday'},
@@ -134,21 +136,20 @@ export class AddStaffComponent implements OnInit {
     }
 
     allDoctors() {
-        this.requestsService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseStatus'] === 'SUCCESS') {
-                        let data = response['responseData'];
-                        let userNameData = data;
-                        this.primaryDoctor = response['responseData'];
+
+            this.requestsService.getRequest(
+                AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'USER_SUC_01') {
+                            this.doctorsList = response['responseData'];
+                        }
+                    },
+                    (error: any) => {
 
                     }
-                },
-                (error: any) => {
-                    this.error = error.error.error;
-                });
-
-    }
+                );
+        }
 
     allDepartments() {
         this.requestsService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)

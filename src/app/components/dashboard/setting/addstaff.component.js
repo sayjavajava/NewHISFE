@@ -18,6 +18,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var notification_service_1 = require("../../../services/notification.service");
 var PasswordValidation_1 = require("./PasswordValidation");
+var user_type_enum_1 = require("../../../enums/user-type-enum");
 var AddStaffComponent = (function () {
     function AddStaffComponent(router, fb, requestsService, notificationService, amazingTimePickerService) {
         this.router = router;
@@ -40,6 +41,7 @@ var AddStaffComponent = (function () {
         this.departmentList = [];
         this.primaryDoctor = [];
         this.servicesList = [];
+        this.doctorsList = [];
         this.workingDays = [
             { name: 'Monday' },
             { name: 'Tuesday' },
@@ -104,15 +106,12 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.allDoctors = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+        this.requestsService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + user_type_enum_1.UserTypeEnum.DOCTOR)
             .subscribe(function (response) {
-            if (response['responseStatus'] === 'SUCCESS') {
-                var data = response['responseData'];
-                var userNameData = data;
-                _this.primaryDoctor = response['responseData'];
+            if (response['responseCode'] === 'USER_SUC_01') {
+                _this.doctorsList = response['responseData'];
             }
         }, function (error) {
-            _this.error = error.error.error;
         });
     };
     AddStaffComponent.prototype.allDepartments = function () {
