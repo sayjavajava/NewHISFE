@@ -113,7 +113,7 @@ export class AddOrganizationComponent implements OnInit {
                 })
     }
 
-    addOrganization(data: any, value: string) {
+   /* addOrganization(data: any, value: string) {
 
         if (this.orgForm.valid) {
             let orgObject = this.prepareSaveOrganization();
@@ -136,11 +136,11 @@ export class AddOrganizationComponent implements OnInit {
             this.validateAllFormFields(this.orgForm);
         }
     }
-
-    prepareSaveOrganization(): Organization {
+*/
+    /*prepareSaveOrganization(): Organization {
         const formModel = this.orgForm.value;
         const generalModel = this.generalForm.value;
-        const saveBranchModel: Organization = {
+        /!*const saveBranchModel: Organization = {
             firstName: formModel.firstName,
             lastName: formModel.lastName,
             userName: formModel.userName,
@@ -160,9 +160,9 @@ export class AddOrganizationComponent implements OnInit {
             durationOfExam: generalModel.durationOfExam,
             followUpExam: generalModel.followUpExam,
 
-        };
+        };*!/
         return saveBranchModel;
-    }
+    }*/
 
     getDurationOfExam(value: any) {
         if (value) {

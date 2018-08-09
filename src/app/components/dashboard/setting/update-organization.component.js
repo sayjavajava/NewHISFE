@@ -15,6 +15,7 @@ var router_1 = require("@angular/router");
 var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var app_constants_1 = require("../../../utils/app.constants");
+var organization_1 = require("../../../model/organization");
 var UpdateOrganizationComponent = (function () {
     function UpdateOrganizationComponent(route, router, requestService, fb, notificationService) {
         this.route = route;
@@ -24,9 +25,12 @@ var UpdateOrganizationComponent = (function () {
         this.notificationService = notificationService;
         this.timezoneList = [];
         this.branchesList = [];
+        this.organizationACCOUNT = [];
+        this.organization = new organization_1.Organization();
         this.defaultBranch = 'primaryBranch';
         this.allTimezone();
         this.allBranches();
+        this.getOrganizationAccount();
     }
     UpdateOrganizationComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -68,6 +72,7 @@ var UpdateOrganizationComponent = (function () {
     UpdateOrganizationComponent.prototype.createAccountForm = function () {
         this.accountForm = this.fb.group({
             'firstName': [null],
+            'userId': [null],
             'lastName': [null],
             'userName': [null],
             'userEmail': [null],
@@ -93,9 +98,16 @@ var UpdateOrganizationComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
-                if (_this.branchesList.length > 1) {
-                    _this.branchesList.splice(_this.branchesList.indexOf({ name: _this.defaultBranch }), 1);
-                }
+            }
+        }, function (error) {
+        });
+    };
+    UpdateOrganizationComponent.prototype.getOrganizationAccount = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ORG_ACCOUNT_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'ORG_SUC_04') {
+                _this.organization = response['responseData'];
             }
         }, function (error) {
         });
@@ -115,7 +127,8 @@ var UpdateOrganizationComponent = (function () {
                     address: organization.address,
                     website: organization.website,
                     companyName: organization.companyName,
-                    specialty: organization.specialty
+                    specialty: organization.speciality
+                    //   specialty: organization.speciality,
                 });
                 _this.generalForm.patchValue({
                     defaultBranch: organization.defaultBranch,
@@ -137,50 +150,55 @@ var UpdateOrganizationComponent = (function () {
             'has-feedback': this.isFieldValid(field)
         };
     };
-    UpdateOrganizationComponent.prototype.prepareSaveOrganization = function () {
-        var formModel = this.proForm.value;
-        var generalModel = this.generalForm.value;
-        var saveBranchModel = {
-            firstName: formModel.firstName,
-            lastName: formModel.lastName,
-            userName: formModel.userName,
-            email: formModel.email,
-            companyName: formModel.companyName,
-            password: formModel.password,
-            confirmPassword: formModel.confirmPassword,
-            officePhone: formModel.officePhone,
-            homePhone: formModel.homePhone,
-            cellPhone: formModel.cellPhone,
-            appointmentSerial: formModel.appointmentSerial,
-            website: formModel.website,
-            timeZone: formModel.timeZone,
-            specialty: formModel.specialty,
-            defaultBranch: generalModel.defaultBranch,
-            durationOfExam: generalModel.durationOfExam,
-            followUpExam: generalModel.followUpExam,
-        };
-        return saveBranchModel;
-    };
-    UpdateOrganizationComponent.prototype.addOrganization = function (data, value) {
+    /* prepareSaveOrganization(): Organization {
+         const formModel = this.proForm.value;
+         const generalModel = this.generalForm.value;
+         const saveBranchModel: Organization = {
+             firstName: formModel.firstName,
+             lastName: formModel.lastName,
+             userName: formModel.userName,
+             email: formModel.email,
+             companyName: formModel.companyName,
+             password: formModel.password,
+             confirmPassword: formModel.confirmPassword,
+             officePhone: formModel.officePhone,
+             homePhone: formModel.homePhone,
+             cellPhone: formModel.cellPhone,
+             appointmentSerial: formModel.appointmentSerial,
+             website: formModel.website,
+             timeZone: formModel.timeZone,
+             specialty: formModel.specialty,
+ 
+             defaultBranch: generalModel.defaultBranch,
+             durationOfExam: generalModel.durationOfExam,
+             followUpExam: generalModel.followUpExam,
+ 
+         };
+         return saveBranchModel;
+     }
+ */
+    /*addOrganization(data: any, value?: string) {
         console.log('i m in');
         if (this.proForm.valid) {
-            var orgObject = this.prepareSaveOrganization();
+            let orgObject = this.prepareSaveOrganization();
             if (value === 'done') {
                 var self = this;
-                this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, orgObject)
+                this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, orgObject)
                     .subscribe(function (response) {
-                    if (response['responseCode'] === 'ORG_SUC_03') {
-                        self.notificationService.success('Organization has been Update Successfully');
-                    }
-                }, function (error) {
-                    self.notificationService.error('ERROR', 'Organization is not Updated');
-                });
+                        if (response['responseCode'] === 'ORG_SUC_03') {
+                            self.notificationService.success('Organization has been Update Successfully');
+                        }
+                    }, function (error) {
+                        self.notificationService.error('ERROR', 'Organization is not Updated');
+
+                    });
             }
-        }
-        else {
+
+        } else {
             this.validateAllFormFields(this.proForm);
         }
-    };
+    }
+*/
     UpdateOrganizationComponent.prototype.saveProfile = function (data) {
         var self = this;
         this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)

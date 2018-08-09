@@ -4,8 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
 
-import {Organization} from '../../../model/organization';
 import {AppConstants} from '../../../utils/app.constants';
+import {Organization} from '../../../model/organization';
 
 
 @Component({
@@ -17,12 +17,14 @@ export class UpdateOrganizationComponent implements OnInit {
                 private fb: FormBuilder, private notificationService: NotificationService) {
         this.allTimezone();
         this.allBranches();
+        this.getOrganizationAccount();
 
     }
 
     private sub: any;
     private role: string;
     id: number;
+    selectedSpecialty :string;
     responseUser: any[];
     error: any;
     proForm: FormGroup;
@@ -30,8 +32,9 @@ export class UpdateOrganizationComponent implements OnInit {
     accountForm: FormGroup
     timezoneList: any = [];
     branchesList: any = [];
+    organizationACCOUNT :any =[];
+    organization : Organization = new Organization();
     defaultBranch: string = 'primaryBranch';
-
 
     ngOnInit() {
         this.createProfileForm();
@@ -43,6 +46,7 @@ export class UpdateOrganizationComponent implements OnInit {
 
         });
         this.patchData();
+
         this.proForm.controls['companyName'].disable();
         this.accountForm.controls['userName'].disable();
 
@@ -79,6 +83,7 @@ export class UpdateOrganizationComponent implements OnInit {
     createAccountForm() {
         this.accountForm = this.fb.group({
             'firstName': [null],
+            'userId':[null],
             'lastName': [null],
             'userName': [null],
             'userEmail': [null],
@@ -108,9 +113,18 @@ export class UpdateOrganizationComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-                        if (this.branchesList.length > 1) {
-                            this.branchesList.splice(this.branchesList.indexOf({name: this.defaultBranch}), 1);
                         }
+                },
+                (error: any) => {
+
+                })
+    }
+    getOrganizationAccount() {
+        this.requestService.getRequest(AppConstants.FETCH_ORG_ACCOUNT_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_04') {
+                        this.organization = response['responseData'];
                     }
                 },
                 (error: any) => {
@@ -133,14 +147,16 @@ export class UpdateOrganizationComponent implements OnInit {
                         address: organization.address,
                         website: organization.website,
                         companyName: organization.companyName,
-                        specialty: organization.specialty
+                        specialty : organization.speciality
+                     //   specialty: organization.speciality,
 
                     });
                     this.generalForm.patchValue({
                         defaultBranch: organization.defaultBranch,
                         durationOfExam: organization.durationOfExam,
                         durationFollowUp: organization.durationFollowUp
-                    })
+                    });
+
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -161,7 +177,7 @@ export class UpdateOrganizationComponent implements OnInit {
         };
     }
 
-    prepareSaveOrganization(): Organization {
+   /* prepareSaveOrganization(): Organization {
         const formModel = this.proForm.value;
         const generalModel = this.generalForm.value;
         const saveBranchModel: Organization = {
@@ -187,8 +203,8 @@ export class UpdateOrganizationComponent implements OnInit {
         };
         return saveBranchModel;
     }
-
-    addOrganization(data: any, value?: string) {
+*/
+    /*addOrganization(data: any, value?: string) {
         console.log('i m in');
         if (this.proForm.valid) {
             let orgObject = this.prepareSaveOrganization();
@@ -209,7 +225,7 @@ export class UpdateOrganizationComponent implements OnInit {
             this.validateAllFormFields(this.proForm);
         }
     }
-
+*/
     saveProfile(data: FormData) {
         var self = this;
         this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
