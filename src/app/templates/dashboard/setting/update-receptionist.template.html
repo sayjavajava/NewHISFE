@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
-                    <h4 class="text-info">Update Receptionist</h4>
+                    <h4 class="text-info">Update Cashier</h4>
                 </div>
                 <form [formGroup]="userForm" class="form-horizontal">
                     <div class="form-body">
@@ -81,13 +81,12 @@
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
-                                            <address>
+                                            <address class="row">
                                                 <label class="mt-checkbox mt-checkbox-outline">
-                                                    <div *ngFor="let item of branchesList">
+                                                    <div *ngFor="let item of branchesList" class="col-md-6">
                                                         <input type="checkbox" formControlName="restrictBranch" class="mt-checkbox mt-checkbox-outline"
                                                                name={{item}}
                                                                value="{{item}}"
-                                                               [checked]="item.checked"
                                                                (change)="selectVisitBranches($event,item)">
                                                         {{item.name}}
 
@@ -102,8 +101,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Allow Discount</label>
                                     <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" class="form-control" formControlName="allowDiscount"><span></span></label>
+                                        <label class="mrgn-top12 mt-checkbox-outline chckbox">
+                                            <input type="checkbox" class="" formControlName="allowDiscount"><span></span></label>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +147,7 @@
                                     <label class="control-label col-md-4 col-xs-6">Active
                                     </label>
                                     <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                        <label class="mrgn-top12 mt-checkbox-outline chckbox">
                                             <input type="checkbox" formControlName="active"><span></span></label>
                                     </div>
                                 </div>
