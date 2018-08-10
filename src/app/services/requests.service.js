@@ -92,6 +92,12 @@ var RequestsService = (function () {
         var params = new http_1.HttpParams().set('name', param);
         return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader, params: params });
     };
+    RequestsService.prototype.searchWithParam = function (url, param1, param2) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        var params = new http_1.HttpParams().set('doctorId', param1).set('branchId', param2);
+        return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader, params: params });
+    };
     RequestsService.prototype.postRequestMultipartFormData = function (url, data) {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         var formData = new FormData();

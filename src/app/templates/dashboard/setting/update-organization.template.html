@@ -94,13 +94,13 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Specialty
                                                 </label>
-                                                <div class="col-md-8">
-                                                    <select class="form-control" name="select" formControlName="specialty">
+                                                 <div class="col-md-8">
+                                                    <select class="form-control"
+                                                            formControlName="specialty">
                                                         <option value="">Select...</option>
-                                                        <option value="cardiologist">Cardiologist</option>
-                                                        <option value="dermatologist">dermatologist</option>
-                                                        <option value="cardiologist2">Cardiologist</option>
-                                                        <option value="Category4">Cardiologist</option>
+                                                        <option value="cardiology">cardiology</option>
+                                                        <option value="cancer">cancer</option>
+                                                        <option value="emergency">Emergency</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -154,13 +154,26 @@
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-5">
-                                                <select class="form-control"
+                                                <!--<select class="form-control"
                                                         (change)="getSelectedBranch($event.target.value)"
-                                                        formControlName="defaultBranch" placeholder="Select Branch">
-                                                    <option *ngFor="let br of branchesList" [value]="br.id">
+                                                        formControlName="defaultBranch">
+                                                    <option *ngFor="let br of branchesList"
+                                                            value={{br.id}}>
                                                         {{br.name}}
                                                     </option>
 
+                                                </select>-->
+
+                                                <select class="form-control"  (change)="getSelectedBranch($event.target.value)"
+                                                        [(ngModel)]="organization.branchId"
+                                                        formControlName="defaultBranch" >
+                                                    <!--[ngModelOptions]="{standalone:true}"-->
+                                                    <!--[(ngModel)]="event.branch"-->
+                                                    <option value="0">-- Select --</option>
+                                                    <option *ngFor="let item of branchesList; let i = index;"
+                                                            value={{item.id}} (keyup)="refresh.next()">
+                                                        {{item.name}}
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">Default Branch on Calendar</div>
@@ -195,7 +208,7 @@
                                             <div class="col-md-4">Default duration of a free folow-up exam in days</div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <!--<div class="form-group">
                                             <label class="control-label col-md-3">Prefix Serial Patient
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
@@ -286,7 +299,7 @@
                                                 </select>
                                             </div>
 
-                                        </div>
+                                        </div>-->
 
                                     </form>
                                 </div>
@@ -310,7 +323,10 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="firstName"
-                                                           class="form-control"></div>
+                                                           [(ngModel)]="organization.firstName"
+                                                           class="form-control">
+                                                <input type="hidden" formControlName="userId" [(ngModel)]="organization.id" >
+                                                </div>
                                                 <input  formControlName="formName" value="ACCOUNT" type="hidden" />
                                             </div>
                                             <div class="form-group">
@@ -318,6 +334,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="lastName"
+                                                           [(ngModel)]="organization.lastName"
                                                            class="form-control"></div>
                                             </div>
 
@@ -326,6 +343,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="userEmail"
+                                                           [(ngModel)]="organization.email"
                                                            class="form-control"></div>
                                             </div>
                                             <div class="form-group">
@@ -333,6 +351,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="userName"
+                                                           [(ngModel)]="organization.username"
                                                            class="form-control"></div>
                                             </div>
 
@@ -341,6 +360,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" formControlName="cellPhone"
+                                                           [(ngModel)]="organization.cellPhone"
                                                            class="form-control"></div>
                                             </div>
 
@@ -349,6 +369,7 @@
                                                         </label>
                                                         <div class="col-md-8">
                                                             <input type="text" formControlName="homePhone"
+                                                                   [(ngModel)]="organization.homePhone"
                                                                    class="form-control"></div>
                                                     </div>
                                                     <div class="form-group">
@@ -356,6 +377,7 @@
                                                         </label>
                                                         <div class="col-md-8">
                                                             <input type="text" formControlName="userAddress"
+                                                                   [(ngModel)]="organization.address"
                                                                    class="form-control"></div>
                                                     </div>
 

@@ -104,24 +104,22 @@
                         <tr role="row" *ngFor="let item of dataMD">
                             <td class="font-green-dark col-txt-left"><strong>{{item.name}}</strong></td>
                             <td>
-                                <select class="form-control"
-                                        id="branchId"
-                                        name="{{item.id}}">
-                                    <option *ngFor="let branch of item.checkedBranches; let i = index;"
-                                            value={{branch.id}}>
-                                        {{branch.branchName}}
-                                    </option>
-                                </select>
+                                <a href="#popupBranches" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow"
+                                            (click)="getCheckedBranchesByMedicalServiceId(item)"
+                                            data-confirm-button-class="btn-success">
+                                        <i class="fa fa"></i> Show
+                                    </button>
+                                </a>
                             </td>
                             <td>
-                                <select class="form-control"
-                                        id="departmentId"
-                                        name="{{item.id}}">
-                                    <option *ngFor="let department of item.checkedDepartments; let i = index;"
-                                            value={{department.id}}>
-                                        {{department.name}}
-                                    </option>
-                                </select>
+                                <a href="#popupDepartments" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow"
+                                            (click)="getCheckedDepartmentsByMedicalServiceId(item)"
+                                            data-confirm-button-class="btn-success">
+                                        <i class="fa fa"></i> Show
+                                    </button>
+                                </a>
                             </td>
                             <td>{{item.fee | number :'.2-2'}}</td>
                             <td>{{item.tax.rate}}</td>
@@ -182,5 +180,98 @@
             </div>
         </div>
         <div class="clearfix"></div>
+    </div>
+</div>
+
+<div id="popupBranches" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Branches</h4>
+            </div>
+            <div class="modal-body">
+                <p class="font-red" *ngIf="checkedBranches.length <= 0">Service has no branches</p>
+                <div class="scroller" style="height:150px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <address>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="select2-bootstrap-prepend">
+                                        <div class="checkbox-box cod-higt" id="branchNameDiv">
+                                            <div class="col-md-6 branches-list">
+                                                <ul>
+                                                    <li *ngFor="let branch of checkedBranches">
+                                                        <i class=" icon-home"></i>
+                                                <label class="">
+                                                    {{branch.branchName}}
+                                                    <span></span>
+                                                </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal"
+                        id="close-btn-branch"
+                        name="close-btn-branch"
+                        class="btn btn-default btn-outline"
+                        (click)="clearList($event)">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popupDepartments" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Departments</h4>
+            </div>
+            <div class="modal-body">
+                <p class="font-red" *ngIf="checkedDepartments.length <= 0">Service has no departments</p>
+                <div class="scroller" style="height:150px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <address>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="select2-bootstrap-prepend">
+                                        <div class="checkbox-box hr cod-higt" id="branchDiv">
+                                            <div class="col-md-12 branches-list" >
+                                                <ul>
+                                                    <li *ngFor="let department of checkedDepartments">
+                                                        <i class=" icon-home"></i>
+                                                <label>
+                                                    {{department.name}}
+                                                    <span></span>
+                                                </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal"
+                        id="close-btn-depart"
+                        name="close-btn-depart"
+                        class="btn btn-default btn-outline"
+                        (click)="clearList($event)">Close
+                </button>
+            </div>
+        </div>
     </div>
 </div>

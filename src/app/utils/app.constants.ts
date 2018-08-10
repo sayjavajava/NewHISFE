@@ -24,6 +24,8 @@ export class AppConstants {
     public static BRANCHES_NAME = '/setting/branch/name';
     public static BRANCH_SEARCH = '/setting/branch/search/';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
+    public static FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
+
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
 
     ////////////////////// ICD URLs ///////////////////////////////
@@ -44,10 +46,10 @@ export class AppConstants {
     public static ICD_CODE_VERSION_SEARCH = '/setting/icd/codeVersion/search/';
     public static ICD_VERSION_CODES_VERSION = '/setting/icd/version/codes/?versionId=';
 
-    public static ROLE_ENDPOINT = '/setting/rolePermission/add';
+    public static ROLE_ENDPOINT = '/user/auth/addRole';
     public static PERMISSION_ENDPOINT = '/user/auth/authorities';
-    public static PERMISSION_BY_ROLE = '/setting/rolePermission/role';
-    public static ASSIGN_PERMISSIONS_TO_ROLES = '/setting/rolePermission/assignAuthorities';
+    public static PERMISSION_BY_ROLE = '/user/auth/permission';
+    public static ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
 
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_TAX_URL = '/setting/tax/';
@@ -71,8 +73,8 @@ export class AppConstants {
     public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     public static FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     public static MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
-    public static FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/id/';
-    public static FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/id/';
+    public static FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/';
+    public static FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/';
 
     ////////////////////// Organization URLs ///////////////////////////////
     public static ORGANIZATION_CREATE_URL = '/setting/organization/create';
@@ -80,6 +82,7 @@ export class AppConstants {
     public static FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
     public static FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
     public static FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
+    public static FETCH_ORG_ACCOUNT_URL = '/setting/organization/account';
     public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
 
     ////////////////////// Patient URLs ///////////////////////////////

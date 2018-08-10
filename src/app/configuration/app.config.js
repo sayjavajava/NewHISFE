@@ -1,7 +1,4 @@
 "use strict";
-/**
- * Created by irfan on 10-Jul-17.
- */
 /* Deployment Profiles */
 Object.defineProperty(exports, "__esModule", { value: true });
 /* Local Or Default */

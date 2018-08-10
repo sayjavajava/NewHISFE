@@ -11,7 +11,7 @@ import {CustomValidators} from './PasswordValidation';
 import {RoleAndPermission} from '../../../model/roleandpermission';
 
 import {BranchResponse} from '../../../model/BranchResponse';
-import {UserTypeEnum} from "../../../enums/user-type-enum";
+import {UserTypeEnum} from '../../../enums/user-type-enum';
 @Component({
     selector: 'addstaff-component',
     templateUrl: '../../../templates/dashboard/setting/addstaff.template.html',
@@ -51,8 +51,9 @@ export class AddStaffComponent implements OnInit {
 
     branchesList: any = [];
     departmentList: any = [];
-    doctorsList: any = []
+    primaryDoctor: any = []
     servicesList: any[] = [];
+    doctorsList :any =[];
     workingDays = [
         {name: 'Monday'},
         {name: 'Tuesday'},
@@ -172,7 +173,7 @@ export class AddStaffComponent implements OnInit {
                     //console.log('i am branch call');
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
-                        console.log(this.servicesList);
+                        //console.log(this.servicesList);
                     }
                 },
                 (error: any) => {
@@ -657,6 +658,8 @@ export class AddStaffComponent implements OnInit {
         this.secondShiftFromTime = '';
         this.secondShiftToTime = '';
         this.clearFormFields();
+
+
         //console.log('i am goto' + this.selectedDepartment.length);
         if (value) {
             this.selectedUser = value;

@@ -22,6 +22,8 @@ export class MedicalServiceComponent implements OnInit {
     dataMD: MedicalService[] = [];
     branches: Branch[] = [];
     departments: Department[] = [];
+    checkedBranches: Branch[] = [];
+    checkedDepartments: Department[] = [];
 
     searchMSModel: MedicalServiceSearchModel = new MedicalServiceSearchModel();
 
@@ -32,13 +34,13 @@ export class MedicalServiceComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getBranchesFromServer();
+        this.getDepartmentsFromServer();
+
         document.title = 'HIS | Medical Services';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getMedicalServicesFromServer(0);
         }
-
-        this.getBranchesFromServer();
-        this.getDepartmentsFromServer();
     }
 
     refreshMedicalServices() {
@@ -77,11 +79,11 @@ export class MedicalServiceComponent implements OnInit {
             );
     }
 
-    deleteMedicalServices(ms:any) {
+    deleteMedicalServices(ms: any) {
         if (ms.id > 0) {
             if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
-                AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + ms.id )
+                AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + ms.id)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -99,16 +101,18 @@ export class MedicalServiceComponent implements OnInit {
         }
     }
 
-    getDepartmentsByMedicalServiceId(ms:any) {
+    getCheckedDepartmentsByMedicalServiceId(ms: MedicalService) {
         if (ms.id > 0) {
             this.requestsService.getRequest(
-                AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL + 'msId=' + ms.id )
+                AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL + ms.id)
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'MED_SER_SUC_02') {
-                            this.notificationService.success(response['responseMessage'], 'Medical Service');
+                        if (response['responseCode'] === 'MED_SER_SUC_01') {
+                            this.checkedDepartments = response['responseData'];
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Medical Service');
+                            //this.notificationService.success('Service has no departments', 'Medical Services');
+                            //document.getElementById('close-btn-depart').click();
+                            this.checkedDepartments = [];
                         }
                     },
                     (error: any) => {
@@ -118,18 +122,24 @@ export class MedicalServiceComponent implements OnInit {
         }
     }
 
-    getBranchesByMedicalServiceId(ms:any) {
+    clearList(event: any) {
+        if (event.target.name === 'close-btn-branch') {
+            this.checkedBranches = [];
+        } else if (event.target.name === 'close-btn-depart') {
+            this.checkedDepartments = [];
+        }
+    }
+
+    getCheckedBranchesByMedicalServiceId(ms: MedicalService) {
         if (ms.id > 0) {
             this.requestsService.getRequest(
-                AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL + 'msId=' + ms.id )
+                AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL + ms.id)
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'MED_SER_SUC_02') {
-                            this.notificationService.success(response['responseMessage'], 'Medical Service');
-                            this.getMedicalServicesFromServer(0);
+                        if (response['responseCode'] === 'MED_SER_SUC_01') {
+                            this.checkedBranches = response['responseData'];
                         } else {
-                            this.getMedicalServicesFromServer(0);
-                            this.notificationService.error(response['responseMessage'], 'Medical Service');
+                            this.checkedBranches = [];
                         }
                     },
                     (error: any) => {
@@ -141,7 +151,6 @@ export class MedicalServiceComponent implements OnInit {
 
     searchByMedicalServiceParams(page: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.searchMSModel.searchServiceId = /*this.searchMSModel.searchServiceId > 0 ? this.searchMSModel.searchServiceId :*/ 0;
             this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
             this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
             this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
@@ -155,7 +164,7 @@ export class MedicalServiceComponent implements OnInit {
                 this.searchMSModel.searchServiceName.length === 0 &&
                 this.searchMSModel.searchBranchId === 0 &&
                 this.searchMSModel.departmentId === 0 &&
-                this.searchMSModel.searchServiceFee === 0){
+                this.searchMSModel.searchServiceFee === 0) {
 
                 this.refreshMedicalServices();
                 return;
@@ -163,8 +172,7 @@ export class MedicalServiceComponent implements OnInit {
 
             this.requestsService.getRequest(
                 AppConstants.MEDICAL_SERVICE_SEARCH + page
-                + '?serviceId=' + this.searchMSModel.searchServiceId
-                + '&serviceName=' + this.searchMSModel.searchServiceName
+                + '?serviceName=' + this.searchMSModel.searchServiceName
                 + '&branchId=' + this.searchMSModel.searchBranchId
                 + '&departmentId=' + this.searchMSModel.departmentId
                 + '&serviceFee=' + this.searchMSModel.searchServiceFee)
@@ -195,7 +203,7 @@ export class MedicalServiceComponent implements OnInit {
 
     getBranchesFromServer() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_BRANCHES_URL)
+            AppConstants.FETCH_ALL_BRANCHES_ALL_URL)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
@@ -221,18 +229,6 @@ export class MedicalServiceComponent implements OnInit {
                     this.HISUtilService.tokenExpired(error.error.error);
                 }
             );
-    }
-
-    showMyPopup(event:any,item:MedicalService){
-       if (event.target.name === "departmentId"){
-           // data-toggle="modal"
-       //    popupBranch
-       //  document.getElementById('popupBranch');/*.['aria-hidden'] = false;*/
-       } else if (event.target.name === "branchId"){
-       //    popupDepartment
-       //    data-toggle="modal"
-
-       }
     }
 
 }

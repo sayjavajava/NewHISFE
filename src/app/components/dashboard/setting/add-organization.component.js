@@ -102,32 +102,34 @@ var AddOrganizationComponent = (function () {
         }, function (error) {
         });
     };
-    AddOrganizationComponent.prototype.addOrganization = function (data, value) {
-        if (this.orgForm.valid) {
-            var orgObject = this.prepareSaveOrganization();
-            if (value === 'done') {
-                var that = this;
-                this.requestService.postRequest(app_constants_1.AppConstants.ORGANIZATION_CREATE_URL, orgObject)
-                    .subscribe(function (response) {
-                    if (response['responseCode'] === 'ORG_SUC_01') {
-                        that.notificationService.success(response['responseMessage'], 'Organization');
-                    }
-                    else {
-                        that.notificationService.error(response['responseMessage'], 'Organization');
-                    }
-                }, function (error) {
-                    that.notificationService.error(error.error, 'Unable to create Organization.');
-                });
-            }
-        }
-        else {
-            this.validateAllFormFields(this.orgForm);
-        }
-    };
-    AddOrganizationComponent.prototype.prepareSaveOrganization = function () {
-        var formModel = this.orgForm.value;
-        var generalModel = this.generalForm.value;
-        var saveBranchModel = {
+    /* addOrganization(data: any, value: string) {
+ 
+         if (this.orgForm.valid) {
+             let orgObject = this.prepareSaveOrganization();
+             if (value === 'done') {
+                 var that = this;
+                 this.requestService.postRequest(AppConstants.ORGANIZATION_CREATE_URL, orgObject)
+                     .subscribe(function (response) {
+                         if (response['responseCode'] === 'ORG_SUC_01') {
+                             that.notificationService.success(response['responseMessage'], 'Organization');
+                         } else {
+                             that.notificationService.error(response['responseMessage'], 'Organization');
+                         }
+                     }, function (error) {
+                         that.notificationService.error(error.error, 'Unable to create Organization.');
+ 
+                     });
+             }
+ 
+         } else {
+             this.validateAllFormFields(this.orgForm);
+         }
+     }
+ */
+    /*prepareSaveOrganization(): Organization {
+        const formModel = this.orgForm.value;
+        const generalModel = this.generalForm.value;
+        /!*const saveBranchModel: Organization = {
             firstName: formModel.firstName,
             lastName: formModel.lastName,
             userName: formModel.userName,
@@ -142,12 +144,14 @@ var AddOrganizationComponent = (function () {
             website: formModel.website,
             timeZone: formModel.timeZone,
             specialty: formModel.specialty,
+
             defaultBranch: generalModel.defaultBranch,
             durationOfExam: generalModel.durationOfExam,
             followUpExam: generalModel.followUpExam,
-        };
+
+        };*!/
         return saveBranchModel;
-    };
+    }*/
     AddOrganizationComponent.prototype.getDurationOfExam = function (value) {
         if (value) {
             this.generalForm.controls['durationOfExam'].setValue(value);

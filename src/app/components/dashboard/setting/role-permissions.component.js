@@ -28,11 +28,10 @@ var RolePermissionsComponent = (function () {
         this.titleAlert = 'name should be bw 5 and 30';
         this.descriptionAlert = 'description is required';
         this.addedRolePermissionsIds = new Array();
-        this.allRoles();
     }
     RolePermissionsComponent.prototype.ngOnInit = function () {
         this.createForm();
-        this.allPermissions();
+        this.allRolePermissions();
         this.createSelectedForm();
     };
     RolePermissionsComponent.prototype.createForm = function () {
@@ -70,50 +69,40 @@ var RolePermissionsComponent = (function () {
             _this.hisUtilService.tokenExpired(error.error);
         });
     };
-    RolePermissionsComponent.prototype.addPermission = function (formdata) {
-        var _this = this;
-        var obj = new roleandpermission_1.RoleAndPermission(formdata.name, formdata.description, formdata.active, 'Permission');
-        this.showForm = false;
-        setTimeout(function () {
-            _this.formReset();
-            _this.showForm = true;
-        });
-        this.requestService.postRequest(app_constants_1.AppConstants.ROLE_ENDPOINT, obj)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'PER_SUC_01') {
-                _this.notificationService.success(response['responseMessage']);
-                _this.allPermissions();
-            }
-            else {
-                _this.notificationService.error(response['responseMessage']);
-            }
-        }, function (error) {
-            //console.log(error.json());
-            _this.notificationService.error(error.error.error_description);
-            _this.hisUtilService.tokenExpired(error.error);
-        });
-    };
-    RolePermissionsComponent.prototype.allPermissions = function () {
-        var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.PERMISSION_ENDPOINT)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'ROL_PER_SUC_02') {
-                var resources = response['responseData'];
-                var resource = resources['allPermissions'];
-                _this.allDBPermissions = resource;
-            }
-        }, function (error) {
-            _this.hisUtilService.tokenExpired(error.error.error);
-        });
-    };
-    RolePermissionsComponent.prototype.allRoles = function () {
+    /*    addPermission(formdata: any) {
+            let obj: RoleAndPermission = new RoleAndPermission(formdata.name, formdata.description, formdata.active, 'Permission');
+            this.showForm = false;
+            setTimeout(() => {
+                this.formReset();
+                this.showForm = true;
+            });
+            this.requestService.postRequest(
+                AppConstants.ROLE_ENDPOINT
+                , obj)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'PER_SUC_01') {
+                            this.notificationService.success(response['responseMessage']);
+                            this.allRolePermissions();
+                        } else {
+                            this.notificationService.error(response['responseMessage']);
+                        }
+                    },
+                    (error: any) => {
+                        // console.log(error.json());
+                        this.notificationService.error(error.error.error_description);
+                        this.hisUtilService.tokenExpired(error.error);
+    
+                    });
+        }*/
+    RolePermissionsComponent.prototype.allRolePermissions = function () {
         var _this = this;
         this.requestService.getRequest(app_constants_1.AppConstants.PERMISSION_ENDPOINT)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ROL_PER_SUC_02') {
                 var resources = response['responseData'];
-                var resource = resources['allRoleAndPermissions'];
-                _this.allDBRoles = resource;
+                _this.allDBPermissions = resources['allPermissions'];
+                _this.allDBRoles = resources['allRoleAndPermissions'];
             }
         }, function (error) {
             _this.hisUtilService.tokenExpired(error.error.error);
@@ -148,6 +137,7 @@ var RolePermissionsComponent = (function () {
     };
     RolePermissionsComponent.prototype.permissionByRole = function (roleName) {
         var _this = this;
+        this.selectedRole = roleName;
         this.requestService.getRequestWithParam(app_constants_1.AppConstants.PERMISSION_BY_ROLE, roleName)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ROL_PER_SUC_02') {
@@ -166,14 +156,14 @@ var RolePermissionsComponent = (function () {
     RolePermissionsComponent.prototype.closeModal = function () {
         this.closeBtn.nativeElement.click();
     };
-    RolePermissionsComponent.prototype.onRoleChange = function () {
+    RolePermissionsComponent.prototype.onRoleChange = function (selectedRole) {
         for (var _i = 0, _a = this.allDBPermissions; _i < _a.length; _i++) {
             var rp = _a[_i];
             var checkbox = document.getElementById('chkbox-' + rp.id);
             checkbox.checked = false;
         }
         this.addedRolePermissionsIds = new Array();
-        this.permissionByRole(this.selectedRole);
+        this.permissionByRole(selectedRole);
     };
     RolePermissionsComponent.prototype.formReset = function () {
         this.roleForm.reset();

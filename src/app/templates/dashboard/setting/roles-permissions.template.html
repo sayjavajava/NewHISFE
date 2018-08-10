@@ -11,8 +11,8 @@
                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Role
                                 </button>
                             </a>
-                            <span><a href="#responsive2" data-toggle="modal"><button class="btn blue"> <i
-                                    class="fa fa-plus"></i> Permission </button></a></span>
+                            <!--<span><a href="#responsive2" data-toggle="modal"><button class="btn blue"> <i-->
+                                    <!--class="fa fa-plus"></i> Permission </button></a></span>-->
                         </div>
                     </h4>
                 </div>
@@ -22,8 +22,8 @@
                             <div class="form-group">
                                 <label class="font-blue"><h4>Role</h4></label>
                                 <form [formGroup]="selectForm">
-                                    <select id="role" formControlName="role" [(ngModel)]="selectedRole"
-                                            (change)="onRoleChange()">
+                                    <select id="role" formControlName="role"
+                                            (change)="onRoleChange($event.target.value)">
                                         <option *ngFor="let r of allDBRoles" value="{{r.name}}">{{ r.name }}</option>
                                     </select>
                                 </form>
@@ -119,64 +119,64 @@
     </div>
     <!--End of Modal-->
     <!--Start Modal-->
-    <div id="responsive2" class="modal fade" tabindex="-1" aria-hidden="true">
-        <form *ngIf="showForm2" [formGroup]="roleForm" (ngSubmit)="addPermission(roleForm.value)">
-            <div class="form-container">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <a>
-                                <button type="button" class="close" data-dismiss="modal" #closeBtn
-                                        aria-hidden="true"></button>
-                            </a>
-                            <h4 class="modal-title">Add Permissions</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
-                                <div class="row">
+    <!--<div id="responsive2" class="modal fade" tabindex="-1" aria-hidden="true">-->
+        <!--<form *ngIf="showForm2" [formGroup]="roleForm" (ngSubmit)="addPermission(roleForm.value)">-->
+            <!--<div class="form-container">-->
+                <!--<div class="modal-dialog">-->
+                    <!--<div class="modal-content">-->
+                        <!--<div class="modal-header">-->
+                            <!--<a>-->
+                                <!--<button type="button" class="close" data-dismiss="modal" #closeBtn-->
+                                        <!--aria-hidden="true"></button>-->
+                            <!--</a>-->
+                            <!--<h4 class="modal-title">Add Permissions</h4>-->
+                        <!--</div>-->
+                        <!--<div class="modal-body">-->
+                            <!--<div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">-->
+                                <!--<div class="row">-->
 
-                                    <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
-                                                class="required"
-                                                aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <input type="text" class=" form-control" formControlName="name">
-                                            <span class="text-danger"
-                                                  *ngIf="!roleForm.controls['name'].valid && roleForm.controls['name'].touched">
-                                                {{ titleAlert  }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5"> Description <span
-                                                class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                    <!--<div class="form-group hr">-->
+                                        <!--<label class="col-md-3 control-label txt-size pdng-lr-5">Name <span-->
+                                                <!--class="required"-->
+                                                <!--aria-required="true"> * </span></label>-->
+                                        <!--<div class="col-md-9 select pdng-lr-5">-->
+                                            <!--<input type="text" class=" form-control" formControlName="name">-->
+                                            <!--<span class="text-danger"-->
+                                                  <!--*ngIf="!roleForm.controls['name'].valid && roleForm.controls['name'].touched">-->
+                                                <!--{{ titleAlert  }}-->
+                                            <!--</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group hr">-->
+                                        <!--<label class="col-md-3 control-label txt-size pdng-lr-5"> Description <span-->
+                                                <!--class="required" aria-required="true"> * </span></label>-->
+                                        <!--<div class="col-md-9 select pdng-lr-5">-->
 
-                                            <textarea class="form-control" rows="3"
-                                                      formControlName="description"></textarea>
+                                            <!--<textarea class="form-control" rows="3"-->
+                                                      <!--formControlName="description"></textarea>-->
 
-                                        </div>
-                                    </div>
-                                    <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Active
-                                        </label>
-                                        <div class="col-md-9">
-                                            <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                                <input type="checkbox" formControlName="active"><span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" (click)="formReset()" data-dismiss="modal" #closeBtn class="btn btn-light">Close</button>
-                            <button type="submit" [disabled]='!roleForm.valid' class="btn blue">Save</button>
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group hr">-->
+                                        <!--<label class="col-md-3 control-label txt-size pdng-lr-5">Active-->
+                                        <!--</label>-->
+                                        <!--<div class="col-md-9">-->
+                                            <!--<label class="mt-checkbox mt-checkbox-outline chckbox">-->
+                                                <!--<input type="checkbox" formControlName="active"><span></span></label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="modal-footer">-->
+                            <!--<button type="button" (click)="formReset()" data-dismiss="modal" #closeBtn class="btn btn-light">Close</button>-->
+                            <!--<button type="submit" [disabled]='!roleForm.valid' class="btn blue">Save</button>-->
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
     <!--End of Modal-->
 </div>
