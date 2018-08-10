@@ -77,18 +77,17 @@
 
                                     </div>
                                 </div>
-                                <div class="form-group" >
+                                <div class="form-group mrgn-btm10" >
                                     <label class="control-label col-md-4">Visit Branches
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <div class="checkbox-box" id="not-due">
-                                            <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of branchesList">
+                                        <div class="checkbox-box cod-higt" id="not-due">
+                                            <address class="row"><label class="mt-checkbox mt-checkbox-outline">
+                                                <div *ngFor="let item of branchesList" class="col-md-6">
                                                     <input type="checkbox" formControlName="restrictBranch"
                                                            name={{item}}
                                                            value="{{item}}"
-                                                           [checked]="item.checked"
                                                            (change)="selectVisitBranches($event,item)">
                                                     {{item.name}}
 
@@ -144,7 +143,7 @@
                                     <label class="control-label col-md-4 col-xs-6">Active
                                     </label>
                                     <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                        <label class="mrgn-top12 mt-checkbox-outline chckbox">
                                             <input type="checkbox" formControlName="active"><span></span></label>
                                     </div>
                                 </div>

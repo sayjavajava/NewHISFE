@@ -139,7 +139,7 @@
                                 <span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-10">
-                                    <div class="input-group select2-bootstrap-prepend">
+                                    <div class="select2-bootstrap-prepend">
                                         <select id="icdVersions" [(ngModel)]="iCDCVM.selectedICDVersionId"
                                                 #selectedVer="ngModel" name="selectedVer"
                                                 class="form-control"
@@ -159,11 +159,12 @@
                                 <span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-10">
-                                 <div class="input-group select2-bootstrap-prepend">
+                                 <div class="select2-bootstrap-prepend">
                                         <div class="checkbox-box hr cod-higt" id="codesDiv">
-                                            <div class="col-md-6" *ngFor="let code of iCDCodes">
-                                                <address>
-                                                    <label class="mt-checkbox mt-checkbox-outline">
+
+                                                <address class="row">
+                                                    <div class="col-md-6" *ngFor="let code of iCDCodes">
+                                                    <label class="mt-checkbox-outline">
                                                         <input type="checkbox"
                                                                id="chk-{{code.id}}"
                                                                name="chk-{{code.id}}"
@@ -171,8 +172,9 @@
                                                         {{code.code}}
                                                         <span></span>
                                                     </label>
+                                                    </div>
                                                 </address>
-                                            </div>
+
                                         </div>
                                     </div>
                             </div>

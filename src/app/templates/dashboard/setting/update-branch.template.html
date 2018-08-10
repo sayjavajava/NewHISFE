@@ -24,10 +24,10 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Branch Name
+                                                <label class="control-label col-md-4">Branch Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <input type="text" formControlName="branchName"
                                                            class="form-control">
                                                     <span class="text-danger"
@@ -150,7 +150,7 @@
 
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
 
-                                                    <input class="col-md-4" type="time"
+                                                    <input class="col-md-9" type="time"
                                                            formControlName="officeHoursStart"
                                                            value="{{officeHoursStart}}">
 
@@ -172,7 +172,7 @@
 
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
 
-                                                    <input class="col-md-4" type="time" formControlName="officeHoursEnd"
+                                                    <input class="col-md-9" type="time" formControlName="officeHoursEnd"
                                                            value="{{officeHoursEnd}}">
 
                                                 </div>
@@ -184,8 +184,8 @@
                                             </div>
 
 
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Number of Exam Rooms
+                                            <div class="form-group mrgn-top8">
+                                                <label class="control-label col-md-3">No of Exam Rooms
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
@@ -208,19 +208,18 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Exam Name
                                                     </label>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-4">
                                                         <input type="text" class="form-control"
                                                                formControlName="roomName"></div>
-                                                    <div class="col-md-4">
-                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                    <div class="col-md-5 pdng-lr-5 mrgn-top4">
+                                                        <label class="mt-checkbox-outline">
                                                             <input type="checkbox"
                                                                    formControlName="allowOnlineScheduling"> Allow Online
                                                             Schediling
                                                             <span></span>
                                                         </label>
-                                                        <button class="btn-link" type="button" (click)="deleteField(i)">
-                                                            Delete
-                                                        </button>
+                                                        <i (click)="deleteField(i)" title="Remove"
+                                                           class="fa fa-close font-red"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,7 +231,7 @@
                                     <div class="hr">
                                         <div class="col-md-12 text-center">
                                             <button (click)="addBranch(branchForm.value)" class="btn blue"><i
-                                                    class="fa fa-plus"></i> Create
+                                                    class="fa fa-plus"></i> Update
                                             </button>
 
                                         </div>
