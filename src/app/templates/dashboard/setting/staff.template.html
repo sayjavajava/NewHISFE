@@ -28,29 +28,35 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group font-siz11">
-                                <label>Roles</label>
-                                <!--<select id="role"  (change)="roleSelected($event.target.value)" class="form-control" formControlName="role">
-                                    <option *ngFor="let c of roles" [ngValue]="c">{{ c }}</option>
+                                <label>User Type</label>
+
+                               <!-- <select class="form-control" (change)="roleSelected($event.target.value)">
+                                    &lt;!&ndash;[ngModelOptions]="{standalone:true}"&ndash;&gt;
+                                    &lt;!&ndash;[(ngModel)]="event.branch"&ndash;&gt;
+                                    <option value="0">&#45;&#45; Select &#45;&#45;</option>
+                                    <option *ngFor="let item of allDBRoles; let i = index;" value={{item.id}}>
+                                        {{item.name}}
+                                    </option>
                                 </select>-->
 
-
-                                <select (change)="roleSelected($event.target.value)" class="form-control" formControlName="role" style="width: 250px !important">
-                                    <!-- (change)="goTo($event.target.value)"-->
-                                    <option value="">Super_Admin</option>
-                                    <option value="receptionist">Receptionist</option>
+                                <select (change)="roleSelected($event.target.value)" class="form-control" formControlName="userType" style="width: 250px !important">
+                                    <option value="">Select User Type</option>
+                                    <option *ngFor="let item of userTypes;" value={{item}}>
+                                        {{item}}
+                                    </option>
+                                    <!--<option value="receptionist">Receptionist</option>
                                     <option value="doctor">Doctor</option>
                                     <option value="nurse">Nurse</option>
-                                    <option value="cashier">Cashier</option>
-
+                                    <option value="cashier">Cashier</option>-->
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <!--<div class="col-md-3">
                             <div class="form-group font-siz11">
                                 <label>Email:</label>
                                 <input type="text" class="form-control" formControlName="email" placeholder="Enter email" style="width: 250px !important">
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-md-2">
                             <div class="form-group mrgn-top24">
                                 <button type="button" (click)="searchData(searchForm.value)" class="btn blue">Search</button>
