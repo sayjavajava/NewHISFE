@@ -11,6 +11,7 @@ import {CustomValidators} from './PasswordValidation';
 import {RoleAndPermission} from '../../../model/roleandpermission';
 
 import {BranchResponse} from '../../../model/BranchResponse';
+import {UserTypeEnum} from "../../../enums/user-type-enum";
 @Component({
     selector: 'addstaff-component',
     templateUrl: '../../../templates/dashboard/setting/addstaff.template.html',
@@ -50,7 +51,7 @@ export class AddStaffComponent implements OnInit {
 
     branchesList: any = [];
     departmentList: any = [];
-    primaryDoctor: any = []
+    doctorsList: any = []
     servicesList: any[] = [];
     workingDays = [
         {name: 'Monday'},
@@ -134,20 +135,19 @@ export class AddStaffComponent implements OnInit {
     }
 
     allDoctors() {
-        this.requestsService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+
+        this.requestsService.getRequest(
+            AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseStatus'] === 'SUCCESS') {
-                        let data = response['responseData'];
-                        let userNameData = data;
-                        this.primaryDoctor = response['responseData'];
-
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.doctorsList = response['responseData'];
                     }
                 },
                 (error: any) => {
-                    this.error = error.error.error;
-                });
 
+                }
+            );
     }
 
     allDepartments() {
@@ -172,7 +172,7 @@ export class AddStaffComponent implements OnInit {
                     //console.log('i am branch call');
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
-                        //console.log(this.servicesList);
+                        console.log(this.servicesList);
                     }
                 },
                 (error: any) => {
@@ -657,14 +657,15 @@ export class AddStaffComponent implements OnInit {
         this.secondShiftFromTime = '';
         this.secondShiftToTime = '';
         this.clearFormFields();
-
-
         //console.log('i am goto' + this.selectedDepartment.length);
         if (value) {
             this.selectedUser = value;
             this.checkPermission(value);
             this.setValidate(value);
-            // this.createUserForm();
+            if(value==='DOCTOR' || value==='NURSE'){
+                this.allDepartments();
+                this.allServices();
+            }
         }
 
     }

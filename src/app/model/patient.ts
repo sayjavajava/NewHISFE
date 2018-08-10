@@ -4,7 +4,7 @@ import {Race} from "./race-model";
  */
 export class Patient {
     //////IMPORTANT INFORMATION
-    userId: number;
+    id: number;
     selectedDoctor: number = -1;
     titlePrefix: string = "-1";
     firstName: string = "";
@@ -24,7 +24,7 @@ export class Patient {
     reminderLanguage: string = "ENGLISH";
     statusUser: boolean = true;
     /////// DEMOGRAPHY
-    profileId: number;
+    patientId: number;
     patientSSN: string = "";
     dob: string = "";
     gender: string = "MALE";
@@ -36,13 +36,13 @@ export class Patient {
         {id: 5, nameRace: 'White', selected: false},
         {id: 6, nameRace: 'Other Race', selected: false}
     ];
-    country: string = "SAUDI ARAB";
+    country: string = "SAUDI ARABIA";
     streetAddress: string = "";
     zipCode: string = "";
     city: string = "";
-    state: string = "SAUDI ARAB";
+    state: string = "SAUDI ARABIA";
     formattedAddress: string = "";
-    martial: string = "SINGLE";
+    marital: string = "SINGLE";
     emergencyContactName: string = "";
     emergencyContactPhone: string = "";
     emergencyContactRelation: string = "";

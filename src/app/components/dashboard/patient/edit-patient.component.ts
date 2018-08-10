@@ -10,6 +10,9 @@ import {NgForm} from "@angular/forms";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {ImageModel} from "../../../model/image-model";
 import any = jasmine.any;
+import {forEach} from "@angular/router/src/utils/collection";
+import {Race} from "../../../model/race-model";
+import {race} from "q";
 
 @Component({
     selector: 'add-patient',
@@ -49,7 +52,19 @@ export class EditPatientComponent implements OnInit {
                     response => {
                         if (response['responseCode'] === 'USER_SUC_01') {
                             this.patient = response['responseData'];
-                            this.patient.races = JSON.parse(response['responseData'].racesString);
+                            let savedRace = response['responseData'].races;
+                            this.patient.races = new Patient().races;
+                            this.patient.races.forEach(function (race) {
+                                savedRace.forEach(function (dbRaces:Race) {
+                                    if(race.nameRace === dbRaces.nameRace){
+                                        race.selected = true;
+                                    }
+                                })
+
+                            })
+
+                            console.log(this.patient.races)
+                            //this.patient.races = JSON.parse(response['responseData'].racesString);
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Patient');
                             // this.router.navigate(['404-not-found'])
@@ -132,7 +147,7 @@ export class EditPatientComponent implements OnInit {
     uploadProfileImg() {
         if (this.file.size <= 1048000) {
             this.requestsService.postRequestMultipartFormData(
-                AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.userId
+                AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.id
                 , this.file,)
                 .subscribe(
                     (response: Response) => {
@@ -154,7 +169,7 @@ export class EditPatientComponent implements OnInit {
     uploadFrontImg() {
         if (this.file.size <= 1048000) {
             this.requestsService.postRequestMultipartFormData(
-                AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.userId, this.file)
+                AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.id, this.file)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_03') {
@@ -177,7 +192,7 @@ export class EditPatientComponent implements OnInit {
     uploadBackImg() {
         if (this.file.size <= 1048000) {
             this.requestsService.postRequestMultipartFormData(
-                AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.userId, this.file)
+                AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.id, this.file)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_03') {

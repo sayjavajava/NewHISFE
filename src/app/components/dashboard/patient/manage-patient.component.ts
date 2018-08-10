@@ -19,7 +19,7 @@ export class ManagePatientComponent implements OnInit {
     currPage: any;
     pages: number[] = [];
     data: any;
-    searchUserName:string="";
+    searchString:string="";
     searched:boolean=false;
 
     constructor(private requestsService: RequestsService,
@@ -31,23 +31,23 @@ export class ManagePatientComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Patient');
-        this.getAllPaginatedPatientFromServer(0, UserTypeEnum.PATIENT);
+        this.getAllPaginatedPatientFromServer(0);
     }
 
     getPageWisePatients(page: number) {
         if (this.searched){
-            this.searchByUserName(page,UserTypeEnum.PATIENT);
+            this.searchPatient(page);
         }else {
-            this.getAllPaginatedPatientFromServer(page, UserTypeEnum.PATIENT);
+            this.getAllPaginatedPatientFromServer(page);
         }
     }
 
-    getAllPaginatedPatientFromServer(page: number, userType: any) {
+    getAllPaginatedPatientFromServer(page: number) {
         if (page > 0) {
             page = page;
         }
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_PATIENT_URL + page + '?userType=' + userType)
+            AppConstants.FETCH_ALL_PATIENT_URL + page)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'PATIENT_SUC_11') {
@@ -73,9 +73,9 @@ export class ManagePatientComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'PATIENT_SUC_06') {
                             this.notificationService.success(response['responseMessage'], 'Patient');
-                            this.getAllPaginatedPatientFromServer(0, UserTypeEnum.PATIENT);
+                            this.getAllPaginatedPatientFromServer(0);
                         } else {
-                            this.getAllPaginatedPatientFromServer(0, UserTypeEnum.PATIENT);
+                            this.getAllPaginatedPatientFromServer(0);
                             this.notificationService.error(response['responseMessage'], 'Patient');
                         }
                     },
@@ -89,13 +89,13 @@ export class ManagePatientComponent implements OnInit {
         }
     }
 
-    searchByUserName(page: number, userType: any) {
+    searchPatient(page: number) {
         this.searched = true;
         if (page > 0) {
             page = page;
         }
         this.requestsService.getRequest(
-            AppConstants.SEARCH_ALL_PATIENT_URL + page + '?userType=' + userType + '&userName=' + this.searchUserName)
+            AppConstants.SEARCH_ALL_PATIENT_URL + page + '?searchString=' + this.searchString)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'PATIENT_SUC_11') {
@@ -117,8 +117,8 @@ export class ManagePatientComponent implements OnInit {
 
     refreshPatient(){
         this.searched = false;
-        this.searchUserName = "";
-        this.getAllPaginatedPatientFromServer(0,UserTypeEnum.PATIENT.valueOf());
+        this.searchString = "";
+        this.getAllPaginatedPatientFromServer(0);
     }
 
 

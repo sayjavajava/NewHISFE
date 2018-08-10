@@ -75,7 +75,7 @@
                             <input type="number" min="0" step="1" class="form-control"
                                    placeholder="Service Fee"
                                    [(ngModel)]="searchMSModel.searchServiceFee"
-                            (keydown.enter)="searchByMedicalServiceParams(0)">
+                                   (keydown.enter)="searchByMedicalServiceParams(0)">
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -92,7 +92,7 @@
                         <thead>
                         <tr role="row" class="off-wite-bg">
                             <!--<th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Id</th>-->
-                            <th width="24%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Title</th>
+                            <th width="24%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Name</th>
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Branch</th>
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Department</th>
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Fee</th>
@@ -102,13 +102,30 @@
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" *ngFor="let item of dataMD">
-                            <!--<td class="font-green-dark"><strong>{{item.id}}</strong></td>-->
-                            <td class="font-green-dark col-txt-left"><strong>{{item.title}}</strong></td>
-                            <td>{{item.branchName}}</td>
-                            <td>{{item.dptName}}</td>
-                            <td>{{item.fee}}</td>
-                            <td>{{item.taxRate}}</td>
-                            <td>{{item.cost}}</td>
+                            <td class="font-green-dark col-txt-left"><strong>{{item.name}}</strong></td>
+                            <td>
+                                <select class="form-control"
+                                        id="branchId"
+                                        name="{{item.id}}">
+                                    <option *ngFor="let branch of item.checkedBranches; let i = index;"
+                                            value={{branch.id}}>
+                                        {{branch.branchName}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control"
+                                        id="departmentId"
+                                        name="{{item.id}}">
+                                    <option *ngFor="let department of item.checkedDepartments; let i = index;"
+                                            value={{department.id}}>
+                                        {{department.name}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>{{item.fee | number :'.2-2'}}</td>
+                            <td>{{item.tax.rate}}</td>
+                            <td>{{item.cost | number :'.2-2'}}</td>
                             <td><span
                                     [ngClass]="{'bg-green-meadow': item.status === true, 'bg-red-meadow': item.status === false}"
                                     class="mt-action-dot"></span></td>
@@ -119,7 +136,7 @@
                                     <i class="fa fa-pencil"></i>
                                 </button>
                                 <button class="btn btn-default btn-outline btn-sm"
-                                        (click)="deleteMedicalServices(item.id, item.dptId, item.branchId)">
+                                        (click)="deleteMedicalServices(item)">
                                     <i class="fa fa-remove"></i>
                                 </button>
                             </td>

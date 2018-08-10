@@ -8,6 +8,8 @@ import {AmazingTimePickerService} from 'amazing-time-picker';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppConstants} from '../../../utils/app.constants';
 import {HISUtilService} from '../../../services/his-util.service';
+import {UserTypeEnum} from "../../../enums/user-type-enum";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
     selector: 'addnurse-component',
@@ -26,8 +28,10 @@ export class UpdateNurseComponent implements OnInit {
     managepatientinvoices: boolean;
     userForm: FormGroup;
     selectedDepartment: any = [];
+
+    staffDepartment: any = [];
+
     selectedServices: any = [];
-    dutyWithDoctors:any=[];
     selectedTime: string;
     secondShiftFromTime: string;
     secondShiftToTime: string;
@@ -37,7 +41,11 @@ export class UpdateNurseComponent implements OnInit {
     selectedVisitBranches: any = [];
     selectedDoctors: any = [];
     branchesList: any = [];
-    primaryDoctor: any = [];
+    staffBranches: any [];
+
+    doctorsList: any = [];
+    dutyWithDoctors:any=[];
+
     departmentList: any = [];
     error: string;
     defaultBranch:string='primaryBranch';
@@ -47,6 +55,7 @@ export class UpdateNurseComponent implements OnInit {
     userSelected: string = 'doctor';
     user: UserEditModel;
 
+    filterBranches: any [];
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,private hisUtilService: HISUtilService,
         private amazingTimePickerService?: AmazingTimePickerService) {
@@ -59,7 +68,6 @@ export class UpdateNurseComponent implements OnInit {
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
-            console.log(this.id);
         });
         this.patchData();
     }
@@ -69,10 +77,11 @@ export class UpdateNurseComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                        this.filterBranches = response['responseData'];
                      //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
-                    if(this.branchesList.length > 1){
+                    /*if(this.branchesList.length > 1){
                         this.removeBranch();
-                     }
+                     }*/
                     }
 
                 },
@@ -81,8 +90,7 @@ export class UpdateNurseComponent implements OnInit {
                 })
     }
 
-
-    allDoctors() {
+    /*allDoctors() {
         this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(
                 (response: Response) => {
@@ -96,6 +104,21 @@ export class UpdateNurseComponent implements OnInit {
                     this.error = error.error.error;
                 });
 
+    }*/
+
+    allDoctors() {
+        this.requestService.getRequest(
+            AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.doctorsList = response['responseData'];
+                    }
+                },
+                (error: any) => {
+
+                }
+            );
     }
 
     allDepartments() {
@@ -123,8 +146,6 @@ export class UpdateNurseComponent implements OnInit {
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
                 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
-                'password': [null],
-                'confirmPassword': [null],
                 'homePhone': [null, Validators.required],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
@@ -140,7 +161,7 @@ export class UpdateNurseComponent implements OnInit {
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
                 'departmentControl': [null],
-                'nurseDutyWithDoctor': [null, Validators.required],
+                'nurseDutyWithDoctor': [null],
 
             }
         )
@@ -165,7 +186,26 @@ export class UpdateNurseComponent implements OnInit {
                         primaryBranch:user.primaryBranchId,
 
                     });
-
+                    this.staffBranches = user.staffBranches;
+                    this.selectedDoctors = user.dutyWithDoctors;
+                    for(let key in this.branchesList){
+                        for(let k in this.staffBranches){
+                            if(this.staffBranches[k].id == this.branchesList[key].id){
+                                this.branchesList[key].checked = true;
+                                this.selectedVisitBranches.push(this.staffBranches[k].id);
+                                break;
+                            }
+                        }
+                    }
+                    for(let key in this.doctorsList){
+                        for(let k in this.selectedDoctors){
+                            if(this.selectedDoctors[k].id == this.doctorsList[key].id){
+                                this.doctorsList[key].checked = true;
+                                this.dutyWithDoctors.push(this.staffBranches[k].id);
+                                break;
+                            }
+                        }
+                    }
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -176,7 +216,7 @@ export class UpdateNurseComponent implements OnInit {
     }
 
     addUser(data: any) {
-        console.log('i am invalid');
+        console.log('i am  in');
         if (this.userForm.valid) {
             let nurse = new User({
                 userType: 'nurse',
@@ -286,12 +326,9 @@ export class UpdateNurseComponent implements OnInit {
 
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
-
     }
 
     dutyWithDoctor(event: any, item: any) {
-        console.log('usertype'+item);
         if (event.target.checked) {
             this.dutyWithDoctors.push(item.id);
         }
@@ -319,6 +356,12 @@ export class UpdateNurseComponent implements OnInit {
     }
     getSelectedBranch(value: any) {
         console.log(value);
+        //this.filterBranches = this.branchesList;
+        /*this.filterBranches =this.branchesList.filter(function (val:any) {
+                                 return val.id != value;
+                             });
+        this.selectedVisitBranches.splice(this.selectedVisitBranches.indexOf(value), 1);*/
+        console.log("done:" + this.filterBranches);
         if (value === undefined) {
             this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }

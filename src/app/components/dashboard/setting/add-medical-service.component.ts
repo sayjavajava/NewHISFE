@@ -1,15 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Branch} from '../../../model/branch';
-import {ServiceTax} from '../../../model/service-tax';
-import {ClinicalDepartment} from '../../../model/clinical-department';
-import {RequestsService} from '../../../services/requests.service';
-import {NotificationService} from '../../../services/notification.service';
-import {HISUtilService} from '../../../services/his-util.service';
-import {AppConstants} from '../../../utils/app.constants';
-import {MedicalService} from '../../../model/medical-service';
-import {NgForm} from '@angular/forms';
-import * as _ from 'lodash'
-import {Router} from '@angular/router';
+import {Component, OnInit} from "@angular/core";
+import {RequestsService} from "../../../services/requests.service";
+import {NotificationService} from "../../../services/notification.service";
+import {HISUtilService} from "../../../services/his-util.service";
+import {AppConstants} from "../../../utils/app.constants";
+import {MedicalService} from "../../../model/medical-service";
+import {NgForm} from "@angular/forms";
+import {Router} from "@angular/router";
+import {Tax} from "../../../model/Tax";
 
 @Component({
     selector: 'add-medical-services-component',
@@ -17,18 +14,18 @@ import {Router} from '@angular/router';
 })
 export class AddMedicalServiceComponent implements OnInit {
 
-    branches: Branch[] = [];
-    departments: ClinicalDepartment[] = [];
-    taxes: ServiceTax[] = [];
-    selectedMedicalService: MedicalService = new MedicalService();
+    ms: MedicalService = new MedicalService();
+    taxes: Tax[] = [];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router) {
+
     }
 
     ngOnInit() {
+        this.ms.tax.id = -1;
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
         this.getTaxesFromServer();
@@ -40,7 +37,7 @@ export class AddMedicalServiceComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
-                        this.branches = response['responseData'];
+                        this.ms.branches = response['responseData'];
                     }
                 },
                 (error: any) => {
@@ -55,7 +52,7 @@ export class AddMedicalServiceComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                        this.departments = response['responseData'];
+                        this.ms.departments = response['responseData'];
                     }
                 },
                 (error: any) => {
@@ -79,14 +76,11 @@ export class AddMedicalServiceComponent implements OnInit {
             );
     }
 
-    saveMedicalServices(form: NgForm) {
-        _.each(form.form.controls, function (control) {
-            control['_touched'] = true
-        });
-        if (form.valid) {
+    saveMedicalServices(msForm: NgForm) {
+        if (msForm.valid) {
             this.requestsService.postRequest(
                 AppConstants.SAVE_MEDICAL_SERVICES_URL,
-                this.selectedMedicalService)
+                this.ms)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -100,6 +94,8 @@ export class AddMedicalServiceComponent implements OnInit {
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
                 );
+        } else {
+            this.notificationService.error('Please provide required field data', 'Medical Service');
         }
     }
 

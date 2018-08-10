@@ -31,6 +31,8 @@ export class UpdateCashierComponent implements OnInit {
     userForm: FormGroup;
     cashier: UserEditModel;
     selectedVisitBranches:any=[];
+    staffBranches : any[];
+    selectedDoctors : any [];
 
     ngOnInit() {
         this.createUserForm();
@@ -130,7 +132,17 @@ export class UpdateCashierComponent implements OnInit {
                         otherDashboard: cashier.otherDashboard,
                         primaryBranch: cashier.primaryBranchId,
                     });
-
+                    this.staffBranches = cashier.staffBranches;
+                    this.selectedDoctors = cashier.dutyWithDoctors;
+                    for(let key in this.branchesList){
+                        for(let k in this.staffBranches){
+                            if(this.staffBranches[k].id == this.branchesList[key].id){
+                                this.branchesList[key].checked = true;
+                                this.selectedVisitBranches.push(this.staffBranches[k].id);
+                                break;
+                            }
+                        }
+                    }
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;

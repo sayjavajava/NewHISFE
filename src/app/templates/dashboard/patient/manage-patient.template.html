@@ -26,15 +26,15 @@
                             <div class="form-group font-siz11">
                                 <input type="text" class="form-control"
                                        placeholder="Patient User Name"
-                                       [(ngModel)]="searchUserName"
-                                       (keydown.enter)="searchByUserName(0,'PATIENT')">
+                                       [(ngModel)]="searchString"
+                                       (keydown.enter)="searchPatient(0)">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <button type="button" name="searchUserName"
                                         class="btn blue"
-                                        (click)="searchByUserName(0,'PATIENT')">Search
+                                        (click)="searchPatient(0)">Search
                                 </button>
                             </div>
                         </div>
@@ -45,27 +45,28 @@
                                id="datatable_ajax" role="grid">
                             <thead>
                             <tr role="row" class="off-wite-bg">
-                                <th width="10%" class="c-text-left padding"> User Name</th>
-                                <th width="50%"> Email</th>
-                                <th width="10%"> Type</th>
-                                <th width="8%"> Status</th>
+                                <th width="35%" class="c-text-left padding"> Patient Name</th>
+                                <th width="15%">Email</th>
+                                <th width="8%">Gender</th>
+                                <th width="8%">Cell No.</th>
                                 <th width="16%"> Action</th>
                             </tr>
-                            <tr role="row" *ngFor="let item of data; let i = index;" class="filter">
-                                <td class="c-text-left padding font-green-dark"><strong>{{item.userName}}</strong></td>
-                                <td class="c-text-left">{{item.email}}</td>
-                                <td class="c-text-left">{{item.userType}}</td>
+                            <tr role="row" *ngFor="let patient of data; let i = index;" class="filter">
+                                <td class="c-text-left padding font-green-dark"><strong>{{patient.firstName}} {{patient.middleName}} {{patient.lastName}}</strong></td>
+                                <td class="c-text-left">{{patient.email}}</td>
+                                <td class="c-text-left">{{patient.gender}}</td>
+                                <td class="c-text-left">{{patient.cellPhone}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">
-                                    {{item.active === true ? 'Active' : 'In-Active'}}
+                                    {{patient.statusUser === true ? 'Active' : 'InActive'}}
                                 </td>
                                 <td class="sorting_disabled">
-                                    <a routerLink="/dashboard/patient/edit/{{item.userId}}">
+                                    <a routerLink="/dashboard/patient/edit/{{patient.id}}">
                                         <button class="btn btn-default btn-outline btn-sm">
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </a>
                                     <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="deletePatient(item.userId)">
+                                            (click)="deletePatient(patient.id)">
                                         <i class="fa fa-remove"></i>
                                     </button>
                                 </td>

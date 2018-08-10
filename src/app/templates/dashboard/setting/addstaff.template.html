@@ -348,7 +348,7 @@
                                                                name={{item.name}}
                                                                value="{{item.id}}"
                                                                (change)="selectServices($event,item)">
-                                                        {{item.title}}
+                                                        {{item.name}}
 
 
                                                     </div>
@@ -375,12 +375,12 @@
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="notdue">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of primaryDoctor">
+                                                <div *ngFor="let item of doctorsList">
                                                     <input type="checkbox" formControlName="nurseDutyWithDoctor"
                                                            name={{item.userName}}
                                                            value="{{item.id}}"
                                                            (change)="dutyWithDoctor($event,item)">
-                                                    {{item.userName}}
+                                                    {{item.firstName}} {{item.lastName}}
 
                                                     <span></span></div>
                                             </label>

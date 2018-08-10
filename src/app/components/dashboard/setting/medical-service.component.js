@@ -65,12 +65,46 @@ var MedicalServiceComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
-    MedicalServiceComponent.prototype.deleteMedicalServices = function (msId, dptId, branchId) {
+    MedicalServiceComponent.prototype.deleteMedicalServices = function (ms) {
         var _this = this;
-        if (msId > 0) {
+        if (ms.id > 0) {
             if (!confirm("Are Your Source You Want To Delete"))
                 return;
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + msId + '&dptId=' + dptId + '&branchId=' + branchId)
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + ms.id)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'MED_SER_SUC_02') {
+                    _this.notificationService.success(response['responseMessage'], 'Medical Service');
+                    _this.getMedicalServicesFromServer(0);
+                }
+                else {
+                    _this.getMedicalServicesFromServer(0);
+                    _this.notificationService.error(response['responseMessage'], 'Medical Service');
+                }
+            }, function (error) {
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
+    };
+    MedicalServiceComponent.prototype.getDepartmentsByMedicalServiceId = function (ms) {
+        var _this = this;
+        if (ms.id > 0) {
+            this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL + 'msId=' + ms.id)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'MED_SER_SUC_02') {
+                    _this.notificationService.success(response['responseMessage'], 'Medical Service');
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Medical Service');
+                }
+            }, function (error) {
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
+    };
+    MedicalServiceComponent.prototype.getBranchesByMedicalServiceId = function (ms) {
+        var _this = this;
+        if (ms.id > 0) {
+            this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL + 'msId=' + ms.id)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Medical Service');
@@ -155,6 +189,17 @@ var MedicalServiceComponent = (function () {
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
+    };
+    MedicalServiceComponent.prototype.showMyPopup = function (event, item) {
+        if (event.target.name === "departmentId") {
+            // data-toggle="modal"
+            //    popupBranch
+            //  document.getElementById('popupBranch');/*.['aria-hidden'] = false;*/
+        }
+        else if (event.target.name === "branchId") {
+            //    popupDepartment
+            //    data-toggle="modal"
+        }
     };
     MedicalServiceComponent = __decorate([
         core_1.Component({

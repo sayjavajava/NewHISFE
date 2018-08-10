@@ -71,6 +71,8 @@ export class AppConstants {
     public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
     public static FETCH_MEDICAL_SERVICES_BY_ID_URL = '/setting/medicalService/id/';
     public static MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
+    public static FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/id/';
+    public static FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/id/';
 
     ////////////////////// Organization URLs ///////////////////////////////
     public static ORGANIZATION_CREATE_URL = '/setting/organization/create';

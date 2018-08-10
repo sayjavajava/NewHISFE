@@ -32,7 +32,7 @@ export class UpdateReceptionistComponent implements OnInit {
     userForm: FormGroup;
     receptionist: UserEditModel;
     selectedVisitBranches:any=[];
-
+    staffBranches: any [];
     ngOnInit() {
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
@@ -130,7 +130,16 @@ export class UpdateReceptionistComponent implements OnInit {
                         accountExpiry: receptionist.expiryDate,
                         primaryBranch: receptionist.primaryBranchId,
                     });
-
+                    this.staffBranches = receptionist.staffBranches;
+                    for(let key in this.branchesList){
+                        for(let k in this.staffBranches){
+                            if(this.staffBranches[k].id == this.branchesList[key].id){
+                                this.branchesList[key].checked = true;
+                                this.selectedVisitBranches.push(this.staffBranches[k].id);
+                                break;
+                            }
+                        }
+                    }
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -227,7 +236,6 @@ export class UpdateReceptionistComponent implements OnInit {
     }
 
     selectVisitBranches(event: any, item: any) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }

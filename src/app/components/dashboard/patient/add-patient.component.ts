@@ -8,6 +8,10 @@ import {Patient} from "../../../model/patient";
 import {NotificationService} from "../../../services/notification.service";
 import {NgForm} from "@angular/forms";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
+
+//import {NgbTypeaheadConfig} from "@ng-bootstrap/ng-bootstrap";
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import any = jasmine.any;
 
 @Component({
@@ -20,13 +24,14 @@ export class AddPatientComponent implements OnInit {
     photoFront: File = null;
     photoBack: File = null;
     doctors: any = [];
+   /* title: string[] = ['mr','mrs','ms','miss','sir','dr'];
+    model: any;*/
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private titleService: Title,
                 private HISUTilService: HISUtilService,
                 private notificationService: NotificationService) {
-
         this.requestsService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
             .subscribe(
                 (response: Response) => {
@@ -37,7 +42,15 @@ export class AddPatientComponent implements OnInit {
                 (error: any) => {
                     this.HISUTilService.tokenExpired(error.error.error);
                 });
-    };
+    }
+
+    /*search = (text$: Observable<string>) =>
+        text$.pipe(
+            debounceTime(200),
+            distinctUntilChanged(),
+            map(term => term.length < 2 ? []
+                : this.title.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+        );*/
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Add Patient');
@@ -71,7 +84,8 @@ export class AddPatientComponent implements OnInit {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
                 document.getElementById("cellPhone").focus();
                 return;
-            } else if (this.patient.email.length <= 0) {
+            }
+            /*else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
                 document.getElementById("email").focus();
                 return;
@@ -79,7 +93,7 @@ export class AddPatientComponent implements OnInit {
                 this.notificationService.error('Please provide user name', 'Patient');
                 document.getElementById("userName").focus();
                 return;
-            }
+            }*/
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         } else {

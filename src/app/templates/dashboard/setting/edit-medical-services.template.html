@@ -10,12 +10,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Title
+                                    <label class="control-label col-md-3">Name
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="text" required
-                                               [(ngModel)]="selectedMS.title"
+                                               [(ngModel)]="selectedMS.name"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                name="msTitle" #msTitle="ngModel"/>
                                     </div>
@@ -29,15 +29,23 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="branchDrp"
-                                                [ngModelOptions]="{standalone:true}"
-                                                [(ngModel)]="selectedMS.branchId">
-                                            <option value="0">-- Select --</option>
-                                            <option *ngFor="let item of branches; let i = index;"
-                                                    value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <div class="checkbox-box hr cod-higt" id="branchDiv">
+                                                <div class="col-md-6" *ngFor="let branch of selectedMS.branches">
+                                                    <address>
+                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                            <input type="checkbox"
+                                                                   id="branchId"
+                                                                   name="{{branch.id}}"
+                                                                   [(ngModel)]="branch.checkedBranch">
+                                                            {{branch.branchName}}
+                                                            <span></span>
+                                                        </label>
+                                                    </address>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -45,15 +53,23 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="dptDrp"
-                                                [ngModelOptions]="{standalone:true}"
-                                                [(ngModel)]="selectedMS.dptId">
-                                            <option value="0">-- Select --</option>
-                                            <option *ngFor="let item of departments; let i = index;"
-                                                    value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <div class="checkbox-box hr cod-higt" id="departmentDiv">
+                                                <div class="col-md-6" *ngFor="let department of selectedMS.departments">
+                                                    <address>
+                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                            <input
+                                                                    type="checkbox"
+                                                                    id="departmentId"
+                                                                    name="{{department.id}}"
+                                                                    [(ngModel)]="department.checkedDepartment">
+                                                            {{department.name}}
+                                                            <span></span>
+                                                        </label>
+                                                    </address>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -61,13 +77,14 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input class="form-control" type="number"
-                                               [(ngModel)]="selectedMS.cost"
+                                        <input class="form-control"
+                                               type="number"
+                                               [(ngModel)]="selectedMS.cost" min="0"
                                                required pattern="^[0-9]{1,60}$"
                                                name="cost" #cost="ngModel"/>
                                     </div>
                                     <span *ngIf="cost.invalid && cost.touched"
-                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                          class="col-md-6 select pdng-lr-5 text-danger">
                                                 Please enter valid cost.
                                     </span>
                                 </div>
@@ -77,23 +94,27 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="number"
-                                               [(ngModel)]="selectedMS.fee"
+                                               [(ngModel)]="selectedMS.fee" min="0"
                                                required pattern="^[0-9]{1,60}$"
                                                name="fee" #fee="ngModel"/>
                                     </div>
                                     <span *ngIf="fee.invalid && fee.touched"
-                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                          class="col-md-6 select pdng-lr-5 text-danger">
                                                 Please enter valid fee.
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Service Tax
+                                    <label class="control-label col-md-3">
+                                        Service Tax
+                                        <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="dptDrp"
+                                        <select class="form-control"
+                                                required
+                                                name="dptDrp"
                                                 [ngModelOptions]="{standalone:true}"
-                                                [(ngModel)]="selectedMS.taxId">
-                                            <option value="0">-- Select --</option>
+                                                [(ngModel)]="selectedMS.tax.id">
+                                            <option value="-1">-- Select --</option>
                                             <option *ngFor="let item of taxes; let i = index;"
                                                     value={{item.id}}>
                                                 {{item.name}}
@@ -105,16 +126,18 @@
                                     <label class="control-label col-md-3">Duration
                                     </label>
                                     <div class="col-md-8">
-                                        <input class="form-control" type="number"
-                                               [(ngModel)]="selectedMS.duration"
-                                               required pattern="^[0-9]{1,60}$"
-                                               name="duration" #duration="ngModel"/>
+                                        <input class="form-control"
+                                               type="number"
+                                               [(ngModel)]="selectedMS.duration" min="0"
+                                               pattern="^[0-9]{1,60}$"
+                                               name="duration"
+                                               #duration="ngModel"/>
                                     </div>
                                     <div class="control-label col-md-1">
                                         Minutes
                                     </div>
                                     <span *ngIf="duration.invalid && duration.touched"
-                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                          class="col-md-6 select pdng-lr-5 text-danger">
                                                 Please enter valid duration.
                                     </span>
                                 </div>
@@ -122,19 +145,22 @@
                                     <label class="control-label col-md-3">Description
                                     </label>
                                     <div class="col-md-9">
-                                        <textarea class="form-control" rows="3" title="" placeholder="Enter Description"
-                                                  [(ngModel)]="selectedMS.description" maxlength="300"
-                                                  name="description" #description="ngModel">
+                                        <textarea class="form-control"
+                                                  rows="3" title=""
+                                                  placeholder="Enter Description"
+                                                  [(ngModel)]="selectedMS.description"
+                                                  name="description"
+                                                  #description="ngModel">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">File Image</label>
-                                    <div class="col-md-9">
-                                        <!--<input type="file" id="exampleInputFile">-->
-                                        <p class="help-block"> (Recommended: width 400px X height 300px) </p>
-                                    </div>
-                                </div>
+                                <!-- <div class="form-group">
+                                   <label class="col-md-3 control-label">File Image</label>
+                                   <div class="col-md-9">
+                                       &lt;!&ndash;<input type="file" id="exampleInputFile">&ndash;&gt;
+                                       <p class="help-block"> (Recommended: width 400px X height 300px) </p>
+                                   </div>
+                               </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-md-3">Status
                                     </label>
@@ -142,7 +168,8 @@
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <input class="form-control" type="checkbox"
                                                    [(ngModel)]="selectedMS.status"
-                                                   name="status" #status="ngModel"/>
+                                                   name="status"
+                                                   #status="ngModel"/>
                                             <span></span></label>
                                     </div>
                                 </div>

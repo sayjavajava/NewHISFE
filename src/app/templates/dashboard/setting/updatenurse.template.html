@@ -89,13 +89,13 @@
                                     <div class="col-md-8">
                                         <div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of branchesList">
+                                                <div *ngFor="let item of branchesList"> <!--branchesList-->
                                                     <input type="checkbox" formControlName="restrictBranch"
                                                            name={{item}}
                                                            value="{{item}}"
+                                                           [checked]="item.checked"
                                                            (change)="selectVisitBranches($event,item)">
                                                     {{item.name}}
-
                                                 </div>
                                             </label>
                                             </address>
@@ -170,9 +170,6 @@
                                             <input type="checkbox" formControlName="active"><span></span></label>
                                     </div>
                                 </div>
-
-
-
                             </div>
                         </div>
                         <div class="row">
@@ -183,7 +180,6 @@
 
                         </div>
                         <div class="col-md-6">
-
                             <div  class="form-group">
                                 <label class="control-label col-md-4">Duty with Doctor
                                     <span class="required" aria-required="true"> * </span>
@@ -191,21 +187,22 @@
                                 <div class="col-md-8">
                                     <div class="checkbox-box" id="not-due">
                                         <address><label class="mt-checkbox mt-checkbox-outline">
-                                            <div *ngFor="let item of primaryDoctor">
+                                            <div *ngFor="let item of doctorsList;">
                                                 <input type="checkbox" formControlName="nurseDutyWithDoctor"
                                                        name={{item.userName}}
                                                        value="{{item.id}}"
-                                                       (change)="dutyWithDoctor($event,item)">
-                                                {{item.userName}}
-
-                                                <span></span></div>
+                                                       [checked]="item.checked"
+                                                       (change)="dutyWithDoctor($event,item)"
+                                                >
+                                                {{item.firstName}} {{item.lastName}}
+                                                <span></span>
+                                            </div>
                                         </label>
                                         </address>
                                     </div>
                                     <span class="text-danger" *ngIf="!userForm.controls['nurseDutyWithDoctor'].valid && userForm.controls['nurseDutyWithDoctor'].touched">please select Doctor </span>
                                 </div>
                             </div>
-
                             <div  class="form-group">
                                 <label class="control-label col-md-4 col-xs-6">Manage Patients Records</label>
                                 <div class="col-md-8 col-xs-6">
@@ -220,13 +217,10 @@
                                         <input type="checkbox" formControlName="managePatientInvoices"><span></span></label>
                                 </div>
                             </div>
-
-
-
                         </div>
                         <div class="hr">
                             <div class="col-md-12 text-center">
-                                <button (click)="addUser(userForm.value)" class="btn blue"><i class="fa fa-plus"></i> Create
+                                <button (click)="addUser(userForm.value)" class="btn blue"><i class="fa fa-plus"></i> Update
                                 </button>
                                 <button (click)="cancel()" class="btn default"><i class="fa fa-cancel"></i> Cancel
                                 </button>
