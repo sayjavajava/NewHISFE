@@ -47,10 +47,10 @@ export class BranchComponent implements OnInit {
     }
 
     allBranches() {
-        this.requestService.getRequest(AppConstants.BRANCHES_NAME)
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'BRANCH_SUC_01') {
+                    if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
                     }
                 },

@@ -8,7 +8,7 @@
                 <form id="createMSForm" #msForm="ngForm" class="form-horizontal">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3">Name
                                         <span class="required" aria-required="true"> * </span>
@@ -30,11 +30,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <div class="select2-bootstrap-prepend">
+                                        <div class="input-group select2-bootstrap-prepend" style="width: 100%;">
                                             <div class="checkbox-box hr cod-higt" id="branchDiv">
                                                 <div class="col-md-6" *ngFor="let branch of ms.branches">
                                                     <address>
-                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                        <label class="mt-checkbox-outline">
                                                             <input type="checkbox"
                                                                    id="branchId"
                                                                    name="{{branch.id}}"
@@ -54,11 +54,10 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <div class="select2-bootstrap-prepend">
-                                            <div class="checkbox-box hr cod-higt" id="departmentDiv">
+                                        <div class="checkbox-box  cod-higt" id="departmentDiv">
                                                 <div class="col-md-6" *ngFor="let department of ms.departments">
                                                     <address>
-                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                        <label class="mt-checkbox-outline">
                                                             <input type="checkbox"
                                                                    id="departmentId"
                                                                    name="{{department.id}}"
@@ -69,7 +68,7 @@
                                                     </address>
                                                 </div>
                                             </div>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -125,7 +124,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">Duration
                                     </label>
-                                    <div class="col-md-7">
+                                    <div class="col-md-8">
                                         <input class="form-control"
                                                type="number"
                                                [(ngModel)]="ms.duration" min="0"
@@ -133,7 +132,7 @@
                                                name="duration"
                                                #duration="ngModel"/>
                                     </div>
-                                    <div class="control-label col-md-2">
+                                    <div class="control-label col-md-1">
                                         Minutes
                                     </div>
                                     <span *ngIf="duration.invalid && duration.touched"
@@ -165,8 +164,8 @@
                                     <label class="control-label col-md-3">Status
                                     </label>
                                     <div class="col-md-9">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input class="form-control" type="checkbox"
+                                        <label class="mrgn-top12 mt-checkbox-outline chckbox">
+                                            <input type="checkbox"
                                                    [(ngModel)]="ms.status"
                                                    name="status"
                                                    #status="ngModel"/>

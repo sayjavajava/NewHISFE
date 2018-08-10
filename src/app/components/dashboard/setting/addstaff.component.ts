@@ -52,7 +52,7 @@ export class AddStaffComponent implements OnInit {
     branchesList: any = [];
     departmentList: any = [];
     primaryDoctor: any = []
-    servicesList: any[] = [];
+    servicesList: any = [];
     doctorsList :any =[];
     workingDays = [
         {name: 'Monday'},

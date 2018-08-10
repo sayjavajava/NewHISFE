@@ -88,10 +88,10 @@
                                                                             [(ngModel)]="modalData?.event.patient">
                                                                         <option value="0">-- Select --</option>
                                                                         <option *ngFor="let item of patients; let i = index;"
-                                                                                value="{{item.userName}}"
+                                                                                value="{{item.id}}"
                                                                                 (keyup)="refresh.next()">
-                                                                            {{item.profileWrapper.firstName}}
-                                                                            {{item.profileWrapper.lastName}}
+                                                                            {{item.firstName}}
+                                                                            {{item.lastName}}
                                                                             ({{item.email}})
                                                                         </option>
                                                                     </select>
@@ -570,13 +570,6 @@
         <br><br><br>
 
         <!--start-->
-
-
-
-
-
-
-
         <div class="clearfix"></div>
     </div>
 
@@ -657,20 +650,20 @@
                                         </div>
                                         <div class="hr padding round-table off-wite-bg">
                                             <div class="col-md-6">
-                                                <div class="form-group hr">
+                                              <div class="form-group hr">
                                                     <label class="col-md-3 control-label">Patient</label>
                                                     <div class="col-md-9">
                                                         <div class="ptn-apontmt-sch">
                                                             <select class="form-control" name="statusDrp"
                                                                     [ngModelOptions]="{standalone:true}"
                                                                     [(ngModel)]="event.patient">
-                                                                <option value="0">-- Select --</option>
+                                                                <option value="0">&#45;&#45; Select &#45;&#45;</option>
                                                                 <option *ngFor="let item of patients; let i = index;"
-                                                                        value="{{item.userName}}"
+                                                                        value="{{item.id}}"
                                                                         (keyup)="refresh.next()">
-                                                                    {{item.profileWrapper.firstName}}
-                                                                    {{item.profileWrapper.lastName}}
-                                                                    ({{item.email}})
+                                                                    {{item.firstName}}
+                                                                    {{item.lastName}}
+
                                                                 </option>
                                                             </select>
                                                             <div class="">
@@ -678,9 +671,9 @@
                                                                           routerLink="/dashboard/patient/add">
                                                                     <i class=" fa fa-plus"></i>
                                                                 </button>
-                                                                <!-- <button class="btn btn-default btn-outline font-yellow-gold pull-right"
+                                                               <!-- &lt;!&ndash; <button class="btn btn-default btn-outline font-yellow-gold pull-right"
                                                                      <i class=" fa fa-pencil"></i>
-                                                                 </button>-->
+                                                                 </button>&ndash;&gt;-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -728,8 +721,6 @@
                                                                 name="branchDrp"
                                                                 [ngModelOptions]="{standalone:true}"
                                                                 [(ngModel)]="event.branchId">
-
-
                                                             <option *ngFor="let item of branches;"
                                                                     [ngValue]="item.id" (keyup)="refresh.next()">
                                                                 {{item.name}}
