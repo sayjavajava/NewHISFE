@@ -60,7 +60,7 @@ export class AddAppointmentComponent implements OnInit {
     data: any = [];
     branches: any[];
     doctorsList: any[];
-    patients: any[];
+    patients: any=[];
     selectedType: any = [];
     updateSelectedType: any = [];
     appointmentType: any = [];

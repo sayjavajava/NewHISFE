@@ -93,7 +93,7 @@ export class AppConstants {
     public static PATIENT_FETCH_URL = '/patient/get/';
     public static PATIENT_UPDATE_URL = '/patient/update';
     public static SEARCH_ALL_PATIENT_URL = '/patient/search';
-    public static GET_ALL_PATIENT_URL = '/patient/all';
+    public static GET_ALL_PATIENT_URL = '/patient/';
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';

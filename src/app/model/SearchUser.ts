@@ -2,11 +2,10 @@ export class SearchUser {
 
     name:string;
     email:string;
-    role:string;
+    userType:string;
 
-    constructor(name:string,email:string,role:string){
-        this.email=email;
+    constructor(name:string, userType:string){
         this.name=name;
-        this.role=role;
+        this.userType=userType;
     }
 }

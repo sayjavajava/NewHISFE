@@ -14,9 +14,8 @@ import {HISUtilService} from '../../../services/his-util.service';
     templateUrl: '../../../templates/dashboard/setting/staff.template.html',
 })
 export class StaffComponent implements OnInit {
-    roles: string[] = ['Doctor', 'Nurse', 'Receptionist', 'Cashier', 'SuperAdmin'];
-    default: string = 'SuperAdmin';
-
+    userTypes: string[] = ['Doctor', 'Nurse', 'Receptionist', 'Cashier', 'SuperAdmin'];
+    default: string = '';
     nextPage: number;
     prePage: number;
     currPage: number;
@@ -25,8 +24,8 @@ export class StaffComponent implements OnInit {
     error: any;
     pageNo: number = 0;
     branch: any;
-    selectedRole: string = 'SUPER_ADMIN';
-
+    selectedType: string;
+    allDBRoles: any[];
 
     responseUser: any[];
 
@@ -42,35 +41,29 @@ export class StaffComponent implements OnInit {
 
     ngOnInit() {
         this.searchForm = this.fb.group({
-            'role': [null],
-            'name': [null],
-            'email': [null]
+            'userType': [null],
+            'name': [null]
         });
-        this.searchForm.controls['role'].setValue(this.default, {onlySelf: true});
+        this.searchForm.controls['userType'].setValue(this.default, {onlySelf: true});
         this.getUserFromServer(0);
     }
 
     searchData(data: SearchUser) {
-        console.log('I am in ');
         if (this.searchForm.valid) {
             console.log('Valid ');
-            let searchUserObj = new SearchUser(data.name, data.email, data.role);
-
-            this.requestService.getRequest(AppConstants.USER_SEARCH + this.pageNo + '?name=' + data.name + '&email=' + data.email + '&role=' + this.selectedRole)
+            let searchUserObj = new SearchUser(data.name, data.userType);
+            this.requestService.getRequest(AppConstants.USER_SEARCH + this.pageNo + '?name=' + data.name + '&userType=' + this.selectedType)
                 .subscribe(
                     (response: Response) => {
-
                         if (response['responseCode'] === 'USER_SUC_01') {
                             this.nextPage = response['responseData']['nextPage'];
                             this.prePage = response['responseData']['prePage'];
                             this.currPage = response['responseData']['currPage'];
                             this.pages = response['responseData']['pages'];
                             this.data = response['responseData']['data'];
-
                         }
                     },
                     (error: any) => {
-
                         this.error = error.error.error;
                     })
         } else {
@@ -148,11 +141,9 @@ export class StaffComponent implements OnInit {
 
     }
 
-    roleSelected(role: any) {
-        this.searchForm.controls['role'].setValue(role);
-
-        this.selectedRole = role;
-        console.log('selected role' + role);
+    roleSelected(type: any) {
+        this.searchForm.controls['userType'].setValue(type);
+        this.selectedType = type;
     }
 
     getData(id: number) {
