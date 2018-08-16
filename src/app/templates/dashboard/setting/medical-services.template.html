@@ -106,18 +106,20 @@
                             <td>
                                 <a href="#popupBranches" data-toggle="modal">
                                     <button class="btn mt-sweetalert btn green-meadow"
+                                            title="Click to view details"
                                             (click)="getCheckedBranchesByMedicalServiceId(item)"
                                             data-confirm-button-class="btn-success">
-                                        <i class="fa fa"></i> Show
+                                        <i class="fa fa"></i>{{item.checkedBranchCount}}
                                     </button>
                                 </a>
                             </td>
                             <td>
                                 <a href="#popupDepartments" data-toggle="modal">
                                     <button class="btn mt-sweetalert btn green-meadow"
+                                            title="Click to view details"
                                             (click)="getCheckedDepartmentsByMedicalServiceId(item)"
                                             data-confirm-button-class="btn-success">
-                                        <i class="fa fa"></i> Show
+                                        <i class="fa fa"></i> {{item.checkedDepartmentCount}}
                                     </button>
                                 </a>
                             </td>
