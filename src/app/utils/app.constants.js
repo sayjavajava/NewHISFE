@@ -34,6 +34,7 @@ var AppConstants = (function () {
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     AppConstants.ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     AppConstants.ICD_CODES = '/setting/icd/codes/';
+    AppConstants.ICD_CODES_ASSOCIATED_BY_VERSION_ID = '/setting/icd/codes/associated/?versionId=';
     AppConstants.ICD_CODE_DELETE_URL = '/setting/icd/code/delete?codeId=';
     AppConstants.ICD_CODE_SEARCH = '/setting/icd/code/search/';
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
@@ -87,10 +88,12 @@ var AppConstants = (function () {
     AppConstants.PATIENT_FETCH_URL = '/patient/get/';
     AppConstants.PATIENT_UPDATE_URL = '/patient/update';
     AppConstants.SEARCH_ALL_PATIENT_URL = '/patient/search';
-    AppConstants.GET_ALL_PATIENT_URL = '/patient/all';
+    AppConstants.GET_ALL_PATIENT_URL = '/patient/';
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
+    AppConstants.PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
+    AppConstants.PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';

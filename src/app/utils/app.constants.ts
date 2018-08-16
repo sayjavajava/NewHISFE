@@ -34,6 +34,7 @@ export class AppConstants {
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     public static ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     public static ICD_CODES = '/setting/icd/codes/';
+    public static ICD_CODES_ASSOCIATED_BY_VERSION_ID = '/setting/icd/codes/associated/?versionId=';
     public static ICD_CODE_DELETE_URL = '/setting/icd/code/delete?codeId=';
     public static ICD_CODE_SEARCH = '/setting/icd/code/search/';
     public static ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
@@ -97,6 +98,8 @@ export class AppConstants {
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
+    public static PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
+    public static PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
 
 
     ////////////////////// Appointments URLs ///////////////////////////////
