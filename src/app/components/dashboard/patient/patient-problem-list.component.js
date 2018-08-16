@@ -25,10 +25,29 @@ var PatientProblemListComponent = (function () {
         this.pages = [];
         this.problemData = [];
         this.ppm = new patient_problem_model_1.PatientProblemModel();
+        this.appointments = [];
+        this.isUpdate = false;
     }
     PatientProblemListComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Problem list';
         this.getPaginatedProblemsFromServer(0);
+    };
+    PatientProblemListComponent.prototype.appointsByServer = function () {
+        var _this = this;
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSIONS)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
+                    _this.iCDVersions = [];
+                    _this.iCDVersions = response['responseData'];
+                }
+            }, function (error) {
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
     };
     PatientProblemListComponent.prototype.versionsByServer = function () {
         var _this = this;
@@ -48,6 +67,10 @@ var PatientProblemListComponent = (function () {
         }
     };
     PatientProblemListComponent.prototype.addProblemPopupClick = function () {
+        this.isUpdate = false;
+        this.ppm.selectedCodeId = -1;
+        this.ppm.selectedICDVersionId = -1;
+        this.ppm.appointmentWrapper.id = -1;
         this.versionsByServer();
         this.versionChanged(this.ppm.selectedICDVersionId);
     };
@@ -100,8 +123,78 @@ var PatientProblemListComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
-    PatientProblemListComponent.prototype.goToUserDashBoard = function () {
-        this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+    PatientProblemListComponent.prototype.deletePatientProblem = function (problemId) {
+        var _this = this;
+        if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete"))
+                return;
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_DELETE_URI + problemId)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'PATIENT_SUC_06') {
+                    _this.notificationService.success(response['responseMessage'], 'Problem of Patient');
+                    _this.getPaginatedProblemsFromServer(0);
+                }
+                else {
+                    _this.getPaginatedProblemsFromServer(0);
+                    _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                }
+            }, function (error) {
+                //console.log(error.json())
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
+    };
+    PatientProblemListComponent.prototype.editPatientProblem = function (problemId) {
+        var _this = this;
+        this.isUpdate = true;
+        if (problemId > 0) {
+            if (localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_GET_URL + 'problemId=' + problemId)
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        _this.ppm = response['responseData'];
+                        // this.appointsByServer();
+                        _this.versionsByServer();
+                        var selectCodeId = _this.ppm.selectedCodeId;
+                        _this.versionChanged(_this.ppm.selectedICDVersionId);
+                        _this.ppm.selectedCodeId = selectCodeId;
+                    }
+                    else {
+                        _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                    }
+                }, function (error) {
+                    _this.HISUtilService.tokenExpired(error.error.error);
+                });
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
+        }
+        else {
+            this.notificationService.error('Please select proper problem', 'Problem of Patient');
+        }
+    };
+    PatientProblemListComponent.prototype.updatePatientProblem = function () {
+        var _this = this;
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.putRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_UPDATE_URL, this.ppm)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
+                    _this.ppm = response['responseData'];
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                }
+            }, function (error) {
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
     };
     PatientProblemListComponent = __decorate([
         core_1.Component({

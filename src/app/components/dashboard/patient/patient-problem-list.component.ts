@@ -7,7 +7,7 @@ import {PatientProblemModel} from "../../../model/patient.problem.model";
 import {ICDCodeModel} from "../../../model/ICDCodeModel";
 import {ICDVersionModel} from "../../../model/ICDVersionModel";
 import {AppConstants} from "../../../utils/app.constants";
-import {error} from "selenium-webdriver";
+import {Appointment} from "../../../model/Appointment";
 
 
 @Component({
@@ -21,9 +21,10 @@ export class PatientProblemListComponent implements OnInit {
     pages: number[] = [];
     problemData: PatientProblemModel[] = [];
     ppm: PatientProblemModel = new PatientProblemModel();
-    private iCDVersions: ICDVersionModel [];
-    private associatedCodes: ICDCodeModel [];
-    private appointments: any [];
+    iCDVersions: ICDVersionModel [];
+    associatedCodes: ICDCodeModel [];
+    appointments: Appointment [] = [];
+    isUpdate: boolean = false;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -34,6 +35,26 @@ export class PatientProblemListComponent implements OnInit {
     ngOnInit() {
         document.title = 'HIS | Problem list';
         this.getPaginatedProblemsFromServer(0);
+    }
+
+    appointsByServer() {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(
+                AppConstants.ICD_VERSIONS)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
+                            this.iCDVersions = [];
+                            this.iCDVersions = response['responseData'];
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 
     versionsByServer() {
@@ -57,6 +78,10 @@ export class PatientProblemListComponent implements OnInit {
     }
 
     addProblemPopupClick() {
+        this.isUpdate = false;
+        this.ppm.selectedCodeId = -1;
+        this.ppm.selectedICDVersionId = -1;
+        this.ppm.appointmentWrapper.id = -1;
         this.versionsByServer();
         this.versionChanged(this.ppm.selectedICDVersionId);
     }
@@ -121,9 +146,78 @@ export class PatientProblemListComponent implements OnInit {
             );
     }
 
-    goToUserDashBoard() {
-        this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+
+    deletePatientProblem(problemId: number) {
+        if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are Your Source You Want To Delete")) return;
+            this.requestsService.deleteRequest(
+                AppConstants.PATIENT_PROBLEM_DELETE_URI + problemId)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'PATIENT_SUC_06') {
+                            this.notificationService.success(response['responseMessage'], 'Problem of Patient');
+                            this.getPaginatedProblemsFromServer(0);
+                        } else {
+                            this.getPaginatedProblemsFromServer(0);
+                            this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                        }
+                    },
+                    (error: any) => {
+                        //console.log(error.json())
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 
+    editPatientProblem(problemId: number) {
+        this.isUpdate = true;
+        if (problemId > 0) {
+            if (localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.getRequest(AppConstants.PATIENT_PROBLEM_GET_URL + 'problemId='+ problemId)
+                    .subscribe(
+                        response => {
+                            if (response['responseCode'] === 'USER_SUC_01') {
+                                this.ppm = response['responseData'];
+                                // this.appointsByServer();
+                                this.versionsByServer();
+                                let selectCodeId = this.ppm.selectedCodeId;
+                                this.versionChanged(this.ppm.selectedICDVersionId);
+                                this.ppm.selectedCodeId = selectCodeId;
+                            } else {
+                                this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                            }
+                        },
+                        (error: any) => {
+                            this.HISUtilService.tokenExpired(error.error.error);
+                        });
+            } else {
+                this.router.navigate(['/login']);
+            }
+        } else {
+            this.notificationService.error('Please select proper problem', 'Problem of Patient');
+        }
+    }
+
+    updatePatientProblem() {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.putRequest(AppConstants.PATIENT_PROBLEM_UPDATE_URL,this.ppm)
+                .subscribe(
+                    response => {
+                        if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
+                            this.ppm = response['responseData'];
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    });
+        } else {
+            this.router.navigate(['/login']);
+        }
+    }
 
 }

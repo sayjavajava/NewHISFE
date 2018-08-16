@@ -92,8 +92,11 @@ var AppConstants = (function () {
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
-    AppConstants.PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
     AppConstants.PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
+    AppConstants.PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
+    AppConstants.PATIENT_PROBLEM_GET_URL = '/patient/history/problem/get?';
+    AppConstants.PATIENT_PROBLEM_UPDATE_URL = '/patient/history/problem/update';
+    AppConstants.PATIENT_PROBLEM_DELETE_URI = '/patient/history/problem/delete/';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';

@@ -126,9 +126,9 @@
                 <div class="table-scrollable tbl-brdr-radus">
                     <table class="table table-hover table-light">
                         <thead>
-                        <tr class="hedng-bck-clr tbl-pdng" >
-                            <th> Version </th>
-                            <th> Code </th>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Version</th>
+                            <th> Code</th>
                             <th> Diagnosis Date</th>
                             <th> Notes</th>
                             <th> Status</th>
@@ -136,16 +136,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="tbl-pdng" *ngFor="let problem of problemData; let i = index;"class="filter">
+                        <tr class="tbl-pdng" *ngFor="let problem of problemData; let i = index;" class="filter">
                             <td>{{problem.versionName}}</td>
                             <td>{{problem.codeName}}</td>
                             <td>{{problem.dateDiagnosis}}</td>
                             <td>{{problem.note}}</td>
                             <td>{{problem.status}}</td>
                             <td>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-info"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-default btn-outline btn-sm"><i class="fa fa-remove"></i></button>
+                                <a href="#responsive" data-toggle="modal"
+                                   (click)="editPatientProblem(problem.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="deletePatientProblem(problem.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -174,15 +179,16 @@
                             <div class="col-md-7">
                                 <div class="select2-bootstrap-prepend">
                                     <select id="selectedAppointmentId"
-                                            [(ngModel)]="ppm.selectedAppointmentId"
+                                            [(ngModel)]="ppm.appointmentWrapper.id"
                                             #selectedAppointmentId="ngModel"
                                             name="selectedAppointmentId"
                                             class="form-control">
                                         <option value="-1">--- Please select ---</option>
                                         <option
-                                                *ngFor="let ver of appointments"
-                                                [(value)]="ver.id">
-                                            {{ver.name}}
+                                                *ngFor="let appointment of appointments"
+                                                [(value)]="appointment.id">
+                                            {{"Appoint Start On"+appointment.appointmentStartedOn}},
+                                            {{"Schedule Date:"+appointment.scheduleDate}}
                                         </option>
                                     </select>
                                 </div>
@@ -230,9 +236,8 @@
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <input type="datetime-local" class="form-control"
-                                       [(ngModel)]="ppm.dateDiagnosis"
-                                       data-date-format="yyyy-MM-dd HH:mm:ss">
+                                <input type="date" class="form-control"
+                                       [(ngModel)]="ppm.dateDiagnosis">
                             </div>
                         </div>
                         <div class="form-group hr">
@@ -263,7 +268,13 @@
                 <button type="button" data-dismiss="modal"
                         class="btn btn-default btn-outline">Close
                 </button>
-                <button type="button" class="btn green" (click)="savePatientProblem()">Save</button>
+                <span [hidden]="isUpdate">
+                    <button type="button" class="btn green" (click)="savePatientProblem()">Save</button>
+                </span>
+                <span [hidden]="!isUpdate">
+                    <button type="button" class="btn green" (click)="updatePatientProblem()">Update
+                    </button>
+                </span>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import {StatusEnum} from "../enums/StatusEnum";
+import {Appointment} from "./Appointment";
 /**
  * Created by jamal on 8/13/2018.
  */
@@ -6,7 +6,6 @@ import {StatusEnum} from "../enums/StatusEnum";
 export class PatientProblemModel {
     id: number;
     selectedICDVersionId: number = -1;
-    selectedAppointmentId: number = -1;
     codeName: string;
     codeTitle: string;
     selectedCodeId: number = -1;
@@ -14,6 +13,7 @@ export class PatientProblemModel {
     dateDiagnosis: string = "";
     note: string;
     status: string = "ACTIVE";
+    appointmentWrapper: Appointment = new Appointment();
 
 
     constructor() {

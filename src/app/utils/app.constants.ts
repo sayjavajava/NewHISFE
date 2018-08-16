@@ -98,8 +98,11 @@ export class AppConstants {
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
-    public static PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
     public static PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
+    public static PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
+    public static PATIENT_PROBLEM_GET_URL = '/patient/history/problem/get?';
+    public static PATIENT_PROBLEM_UPDATE_URL = '/patient/history/problem/update';
+    public static PATIENT_PROBLEM_DELETE_URI = '/patient/history/problem/delete/';
 
 
     ////////////////////// Appointments URLs ///////////////////////////////
