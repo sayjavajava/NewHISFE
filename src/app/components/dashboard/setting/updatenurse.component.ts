@@ -201,7 +201,17 @@ export class UpdateNurseComponent implements OnInit {
                         for(let k in this.selectedDoctors){
                             if(this.selectedDoctors[k].id == this.doctorsList[key].id){
                                 this.doctorsList[key].checked = true;
-                                this.dutyWithDoctors.push(this.staffBranches[k].id);
+                                this.dutyWithDoctors.push(this.selectedDoctors[k].id );
+                                break;
+                            }
+                        }
+                    }
+                    let nurseDept: any [] = user.nurseDepartmentList;
+                    for(let key in this.departmentList){
+                        for(let k in nurseDept){
+                            if(nurseDept[k].id == this.departmentList[key].id){
+                                this.departmentList[key].checked = true;
+                                this.selectedDepartment.push(nurseDept[k].id);
                                 break;
                             }
                         }
@@ -243,7 +253,6 @@ export class UpdateNurseComponent implements OnInit {
             this.makeService(nurse);
 
         } else {
-            console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     }
@@ -297,21 +306,15 @@ export class UpdateNurseComponent implements OnInit {
     }
 
     selectDepartment(event: any, item: any) {
-        console.log(event.checked);
-
         if (event.target.checked) {
-
             this.selectedDepartment.push(item.id);
         }
         else {
             let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
-
             let index = this.selectedDepartment.indexOf(updateItem);
-
             this.selectedDepartment.splice(index, 1);
         }
         console.log(this.selectedDepartment);
-
     }
 
     selectVisitBranches(event: any, item: any) {
@@ -321,9 +324,7 @@ export class UpdateNurseComponent implements OnInit {
         }
         else {
             let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
-
             let index = this.selectedVisitBranches.indexOf(updateItem);
-
             this.selectedVisitBranches.splice(index, 1);
         }
     }

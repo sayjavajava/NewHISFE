@@ -30,6 +30,7 @@ export class UpdatedoctorComponent implements OnInit {
     userForm: FormGroup;
     selectedDepartment: any = [];
     selectedServices: any = [];
+    doctorServices: any = [];
     selectedTime: string;
     secondShiftFromTime: string;
     secondShiftToTime: string;
@@ -51,6 +52,7 @@ export class UpdatedoctorComponent implements OnInit {
     branchesList:any=[];
     servicesList:any=[];
     primaryDoctor:any=[];
+    staffBranches: any [];
     workingDays = [
         {id: 1, name: 'Monday'},
         {id: 2, name: 'Tuesday'},
@@ -74,7 +76,6 @@ export class UpdatedoctorComponent implements OnInit {
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
-            console.log(this.id);
         });
         this.patchData();
 
@@ -135,10 +136,8 @@ export class UpdatedoctorComponent implements OnInit {
         this.requestService.getRequest(AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
             .subscribe(
                 (response: Response) => {
-                    console.log('i am branch call');
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
-                        console.log(this.servicesList);
                     }
                 },
                 (error: any) => {
@@ -152,8 +151,6 @@ export class UpdatedoctorComponent implements OnInit {
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
                 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
-                'password': [null],
-                'confirmPassword': [null],
                 'homePhone': [null, Validators.required],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
@@ -173,7 +170,7 @@ export class UpdatedoctorComponent implements OnInit {
                 'dateTo': [null],
                 'departmentControl': [null],
                 'servicesControl': [null],
-                'shift1': [null, Validators.required],
+                'shift1': [null],//, Validators.required],
                 'secondShiftFromTimeControl': [null],
                 workingDaysContorl: new FormGroup({
                     //  new FormControl(''),
@@ -223,14 +220,56 @@ export class UpdatedoctorComponent implements OnInit {
                      if(user.expiryDate !=null){
                          this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                      }
-                     if(user.dutyShifts[0].shiftName == 'MORNING'){
-                        // console.log('doneee'+user.dutyShifts[0].shiftName);
+                     //let shifts: any [] = user.dutyShifts;
+                     for (let s in user.dutyShifts){
 
+                         if(user.dutyShifts[s].shiftName === 'SHIFT1'){
+                             this.userForm.controls['shift1'].setValue(true);
+                             this.firstShiftFromTime = user.dutyShifts[s].startTime;
+                             this.firstShiftToTime = user.dutyShifts[s].endTime;
+                         }else
+                         if(user.dutyShifts[s].shiftName === 'SHIFT2'){
+                             this.userForm.controls['shift2'].setValue(true);
+                             this.secondShiftFromTime = user.dutyShifts[s].startTime;
+                             this.secondShiftToTime = user.dutyShifts[s].endTime;
+                         }
+                     }
+
+                    if(user.dutyShifts[0].shiftName == 'MORNING'){
+                        // console.log('doneee'+user.dutyShifts[0].shiftName);
                          this.userForm.controls['shift1'].setValue(true);
                      }
-                    if(user.dutyShifts[1].shiftName == 'EVENING'){
+                    if(user.dutyShifts.length>1 && user.dutyShifts[1].shiftName == 'EVENING'){
                         // console.log('doneee'+user.dutyShifts[0].shiftName);
                         this.userForm.controls['shift2'].setValue(true);
+                    }
+                    let docDeptId = user.docDepartmentId;
+                    for(let k in this.departmentList){
+                        if(this.departmentList[k].id == docDeptId){
+                            this.departmentList[k].selected = true;
+                            this.selectedDepartment[0] = docDeptId;
+                            break;
+                        }
+                    }
+                    this.staffBranches = user.staffBranches;
+                    for(let key in this.branchesList){
+                        for(let k in this.staffBranches){
+                            if(this.staffBranches[k].id == this.branchesList[key].id){
+                                this.branchesList[key].checked = true;
+                                this.selectedVisitBranches.push(this.staffBranches[k].id);
+                                break;
+                            }
+                        }
+                    }
+                    this.doctorServices = user.doctorMedicalSrvcList;
+                    for(let key in this.servicesList){
+                        for(let k in this.doctorServices){
+                            if(this.doctorServices[k].id == this.servicesList[key].id){
+                                this.servicesList[key].checked = true;
+                                this.selectedServices.push(this.doctorServices[k].id);
+                                break;
+                            }
+                        }
                     }
                      if(user.vacation){
                      this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
@@ -245,10 +284,10 @@ export class UpdatedoctorComponent implements OnInit {
                         wednesday: this.checkAvailabilty('wednesday', user.workingDays)
 
                     })
-                        this.secondShiftFromTime = user.dutyShifts[0].startTime,
+                        /*this.secondShiftFromTime = user.dutyShifts[0].startTime,
                         this.secondShiftToTime = user.dutyShifts[0].endTime,
                         this.firstShiftFromTime = user.dutyShifts[1].startTime,
-                        this.firstShiftToTime = user.dutyShifts[1].endTime
+                        this.firstShiftToTime = user.dutyShifts[1].endTime*/
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -258,6 +297,10 @@ export class UpdatedoctorComponent implements OnInit {
 
     }
 
+    getShiftFromTime(time: string){
+        var timeArray = time.split(':');
+        var shift = Number(timeArray[0]) <=12 ? 'first':'second';
+     }
 
     checkAvailabilty(value: string, array: string[]) {
         return array.indexOf(value) > -1;
@@ -286,9 +329,7 @@ export class UpdatedoctorComponent implements OnInit {
             console.log('res :' + result);
             for (var key in result) {
                 this.selectedWorkingDays.push(result[key].key);
-
             }
-
             let doctor = new User({
 
                     firstName: data.firstName,
@@ -323,15 +364,18 @@ export class UpdatedoctorComponent implements OnInit {
                     userType: this.selectedUser
                 });
             this.makeService(doctor);
-            console.log('sel days' + this.selectedWorkingDays);
             this.workingDays.length = 0;
 
         } else {
-            console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     }
 
+    selectDoctorDepartment(itemId: any) {
+        if (itemId) {
+            this.selectedDepartment[0] = itemId;
+        }
+    }
 
     makeService(user: any) {
 
@@ -480,7 +524,6 @@ export class UpdatedoctorComponent implements OnInit {
 
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
 
     }
 
@@ -496,20 +539,14 @@ export class UpdatedoctorComponent implements OnInit {
         }
         else {
             let updateItem = this.selectedServices.find(this.findIndexToUpdate, item.id);
-
             let index = this.selectedServices.indexOf(updateItem);
-
             this.selectedServices.splice(index, 1);
-
         }
-        console.log(this.selectedServices);
-
     }
 
     getSelectedDashboard(value: any) {
         if (value) {
             this.userForm.controls['otherDashboard'].setValue(value);
-
         }
     }
     getSelectedBranch(value: any) {

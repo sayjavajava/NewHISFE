@@ -4,43 +4,21 @@
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Manage Staff</h4>
-                    <!-- <div class="form-group col-md-3 no-padding mrgn-top14">
-                         <select class="form-control" (change)="goTo($event.target.value)">
-                             <option value="receptionist">Receptionist</option>
-                             <option value="doctor">Doctor</option>
-                             <option value="nurse">Nurse</option>
-                             <option value="cashier">Cashier</option>
-                         </select></div>-->
                 </div>
 
                 <form [formGroup]="userForm" class="form-horizontal">
-                    <!-- (ngSubmit)="addData(userForm.value)"-->
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-6">
-
-                                <!--                                <div class="form-group" [ngClass]="displayFieldCss('username')">
-                                                                    <div class="col-sm-12">
-                                                                        <label for="username" class="control-label required">Name</label>
-                                                                        <input type="text" id="username" class="form-control" formControlName="username">
-                                                                        <app-field-error-display [displayError]="isFieldValid('username')" errorMsg="Please inform your name">
-                                                                        </app-field-error-display>
-                                                                    </div>
-                                                                </div>-->
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Type
-                                    </label>
+                                    <label class="control-label col-md-4">Type</label>
                                     <div class="col-md-8">
-                                        <select class="form-control" (change)="goTo($event.target.value)"
-                                                formControlName="changeUser">
-                                            <!-- (change)="goTo($event.target.value)"-->
+                                        <select class="form-control" (change)="goTo($event.target.value)" formControlName="changeUser">
                                             <option *ngFor="let r of allStaffTypes" value="{{r.name}}">{{ r.name }}
                                             </option>
-
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <div ngClass="displayFieldCss">
                                         <label class="control-label col-md-4">Roles
@@ -258,7 +236,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div *ngIf="department" class="form-group mrgn-btm10">
+                                <!--nurse department container-->
+                                <div *ngIf="nurseDepartment" class="form-group mrgn-btm10">
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -280,6 +259,23 @@
                                               *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
                                     </div>
                                 </div>
+
+                                <!--doctor department container-->
+                                <div *ngIf="doctorDepartment" class="form-group mrgn-btm10">
+                                    <label class="control-label col-md-4">Department
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" (change)="selectDoctorDepartment($event.target.value)" formControlName="changeUser">
+                                            <option value="" selected="selected">Select Department</option>
+                                            <option *ngFor="let item of departmentList" value="{{item.id}}">{{item.name}}</option>
+                                        </select>
+                                        <span></span>
+                                        <span class="text-danger"
+                                              *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Password
                                         <span class="required" aria-required="true"> * </span>

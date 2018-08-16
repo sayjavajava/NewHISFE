@@ -86,6 +86,7 @@
                                                     <input type="checkbox" formControlName="restrictBranch"
                                                            name={{item}}
                                                            value="{{item}}"
+                                                           [checked]="item.checked"
                                                            (change)="selectVisitBranches($event,item)">
                                                     {{item.name}}
 
@@ -108,9 +109,9 @@
                                                     <input type="checkbox" formControlName="departmentControl"
                                                            name={{item.name}}
                                                            value="{{item.id}}"
+                                                           [checked] = "item.checked"
                                                            (change)="selectDepartment($event,item)">
                                                     {{item.name}}
-
                                                     <span></span>
                                                 </div>
 
@@ -127,13 +128,13 @@
                                     <div class="col-md-8">
                                         <div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label class="mt-checkbox mt-checkbox-outline">
-                                                <div *ngFor="let item of primaryDoctor" class="col-md-6">
+                                                <div *ngFor="let item of doctorsList" class="col-md-6">
                                                     <input type="checkbox" formControlName="nurseDutyWithDoctor"
                                                            name={{item.userName}}
                                                            value="{{item.id}}"
+                                                           [checked] = "item.checked"
                                                            (change)="dutyWithDoctor($event,item)">
-                                                    {{item.userName}}
-
+                                                    {{item.firstName}}{{item.lastName}}
                                                     <span></span></div>
                                             </label>
                                             </address>
