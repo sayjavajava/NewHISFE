@@ -114,5 +114,8 @@ export class AppConstants {
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
     public static FETCH_APPOINTMENTS_URL = '/appointment/';
 
+    ////////////////////// Dashboard URLs ///////////////////////////////
+    public static FETCH_DASHBOARD_URL = '/dashboard/';
+
 
 }

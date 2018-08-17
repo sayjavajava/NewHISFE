@@ -115,6 +115,7 @@ import { DemoUtilsModule } from '../demo-utils/module';
 import {EditAppointmentComponent} from './components/dashboard/appointment/edit-appointment.component';
 
 
+
 @NgModule({
     providers: [
         // Services

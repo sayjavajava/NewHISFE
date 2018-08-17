@@ -13,15 +13,88 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var requests_service_1 = require("../../../services/requests.service");
 var platform_browser_1 = require("@angular/platform-browser");
+var app_constants_1 = require("../../../utils/app.constants");
+var user_type_enum_1 = require("../../../enums/user-type-enum");
 var DoctorDashboardComponent = (function () {
-    function DoctorDashboardComponent(requestsService, router, titleService) {
-        this.requestsService = requestsService;
+    function DoctorDashboardComponent(requestService, router, titleService) {
+        this.requestService = requestService;
         this.router = router;
         this.titleService = titleService;
-        this.title = "Doctor Dashboard";
+        this.title = 'Doctor Dashboard';
+        this.dashboardList = [];
+        this.branches = [];
+        this.doctorsList = [];
+        this.dashboardListModified = [];
+        this.showDashboard();
     }
     ;
     DoctorDashboardComponent.prototype.ngOnInit = function () {
+        this.getBranchesFromServer();
+        this.getDoctorsFromServer();
+    };
+    DoctorDashboardComponent.prototype.showDashboard = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DASHBOARD_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'DASHBOARD_SUC_01') {
+                _this.dashboardList = response['responseData'];
+                _this.dashboardListModified = _this.dashboardList;
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    DoctorDashboardComponent.prototype.getBranchesFromServer = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BR_SUC_01') {
+                _this.branches = response['responseData'];
+            }
+        }, function (error) {
+        });
+    };
+    DoctorDashboardComponent.prototype.getDoctorsFromServer = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + user_type_enum_1.UserTypeEnum.DOCTOR)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'USER_SUC_01') {
+                _this.doctorsList = response['responseData'];
+            }
+        }, function (error) {
+        });
+    };
+    DoctorDashboardComponent.prototype.getFilteredBranch = function (value) {
+        this.dashboardListModified = this.dashboardList;
+        if (value == 'All') {
+            this.dashboardListModified = this.dashboardList;
+        }
+        else {
+            var arr = this.dashboardListModified.filter(function (x) { return x.branch === value; });
+            this.dashboardListModified = arr;
+        }
+    };
+    DoctorDashboardComponent.prototype.getfilteredDoctor = function (value) {
+        this.dashboardListModified = this.dashboardList;
+        console.log('val:' + value);
+        if (value == 'All') {
+            this.dashboardListModified = this.dashboardList;
+        }
+        else {
+            var arr = this.dashboardListModified.filter(function (x) { return x.doctorLastName == value; });
+            this.dashboardListModified = arr;
+        }
+    };
+    DoctorDashboardComponent.prototype.getfilteredStatus = function (value) {
+        this.dashboardListModified = this.dashboardList;
+        console.log('val:' + value);
+        if (value == 'All') {
+            this.dashboardListModified = this.dashboardList;
+        }
+        else {
+            var arr = this.dashboardListModified.filter(function (x) { return x.status == value; });
+            this.dashboardListModified = arr;
+        }
     };
     DoctorDashboardComponent = __decorate([
         core_1.Component({

@@ -34,10 +34,11 @@ var AddAppointmentComponent = (function () {
         this.refresh = new ReplaySubject_1.ReplaySubject(1);
         this.events = [];
         this.eventsRequest = [];
-        this.activeDayIsOpen = true;
+        this.activeDayIsOpen = false;
         this.title = 'app';
         this.popup = false;
         this.page = 0;
+        this.startDate = new Date(2018, 1, 1);
         this.view = 'month';
         this.newPatient = false;
         this.viewDate = new Date();
@@ -110,11 +111,9 @@ var AddAppointmentComponent = (function () {
             if (response['responseCode'] === 'APPT_SUC_01') {
                 for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
                     var apt = _a[_i];
-                    console.log('tested' + apt.appointmentConvertedTime);
-                    console.log('endTime' + apt.appointmentEndedConvertedTime);
                     _this.events.push({
                         id: apt.id,
-                        title: apt.patient,
+                        title: apt.patient + '  ' + apt.scheduleDateAndTime + ' ' + apt.branchName,
                         start: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                         end: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
                         // start: addHours(startOfDay(new Date(apt.scheduleDate)),126),
@@ -129,6 +128,7 @@ var AddAppointmentComponent = (function () {
                         colorHash: apt.color,
                         draggable: true,
                         notes: apt.notes,
+                        patientId: apt.patientId,
                         reason: apt.reason,
                         status: apt.status,
                         duration: apt.duration,
@@ -181,6 +181,7 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.moveMouse = function (action, event) {
         this.modalData = { event: event, action: action };
+        console.log("test:" + event.title);
         this.popup = true;
     };
     AddAppointmentComponent.prototype.mouseEnter = function (div) {
@@ -227,7 +228,7 @@ var AddAppointmentComponent = (function () {
                 this.activeDayIsOpen = false;
             }
             else {
-                this.activeDayIsOpen = true;
+                // this.activeDayIsOpen = true;
                 this.viewDate = date;
             }
         }
@@ -266,7 +267,7 @@ var AddAppointmentComponent = (function () {
             draggable: true,
             notes: '',
             email: 'email',
-            patient: 'waqas',
+            patient: 0,
             reason: 'malairia',
             status: 'confiremed',
             duration: 0,
@@ -389,9 +390,10 @@ var AddAppointmentComponent = (function () {
         var self = this;
         this.Type.map(function (x) { return x.checked = false; });
         if (this.eventsRequest.length != 0) {
-            var obj = new Appointment_1.Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patient, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId);
+            var obj = new Appointment_1.Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
             this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
                 .subscribe(function (response) {
+                _this.refresh.next();
                 if (response['responseCode'] === 'APPT_SUC_02') {
                     self.notificationService.success('created successfully', 'Appointment');
                     self.router.navigate(['/dashboard/appointment/manage']);
@@ -407,7 +409,7 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.updateAppointment = function (event) {
         var self = this;
-        var obj = new Appointment_1.Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patient, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId);
+        var obj = new Appointment_1.Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
         this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_APPOINTMENT + event.id, obj).subscribe(function (response) {
             if (response['responseCode'] === 'APPT_SUC_03') {
                 self.notificationService.success('Updated successfully', 'Appointment');

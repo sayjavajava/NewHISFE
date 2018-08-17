@@ -27,72 +27,114 @@
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <div class="hr"><h3 class="text-info">Doctor Dashboard</h3></div>
-                    <div class="hr padding round-table off-wite-bg">
-                        <div class="col-md-9 no-padding">
-                            <h4 class="font-green-meadow">Show Appointments with Statuses:</h4>
-                            <div class="form-group">
-                                <div class="mt-checkbox-inline">
-                                    <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                        <input type="checkbox" id="Arrived8" value="Arrived"> Arrived
-                                        <span></span>
-                                    </label>
-                                    <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                        <input type="checkbox" id="Checked In7" value="Checked In"> Checked In
-                                        <span></span>
-                                    </label>
-                                    <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                        <input type="checkbox" id="Arrived6" value="Arrived"> In Room
-                                        <span></span>
-                                    </label>
-                                    <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                        <input type="checkbox" id="Checked In5" value="Checked In"> In Session
-                                        <span></span>
-                                    </label>
-                                    <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                        <input type="checkbox" id="Arrived4" value="Arrived"> Complete
-                                        <span></span>
-                                    </label>
-                                    <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                        <input type="checkbox" id="Checked In3" value="Checked In"> Confirmed
-                                        <span></span>
-                                    </label>
-                                    <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                        <input type="checkbox" id="Arrived2" value="Arrived"> Not Confirmed
-                                        <span></span>
-                                    </label>
-                                    <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                        <input type="checkbox" id="Checked In1" value="Checked In"> Cancelled
-                                        <span></span>
-                                    </label>
-                                </div>
-                            </div>
+                     <div class="hr padding round-table off-wite-bg">
+                         <div class="col-md-3 no-padding">
+                             <h4 class="font-green-meadow">Branch</h4>
+                             <select class="form-control" (change)="getFilteredBranch($event.target.value)">
+                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                 <option *ngFor="let item of branches; let i = index;"
+                                         value={{item.branchName}} (keyup)="refresh.next()">
+                                     {{item.name}}
+                                 </option>
+                             </select>
+                         </div>
+                         <div class="col-md-1"></div>
+                         <div class="col-md-3 no-padding">
+                             <h4 class="font-green-meadow">Doctor</h4>
+                             <select class="form-control" (change)="getfilteredDoctor($event.target.value)">
+                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                 <option *ngFor="let item of doctorsList; let i = index;"
+                                         value={{item.lastName}} (keyup)="refresh.next()">
+                                     {{item.firstName}} {{item.lastName}}
+                                 </option>
+                             </select>
+                         </div>
+                         <div class="col-md-1"></div>
+                         <div class="col-md-3 no-padding">
+                             <h4 class="font-green-meadow">Statuses</h4>
+                             <select class="form-control" (change)="getfilteredStatus($event.target.value)">
+                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                 <option value="ARRIVED">Arrived</option>
+                                 <option value="CHECK_IN">Checked In</option>
+                                 <option value="IN_ROOM">In Room</option>
+                                 <option value="IN_SESSION">In Session</option>
+                                 <option value="COMPLETE">Complete</option>
+                                 <option value="NOT_CONFIRMED">NOT CONFIRMED</option>
+                                 <option value="RE_SCHEDULED">RE SCHEDULE</option>
+                                 <option value="CANCELLED">CANCELLED</option>
+                                 <option value="REGULAR">REGULAR</option>
+
+                             </select>
+                             <!--<div class="form-group">
+                                 <div class="mt-checkbox-inline">
+                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                         <input type="checkbox" id="Arrived8" value="Arrived"> Arrived
+                                         <span></span>
+                                     </label>
+                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                         <input type="checkbox" id="Checked In7" value="Checked In"> Checked In
+                                         <span></span>
+                                     </label>
+                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                         <input type="checkbox" id="Arrived6" value="Arrived"> In Room
+                                         <span></span>
+                                     </label>
+                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                         <input type="checkbox" id="Checked In5" value="Checked In"> In Session
+                                         <span></span>
+                                     </label>
+                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                         <input type="checkbox" id="Arrived4" value="Arrived"> Complete
+                                         <span></span>
+                                     </label>
+                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                         <input type="checkbox" id="Checked In3" value="Checked In"> Confirmed
+                                         <span></span>
+                                     </label>
+                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                         <input type="checkbox" id="Arrived2" value="Arrived"> Not Confirmed
+                                         <span></span>
+                                     </label>
+                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                         <input type="checkbox" id="Checked In1" value="Checked In"> Cancelled
+                                         <span></span>
+                                     </label>
+                                 </div>
+                             </div>-->
+                             <!--<div class="">
+                                 <span class="slct-txts"><a href="#">Select All</a></span>
+                                 <span class="slct-txts"><a href="#">Select None</a></span>
+                             </div>-->
+                         </div>
+                        <!--<div class="col-md-3 no-padding">
                             <div class="">
-                                <span class="slct-txts"><a href="#">Select All</a></span>
-                                <span class="slct-txts"><a href="#">Select None</a></span>
+                                <h4 class="font-green-meadow">Branch</h4>
+                                <select class="form-control" (change)="getFilteredBranch($event.target.value)">
+                                    <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                    <option *ngFor="let item of branches; let i = index;"
+                                            value={{item.branchName}} (keyup)="refresh.next()">
+                                        {{item.name}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3 no-padding">
                             <div class="">
-                                <h4 class="font-green-meadow">Branch</h4>
-                                <select class="form-control">
-                                    <option>Primary Office 1</option>
-                                    <option>Primary Office 2</option>
-                                    <option>Primary Office 3</option>
-                                    <option>Primary Office 4</option>
-                                    <option>Primary Office 5</option>
-                                </select>
-                            </div>
-                            <div class="">
                                 <h4 class="font-green-meadow">Doctor</h4>
-                                <select class="form-control">
-                                    <option>Select Doctor 1</option>
-                                    <option>Select Doctor 2</option>
-                                    <option>Select Doctor 3</option>
-                                    <option>Select Doctor 4</option>
-                                    <option>Select Doctor 5</option>
-                                </select>
+
+                                    <div class="form-group font-siz11">
+                                        <label>Doctor:</label>
+                                        <select class="form-control" (change)="getfilteredDoctor($event.target.value)">
+                                            <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                            <option *ngFor="let item of doctorsList; let i = index;"
+                                                    value={{item.lastName}} (keyup)="refresh.next()">
+                                                {{item.firstName}} {{item.lastName}}
+                                            </option>
+                                        </select>
+                                    </div>
+
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -102,40 +144,40 @@
                         <table class="table table-hover table-light">
                             <thead>
                             <tr class="hedng-bck-clr tbl-pdng">
-                                <th> File # </th>
+                                <th> Appointment Id </th>
                                 <th> In </th>
                                 <th> In Time </th>
                                 <th> Branch </th>
                                 <th> Patient Name </th>
-                                <th> Group </th>
                                 <th> Scheduled at </th>
                                 <th> Doctor </th>
                                 <th> Exame Room </th>
                                 <th> Status </th>
-                                <th> Cashier Name </th>
                                 <th> Action </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="tbl-pdng">
-                                <td>1232</td>
+                            <tr class="tbl-pdng" *ngFor="let item of dashboardListModified">
+                                <td>{{item.appointmentId}}</td>
                                 <td><div class="mt-action-dot bg-green-meadow"></div></td>
-                                <td>12:32</td>
-                                <td>Primary Branch</td>
-                                <td>Tahir</td>
-                                <td>General</td>
-                                <td><a href="#" class="font-blue"></a><a href="#" class="font-blue">1/14/18 11:00 AM</a></td>
-                                <td>Jamal</td>
-                                <td>Exam 2</td>
-                                <td><select class="form-control">
-                                    <option>Arrived</option>
-                                    <option>Checked In</option>
-                                    <option>In Room</option>
-                                    <option>In Session</option>
-                                    <option>Complete</option>
-                                    <option>Not Confirmed</option>
+                                <td>{{item.inTime}}</td>
+                                <td>{{item.branch}}</td>
+                                <td><p> {{item.patientFirstName}} {{item.patientLastName}}</p></td>
+                                <td><a href="#" class="font-blue"></a><a href="#" class="font-blue">{{item.scheduleAt}}</a></td>
+                                <td>{{item.doctorFirstName}} {{item.doctorLastName}}</td>
+                                <td>{{item.examRoom}}</td>
+                                <td><select class="form-control" [ngModelOptions]="{standalone:true}"
+                                            [(ngModel)]="item.status">
+                                    <option value="IN_SESSION">IN SESSION</option>
+                                    <option value="COMPLETE">COMPLETE</option>
+                                    <option value="IN_ROOM">IN ROOM</option>
+                                    <option value="CONFIRMED">CONFIRMED</option>
+                                    <option value="NOT_CONFIRMED">NOT_CONFIRMED</option>
+                                    <option value="RE_SCHEDULED">RE_SCHEDULED</option>
+                                    <option value="CANCELLED">CANCELLED</option>
+                                    <option value="CHECK_IN">CHECK_IN</option>
+                                    <option value="REGULAR">REGULAR</option>
                                 </select></td>
-                                <td>Farooq</td>
                                 <td>
                                     <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
                                         <i class="fa fa-dollar" style="font-size:18px"></i>
@@ -145,111 +187,7 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr class="tbl-pdng off-wite-bg">
-                                <td>1232</td>
-                                <td><span class="mt-action-dot bg-gray-meadow"></span></td>
-                                <td>12:32</td>
-                                <td>Primary Branch</td>
-                                <td>Tahir</td>
-                                <td>General</td>
-                                <td><a href="#" class="font-blue">1/14/18 11:00 AM</a></td>
-                                <td>Jamal</td>
-                                <td>Exam 2</td>
-                                <td><select class="form-control">
-                                    <option>Arrived</option>
-                                    <option>Checked In</option>
-                                    <option>In Room</option>
-                                    <option>In Session</option>
-                                    <option>Complete</option>
-                                    <option>Not Confirmed</option>
-                                </select></td>
-                                <td>Farooq</td>
-                                <td></td>
-                            </tr>
-                            <tr class="tbl-pdng">
-                                <td>1232</td>
-                                <td><span class="mt-action-dot bg-green-meadow"></span></td>
-                                <td>12:32</td>
-                                <td>Primary Branch</td>
-                                <td>Tahir</td>
-                                <td>General</td>
-                                <td><a href="#" class="font-blue">1/14/18 11:00 AM</a></td>
-                                <td>Jamal</td>
-                                <td>Exam 2</td>
-                                <td><select class="form-control">
-                                    <option>Arrived</option>
-                                    <option>Checked In</option>
-                                    <option>In Room</option>
-                                    <option>In Session</option>
-                                    <option>Complete</option>
-                                    <option>Not Confirmed</option>
-                                </select></td>
-                                <td>Farooq</td>
-                                <td></td>
-                            </tr>
-                            <tr class="tbl-pdng off-wite-bg">
-                                <td>1232</td>
-                                <td><span class="mt-action-dot bg-green-meadow"></span></td>
-                                <td>12:32</td>
-                                <td>Primary Branch</td>
-                                <td>Tahir</td>
-                                <td>General</td>
-                                <td><a href="#" class="font-blue">1/14/18 11:00 AM</a></td>
-                                <td>Jamal</td>
-                                <td>Exam 2</td>
-                                <td><select class="form-control">
-                                    <option>Arrived</option>
-                                    <option>Checked In</option>
-                                    <option>In Room</option>
-                                    <option>In Session</option>
-                                    <option>Complete</option>
-                                    <option>Not Confirmed</option>
-                                </select></td>
-                                <td>Farooq</td>
-                                <td></td>
-                            </tr>
-                            <tr class="tbl-pdng">
-                                <td>1232</td>
-                                <td><span class="mt-action-dot bg-gray-meadow"></span></td>
-                                <td>12:32</td>
-                                <td>Primary Branch</td>
-                                <td>Tahir</td>
-                                <td>General</td>
-                                <td><a href="#" class="font-blue">1/14/18 11:00 AM</a></td>
-                                <td>Jamal</td>
-                                <td>Exam 2</td>
-                                <td><select class="form-control">
-                                    <option>Arrived</option>
-                                    <option>Checked In</option>
-                                    <option>In Room</option>
-                                    <option>In Session</option>
-                                    <option>Complete</option>
-                                    <option>Not Confirmed</option>
-                                </select></td>
-                                <td>Farooq</td>
-                                <td></td>
-                            </tr>
-                            <tr class="tbl-pdng off-wite-bg">
-                                <td>1232</td>
-                                <td><span class="mt-action-dot bg-green-meadow"></span></td>
-                                <td>12:32</td>
-                                <td>Primary Branch</td>
-                                <td>Tahir</td>
-                                <td>General</td>
-                                <td><a href="#" class="font-blue">1/14/18 11:00 AM</a></td>
-                                <td>Jamal</td>
-                                <td>Exam 2</td>
-                                <td><select class="form-control">
-                                    <option>Arrived</option>
-                                    <option>Checked In</option>
-                                    <option>In Room</option>
-                                    <option>In Session</option>
-                                    <option>Complete</option>
-                                    <option>Not Confirmed</option>
-                                </select></td>
-                                <td>Farooq</td>
-                                <td></td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>
