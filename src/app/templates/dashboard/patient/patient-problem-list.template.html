@@ -159,6 +159,41 @@
             </div>
         </div>
         <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
+                            <a (click)="getPageWisePatients(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="prePage">
+                            <a (click)="getPageWisePatients(currPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWisePatients(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getPageWisePatients(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getPageWisePatients(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p></p>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -174,20 +209,20 @@
                 <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="form-group hr">
-                            <label class="control-label col-md-4">Appointments
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">Appointments<span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-7">
+                            <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
                                     <select id="selectedAppointmentId"
-                                            [(ngModel)]="ppm.appointmentWrapper.id"
+                                            [(ngModel)]="ppm.appointmentId"
                                             #selectedAppointmentId="ngModel"
                                             name="selectedAppointmentId"
                                             class="form-control">
                                         <option value="-1">--- Please select ---</option>
                                         <option
-                                                *ngFor="let appointment of futureAppointments"
+                                                *ngFor="let appointment of pastAppointments"
                                                 [(value)]="appointment.id">
-                                            {{"Appoint Start On"+appointment.appointmentStartedOn}},
+                                            {{appointment.appointmentId}},
                                             {{"Schedule Date:"+appointment.scheduleDate}}
                                         </option>
                                     </select>
@@ -195,16 +230,16 @@
                             </div>
                         </div>
                         <div class="form-group hr">
-                            <label class="control-label col-md-4">Version
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">Version
                                 <span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-7">
+                            <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
                                     <select id="icdVersionId" [(ngModel)]="ppm.selectedICDVersionId"
                                             #icdVersionId="ngModel"
                                             name="icdVersionId"
                                             class="form-control"
-                                            (change)="versionChanged(ppm.selectedICDVersionId)">
+                                            (change)="changedVersion(ppm.selectedICDVersionId)">
                                         <option value="-1">--- Please select ---</option>
                                         <option
                                                 *ngFor="let ver of iCDVersions"
@@ -216,8 +251,8 @@
                             </div>
                         </div>
                         <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Problem:</label>
-                            <div class="col-md-7">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Problem:<span class="required" aria-required="true"> * </span></label>
+                            <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
                                     <select id="associatedCodesId"
                                             [(ngModel)]="ppm.selectedCodeId"
@@ -234,7 +269,9 @@
                             </div>
                         </div>
                         <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis</label>
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis
+                                <span class="required" aria-required="true"> * </span>
+                            </label>
                             <div class="col-md-7 select pdng-lr-5">
                                 <input type="date" class="form-control"
                                        [(ngModel)]="ppm.dateDiagnosis">
@@ -265,7 +302,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal"
+                <button type="button" data-dismiss="modal" #closeBtn
                         class="btn btn-default btn-outline">Close
                 </button>
                 <span [hidden]="isUpdate">

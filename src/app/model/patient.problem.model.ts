@@ -1,10 +1,11 @@
-import {Appointment} from "./Appointment";
 /**
  * Created by jamal on 8/13/2018.
  */
 
 export class PatientProblemModel {
     id: number;
+    patientId:number;
+    appointmentId:number = -1;
     selectedICDVersionId: number = -1;
     codeName: string;
     codeTitle: string;
@@ -13,8 +14,6 @@ export class PatientProblemModel {
     dateDiagnosis: string = "";
     note: string;
     status: string = "ACTIVE";
-    appointmentWrapper: Appointment = new Appointment();
-
 
     constructor() {
     }

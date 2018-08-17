@@ -4,6 +4,7 @@ import DateTimeFormat = Intl.DateTimeFormat;
 
 export class Appointment{
     id:number;
+    appointmentId:string;
     title:string;
     branchId:number;
     scheduleDate :string;
@@ -37,11 +38,12 @@ export class Appointment{
     doctorId:number;
 
 
-    constructor(id?:number,title ?: string, branchId ?: number, doctorId ?: number,scheduleDateAndTime ?:DateTimeFormat, scheduleDate?: string, end?: string, draggable?: boolean,selectedRecurringDays ?:any[], appointmentType?: any[], notes?: string, patient?: number, reason?:
+    constructor(id?:number,appointmentId?:string,title ?: string, branchId ?: number, doctorId ?: number,scheduleDateAndTime ?:DateTimeFormat, scheduleDate?: string, end?: string, draggable?: boolean,selectedRecurringDays ?:any[], appointmentType?: any[], notes?: string, patient?: number, reason?:
          string, status?: string, duration?: number, followUpDate?: Date, followUpReason?: string ,followUpReminder?:boolean,recurringAppointment?:boolean,recurseEvery?:string
         ,firstAppointment?:string,lastAppointment?:string,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string,roomId?:number
     ) {
         this.id = id;
+        this.appointmentId = appointmentId;
         this.title = title;
         this.branchId = branchId;
         this.doctorId=doctorId;

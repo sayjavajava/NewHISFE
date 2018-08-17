@@ -17,29 +17,61 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var patient_problem_model_1 = require("../../../model/patient.problem.model");
 var app_constants_1 = require("../../../utils/app.constants");
 var PatientProblemListComponent = (function () {
-    function PatientProblemListComponent(notificationService, requestsService, HISUtilService, router) {
+    function PatientProblemListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
+        this.activatedRoute = activatedRoute;
         this.pages = [];
         this.problemData = [];
         this.ppm = new patient_problem_model_1.PatientProblemModel();
         this.appointments = [];
         this.isUpdate = false;
+        this.futureAppointments = [];
+        this.pastAppointments = [];
     }
     PatientProblemListComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Problem list';
         this.getPaginatedProblemsFromServer(0);
     };
-    PatientProblemListComponent.prototype.appointsByServer = function () {
+    PatientProblemListComponent.prototype.appointmentsByServer = function () {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSIONS)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
-                    _this.iCDVersions = [];
-                    _this.iCDVersions = response['responseData'];
+            this.activatedRoute.params.subscribe(function (params) {
+                var selectedPatientId = 1;
+                /*Number(params['id']);*/
+                _this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + selectedPatientId).subscribe(function (response) {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        _this.patient = response['responseData'];
+                        _this.futureAppointments = [];
+                        _this.futureAppointments = response['responseData'].futureAppointments;
+                        _this.pastAppointments = [];
+                        _this.pastAppointments = response['responseData'].pastAppointments;
+                    }
+                    else {
+                        _this.notificationService.error(response['responseMessage'], 'Patient');
+                    }
+                }, function (error) {
+                    _this.HISUtilService.tokenExpired(error.error.error);
+                });
+            });
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
+    };
+    PatientProblemListComponent.prototype.appointmentsByPatientServer = function (selectedPatientId) {
+        var _this = this;
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + selectedPatientId).subscribe(function (response) {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    _this.patient = response['responseData'];
+                    _this.futureAppointments = response['responseData'].futureAppointments;
+                    _this.pastAppointments = response['responseData'].pastAppointments;
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Patient');
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
@@ -68,15 +100,16 @@ var PatientProblemListComponent = (function () {
     };
     PatientProblemListComponent.prototype.addProblemPopupClick = function () {
         this.isUpdate = false;
-        this.ppm.selectedCodeId = -1;
-        this.ppm.selectedICDVersionId = -1;
-        this.ppm.appointmentWrapper.id = -1;
+        this.ppm = new patient_problem_model_1.PatientProblemModel();
+        this.appointmentsByServer();
         this.versionsByServer();
-        this.versionChanged(this.ppm.selectedICDVersionId);
     };
-    PatientProblemListComponent.prototype.versionChanged = function (associatedICDCVId) {
-        var _this = this;
+    PatientProblemListComponent.prototype.changedVersion = function (associatedICDCVId) {
         this.ppm.selectedCodeId = -1;
+        this.codesByVersionFromServer(associatedICDCVId);
+    };
+    PatientProblemListComponent.prototype.codesByVersionFromServer = function (associatedICDCVId) {
+        var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODES_ASSOCIATED_BY_VERSION_ID + associatedICDCVId)
                 .subscribe(function (response) {
@@ -92,13 +125,17 @@ var PatientProblemListComponent = (function () {
     PatientProblemListComponent.prototype.savePatientProblem = function () {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
+            this.ppm.patientId = 1;
             this.requestsService.postRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_SAVE_URL, this.ppm)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
                     _this.notificationService.success(response['responseMessage'], 'Problem of Patient');
+                    _this.getPaginatedProblemsFromServer(0);
+                    _this.closeBtn.nativeElement.click();
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                    _this.getPaginatedProblemsFromServer(0);
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
@@ -156,11 +193,9 @@ var PatientProblemListComponent = (function () {
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'USER_SUC_01') {
                         _this.ppm = response['responseData'];
-                        // this.appointsByServer();
+                        _this.appointmentsByPatientServer(_this.ppm.patientId);
                         _this.versionsByServer();
-                        var selectCodeId = _this.ppm.selectedCodeId;
-                        _this.versionChanged(_this.ppm.selectedICDVersionId);
-                        _this.ppm.selectedCodeId = selectCodeId;
+                        _this.codesByVersionFromServer(_this.ppm.selectedICDVersionId);
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
@@ -184,6 +219,8 @@ var PatientProblemListComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
                     _this.ppm = response['responseData'];
+                    _this.notificationService.success(response['responseMessage'], 'Problem of Patient');
+                    _this.closeBtn.nativeElement.click();
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
@@ -196,6 +233,13 @@ var PatientProblemListComponent = (function () {
             this.router.navigate(['/login']);
         }
     };
+    PatientProblemListComponent.prototype.getPageWisePatients = function (page) {
+        this.getPaginatedProblemsFromServer(page);
+    };
+    __decorate([
+        core_1.ViewChild('closeBtn'),
+        __metadata("design:type", core_1.ElementRef)
+    ], PatientProblemListComponent.prototype, "closeBtn", void 0);
     PatientProblemListComponent = __decorate([
         core_1.Component({
             selector: 'patient-problem-list',
@@ -204,7 +248,8 @@ var PatientProblemListComponent = (function () {
         __metadata("design:paramtypes", [notification_service_1.NotificationService,
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
-            router_1.Router])
+            router_1.Router,
+            router_1.ActivatedRoute])
     ], PatientProblemListComponent);
     return PatientProblemListComponent;
 }());
