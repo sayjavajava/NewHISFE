@@ -23,6 +23,7 @@ exports.PatientRoutes = [
     { path: 'add', component: add_patient_component_1.AddPatientComponent },
     { path: 'invoice', component: patient_invoice_component_1.PatientInvoiceComponent },
     { path: 'history', component: patient_history_component_1.PatientHistoryComponent },
+    { path: 'history/:id/problem', component: patient_problem_list_component_1.PatientProblemListComponent },
     { path: 'edit/:id', component: edit_patient_component_1.EditPatientComponent },
     { path: 'reports', component: patient_reports_component_1.PatientReportsComponent },
     { path: 'demographic', component: patient_demographic_component_1.PatientDemographicComponent },

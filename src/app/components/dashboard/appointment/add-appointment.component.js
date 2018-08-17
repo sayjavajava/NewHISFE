@@ -42,6 +42,7 @@ var AddAppointmentComponent = (function () {
         this.newPatient = false;
         this.viewDate = new Date();
         this.data = [];
+        this.patients = [];
         this.selectedType = [];
         this.updateSelectedType = [];
         this.appointmentType = [];
