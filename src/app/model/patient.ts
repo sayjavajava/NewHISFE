@@ -1,4 +1,5 @@
 import {Race} from "./race-model";
+import {Appointment} from './Appointment';
 /**
  * Created by jamal on 6/7/2018.
  */
@@ -23,6 +24,9 @@ export class Patient {
     preferredCommunication: string = "ENGLISH";
     reminderLanguage: string = "ENGLISH";
     statusUser: boolean = true;
+    ////////Appointment
+    pastAppointments :any =[];
+    futureAppointments : any[];
     /////// DEMOGRAPHY
     patientId: number;
     patientSSN: string = "";

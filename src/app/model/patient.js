@@ -21,6 +21,8 @@ var Patient = (function () {
         this.preferredCommunication = "ENGLISH";
         this.reminderLanguage = "ENGLISH";
         this.statusUser = true;
+        ////////Appointment
+        this.pastAppointments = [];
         this.patientSSN = "";
         this.dob = "";
         this.gender = "MALE";

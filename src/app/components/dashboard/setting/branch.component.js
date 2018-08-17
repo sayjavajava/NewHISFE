@@ -43,9 +43,9 @@ var BranchComponent = (function () {
     };
     BranchComponent.prototype.allBranches = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.BRANCHES_NAME)
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(function (response) {
-            if (response['responseCode'] === 'BRANCH_SUC_01') {
+            if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
             }
         }, function (error) {

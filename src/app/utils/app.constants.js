@@ -87,7 +87,7 @@ var AppConstants = (function () {
     AppConstants.PATIENT_FETCH_URL = '/patient/get/';
     AppConstants.PATIENT_UPDATE_URL = '/patient/update';
     AppConstants.SEARCH_ALL_PATIENT_URL = '/patient/search';
-    AppConstants.GET_ALL_PATIENT_URL = '/patient/all';
+    AppConstants.GET_ALL_PATIENT_URL = '/patient/';
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
@@ -99,6 +99,8 @@ var AppConstants = (function () {
     AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
     AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
     AppConstants.FETCH_APPOINTMENTS_URL = '/appointment/';
+    ////////////////////// Dashboard URLs ///////////////////////////////
+    AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

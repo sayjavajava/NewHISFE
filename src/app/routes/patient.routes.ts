@@ -30,7 +30,7 @@ export const PatientRoutes: Routes = [
     {path: 'edit/:id', component: EditPatientComponent},
     {path: 'reports', component: PatientReportsComponent},
     {path: 'demographic', component: PatientDemographicComponent},
-    {path: 'appointments', component: PatientAppointmentComponent},
+    {path: 'appointments/:id', component: PatientAppointmentComponent},
     {path: 'documents', component: PatientDocumentsComponent},
     {path: 'problems-list', component: PatientProblemListComponent},
     {path: 'medical-list', component: PatientMedicalListComponent},
