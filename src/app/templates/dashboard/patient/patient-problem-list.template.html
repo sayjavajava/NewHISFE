@@ -185,7 +185,7 @@
                                             class="form-control">
                                         <option value="-1">--- Please select ---</option>
                                         <option
-                                                *ngFor="let appointment of appointments"
+                                                *ngFor="let appointment of futureAppointments"
                                                 [(value)]="appointment.id">
                                             {{"Appoint Start On"+appointment.appointmentStartedOn}},
                                             {{"Schedule Date:"+appointment.scheduleDate}}

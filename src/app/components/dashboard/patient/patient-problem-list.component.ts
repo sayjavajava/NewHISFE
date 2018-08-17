@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NotificationService} from "../../../services/notification.service";
 import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
@@ -8,6 +8,7 @@ import {ICDCodeModel} from "../../../model/ICDCodeModel";
 import {ICDVersionModel} from "../../../model/ICDVersionModel";
 import {AppConstants} from "../../../utils/app.constants";
 import {Appointment} from "../../../model/Appointment";
+import {Patient} from "../../../model/patient";
 
 
 @Component({
@@ -25,11 +26,15 @@ export class PatientProblemListComponent implements OnInit {
     associatedCodes: ICDCodeModel [];
     appointments: Appointment [] = [];
     isUpdate: boolean = false;
+    private patient: any;
+    futureAppointments: Appointment [] = [];
+    pastAppointments: Appointment [] = [];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
-                private router: Router) {
+                private router: Router,
+                private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -37,21 +42,27 @@ export class PatientProblemListComponent implements OnInit {
         this.getPaginatedProblemsFromServer(0);
     }
 
-    appointsByServer() {
+    appointmentsByServer() {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest(
-                AppConstants.ICD_VERSIONS)
-                .subscribe(
-                    (response: Response) => {
-                        if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
-                            this.iCDVersions = [];
-                            this.iCDVersions = response['responseData'];
-                        }
-                    },
-                    (error: any) => {
-                        this.HISUtilService.tokenExpired(error.error.error);
-                    }
-                );
+            this.activatedRoute.params.subscribe(
+                params => {
+                    let selectedPatientId = 1;/*Number(params['id']);*/
+                    this.requestsService.getRequest(
+                        AppConstants.PATIENT_FETCH_URL + selectedPatientId
+                    ).subscribe(
+                        response => {
+                            if (response['responseCode'] === 'USER_SUC_01') {
+                                this.patient = response['responseData'];
+                                this.futureAppointments = response['responseData'].futureAppointments;
+                                this.pastAppointments = response['responseData'].pastAppointments;
+                            } else {
+                                this.notificationService.error(response['responseMessage'], 'Patient');
+                            }
+                        },
+                        (error: any) => {
+                            this.HISUtilService.tokenExpired(error.error.error);
+                        });
+                });
         } else {
             this.router.navigate(['/login']);
         }
@@ -82,6 +93,7 @@ export class PatientProblemListComponent implements OnInit {
         this.ppm.selectedCodeId = -1;
         this.ppm.selectedICDVersionId = -1;
         this.ppm.appointmentWrapper.id = -1;
+        this.appointmentsByServer();
         this.versionsByServer();
         this.versionChanged(this.ppm.selectedICDVersionId);
     }
@@ -176,12 +188,12 @@ export class PatientProblemListComponent implements OnInit {
         this.isUpdate = true;
         if (problemId > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.getRequest(AppConstants.PATIENT_PROBLEM_GET_URL + 'problemId='+ problemId)
+                this.requestsService.getRequest(AppConstants.PATIENT_PROBLEM_GET_URL + 'problemId=' + problemId)
                     .subscribe(
                         response => {
                             if (response['responseCode'] === 'USER_SUC_01') {
                                 this.ppm = response['responseData'];
-                                // this.appointsByServer();
+                                // this.appointmentsByServer();
                                 this.versionsByServer();
                                 let selectCodeId = this.ppm.selectedCodeId;
                                 this.versionChanged(this.ppm.selectedICDVersionId);
@@ -203,7 +215,7 @@ export class PatientProblemListComponent implements OnInit {
 
     updatePatientProblem() {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.putRequest(AppConstants.PATIENT_PROBLEM_UPDATE_URL,this.ppm)
+            this.requestsService.putRequest(AppConstants.PATIENT_PROBLEM_UPDATE_URL, this.ppm)
                 .subscribe(
                     response => {
                         if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
