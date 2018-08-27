@@ -1,0 +1,231 @@
+<patient-history-menu></patient-history-menu>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="portlet-title">
+                        <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
+                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg"
+                                                              class="img-responsive"/></div>
+                        </div>
+                        <div class="col-md-10 col-sm-8 col-xs-12">
+                            <div class="hr">
+                                <h1 class="page-title no-margin"> Dan Dan</h1>
+                                <small class="small-txt">( Male | 42 years old | April 18, 1973)</small>
+                            </div>
+                            <div class="hr padding-b-10">
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Phone:</td>
+                                            <td class="font-red">Missing</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Address:</td>
+                                            <td class="font-red">No address on file</td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Email:</td>
+                                            <td class="font-red">Missing</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Future Appt:</td>
+                                            <td class="font-red">Mon. Jul. 27, 2015</td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Added:</td>
+                                            <td>Nov. 24, 2015</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Last Appt:</td>
+                                            <td>Mon. Jul. 27, 2015</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-sm-2 col-xs-12 text-right"><span class="pull-right color-grey">DADA0000002 </span>
+                            <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive"
+                                                           src="/public/images/barcode.png"> </span></div>
+                    </div>
+                    <div class="hr no-margin">
+                        <div class="hr">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primery Doctor:</span> <span
+                                        class="caption-helper">Muhammad Imran</span></div>
+                            </div>
+                        </div>
+                        <div class="hr no-margin">
+                            <button class="btn btn-default btn-outline btn-sm"
+                                    onclick="window.location.href='print_demographics.html'"> Fax Demographics
+                            </button>
+                            <span><button class="btn btn-default btn-outline btn-sm"
+                                          onclick="window.location.href='print_demographics.html'"> <i
+                                    class=" icon-printer"></i> Print Demographics </button></span>
+                            <div class=" pull-right">
+                                <button class="btn btn-default btn-outline btn-sm pull-right"><i
+                                        class=" icon-clock"></i> Shedule New Appointment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Active Medication Orders
+                        <div class="pull-right">
+                        <span>
+                            <a href="#responsiveAllergy" data-toggle="modal" (click)="addAllergy()">
+                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                        data-title="Sweet Alerts with Icons"
+                                        data-message="Success Icon" data-type="success"
+                                        data-allow-outside-click="true"
+                                        data-confirm-button-class="btn-success">
+                                    <i class="fa fa-plus"></i> Add
+                                </button>
+                            </a>
+                        </span>
+                            <span><button class="btn btn-default btn-outline btn-sm"> <i class=" icon-clock"></i> Print List </button></span>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div id="responsiveAllergy" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal"
+                        aria-hidden="true">
+                </button>
+                <span [hidden]="isUpdate">
+                    <h4 class="modal-title">Add Allergy</h4>
+                </span>
+                <span [hidden]="!isUpdate">
+                     <h4 class="modal-title">Update Allergy</h4>
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="form-group hr">
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">
+                                Appointments<span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+                                    <select id="selectedAppointmentId"
+                                            [(ngModel)]="pam.appointmentId"
+                                            #selectedAppointmentId="ngModel"
+                                            name="selectedAppointmentId"
+                                            class="form-control">
+                                        <option value="-1">--- Select Appointment ---</option>
+                                        <option
+                                                *ngFor="let appointment of pastAppointments"
+                                                [(value)]="appointment.id">
+                                            {{appointment.appointmentId}},
+                                            {{"Schedule Date:"+appointment.scheduleDate}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                Allergy type:<span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <select class="form-control"
+                                        id="allergyTypeId"
+                                        name="allergyTypeId"
+                                        [(ngModel)]="pam.allergyType">
+                                    <option value="-1">---------</option>
+                                    <option value="specificdrug">Specific Drug allergy</option>
+                                    <option value="drugclass">Drug Class allergy</option>
+                                    <option value="nondrug">Non-Drug allergy</option>
+                                    <option value="nkda">No Known Drug Allergies (NKDA)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                allergy Name:<span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="text" class="form-control"
+                                       id="nameId"
+                                       name="nameId"
+                                       #nameId="ngModel"
+                                       [(ngModel)]="pam.name">
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Reaction:</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="text" class="form-control"
+                                       id="reactionId"
+                                       name="reactionId"
+                                       #reactionId="ngModel"
+                                       [(ngModel)]="pam.reaction">
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <select class="form-control" [(ngModel)]="pam.status">
+                                    <option value="ACTIVE">Active</option>
+                                    <option value="IN_ACTIVE">In_Active</option>
+                                    <option value="RESOLVED">Resolved</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes:</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <textarea class="form-control"
+                                          rows="3"
+                                          [(ngModel)]="pam.note">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal"
+                        #closeBtnAllergy
+                        id="closeBtnAllergy"
+                        name="closeBtnAllergy"
+                        class="btn btn-default btn-outline">Close
+                </button>
+                <span [hidden]="isUpdate">
+                    <button type="button" class="btn green"  (click)="saveAllergy()">Save</button>
+                </span>
+                <span [hidden]="!isUpdate">
+                    <button type="button" class="btn green" (click)="updateAllergy()">Update
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

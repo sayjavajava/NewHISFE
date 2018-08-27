@@ -104,6 +104,12 @@ export class AppConstants {
     public static PATIENT_PROBLEM_UPDATE_URL = '/patient/history/problem/update';
     public static PATIENT_PROBLEM_DELETE_URI = '/patient/history/problem/delete/';
 
+    public static PATIENT_ALLERGY_SAVE_URL = '/patient/allergy/save';
+    public static PATIENT_ALLERGY_PAGINATED_URL = '/patient/allergy/';
+    public static PATIENT_ALLERGY_GET_URL = '/patient/allergy/get?';
+    public static PATIENT_ALLERGY_UPDATE_URL = '/patient/allergy/update';
+    public static PATIENT_ALLERGY_DELETE_URI = '/patient/allergy/delete/';
+
 
     ////////////////////// Appointments URLs ///////////////////////////////
     public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';

@@ -12,7 +12,7 @@ var patient_appointment_component_1 = require("../components/dashboard/patient/p
 var patient_document_component_1 = require("../components/dashboard/patient/patient-document.component");
 var patient_problem_list_component_1 = require("../components/dashboard/patient/patient-problem-list.component");
 var patient_medical_list_component_1 = require("../components/dashboard/patient/patient-medical-list.component");
-var patient_alergy_list_component_1 = require("../components/dashboard/patient/patient-alergy-list.component");
+var patient_allergy_list_component_1 = require("../components/dashboard/patient/patient-allergy-list.component");
 var patient_lab_orders_component_1 = require("../components/dashboard/patient/patient-lab-orders.component");
 var patient_communication_component_1 = require("../components/dashboard/patient/patient-communication.component");
 var patient_family_history_component_1 = require("../components/dashboard/patient/patient-family-history.component");
@@ -31,7 +31,7 @@ exports.PatientRoutes = [
     { path: 'documents', component: patient_document_component_1.PatientDocumentsComponent },
     { path: 'problems-list', component: patient_problem_list_component_1.PatientProblemListComponent },
     { path: 'medical-list', component: patient_medical_list_component_1.PatientMedicalListComponent },
-    { path: 'allergy-list', component: patient_alergy_list_component_1.PatientAlergyListComponent },
+    { path: 'allergy-list', component: patient_allergy_list_component_1.PatientAllergyListComponent },
     { path: 'lab-orders', component: patient_lab_orders_component_1.PatientLabOrdersComponent },
     { path: 'communication', component: patient_communication_component_1.PatientCommunicationComponent },
     { path: 'family-history', component: patient_family_history_component_1.PatientFamilyHistoryComponent },

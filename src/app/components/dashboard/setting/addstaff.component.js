@@ -466,7 +466,6 @@ var AddStaffComponent = (function () {
         }
     };
     AddStaffComponent.prototype.selectDepartment = function (event, item) {
-        //console.log(event.checked);
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }
@@ -475,10 +474,13 @@ var AddStaffComponent = (function () {
             var index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
-        //console.log(this.selectedDepartment);
+    };
+    AddStaffComponent.prototype.selectDoctorDepartment = function (itemId) {
+        if (itemId) {
+            this.selectedDepartment[0] = itemId;
+        }
     };
     AddStaffComponent.prototype.selectWorkingDays = function (event, item) {
-        //console.log(event.checked);
         if (event.target.checked) {
             this.selectedWorkingDays.push(item.name);
         }
@@ -590,7 +592,6 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.checkPermission = function (user) {
         this.changeState();
-        console.log("user:" + user);
         switch (user) {
             case 'DOCTOR':
                 this.doctorPermissions();
@@ -610,7 +611,7 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.doctorPermissions = function () {
         this.checkUpInterval = true;
-        this.department = true;
+        this.doctorDepartment = true;
         this.dutytimmingshift1 = true;
         this.dutytimmingshift2 = true;
         this.vacation = true;
@@ -618,7 +619,7 @@ var AddStaffComponent = (function () {
         this.services = true;
     };
     AddStaffComponent.prototype.nursePermissions = function () {
-        this.department = true;
+        this.nurseDepartment = true;
         this.managepatientinvoices = true;
         this.managepatientrecord = true;
         this.dutywithdoctor = true;
@@ -631,7 +632,7 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.changeState = function () {
         this.allowdiscount = false;
-        this.department = false;
+        this.nurseDepartment = this.doctorDepartment = false;
         this.checkUpInterval = false;
         this.dutytimmingshift1 = false;
         this.dutytimmingshift2 = false;

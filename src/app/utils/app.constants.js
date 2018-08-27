@@ -97,6 +97,11 @@ var AppConstants = (function () {
     AppConstants.PATIENT_PROBLEM_GET_URL = '/patient/history/problem/get?';
     AppConstants.PATIENT_PROBLEM_UPDATE_URL = '/patient/history/problem/update';
     AppConstants.PATIENT_PROBLEM_DELETE_URI = '/patient/history/problem/delete/';
+    AppConstants.PATIENT_ALLERGY_SAVE_URL = '/patient/allergy/save';
+    AppConstants.PATIENT_ALLERGY_PAGINATED_URL = '/patient/allergy/';
+    AppConstants.PATIENT_ALLERGY_GET_URL = '/patient/allergy/get?';
+    AppConstants.PATIENT_ALLERGY_UPDATE_URL = '/patient/allergy/update';
+    AppConstants.PATIENT_ALLERGY_DELETE_URI = '/patient/allergy/delete/';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
