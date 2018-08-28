@@ -11,6 +11,7 @@ export class PatientAllergyModel {
     reaction: string;
     status: string = "ACTIVE";
     note: string;
+    updatedOn: string;
 
     constructor() {
     }

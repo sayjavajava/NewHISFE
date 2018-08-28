@@ -28,6 +28,7 @@ export class PatientAllergyListComponent implements OnInit {
     futureAppointments: Appointment [] = [];
     pastAppointments: Appointment [] = [];
     @ViewChild('closeBtnAllergy') closeBtnAllergy: ElementRef;
+    private selectedPatientId: number;
 
 
     constructor(private notificationService: NotificationService,
@@ -36,47 +37,22 @@ export class PatientAllergyListComponent implements OnInit {
                 private router: Router,
                 private activatedRoute: ActivatedRoute) {
 
+        const queryParams = this.activatedRoute.snapshot.queryParams
+        console.log(queryParams);
+        const routeParams = this.activatedRoute.snapshot.params;
+        console.log(routeParams);
+        // do something with the parameters
+        this.selectedPatientId = routeParams.id;// i think id will patient id according to current situation
+
         this.getPaginatedAllergyFromServer(0);
     }
 
     ngOnInit(): void {
     }
 
-    appointmentsByServer() {
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.activatedRoute.params.subscribe(
-                params => {
-                    let selectedPatientId = 1;
-                    /*Number(params['id']);*/
-                    this.requestsService.getRequest(
-                        AppConstants.PATIENT_FETCH_URL + selectedPatientId
-                    ).subscribe(
-                        response => {
-                            if (response['responseCode'] === 'USER_SUC_01') {
-                                this.patient = response['responseData'];
-                                this.futureAppointments = [];
-                                this.futureAppointments = response['responseData'].futureAppointments;
-                                this.pastAppointments = [];
-                                this.pastAppointments = response['responseData'].pastAppointments;
-                            } else {
-                                this.notificationService.error(response['responseMessage'], 'Patient');
-                            }
-                        },
-                        (error: any) => {
-                            this.HISUtilService.tokenExpired(error.error.error);
-                        });
-                });
-        } else {
-            this.router.navigate(['/login']);
-        }
-    }
-
-    getPaginatedAllergyFromServer(page: number) {
-        if (page > 0) {
-            page = page;
-        }
+    getPaginatedAllergyFromServer(p: number) {
         this.requestsService.getRequest(
-            AppConstants.PATIENT_ALLERGY_PAGINATED_URL + page)
+            AppConstants.ALLERGY_PAGINATED_URL + p)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'ALLERGY_SUC_18') {
@@ -93,26 +69,55 @@ export class PatientAllergyListComponent implements OnInit {
             );
     }
 
+    getPageWiseAllergies(p: number) {
+        this.getPaginatedAllergyFromServer(p);
+    }
+
+    appointmentsByPatientFromServer(selectedPatientId: number) {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(
+                AppConstants.PATIENT_FETCH_URL + selectedPatientId
+            ).subscribe(
+                response => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.patient = response['responseData'];
+                        this.futureAppointments = [];
+                        this.futureAppointments = response['responseData'].futureAppointments;
+                        this.pastAppointments = [];
+                        this.pastAppointments = response['responseData'].pastAppointments;
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Patient');
+                    }
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                });
+
+        } else {
+            this.router.navigate(['/login']);
+        }
+    }
+
     addAllergy() {
         this.isUpdate = false;
         this.pam = new PatientAllergyModel();
-        this.appointmentsByServer();
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
 
     saveAllergy() {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.pam.patientId = 1;
+            this.pam.patientId = this.selectedPatientId;
             this.requestsService.postRequest(
-                AppConstants.PATIENT_ALLERGY_SAVE_URL, this.pam)
+                AppConstants.ALLERGY_SAVE_URL, this.pam)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ALLERGY_SUC_17') {
                             this.notificationService.success(response['responseMessage'], 'Allergy of Patient');
                             this.getPaginatedAllergyFromServer(0);
-                            //this.closeBtnAllergy.nativeElement.click();
+                            this.closeBtnAllergy.nativeElement.click();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
-                            // this.getPaginatedProblemsFromServer(0);
+                            this.getPaginatedAllergyFromServer(0);
                         }
                     },
                     (error: any) => {
@@ -127,12 +132,52 @@ export class PatientAllergyListComponent implements OnInit {
         }
     }
 
-    editAllergy() {
-
+    editAllergy(allergyId: number) {
+        this.isUpdate = true;
+        this.pam = new PatientAllergyModel();
+        if (allergyId > 0) {
+            if (localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.getRequest(AppConstants.ALLERGY_GET_URL + 'allergyId=' + allergyId)
+                    .subscribe(
+                        response => {
+                            if (response['responseCode'] === 'ALLERGY_SUC_24') {
+                                this.pam = response['responseData'];
+                                this.appointmentsByPatientFromServer(this.pam.patientId);
+                            } else {
+                                this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                            }
+                        },
+                        (error: any) => {
+                            this.HISUtilService.tokenExpired(error.error.error);
+                        });
+            } else {
+                this.router.navigate(['/login']);
+            }
+        } else {
+            this.notificationService.error('Please select proper Allergy', 'Allergy of Patient');
+        }
     }
 
     updateAllergy() {
-
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.putRequest(AppConstants.ALLERGY_UPDATE_URL, this.pam)
+                .subscribe(
+                    response => {
+                        if (response['responseCode'] === 'ALLERGY_SUC_20') {
+                            this.notificationService.success(response['responseMessage'], 'Allergy of Patient');
+                            this.getPaginatedAllergyFromServer(0);
+                            this.closeBtnAllergy.nativeElement.click();
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                            this.getPaginatedAllergyFromServer(0);
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    });
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 
 
@@ -140,7 +185,7 @@ export class PatientAllergyListComponent implements OnInit {
         if (localStorage.getItem(btoa('access_token'))) {
             if (!confirm("Are Your Source You Want To Delete")) return;
             this.requestsService.deleteRequest(
-                AppConstants.PATIENT_ALLERGY_DELETE_URI + allergyId)
+                AppConstants.ALLERGY_DELETE_URI + allergyId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ALLERGY_SUC_22') {

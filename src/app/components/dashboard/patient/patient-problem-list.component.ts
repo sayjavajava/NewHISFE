@@ -253,8 +253,10 @@ export class PatientProblemListComponent implements OnInit {
                             this.ppm = response['responseData'];
                             this.notificationService.success(response['responseMessage'], 'Problem of Patient');
                             this.closeBtn.nativeElement.click();
+                            this.getPaginatedProblemsFromServer(0);
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                            this.getPaginatedProblemsFromServer(0);
                         }
                     },
                     (error: any) => {

@@ -221,9 +221,11 @@ var PatientProblemListComponent = (function () {
                     _this.ppm = response['responseData'];
                     _this.notificationService.success(response['responseMessage'], 'Problem of Patient');
                     _this.closeBtn.nativeElement.click();
+                    _this.getPaginatedProblemsFromServer(0);
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                    _this.getPaginatedProblemsFromServer(0);
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);

@@ -30,42 +30,19 @@ var PatientAllergyListComponent = (function () {
         this.isUpdate = false;
         this.futureAppointments = [];
         this.pastAppointments = [];
+        var queryParams = this.activatedRoute.snapshot.queryParams;
+        console.log(queryParams);
+        var routeParams = this.activatedRoute.snapshot.params;
+        console.log(routeParams);
+        // do something with the parameters
+        this.selectedPatientId = routeParams.id; // i think id will patient id according to current situation
         this.getPaginatedAllergyFromServer(0);
     }
     PatientAllergyListComponent.prototype.ngOnInit = function () {
     };
-    PatientAllergyListComponent.prototype.appointmentsByServer = function () {
+    PatientAllergyListComponent.prototype.getPaginatedAllergyFromServer = function (p) {
         var _this = this;
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.activatedRoute.params.subscribe(function (params) {
-                var selectedPatientId = 1;
-                /*Number(params['id']);*/
-                _this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + selectedPatientId).subscribe(function (response) {
-                    if (response['responseCode'] === 'USER_SUC_01') {
-                        _this.patient = response['responseData'];
-                        _this.futureAppointments = [];
-                        _this.futureAppointments = response['responseData'].futureAppointments;
-                        _this.pastAppointments = [];
-                        _this.pastAppointments = response['responseData'].pastAppointments;
-                    }
-                    else {
-                        _this.notificationService.error(response['responseMessage'], 'Patient');
-                    }
-                }, function (error) {
-                    _this.HISUtilService.tokenExpired(error.error.error);
-                });
-            });
-        }
-        else {
-            this.router.navigate(['/login']);
-        }
-    };
-    PatientAllergyListComponent.prototype.getPaginatedAllergyFromServer = function (page) {
-        var _this = this;
-        if (page > 0) {
-            page = page;
-        }
-        this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_ALLERGY_PAGINATED_URL + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.ALLERGY_PAGINATED_URL + p)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ALLERGY_SUC_18') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -78,25 +55,50 @@ var PatientAllergyListComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
+    PatientAllergyListComponent.prototype.getPageWiseAllergies = function (p) {
+        this.getPaginatedAllergyFromServer(p);
+    };
+    PatientAllergyListComponent.prototype.appointmentsByPatientFromServer = function (selectedPatientId) {
+        var _this = this;
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + selectedPatientId).subscribe(function (response) {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    _this.patient = response['responseData'];
+                    _this.futureAppointments = [];
+                    _this.futureAppointments = response['responseData'].futureAppointments;
+                    _this.pastAppointments = [];
+                    _this.pastAppointments = response['responseData'].pastAppointments;
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Patient');
+                }
+            }, function (error) {
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
+    };
     PatientAllergyListComponent.prototype.addAllergy = function () {
         this.isUpdate = false;
         this.pam = new patient_allergy_model_1.PatientAllergyModel();
-        this.appointmentsByServer();
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     };
     PatientAllergyListComponent.prototype.saveAllergy = function () {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.pam.patientId = 1;
-            this.requestsService.postRequest(app_constants_1.AppConstants.PATIENT_ALLERGY_SAVE_URL, this.pam)
+            this.pam.patientId = this.selectedPatientId;
+            this.requestsService.postRequest(app_constants_1.AppConstants.ALLERGY_SAVE_URL, this.pam)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ALLERGY_SUC_17') {
                     _this.notificationService.success(response['responseMessage'], 'Allergy of Patient');
                     _this.getPaginatedAllergyFromServer(0);
-                    //this.closeBtnAllergy.nativeElement.click();
+                    _this.closeBtnAllergy.nativeElement.click();
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
-                    // this.getPaginatedProblemsFromServer(0);
+                    _this.getPaginatedAllergyFromServer(0);
                 }
             }, function (error) {
                 if (error.error.responseMessage === "Patient not found" ||
@@ -109,16 +111,61 @@ var PatientAllergyListComponent = (function () {
             });
         }
     };
-    PatientAllergyListComponent.prototype.editAllergy = function () {
+    PatientAllergyListComponent.prototype.editAllergy = function (allergyId) {
+        var _this = this;
+        this.isUpdate = true;
+        this.pam = new patient_allergy_model_1.PatientAllergyModel();
+        if (allergyId > 0) {
+            if (localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.getRequest(app_constants_1.AppConstants.ALLERGY_GET_URL + 'allergyId=' + allergyId)
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'ALLERGY_SUC_24') {
+                        _this.pam = response['responseData'];
+                        _this.appointmentsByPatientFromServer(_this.pam.patientId);
+                    }
+                    else {
+                        _this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                    }
+                }, function (error) {
+                    _this.HISUtilService.tokenExpired(error.error.error);
+                });
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
+        }
+        else {
+            this.notificationService.error('Please select proper Allergy', 'Allergy of Patient');
+        }
     };
     PatientAllergyListComponent.prototype.updateAllergy = function () {
+        var _this = this;
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.putRequest(app_constants_1.AppConstants.ALLERGY_UPDATE_URL, this.pam)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'ALLERGY_SUC_20') {
+                    _this.notificationService.success(response['responseMessage'], 'Allergy of Patient');
+                    _this.getPaginatedAllergyFromServer(0);
+                    _this.closeBtnAllergy.nativeElement.click();
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                    _this.getPaginatedAllergyFromServer(0);
+                }
+            }, function (error) {
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
     };
     PatientAllergyListComponent.prototype.deleteAllergy = function (allergyId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
             if (!confirm("Are Your Source You Want To Delete"))
                 return;
-            this.requestsService.deleteRequest(app_constants_1.AppConstants.PATIENT_ALLERGY_DELETE_URI + allergyId)
+            this.requestsService.deleteRequest(app_constants_1.AppConstants.ALLERGY_DELETE_URI + allergyId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ALLERGY_SUC_22') {
                     _this.notificationService.success(response['responseMessage'], 'Allergy of Patient');
