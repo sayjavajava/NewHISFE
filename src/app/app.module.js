@@ -89,7 +89,7 @@ var patient_demographic_component_1 = require("./components/dashboard/patient/pa
 var patient_appointment_component_1 = require("./components/dashboard/patient/patient-appointment.component");
 var patient_document_component_1 = require("./components/dashboard/patient/patient-document.component");
 var patient_problem_list_component_1 = require("./components/dashboard/patient/patient-problem-list.component");
-var patient_medical_list_component_1 = require("./components/dashboard/patient/patient-medical-list.component");
+var patient_medication_list_component_1 = require("./components/dashboard/patient/patient-medication-list.component");
 var patient_allergy_list_component_1 = require("./components/dashboard/patient/patient-allergy-list.component");
 var patient_lab_orders_component_1 = require("./components/dashboard/patient/patient-lab-orders.component");
 var patient_communication_component_1 = require("./components/dashboard/patient/patient-communication.component");
@@ -175,7 +175,7 @@ var AppModule = (function () {
                 patient_history_menu_component_1.PatientHistoryMenuComponent,
                 patient_document_component_1.PatientDocumentsComponent,
                 patient_problem_list_component_1.PatientProblemListComponent,
-                patient_medical_list_component_1.PatientMedicalListComponent,
+                patient_medication_list_component_1.PatientMedicationListComponent,
                 patient_allergy_list_component_1.PatientAllergyListComponent,
                 patient_lab_orders_component_1.PatientLabOrdersComponent,
                 patient_communication_component_1.PatientCommunicationComponent,

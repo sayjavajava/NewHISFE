@@ -1,0 +1,449 @@
+<patient-history-menu></patient-history-menu>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="portlet-title">
+                        <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient.jpg" alt="patient.jpg"
+                                     class="img-responsive"/>
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-sm-8 col-xs-12">
+                            <div class="hr">
+                                <h1 class="page-title no-margin"> Dan Dan</h1>
+                                <small class="small-txt">( Male | 42 years old | April 18, 1973)</small>
+                            </div>
+                            <div class="hr padding-b-10">
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Phone:</td>
+                                            <td class="font-red">Missing</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Address:</td>
+                                            <td class="font-red">No address on file</td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Email:</td>
+                                            <td class="font-red">Missing</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Future Appt:</td>
+                                            <td class="font-red">Mon. Jul. 27, 2015</td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Added:</td>
+                                            <td>Nov. 24, 2015</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Last Appt:</td>
+                                            <td>Mon. Jul. 27, 2015</td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-sm-2 col-xs-12 text-right"><span class="pull-right color-grey">DADA0000002 </span>
+                            <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive"
+                                                           src="/public/images/barcode.png"> </span></div>
+                    </div>
+                    <div class="hr no-margin">
+                        <div class="hr">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primery Doctor:</span> <span
+                                        class="caption-helper">Muhammad Imran</span></div>
+                            </div>
+                        </div>
+                        <div class="hr no-margin">
+                            <button class="btn btn-default btn-outline btn-sm"
+                                    onclick="window.location.href='print_demographics.html'"> Fax Demographics
+                            </button>
+                            <span><button class="btn btn-default btn-outline btn-sm"
+                                          onclick="window.location.href='print_demographics.html'"> <i
+                                    class=" icon-printer"></i> Print Demographics </button></span>
+                            <div class=" pull-right">
+                                <button class="btn btn-default btn-outline btn-sm pull-right"><i
+                                        class=" icon-clock"></i> Shedule New Appointment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Active Medication Orders
+                        <div class="pull-right">
+                        <span>
+                            <a href="#responsiveMedication" data-toggle="modal" (click)="addMedication()">
+                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                        data-title="Sweet Alerts with Icons"
+                                        data-message="Success Icon" data-type="success"
+                                        data-allow-outside-click="true"
+                                        data-confirm-button-class="btn-success">
+                                    <i class="fa fa-plus"></i> Add Medication
+                                </button>
+                            </a>
+                        </span>
+                            <span>
+                                <button class="btn btn-default btn-outline btn-sm">
+                                    <i class=" icon-clock"></i> Print List
+                                </button>
+                            </span>
+                        </div>
+                    </h4>
+                </div>
+                <div class="table-scrollable tbl-brdr-radus">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Medication</th>
+                            <th> Dispense</th>
+                            <th> Refills</th>
+                            <th> SIG Note</th>
+                            <th> Order Status</th>
+                            <th> Date</th>
+                            <th> Updated On</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng" *ngFor="let medication of medicationData" class="filter">
+                            <td>{{medication.drugName}}</td>
+                            <td>{{medication.dispenseQuantity}},{{medication.dispensePackage}}</td>
+                            <td>{{medication.numberRefill}}</td>
+                            <td>{{medication.sigNote}}</td>
+                            <td>{{medication.orderStatus}}</td>
+                            <td>{{medication.datePrescribed}}</td>
+                            <td>{{medication.updatedOn}}</td>
+                            <td>
+                                <a href="#responsiveMedication" data-toggle="modal"
+                                   (click)="editMedication(medication.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="deleteMedication(medication.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
+                            <a (click)="getPageWiseMedications(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="prePage">
+                            <a (click)="getPageWiseMedications(currPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWiseMedications(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getPageWiseMedications(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getPageWiseMedications(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p></p>
+            </div>
+        </div>
+
+
+        <div class="clearfix">
+            <a (click)="goToUserDashBoard();" class="nav-link">
+                <button type="button" class="btn  btn-default"> Cancel</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="responsiveMedication" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal"
+                        aria-hidden="true">
+                </button>
+                <span [hidden]="isUpdate">
+                    <h4 class="modal-title">Add Medication</h4>
+                </span>
+                <span [hidden]="!isUpdate">
+                     <h4 class="modal-title">Update Medication</h4>
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+
+                        <div class="form-group hr">
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">
+                                Appointments<span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+                                    <select
+                                            [(ngModel)]="medicationModel.appointmentId"
+                                            class="form-control">
+                                        <option value="-1">--- Select Appointment ---</option>
+                                        <option
+                                                *ngFor="let pastApp of pastAppointments"
+                                                [value]="pastApp.id">
+                                            {{pastApp.appointmentId}},
+                                            {{"Schedule Date:"+pastApp.scheduleDate}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                Drug name:<span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="text" class="form-control"
+                                       aria-autocomplete="list"
+                                       id="drugNameId"
+                                       name="drugName"
+                                       [(ngModel)]="medicationModel.drugName">
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                PRN
+                            </label>
+                            <div class="col-md-1 select pdng-lr-5">
+                                <input type="checkbox" class="form-control"
+                                       id="prnId"
+                                       name="prn"
+                                       #prnId="ngModel"
+                                       [(ngModel)]="medicationModel.prn">
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Sig note</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <textarea class="form-control"
+                                          id="sigNoteId" rows="1" cols="60"
+                                          name="sigNote"
+                                          #sigNoteId="ngModel"
+                                          [(ngModel)]="medicationModel.sigNote">
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Indication</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="text" class="form-control"
+                                       name="indication"
+                                       id="indicationId"
+                                       [(ngModel)]="medicationModel.indication">
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <select class="form-control"
+                                        name="status"
+                                        id="statusId"
+                                        [(ngModel)]="medicationModel.status">
+                                    <option value="ACTIVE">Active</option>
+                                    <option value="IN_ACTIVE">In_Active</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label">Datetime Prescribed</label>
+                            <div class="col-md-4 col-xs-12">
+                                <div class=" col-md-12 col-xs-12 pull-left no-padding">
+                                    <mwl-demo-utils-date-time-picker
+                                            name="datePrescribed"
+                                            id="datePrescribedId"
+                                            [(ngModel)]="medicationModel.datePrescribed"
+                                            placeholder="Not set">
+                                    </mwl-demo-utils-date-time-picker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label">Datetime Started Taking</label>
+                            <div class="col-md-4 col-xs-12">
+                                <div class=" col-md-12 col-xs-12 pull-left no-padding">
+                                    <mwl-demo-utils-date-time-picker
+                                            name="dateStartedTaking"
+                                            id="dateStartedTakingId"
+                                            [(ngModel)]="medicationModel.dateStartedTaking"
+                                            placeholder="Not set">
+                                    </mwl-demo-utils-date-time-picker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label">Datetime Stopped Taking</label>
+                            <div class="col-md-4 col-xs-12">
+                                <div class=" col-md-12 col-xs-12 pull-left no-padding">
+                                    <mwl-demo-utils-date-time-picker
+                                            name="dateStoppedTaking"
+                                            id="dateStoppedTakingId"
+                                            [(ngModel)]="medicationModel.dateStoppedTaking"
+                                            placeholder="Not set">
+                                    </mwl-demo-utils-date-time-picker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                Dispense quantity
+                            </label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="number" step="0.001"
+                                       class="form-control"
+                                       name="dispenseQuantity"
+                                       id="dispenseQuantityId"
+                                       [(ngModel)]="medicationModel.dispenseQuantity">
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                Dispense Package
+                            </label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="text"
+                                       class="form-control"
+                                       name="dispensePackage"
+                                       id="dispensePackageId"
+                                       [(ngModel)]="medicationModel.dispensePackage">
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                DAW
+                            </label>
+                            <div class="col-md-1 select pdng-lr-5">
+                                <input type="checkbox" class="form-control"
+                                       id="dawId"
+                                       name="daw"
+                                       [(ngModel)]="medicationModel.daw">
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Pharmacy note</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <textarea class="form-control"
+                                          rows="3"
+                                          [(ngModel)]="medicationModel.pharmacyNote">
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <textarea class="form-control"
+                                          rows="3"
+                                          [(ngModel)]="medicationModel.note">
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Order Status</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <select class="form-control"
+                                        name="orderStatus"
+                                        id="orderStatusId"
+                                        [(ngModel)]="medicationModel.orderStatus">
+                                    <option value="">--- Select Order Status ---</option>
+                                    <option value="Ordered">Ordered</option>
+
+                                    <option value="Administered during visit">Administered during visit</option>
+
+                                    <option value="Electronic eRx Sent">Electronic eRx Sent</option>
+
+                                    <option value="Phoned into Pharmacy">Phoned into Pharmacy</option>
+
+                                    <option value="Faxed to Pharmacy">Faxed to Pharmacy</option>
+
+                                    <option value="Paper Rx">Paper Rx</option>
+
+                                    <option value="Prescription Printed">Prescription Printed</option>
+
+                                    <option value="Discontinued">Discontinued</option>
+
+                                    <option value="Prescribed by other Dr">Prescribed by other Dr</option>
+
+                                    <option value="Over the Counter">Over the Counter</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal"
+                        #closeBtnMedication
+                        id="closeBtnMedication"
+                        name="closeBtnMedication"
+                        class="btn btn-default btn-outline">Close
+                </button>
+                <span [hidden]="isUpdate">
+                    <button type="button" class="btn green" (click)="saveMedication()">Save</button>
+                </span>
+                <span [hidden]="!isUpdate">
+                    <button type="button" class="btn green" (click)="updateMedication()">Update
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

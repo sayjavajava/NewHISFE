@@ -96,7 +96,7 @@ import {PatientAppointmentComponent} from "./components/dashboard/patient/patien
 
 import {PatientDocumentsComponent} from "./components/dashboard/patient/patient-document.component";
 import {PatientProblemListComponent} from "./components/dashboard/patient/patient-problem-list.component";
-import {PatientMedicalListComponent} from "./components/dashboard/patient/patient-medical-list.component";
+import {PatientMedicationListComponent} from "./components/dashboard/patient/patient-medication-list.component";
 import {PatientAllergyListComponent} from "./components/dashboard/patient/patient-allergy-list.component";
 import {PatientLabOrdersComponent} from "./components/dashboard/patient/patient-lab-orders.component";
 import {PatientCommunicationComponent} from "./components/dashboard/patient/patient-communication.component";
@@ -181,7 +181,7 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         PatientHistoryMenuComponent,
         PatientDocumentsComponent,
         PatientProblemListComponent,
-        PatientMedicalListComponent,
+        PatientMedicationListComponent,
         PatientAllergyListComponent,
         PatientLabOrdersComponent,
         PatientCommunicationComponent,
