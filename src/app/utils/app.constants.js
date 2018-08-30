@@ -108,6 +108,7 @@ var AppConstants = (function () {
     AppConstants.MEDICATION_GET_URL = '/patient/medication/get?';
     AppConstants.MEDICATION_UPDATE_URL = '/patient/medication/update';
     AppConstants.MEDICATION_DELETE_URI = '/patient/medication/delete/';
+    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
@@ -118,6 +119,7 @@ var AppConstants = (function () {
     AppConstants.FETCH_APPOINTMENTS_URL = '/appointment/';
     ////////////////////// Dashboard URLs ///////////////////////////////
     AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
+    AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

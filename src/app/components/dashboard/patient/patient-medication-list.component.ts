@@ -13,6 +13,7 @@ import {AppConstants} from "../../../utils/app.constants";
     templateUrl: '../../../templates/dashboard/patient/patient-medication-list.template.html',
 })
 export class PatientMedicationListComponent implements OnInit {
+    id: any;
 
     nextPage: any;
     prePage: any;
@@ -34,17 +35,17 @@ export class PatientMedicationListComponent implements OnInit {
                 private router: Router,
                 private activatedRoute: ActivatedRoute) {
 
-        const queryParams = this.activatedRoute.snapshot.queryParams
-        console.log(queryParams);
-        const routeParams = this.activatedRoute.snapshot.params;
-        console.log(routeParams);
+        /* const queryParams = this.activatedRoute.snapshot.queryParams
+         console.log(queryParams);
+         const routeParams = this.activatedRoute.snapshot.params;
+         console.log(routeParams);*/
         // do something with the parameters
-        this.selectedPatientId = routeParams.id;// i think id will patient id according to current situation
+        // this.selectedPatientId = routeParams.id;// i think id will patient id according to current situation
 
         this.activatedRoute.params.subscribe(params => {
+            console.log(params['id']);
             this.selectedPatientId = params['id'];
         });
-
         this.getPaginatedMedicationFromServer(0);
     }
 
@@ -79,12 +80,12 @@ export class PatientMedicationListComponent implements OnInit {
     addMedication() {
         this.isUpdate = false;
         this.medicationModel = new MedicationModel();
-        this.appointmentsByPatientFromServer(1);
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
 
     saveMedication() {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.medicationModel.patientId = 1;// this.selectedPatientId;
+            this.medicationModel.patientId = this.selectedPatientId;
             this.requestsService.postRequest(
                 AppConstants.MEDICATION_SAVE_URL, this.medicationModel)
                 .subscribe(
@@ -92,7 +93,7 @@ export class PatientMedicationListComponent implements OnInit {
                         if (response['responseCode'] === 'MEDICATION_SUC_28') {
                             this.notificationService.success(response['responseMessage'], 'Medication');
                             this.getPaginatedMedicationFromServer(0);
-                           // this.closeBtnMedication.nativeElement.click();
+                            // this.closeBtnMedication.nativeElement.click();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Medication');
                             this.getPaginatedMedicationFromServer(0);

@@ -18,6 +18,12 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var PatientMedicationListComponent = (function () {
     function PatientMedicationListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
+        /* const queryParams = this.activatedRoute.snapshot.queryParams
+         console.log(queryParams);
+         const routeParams = this.activatedRoute.snapshot.params;
+         console.log(routeParams);*/
+        // do something with the parameters
+        // this.selectedPatientId = routeParams.id;// i think id will patient id according to current situation
         var _this = this;
         this.notificationService = notificationService;
         this.requestsService = requestsService;
@@ -31,13 +37,8 @@ var PatientMedicationListComponent = (function () {
         this.isUpdate = false;
         this.futureAppointments = [];
         this.pastAppointments = [];
-        var queryParams = this.activatedRoute.snapshot.queryParams;
-        console.log(queryParams);
-        var routeParams = this.activatedRoute.snapshot.params;
-        console.log(routeParams);
-        // do something with the parameters
-        this.selectedPatientId = routeParams.id; // i think id will patient id according to current situation
         this.activatedRoute.params.subscribe(function (params) {
+            console.log(params['id']);
             _this.selectedPatientId = params['id'];
         });
         this.getPaginatedMedicationFromServer(0);
@@ -69,12 +70,12 @@ var PatientMedicationListComponent = (function () {
     PatientMedicationListComponent.prototype.addMedication = function () {
         this.isUpdate = false;
         this.medicationModel = new medication_model_1.MedicationModel();
-        this.appointmentsByPatientFromServer(1);
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     };
     PatientMedicationListComponent.prototype.saveMedication = function () {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            this.medicationModel.patientId = 1; // this.selectedPatientId;
+            this.medicationModel.patientId = this.selectedPatientId;
             this.requestsService.postRequest(app_constants_1.AppConstants.MEDICATION_SAVE_URL, this.medicationModel)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MEDICATION_SUC_28') {
