@@ -65,6 +65,7 @@ var PatientLabOrdersComponent = (function () {
             'comments': [null],
             'patientId': [null],
             'appointmentId': [null],
+            'selectedAppointment': [null, forms_1.Validators.required],
             'labTest': this.fb.array([this.createLabTest()]),
         });
     };
@@ -108,6 +109,7 @@ var PatientLabOrdersComponent = (function () {
     };
     PatientLabOrdersComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
+        console.log('i am validating');
         Object.keys(formGroup.controls).forEach(function (field) {
             var control = formGroup.get(field);
             if (control instanceof forms_1.FormControl) {

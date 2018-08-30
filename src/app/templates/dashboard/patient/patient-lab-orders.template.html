@@ -125,7 +125,7 @@
                         <div class="form-group">
                             <label class="col-md-3">Appointments</label>
                             <div class="col-md-5">
-                                <select class="form-control" (change)="selectedAppointment($event.target.value)">
+                                <select class="form-control" (change)="selectedAppointment($event.target.value)" formControlName="selectedAppointment">
                                     <!--[ngModelOptions]="{standalone:true}"-->
                                     <!--[(ngModel)]="event.branch"-->
                                     <option value="0">-- Select --</option>
@@ -136,6 +136,8 @@
                                 </select>
 
                             </div>
+                            <span class="text-danger"
+                                  *ngIf="!labForm.controls['selectedAppointment'].valid &&  userForm.controls['selectedAppointment'].touched">select interval</span>
 
                         </div>
 

@@ -59,6 +59,7 @@ export class PatientLabOrdersComponent implements OnInit {
             'comments': [null],
             'patientId' :[null],
             'appointmentId':[null],
+            'selectedAppointment':[null,Validators.required],
             'labTest': this.fb.array([this.createLabTest()]),
         })
     }
@@ -100,13 +101,14 @@ export class PatientLabOrdersComponent implements OnInit {
                         this.notificationService.error('ERROR', 'LabOrder is not Created');
                     });
 
-        } else {
+        } else {         
             this.validateAllFormFields(this.labForm);
         }
 
     }
 
     validateAllFormFields(formGroup: FormGroup) {
+        console.log('i am validating');
         Object.keys(formGroup.controls).forEach(field => {
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
