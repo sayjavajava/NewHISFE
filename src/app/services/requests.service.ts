@@ -27,7 +27,7 @@ export class RequestsService {
         var contextPath = '/' + AppConfig.BE_API_CONTEXT_PATH;
         if (protocol === '' || !protocol || server === '' || !server)
             return ''
-        else {    
+        else {
             if (port === '' || !port) {
                 return protocol + AppConfig.BE_HTTP_SEPARATOR + server + ':' + port + contextPath
             }
