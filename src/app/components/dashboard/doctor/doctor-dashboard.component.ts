@@ -136,7 +136,7 @@ export class DoctorDashboardComponent {
                             this.error = error.error.error;
                         });
                 }
-            });
+            });     
     }
 
     patientHistory(id:any){
