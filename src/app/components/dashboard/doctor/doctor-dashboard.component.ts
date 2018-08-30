@@ -97,7 +97,7 @@ export class DoctorDashboardComponent{
         }else {
             const arr = this.dashboardListModified.filter(x => x.doctorLastName == value);
             this.dashboardListModified = arr;
-        }
+        }      
     }
 
     getfilteredStatus(value: any) {
