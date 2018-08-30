@@ -15,10 +15,16 @@ var requests_service_1 = require("../../../services/requests.service");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_constants_1 = require("../../../utils/app.constants");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
+var notification_service_1 = require("../../../services/notification.service");
+var material_1 = require("@angular/material");
+var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var DoctorDashboardComponent = (function () {
-    function DoctorDashboardComponent(requestService, router, titleService) {
+    function DoctorDashboardComponent(requestService, router, snackBar, notificationService, confirmationDialogService, titleService) {
         this.requestService = requestService;
         this.router = router;
+        this.snackBar = snackBar;
+        this.notificationService = notificationService;
+        this.confirmationDialogService = confirmationDialogService;
         this.titleService = titleService;
         this.title = 'Doctor Dashboard';
         this.dashboardList = [];
@@ -96,6 +102,27 @@ var DoctorDashboardComponent = (function () {
             this.dashboardListModified = arr;
         }
     };
+    DoctorDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId) {
+        var _this = this;
+        var that = this;
+        this.confirmationDialogService
+            .confirm('Delete', 'Are you sure you want to do this?')
+            .subscribe(function (res) {
+            if (res == true) {
+                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                    .subscribe(function (res) {
+                    if (res['responseCode'] === "STATUS_SUC_01") {
+                        _this.snackBar.open('Status Updated', 'Status has been Updated Successfully', { duration: 3000 });
+                    }
+                }, function (error) {
+                    _this.error = error.error.error;
+                });
+            }
+        });
+    };
+    DoctorDashboardComponent.prototype.patientHistory = function (id) {
+        this.router.navigate(['/dashboard/patient/history', id]);
+    };
     DoctorDashboardComponent = __decorate([
         core_1.Component({
             selector: 'doctor-dashboard-component',
@@ -104,6 +131,9 @@ var DoctorDashboardComponent = (function () {
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,
+            material_1.MatSnackBar,
+            notification_service_1.NotificationService,
+            ConformationDialogService_1.ConformationDialogService,
             platform_browser_1.Title])
     ], DoctorDashboardComponent);
     return DoctorDashboardComponent;

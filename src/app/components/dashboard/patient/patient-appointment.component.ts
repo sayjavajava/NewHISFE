@@ -21,6 +21,7 @@ export class PatientAppointmentComponent implements OnInit {
         //throw new Error("Method not implemented.");
 
         this.route.params.subscribe(params => {
+
             this.id = params['id'];
         });
         this.loadRecord();

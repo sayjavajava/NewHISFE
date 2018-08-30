@@ -78,129 +78,132 @@
             </div>
         </div>
         <div class="row">
-            <form class="form-horizontal" role="form">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Title</label>
-                        <div class="col-md-8 frm-stng select">
-                            <select class="form-control">
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                                <option>Option 4</option>
-                                <option>Option 5</option>
-                            </select>
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
-                        </div>
+            <div class="col-md-12">
+            <form [formGroup]="labForm" class="form-horizontal">
+            <div class="hr">
+                    <div class="col-md-12">
+                        <h3 class="text-info">Enter Lab Orders</h3>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Lab result value</label>
-                        <div class="col-md-8 frm-stng">
-                            <input type="email" class="form-control" placeholder="Enter text">
+                    <div class="col-md-8">
+
+                        <div class="form-group">
+                                <label class="control-label col-md-3">Status</label>
+                                <div class="col-md-5">
+                                    <select class="form-control" formControlName="orderStatus" (change)="goToStatus($event.target.value)">
+                                        <option value="">Select...</option>
+                                        <option value="COMPLETED">COMPLETED</option>
+                                        <option value="IN_PROGRESS"> IN PROGRESS</option>
+                                        <option value="CANCELLED">CANCELLED</option>
+                                        <option value="REVIEW">REVIEW</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-4">Status of the lab order.</div>
+                            </div>
+                            <!--<div class="form-group">
+                                <label class="control-label col-md-3">Date test performed</label>
+                                <div class="col-md-5"><input class="form-control form-control-inline input-medium date-picker" size="16"  formControlName="orderTestDate" type="text" value=""></div>
+                            </div>-->
+                        <div class="form-group ">
+                            <label class="control-label col-md-3">Test Date </label>
+                            <div class="col-md-5">
+                            <mwl-demo-utils-date-time-picker
+                                    [(ngModel)] ="dateTest"
+                                    formControlName="orderTestDate"
+                                    placeholder="Not set">
+                            </mwl-demo-utils-date-time-picker>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Lab normal range</label>
-                        <div class="col-md-8 frm-stng">
-                            <input type="email" class="form-control" placeholder="Enter text">
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Comments</label>
+                                <div class="col-md-5">
+                                    <textarea class="form-control" formControlName="comments"  style="height: 50em; width: 22em "></textarea>
+                                </div>
+                                <div class="col-md-4">Status of the lab order.</div>
+                            </div>
+                        <div class="form-group">
+                            <label class="col-md-3">Appointments</label>
+                            <div class="col-md-5">
+                                <select class="form-control" (change)="selectedAppointment($event.target.value)">
+                                    <!--[ngModelOptions]="{standalone:true}"-->
+                                    <!--[(ngModel)]="event.branch"-->
+                                    <option value="0">-- Select --</option>
+                                    <option  *ngFor="let item of patient.pastAppointments; let i = index;"
+                                             value={{item.id}}>
+                                        {{item.scheduleDate}}
+                                    </option>
+                                </select>
+
+                            </div>
+
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Lab abnormal flag</label>
-                        <div class="col-md-8 frm-stng select">
-                            <select class="form-control">
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                                <option>Option 4</option>
-                                <option>Option 5</option>
-                            </select>
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
-                        </div>
+
+
+
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Loinc code</label>
-                        <div class="col-md-8 frm-stng select">
-                            <input type="text" class="form-control" placeholder="Enter text">
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
+            <div class="col-md-12 table-responsive round-table no-padding" formArrayName="labTest" *ngFor="let item of labForm.get('labTest').controls; let i = index;">
+                <div class="form-group" [formGroupName]="i">
+                  <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
+                    <thead>
+                    <tr role="row" class=" hedng-bck-clr"><th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> LOINC Code </th><th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th><th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result value </th><th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Units </th><th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Normal Range </th>
+                        <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Actions </th></tr>
+                    <tr role="row" class="filter">
+                        <td rowspan="1" colspan="1"> <input type="text" formControlName="loincCode" class="form-control" value="23"> </td>
+                       <!-- <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>-->
+                        <td rowspan="1" colspan="1"> <input type="text" formControlName="description" class="form-control" value="23"> </td>
+                        <td rowspan="1" colspan="1"> <input type="text" formControlName="units" class="form-control" value="23"> </td>
+                        <td rowspan="1" colspan="1"> <input type="text" formControlName="resultValue" class="form-control" value="45"> </td>
+                        <td rowspan="1" colspan="1"> <input type="text" formControlName="normalRange" class="form-control" value="100"> </td>
+
+                        <td rowspan="1" colspan="1"> <button class="btn btn-default btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>
+                    </tr>
+
+                    <!--<div formArrayName="examRooms"
+                         *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
+                        <div class="form-group" [formGroupName]="i">
+                            <label class="control-label col-md-4">Exam Rooms
+                            </label>
+                            <div class="col-md-3 no-padding-rgt">
+                                <input type="text" class="form-control"
+                                       style="width: 128px !important;"
+                                       formControlName="roomName">
+                            </div>
+                            <div class="col-md-5 pdng-lr-5 mrgn-top4">
+                                <label class="mt-checkbox-outline">
+                                    <input type="checkbox"
+                                           formControlName="allowOnlineScheduling"> Allow Online
+                                    Scheduling
+                                    <span></span>
+                                </label>
+                                <i (click)="deleteField(i)" title="Remove"
+                                   class="fa fa-close font-red"></i>
+                            </div>
+                            &lt;!&ndash;<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>&ndash;&gt;
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Lab result value units</label>
-                        <div class="col-md-8 frm-stng">
-                            <input type="text" class="form-control" placeholder="Enter text">
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">lab normal range units</label>
-                        <div class="col-md-8 frm-stng">
-                            <input type="text" class="form-control" placeholder="Enter text">
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Date test performed</label>
-                        <div class="col-md-8 frm-stng select">
-                            <select class="form-control">
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                                <option>Option 4</option>
-                                <option>Option 5</option>
-                            </select>
-                        </div>
-                    </div>
+                    </div>-->
+
+                    </thead>
+                  </table>
                 </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label txt-size txt-size-label">Doctor signoff</label>
-                        <p class="col-md-10 txt-size-p"><input type="checkbox">Set to True when doctor has reviewed lab result and taken appropriate action.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Title</label>
-                        <div class="col-md-8 frm-stng select">
-                            <input type="text" class="form-control" placeholder="Enter text">
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Scanned in result</label>
-                        <div class="col-md-8 frm-stng">
-                            <select class="form-control">
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                                <option>Option 4</option>
-                                <option>Option 5</option>
-                            </select>
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label txt-size">Doctor comments</label>
-                        <div class="col-md-8 frm-stng select">
-                            <textarea class="form-control" rows="3"></textarea>
-                            <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="pull-right">
+                               <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons" data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success" (click)="addMoreTest()"><i class="fa fa-plus"></i> Add another </button>
+            </div>
+
+
+
                 <div class="hr text-center bdr-top bdr-btm padding-b-10 padding-t-10">
-                    <button class="btn blue"> Submit Order </button>
+                    <button class="btn blue" (click)="addLabOrder(labForm.value)"> Submit Order </button>
                 </div>
             </form>
+            </div>
         </div>
-        <div class="clearfix">
+        <!--<div class="clearfix">
             <a (click)="goToUserDashBoard();" class="nav-link">
                 <button type="button" class="btn  btn-default"> Cancel</button>
             </a>
-        </div>
+        </div>-->
     </div>
 </div>

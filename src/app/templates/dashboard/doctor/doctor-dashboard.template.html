@@ -1,27 +1,5 @@
 <div class="page-container">
-    <!--
-    <div class="page-sidebar-wrapper">
-        <div class="page-sidebar navbar-collapse collapse">
-            <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                <li class="sidebar-toggler-wrapper hide">
-                    <div class="sidebar-toggler"> <span></span> </div>
-                </li>
-                <li class="nav-item start active open"> <a href="demographics.html" class="nav-link"> <i class=" icon-users"></i> <span class="title">Demographics</span> </a> </li>
-                <li class="nav-item"> <a href="appointments.html" class="nav-link"> <i class=" icon-calendar"></i> <span class="title">Appointments</span> </a> </li>
-                <li class="nav-item"> <a href="clinical-dashboard.html" class="nav-link"> <i class=" icon-home"></i> <span class="title">Clinical Dashboard</span> </a> </li>
-                <li class="nav-item"> <a href="documents.html" class="nav-link"> <i class="icon-docs"></i> <span class="title">Documents</span> </a> </li>
-                <li class="nav-item"> <a href="problems-list.html" class="nav-link"> <i class="icon-list"></i> <span class="title">Problems list</span> </a> </li>
-                <li class="nav-item"> <a href="medical-list.html" class="nav-link"> <i class="icon-list"></i> <span class="title">Medical List </span> </a> </li>
-                <li class="nav-item"> <a href="allergy-list.html" class="nav-link"> <i class="icon-list"></i> <span class="title">AllergyList</span> </a> </li>
-                <li class="nav-item"> <a href="lab-orders.html" class="nav-link"> <i class=" icon-check"></i> <span class="title">Lab Orders</span> </a> </li>
-                <li class="nav-item"> <a href="onpatient-access.html" class="nav-link"> <i class="icon-user"></i> <span class="title">Onpatient Access</span> </a> </li>
-                <li class="nav-item"> <a href="communication.html" class="nav-link"> <i class=" icon-call-in"></i> <span class="title">Communication</span> </a> </li>
-                <li class="nav-item"> <a href="family-history.html" class="nav-link"> <i class=" icon-doc"></i> <span class="title">Family History</span> </a> </li>
-            </ul>
 
-        </div>
-    </div>
-    -->
     <div class="page-content-wrapper">
         <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
             <div class="row">
@@ -65,76 +43,7 @@
                                  <option value="REGULAR">REGULAR</option>
 
                              </select>
-                             <!--<div class="form-group">
-                                 <div class="mt-checkbox-inline">
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Arrived8" value="Arrived"> Arrived
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Checked In7" value="Checked In"> Checked In
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Arrived6" value="Arrived"> In Room
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Checked In5" value="Checked In"> In Session
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Arrived4" value="Arrived"> Complete
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Checked In3" value="Checked In"> Confirmed
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Arrived2" value="Arrived"> Not Confirmed
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Checked In1" value="Checked In"> Cancelled
-                                         <span></span>
-                                     </label>
-                                 </div>
-                             </div>-->
-                             <!--<div class="">
-                                 <span class="slct-txts"><a href="#">Select All</a></span>
-                                 <span class="slct-txts"><a href="#">Select None</a></span>
-                             </div>-->
                          </div>
-                        <!--<div class="col-md-3 no-padding">
-                            <div class="">
-                                <h4 class="font-green-meadow">Branch</h4>
-                                <select class="form-control" (change)="getFilteredBranch($event.target.value)">
-                                    <option value="All">&#45;&#45; All &#45;&#45;</option>
-                                    <option *ngFor="let item of branches; let i = index;"
-                                            value={{item.branchName}} (keyup)="refresh.next()">
-                                        {{item.name}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3 no-padding">
-                            <div class="">
-                                <h4 class="font-green-meadow">Doctor</h4>
-
-                                    <div class="form-group font-siz11">
-                                        <label>Doctor:</label>
-                                        <select class="form-control" (change)="getfilteredDoctor($event.target.value)">
-                                            <option value="All">&#45;&#45; All &#45;&#45;</option>
-                                            <option *ngFor="let item of doctorsList; let i = index;"
-                                                    value={{item.lastName}} (keyup)="refresh.next()">
-                                                {{item.firstName}} {{item.lastName}}
-                                            </option>
-                                        </select>
-                                    </div>
-
-                            </div>
-                        </div>-->
                     </div>
                 </div>
             </div>
@@ -158,16 +67,16 @@
                             </thead>
                             <tbody>
                             <tr class="tbl-pdng" *ngFor="let item of dashboardListModified">
-                                <td>{{item.appointmentId}}</td>
+                                <td>{{item.apptNaturalId}}</td>
                                 <td><div class="mt-action-dot bg-green-meadow"></div></td>
-                                <td>{{item.inTime}}</td>
+                                <td>{{item.inTime | date: 'shortTime' }}</td>
                                 <td>{{item.branch}}</td>
                                 <td><p> {{item.patientFirstName}} {{item.patientLastName}}</p></td>
                                 <td><a href="#" class="font-blue"></a><a href="#" class="font-blue">{{item.scheduleAt}}</a></td>
                                 <td>{{item.doctorFirstName}} {{item.doctorLastName}}</td>
                                 <td>{{item.examRoom}}</td>
                                 <td><select class="form-control" [ngModelOptions]="{standalone:true}"
-                                            [(ngModel)]="item.status">
+                                            [(ngModel)]="item.status" (change)="getUpdatedStatus($event.target.value,item.apptNaturalId)">
                                     <option value="IN_SESSION">IN SESSION</option>
                                     <option value="COMPLETE">COMPLETE</option>
                                     <option value="IN_ROOM">IN ROOM</option>
@@ -182,7 +91,7 @@
                                     <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
                                         <i class="fa fa-dollar" style="font-size:18px"></i>
                                     </a>
-                                    <a title="Patient History" routerLink="/dashboard/patient/history">
+                                    <a title="Patient History"  (click)="patientHistory(item.patientId)">
                                         <i class="fa fa-hospital-o" style="font-size:18px"></i>
                                     </a>
                                 </td>

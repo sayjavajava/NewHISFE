@@ -272,6 +272,7 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+        console.log("day cliked in months");
         if (isSameMonth(date, this.viewDate)) {
             if (
                 (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -291,16 +292,16 @@ export class AddAppointmentComponent implements OnInit {
                       }: CalendarEventTimesChangedEvent): void {
         event.start = newStart;
         event.end = newEnd;
+        console.log("time changing ....")
         this.handleEvent('Dropped or resized', event);
         this.refresh.next();
     }
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = {event, action};
-        console.log(event);
+        console.log('testing day ' +event);
         this.Type.filter(e => event.appointmentType.includes(e.name)).map(e => e.checked = true);
         this.selectedType = event.appointmentType;
-        console.log('color:' + event.colorHash);
         var filteredData2 = this.branches.filter(x => x.id == event.branchId);
         this.examRooms = filteredData2[0].examRooms;
         // this.modal.open(this.modalContent, {size: 'lg'});
