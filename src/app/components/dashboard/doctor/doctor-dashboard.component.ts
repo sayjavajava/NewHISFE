@@ -128,7 +128,7 @@ export class DoctorDashboardComponent {
             .subscribe(res => {
                 if (res == true) {
                     this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
-                        .subscribe((res: Response) => {      
+                        .subscribe((res: Response) => {
                             if (res['responseCode'] === "STATUS_SUC_01") {
                                 this.snackBar.open('Status Updated', 'Status has been Updated Successfully', {duration: 3000});
                             }
