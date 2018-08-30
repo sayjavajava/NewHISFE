@@ -118,7 +118,6 @@ export class AppConstants {
     public static MEDICATION_DELETE_URI = '/patient/medication/delete/';
 
     public static LAB_ORDER_CREATE ='/patient/laborder/create';
-
     ////////////////////// Appointments URLs ///////////////////////////////
     public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     public static CREATE_APPOINTMENT_URL = '/appointment/create';
