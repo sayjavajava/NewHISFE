@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Appointment = (function () {
-    function Appointment(title, branchId, doctorId, scheduleDateAndTime, scheduleDate, end, draggable, selectedRecurringDays, appointmentType, notes, patient, reason, status, duration, followUpDate, followUpReason, followUpReminder, recurringAppointment, recurseEvery, firstAppointment, lastAppointment, examRoom, age, cellPhone, gender, email, color, roomId) {
+    function Appointment(title, branchId, doctorId, scheduleDateAndTime, scheduleDate, end, draggable, selectedRecurringDays, appointmentType, notes, patientId, reason, status, duration, followUpDate, followUpReason, followUpReminder, recurringAppointment, recurseEvery, firstAppointment, lastAppointment, examRoom, age, cellPhone, gender, email, color, roomId, newPatient, dob) {
         this.title = title;
         this.branchId = branchId;
         this.doctorId = doctorId;
@@ -12,7 +12,7 @@ var Appointment = (function () {
         this.draggable = draggable;
         this.appointmentType = appointmentType;
         this.notes = notes;
-        this.patient = patient;
+        this.patientId = patientId;
         this.reason = reason;
         this.status = status;
         this.duration = duration;
@@ -30,6 +30,8 @@ var Appointment = (function () {
         this.email = email;
         this.color = color;
         this.roomId = roomId;
+        this.newPatient = newPatient;
+        this.dateOfBirth = dob;
     }
     return Appointment;
 }());

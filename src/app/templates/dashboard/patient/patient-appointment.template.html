@@ -10,72 +10,66 @@
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
-                                <h1 class="page-title no-margin"> Dan Dan</h1>
-                                <small class="small-txt">( Male | 42 years old | April 18, 1973)</small>
+                                <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob}})</small>
                             </div>
                             <div class="hr padding-b-10">
-                                <div class="col-md-4 col-xs-12">
+                                <div class="col-md-3 col-xs-12">
                                     <table width="100%" border="0">
                                         <tr>
-                                            <td class="txt-rigt">Phone:</td>
-                                            <td class="font-red">Missing</td>
+                                            <td class="txt-rigt">Cell Phone:</td>
+                                            <td class="txt-left font-red">{{patient.cellPhone}}</td>
+                                            <!--<td class="font-red">Missing</td>-->
                                         </tr>
                                         <tr>
                                             <td class="txt-rigt">Address:</td>
-                                            <td class="font-red">No address on file</td>
+                                            <td class="text-left font-red">{{patient.formattedAddress}}</td>
+                                            <!--<td class="font-red">No address on file</td>-->
                                         </tr>
                                     </table>
 
                                 </div>
-                                <div class="col-md-4 col-xs-12">
+                                <div class="col-md-3 col-xs-12">
                                     <table width="100%" border="0">
                                         <tr>
                                             <td class="txt-rigt">Email:</td>
-                                            <td class="font-red">Missing</td>
+                                            <td class="text-left font-red">{{patient.email}}</td>
+                                           <!-- <td class="font-red">Missing</td>-->
                                         </tr>
                                         <tr>
-                                            <td class="txt-rigt">Future Appt:</td>
+                                            <td class="txt-rigt">Gender:</td>
+                                            <td class="text-left font-red">{{patient.gender}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <!--<tr>
+                                            <td class="txt-rigt">Appt:</td>
                                             <td class="font-red">Mon. Jul. 27, 2015</td>
-                                        </tr>
+                                        </tr>-->
                                     </table>
 
                                 </div>
-                                <div class="col-md-4 col-xs-12">
-                                    <table width="100%" border="0">
-                                        <tr>
-                                            <td class="txt-rigt">Added:</td>
-                                            <td>Nov. 24, 2015</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="txt-rigt">Last Appt:</td>
-                                            <td>Mon. Jul. 27, 2015</td>
-                                        </tr>
-                                    </table>
 
-                                </div>
                             </div>
                         </div>
-                        <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">DADA0000002 </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>
+                      <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
                     </div>
                     <div class="hr no-margin">
                         <div class="hr">
                             <div class="portlet-title">
-                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">Muhammad Imran</span> </div>
+                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
                             </div>
                         </div>
-                        <div class="hr no-margin">
+                       <!-- <div class="hr no-margin">
                             <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
                             <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
-                    <h4 class="text-info">Future Appointments<button class="btn btn-default btn-outline btn-sm pull-right"> Printer Friendly Future Appointments </button></h4>
-                </div>
+
                 <div class="table-scrollable tbl-brdr-radus">
                     <table class="table table-hover table-light">
                         <thead>
@@ -84,34 +78,24 @@
                             <th> Doctor </th>
                             <th> Reason </th>
                             <th> Clinic Room </th>
+                            <th> Branch </th>
                             <th> Appointment Status </th>
-                            <th> Billing Status </th>
-                            <th> Actions </th>
+
+
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="tbl-pdng">
-                            <td>No Future Appointment</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-default btn-outline pdngall3 btn-sm pull-right"> <i class="fa fa-pencil"></i> Edit Appointment </button>
-                            </td>
+                        <tr class="tbl-pdng" *ngFor="let item of patient.futureAppointments">
+                            <td>{{item.scheduleDate}}</td>
+                            <td>{{item.docFirstName}}{{item.docLastName}}</td>
+                            <td>{{item.reason}}</td>
+                            <td>{{item.examName}}</td>
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.status}}</td>
+
+
                         </tr>
-                        <tr class="tbl-pdng off-wite-bg">
-                            <td>No Future Appointment</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-default btn-outline pdngall3 btn-sm pull-right"> <i class="fa fa-pencil"></i> Edit Appointment </button>
-                            </td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -120,9 +104,7 @@
 
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
-                    <h4 class="text-info">Past Appointments<button class="btn btn-default btn-outline btn-sm pull-right"> Printer Friendly History </button></h4>
-                </div>
+
                 <div class="table-scrollable tbl-brdr-radus">
                     <table class="table table-hover table-light">
                         <thead>
@@ -131,33 +113,24 @@
                             <th> Doctor </th>
                             <th> Reason </th>
                             <th> Clinic Room </th>
+                            <th> Branch </th>
                             <th> Appointment Status </th>
-                            <th> Billing Status </th>
-                            <th> # Reminders </th>
-                            <th> Actions </th>
+
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="tbl-pdng">
-                            <td>Sun Nov 22, 2015 10:00a.m.</td>
-                            <td>Muhammad Imran</td>
-                            <td></td>
-                            <td>Exam 3</td>
-                            <td>Complete</td>
-                            <td></td>
-                            <td>0</td>
-                            <td></td>
+                        <tr class="tbl-pdng" *ngFor="let item of patient.pastAppointments">
+                            <td>{{item.scheduleDate}}</td>
+                            <td>{{item.docFirstName}}{{item.docLastName}}</td>
+                            <td>{{item.reason}}</td>
+                            <td>{{item.examName}}</td>
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.status}}</td>
+
+
                         </tr>
-                        <tr class="tbl-pdng off-wite-bg">
-                            <td>Sun Nov 22, 2015 10:00a.m.</td>
-                            <td>Muhammad Imran</td>
-                            <td></td>
-                            <td>Exam 3</td>
-                            <td>Complete</td>
-                            <td></td>
-                            <td>0</td>
-                            <td></td>
-                        </tr>
+
+
                         </tbody>
                     </table>
                 </div>

@@ -108,5 +108,11 @@ export class AppConstants {
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
     public static FETCH_APPOINTMENTS_URL = '/appointment/';
 
+    ////////////////////// Dashboard URLs ///////////////////////////////
+    public static FETCH_DASHBOARD_URL = '/dashboard/';
+    public static CHANGE_APPT_STATUS = '/dashboard/changestatus/';
 
+    ////////////////////// Patient History ///////////////////////////////
+    public static LAB_ORDER_CREATE ='/patient/laborder/create';
+    public static FETCH_ALL_LABORDER_URL = '/patient/laborder/';
 }

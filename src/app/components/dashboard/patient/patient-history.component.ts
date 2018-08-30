@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -7,11 +7,15 @@ import {Router} from "@angular/router";
     templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
 })
 export class PatientHistoryComponent implements OnInit {
-    constructor(private router: Router) {
+    id:Number;
+    constructor(private router: Router,private route:ActivatedRoute) {
     }
     ngOnInit(): void {
         //throw new Error("Method not implemented.");
-
+        this.route.params.subscribe(params => {
+            this.id = params['id'];
+            console.log(this.id);
+        });
     }
 
     goToUserDashBoard(){

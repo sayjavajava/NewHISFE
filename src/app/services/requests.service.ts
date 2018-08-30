@@ -98,6 +98,13 @@ export class RequestsService {
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params});
     }
 
+    putRequestWithParam(url: any, _param: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        let params = new HttpParams().set('status', _param);
+        return this.http.put(this.getBEAPIServer() + url, params, {headers: reqHeader});
+    }
+
     searchWithParam(url :any ,param1 :any, param2:any){
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
