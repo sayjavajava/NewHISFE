@@ -30,7 +30,7 @@ export class RequestsService {
         else {
             if (port === '' || !port) {
                 return protocol + AppConfig.BE_HTTP_SEPARATOR + server + ':' + port + contextPath
-            }                     
+            }
             else {
                 return protocol + AppConfig.BE_HTTP_SEPARATOR + server + ':' + port + contextPath
             }
@@ -97,7 +97,7 @@ export class RequestsService {
         let params = new HttpParams().set('name', param);
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params});
     }
-
+    
     putRequestWithParam(url: any, _param: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
