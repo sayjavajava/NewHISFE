@@ -24,10 +24,10 @@ export class RequestsService {
         var protocol = AppConfig.BE_HTTP_PROTOCOL; // http
         var server = AppConfig.BE_API_ENDPOINT; // 192.168.1.188
         var port = AppConfig.BE_API_PORT;
-        var contextPath = '/' + AppConfig.BE_API_CONTEXT_PATH;    
+        var contextPath = '/' + AppConfig.BE_API_CONTEXT_PATH;
         if (protocol === '' || !protocol || server === '' || !server)
             return ''
-        else {
+        else {    
             if (port === '' || !port) {
                 return protocol + AppConfig.BE_HTTP_SEPARATOR + server + ':' + port + contextPath
             }
