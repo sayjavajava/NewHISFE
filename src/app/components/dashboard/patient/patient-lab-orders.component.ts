@@ -16,7 +16,7 @@ export class PatientLabOrdersComponent implements OnInit {
     labForm:FormGroup;
     labTest: any = [];
     dateTest =new Date();
-    id : number;
+    id : number;        
     patient:Patient =new Patient();
     constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,private notificationService:NotificationService,private hISUtilService: HISUtilService) {
     }
@@ -101,7 +101,7 @@ export class PatientLabOrdersComponent implements OnInit {
                         this.notificationService.error('ERROR', 'LabOrder is not Created');
                     });
 
-        } else {         
+        } else {
             this.validateAllFormFields(this.labForm);
         }
 
