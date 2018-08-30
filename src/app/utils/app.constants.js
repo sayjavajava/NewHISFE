@@ -91,7 +91,6 @@ var AppConstants = (function () {
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
-    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
@@ -103,6 +102,9 @@ var AppConstants = (function () {
     ////////////////////// Dashboard URLs ///////////////////////////////
     AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
     AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';
+    ////////////////////// Patient History ///////////////////////////////
+    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
+    AppConstants.FETCH_ALL_LABORDER_URL = '/patient/laborder/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

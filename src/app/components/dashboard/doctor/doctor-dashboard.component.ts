@@ -140,6 +140,7 @@ export class DoctorDashboardComponent {
     }
 
     patientHistory(id:any){
+        console.log('testing.. ');
         this.router.navigate(['/dashboard/patient/history',id]);
     }
 

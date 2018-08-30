@@ -97,7 +97,7 @@ export class AppConstants {
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
-    public static LAB_ORDER_CREATE ='/patient/laborder/create';
+
 
     ////////////////////// Appointments URLs ///////////////////////////////
     public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
@@ -112,5 +112,7 @@ export class AppConstants {
     public static FETCH_DASHBOARD_URL = '/dashboard/';
     public static CHANGE_APPT_STATUS = '/dashboard/changestatus/';
 
-
+    ////////////////////// Patient History ///////////////////////////////
+    public static LAB_ORDER_CREATE ='/patient/laborder/create';
+    public static FETCH_ALL_LABORDER_URL = '/patient/laborder/';
 }

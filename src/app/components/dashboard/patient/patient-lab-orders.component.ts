@@ -13,10 +13,17 @@ import {HISUtilService} from "../../../services/his-util.service";
     templateUrl: '../../../templates/dashboard/patient/patient-lab-orders.template.html',
 })
 export class PatientLabOrdersComponent implements OnInit {
+
+    nextPage: number;
+    prePage: number;
+    currPage: number;
+    pages: number[] = [];
     labForm:FormGroup;
     labTest: any = [];
     dateTest =new Date();
     id : number;
+    error:any;
+    allOrders:any=[];
     patient:Patient =new Patient();
     constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,private notificationService:NotificationService,private hISUtilService: HISUtilService) {
     }
@@ -27,12 +34,37 @@ export class PatientLabOrdersComponent implements OnInit {
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
+        this.getLabOrderFromServer(0);
 
       //  this.addMoreTest();
     }
 
     goToUserDashBoard(){
         this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
+    }
+    getLabOrderFromServer(page: number) {
+        if (page > 0) {
+            page = page;
+
+        }
+        this.requestService.getRequest(
+            AppConstants.FETCH_ALL_LABORDER_URL + page)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BRANCH_SUC_01') {
+                        this.nextPage = response['responseData']['nextPage'];
+                        this.prePage = response['responseData']['prePage'];
+                        this.currPage = response['responseData']['currPage'];
+                        this.pages = response['responseData']['pages'];
+                        this.allOrders = response['responseData']['data'];
+
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                }
+            );
     }
     loadRecord(){
         this.requestService.getRequest(

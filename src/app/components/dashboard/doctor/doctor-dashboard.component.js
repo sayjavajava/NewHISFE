@@ -121,6 +121,7 @@ var DoctorDashboardComponent = (function () {
         });
     };
     DoctorDashboardComponent.prototype.patientHistory = function (id) {
+        console.log('testing.. ');
         this.router.navigate(['/dashboard/patient/history', id]);
     };
     DoctorDashboardComponent = __decorate([
