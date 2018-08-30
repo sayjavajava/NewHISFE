@@ -30,7 +30,7 @@ export class RequestsService {
         else {
             if (port === '' || !port) {
                 return protocol + AppConfig.BE_HTTP_SEPARATOR + server + ':' + port + contextPath
-            }
+            }                     
             else {
                 return protocol + AppConfig.BE_HTTP_SEPARATOR + server + ':' + port + contextPath
             }
