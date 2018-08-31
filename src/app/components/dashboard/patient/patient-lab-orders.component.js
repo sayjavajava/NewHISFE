@@ -25,8 +25,10 @@ var PatientLabOrdersComponent = (function () {
         this.requestService = requestService;
         this.notificationService = notificationService;
         this.hISUtilService = hISUtilService;
+        this.pages = [];
         this.labTest = [];
         this.dateTest = new Date();
+        this.allOrders = [];
         this.patient = new patient_1.Patient();
     }
     PatientLabOrdersComponent.prototype.ngOnInit = function () {
@@ -37,10 +39,29 @@ var PatientLabOrdersComponent = (function () {
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
+        this.getLabOrderFromServer(0);
         //  this.addMoreTest();
     };
     PatientLabOrdersComponent.prototype.goToUserDashBoard = function () {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+    };
+    PatientLabOrdersComponent.prototype.getLabOrderFromServer = function (page) {
+        var _this = this;
+        if (page > 0) {
+            page = page;
+        }
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_LABORDER_URL + page)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BRANCH_SUC_01') {
+                _this.nextPage = response['responseData']['nextPage'];
+                _this.prePage = response['responseData']['prePage'];
+                _this.currPage = response['responseData']['currPage'];
+                _this.pages = response['responseData']['pages'];
+                _this.allOrders = response['responseData']['data'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
     };
     PatientLabOrdersComponent.prototype.loadRecord = function () {
         var _this = this;

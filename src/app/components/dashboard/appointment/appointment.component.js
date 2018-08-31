@@ -14,13 +14,15 @@ var platform_browser_1 = require("@angular/platform-browser");
 var requests_service_1 = require("../../../services/requests.service");
 var router_1 = require("@angular/router");
 var AppointmentComponent = (function () {
-    function AppointmentComponent(requestsService, router, titleService) {
+    function AppointmentComponent(requestsService, router, reguestServices, titleService) {
         this.requestsService = requestsService;
         this.router = router;
+        this.reguestServices = reguestServices;
         this.titleService = titleService;
     }
     ;
     AppointmentComponent.prototype.ngOnInit = function () {
+        ;
         this.titleService.setTitle('HIS | Appointments');
     };
     AppointmentComponent = __decorate([
@@ -30,6 +32,7 @@ var AppointmentComponent = (function () {
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,
+            requests_service_1.RequestsService,
             platform_browser_1.Title])
     ], AppointmentComponent);
     return AppointmentComponent;

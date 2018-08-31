@@ -120,6 +120,8 @@ var AppConstants = (function () {
     ////////////////////// Dashboard URLs ///////////////////////////////
     AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
     AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';
+    ////////////////////// Patient History ///////////////////////////////
+    AppConstants.FETCH_ALL_LABORDER_URL = '/patient/laborder/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

@@ -49,6 +49,8 @@ var AddAppointmentComponent = (function () {
         this.appointmentType = [];
         this.examRooms = [];
         this.test = 'lahore';
+        //temp variable
+        this.apptId = 38;
         this.status = [
             { id: 1, name: 'CONFIRMED' },
             { id: 2, name: 'CHECK_IN' },
@@ -104,6 +106,8 @@ var AddAppointmentComponent = (function () {
     }
     AddAppointmentComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //temp
+        this.getAppointmentById();
         var startTime = new Date('August 8 2018 08:20');
         var endTime = new Date('August 8 2018 08:25');
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_URL)
@@ -189,6 +193,17 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.mouseLeave = function (action, event) {
         this.popup = false;
+    };
+    //temp method
+    AddAppointmentComponent.prototype.getAppointmentById = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_BY_ID + this.apptId)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'APPT_SUC_04') {
+                _this.appt = response['responseData'];
+            }
+        }, function (error) {
+        });
     };
     AddAppointmentComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
