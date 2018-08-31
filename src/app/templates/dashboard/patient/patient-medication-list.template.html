@@ -132,7 +132,7 @@
                             <td>{{medication.numberRefill}}</td>
                             <td>{{medication.sigNote}}</td>
                             <td>{{medication.orderStatus}}</td>
-                            <td>{{medication.datePrescribed}}</td>
+                            <td>{{medication.datePrescribedString}}</td>
                             <td>{{medication.updatedOn}}</td>
                             <td>
                                 <a href="#responsiveMedication" data-toggle="modal"
@@ -187,9 +187,9 @@
 
 
         <div class="clearfix">
-            <a (click)="goToUserDashBoard();" class="nav-link">
+            <!--<a (click)="goToUserDashBoard();" class="nav-link">
                 <button type="button" class="btn  btn-default"> Cancel</button>
-            </a>
+            </a>-->
         </div>
     </div>
 </div>
@@ -247,7 +247,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group hr">
+                        <!--<div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">
                                 PRN
                             </label>
@@ -270,7 +270,7 @@
                                           [(ngModel)]="medicationModel.sigNote">
                                 </textarea>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">Indication</label>
@@ -294,49 +294,42 @@
                                 </select>
                             </div>
                         </div>
+                        <!-- date fields -->
 
                         <div class="form-group hr">
-                            <label class="col-md-4 control-label">Datetime Prescribed</label>
-                            <div class="col-md-4 col-xs-12">
-                                <div class=" col-md-12 col-xs-12 pull-left no-padding">
-                                    <mwl-demo-utils-date-time-picker
-                                            name="datePrescribed"
-                                            id="datePrescribedId"
-                                            [(ngModel)]="medicationModel.datePrescribed"
-                                            placeholder="Not set">
-                                    </mwl-demo-utils-date-time-picker>
-                                </div>
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Prescribed</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="datetime-local"
+                                       class="form-control"
+                                       name="datePrescribed"
+                                       id="datePrescribedId"
+                                       [(ngModel)]="medicationModel.datePrescribedString">
                             </div>
                         </div>
 
                         <div class="form-group hr">
-                            <label class="col-md-4 control-label">Datetime Started Taking</label>
-                            <div class="col-md-4 col-xs-12">
-                                <div class=" col-md-12 col-xs-12 pull-left no-padding">
-                                    <mwl-demo-utils-date-time-picker
-                                            name="dateStartedTaking"
-                                            id="dateStartedTakingId"
-                                            [(ngModel)]="medicationModel.dateStartedTaking"
-                                            placeholder="Not set">
-                                    </mwl-demo-utils-date-time-picker>
-                                </div>
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Started Taking</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="datetime-local"
+                                       class="form-control"
+                                       name="dateStartedTaking"
+                                       id="dateStartedTakingId"
+                                       [(ngModel)]="medicationModel.dateStartedTakingString">
                             </div>
                         </div>
 
                         <div class="form-group hr">
-                            <label class="col-md-4 control-label">Datetime Stopped Taking</label>
-                            <div class="col-md-4 col-xs-12">
-                                <div class=" col-md-12 col-xs-12 pull-left no-padding">
-                                    <mwl-demo-utils-date-time-picker
-                                            name="dateStoppedTaking"
-                                            id="dateStoppedTakingId"
-                                            [(ngModel)]="medicationModel.dateStoppedTaking"
-                                            placeholder="Not set">
-                                    </mwl-demo-utils-date-time-picker>
-                                </div>
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Stopped Taking</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="datetime-local"
+                                       class="form-control"
+                                       name="dateStoppedTaking"
+                                       id="dateStoppedTakingId"
+                                       [(ngModel)]="medicationModel.dateStoppedTakingString">
                             </div>
                         </div>
 
+                        <!--date fields -->
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">
                                 Dispense quantity

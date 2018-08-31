@@ -11,9 +11,11 @@ export class MedicationModel {
     status: string = "ACTIVE";
     patientId: number;
     appointmentId: number = -1;
-    datePrescribed: string = "";
-    dateStartedTaking: string = "";
-    dateStoppedTaking: string = "";
+
+    datePrescribedString: string = "";
+    dateStartedTakingString: string = "";
+    dateStoppedTakingString: string = "";
+
     dispenseQuantity: number;
     dispensePackage: number;
     numberRefill: number;
@@ -21,7 +23,7 @@ export class MedicationModel {
     pharmacyNote: string = "";
     note: string = "";
     orderStatus: string = "";
-    updatedOn:string = "";
+    updatedOn: string = "";
 
 
     constructor() {

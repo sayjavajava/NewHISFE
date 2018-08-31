@@ -12,18 +12,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var PatientHistoryMenuComponent = (function () {
-    function PatientHistoryMenuComponent(router) {
+    function PatientHistoryMenuComponent(router, route) {
         this.router = router;
+        this.route = route;
     }
     PatientHistoryMenuComponent.prototype.ngOnInit = function () {
-        //throw new Error("Method not implemented.");
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.id = params['id'];
+        });
     };
     PatientHistoryMenuComponent = __decorate([
         core_1.Component({
             selector: 'patient-history-menu',
             templateUrl: '../../../templates/dashboard/patient/patient-history-menu.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.Router])
+        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute])
     ], PatientHistoryMenuComponent);
     return PatientHistoryMenuComponent;
 }());

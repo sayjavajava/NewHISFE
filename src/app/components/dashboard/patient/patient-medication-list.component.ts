@@ -6,6 +6,7 @@ import {NotificationService} from "../../../services/notification.service";
 import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {AppConstants} from "../../../utils/app.constants";
+import any = jasmine.any;
 
 
 @Component({
@@ -35,21 +36,14 @@ export class PatientMedicationListComponent implements OnInit {
                 private router: Router,
                 private activatedRoute: ActivatedRoute) {
 
-        /* const queryParams = this.activatedRoute.snapshot.queryParams
-         console.log(queryParams);
-         const routeParams = this.activatedRoute.snapshot.params;
-         console.log(routeParams);*/
-        // do something with the parameters
-        // this.selectedPatientId = routeParams.id;// i think id will patient id according to current situation
-
         this.activatedRoute.params.subscribe(params => {
-            console.log(params['id']);
             this.selectedPatientId = params['id'];
         });
         this.getPaginatedMedicationFromServer(0);
     }
 
     ngOnInit(): void {
+        console.log(this.selectedPatientId);
     }
 
     appointmentsByPatientFromServer(selectedPatientId: number) {
@@ -78,6 +72,7 @@ export class PatientMedicationListComponent implements OnInit {
     }
 
     addMedication() {
+        console.log('test' + this.selectedPatientId);
         this.isUpdate = false;
         this.medicationModel = new MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
@@ -86,6 +81,26 @@ export class PatientMedicationListComponent implements OnInit {
     saveMedication() {
         if (localStorage.getItem(btoa('access_token'))) {
             this.medicationModel.patientId = this.selectedPatientId;
+
+//date.toISOString().slice(0,16)
+
+            console.log(this.medicationModel.datePrescribedString.toString().slice(0,16));
+            // console.log(this.medicationModel.datePrescribedDate.toISOString().re(0,16));
+            // console.log(this.medicationModel.datePrescribedDate.toISOString());
+            // console.log(this.medicationModel.datePrescribedDate.toString());
+            // console.log(this.medicationModel.datePrescribedDate.toDateString());
+            // console.log(this.medicationModel.datePrescribedDate.toTimeString());
+            // console.log(this.medicationModel.datePrescribedDate.toLocaleDateString());
+            // console.log(this.medicationModel.datePrescribedDate.toUTCString());
+            // console.log(this.medicationModel.datePrescribedDate.getTimezoneOffset());
+
+
+            // this.medicationModel.datePrescribedString = this.medicationModel.datePrescribedDate.toISOString();
+            //
+            // this.medicationModel.dateStartedTakingString = this.medicationModel.dateStartedTakingDate.toString();
+            //
+            // this.medicationModel.dateStoppedTakingString = this.medicationModel.dateStoppedTakingDate.toLocaleString();
+
             this.requestsService.postRequest(
                 AppConstants.MEDICATION_SAVE_URL, this.medicationModel)
                 .subscribe(

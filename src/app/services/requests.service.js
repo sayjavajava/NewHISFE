@@ -104,6 +104,12 @@ var RequestsService = (function () {
         formData.append('file', data, data.name);
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };
+    RequestsService.prototype.putRequestWithParam = function (url, _param) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        var params = new http_1.HttpParams().set('status', _param);
+        return this.http.put(this.getBEAPIServer() + url, params, { headers: reqHeader });
+    };
     RequestsService.prototype.postRequestMultipartFormAndData = function (url, data, profileImg, photoFront, photoBack) {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         reqHeader.append('Content-Type', 'multipart/form-data');

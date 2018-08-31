@@ -18,12 +18,6 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var PatientMedicationListComponent = (function () {
     function PatientMedicationListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
-        /* const queryParams = this.activatedRoute.snapshot.queryParams
-         console.log(queryParams);
-         const routeParams = this.activatedRoute.snapshot.params;
-         console.log(routeParams);*/
-        // do something with the parameters
-        // this.selectedPatientId = routeParams.id;// i think id will patient id according to current situation
         var _this = this;
         this.notificationService = notificationService;
         this.requestsService = requestsService;
@@ -38,12 +32,12 @@ var PatientMedicationListComponent = (function () {
         this.futureAppointments = [];
         this.pastAppointments = [];
         this.activatedRoute.params.subscribe(function (params) {
-            console.log(params['id']);
             _this.selectedPatientId = params['id'];
         });
         this.getPaginatedMedicationFromServer(0);
     }
     PatientMedicationListComponent.prototype.ngOnInit = function () {
+        console.log(this.selectedPatientId);
     };
     PatientMedicationListComponent.prototype.appointmentsByPatientFromServer = function (selectedPatientId) {
         var _this = this;
@@ -68,6 +62,7 @@ var PatientMedicationListComponent = (function () {
         }
     };
     PatientMedicationListComponent.prototype.addMedication = function () {
+        console.log('test' + this.selectedPatientId);
         this.isUpdate = false;
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
@@ -76,6 +71,21 @@ var PatientMedicationListComponent = (function () {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
             this.medicationModel.patientId = this.selectedPatientId;
+            //date.toISOString().slice(0,16)
+            console.log(this.medicationModel.datePrescribedString.toString().slice(0, 16));
+            // console.log(this.medicationModel.datePrescribedDate.toISOString().re(0,16));
+            // console.log(this.medicationModel.datePrescribedDate.toISOString());
+            // console.log(this.medicationModel.datePrescribedDate.toString());
+            // console.log(this.medicationModel.datePrescribedDate.toDateString());
+            // console.log(this.medicationModel.datePrescribedDate.toTimeString());
+            // console.log(this.medicationModel.datePrescribedDate.toLocaleDateString());
+            // console.log(this.medicationModel.datePrescribedDate.toUTCString());
+            // console.log(this.medicationModel.datePrescribedDate.getTimezoneOffset());
+            // this.medicationModel.datePrescribedString = this.medicationModel.datePrescribedDate.toISOString();
+            //
+            // this.medicationModel.dateStartedTakingString = this.medicationModel.dateStartedTakingDate.toString();
+            //
+            // this.medicationModel.dateStoppedTakingString = this.medicationModel.dateStoppedTakingDate.toLocaleString();
             this.requestsService.postRequest(app_constants_1.AppConstants.MEDICATION_SAVE_URL, this.medicationModel)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MEDICATION_SUC_28') {
