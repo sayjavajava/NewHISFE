@@ -24,6 +24,25 @@
                                                 Please enter valid title.
                                     </span>
                                 </div>
+
+                                <!---->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Code
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" required
+                                               [(ngModel)]="selectedMS.code" minlength="1"
+                                               required
+                                               name="code" #code="ngModel"/>
+                                    </div>
+                                    <span *ngIf="code.invalid && code.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter code.
+                                    </span>
+                                </div>
+                                <!---->
+
                                 <div class="form-group">
                                     <label class="control-label col-md-3">Branch
                                         <span class="required" aria-required="true"> * </span>
