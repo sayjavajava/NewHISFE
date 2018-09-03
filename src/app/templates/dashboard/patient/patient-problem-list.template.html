@@ -165,26 +165,26 @@
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
                         <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
-                            <a (click)="getPageWisePatients(0);" title="First">
+                            <a (click)="getPageWisePatientProblem(0);" title="First">
                                 <i class="fa fa-angle-double-left"></i>
                             </a>
                         </li>
                         <li class="prev" *ngIf="prePage">
-                            <a (click)="getPageWisePatients(currPage - 1)" title="Previous">
+                            <a (click)="getPageWisePatientProblem(currPage - 1)" title="Previous">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
                         <li [ngClass]="{active: page === currPage}"
                             *ngFor="let page of pages">
-                            <a (click)="getPageWisePatients(page)">{{page + 1}}</a>
+                            <a (click)="getPageWisePatientProblem(page)">{{page + 1}}</a>
                         </li>
                         <li class="next" *ngIf="nextPage">
-                            <a (click)="getPageWisePatients(currPage + 1)" title="Next">
+                            <a (click)="getPageWisePatientProblem(currPage + 1)" title="Next">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
-                            <a (click)="getPageWisePatients(pages.length - 1)" title="Last">
+                            <a (click)="getPageWisePatientProblem(pages.length - 1)" title="Last">
                                 <i class="fa fa-angle-double-right"></i>
                             </a>
                         </li>
@@ -215,7 +215,6 @@
                                 <div class="select2-bootstrap-prepend">
                                     <select id="selectedAppointmentId"
                                             [(ngModel)]="ppm.appointmentId"
-                                            #selectedAppointmentId="ngModel"
                                             name="selectedAppointmentId"
                                             class="form-control">
                                         <option value="-1">--- Please select ---</option>

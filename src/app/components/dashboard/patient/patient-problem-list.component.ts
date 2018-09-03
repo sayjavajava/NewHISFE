@@ -29,12 +29,18 @@ export class PatientProblemListComponent implements OnInit {
     private patient: any;
     futureAppointments: Appointment [] = [];
     pastAppointments: Appointment [] = [];
+    private selectedPatientId: number;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute) {
+
+        this.activatedRoute.params.subscribe(
+            params => {
+                this.selectedPatientId = Number(params['id']);
+            });
     }
 
     ngOnInit() {
@@ -44,28 +50,24 @@ export class PatientProblemListComponent implements OnInit {
 
     appointmentsByServer() {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.activatedRoute.params.subscribe(
-                params => {
-                    let selectedPatientId = 1;
-                    /*Number(params['id']);*/
-                    this.requestsService.getRequest(
-                        AppConstants.PATIENT_FETCH_URL + selectedPatientId
-                    ).subscribe(
-                        response => {
-                            if (response['responseCode'] === 'USER_SUC_01') {
-                                this.patient = response['responseData'];
-                                this.futureAppointments = [];
-                                this.futureAppointments = response['responseData'].futureAppointments;
-                                this.pastAppointments = [];
-                                this.pastAppointments = response['responseData'].pastAppointments;
-                            } else {
-                                this.notificationService.error(response['responseMessage'], 'Patient');
-                            }
-                        },
-                        (error: any) => {
-                            this.HISUtilService.tokenExpired(error.error.error);
-                        });
+            this.requestsService.getRequest(
+                AppConstants.PATIENT_FETCH_URL + this.selectedPatientId
+            ).subscribe(
+                response => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.patient = response['responseData'];
+                        this.futureAppointments = [];
+                        this.futureAppointments = response['responseData'].futureAppointments;
+                        this.pastAppointments = [];
+                        this.pastAppointments = response['responseData'].pastAppointments;
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Patient');
+                    }
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
                 });
+
         } else {
             this.router.navigate(['/login']);
         }
@@ -146,7 +148,7 @@ export class PatientProblemListComponent implements OnInit {
 
     savePatientProblem() {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.ppm.patientId = 1;
+            this.ppm.patientId = this.selectedPatientId;
             this.requestsService.postRequest(
                 AppConstants.PATIENT_PROBLEM_SAVE_URL, this.ppm)
                 .subscribe(
@@ -168,9 +170,6 @@ export class PatientProblemListComponent implements OnInit {
     }
 
     getPaginatedProblemsFromServer(page: number) {
-        if (page > 0) {
-            page = page;
-        }
         this.requestsService.getRequest(
             AppConstants.PATIENT_PROBLEM_FETCH_URL + page)
             .subscribe(
@@ -250,7 +249,7 @@ export class PatientProblemListComponent implements OnInit {
                 .subscribe(
                     response => {
                         if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
-                            this.ppm = response['responseData'];
+                            this.ppm = new PatientProblemModel();
                             this.notificationService.success(response['responseMessage'], 'Problem of Patient');
                             this.closeBtn.nativeElement.click();
                             this.getPaginatedProblemsFromServer(0);
@@ -267,7 +266,7 @@ export class PatientProblemListComponent implements OnInit {
         }
     }
 
-    getPageWisePatients(page: number) {
+    getPageWisePatientProblem(page: number) {
         this.getPaginatedProblemsFromServer(page);
     }
 

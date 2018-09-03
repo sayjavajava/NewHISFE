@@ -108,7 +108,7 @@ export class PatientMedicationListComponent implements OnInit {
                         if (response['responseCode'] === 'MEDICATION_SUC_28') {
                             this.notificationService.success(response['responseMessage'], 'Medication');
                             this.getPaginatedMedicationFromServer(0);
-                            // this.closeBtnMedication.nativeElement.click();
+                            this.closeBtnMedication.nativeElement.click();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Medication');
                             this.getPaginatedMedicationFromServer(0);

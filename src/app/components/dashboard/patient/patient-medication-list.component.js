@@ -91,7 +91,7 @@ var PatientMedicationListComponent = (function () {
                 if (response['responseCode'] === 'MEDICATION_SUC_28') {
                     _this.notificationService.success(response['responseMessage'], 'Medication');
                     _this.getPaginatedMedicationFromServer(0);
-                    // this.closeBtnMedication.nativeElement.click();
+                    _this.closeBtnMedication.nativeElement.click();
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Medication');
