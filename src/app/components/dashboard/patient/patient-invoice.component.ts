@@ -195,7 +195,7 @@ export class PatientInvoiceComponent implements OnInit {
     
         this.selectedInvoice = new Invoice();
     //    this.selectedInvoice.id = this.selectedService.id;
-        this.selectedInvoice.code = this.selectedService.name;
+        this.selectedInvoice.code = this.selectedService.code;
         this.selectedInvoice.serviceName = this.serviceName;
         this.selectedInvoice.description = this.selectedService.description;
         this.selectedInvoice.quantity = this.quantity;
@@ -214,7 +214,7 @@ export class PatientInvoiceComponent implements OnInit {
     updateInovice(event : any){
         this.selectedInvoice = new Invoice();
         this.selectedInvoice.id = this.selectedService.id;
-        this.selectedInvoice.code = this.selectedService.name;
+        this.selectedInvoice.code = this.selectedService.code;
         this.selectedInvoice.serviceName = this.serviceName;
         this.selectedInvoice.description = this.selectedService.description;
         this.selectedInvoice.quantity = this.quantity;

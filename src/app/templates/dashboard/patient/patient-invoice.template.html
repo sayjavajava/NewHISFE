@@ -83,7 +83,7 @@
                                         </tr>
                                         <tr role="row" class="filter">
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="text" name="code" value="{{selectedService.id}}">
+                                                <input type="text" name="code" value="{{selectedService.code}}">
                                             </td>
                                             <td class="sorting_disabled custom-td-size" rowspan="1" colspan="1">
                                                 <input type="text" class="form-control" name="name" value="{{serviceName}}"  disabled>
@@ -146,7 +146,7 @@
                                 <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Action </th>
                             </tr>
                             <tr role="row" class="filter" *ngFor="let invc of invoiceList;  let idx = index">
-                                <td rowspan="1" colspan="1">{{invc.id}}</td>
+                                <td rowspan="1" colspan="1">{{invc.code}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
                                 <td rowspan="1" colspan="1">{{invc.quantity}}</td>
                                 <td rowspan="1" colspan="1">{{invc.unitFee}}</td>
