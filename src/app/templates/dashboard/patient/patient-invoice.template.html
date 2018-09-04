@@ -83,7 +83,7 @@
                                         </tr>
                                         <tr role="row" class="filter">
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="text" name="code" value="{{selectedService.code}}">
+                                                <input type="text" name="code" value="{{selectedService.code}}" class="form-control" disabled>
                                             </td>
                                             <td class="sorting_disabled custom-td-size" rowspan="1" colspan="1">
                                                 <input type="text" class="form-control" name="name" value="{{serviceName}}"  disabled>
@@ -102,17 +102,17 @@
                                                 <input type="number" class="text-align-right" name="discountRate" (change)="invoiceBillCalculation($event)" [(ngModel)]="discountRate">
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="discountAmount" [(ngModel)]="discountAmount" [readonly]="true">
+                                                <input type="number" class="text-align-right" name="discountAmount" [(ngModel)]="discountAmount" class="form-control" disabled>
                                             </td>
 
                                             <td rowspan="1" colspan="1" class="custom-td-size">
                                                 <input type="number" class="text-align-right" name="taxRate" (change)="invoiceBillCalculation($event)" [(ngModel)]="taxRate">
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="taxAmount" [(ngModel)]="taxAmount" [readonly]="true">
+                                                <input type="number" class="text-align-right" name="taxAmount" [(ngModel)]="taxAmount" class="form-control" disabled>
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="totalAmount" [(ngModel)]="invoiceAmount" [readonly]="true">
+                                                <input type="number" class="text-align-right" name="totalAmount" [(ngModel)]="invoiceAmount" class="form-control" disabled>
                                             </td>
                                         </tr>
                                     </thead>
