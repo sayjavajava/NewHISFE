@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {RequestsService} from '../../../services/requests.service';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../../services/notification.service';
-import {Branch} from '../../../model/Branch';
+import {Branch} from '../../../model/branch';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {AppConstants} from '../../../utils/app.constants';
 import {ExamRooms} from '../../../model/ExamRooms';

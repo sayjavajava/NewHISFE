@@ -81,16 +81,19 @@ p, h3, h4{margin:0; padding:0;}
 .bg-gray-meadow{background:#b1b1b1 !important;}
 .sub-total{float: left; width: 100%;}
 .sub-total ul{list-style:none; padding:0; float:left; width: 100%;}
-.sub-total li{width:100%; float:left; padding-top: 10px; padding-bottom: 15px;}
+.sub-total li{width:100%; float:left; padding-top: 5px; padding-bottom: 5px;}
 .sub-total li span{}
-.sub-total li span:first-child{float:left; font-weight:bold;}
-.sub-total li span:last-child{float:right;}
+.sub-total li span:first-child{float: left;font-weight: bold; width: 46%; text-align: left;}
+.sub-total li span:last-child{float: right;width: 50%; text-align: right;}
 .sar-total{background:#faf9f9; border:1px solid #eee; padding:10px;}
 .txt-btm-brdr{border-bottom: 1px dotted #000;}
 .hdr-bckgrnd{background:#0153a7; color:#fff; text-align:left;}
 .shipng-icon{width: 5%; border: 1px solid #c2cad8; border-radius: 50% !important; float: left; text-align: center; margin-top: 4px; margin-left: 6px; color:#c2cad8;}
 .small-txt{line-height:40px; padding-left:12px;}
 .txt-rigt{text-align: right; padding-right: 20px;}
+.text-align-right{text-align: right !important;}
+.text-align-left{text-align: left !important;}
+.text-align-center{text-align: center !important;}
 .hedng-bck-clr{ background:#fcf1f1;}
 .tbl-brdr-radus{border-radius: 6px !important;}
 .tbl-pdng th, .tbl-pdng td{padding: 4px !important; font-size:12px !important;}
@@ -101,7 +104,7 @@ p, h3, h4{margin:0; padding:0;}
 .bdr-top{border-top: 1px solid #ddd;}
 .bdr-btm{border-bottom: 1px solid #ddd;}
 .bdr-btm-tab{border-bottom: 1px solid #f2f2f2;}
-.padding{padding: 10px !important;}
+.padding{padding: 5px !important;}
 .paddingall8{padding: 8px;}
 .pdng-btm20{ padding-bottom:20px !important;}
 .txt-size{line-height: 30px !important; margin-top: 0px !important; padding-top: 0 !important; text-align: right;}
@@ -129,6 +132,11 @@ p, h3, h4{margin:0; padding:0;}
 .chckbox span{ margin-top:10px !important;}
 .checkbox-box{border:1px solid #c2cad8; background:#fff; padding:10px;}
 .checkbox-box address, .checkbox-box address label{ margin-bottom:2px !important;}
+.txt-size-detail {
+    line-height: 24px !important;
+    margin-top: 0px !important;
+    padding-top: 0 !important;
+}
 .funkycheckbox div {
     clear: both;
     overflow: hidden;
@@ -489,3 +497,13 @@ textarea {
 .aptSearch{
     margin-top: -10px;
 }
+.table {
+    width: 100%;
+    margin-bottom: 5px !important;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 4px !important;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{background: #fff !important;}
+.amount-border-botom{border-bottom: 1px solid #333;}
+.amount-border-top{border-top: 1px solid #333;}

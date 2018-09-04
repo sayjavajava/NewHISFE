@@ -29,6 +29,11 @@ export class AppConstants {
 
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
 
+    ////////////////////// Patients Invoices ///////////////////////////////
+    public static SAVE_INVOICE = '/invoice/saveInvoice';
+    public static GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
+
+
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';

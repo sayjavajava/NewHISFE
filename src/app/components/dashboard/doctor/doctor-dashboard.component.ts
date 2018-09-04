@@ -121,6 +121,7 @@ export class DoctorDashboardComponent {
         }
     }
 
+
     getUpdatedStatus(statusValue: string, apptId: any) {
         var that = this;
         this.confirmationDialogService
@@ -142,6 +143,11 @@ export class DoctorDashboardComponent {
     patientHistory(id:any){
         console.log('testing.. ');
         this.router.navigate(['/dashboard/patient/history',id]);
+    }
+    updateAppointmentData(id: any) {
+        console.log("From doctor-dashboard.component---> Appointment id : " + id);
+        this.router.navigate(['/dashboard/patient/invoice', id]);
+
     }
 
 }
