@@ -141,11 +141,11 @@ var AddAppointmentComponent = (function () {
                         //cellPhone:apt.patient.profile.cellPhone,
                         //selectWorkingDays:this.selectedRecurringDays,
                         appointmentType: apt.appointmentType,
-                        followUpDate: new Date(),
+                        followUpDate: new Date(apt.followUpDate),
                         followUpReason: apt.followUpReason,
                         recurseEvery: apt.recurseEvery,
                         neverEnds: false,
-                        followUpReminder: false,
+                        followUpReminder: apt.followUpReminder,
                         arrangeFollowUpReminder: false,
                         firstAppointment: apt.firstAppointmentOn,
                         lastAppointment: apt.lastAppointmentOn,
@@ -198,10 +198,9 @@ var AddAppointmentComponent = (function () {
     AddAppointmentComponent.prototype.getAppointmentById = function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_BY_ID + this.apptId)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'APPT_SUC_04') {
-                _this.appt = response['responseData'];
-            }
+            .subscribe(function (res) {
+            _this.appt = res.responseData;
+            console.log('test ' + res.responseData.id);
         }, function (error) {
         });
     };

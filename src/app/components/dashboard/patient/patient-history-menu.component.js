@@ -11,24 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var DataService_1 = require("../../../services/DataService");
 var PatientHistoryMenuComponent = (function () {
-    function PatientHistoryMenuComponent(router, route) {
+    function PatientHistoryMenuComponent(router, route, dataService) {
+        var _this = this;
         this.router = router;
         this.route = route;
+        this.dataService = dataService;
+        this.subscription = this.dataService.currentPatientId.subscribe(function (id) { _this.id = id; });
     }
+    PatientHistoryMenuComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
     PatientHistoryMenuComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.params.subscribe(function (params) {
-            _this.id = params['id'];
-            console.log('history-appt' + _this.id);
-        });
+        /*this.route.params.subscribe(params => {
+            this.id = params['id'];
+
+        });*/
     };
     PatientHistoryMenuComponent = __decorate([
         core_1.Component({
             selector: 'patient-history-menu',
             templateUrl: '../../../templates/dashboard/patient/patient-history-menu.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute])
+        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, DataService_1.DataService])
     ], PatientHistoryMenuComponent);
     return PatientHistoryMenuComponent;
 }());

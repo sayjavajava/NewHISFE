@@ -105,6 +105,16 @@ var AppConstants = (function () {
     ////////////////////// Patient History ///////////////////////////////
     AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     AppConstants.FETCH_ALL_LABORDER_URL = '/patient/laborder/';
+    AppConstants.FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
+    AppConstants.LAB_ORDER_UPDATE = '/patient/laborder/update/';
+    AppConstants.LAB_ORDER_DELETE = '/patient/laborder/delete/';
+    AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
+    ///////////////////Family History//////////
+    AppConstants.FAMILY_HISTORY_CREATE = '/patient/family/create';
+    AppConstants.FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
+    AppConstants.UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
+    AppConstants.FAMILY_HISTORY_DELETE = '/patient/family/delete/';
+    AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

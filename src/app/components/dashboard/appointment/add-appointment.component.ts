@@ -73,7 +73,7 @@ export class AddAppointmentComponent implements OnInit {
     searchedBranch: number;
     //temp variable
     apptId=38;
-    appt:any;
+    appt:Appointment[];
 
 
 
@@ -146,11 +146,11 @@ export class AddAppointmentComponent implements OnInit {
                                 //cellPhone:apt.patient.profile.cellPhone,
                                 //selectWorkingDays:this.selectedRecurringDays,
                                 appointmentType: apt.appointmentType,
-                                followUpDate: new Date(),
+                                followUpDate: new Date(apt.followUpDate),
                                 followUpReason: apt.followUpReason,
                                 recurseEvery: apt.recurseEvery,
                                 neverEnds: false,
-                                followUpReminder: false,
+                                followUpReminder: apt.followUpReminder,
                                 arrangeFollowUpReminder: false,
                                 firstAppointment: apt.firstAppointmentOn,
                                 lastAppointment: apt.lastAppointmentOn,
@@ -237,12 +237,14 @@ export class AddAppointmentComponent implements OnInit {
     getAppointmentById() {
         this.requestsService.getRequest(
             AppConstants.FETCH_APPOINTMENTS_BY_ID +this.apptId)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'APPT_SUC_04') {
-                        this.appt = response['responseData'];
-                    }
-                },
+            .subscribe((res :any) =>{
+                    this.appt = res.responseData;
+                    console.log('test ' + res.responseData.id);
+
+
+                }
+
+                ,
                 (error: any) => {
 
                 }

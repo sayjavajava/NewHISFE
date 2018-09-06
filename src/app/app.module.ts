@@ -113,6 +113,8 @@ import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {CalendarModule} from 'angular-calendar';
 import { DemoUtilsModule } from '../demo-utils/module';
 import {EditAppointmentComponent} from './components/dashboard/appointment/edit-appointment.component';
+import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
+import {DataService} from "./services/DataService";
 
 
 
@@ -123,7 +125,7 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         NotificationService,
         HISUtilService,
         AppConfig,
-        PermissionsService,
+        PermissionsService,DataService,
         {provide: ToastOptions, useClass: CustomOption},
         UserSharedService, ConformationDialogService
     ], entryComponents: [ConfirmationdialogComponent],
@@ -186,6 +188,7 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         PatientLabOrdersComponent,
         PatientCommunicationComponent,
         PatientFamilyHistoryComponent,
+        PatientAddLabOrdersComponent,
 
         AppointmentComponent,
         AppointmentDashboardComponent,

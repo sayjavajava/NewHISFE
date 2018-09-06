@@ -102,7 +102,6 @@ export class DepartmentComponent implements OnInit {
         }
     }
 
-
     searchClinicalDepartment(page: any) {
         this.searched = true;
         this.requestsService.getRequest(

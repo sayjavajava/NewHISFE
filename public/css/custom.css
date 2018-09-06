@@ -29,6 +29,7 @@ p, h3, h4{margin:0; padding:0;}
 .padding-b-10{ padding-bottom:10px !important;}
 .padding-t-10{ padding-top:10px !important;}
 .pdngall3{padding: 3px !important;}
+.pdng-l-r-15{padding-left: 15px; padding-right: 15px;}
 .pdng-lr-5{padding-left:5px !important; padding-right:5px !important;}
 .no-padding-rgt{ padding-right:0 !important;}
 .control-label { line-height: 35px; padding-top:0px !important; font-size: 12px !important;}
@@ -112,7 +113,7 @@ p, h3, h4{margin:0; padding:0;}
 .selct-file-btn{border-radius: 10px; padding: 0; background: #f6f6f6; border-color: #ddd;}
 .selct-file-btn input{display:inline-block !important;}
 .selct-file-btn h3{font-size: 14px; font-weight: bold; color: #ccc;}
-.round-table{border-radius: 3px !important; border: 1px solid #ddd; padding: 10px;}
+.round-table{border-radius: 3px !important; border: 1px solid #ddd; /*padding: 10px;*/}
 .round-bck{border: 1px solid #82b8dd; border-radius: 3px !important; background: #abd8f7;}
 .tbl-brdrs th, .tbl-brdrs td, .tbl-brdrs tr, .tbl-brdrs>thead>tr>th, .tbl-brdrs>thead>tr>td{border:none;}
 .font-siz{font-size:12px;}
@@ -129,6 +130,7 @@ p, h3, h4{margin:0; padding:0;}
 .chckbox span{ margin-top:10px !important;}
 .checkbox-box{border:1px solid #c2cad8; background:#fff; padding:10px;}
 .checkbox-box address, .checkbox-box address label{ margin-bottom:2px !important;}
+.width100{width:100%;}
 .funkycheckbox div {
     clear: both;
     overflow: hidden;

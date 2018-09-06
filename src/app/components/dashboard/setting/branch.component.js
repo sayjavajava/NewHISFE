@@ -120,7 +120,6 @@ var BranchComponent = (function () {
                 _this.currPage = response['responseData']['currPage'];
                 _this.pages = response['responseData']['pages'];
                 _this.data = response['responseData']['data'];
-                var data = response['responseData']['data'];
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -131,7 +130,7 @@ var BranchComponent = (function () {
         this.confirmationDialogService
             .confirm('Delete', 'Are you sure you want to do this?')
             .subscribe(function (res) {
-            if (id) {
+            if (res == true) {
                 _this.requestService.deleteRequest(app_constants_1.AppConstants.DELETE_BRANCH_URI + id).subscribe(function (data) {
                     if (data['responseCode'] === 'BRANCH_DEL_SUC_01') {
                         _this.notificationService.success('Branch has been Deleted Successfully');
