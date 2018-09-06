@@ -32,7 +32,7 @@ export const PatientRoutes: Routes = [
     {path: 'reports', component: PatientReportsComponent},
     {path: 'demographic', component: PatientDemographicComponent},
     {path: 'appointments/:id', component: PatientAppointmentComponent},
-    {path: 'documents', component: PatientDocumentsComponent},
+    {path: 'documents/:id', component: PatientDocumentsComponent},
     {path: 'problems-list/:id', component: PatientProblemListComponent},
     {path: 'medication-list/:id', component: PatientMedicationListComponent},
     {path: 'allergy-list/:id', component: PatientAllergyListComponent},

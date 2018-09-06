@@ -28,7 +28,7 @@ exports.PatientRoutes = [
     { path: 'reports', component: patient_reports_component_1.PatientReportsComponent },
     { path: 'demographic', component: patient_demographic_component_1.PatientDemographicComponent },
     { path: 'appointments/:id', component: patient_appointment_component_1.PatientAppointmentComponent },
-    { path: 'documents', component: patient_document_component_1.PatientDocumentsComponent },
+    { path: 'documents/:id', component: patient_document_component_1.PatientDocumentsComponent },
     { path: 'problems-list/:id', component: patient_problem_list_component_1.PatientProblemListComponent },
     { path: 'medication-list/:id', component: patient_medication_list_component_1.PatientMedicationListComponent },
     { path: 'allergy-list/:id', component: patient_allergy_list_component_1.PatientAllergyListComponent },

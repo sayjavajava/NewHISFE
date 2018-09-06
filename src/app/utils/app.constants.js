@@ -108,6 +108,13 @@ var AppConstants = (function () {
     AppConstants.MEDICATION_GET_URL = '/patient/medication/get?';
     AppConstants.MEDICATION_UPDATE_URL = '/patient/medication/update';
     AppConstants.MEDICATION_DELETE_URI = '/patient/medication/delete/';
+    AppConstants.PAGINATED_URL = '/patient/medication/paginated';
+    //////////////////// Medication  ////////////////////////////////
+    AppConstants.DOCUMENT_SAVE_URL = '/patient/document/save';
+    AppConstants.DOCUMENT_PAGINATED_URL = '/patient/document/';
+    AppConstants.DOCUMENT_GET_URL = '/patient/document/get?';
+    AppConstants.DOCUMENT_UPDATE_URL = '/patient/document/update';
+    AppConstants.DOCUMENT_DELETE_URI = '/patient/document/delete/';
     AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';

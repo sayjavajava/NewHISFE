@@ -140,4 +140,19 @@ export class RequestsService {
         return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
     }
 
+    postRequestMultipartFormAndDataWithOneFile(url: any, data: any, img: File) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'multipart/form-data');
+        let formData: FormData = new FormData();
+        formData.append('myObject', new Blob([JSON.stringify(data)],
+            {
+                type: "application/json"
+            }));
+        if (img != null) {
+            formData.append('img', img, img.name);
+        }
+        return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
+    }
+
+
 }

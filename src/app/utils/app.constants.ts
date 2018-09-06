@@ -116,6 +116,14 @@ export class AppConstants {
     public static MEDICATION_GET_URL = '/patient/medication/get?';
     public static MEDICATION_UPDATE_URL = '/patient/medication/update';
     public static MEDICATION_DELETE_URI = '/patient/medication/delete/';
+    public static PAGINATED_URL = '/patient/medication/paginated';
+
+    //////////////////// Medication  ////////////////////////////////
+    public static DOCUMENT_SAVE_URL = '/patient/document/save';
+    public static DOCUMENT_PAGINATED_URL = '/patient/document/';
+    public static DOCUMENT_GET_URL = '/patient/document/get?';
+    public static DOCUMENT_UPDATE_URL = '/patient/document/update';
+    public static DOCUMENT_DELETE_URI = '/patient/document/delete/';
 
     public static LAB_ORDER_CREATE ='/patient/laborder/create';
 

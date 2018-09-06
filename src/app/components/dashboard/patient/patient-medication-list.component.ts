@@ -221,4 +221,24 @@ export class PatientMedicationListComponent implements OnInit {
         }
     }
 
+    private  getPaginatedDataFromServer(page: number) {
+        this.requestsService.getRequest(
+            AppConstants.PAGINATED_URL + page)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'MEDICATION_SUC_32') {
+                        this.nextPage = response['responseData']['nextPage'];
+                        this.prePage = response['responseData']['prePage'];
+                        this.currPage = response['responseData']['currPage'];
+                        this.pages = response['responseData']['pages'];
+                        this.medicationData = response['responseData']['data'];
+                    }
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
+
 }
