@@ -3,8 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {DocumentModel} from "../../../model/document";
 import {NotificationService} from "../../../services/notification.service";
 import {RequestsService} from "../../../services/requests.service";
-import {HISUtilService} from "../../../services/his-util.service";
 import {AppConstants} from "../../../utils/app.constants";
+import {HISUtilService} from "../../../services/his-util.service";
 
 
 @Component({

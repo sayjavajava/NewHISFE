@@ -14,8 +14,8 @@ var router_1 = require("@angular/router");
 var document_1 = require("../../../model/document");
 var notification_service_1 = require("../../../services/notification.service");
 var requests_service_1 = require("../../../services/requests.service");
-var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
+var his_util_service_1 = require("../../../services/his-util.service");
 var PatientDocumentsComponent = (function () {
     function PatientDocumentsComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
         this.notificationService = notificationService;
