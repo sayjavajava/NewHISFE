@@ -152,20 +152,7 @@ export class AppConstants {
     public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
 
-//////////////////// ALLERGY  ////////////////////////////////
 
-    public static ALLERGY_SAVE_URL = '/patient/allergy/save';
-    public static ALLERGY_PAGINATED_URL = '/patient/allergy/';
-    public static ALLERGY_GET_URL = '/patient/allergy/get?';
-    public static ALLERGY_UPDATE_URL = '/patient/allergy/update';
-    public static ALLERGY_DELETE_URI = '/patient/allergy/delete/';
-    //////////////////// Medication  ////////////////////////////////
-
-    public static MEDICATION_SAVE_URL = '/patient/medication/save';
-    public static MEDICATION_PAGINATED_URL = '/patient/medication/';
-    public static MEDICATION_GET_URL = '/patient/medication/get?';
-    public static MEDICATION_UPDATE_URL = '/patient/medication/update';
-    public static MEDICATION_DELETE_URI = '/patient/medication/delete/';
 
 
 

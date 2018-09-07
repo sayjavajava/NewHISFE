@@ -115,7 +115,6 @@ var AppConstants = (function () {
     AppConstants.DOCUMENT_GET_URL = '/patient/document/get?';
     AppConstants.DOCUMENT_UPDATE_URL = '/patient/document/update';
     AppConstants.DOCUMENT_DELETE_URI = '/patient/document/delete/';
-    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
@@ -139,18 +138,6 @@ var AppConstants = (function () {
     AppConstants.UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     AppConstants.FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
-    //////////////////// ALLERGY  ////////////////////////////////
-    AppConstants.ALLERGY_SAVE_URL = '/patient/allergy/save';
-    AppConstants.ALLERGY_PAGINATED_URL = '/patient/allergy/';
-    AppConstants.ALLERGY_GET_URL = '/patient/allergy/get?';
-    AppConstants.ALLERGY_UPDATE_URL = '/patient/allergy/update';
-    AppConstants.ALLERGY_DELETE_URI = '/patient/allergy/delete/';
-    //////////////////// Medication  ////////////////////////////////
-    AppConstants.MEDICATION_SAVE_URL = '/patient/medication/save';
-    AppConstants.MEDICATION_PAGINATED_URL = '/patient/medication/';
-    AppConstants.MEDICATION_GET_URL = '/patient/medication/get?';
-    AppConstants.MEDICATION_UPDATE_URL = '/patient/medication/update';
-    AppConstants.MEDICATION_DELETE_URI = '/patient/medication/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
