@@ -53,8 +53,6 @@ var EditPatientComponent = (function () {
                             }
                         });
                     });
-                    console.log(_this.patient.races);
-                    //this.patient.races = JSON.parse(response['responseData'].racesString);
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Patient');

@@ -25,14 +25,16 @@ export class AppConstants {
     public static BRANCH_SEARCH = '/setting/branch/search/';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     public static FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
-
-
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
 
     ////////////////////// Patients Invoices ///////////////////////////////
     public static SAVE_INVOICE = '/invoice/saveInvoice';
     public static GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
 
+    ////////////////////// Cashier Desk ///////////////////////////////
+    public static GET_All_INVOICES = '/cashier/getAllInvoices';
+    public static FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';
+    public static SAVE_PAYMENT = '/cashier/savePayment';
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
@@ -121,8 +123,16 @@ export class AppConstants {
     public static MEDICATION_GET_URL = '/patient/medication/get?';
     public static MEDICATION_UPDATE_URL = '/patient/medication/update';
     public static MEDICATION_DELETE_URI = '/patient/medication/delete/';
+    public static PAGINATED_URL = '/patient/medication/paginated';
 
-    public static LAB_ORDER_CREATE ='/patient/laborder/create';
+    //////////////////// Medication  ////////////////////////////////
+    public static DOCUMENT_SAVE_URL = '/patient/document/save';
+    public static DOCUMENT_PAGINATED_URL = '/patient/document/';
+    public static DOCUMENT_GET_URL = '/patient/document/get?';
+    public static DOCUMENT_UPDATE_URL = '/patient/document/update';
+    public static DOCUMENT_DELETE_URI = '/patient/document/delete/';
+
+
 
 
     ////////////////////// Appointments URLs ///////////////////////////////
@@ -140,8 +150,18 @@ export class AppConstants {
 
     ////////////////////// Patient History ///////////////////////////////
     public static FETCH_ALL_LABORDER_URL = '/patient/laborder/';
-
-
-
-
+    public static FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
+    public static LAB_ORDER_UPDATE ='/patient/laborder/update/';
+    public static LAB_ORDER_DELETE = '/patient/laborder/delete/';
+    public static FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
+   ///////////////////Family History//////////
+    public static FAMILY_HISTORY_CREATE ='/patient/family/create';
+    public static FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
+    public static LAB_ORDER_CREATE ='/patient/laborder/create';
+    public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
+    public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
+    public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
+    ///////////////////////Smoke Status URLs//////////////////////////////
+    public static SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
+    public static SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
 }

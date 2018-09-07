@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 @Injectable()
 export class HISUtilService {
     staffID:Number;
+    patientId :Number;
     constructor(private router: Router) {
     };
 
@@ -24,6 +25,9 @@ export class HISUtilService {
     }
       staffId(id:number){
         this.staffID=id;
+    }
+    setPatientId(id:number){
+        this.patientId=id;
     }
 
 }

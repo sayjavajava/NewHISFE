@@ -9,6 +9,8 @@ import {NotificationService} from "../../../services/notification.service";
 import {error} from "util";
 import {MatSnackBar} from "@angular/material";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
+import {DataService} from "../../../services/DataService";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'doctor-dashboard-component',
@@ -26,12 +28,12 @@ export class DoctorDashboardComponent {
     doctorsList: any = [];
     dashboardListModified: any[] = [];
 
-
     constructor(private requestService: RequestsService,
                 private router: Router,
                 private snackBar: MatSnackBar,
                 private notificationService: NotificationService,
                 private confirmationDialogService: ConformationDialogService,
+                private  dataService:DataService,
                 private titleService: Title) {
         this.showDashboard();
 
@@ -51,6 +53,7 @@ export class DoctorDashboardComponent {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                         this.dashboardList = response['responseData'];
                         this.dashboardListModified = this.dashboardList;
+
                     }
                 },
                 (error: any) => {
@@ -141,8 +144,8 @@ export class DoctorDashboardComponent {
     }
 
     patientHistory(id:any){
-        console.log('testing.. ');
-        this.router.navigate(['/dashboard/patient/history',id]);
+        this.dataService.getPatientId(id);
+        this.router.navigate(['/dashboard/patient/',id,'history']);
     }
     updateAppointmentData(id: any) {
         console.log("From doctor-dashboard.component---> Appointment id : " + id);

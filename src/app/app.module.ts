@@ -20,7 +20,7 @@ import {ContentComponent} from "./components/dashboard/content.component";
 import {NotFound404Component} from "./components/errors/not-found-404.component";
 // Routes
 import {routes} from "./app.routes";
-import { ColorPickerModule } from 'ngx-color-picker';
+import {ColorPickerModule} from "ngx-color-picker";
 // Services
 import {RequestsService} from "./services/requests.service";
 import {HISUtilService} from "./services/his-util.service";
@@ -109,11 +109,12 @@ import {ManageAppointmentComponent} from "./components/dashboard/appointment/man
 import {AddAppointmentComponent} from "./components/dashboard/appointment/add-appointment.component";
 import {AppointmentReportsComponent} from "./components/dashboard/appointment/appointment-reports.component";
 import {AppointmentNavigationComponent} from "./components/dashboard/appointment/appointment-navigation.component";
-import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
-import {CalendarModule} from 'angular-calendar';
-import { DemoUtilsModule } from '../demo-utils/module';
-import {EditAppointmentComponent} from './components/dashboard/appointment/edit-appointment.component';
-
+import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import {CalendarModule} from "angular-calendar";
+import {DemoUtilsModule} from "../demo-utils/module";
+import {EditAppointmentComponent} from "./components/dashboard/appointment/edit-appointment.component";
+import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
+import {DataService} from "./services/DataService";
 
 
 @NgModule({
@@ -123,7 +124,7 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         NotificationService,
         HISUtilService,
         AppConfig,
-        PermissionsService,
+        PermissionsService,DataService,
         {provide: ToastOptions, useClass: CustomOption},
         UserSharedService, ConformationDialogService
     ], entryComponents: [ConfirmationdialogComponent],
@@ -186,6 +187,7 @@ import {EditAppointmentComponent} from './components/dashboard/appointment/edit-
         PatientLabOrdersComponent,
         PatientCommunicationComponent,
         PatientFamilyHistoryComponent,
+        PatientAddLabOrdersComponent,
 
         AppointmentComponent,
         AppointmentDashboardComponent,

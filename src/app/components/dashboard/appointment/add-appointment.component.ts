@@ -18,7 +18,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MatDialog} from '@angular/material';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from 'angular-calendar';
 import {AppConstants} from '../../../utils/app.constants';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, NgForm} from '@angular/forms';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Subject} from 'rxjs/Rx';
 import {RequestsService} from '../../../services/requests.service';
@@ -56,6 +56,7 @@ export class AddAppointmentComponent implements OnInit {
 
     view: string = 'month';
     newPatient: boolean = false;
+    isRequired:true;
 
     viewDate: Date = new Date();
     data: any = [];
@@ -73,7 +74,7 @@ export class AddAppointmentComponent implements OnInit {
     searchedBranch: number;
     //temp variable
     apptId=38;
-    appt:any;
+    appt:Appointment[];
 
 
 
@@ -146,11 +147,11 @@ export class AddAppointmentComponent implements OnInit {
                                 //cellPhone:apt.patient.profile.cellPhone,
                                 //selectWorkingDays:this.selectedRecurringDays,
                                 appointmentType: apt.appointmentType,
-                                followUpDate: new Date(),
+                                followUpDate: new Date(apt.followUpDate),
                                 followUpReason: apt.followUpReason,
                                 recurseEvery: apt.recurseEvery,
                                 neverEnds: false,
-                                followUpReminder: false,
+                                followUpReminder: apt.followUpReminder,
                                 arrangeFollowUpReminder: false,
                                 firstAppointment: apt.firstAppointmentOn,
                                 lastAppointment: apt.lastAppointmentOn,
@@ -237,12 +238,14 @@ export class AddAppointmentComponent implements OnInit {
     getAppointmentById() {
         this.requestsService.getRequest(
             AppConstants.FETCH_APPOINTMENTS_BY_ID +this.apptId)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'APPT_SUC_04') {
-                        this.appt = response['responseData'];
-                    }
-                },
+            .subscribe((res :any) =>{
+                    this.appt = res.responseData;
+                    console.log('test ' + res.responseData.id);
+
+
+                }
+
+                ,
                 (error: any) => {
 
                 }
@@ -481,30 +484,36 @@ export class AddAppointmentComponent implements OnInit {
 
     }
 
-    saveAppointment(event: any) {
+    saveAppointment(event: any,form:NgForm) {
         var self = this;
         this.Type.map(x => x.checked = false);
-        if (this.eventsRequest.length != 0) {
-            let obj = new Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
-                event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
-                event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId,event.newPatient,event.dob);
-            this.requestsService.postRequest(AppConstants.CREATE_APPOINTMENT_URL,
-                obj)
-                .subscribe(
-                    (response: Response) => {
-                        this.refresh.next();
-                        if (response['responseCode'] === 'APPT_SUC_02') {
-                            self.notificationService.success('created successfully', 'Appointment');
-                            self.router.navigate(['/dashboard/appointment/manage']);
-                            this.eventsRequest.length = 0;
-                            $('#exampleModalCenter2').modal('close');
-                        } else {
-                            self.notificationService.error('Appointment is not created', 'Appointment');
-                        }
-                    },
-                    (error: any) => {
+        console.log('In-valid..');
+        if(form.valid) {
+            console.log('valid..');
+            if (this.eventsRequest.length != 0) {
+                let obj = new Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
+                    event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
+                    event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
+                this.requestsService.postRequest(AppConstants.CREATE_APPOINTMENT_URL,
+                    obj)
+                    .subscribe(
+                        (response: Response) => {
+                            this.refresh.next();
+                            if (response['responseCode'] === 'APPT_SUC_02') {
+                                self.notificationService.success('created successfully', 'Appointment');
+                                self.router.navigate(['/dashboard/appointment/manage']);
+                                this.eventsRequest.length = 0;
+                                $('#exampleModalCenter2').modal('close');
+                            } else {
+                                self.notificationService.error('Appointment is not created', 'Appointment');
+                            }
+                        },
+                        (error: any) => {
 
-                    });
+                        });
+            }
+        }else {
+            this.notificationService.error('Fill Form Properly');
         }
     }
 

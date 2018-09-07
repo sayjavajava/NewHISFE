@@ -198,6 +198,21 @@ var PatientMedicationListComponent = (function () {
             this.router.navigate(['/login']);
         }
     };
+    PatientMedicationListComponent.prototype.getPaginatedDataFromServer = function (page) {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.PAGINATED_URL + page)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'MEDICATION_SUC_32') {
+                _this.nextPage = response['responseData']['nextPage'];
+                _this.prePage = response['responseData']['prePage'];
+                _this.currPage = response['responseData']['currPage'];
+                _this.pages = response['responseData']['pages'];
+                _this.medicationData = response['responseData']['data'];
+            }
+        }, function (error) {
+            _this.HISUtilService.tokenExpired(error.error.error);
+        });
+    };
     __decorate([
         core_1.ViewChild('closeBtnMedication'),
         __metadata("design:type", core_1.ElementRef)

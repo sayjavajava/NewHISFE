@@ -19,6 +19,7 @@ import {PatientAllergyListComponent} from "../components/dashboard/patient/patie
 import {PatientLabOrdersComponent} from "../components/dashboard/patient/patient-lab-orders.component";
 import {PatientCommunicationComponent} from "../components/dashboard/patient/patient-communication.component";
 import {PatientFamilyHistoryComponent} from "../components/dashboard/patient/patient-family-history.component";
+import {PatientAddLabOrdersComponent} from "../components/dashboard/patient/patient-add-lab-orders.component";
 
 export const PatientRoutes: Routes = [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -31,15 +32,17 @@ export const PatientRoutes: Routes = [
     /* {path: 'history', component: PatientHistoryComponent}, */
 
     {path: 'history/:id/problem', component: PatientProblemListComponent},
+    {path: ':id/history', component: PatientHistoryComponent},
     {path: 'edit/:id', component: EditPatientComponent},
     {path: 'reports', component: PatientReportsComponent},
-    {path: 'demographic', component: PatientDemographicComponent},
-    {path: 'appointments/:id', component: PatientAppointmentComponent},
+    {path: 'demographic/:id', component: PatientDemographicComponent},
+    {path: 'appointments/:id/history', component: PatientAppointmentComponent},
     {path: 'documents', component: PatientDocumentsComponent},
-    {path: 'problems-list/:id', component: PatientProblemListComponent},
-    {path: 'medication-list/:id', component: PatientMedicationListComponent},
-    {path: 'allergy-list/:id', component: PatientAllergyListComponent},
-    {path: 'lab-orders', component: PatientLabOrdersComponent},
+    {path: 'problems-list', component: PatientProblemListComponent},
+    {path: 'medical-list', component: PatientMedicationListComponent},
+    {path: 'allergy-list', component: PatientAllergyListComponent},
+    {path: 'lab-orders/:id/history', component: PatientLabOrdersComponent},
+    {path: 'create-order/:id/add/:orderId/order', component: PatientAddLabOrdersComponent},
     {path: 'communication', component: PatientCommunicationComponent},
     {path: 'family-history', component: PatientFamilyHistoryComponent},
     {path: '**', redirectTo: '404'}

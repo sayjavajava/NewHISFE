@@ -32,6 +32,9 @@ var HISUtilService = (function () {
     HISUtilService.prototype.staffId = function (id) {
         this.staffID = id;
     };
+    HISUtilService.prototype.setPatientId = function (id) {
+        this.patientId = id;
+    };
     HISUtilService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [router_1.Router])

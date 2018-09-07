@@ -16,23 +16,24 @@ var patient_allergy_list_component_1 = require("../components/dashboard/patient/
 var patient_lab_orders_component_1 = require("../components/dashboard/patient/patient-lab-orders.component");
 var patient_communication_component_1 = require("../components/dashboard/patient/patient-communication.component");
 var patient_family_history_component_1 = require("../components/dashboard/patient/patient-family-history.component");
+var patient_add_lab_orders_component_1 = require("../components/dashboard/patient/patient-add-lab-orders.component");
 exports.PatientRoutes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: patient_dashboard_component_1.PatientDashboardComponent },
     { path: 'manage', component: manage_patient_component_1.ManagePatientComponent },
     { path: 'add', component: add_patient_component_1.AddPatientComponent },
     { path: 'invoice', component: patient_invoice_component_1.PatientInvoiceComponent },
-    { path: 'history/:id', component: patient_history_component_1.PatientHistoryComponent },
-    { path: 'history/:id/problem', component: patient_problem_list_component_1.PatientProblemListComponent },
+    { path: ':id/history', component: patient_history_component_1.PatientHistoryComponent },
     { path: 'edit/:id', component: edit_patient_component_1.EditPatientComponent },
     { path: 'reports', component: patient_reports_component_1.PatientReportsComponent },
-    { path: 'demographic', component: patient_demographic_component_1.PatientDemographicComponent },
-    { path: 'appointments/:id', component: patient_appointment_component_1.PatientAppointmentComponent },
+    { path: 'demographic/:id', component: patient_demographic_component_1.PatientDemographicComponent },
+    { path: 'appointments/:id/history', component: patient_appointment_component_1.PatientAppointmentComponent },
     { path: 'documents', component: patient_document_component_1.PatientDocumentsComponent },
-    { path: 'problems-list/:id', component: patient_problem_list_component_1.PatientProblemListComponent },
-    { path: 'medication-list/:id', component: patient_medication_list_component_1.PatientMedicationListComponent },
-    { path: 'allergy-list/:id', component: patient_allergy_list_component_1.PatientAllergyListComponent },
-    { path: 'lab-orders', component: patient_lab_orders_component_1.PatientLabOrdersComponent },
+    { path: 'problems-list', component: patient_problem_list_component_1.PatientProblemListComponent },
+    { path: 'medical-list', component: patient_medication_list_component_1.PatientMedicationListComponent },
+    { path: 'allergy-list', component: patient_allergy_list_component_1.PatientAllergyListComponent },
+    { path: 'lab-orders/:id/history', component: patient_lab_orders_component_1.PatientLabOrdersComponent },
+    { path: 'create-order/:id/add/:orderId/order', component: patient_add_lab_orders_component_1.PatientAddLabOrdersComponent },
     { path: 'communication', component: patient_communication_component_1.PatientCommunicationComponent },
     { path: 'family-history', component: patient_family_history_component_1.PatientFamilyHistoryComponent },
     { path: '**', redirectTo: '404' }

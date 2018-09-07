@@ -108,7 +108,13 @@ var AppConstants = (function () {
     AppConstants.MEDICATION_GET_URL = '/patient/medication/get?';
     AppConstants.MEDICATION_UPDATE_URL = '/patient/medication/update';
     AppConstants.MEDICATION_DELETE_URI = '/patient/medication/delete/';
-    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
+    AppConstants.PAGINATED_URL = '/patient/medication/paginated';
+    //////////////////// Medication  ////////////////////////////////
+    AppConstants.DOCUMENT_SAVE_URL = '/patient/document/save';
+    AppConstants.DOCUMENT_PAGINATED_URL = '/patient/document/';
+    AppConstants.DOCUMENT_GET_URL = '/patient/document/get?';
+    AppConstants.DOCUMENT_UPDATE_URL = '/patient/document/update';
+    AppConstants.DOCUMENT_DELETE_URI = '/patient/document/delete/';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
@@ -122,6 +128,20 @@ var AppConstants = (function () {
     AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';
     ////////////////////// Patient History ///////////////////////////////
     AppConstants.FETCH_ALL_LABORDER_URL = '/patient/laborder/';
+    AppConstants.FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
+    AppConstants.LAB_ORDER_UPDATE = '/patient/laborder/update/';
+    AppConstants.LAB_ORDER_DELETE = '/patient/laborder/delete/';
+    AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
+    ///////////////////Family History//////////
+    AppConstants.FAMILY_HISTORY_CREATE = '/patient/family/create';
+    AppConstants.FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
+    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
+    AppConstants.UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
+    AppConstants.FAMILY_HISTORY_DELETE = '/patient/family/delete/';
+    AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
+    ///////////////////////Smoke Status URLs//////////////////////////////
+    AppConstants.SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
+    AppConstants.SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
