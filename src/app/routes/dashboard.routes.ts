@@ -11,7 +11,7 @@ import {AppointmentRoutes} from "./appointments.routes";
 import {NurseDashboardComponent} from "../components/dashboard/nurse/nurse-dashboard.component";
 import {ReceptionistDashboardComponent} from "../components/dashboard/receptionist/receptionist-dashboard.component";
 
-export const DashboardRoutes: Routes = [
+export const DashboardRoutes: Routes = [      
     // Dashboard Pages
     {path: '', component: ContentComponent},
     {path: 'admin', component: ContentComponent},
