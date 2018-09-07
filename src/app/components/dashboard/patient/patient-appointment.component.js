@@ -31,6 +31,7 @@ var PatientAppointmentComponent = (function () {
         this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
+        console.log(this.id);
         this.loadRecord();
     };
     PatientAppointmentComponent.prototype.goToUserDashBoard = function () {

@@ -20,7 +20,7 @@ import {ContentComponent} from "./components/dashboard/content.component";
 import {NotFound404Component} from "./components/errors/not-found-404.component";
 // Routes
 import {routes} from "./app.routes";
-import { ColorPickerModule } from 'ngx-color-picker';
+import {ColorPickerModule} from "ngx-color-picker";
 // Services
 import {RequestsService} from "./services/requests.service";
 import {HISUtilService} from "./services/his-util.service";
@@ -96,8 +96,8 @@ import {PatientAppointmentComponent} from "./components/dashboard/patient/patien
 
 import {PatientDocumentsComponent} from "./components/dashboard/patient/patient-document.component";
 import {PatientProblemListComponent} from "./components/dashboard/patient/patient-problem-list.component";
-import {PatientMedicalListComponent} from "./components/dashboard/patient/patient-medical-list.component";
-import {PatientAlergyListComponent} from "./components/dashboard/patient/patient-alergy-list.component";
+import {PatientMedicationListComponent} from "./components/dashboard/patient/patient-medication-list.component";
+import {PatientAllergyListComponent} from "./components/dashboard/patient/patient-allergy-list.component";
 import {PatientLabOrdersComponent} from "./components/dashboard/patient/patient-lab-orders.component";
 import {PatientCommunicationComponent} from "./components/dashboard/patient/patient-communication.component";
 import {PatientFamilyHistoryComponent} from "./components/dashboard/patient/patient-family-history.component";
@@ -109,13 +109,12 @@ import {ManageAppointmentComponent} from "./components/dashboard/appointment/man
 import {AddAppointmentComponent} from "./components/dashboard/appointment/add-appointment.component";
 import {AppointmentReportsComponent} from "./components/dashboard/appointment/appointment-reports.component";
 import {AppointmentNavigationComponent} from "./components/dashboard/appointment/appointment-navigation.component";
-import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
-import {CalendarModule} from 'angular-calendar';
-import { DemoUtilsModule } from '../demo-utils/module';
-import {EditAppointmentComponent} from './components/dashboard/appointment/edit-appointment.component';
+import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import {CalendarModule} from "angular-calendar";
+import {DemoUtilsModule} from "../demo-utils/module";
+import {EditAppointmentComponent} from "./components/dashboard/appointment/edit-appointment.component";
 import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
 import {DataService} from "./services/DataService";
-
 
 
 @NgModule({
@@ -183,8 +182,8 @@ import {DataService} from "./services/DataService";
         PatientHistoryMenuComponent,
         PatientDocumentsComponent,
         PatientProblemListComponent,
-        PatientMedicalListComponent,
-        PatientAlergyListComponent,
+        PatientMedicationListComponent,
+        PatientAllergyListComponent,
         PatientLabOrdersComponent,
         PatientCommunicationComponent,
         PatientFamilyHistoryComponent,

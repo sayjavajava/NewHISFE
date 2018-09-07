@@ -34,6 +34,7 @@ var AppConstants = (function () {
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     AppConstants.ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     AppConstants.ICD_CODES = '/setting/icd/codes/';
+    AppConstants.ICD_CODES_ASSOCIATED_BY_VERSION_ID = '/setting/icd/codes/associated/?versionId=';
     AppConstants.ICD_CODE_DELETE_URL = '/setting/icd/code/delete?codeId=';
     AppConstants.ICD_CODE_SEARCH = '/setting/icd/code/search/';
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
@@ -91,6 +92,29 @@ var AppConstants = (function () {
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
+    AppConstants.PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
+    AppConstants.PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
+    AppConstants.PATIENT_PROBLEM_GET_URL = '/patient/history/problem/get?';
+    AppConstants.PATIENT_PROBLEM_UPDATE_URL = '/patient/history/problem/update';
+    AppConstants.PATIENT_PROBLEM_DELETE_URI = '/patient/history/problem/delete/';
+    AppConstants.ALLERGY_SAVE_URL = '/patient/allergy/save';
+    AppConstants.ALLERGY_PAGINATED_URL = '/patient/allergy/';
+    AppConstants.ALLERGY_GET_URL = '/patient/allergy/get?';
+    AppConstants.ALLERGY_UPDATE_URL = '/patient/allergy/update';
+    AppConstants.ALLERGY_DELETE_URI = '/patient/allergy/delete/';
+    //////////////////// Medication  ////////////////////////////////
+    AppConstants.MEDICATION_SAVE_URL = '/patient/medication/save';
+    AppConstants.MEDICATION_PAGINATED_URL = '/patient/medication/';
+    AppConstants.MEDICATION_GET_URL = '/patient/medication/get?';
+    AppConstants.MEDICATION_UPDATE_URL = '/patient/medication/update';
+    AppConstants.MEDICATION_DELETE_URI = '/patient/medication/delete/';
+    AppConstants.PAGINATED_URL = '/patient/medication/paginated';
+    //////////////////// Medication  ////////////////////////////////
+    AppConstants.DOCUMENT_SAVE_URL = '/patient/document/save';
+    AppConstants.DOCUMENT_PAGINATED_URL = '/patient/document/';
+    AppConstants.DOCUMENT_GET_URL = '/patient/document/get?';
+    AppConstants.DOCUMENT_UPDATE_URL = '/patient/document/update';
+    AppConstants.DOCUMENT_DELETE_URI = '/patient/document/delete/';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
@@ -103,7 +127,6 @@ var AppConstants = (function () {
     AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
     AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';
     ////////////////////// Patient History ///////////////////////////////
-    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     AppConstants.FETCH_ALL_LABORDER_URL = '/patient/laborder/';
     AppConstants.FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
     AppConstants.LAB_ORDER_UPDATE = '/patient/laborder/update/';
@@ -115,18 +138,6 @@ var AppConstants = (function () {
     AppConstants.UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     AppConstants.FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
-    //////////////////// ALLERGY  ////////////////////////////////
-    AppConstants.ALLERGY_SAVE_URL = '/patient/allergy/save';
-    AppConstants.ALLERGY_PAGINATED_URL = '/patient/allergy/';
-    AppConstants.ALLERGY_GET_URL = '/patient/allergy/get?';
-    AppConstants.ALLERGY_UPDATE_URL = '/patient/allergy/update';
-    AppConstants.ALLERGY_DELETE_URI = '/patient/allergy/delete/';
-    //////////////////// Medication  ////////////////////////////////
-    AppConstants.MEDICATION_SAVE_URL = '/patient/medication/save';
-    AppConstants.MEDICATION_PAGINATED_URL = '/patient/medication/';
-    AppConstants.MEDICATION_GET_URL = '/patient/medication/get?';
-    AppConstants.MEDICATION_UPDATE_URL = '/patient/medication/update';
-    AppConstants.MEDICATION_DELETE_URI = '/patient/medication/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

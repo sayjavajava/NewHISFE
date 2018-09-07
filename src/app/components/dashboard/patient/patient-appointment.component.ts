@@ -1,11 +1,10 @@
 import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from '@angular/router';
-import {AppConstants} from '../../../utils/app.constants';
-import {Patient} from '../../../model/patient';
-import {Race} from '../../../model/race-model';
-import {RequestsService} from '../../../services/requests.service';
-import {NotificationService} from '../../../services/notification.service';
-import {HISUtilService} from '../../../services/his-util.service';
+import {ActivatedRoute, Router} from "@angular/router";
+import {AppConstants} from "../../../utils/app.constants";
+import {Patient} from "../../../model/patient";
+import {RequestsService} from "../../../services/requests.service";
+import {NotificationService} from "../../../services/notification.service";
+import {HISUtilService} from "../../../services/his-util.service";
 
 
 @Component({
@@ -21,9 +20,9 @@ export class PatientAppointmentComponent implements OnInit {
         //throw new Error("Method not implemented.");
 
         this.route.params.subscribe(params => {
-
             this.id = params['id'];
         });
+        console.log(this.id);
         this.loadRecord();
     }
 

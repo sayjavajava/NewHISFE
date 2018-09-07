@@ -35,7 +35,7 @@ export class PatientLabOrdersComponent implements OnInit {
     ngOnInit(): void {
         this.route.params.subscribe(params => {
             this.id = params['id'];
-        });    
+        });
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
@@ -128,6 +128,8 @@ export class PatientLabOrdersComponent implements OnInit {
     addLabOrder(data:any ){
         console.log('tes'+data);
         if (this.labForm.valid) {
+
+            // let branchObject = this.prepareSaveBranch();
             this.requestService.postRequest(AppConstants.LAB_ORDER_CREATE, data)
                 .subscribe(
                     (response: Response) => {
@@ -189,6 +191,6 @@ export class PatientLabOrdersComponent implements OnInit {
 
                     });
                 }
-            });       //
+            });
     }
 }

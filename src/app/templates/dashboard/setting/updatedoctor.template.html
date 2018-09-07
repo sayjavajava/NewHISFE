@@ -93,6 +93,7 @@
                                                     <input type="checkbox" formControlName="restrictBranch"
                                                            name={{item}}
                                                            value="{{item}}"
+                                                           [checked]="item.checked"
                                                            (change)="selectVisitBranches($event,item)">
                                                     {{item.name}}
 
@@ -108,23 +109,15 @@
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
+                                    <!--doctor department container-->
                                     <div class="col-md-8">
-                                        <div class="checkbox-box cod-higt" id="not-due">
-                                            <address class="row"><label>
-                                                <div *ngFor="let item of departmentList" class="col-md-6">
-                                                    <input type="checkbox" formControlName="departmentControl"
-                                                           name={{item.name}}
-                                                           value="{{item.id}}"
-                                                           (change)="selectDepartment($event,item)">
-                                                    {{item.name}}
-
-                                                    <span></span>
-                                                </div>
-
-                                            </label>
-                                            </address>
-                                        </div>
-                                        <span class="text-danger" *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
+                                        <select class="form-control" (change)="selectDoctorDepartment($event.target.value)">
+                                            <!--<option value="" selected="selected">Select Department</option>-->
+                                            <option *ngFor="let item of departmentList" [selected] = "item.selected" value="{{item.id}}">{{item.name}}</option>
+                                        </select>
+                                        <span></span>
+                                        <span class="text-danger"
+                                              *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
                                     </div>
                                 </div>
 
@@ -208,10 +201,9 @@
                                                     <input type="checkbox" formControlName="servicesControl"
                                                            name={{item.name}}
                                                            value="{{item.id}}"
+                                                           [checked]="item.checked"
                                                            (change)="selectServices($event,item)">
-                                                    {{item.title}}
-
-
+                                                    {{item.name}}
                                                 </div></label>
                                             </address>
                                         </div>
@@ -221,33 +213,37 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
+                                    <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
+                                        <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8  col-xs-12">
-                                        <div class="width6 col-md-1 pull-left no-padding"><label
-                                                class="mrgn-top8 mt-checkbox-outline chckbox">
-                                            <input type="checkbox" class=""
-                                                   formControlName="shift2"><span></span></label></div>
+                                    <div class="col-md-8 col-xs-12">
+                                        <div class="width6 pull-left no-padding"><label
+                                                class="mrgn-top12 mt-checkbox-outline chckbox">
+                                            <input type="checkbox" formControlName="shift1" class=""><span></span></label>
+                                        </div>
+                                        <div class="mrgn-top12">
+                                            <!--<a href="#" class="col-md-2 width12"> <button type="button" (click)="firstShiftFrom()">From</button></a>
+                                            <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
+                                            &emsp;
+                                            <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftTo()">To</button></a>
+                                            <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
 
-                                        <div class="mrgn-top8">
+    -->
                                             <div class="col-md-2">
-                                                <button type="button" (click)="secondShiftFrom()">From</button>
+                                                <button type="button" (click)="firstShiftFrom()">From</button>
                                             </div>
                                             <div class="col-md-2" style="width: 72px">
-                                                <input type="time" style="width: 122px" value="{{secondShiftFromTime}}">
+                                                <input type="time" style="width: 122px" value="{{firstShiftFromTime}}">
                                             </div>
                                             <div class="col-md-2" style="width: 68px;margin-left: 55px;">
-                                                <button type="button" (click)="secondShiftTo()">To</button>
+                                                <button type="button" (click)="firstShiftTo()">To</button>
                                             </div>
                                             <div class="col-md-2" style="width: 72px;margin-left: -37px;">
-                                                <input type="time" style="width: 122px" value="{{secondShiftToTime}}">
+                                                <input type="time" style="width: 122px" value="{{firstShiftToTime}}">
                                             </div>
                                         </div>
-                                        <div>
-
-                                        </div>
-
                                     </div>
+                                    <span class="text-danger" *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched" >Duty Shift is required</span>
                                 </div>
 
                             </div>
@@ -255,38 +251,35 @@
                         </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
-                                    <span class="required" aria-required="true"> * </span>
-                                </label>
-                                <div class="col-md-8 col-xs-12">
-                                    <div class="width6 pull-left no-padding"><label
-                                            class="mrgn-top12 mt-checkbox-outline chckbox">
-                                        <input type="checkbox" formControlName="shift1" class=""><span></span></label>
-                                    </div>
-                                    <div class="mrgn-top12">
-                                        <!--<a href="#" class="col-md-2 width12"> <button type="button" (click)="firstShiftFrom()">From</button></a>
-                                        <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
-                                        &emsp;
-                                        <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftTo()">To</button></a>
-                                        <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
 
--->
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
+                                </label>
+                                <div class="col-md-8  col-xs-12">
+                                    <div class="width6 col-md-1 pull-left no-padding"><label
+                                            class="mrgn-top8 mt-checkbox-outline chckbox">
+                                        <input type="checkbox" class=""
+                                               formControlName="shift2"><span></span></label></div>
+
+                                    <div class="mrgn-top8">
                                         <div class="col-md-2">
-                                            <button type="button" (click)="firstShiftFrom()">From</button>
+                                            <button type="button" (click)="secondShiftFrom()">From</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px">
-                                            <input type="time" style="width: 122px" value="{{firstShiftFromTime}}">
+                                            <input type="time" style="width: 122px" value="{{secondShiftFromTime}}">
                                         </div>
                                         <div class="col-md-2" style="width: 68px;margin-left: 55px;">
-                                            <button type="button" (click)="firstShiftTo()">To</button>
+                                            <button type="button" (click)="secondShiftTo()">To</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px;margin-left: -37px;">
-                                            <input type="time" style="width: 122px" value="{{firstShiftToTime}}">
+                                            <input type="time" style="width: 122px" value="{{secondShiftToTime}}">
                                         </div>
                                     </div>
+                                    <div>
+
+                                    </div>
+
                                 </div>
-                                <span class="text-danger" *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched" >Duty Shift is required</span>
                             </div>
 
                             <div class="form-group">

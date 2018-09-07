@@ -132,7 +132,7 @@ var AddAppointmentComponent = (function () {
                         colorHash: apt.color,
                         draggable: true,
                         notes: apt.notes,
-                        patientId: apt.patientId,
+                        // patientId: apt.patientId,
                         reason: apt.reason,
                         status: apt.status,
                         duration: apt.duration,
@@ -236,7 +236,6 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.dayClicked = function (_a) {
         var date = _a.date, events = _a.events;
-        console.log("day cliked in months");
         if (date_fns_1.isSameMonth(date, this.viewDate)) {
             if ((date_fns_1.isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
                 events.length === 0) {
@@ -253,15 +252,15 @@ var AddAppointmentComponent = (function () {
         var event = _a.event, newStart = _a.newStart, newEnd = _a.newEnd;
         event.start = newStart;
         event.end = newEnd;
-        console.log("time changing ....");
         this.handleEvent('Dropped or resized', event);
         this.refresh.next();
     };
     AddAppointmentComponent.prototype.handleEvent = function (action, event) {
         this.modalData = { event: event, action: action };
-        console.log('testing day ' + event);
+        console.log(event);
         this.Type.filter(function (e) { return event.appointmentType.includes(e.name); }).map(function (e) { return e.checked = true; });
         this.selectedType = event.appointmentType;
+        console.log('color:' + event.colorHash);
         var filteredData2 = this.branches.filter(function (x) { return x.id == event.branchId; });
         this.examRooms = filteredData2[0].examRooms;
         // this.modal.open(this.modalContent, {size: 'lg'});

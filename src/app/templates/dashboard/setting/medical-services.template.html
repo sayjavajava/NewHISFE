@@ -39,7 +39,18 @@
                                    (keydown.enter)="searchByMedicalServiceParams(0)">
                         </div>
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-2">
+                        <div class="form-group font-siz11">
+                            <label>Code</label>
+                            <input type="text" class="form-control"
+                                   placeholder="Service Name"
+                                   [(ngModel)]="searchMSModel.searchCode"
+                                   (keydown.enter)="searchByMedicalServiceParams(0)">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
                         <div class="form-group font-siz11">
                             <label>Branch</label>
                             <select class="form-control" name="branchDrp"
@@ -54,7 +65,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group font-siz11">
                             <label>Department:</label>
                             <select class="form-control" name="dptDrp"
@@ -92,7 +103,8 @@
                         <thead>
                         <tr role="row" class="off-wite-bg">
                             <!--<th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Id</th>-->
-                            <th width="24%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Name</th>
+                            <th width="20%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Name</th>
+                            <th width="20%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1">Code</th>
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Branch</th>
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Department</th>
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Fee</th>
@@ -103,21 +115,24 @@
                         </tr>
                         <tr role="row" *ngFor="let item of dataMD">
                             <td class="font-green-dark col-txt-left"><strong>{{item.name}}</strong></td>
+                            <td class="font-green-dark col-txt-left"><strong>{{item.code}}</strong></td>
                             <td>
                                 <a href="#popupBranches" data-toggle="modal">
                                     <button class="btn mt-sweetalert btn green-meadow"
+                                            title="Click to view details"
                                             (click)="getCheckedBranchesByMedicalServiceId(item)"
                                             data-confirm-button-class="btn-success">
-                                        <i class="fa fa"></i> Show
+                                        <i class="fa fa"></i>{{item.checkedBranchCount}}
                                     </button>
                                 </a>
                             </td>
                             <td>
                                 <a href="#popupDepartments" data-toggle="modal">
                                     <button class="btn mt-sweetalert btn green-meadow"
+                                            title="Click to view details"
                                             (click)="getCheckedDepartmentsByMedicalServiceId(item)"
                                             data-confirm-button-class="btn-success">
-                                        <i class="fa fa"></i> Show
+                                        <i class="fa fa"></i> {{item.checkedDepartmentCount}}
                                     </button>
                                 </a>
                             </td>

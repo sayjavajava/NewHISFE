@@ -4,6 +4,7 @@ var MedicalServiceSearchModel = (function () {
     function MedicalServiceSearchModel() {
         this.searchServiceId = 0;
         this.searchServiceName = '';
+        this.searchCode = '';
         this.searchBranchId = 0;
         this.departmentId = 0;
         this.searchServiceFee = 0.0;

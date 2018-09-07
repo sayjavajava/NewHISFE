@@ -133,6 +133,7 @@ var MedicalServiceComponent = (function () {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
             this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
+            this.searchMSModel.searchCode = this.searchMSModel.searchCode.length > 0 ? this.searchMSModel.searchCode : "";
             this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
             this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
             this.searchMSModel.searchServiceFee = this.searchMSModel.searchServiceFee > 0 ? this.searchMSModel.searchServiceFee : 0;
@@ -143,6 +144,7 @@ var MedicalServiceComponent = (function () {
              * **/
             if (this.searchMSModel.searchServiceId === 0 &&
                 this.searchMSModel.searchServiceName.length === 0 &&
+                this.searchMSModel.searchCode.length === 0 &&
                 this.searchMSModel.searchBranchId === 0 &&
                 this.searchMSModel.departmentId === 0 &&
                 this.searchMSModel.searchServiceFee === 0) {
@@ -151,6 +153,7 @@ var MedicalServiceComponent = (function () {
             }
             this.requestsService.getRequest(app_constants_1.AppConstants.MEDICAL_SERVICE_SEARCH + page
                 + '?serviceName=' + this.searchMSModel.searchServiceName
+                + '&searchCode=' + this.searchMSModel.searchCode
                 + '&branchId=' + this.searchMSModel.searchBranchId
                 + '&departmentId=' + this.searchMSModel.departmentId
                 + '&serviceFee=' + this.searchMSModel.searchServiceFee)

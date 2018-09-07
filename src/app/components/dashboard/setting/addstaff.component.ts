@@ -20,7 +20,8 @@ export class AddStaffComponent implements OnInit {
 
     selectedUser: string = 'RECEPTIONIST';
     allowdiscount: boolean = true;
-    department: boolean;
+    doctorDepartment: boolean;
+    nurseDepartment: boolean;
     checkUpInterval: boolean;
     dutytimmingshift1: boolean;
     dutytimmingshift2: boolean;
@@ -550,26 +551,23 @@ export class AddStaffComponent implements OnInit {
     }
 
     selectDepartment(event: any, item: any) {
-        //console.log(event.checked);
-
         if (event.target.checked) {
-
             this.selectedDepartment.push(item.id);
         }
         else {
             let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
-
             let index = this.selectedDepartment.indexOf(updateItem);
-
             this.selectedDepartment.splice(index, 1);
         }
-        //console.log(this.selectedDepartment);
+    }
 
+    selectDoctorDepartment(itemId: any) {
+        if (itemId) {
+            this.selectedDepartment[0] = itemId;
+        }
     }
 
     selectWorkingDays(event: any, item: any) {
-        //console.log(event.checked);
-
         if (event.target.checked) {
             this.selectedWorkingDays.push(item.name);
         }
@@ -705,7 +703,6 @@ export class AddStaffComponent implements OnInit {
 
     checkPermission(user: string) {
         this.changeState();
-        console.log("user:" + user);
         switch (user) {
             case 'DOCTOR':
                 this.doctorPermissions();
@@ -726,7 +723,7 @@ export class AddStaffComponent implements OnInit {
 
     private doctorPermissions() {
         this.checkUpInterval = true;
-        this.department = true;
+        this.doctorDepartment = true;
         this.dutytimmingshift1 = true;
         this.dutytimmingshift2 = true;
         this.vacation = true;
@@ -737,7 +734,7 @@ export class AddStaffComponent implements OnInit {
 
     private nursePermissions() {
 
-        this.department = true;
+        this.nurseDepartment = true;
         this.managepatientinvoices = true;
         this.managepatientrecord = true;
         this.dutywithdoctor = true;
@@ -753,7 +750,7 @@ export class AddStaffComponent implements OnInit {
 
     private changeState() {
         this.allowdiscount = false;
-        this.department = false;
+        this.nurseDepartment = this.doctorDepartment = false;
         this.checkUpInterval = false;
         this.dutytimmingshift1 = false;
         this.dutytimmingshift2 = false;

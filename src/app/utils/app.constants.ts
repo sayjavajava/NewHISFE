@@ -32,6 +32,7 @@ export class AppConstants {
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     public static ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     public static ICD_CODES = '/setting/icd/codes/';
+    public static ICD_CODES_ASSOCIATED_BY_VERSION_ID = '/setting/icd/codes/associated/?versionId=';
     public static ICD_CODE_DELETE_URL = '/setting/icd/code/delete?codeId=';
     public static ICD_CODE_SEARCH = '/setting/icd/code/search/';
     public static ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
@@ -95,6 +96,34 @@ export class AppConstants {
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
+    public static PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
+    public static PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
+    public static PATIENT_PROBLEM_GET_URL = '/patient/history/problem/get?';
+    public static PATIENT_PROBLEM_UPDATE_URL = '/patient/history/problem/update';
+    public static PATIENT_PROBLEM_DELETE_URI = '/patient/history/problem/delete/';
+
+    public static ALLERGY_SAVE_URL = '/patient/allergy/save';
+    public static ALLERGY_PAGINATED_URL = '/patient/allergy/';
+    public static ALLERGY_GET_URL = '/patient/allergy/get?';
+    public static ALLERGY_UPDATE_URL = '/patient/allergy/update';
+    public static ALLERGY_DELETE_URI = '/patient/allergy/delete/';
+
+    //////////////////// Medication  ////////////////////////////////
+    public static MEDICATION_SAVE_URL = '/patient/medication/save';
+    public static MEDICATION_PAGINATED_URL = '/patient/medication/';
+    public static MEDICATION_GET_URL = '/patient/medication/get?';
+    public static MEDICATION_UPDATE_URL = '/patient/medication/update';
+    public static MEDICATION_DELETE_URI = '/patient/medication/delete/';
+    public static PAGINATED_URL = '/patient/medication/paginated';
+
+    //////////////////// Medication  ////////////////////////////////
+    public static DOCUMENT_SAVE_URL = '/patient/document/save';
+    public static DOCUMENT_PAGINATED_URL = '/patient/document/';
+    public static DOCUMENT_GET_URL = '/patient/document/get?';
+    public static DOCUMENT_UPDATE_URL = '/patient/document/update';
+    public static DOCUMENT_DELETE_URI = '/patient/document/delete/';
+
+
 
 
     ////////////////////// Appointments URLs ///////////////////////////////
@@ -111,7 +140,6 @@ export class AppConstants {
     public static CHANGE_APPT_STATUS = '/dashboard/changestatus/';
 
     ////////////////////// Patient History ///////////////////////////////
-    public static LAB_ORDER_CREATE ='/patient/laborder/create';
     public static FETCH_ALL_LABORDER_URL = '/patient/laborder/';
     public static FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
     public static LAB_ORDER_UPDATE ='/patient/laborder/update/';
@@ -123,22 +151,7 @@ export class AppConstants {
     public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
-
-//////////////////// ALLERGY  ////////////////////////////////
-
-    public static ALLERGY_SAVE_URL = '/patient/allergy/save';
-    public static ALLERGY_PAGINATED_URL = '/patient/allergy/';
-    public static ALLERGY_GET_URL = '/patient/allergy/get?';
-    public static ALLERGY_UPDATE_URL = '/patient/allergy/update';
-    public static ALLERGY_DELETE_URI = '/patient/allergy/delete/';
-    //////////////////// Medication  ////////////////////////////////
-
-    public static MEDICATION_SAVE_URL = '/patient/medication/save';
-    public static MEDICATION_PAGINATED_URL = '/patient/medication/';
-    public static MEDICATION_GET_URL = '/patient/medication/get?';
-    public static MEDICATION_UPDATE_URL = '/patient/medication/update';
-    public static MEDICATION_DELETE_URI = '/patient/medication/delete/';
-
-
-
+    ///////////////////////Smoke Status URLs//////////////////////////////
+    public static SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
+    public static SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
 }

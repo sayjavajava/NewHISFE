@@ -154,6 +154,7 @@ var UpdateBranchComponent = (function () {
                 .subscribe(function (response) {
                 that.router.navigate(['/dashboard/setting/branch']);
                 if (response['responseCode'] == 'BRANCH_UPDATE_SUC_01') {
+                    console.log('updated...');
                     that.notificationService.success(' Branch has been Updated Successfully');
                     that.router.navigate(['/dashboard/setting/branch']);
                 }

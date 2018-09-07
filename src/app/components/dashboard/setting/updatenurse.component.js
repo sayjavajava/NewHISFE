@@ -167,7 +167,17 @@ var UpdateNurseComponent = (function () {
                     for (var k in _this.selectedDoctors) {
                         if (_this.selectedDoctors[k].id == _this.doctorsList[key].id) {
                             _this.doctorsList[key].checked = true;
-                            _this.dutyWithDoctors.push(_this.staffBranches[k].id);
+                            _this.dutyWithDoctors.push(_this.selectedDoctors[k].id);
+                            break;
+                        }
+                    }
+                }
+                var nurseDept = user.nurseDepartmentList;
+                for (var key in _this.departmentList) {
+                    for (var k in nurseDept) {
+                        if (nurseDept[k].id == _this.departmentList[key].id) {
+                            _this.departmentList[key].checked = true;
+                            _this.selectedDepartment.push(nurseDept[k].id);
                             break;
                         }
                     }
@@ -206,7 +216,6 @@ var UpdateNurseComponent = (function () {
             this.makeService(nurse);
         }
         else {
-            console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     };
@@ -253,7 +262,6 @@ var UpdateNurseComponent = (function () {
         });
     };
     UpdateNurseComponent.prototype.selectDepartment = function (event, item) {
-        console.log(event.checked);
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }

@@ -5,6 +5,7 @@ export class MedicalService {
 
     id: number = 0;
     name: string;
+    code:string;
     fee: number = 0;
     cost: number = 0;
     status: boolean;
@@ -12,6 +13,8 @@ export class MedicalService {
     checkedBranches:Branch[] = [];
     departments: Department[] = [];
     checkedDepartments: Department[] = [];
+    checkedDepartmentCount:number;
+    checkedBranchCount:number;
     tax: Tax = new Tax();
 
     duration: number = 0;

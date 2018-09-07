@@ -6,7 +6,8 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg" class="img-responsive"/></div>
+                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg"
+                                                              class="img-responsive"/></div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
@@ -55,22 +56,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">DADA0000002 </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>
+                        <div class="col-md-1 col-sm-2 col-xs-12 text-right"><span class="pull-right color-grey">DADA0000002 </span>
+                            <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive"
+                                                           src="/public/images/barcode.png"> </span></div>
                     </div>
                     <div class="hr no-margin">
                         <div class="hr">
                             <div class="portlet-title">
-                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">Muhammad Imran</span> </div>
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primery Doctor:</span> <span
+                                        class="caption-helper">Muhammad Imran</span></div>
                             </div>
                         </div>
                         <div class="hr no-margin">
-                            <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
-                            <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
+                            <button class="btn btn-default btn-outline btn-sm"
+                                    onclick="window.location.href='print_demographics.html'"><i
+                                    class=" icon-printer"></i> Print Demographics
+                            </button>
+                            <button class="btn btn-default btn-outline btn-sm pull-right"><i class=" icon-clock"></i>
+                                Shedule New Appointment
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="portlet-body">
@@ -78,275 +89,161 @@
                         <li class="active">
                             <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Uploaded Documents </a>
                         </li>
-                        <!--
-                        <li class="">
-                            <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> Locked Clinical Notes </a>
-                        </li>
-                        <li class="">
-                            <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Signed Consent Forms </a>
-                        </li>
-                        <li class="">
-                            <a href="#tab_1_4" data-toggle="tab" aria-expanded="false"> Outbound Referrals </a>
-                        </li>
-                        <li class="">
-                            <a href="#tab_1_5" data-toggle="tab" aria-expanded="false"> Lab Results </a>
-                        </li>
-                        <li class="">
-                            <a href="#tab_1_6" data-toggle="tab" aria-expanded="false"> Amendments </a>
-                        </li>
-                        -->
+
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade active in" id="tab_1_1">
-                            <h4 class="text-info">Add new documents for this patient</h4>
-                            <form action="assets/css/upload.php" class="dropzone dropzone-file-area dz-clickable selct-file-btn text-center" id="my-dropzone">
-                                <h3>Drop files anywhere onto this page</h3>
-                                <div class="dz-default dz-message"><span class="selct-file-btn"><input type="file" name="..."></span></div></form>
-                            <div class="hr">
-                                <h4 class="text-info">Document Tags</h4>
-                                <p>Document Name</p>
+                        <div class="hr">
+                            <div class="tab-pane col-md-12 fade active in" id="tab_1_1">
+                                <h4 class="text-info">Add new documents for this patient</h4>
                             </div>
-                            <div class="hr">
-                                <h4 class="text-info">Uploaded Documents</h4>
-                                <div class="table-scrollable tbl-brdr-radus">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr class="hedng-bck-clr tbl-pdng">
-                                            <th> Date </th>
-                                            <th> Description </th>
-                                            <th> Additional URL </th>
-                                            <th> Document Tags </th>
-                                            <th> Uploaded on </th>
-                                            <th> Action </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="tbl-pdng">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="tbl-pdng off-wite-bg">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group hr">
+                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Name</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="dm.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Type</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        <select class="form-control" [ngModelOptions]="{standalone:true}"
+                                                id="typeId" name="type"
+                                                [(ngModel)]="dm.type">
+                                            <option value="INSURANCE">Insurance</option>
+                                            <option value="HEALTH_CERTIFICATE">Health Certificate</option>
+                                            <option value="REPORT">Report</option>
+                                            <option value="TEST">Test</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        <input type="file"
+                                               id="documentId"
+                                               name="documentName"
+                                               (change)="uploadImgOnChange($event)">
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
-                        <!--<div class="tab-pane fade" id="tab_1_2">
-                            <div class="hr">
-                                <h4 class="text-info">Locked Clinical Notes</h4>
-                                <div class="table-scrollable tbl-brdr-radus">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr class="hedng-bck-clr tbl-pdng">
-                                            <th> Date of Service </th>
-                                            <th> Reason </th>
-                                            <th> Locked by </th>
-                                            <th> Locked On </th>
-                                            <th> Action </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="tbl-pdng">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="tbl-pdng off-wite-bg">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group hr">
+                                    <label class="col-md-2 pdng-lr-5 control-label txt-size">Description</label>
+                                    <div class="col-md-10 select pdng-lr-5">
+                                        <address>
+                                                <textarea rows="5" cols="80"
+                                                          id="descriptionId"
+                                                          name="description" maxlength="3000"
+                                                          [(ngModel)]="dm.description">
+                                                </textarea>
+                                        </address>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="tab_1_3">
-                            <div class="hr">
-                                <h4 class="text-info">Signed Consent Forms</h4>
-                                <div class="table-scrollable tbl-brdr-radus">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr class="hedng-bck-clr tbl-pdng">
-                                            <th> Consent Form </th>
-                                            <th> Date of Appointment </th>
-                                            <th> Date of Signature </th>
-                                            <th> Action </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="tbl-pdng">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="tbl-pdng off-wite-bg">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group hr" align="right">
+                                     <span [hidden]="isUpdate">
+                                        <input type="button" id="saveDocumentId" class="btn green"
+                                               (click)="saveDocumentByPatient()" value="Save">
+                                     </span>
                                 </div>
-                            </div>
-                            <div class="hr off-wite-bg round-table">
-                                <p>New consent forms can be added under <a href="#">Patients > OnPatient.</a></p>
-                                <p>Consent Forms can be signed by patients through either the <a href="#">iPad Check-In App,</a> or the <a href="#">OnPatient portal.</a></p>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="tab_1_4">
-                            <div class="hr">
-                                <h4 class="text-info">Outbound Referrals</h4>
-                                <div class="table-scrollable tbl-brdr-radus">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr class="hedng-bck-clr tbl-pdng">
-                                            <th> To </th>
-                                            <th> Title </th>
-                                            <th> Date/Time </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="tbl-pdng">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="tbl-pdng off-wite-bg">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="form-group hr" align="right">
+                                    <span [hidden]="!isUpdate">
+                                        <input type="button" id="updateDocumentId" class="btn green"
+                                               (click)="updateDocumentByPatient()" value="Update">
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="tab_1_5">
-                            <div class="hr">
-                                <h4 class="text-info">Lab Results</h4>
-                                <div class="table-scrollable tbl-brdr-radus">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr class="hedng-bck-clr tbl-pdng">
-                                            <th> Lab </th>
-                                            <th> Date </th>
-                                            <th> Results </th>
-                                            <th> Abnormal? </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="tbl-pdng">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="tbl-pdng off-wite-bg">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+
+                        <div class="hr">
+                            <h4 class="text-info">Uploaded Documents</h4>
+                            <div class="table-scrollable tbl-brdr-radus">
+                                <table class="table table-hover table-light">
+                                    <thead>
+                                    <tr class="hedng-bck-clr tbl-pdng">
+                                        <th> Uploaded on</th>
+                                        <th> Download</th>
+                                        <th> Name</th>
+                                        <th>Description</th>
+                                        <th> Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="tbl-pdng" *ngFor="let doc of documentData;">
+                                        <td>{{doc.createdOn | date:'medium'}}</td>
+                                        <td><a href={{doc.url}}  target="_blank">Download</a></td>
+                                        <td>{{doc.name}}</td>
+                                        <td>{{doc.description}}</td>
+                                        <td>
+                                            <a
+                                                    (click)="editDocument(doc.id)">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <!--<button
+                                           delete code is reaming , this code is delete only entry from table  , and will not delete from amazon , but we want to delete from amazon
+                                                    (click)="deleteDocument(doc.id)">
+                                                <i class="fa fa-remove"></i>
+                                            </button>-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="tab_1_6">
-                            <div class="hr off-wite-bg round-table">
-                                <p class="hr">Attach a new amendment document to this patient record. All fields are required.</p>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Amendment Document</label>
-                                    <div class="col-md-4 select pdng-lr-5">
-                                        <div class="dz-default dz-message slctfile-box"><span class=""><input type="file" name="..." style="width:100%"></span></div>
-                                    </div>
-                                    <div class="col-md-5 pdng-lr-5 font-siz">The file to add; PDF files only.</div>
-                                </div>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Amendment Source</label>
-                                    <div class="col-md-4 select pdng-lr-5">
-                                        <input type="text" class="form-control" placeholder="Enter text">
-                                    </div>
-                                    <div class="col-md-5 pdng-lr-5 font-siz">Where this amendment originated (patient, provider, etc)</div>
-                                </div>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
-                                    <div class="col-md-4 select pdng-lr-5">
-                                        <select class="form-control">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                            <option>Option 5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5 pdng-lr-5 font-siz">Whether you accept or deny this amendment to the patient's record.</div>
-                                </div>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Comments/Notes</label>
-                                    <div class="col-md-4 select pdng-lr-5">
-                                        <textarea class="form-control" rows="3"></textarea>
-                                    </div>
-                                    <div class="col-md-5 pdng-lr-5 font-siz">Description or comments regarding this amendment, status, etc.</div>
-                                </div>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Request Date</label>
-                                    <div class="col-md-4 select pdng-lr-5">
-                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <input type="text" class="form-control" readonly>
-                                            <span class="input-group-btn">
-                                                                <button class="btn default" type="button">
-                                                                    <i class="fa fa-calendar"></i>
-                                                                </button>
-                                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5 pdng-lr-5 font-siz">The date on which the patient or other source requested the amendment.</div>
-                                </div>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Processed Date</label>
-                                    <div class="col-md-4 select pdng-lr-5">
-                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <input type="text" class="form-control" readonly>
-                                            <span class="input-group-btn">
-                                                                <button class="btn default" type="button">
-                                                                    <i class="fa fa-calendar"></i>
-                                                                </button>
-                                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5 pdng-lr-5 font-siz">The date on which you reviewed the amendment request.</div>
-                                </div>
-                                <div class="pull-right">
-                                    <button class="btn blue"> Attach Amendment </button>
-                                </div>
-                            </div>
-                        </div>-->
+
                     </div>
-                    <div class="clearfix margin-bottom-20"> </div>
+                    <div class="clearfix margin-bottom-20"></div>
                 </div>
             </div>
 
         </div>
         <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
+                            <a (click)="getPageWiseDocuments(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="prePage">
+                            <a (click)="getPageWiseDocuments(currPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWiseDocuments(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getPageWiseDocuments(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getPageWiseDocuments(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>

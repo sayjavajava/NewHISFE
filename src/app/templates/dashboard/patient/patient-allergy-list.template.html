@@ -6,12 +6,8 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                            <div class="profile-userpic">
-                                <img
-                                        src="/public/images/patient.jpg"
-                                        alt="patient.jpg"
-                                        class="img-responsive"/>
-                            </div>
+                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg"
+                                                              class="img-responsive"/></div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
@@ -56,7 +52,6 @@
                                             <td>Mon. Jul. 27, 2015</td>
                                         </tr>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -80,17 +75,9 @@
                                           onclick="window.location.href='print_demographics.html'"> <i
                                     class=" icon-printer"></i> Print Demographics </button></span>
                             <div class=" pull-right">
-                                <div class="btn-group">
-                                    <button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown"
-                                            aria-expanded="true"> Clinical Summary <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Download PDF</a></li>
-                                        <li><a href="#">Download C-CDA XML</a></li>
-                                        <li><a href="#">Display C-CDA XML</a></li>
-                                        <li><a href="#">(XML or PDF)</a></li>
-                                    </ul>
-                                </div>
+                                <button class="btn btn-default btn-outline btn-sm pull-right"><i
+                                        class=" icon-clock"></i> Shedule New Appointment
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -100,25 +87,19 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
-                    <h4 class="text-info">Active Problems
+                    <h4 class="text-info">Active Medication Orders
                         <div class="pull-right">
-                            <!--<a href="#responsive" data-toggle="modal">
+                        <span>
+                            <a href="#responsiveAllergy" data-toggle="modal" (click)="addAllergy()">
                                 <button class="btn mt-sweetalert btn green-meadow pdngall3"
-                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                        data-type="success" data-allow-outside-click="true"
-                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
+                                        data-title="Sweet Alerts with Icons"
+                                        data-message="Success Icon" data-type="success"
+                                        data-allow-outside-click="true"
+                                        data-confirm-button-class="btn-success">
+                                    <i class="fa fa-plus"></i> Add
                                 </button>
-                            </a>-->
-                            <span>
-                                 <a href="#responsive" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
-                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                        data-type="success" data-allow-outside-click="true"
-                                        (click)="addProblemPopupClick()"
-                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Problem
-                                </button>
-                                 </a>
-                            </span>
+                            </a>
+                        </span>
                             <span><button class="btn btn-default btn-outline btn-sm"> <i class=" icon-clock"></i> Print List </button></span>
                         </div>
                     </h4>
@@ -127,28 +108,28 @@
                     <table class="table table-hover table-light">
                         <thead>
                         <tr class="hedng-bck-clr tbl-pdng">
-                            <th> Version</th>
-                            <th> Code</th>
-                            <th> Diagnosis Date</th>
-                            <th> Notes</th>
+                            <th> Allergy</th>
+                            <th> Reaction</th>
                             <th> Status</th>
+                            <th> Notes</th>
+                            <th>updated</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="tbl-pdng" *ngFor="let problem of problemData; let i = index;" class="filter">
-                            <td>{{problem.versionName}}</td>
-                            <td>{{problem.codeName}}</td>
-                            <td>{{problem.dateDiagnosis}}</td>
-                            <td>{{problem.note}}</td>
-                            <td>{{problem.status}}</td>
+                        <tr class="tbl-pdng" *ngFor="let allergy of allergyData" class="filter">
+                            <td>{{allergy.name}}</td>
+                            <td>{{allergy.reaction}}</td>
+                            <td>{{allergy.status}}</td>
+                            <td>{{allergy.note}}</td>
+                            <td>{{allergy.updatedOn}}</td>
                             <td>
-                                <a href="#responsive" data-toggle="modal"
-                                   (click)="editPatientProblem(problem.id)">
+                                <a href="#responsiveAllergy" data-toggle="modal"
+                                   (click)="editAllergy(allergy.id)">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 <button
-                                        (click)="deletePatientProblem(problem.id)">
+                                        (click)="deleteAllergy(allergy.id)">
                                     <i class="fa fa-remove"></i>
                                 </button>
                             </td>
@@ -160,31 +141,32 @@
         </div>
         <div class="clearfix"></div>
 
+
         <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
                         <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
-                            <a (click)="getPageWisePatientProblem(0);" title="First">
+                            <a (click)="getPageWiseAllergies(0);" title="First">
                                 <i class="fa fa-angle-double-left"></i>
                             </a>
                         </li>
                         <li class="prev" *ngIf="prePage">
-                            <a (click)="getPageWisePatientProblem(currPage - 1)" title="Previous">
+                            <a (click)="getPageWiseAllergies(currPage - 1)" title="Previous">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
                         <li [ngClass]="{active: page === currPage}"
                             *ngFor="let page of pages">
-                            <a (click)="getPageWisePatientProblem(page)">{{page + 1}}</a>
+                            <a (click)="getPageWiseAllergies(page)">{{page + 1}}</a>
                         </li>
                         <li class="next" *ngIf="nextPage">
-                            <a (click)="getPageWisePatientProblem(currPage + 1)" title="Next">
+                            <a (click)="getPageWiseAllergies(currPage + 1)" title="Next">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
-                            <a (click)="getPageWisePatientProblem(pages.length - 1)" title="Last">
+                            <a (click)="getPageWiseAllergies(pages.length - 1)" title="Last">
                                 <i class="fa fa-angle-double-right"></i>
                             </a>
                         </li>
@@ -194,92 +176,91 @@
             </div>
         </div>
 
+
     </div>
 </div>
 
-<!--Start Modal-->
-<div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="responsiveAllergy" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Problem</h4>
+                <button type="button" class="close"
+                        data-dismiss="modal"
+                        aria-hidden="true">
+                </button>
+                <span [hidden]="isUpdate">
+                    <h4 class="modal-title">Add Allergy</h4>
+                </span>
+                <span [hidden]="!isUpdate">
+                     <h4 class="modal-title">Update Allergy</h4>
+                </span>
             </div>
             <div class="modal-body">
                 <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="form-group hr">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">Appointments<span class="required" aria-required="true"> * </span>
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">
+                                Appointments<span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-                                    <select id="selectedAppointmentId"
-                                            [(ngModel)]="ppm.appointmentId"
-                                            name="selectedAppointmentId"
+                                    <select
+                                            [(ngModel)]="pam.appointmentId"
                                             class="form-control">
-                                        <option value="-1">--- Please select ---</option>
+                                        <option value="-1">--- Select Appointment ---</option>
                                         <option
-                                                *ngFor="let appointment of pastAppointments"
-                                                [(value)]="appointment.id">
-                                            {{appointment.appointmentId}},
-                                            {{"Schedule Date:"+appointment.scheduleDate}}
+                                                *ngFor="let pastApp of pastAppointments"
+                                                [value]="pastApp.id">
+                                            {{pastApp.appointmentId}},
+                                            {{"Schedule Date:"+pastApp.scheduleDate}}
                                         </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group hr">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">Version
-                                <span class="required" aria-required="true"> * </span>
-                            </label>
-                            <div class="col-md-7 pdng-lr-5">
-                                <div class="select2-bootstrap-prepend">
-                                    <select id="icdVersionId" [(ngModel)]="ppm.selectedICDVersionId"
-                                            #icdVersionId="ngModel"
-                                            name="icdVersionId"
-                                            class="form-control"
-                                            (change)="changedVersion(ppm.selectedICDVersionId)">
-                                        <option value="-1">--- Please select ---</option>
-                                        <option
-                                                *ngFor="let ver of iCDVersions"
-                                                [(value)]="ver.id">
-                                            {{ver.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Problem:<span class="required" aria-required="true"> * </span></label>
-                            <div class="col-md-7 pdng-lr-5">
-                                <div class="select2-bootstrap-prepend">
-                                    <select id="associatedCodesId"
-                                            [(ngModel)]="ppm.selectedCodeId"
-                                            #associatedCodesId="ngModel" name="selectedVer"
-                                            class="form-control">
-                                        <option value="-1">--- Please select ---</option>
-                                        <option
-                                                *ngFor="let code of associatedCodes"
-                                                [(value)]="code.id">
-                                            {{code.code}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis
-                                <span class="required" aria-required="true"> * </span>
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                Allergy type:<span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <input type="date" class="form-control"
-                                       [(ngModel)]="ppm.dateDiagnosis">
+                                <select class="form-control"
+                                        id="allergyTypeId"
+                                        name="allergyTypeId"
+                                        [(ngModel)]="pam.allergyType">
+                                    <option value="-1">---------</option>
+                                    <option value="specificdrug">Specific Drug allergy</option>
+                                    <option value="drugclass">Drug Class allergy</option>
+                                    <option value="nondrug">Non-Drug allergy</option>
+                                    <option value="nkda">No Known Drug Allergies (NKDA)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                allergy Name:<span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="text" class="form-control"
+                                       id="nameId"
+                                       name="nameId"
+                                       #nameId="ngModel"
+                                       [(ngModel)]="pam.name">
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Reaction:</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="text" class="form-control"
+                                       id="reactionId"
+                                       name="reactionId"
+                                       #reactionId="ngModel"
+                                       [(ngModel)]="pam.reaction">
                             </div>
                         </div>
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <select class="form-control" [(ngModel)]="ppm.status">
+                                <select class="form-control" [(ngModel)]="pam.status">
                                     <option value="ACTIVE">Active</option>
                                     <option value="IN_ACTIVE">In_Active</option>
                                     <option value="RESOLVED">Resolved</option>
@@ -289,26 +270,27 @@
                         <div class="form-group hr">
                             <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes:</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <address>
-                                    <textarea class="form-control"
-                                              rows="3"
-                                              [(ngModel)]="ppm.note">
-                                    </textarea>
-                                </address>
+                                <textarea class="form-control"
+                                          rows="3"
+                                          [(ngModel)]="pam.note">
+                                </textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" #closeBtn
+                <button type="button" data-dismiss="modal"
+                        #closeBtnAllergy
+                        id="closeBtnAllergy"
+                        name="closeBtnAllergy"
                         class="btn btn-default btn-outline">Close
                 </button>
                 <span [hidden]="isUpdate">
-                    <button type="button" class="btn green" (click)="savePatientProblem()">Save</button>
+                    <button type="button" class="btn green" (click)="saveAllergy()">Save</button>
                 </span>
                 <span [hidden]="!isUpdate">
-                    <button type="button" class="btn green" (click)="updatePatientProblem()">Update
+                    <button type="button" class="btn green" (click)="updateAllergy()">Update
                     </button>
                 </span>
             </div>
