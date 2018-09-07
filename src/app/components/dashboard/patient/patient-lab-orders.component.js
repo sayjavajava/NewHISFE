@@ -120,6 +120,7 @@ var PatientLabOrdersComponent = (function () {
         var _this = this;
         console.log('tes' + data);
         if (this.labForm.valid) {
+            // let branchObject = this.prepareSaveBranch();
             this.requestService.postRequest(app_constants_1.AppConstants.LAB_ORDER_CREATE, data)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
@@ -178,7 +179,7 @@ var PatientLabOrdersComponent = (function () {
                     _this.notificationService.error('ERROR', 'LabOrder is not deleted ');
                 });
             }
-        }); //
+        });
     };
     PatientLabOrdersComponent = __decorate([
         core_1.Component({

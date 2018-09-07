@@ -148,6 +148,7 @@ export class AppConstants {
    ///////////////////Family History//////////
     public static FAMILY_HISTORY_CREATE ='/patient/family/create';
     public static FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
+    public static LAB_ORDER_CREATE ='/patient/laborder/create';
     public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
