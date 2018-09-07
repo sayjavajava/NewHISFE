@@ -6,6 +6,8 @@ import {RequestsService} from "../../../services/requests.service";
 import {NotificationService} from "../../../services/notification.service";
 import {Patient} from "../../../model/patient";
 import {HISUtilService} from "../../../services/his-util.service";
+import {ConfirmationdialogComponent} from "../confirmationdialog.component";
+import {ConformationDialogService} from "../../../services/ConformationDialogService";
 
 
 @Component({
@@ -22,10 +24,13 @@ export class PatientLabOrdersComponent implements OnInit {
     labTest: any = [];
     dateTest =new Date();
     id : number;
+    orderId:number;
     error:any;
     allOrders:any=[];
+    filteredLabTest :any[] =[];
     patient:Patient =new Patient();
-    constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,private notificationService:NotificationService,private hISUtilService: HISUtilService) {
+    constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,
+                private notificationService:NotificationService,private hISUtilService: HISUtilService,private confirmationDialogService: ConformationDialogService ) {
     }
     ngOnInit(): void {
         this.route.params.subscribe(params => {
@@ -47,18 +52,20 @@ export class PatientLabOrdersComponent implements OnInit {
             page = page;
 
         }
-        this.requestService.getRequest(
-            AppConstants.FETCH_ALL_LABORDER_URL + page)
+        this.requestService.getRequestWithParam(
+            AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL + page,this.id)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'BRANCH_SUC_01') {
+                    if (response['responseCode'] === 'LAB_ORDER_SUC_02') {
                         this.nextPage = response['responseData']['nextPage'];
                         this.prePage = response['responseData']['prePage'];
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.allOrders = response['responseData']['data'];
 
-
+                    }
+                    if(response['responseCode'] =='LAB_ORDER_ERR_02'){
+                        this.notificationService.error(`Error ${response['responseMessage']}`)
                     }
                 },
                 (error: any) => {
@@ -121,8 +128,6 @@ export class PatientLabOrdersComponent implements OnInit {
     addLabOrder(data:any ){
         console.log('tes'+data);
         if (this.labForm.valid) {
-
-            // let branchObject = this.prepareSaveBranch();
             this.requestService.postRequest(AppConstants.LAB_ORDER_CREATE, data)
                 .subscribe(
                     (response: Response) => {
@@ -138,6 +143,20 @@ export class PatientLabOrdersComponent implements OnInit {
         }
 
     }
+    getLabTest(orderId:any){
+      let labTestFiltered :any[]= this.allOrders.filter((x:any) =>x.id == orderId).map((x:any)=>x.labTests);
+      this.filteredLabTest = labTestFiltered[0];
+      labTestFiltered.forEach(function (msg) {
+          console.log(msg);
+      })
+      console.log('lab tes'+ labTestFiltered[0]);
+    }
+    updateOrder(id:number){
+        console.log('dmmm');
+        this.orderId = id;
+       // this.router.navigate("['/dashboard/patient/create-order/',id,'add',orderId,'order']");
+        this.router.navigate(['/dashboard/patient/create-order',this.id,'add',this.orderId,'order']);
+    }
 
     validateAllFormFields(formGroup: FormGroup) {
         console.log('i am validating');
@@ -152,5 +171,24 @@ export class PatientLabOrdersComponent implements OnInit {
     }
     selectedAppointment(id:any){
         this.labForm.controls['appointmentId'].setValue(id);
+    }
+    deleteLabOrder(id: number) {
+        this.confirmationDialogService
+            .confirm('Delete', 'Are you sure you want to do this?')
+            .subscribe(res => {
+                if (res ==true) {
+                    this.requestService.deleteRequest(AppConstants.LAB_ORDER_DELETE + id).subscribe((data: Response) => {
+                        if (data['responseCode'] === 'LAB_ORDER_SUC_04') {
+                            this.notificationService.success('LabOrder has been Deleted Successfully');
+                            this.getLabOrderFromServer(this.currPage);
+
+                        }
+
+                    }, error => {
+                        this.notificationService.error('ERROR', 'LabOrder is not deleted ');
+
+                    });
+                }
+            });
     }
 }

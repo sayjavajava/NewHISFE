@@ -17,58 +17,45 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var patient_1 = require("../../../model/patient");
 var his_util_service_1 = require("../../../services/his-util.service");
-var PatientLabOrdersComponent = (function () {
-    function PatientLabOrdersComponent(router, route, fb, requestService, notificationService, hISUtilService) {
+var PatientAddLabOrdersComponent = (function () {
+    function PatientAddLabOrdersComponent(router, route, fb, requestService, notificationService, hISUtilService) {
         this.router = router;
         this.route = route;
         this.fb = fb;
         this.requestService = requestService;
         this.notificationService = notificationService;
         this.hISUtilService = hISUtilService;
-        this.pages = [];
         this.labTest = [];
         this.dateTest = new Date();
-        this.allOrders = [];
+        this.orderId = 0;
         this.patient = new patient_1.Patient();
     }
-    PatientLabOrdersComponent.prototype.ngOnInit = function () {
+    PatientAddLabOrdersComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
+        this.route.params.subscribe(function (params) {
+            _this.orderId = params['orderId'];
+        });
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
-        this.getLabOrderFromServer(0);
+        if (this.orderId != null)
+            this.patchOrderData();
         //  this.addMoreTest();
     };
-    PatientLabOrdersComponent.prototype.goToUserDashBoard = function () {
+    PatientAddLabOrdersComponent.prototype.goToUserDashBoard = function () {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     };
-    PatientLabOrdersComponent.prototype.getLabOrderFromServer = function (page) {
-        var _this = this;
-        if (page > 0) {
-            page = page;
-        }
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_LABORDER_URL + page)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'BRANCH_SUC_01') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.allOrders = response['responseData']['data'];
-            }
-        }, function (error) {
-            _this.error = error.error.error;
-        });
-    };
-    PatientLabOrdersComponent.prototype.loadRecord = function () {
+    PatientAddLabOrdersComponent.prototype.loadRecord = function () {
         var _this = this;
         this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.patient = response['responseData'];
-                //this.patient.races = JSON.parse(response['responseData'].racesString);
+                var apptId = response['responseData']['pastAppointments'];
+                _this.appointmentId = apptId[0].id;
+                console.log('test appoint id :' + _this.appointmentId);
             }
             else {
                 _this.notificationService.error(response['responseMessage'], 'Patient');
@@ -78,19 +65,18 @@ var PatientLabOrdersComponent = (function () {
             _this.hISUtilService.tokenExpired(error.error.error);
         });
     };
-    PatientLabOrdersComponent.prototype.createLabOrderForm = function () {
+    PatientAddLabOrdersComponent.prototype.createLabOrderForm = function () {
         this.labForm = this.fb.group({
             'orderStatus': [null],
             'orderTestDate': [null],
             'doctorSignOff': [null],
             'comments': [null],
             'patientId': [null],
-            'appointmentId': [null],
-            'selectedAppointment': [null, forms_1.Validators.required],
+            'appointmentId': [null, forms_1.Validators.required],
             'labTest': this.fb.array([this.createLabTest()]),
         });
     };
-    PatientLabOrdersComponent.prototype.createLabTest = function () {
+    PatientAddLabOrdersComponent.prototype.createLabTest = function () {
         return this.fb.group({
             'loincCode': '',
             'description': '',
@@ -99,36 +85,75 @@ var PatientLabOrdersComponent = (function () {
             'normalRange': '',
         });
     };
-    PatientLabOrdersComponent.prototype.addMoreTest = function () {
+    PatientAddLabOrdersComponent.prototype.patchOrderData = function () {
+        var _this = this;
+        this.requestService.findById(app_constants_1.AppConstants.FETCH_LABORDER_BY_ID + this.orderId).subscribe(function (res) {
+            _this.addUpdateResponseTest(res.labTests.length);
+            _this.labForm.patchValue({
+                orderStatus: res.status,
+                orderTestDate: new Date(),
+                comments: res.comments,
+                labTest: res.labTests
+            });
+        }, function (error) {
+            //console.log(error.json());
+            _this.error = error.error.error_description;
+        });
+    };
+    PatientAddLabOrdersComponent.prototype.addMoreTest = function () {
         this.labTest = this.labForm.get('labTest');
         this.labTest.push(this.createLabTest());
     };
-    PatientLabOrdersComponent.prototype.goToStatus = function (value) {
+    PatientAddLabOrdersComponent.prototype.addUpdateResponseTest = function (no) {
+        this.removeAllFields();
+        this.labTest = this.labForm.get('labTest');
+        for (var i = 0; i < no; i++) {
+            this.labTest.push(this.createLabTest());
+        }
+    };
+    PatientAddLabOrdersComponent.prototype.removeAllFields = function () {
+        this.labTest = this.labForm.get('labTest');
+        var examRoomLen = this.labTest.length;
+        for (var i = 0; i < examRoomLen; i++) {
+            this.labTest.removeAt(0);
+        }
+    };
+    PatientAddLabOrdersComponent.prototype.goToStatus = function (value) {
         this.labForm.controls['orderStatus'].setValue(value);
     };
-    PatientLabOrdersComponent.prototype.deleteTest = function (index) {
+    PatientAddLabOrdersComponent.prototype.deleteTest = function (index) {
         this.labTest = this.labForm.get('labTest');
         this.labTest.removeAt(index);
     };
-    PatientLabOrdersComponent.prototype.addLabOrder = function (data) {
+    PatientAddLabOrdersComponent.prototype.addLabOrder = function (data) {
         var _this = this;
-        console.log('tes' + data);
         if (this.labForm.valid) {
-            // let branchObject = this.prepareSaveBranch();
-            this.requestService.postRequest(app_constants_1.AppConstants.LAB_ORDER_CREATE, data)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
-                    _this.notificationService.success('LabOrder is Created Successfully');
-                }
-            }, function (error) {
-                this.notificationService.error('ERROR', 'LabOrder is not Created');
-            });
+            if (this.orderId > 0) {
+                this.requestService.putRequest(app_constants_1.AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
+                        _this.notificationService.success('LabOrder is Updated Successfully');
+                    }
+                }, function (error) {
+                    this.notificationService.error('ERROR', 'LabOrder is not Updated');
+                });
+            }
+            else {
+                this.requestService.postRequest(app_constants_1.AppConstants.LAB_ORDER_CREATE, data)
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
+                        _this.notificationService.success('LabOrder is Created Successfully');
+                    }
+                }, function (error) {
+                    this.notificationService.error('ERROR', 'LabOrder is not Created');
+                });
+            }
         }
         else {
             this.validateAllFormFields(this.labForm);
         }
     };
-    PatientLabOrdersComponent.prototype.validateAllFormFields = function (formGroup) {
+    PatientAddLabOrdersComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
         console.log('i am validating');
         Object.keys(formGroup.controls).forEach(function (field) {
@@ -141,17 +166,18 @@ var PatientLabOrdersComponent = (function () {
             }
         });
     };
-    PatientLabOrdersComponent.prototype.selectedAppointment = function (id) {
+    PatientAddLabOrdersComponent.prototype.selectedAppointment = function (id) {
+        console.log('selec id' + id);
         this.labForm.controls['appointmentId'].setValue(id);
     };
-    PatientLabOrdersComponent = __decorate([
+    PatientAddLabOrdersComponent = __decorate([
         core_1.Component({
             selector: 'patient-lab-orders',
-            templateUrl: '../../../templates/dashboard/patient/patient-lab-orders.template.html',
+            templateUrl: '../../../templates/dashboard/patient/patient-add-lab-orders.template.html',
         }),
         __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, forms_1.FormBuilder, requests_service_1.RequestsService, notification_service_1.NotificationService, his_util_service_1.HISUtilService])
-    ], PatientLabOrdersComponent);
-    return PatientLabOrdersComponent;
+    ], PatientAddLabOrdersComponent);
+    return PatientAddLabOrdersComponent;
 }());
-exports.PatientLabOrdersComponent = PatientLabOrdersComponent;
-//# sourceMappingURL=patient-lab-orders.component.js.map
+exports.PatientAddLabOrdersComponent = PatientAddLabOrdersComponent;
+//# sourceMappingURL=patient-add-lab-orders.component.js.map

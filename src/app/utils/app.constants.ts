@@ -25,8 +25,6 @@ export class AppConstants {
     public static BRANCH_SEARCH = '/setting/branch/search/';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     public static FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
-
-
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
 
     ////////////////////// ICD URLs ///////////////////////////////
@@ -143,6 +141,17 @@ export class AppConstants {
 
     ////////////////////// Patient History ///////////////////////////////
     public static FETCH_ALL_LABORDER_URL = '/patient/laborder/';
+    public static FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
+    public static LAB_ORDER_UPDATE ='/patient/laborder/update/';
+    public static LAB_ORDER_DELETE = '/patient/laborder/delete/';
+    public static FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
+   ///////////////////Family History//////////
+    public static FAMILY_HISTORY_CREATE ='/patient/family/create';
+    public static FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
+    public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
+    public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
+    public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
+
 
 
 

@@ -10,19 +10,21 @@
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
-                                <h1 class="page-title no-margin"> Dan Dan</h1>
-                                <small class="small-txt">( Male | 42 years old | April 18, 1973)</small>
+                                <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob}})</small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
                                     <table width="100%" border="0">
                                         <tr>
-                                            <td class="txt-rigt">Phone:</td>
-                                            <td class="font-red">Missing</td>
+                                            <td class="txt-rigt">Cell Phone:</td>
+                                            <td class="txt-left font-red">{{patient.cellPhone}}</td>
+                                            <!--<td class="font-red">Missing</td>-->
                                         </tr>
                                         <tr>
                                             <td class="txt-rigt">Address:</td>
-                                            <td class="font-red">No address on file</td>
+                                            <td class="text-left font-red">{{patient.formattedAddress}}</td>
+                                            <!--<td class="font-red">No address on file</td>-->
                                         </tr>
                                     </table>
 
@@ -31,181 +33,187 @@
                                     <table width="100%" border="0">
                                         <tr>
                                             <td class="txt-rigt">Email:</td>
-                                            <td class="font-red">Missing</td>
+                                            <td class="text-left font-red">{{patient.email}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
                                         </tr>
                                         <tr>
-                                            <td class="txt-rigt">Future Appt:</td>
+                                            <td class="txt-rigt">Gender:</td>
+                                            <td class="text-left font-red">{{patient.gender}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <!--<tr>
+                                            <td class="txt-rigt">Appt:</td>
                                             <td class="font-red">Mon. Jul. 27, 2015</td>
-                                        </tr>
+                                        </tr>-->
                                     </table>
 
                                 </div>
-                                <div class="col-md-4 col-xs-12">
-                                    <table width="100%" border="0">
-                                        <tr>
-                                            <td class="txt-rigt">Added:</td>
-                                            <td>Nov. 24, 2015</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="txt-rigt">Last Appt:</td>
-                                            <td>Mon. Jul. 27, 2015</td>
-                                        </tr>
-                                    </table>
 
-                                </div>
                             </div>
                         </div>
-                        <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">DADA0000002 </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>
+                        <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
                     </div>
                     <div class="hr no-margin">
                         <div class="hr">
                             <div class="portlet-title">
-                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">Muhammad Imran</span> </div>
+                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
                             </div>
                         </div>
-                        <div class="hr no-margin">
-                            <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> Fax Demographics  </button>
-                            <span>
-                                <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
-                                <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class="fa fa-flask"></i> Import CCR Lab Result </button>
-                            </span>
-                            <div class=" pull-right">
-                                <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
-                            </div>
-                        </div>
+                        <!-- <div class="hr no-margin">
+                             <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
+                             <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
+                         </div>-->
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
-            <form [formGroup]="labForm" class="form-horizontal">
-            <div class="hr">
-                    <div class="col-md-12">
-                        <h3 class="text-info">Enter Lab Orders</h3>
-                    </div>
-                    <div class="col-md-8">
-
-                        <div class="form-group">
-                                <label class="control-label col-md-3">Status</label>
-                                <div class="col-md-5">
-                                    <select class="form-control" formControlName="orderStatus" (change)="goToStatus($event.target.value)">
-                                        <option value="">Select...</option>
-                                        <option value="COMPLETED">COMPLETED</option>
-                                        <option value="IN_PROGRESS"> IN PROGRESS</option>
-                                        <option value="CANCELLED">CANCELLED</option>
-                                        <option value="REVIEW">REVIEW</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-md-4">Status of the lab order.</div>
-                            </div>
-                            <!--<div class="form-group">
-                                <label class="control-label col-md-3">Date test performed</label>
-                                <div class="col-md-5"><input class="form-control form-control-inline input-medium date-picker" size="16"  formControlName="orderTestDate" type="text" value=""></div>
-                            </div>-->
-                        <div class="form-group ">
-                            <label class="control-label col-md-3">Test Date </label>
-                            <div class="col-md-5">
-                            <mwl-demo-utils-date-time-picker
-                                    [(ngModel)] ="dateTest"
-                                    formControlName="orderTestDate"
-                                    placeholder="Not set">
-                            </mwl-demo-utils-date-time-picker>
-                            </div>
-                        </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Comments</label>
-                                <div class="col-md-5">
-                                    <textarea class="form-control" formControlName="comments"  style="height: 50em; width: 22em "></textarea>
-                                </div>
-                                <div class="col-md-4">Status of the lab order.</div>
-                            </div>
-                        <div class="form-group">
-                            <label class="col-md-3">Appointments</label>
-                            <div class="col-md-5">
-                                <select class="form-control" (change)="selectedAppointment($event.target.value)" formControlName="selectedAppointment">
-                                    <!--[ngModelOptions]="{standalone:true}"-->
-                                    <!--[(ngModel)]="event.branch"-->
-                                    <option value="0">-- Select --</option>
-                                    <option  *ngFor="let item of patient.pastAppointments; let i = index;"
-                                             value={{item.id}}>
-                                        {{item.scheduleDate}}
-                                    </option>
-                                </select>
-
-                            </div>
-                            <span class="text-danger"
-                                  *ngIf="labForm.controls['selectedAppointment'].invalid ">Select Appointment</span>
-
-                        </div>
-
-
+                <h4 class="text-info">Lab Orders
+                    <div class="pull-right">
+                        <a [routerLink]="['/dashboard/patient/create-order/',id,'add',orderId,'order']">
+                            <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
+                                    data-message="Success Icon" data-type="success" data-allow-outside-click="true"
+                                    data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
+                            </button>
+                        </a>
 
                     </div>
+                </h4>
+
+                <div class="table-scrollable">
+                    <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                           aria-describedby="datatable_ajax_info" role="grid">
+                        <thead>
+                        <tr role="row" class="off-wite-bg">
+                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Test Date</th>
+                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Order Status</th>
+                            <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
+                            <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> LabTest</th>
+                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
+                        </tr>
+
+                        <tr role="row" class="filter" *ngFor="let item of allOrders">
+
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                {{item.dateTest}}
+                            </td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                {{item.status}}
+                            </td>
+                            <td rowspan="1" colspan="1">{{item.comments}}</td>
+                            <a href="#popupTest" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow"
+                                        (click)="getLabTest(item.id)"
+                                        data-confirm-button-class="btn-success">
+                                    <i class="fa fa"></i> Show
+                                </button>
+                            </a>
+                            <td rowspan="1" colspan="1">
+
+                                <button (click)="updateOrder(item.id)" class="btn btn-default btn-outline btn-sm"><i
+                                        class="fa fa-pencil"></i></button>
+                                <button (click)="deleteLabOrder(item.id)" class="btn btn-default btn-outline btn-sm"><i
+                                        class="fa fa-remove"></i></button>
+                            </td>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
-            <div class="col-md-12 table-responsive round-table no-padding" formArrayName="labTest" *ngFor="let item of labForm.get('labTest').controls; let i = index;">
-                <div class="form-group" [formGroupName]="i">
-                  <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
-                    <thead>
-                    <tr role="row" class=" hedng-bck-clr"><th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> LOINC Code </th><th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th><th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result value </th><th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Units </th><th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Normal Range </th>
-                        <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Actions </th></tr>
-                    <tr role="row" class="filter">
-                        <td rowspan="1" colspan="1"> <input type="text" formControlName="loincCode" class="form-control" value="23"> </td>
-                       <!-- <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>-->
-                        <td rowspan="1" colspan="1"> <input type="text" formControlName="description" class="form-control" value="23"> </td>
-                        <td rowspan="1" colspan="1"> <input type="text" formControlName="units" class="form-control" value="23"> </td>
-                        <td rowspan="1" colspan="1"> <input type="text" formControlName="resultValue" class="form-control" value="45"> </td>
-                        <td rowspan="1" colspan="1"> <input type="text" formControlName="normalRange" class="form-control" value="100"> </td>
-
-                        <td rowspan="1" colspan="1"> <button class="btn btn-default btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>
-                    </tr>
-
-                    <!--<div formArrayName="examRooms"
-                         *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
-                        <div class="form-group" [formGroupName]="i">
-                            <label class="control-label col-md-4">Exam Rooms
-                            </label>
-                            <div class="col-md-3 no-padding-rgt">
-                                <input type="text" class="form-control"
-                                       style="width: 128px !important;"
-                                       formControlName="roomName">
-                            </div>
-                            <div class="col-md-5 pdng-lr-5 mrgn-top4">
-                                <label class="mt-checkbox-outline">
-                                    <input type="checkbox"
-                                           formControlName="allowOnlineScheduling"> Allow Online
-                                    Scheduling
-                                    <span></span>
-                                </label>
-                                <i (click)="deleteField(i)" title="Remove"
-                                   class="fa fa-close font-red"></i>
-                            </div>
-                            &lt;!&ndash;<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>&ndash;&gt;
-                        </div>
-                    </div>-->
-
-                    </thead>
-                  </table>
-                </div>
-            </div>
-            <div class="pull-right">
-                               <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons" data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success" (click)="addMoreTest()"><i class="fa fa-plus"></i> Add another </button>
-            </div>
-
-
-
-                <div class="hr text-center bdr-top bdr-btm padding-b-10 padding-t-10">
-                    <button class="btn blue" (click)="addLabOrder(labForm.value)"> Submit Order </button>
-                </div>
-            </form>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev">
+                            <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
+                               (click)="getBranchFromServer(0)">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev">
+                            <a title="Prev" *ngIf="prePage"
+                               (click)="getBranchFromServer(currPage - 1)">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getBranchFromServer(page)">{{page+1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getUserFromServer(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getBranchFromServer(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+                <p></p>
+            </div>
+        </div>
+
+
         <!--<div class="clearfix">
             <a (click)="goToUserDashBoard();" class="nav-link">
                 <button type="button" class="btn  btn-default"> Cancel</button>
             </a>
         </div>-->
+    </div>
+</div>
+
+
+<div id="popupTest" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Lab Test</h4>
+            </div>
+            <div class="modal-body">
+                <p class="font-red" *ngIf="filteredLabTest.length <= 0">Order has no Test</p>
+                <div class="scroller" style="height:150px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <address>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="select2-bootstrap-prepend">
+                                        <div class="checkbox-box cod-higt" id="branchNameDiv">
+                                            <div class="col-md-6 branches-list">
+                                                <ul>
+                                                    <li *ngFor="let test of filteredLabTest">
+                                                        <i class=" icon-home"></i>
+                                                        <label class="">
+                                                            {{test.loincCode +' ' + test.resultValue }}
+                                                            <span></span>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal"
+                        id="close-btn-branch"
+                        name="close-btn-branch"
+                        class="btn btn-default btn-outline"
+                >Close
+                </button>
+            </div>
+        </div>
     </div>
 </div>

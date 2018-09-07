@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material';
 import {ConformationDialogService} from '../../../services/ConformationDialogService';
 import {AppConstants} from '../../../utils/app.constants';
 import {SearchBranch} from '../../../model/searchBranch';
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'branch-component',
@@ -24,7 +25,6 @@ export class BranchComponent implements OnInit {
     branch: any;
     selectedRole: string = 'SUPER_ADMIN';
     branchesList: any = [];
-
     searchForm: FormGroup;
     responseUser: any[];
 
@@ -77,7 +77,6 @@ export class BranchComponent implements OnInit {
     searchData(data: SearchBranch) {
         if (this.searchForm.valid) {
             let searchUserObj = new SearchBranch(data.branch, data.department, data.description);
-
             this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
                 .subscribe(
                     (response: Response) => {
@@ -139,7 +138,7 @@ export class BranchComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.data = response['responseData']['data'];
-                        let data = response['responseData']['data'];
+
 
                     }
                 },
@@ -153,7 +152,7 @@ export class BranchComponent implements OnInit {
         this.confirmationDialogService
             .confirm('Delete', 'Are you sure you want to do this?')
             .subscribe(res => {
-                if (id) {
+                if (res ==true) {
                     this.requestService.deleteRequest(AppConstants.DELETE_BRANCH_URI + id).subscribe((data: Response) => {
                         if (data['responseCode'] === 'BRANCH_DEL_SUC_01') {
                             this.notificationService.success('Branch has been Deleted Successfully');
@@ -176,7 +175,7 @@ export class BranchComponent implements OnInit {
 
     updateBranch(id: any) {
         this.router.navigate(['/dashboard/setting/branch/edit/', id]);
-    }
+}
 
     getSelectedBranch(value: any) {
         if (value) {

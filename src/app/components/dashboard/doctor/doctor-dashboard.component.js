@@ -18,13 +18,15 @@ var user_type_enum_1 = require("../../../enums/user-type-enum");
 var notification_service_1 = require("../../../services/notification.service");
 var material_1 = require("@angular/material");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
+var DataService_1 = require("../../../services/DataService");
 var DoctorDashboardComponent = (function () {
-    function DoctorDashboardComponent(requestService, router, snackBar, notificationService, confirmationDialogService, titleService) {
+    function DoctorDashboardComponent(requestService, router, snackBar, notificationService, confirmationDialogService, dataService, titleService) {
         this.requestService = requestService;
         this.router = router;
         this.snackBar = snackBar;
         this.notificationService = notificationService;
         this.confirmationDialogService = confirmationDialogService;
+        this.dataService = dataService;
         this.titleService = titleService;
         this.title = 'Doctor Dashboard';
         this.dashboardList = [];
@@ -121,8 +123,8 @@ var DoctorDashboardComponent = (function () {
         });
     };
     DoctorDashboardComponent.prototype.patientHistory = function (id) {
-        console.log('testing.. ');
-        this.router.navigate(['/dashboard/patient/history', id]);
+        this.dataService.getPatientId(id);
+        this.router.navigate(['/dashboard/patient/', id, 'history']);
     };
     DoctorDashboardComponent = __decorate([
         core_1.Component({
@@ -135,6 +137,7 @@ var DoctorDashboardComponent = (function () {
             material_1.MatSnackBar,
             notification_service_1.NotificationService,
             ConformationDialogService_1.ConformationDialogService,
+            DataService_1.DataService,
             platform_browser_1.Title])
     ], DoctorDashboardComponent);
     return DoctorDashboardComponent;
