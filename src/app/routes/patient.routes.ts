@@ -14,8 +14,8 @@ import {PatientAppointmentComponent} from "../components/dashboard/patient/patie
 
 import {PatientDocumentsComponent} from "../components/dashboard/patient/patient-document.component";
 import {PatientProblemListComponent} from "../components/dashboard/patient/patient-problem-list.component";
-import {PatientMedicalListComponent} from "../components/dashboard/patient/patient-medical-list.component";
-import {PatientAlergyListComponent} from "../components/dashboard/patient/patient-alergy-list.component";
+import {PatientMedicationListComponent} from "../components/dashboard/patient/patient-medication-list.component";
+import {PatientAllergyListComponent} from "../components/dashboard/patient/patient-allergy-list.component";
 import {PatientLabOrdersComponent} from "../components/dashboard/patient/patient-lab-orders.component";
 import {PatientCommunicationComponent} from "../components/dashboard/patient/patient-communication.component";
 import {PatientFamilyHistoryComponent} from "../components/dashboard/patient/patient-family-history.component";
@@ -34,8 +34,8 @@ export const PatientRoutes: Routes = [
     {path: 'appointments/:id/history', component: PatientAppointmentComponent},
     {path: 'documents', component: PatientDocumentsComponent},
     {path: 'problems-list', component: PatientProblemListComponent},
-    {path: 'medical-list', component: PatientMedicalListComponent},
-    {path: 'allergy-list', component: PatientAlergyListComponent},
+    {path: 'medical-list', component: PatientMedicationListComponent},
+    {path: 'allergy-list', component: PatientAllergyListComponent},
     {path: 'lab-orders/:id/history', component: PatientLabOrdersComponent},
     {path: 'create-order/:id/add/:orderId/order', component: PatientAddLabOrdersComponent},
     {path: 'communication', component: PatientCommunicationComponent},
