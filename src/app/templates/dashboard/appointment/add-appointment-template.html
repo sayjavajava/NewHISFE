@@ -140,6 +140,10 @@
                                                                        (keyup)="refresh.next()"></textarea>
                                                             </div>
                                                         </div>
+
+
+
+
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group hr">
@@ -581,12 +585,13 @@
 </div>
 <div id="create-responsive" class="modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog schedle-appint-modal">
-        <div class="modal-content" *ngFor="let event of eventsRequest; let index = index">
-            <div class="modal-header off-wite-bg">
+        <form id="loginForm" class="login-form" #form="ngForm">
+           <div class="modal-content" *ngFor="let event of eventsRequest; let index = index">
+             <div class="modal-header off-wite-bg">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                 <h4 class="modal-title bold"> Schedule Appointment </h4>
-            </div>
-            <div class="modal-body schedule-body">
+             </div>
+              <div class="modal-body schedule-body">
                 <div class="scroller" style="height:1350px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class=" col-md-12">
@@ -605,6 +610,7 @@
                                                 <label>
                                                     <input type="checkbox"
                                                            value="{{item.name}}"
+                                                           [ngModelOptions]="{standalone:true}"
                                                            (change)="selectType()"
                                                            [(ngModel)]="item.checked"/>
                                                     {{item.name}}
@@ -617,6 +623,7 @@
                                                 <div class="row">
                                                 <div class="col-md-3">
                                                     <input type="text" value="" class="form-control"
+                                                           [ngModelOptions]="{standalone:true}"
                                                            placeholder="First Name" [(ngModel)]="event.newPatient"
                                                            (keyup)="refresh.next()">
                                                 </div>
@@ -635,18 +642,21 @@
                                                             type="text"
                                                             class="form-control"
                                                             [(ngModel)]="event.email"
+                                                            [ngModelOptions]="{standalone:true}"
                                                             (keyup)="refresh.next()">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <input
                                                             type="text"
                                                             class="form-control"
+                                                            [ngModelOptions]="{standalone:true}"
                                                             [(ngModel)]="event.cellPhone"
                                                             (keyup)="refresh.next()">
                                                 </div>
                                                     <div class="col-md-2">
                                                         <input type="date" class="form-control form-control-inline input-medium"
                                                                [(ngModel)]="event.dob" id="dob"
+                                                               [ngModelOptions]="{standalone:true}"
                                                                (ngModelChange)="event.dob = $event"
                                                                name="dob" #dob="ngModel">
                                                         <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"
@@ -697,6 +707,7 @@
                                                                 rows="3"
                                                                 class="form-control"
                                                                 [(ngModel)]="event.reason"
+                                                                [ngModelOptions]="{standalone:true}"
                                                                 (keyup)="refresh.next()"></textarea>
                                                     </div>
                                                 </div>
@@ -706,6 +717,7 @@
                                                         <div class=" col-md-12 col-xs-12 pull-left no-padding">
                                                             <mwl-demo-utils-date-time-picker
                                                                     [(ngModel)]="event.start"
+                                                                    [ngModelOptions]="{standalone:true}"
                                                                     (ngModelChange)="refresh.next()"
                                                                     placeholder="Not set">
                                                             </mwl-demo-utils-date-time-picker>
@@ -718,6 +730,7 @@
                                                                <textarea
                                                                        rows="3"
                                                                        class="form-control"
+                                                                       [ngModelOptions]="{standalone:true}"
                                                                        [(ngModel)]="event.notes"
                                                                        (keyup)="refresh.next()"></textarea>
                                                     </div>
@@ -727,7 +740,7 @@
                                                 <div class="form-group hr">
                                                     <label class="control-label col-md-4">Branch</label>
                                                     <div class="col-md-8">
-                                                        <select #selectedBranch class="form-control" required
+                                                        <select #selectedBranch class="form-control" [required]="isRequired"
 
                                                                 (change)="getExamRoom(selectedBranch.value)"
                                                                 name="branchDrp"
@@ -740,6 +753,18 @@
                                                         </select>
                                                     </div>
                                                 </div>
+
+                                          <!--      <div class="col-md-9">
+                                                    <input class="form-control"
+                                                           type="number"
+                                                           [(ngModel)]="ms.cost" min="0"
+                                                           required pattern="^[0-9]{1,60}$"
+                                                           name="cost" #cost="ngModel"/>
+                                                </div>
+                                                <span *ngIf="cost.invalid && cost.touched"
+                                                      class="col-md-6 select pdng-lr-5 text-danger">
+                                                Please enter valid cost.
+                                    </span-->>
                                                 <div class="form-group hr">
                                                     <label class="control-label col-md-4">Room:</label>
                                                     <div class="col-md-8">
@@ -775,6 +800,7 @@
                                                     </label>
                                                     <div class="col-md-8">
                                                         <input [(colorPicker)]="color" [value]="color"
+                                                               [ngModelOptions]="{standalone:true}"
                                                                [style.background]="color"
                                                                (keyup)="refresh.next()" [(ngModel)]="event.colorHash"/>
                                                         <!--<input [style.background]="color"
@@ -802,11 +828,18 @@
                                                     <label class="col-md-4 control-label">Duration:</label>
                                                     <div class="col-md-6 col-xs-12">
                                                         <input
-                                                                type="text"
+                                                                type="text"  required
+                                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                                 class="form-control"
+                                                                [ngModelOptions]="{standalone:true}"
                                                                 [(ngModel)]="event.duration"
-                                                                (keyup)="refresh.next()">
+                                                                (keyup)="refresh.next()"
+                                                                name="dptName" #dptName="ngModel">
                                                     </div>
+                                                    <span *ngIf="dptName.invalid && dptName.touched"
+                                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter duration name.
+                                                </span>
                                                     <div class="col-md-2 text-center label-control2">minutes
                                                     </div>
                                                 </div>
@@ -900,7 +933,7 @@
 
                                             </div>-->
                                             <label class="mt-checkbox mt-checkbox-outline col-md-12">
-                                                <input type="checkbox" [(ngModel)]="event.followUpReminder"
+                                                <input type="checkbox" [(ngModel)]="event.followUpReminder" [ngModelOptions]="{standalone:true}"
                                                        (keyup)="refresh.next()"> Arrange a Follow-up Reminder
                                                 <span></span>
                                             </label>
@@ -914,6 +947,7 @@
                                                         <div class="col-md-8">
                                                             <mwl-demo-utils-date-time-picker
                                                                     [(ngModel)]="event.followUpDate"
+                                                                    [ngModelOptions]="{standalone:true}"
                                                                     (ngModelChange)="refresh.next()"
                                                                     placeholder="Not set">
                                                             </mwl-demo-utils-date-time-picker>
@@ -927,9 +961,26 @@
                                                         <div class="col-md-8">
                                                             <input type="text" name="name" data-required="1"  [(ngModel)]="event.followUpReason"
                                                                    (ngModelChange)="refresh.next()"
+                                                                   [ngModelOptions]="{standalone:true}"
                                                                    value="" class="form-control"></div>
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group hr">
+                                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
+                                                            class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-9 select pdng-lr-5">
+                                                        <input class="form-control" type="text" required
+                                                               [(ngModel)]="event.reason"
+                                                               required pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                                               name="dptName" #dptName="ngModel"/>
+                                                    </div>
+                                                    <span *ngIf="dptName.invalid && dptName.touched"
+                                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter valid name.
+                                        </span>
+                                                </div>
+
                                                 <div class="col-md-12">
                                                     <div class="mrgn-btm10 pull-right">
                                                         <button type="button" class="close" data-dismiss="modal"
@@ -965,7 +1016,7 @@
                         class="btn red"> Delete
                 </button>-->
 
-                <button type="button" (click)="saveAppointment(event)" data-dismiss="modal" class="btn  blue">
+                <button type="button" (click)="saveAppointment(event,form)" data-dismiss="modal" class="btn  blue">
                     Save
                 </button>
                 <button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index, 1)"
@@ -973,6 +1024,7 @@
                 </button>
             </div>
         </div>
+      </form>
     </div>
 </div>
 
