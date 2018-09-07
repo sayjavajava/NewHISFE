@@ -127,10 +127,11 @@ var AddPatientComponent = (function () {
         }),
         __metadata("design:paramtypes", [requests_service_1.RequestsService,
             router_1.Router,
-            platform_browser_1.Title, typeof (_a = typeof his_util_service_1.HISUtilService !== "undefined" && his_util_service_1.HISUtilService) === "function" && _a || Object, notification_service_1.NotificationService])
+            platform_browser_1.Title,
+            his_util_service_1.HISUtilService,
+            notification_service_1.NotificationService])
     ], AddPatientComponent);
     return AddPatientComponent;
-    var _a;
 }());
 exports.AddPatientComponent = AddPatientComponent;
 //# sourceMappingURL=add-patient.component.js.map

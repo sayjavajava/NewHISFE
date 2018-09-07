@@ -57,10 +57,9 @@ var PatientAppointmentComponent = (function () {
             selector: 'patient-appointment',
             templateUrl: '../../../templates/dashboard/patient/patient-appointment.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, typeof (_a = typeof his_util_service_1.HISUtilService !== "undefined" && his_util_service_1.HISUtilService) === "function" && _a || Object, requests_service_1.RequestsService, notification_service_1.NotificationService])
+        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, his_util_service_1.HISUtilService, requests_service_1.RequestsService, notification_service_1.NotificationService])
     ], PatientAppointmentComponent);
     return PatientAppointmentComponent;
-    var _a;
 }());
 exports.PatientAppointmentComponent = PatientAppointmentComponent;
 //# sourceMappingURL=patient-appointment.component.js.map
