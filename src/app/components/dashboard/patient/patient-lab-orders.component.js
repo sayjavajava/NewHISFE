@@ -178,7 +178,7 @@ var PatientLabOrdersComponent = (function () {
                     _this.notificationService.error('ERROR', 'LabOrder is not deleted ');
                 });
             }
-        });
+        }); //
     };
     PatientLabOrdersComponent = __decorate([
         core_1.Component({

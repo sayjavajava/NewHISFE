@@ -189,6 +189,6 @@ export class PatientLabOrdersComponent implements OnInit {
 
                     });
                 }
-            });
+            });       //
     }
 }
