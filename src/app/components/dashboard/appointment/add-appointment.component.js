@@ -399,26 +399,33 @@ var AddAppointmentComponent = (function () {
         var filteredData2 = this.branches.filter(function (x) { return x.id == roomId; });
         this.examRooms = filteredData2[0].examRooms;
     };
-    AddAppointmentComponent.prototype.saveAppointment = function (event) {
+    AddAppointmentComponent.prototype.saveAppointment = function (event, form) {
         var _this = this;
         var self = this;
         this.Type.map(function (x) { return x.checked = false; });
-        if (this.eventsRequest.length != 0) {
-            var obj = new Appointment_1.Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
-            this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
-                .subscribe(function (response) {
-                _this.refresh.next();
-                if (response['responseCode'] === 'APPT_SUC_02') {
-                    self.notificationService.success('created successfully', 'Appointment');
-                    self.router.navigate(['/dashboard/appointment/manage']);
-                    _this.eventsRequest.length = 0;
-                    $('#exampleModalCenter2').modal('close');
-                }
-                else {
-                    self.notificationService.error('Appointment is not created', 'Appointment');
-                }
-            }, function (error) {
-            });
+        console.log('In-valid..');
+        if (form.valid) {
+            console.log('valid..');
+            if (this.eventsRequest.length != 0) {
+                var obj = new Appointment_1.Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
+                this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
+                    .subscribe(function (response) {
+                    _this.refresh.next();
+                    if (response['responseCode'] === 'APPT_SUC_02') {
+                        self.notificationService.success('created successfully', 'Appointment');
+                        self.router.navigate(['/dashboard/appointment/manage']);
+                        _this.eventsRequest.length = 0;
+                        $('#exampleModalCenter2').modal('close');
+                    }
+                    else {
+                        self.notificationService.error('Appointment is not created', 'Appointment');
+                    }
+                }, function (error) {
+                });
+            }
+        }
+        else {
+            this.notificationService.error('Fill Form Properly');
         }
     };
     AddAppointmentComponent.prototype.updateAppointment = function (event) {

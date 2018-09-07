@@ -101,7 +101,7 @@ var PatientFamilyHistoryComponent = (function () {
             });
         }
         else {
-            this.notificationService.error('Required fields missing', 'Clinical Department');
+            this.notificationService.error('Form Invalid', '');
         }
     };
     PatientFamilyHistoryComponent.prototype.onUpdatePopupLoad = function (family) {

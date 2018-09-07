@@ -115,7 +115,7 @@ export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
                     }
                 );
         } else {
-            this.notificationService.error('Required fields missing', 'Clinical Department');
+            this.notificationService.error('Form Invalid', '');
         }
     }
 
