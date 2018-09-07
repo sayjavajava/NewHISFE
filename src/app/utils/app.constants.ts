@@ -115,4 +115,8 @@ export class AppConstants {
     ////////////////////// Patient History ///////////////////////////////
     public static LAB_ORDER_CREATE ='/patient/laborder/create';
     public static FETCH_ALL_LABORDER_URL = '/patient/laborder/';
+
+    ///////////////////////Smoke Status URLs//////////////////////////////
+    public static SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
+    public static SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
 }

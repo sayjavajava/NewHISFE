@@ -1,5 +1,6 @@
 import {Race} from "./race-model";
 import {Appointment} from './Appointment';
+import {PatientSmokeStatus} from "./PatientSmokeStatus";
 /**
  * Created by jamal on 6/7/2018.
  */
@@ -67,6 +68,8 @@ export class Patient {
     photoFront: File;
     photoBack: File;
 
+    ////////////Smoking Status
+    smokingStatus : any [];
 
     constructor() {
         /*this.races = [

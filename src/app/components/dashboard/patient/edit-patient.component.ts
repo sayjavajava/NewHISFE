@@ -61,10 +61,7 @@ export class EditPatientComponent implements OnInit {
                                     }
                                 })
 
-                            })
-
-                            console.log(this.patient.races)
-                            //this.patient.races = JSON.parse(response['responseData'].racesString);
+                            });
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Patient');
                             // this.router.navigate(['404-not-found'])
