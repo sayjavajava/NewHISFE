@@ -35,7 +35,7 @@ export class PatientLabOrdersComponent implements OnInit {
     ngOnInit(): void {
         this.route.params.subscribe(params => {
             this.id = params['id'];
-        });
+        });    
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
