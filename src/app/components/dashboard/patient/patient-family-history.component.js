@@ -101,7 +101,7 @@ var PatientFamilyHistoryComponent = (function () {
             });
         }
         else {
-            this.notificationService.error('Required fields missing', 'Clinical Department');
+            this.notificationService.error('Form Invalid', '');
         }
     };
     PatientFamilyHistoryComponent.prototype.onUpdatePopupLoad = function (family) {
@@ -154,10 +154,10 @@ var PatientFamilyHistoryComponent = (function () {
             selector: 'patient-family-history',
             templateUrl: '../../../templates/dashboard/patient/patient-family-history.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.Router, requests_service_1.RequestsService, his_util_service_1.HISUtilService, typeof (_a = typeof DataService_1.DataService !== "undefined" && DataService_1.DataService) === "function" && _a || Object, notification_service_1.NotificationService, ConformationDialogService_1.ConformationDialogService])
+        __metadata("design:paramtypes", [router_1.Router, requests_service_1.RequestsService, his_util_service_1.HISUtilService, DataService_1.DataService,
+            notification_service_1.NotificationService, ConformationDialogService_1.ConformationDialogService])
     ], PatientFamilyHistoryComponent);
     return PatientFamilyHistoryComponent;
-    var _a;
 }());
 exports.PatientFamilyHistoryComponent = PatientFamilyHistoryComponent;
 //# sourceMappingURL=patient-family-history.component.js.map

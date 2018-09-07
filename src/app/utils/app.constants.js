@@ -115,7 +115,6 @@ var AppConstants = (function () {
     AppConstants.DOCUMENT_GET_URL = '/patient/document/get?';
     AppConstants.DOCUMENT_UPDATE_URL = '/patient/document/update';
     AppConstants.DOCUMENT_DELETE_URI = '/patient/document/delete/';
-    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
@@ -139,9 +138,6 @@ var AppConstants = (function () {
     AppConstants.UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     AppConstants.FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
-    ///////////////////////Smoke Status URLs//////////////////////////////
-    AppConstants.SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
-    AppConstants.SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

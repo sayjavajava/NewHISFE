@@ -123,7 +123,7 @@ export class AppConstants {
     public static DOCUMENT_UPDATE_URL = '/patient/document/update';
     public static DOCUMENT_DELETE_URI = '/patient/document/delete/';
 
-    public static LAB_ORDER_CREATE ='/patient/laborder/create';
+
 
 
     ////////////////////// Appointments URLs ///////////////////////////////
@@ -151,12 +151,6 @@ export class AppConstants {
     public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
-
-
-
-
-
-
     ///////////////////////Smoke Status URLs//////////////////////////////
     public static SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
     public static SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';

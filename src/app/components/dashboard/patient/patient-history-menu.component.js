@@ -34,10 +34,9 @@ var PatientHistoryMenuComponent = (function () {
             selector: 'patient-history-menu',
             templateUrl: '../../../templates/dashboard/patient/patient-history-menu.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, typeof (_a = typeof DataService_1.DataService !== "undefined" && DataService_1.DataService) === "function" && _a || Object])
+        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, DataService_1.DataService])
     ], PatientHistoryMenuComponent);
     return PatientHistoryMenuComponent;
-    var _a;
 }());
 exports.PatientHistoryMenuComponent = PatientHistoryMenuComponent;
 //# sourceMappingURL=patient-history-menu.component.js.map
