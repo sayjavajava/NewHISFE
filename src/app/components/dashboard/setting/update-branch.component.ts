@@ -178,6 +178,7 @@ export class UpdateBranchComponent implements OnInit {
                     (response: Response) => {
                         that.router.navigate(['/dashboard/setting/branch']);
                            if (response['responseCode'] == 'BRANCH_UPDATE_SUC_01') {
+                            console.log('updated...');
                             that.notificationService.success(' Branch has been Updated Successfully');
                             that.router.navigate(['/dashboard/setting/branch']);
                         }
@@ -218,7 +219,9 @@ export class UpdateBranchComponent implements OnInit {
             officePhone: formModel.officePhone,
             fax: formModel.fax,
             formattedAddress: formModel.formattedAddress,
+
             examRooms: secretLairsDeepCopy,
+
             billingBranch: billingModel.billingBranch,
             billingName: billingModel.billingName,
             billingTaxID: billingModel.billingTaxID,

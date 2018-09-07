@@ -143,7 +143,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group hr">
-                                                            <label class="control-label col-md-4">Branch</label>
+                                                            <label class="control-label col-md-4">Branch </label>
                                                             <div class="col-md-8">
                                                                 <select #selectedBranch class="form-control"
 
@@ -232,7 +232,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="hr">
-                                                    <label class="mt-checkbox mt-checkbox-outline col-md-12">
+                                                    <!--<label class="mt-checkbox mt-checkbox-outline col-md-12">
                                                         <input type="checkbox"
                                                                [(ngModel)]="modalData?.event.recurringAppointment"
                                                                (keyup)="refresh.next()"> Recurring Appointment
@@ -315,7 +315,7 @@
                                                             </div>
                                                         </div>
 
-                                                    </div>
+                                                    </div>-->
                                                     <label class="mt-checkbox mt-checkbox-outline col-md-12">
                                                         <input type="checkbox"
                                                                [(ngModel)]="modalData?.event.followUpReminder"
@@ -344,6 +344,8 @@
                                                                 </label>
                                                                 <div class="col-md-8">
                                                                     <input type="text" name="name" data-required="1"
+                                                                           [(ngModel)]="modalData?.event.followUpReason"
+                                                                           (ngModelChange)="refresh.next()"
                                                                            value="" class="form-control"></div>
                                                             </div>
                                                         </div>
@@ -408,7 +410,7 @@
             <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                 <div class="col-md-5">
                     <div class="form-group font-siz11">
-                        <label>Branch:</label>
+                        <label>Branch</label>
                         <select class="form-control" (change)="getSearchedBranch($event.target.value)">
                             <!--[ngModelOptions]="{standalone:true}"-->
                             <!--[(ngModel)]="event.branch"-->
@@ -561,9 +563,7 @@
                     *ngSwitchCase="'day'"
                     [viewDate]="viewDate"
                     [events]="events"
-                    [hourSegments]="5"
                     [refresh]="refresh"
-                    (mouseoverr)="moveMouse('mouse moved',$event)"
                     (eventClicked)="handleEvent('Clicked', $event.event)"
                     (eventTimesChanged)="eventTimesChanged($event)">
             </mwl-calendar-day-view>
@@ -811,12 +811,15 @@
                                             </div>
                                         </div>
                                         <div class="hr">
+
+
+<!--
                                             <label class="mt-checkbox mt-checkbox-outline col-md-12">
-                                                <input type="checkbox" [(ngModel)]="event.recurringAppointment"
+                                                        <input type="checkbox" [(ngModel)]="event.recurringAppointment"
                                                        (keyup)="refresh.next()"> Recurring Appointment
-                                                <span></span>
+                                                       <span></span>
                                             </label>
-                                            <div class="hr off-wite-bg round-table ">
+                                          <div class="hr off-wite-bg round-table ">
 
                                                 <div class="form-group hr">
                                                     <label class="control-label col-md-2 col-xs-12"> Working
@@ -893,7 +896,7 @@
                                                     </div>
                                                 </div>
 
-                                            </div>
+                                            </div>-->
                                             <label class="mt-checkbox mt-checkbox-outline col-md-12">
                                                 <input type="checkbox" [(ngModel)]="event.followUpReminder"
                                                        (keyup)="refresh.next()"> Arrange a Follow-up Reminder
@@ -920,7 +923,8 @@
                                                         <label class="control-label col-md-4">Reason
                                                         </label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="name" data-required="1"
+                                                            <input type="text" name="name" data-required="1"  [(ngModel)]="event.followUpReason"
+                                                                   (ngModelChange)="refresh.next()"
                                                                    value="" class="form-control"></div>
                                                     </div>
                                                 </div>

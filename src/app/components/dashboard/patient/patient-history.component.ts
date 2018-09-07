@@ -58,7 +58,6 @@ export class PatientHistoryComponent implements OnInit {
         //throw new Error("Method not implemented.");
         this.route.params.subscribe(params => {
             this.id = params['id'];
-            console.log(this.id);
         });
     }
 

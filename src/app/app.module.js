@@ -89,8 +89,8 @@ var patient_demographic_component_1 = require("./components/dashboard/patient/pa
 var patient_appointment_component_1 = require("./components/dashboard/patient/patient-appointment.component");
 var patient_document_component_1 = require("./components/dashboard/patient/patient-document.component");
 var patient_problem_list_component_1 = require("./components/dashboard/patient/patient-problem-list.component");
-var patient_medical_list_component_1 = require("./components/dashboard/patient/patient-medical-list.component");
-var patient_alergy_list_component_1 = require("./components/dashboard/patient/patient-alergy-list.component");
+var patient_medication_list_component_1 = require("./components/dashboard/patient/patient-medication-list.component");
+var patient_allergy_list_component_1 = require("./components/dashboard/patient/patient-allergy-list.component");
 var patient_lab_orders_component_1 = require("./components/dashboard/patient/patient-lab-orders.component");
 var patient_communication_component_1 = require("./components/dashboard/patient/patient-communication.component");
 var patient_family_history_component_1 = require("./components/dashboard/patient/patient-family-history.component");
@@ -105,6 +105,8 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var angular_calendar_1 = require("angular-calendar");
 var module_1 = require("../demo-utils/module");
 var edit_appointment_component_1 = require("./components/dashboard/appointment/edit-appointment.component");
+var patient_add_lab_orders_component_1 = require("./components/dashboard/patient/patient-add-lab-orders.component");
+var DataService_1 = require("./services/DataService");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -118,7 +120,7 @@ var AppModule = (function () {
                 notification_service_1.NotificationService,
                 his_util_service_1.HISUtilService,
                 app_config_1.AppConfig,
-                permissions_service_1.PermissionsService,
+                permissions_service_1.PermissionsService, DataService_1.DataService,
                 { provide: ng2_toastr_1.ToastOptions, useClass: CustomOption_1.CustomOption },
                 user_shared_service_1.UserSharedService, ConformationDialogService_1.ConformationDialogService
             ], entryComponents: [confirmationdialog_component_1.ConfirmationdialogComponent],
@@ -175,11 +177,12 @@ var AppModule = (function () {
                 patient_history_menu_component_1.PatientHistoryMenuComponent,
                 patient_document_component_1.PatientDocumentsComponent,
                 patient_problem_list_component_1.PatientProblemListComponent,
-                patient_medical_list_component_1.PatientMedicalListComponent,
-                patient_alergy_list_component_1.PatientAlergyListComponent,
+                patient_medication_list_component_1.PatientMedicationListComponent,
+                patient_allergy_list_component_1.PatientAllergyListComponent,
                 patient_lab_orders_component_1.PatientLabOrdersComponent,
                 patient_communication_component_1.PatientCommunicationComponent,
                 patient_family_history_component_1.PatientFamilyHistoryComponent,
+                patient_add_lab_orders_component_1.PatientAddLabOrdersComponent,
                 appointment_component_1.AppointmentComponent,
                 appointment_dashboard_component_1.AppointmentDashboardComponent,
                 manage_appointment_component_1.ManageAppointmentComponent,

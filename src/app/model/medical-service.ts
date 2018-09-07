@@ -5,6 +5,7 @@ export class MedicalService {
 
     id: number = 0;
     name: string;
+    code:string;
     fee: number = 0;
     cost: number = 0;
     status: boolean;

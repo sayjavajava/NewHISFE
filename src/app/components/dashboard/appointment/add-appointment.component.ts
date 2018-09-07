@@ -73,7 +73,7 @@ export class AddAppointmentComponent implements OnInit {
     searchedBranch: number;
     //temp variable
     apptId=38;
-    appt:any;
+    appt:Appointment[];
 
 
 
@@ -137,7 +137,7 @@ export class AddAppointmentComponent implements OnInit {
                                 colorHash: apt.color,
                                 draggable: true,
                                 notes: apt.notes,
-                                patientId: apt.patientId,
+                                // patientId: apt.patientId,
                                 reason: apt.reason,
                                 status: apt.status,
                                 duration: apt.duration,
@@ -146,11 +146,11 @@ export class AddAppointmentComponent implements OnInit {
                                 //cellPhone:apt.patient.profile.cellPhone,
                                 //selectWorkingDays:this.selectedRecurringDays,
                                 appointmentType: apt.appointmentType,
-                                followUpDate: new Date(),
+                                followUpDate: new Date(apt.followUpDate),
                                 followUpReason: apt.followUpReason,
                                 recurseEvery: apt.recurseEvery,
                                 neverEnds: false,
-                                followUpReminder: false,
+                                followUpReminder: apt.followUpReminder,
                                 arrangeFollowUpReminder: false,
                                 firstAppointment: apt.firstAppointmentOn,
                                 lastAppointment: apt.lastAppointmentOn,
@@ -237,12 +237,14 @@ export class AddAppointmentComponent implements OnInit {
     getAppointmentById() {
         this.requestsService.getRequest(
             AppConstants.FETCH_APPOINTMENTS_BY_ID +this.apptId)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'APPT_SUC_04') {
-                        this.appt = response['responseData'];
-                    }
-                },
+            .subscribe((res :any) =>{
+                    this.appt = res.responseData;
+                    console.log('test ' + res.responseData.id);
+
+
+                }
+
+                ,
                 (error: any) => {
 
                 }
@@ -294,7 +296,6 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
-        console.log("day cliked in months");
         if (isSameMonth(date, this.viewDate)) {
             if (
                 (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -314,16 +315,16 @@ export class AddAppointmentComponent implements OnInit {
                       }: CalendarEventTimesChangedEvent): void {
         event.start = newStart;
         event.end = newEnd;
-        console.log("time changing ....")
         this.handleEvent('Dropped or resized', event);
         this.refresh.next();
     }
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = {event, action};
-        console.log('testing day ' +event);
+        console.log(event);
         this.Type.filter(e => event.appointmentType.includes(e.name)).map(e => e.checked = true);
         this.selectedType = event.appointmentType;
+        console.log('color:' + event.colorHash);
         var filteredData2 = this.branches.filter(x => x.id == event.branchId);
         this.examRooms = filteredData2[0].examRooms;
         // this.modal.open(this.modalContent, {size: 'lg'});

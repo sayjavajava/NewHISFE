@@ -92,12 +92,6 @@ var RequestsService = (function () {
         var params = new http_1.HttpParams().set('name', param);
         return this.http.get(this.getBEAPIServer() + url, { headers: reqHeader, params: params });
     };
-    RequestsService.prototype.putRequestWithParam = function (url, _param) {
-        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
-        reqHeader.append('Content-Type', 'application/json');
-        var params = new http_1.HttpParams().set('status', _param);
-        return this.http.put(this.getBEAPIServer() + url, params, { headers: reqHeader });
-    };
     RequestsService.prototype.searchWithParam = function (url, param1, param2) {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
         reqHeader.append('Content-Type', 'application/json');
@@ -109,6 +103,12 @@ var RequestsService = (function () {
         var formData = new FormData();
         formData.append('file', data, data.name);
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
+    };
+    RequestsService.prototype.putRequestWithParam = function (url, _param) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'application/json');
+        var params = new http_1.HttpParams().set('status', _param);
+        return this.http.put(this.getBEAPIServer() + url, params, { headers: reqHeader });
     };
     RequestsService.prototype.postRequestMultipartFormAndData = function (url, data, profileImg, photoFront, photoBack) {
         var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
@@ -125,6 +125,18 @@ var RequestsService = (function () {
         }
         if (photoBack != null) {
             formData.append('photoBack', photoBack, photoBack.name);
+        }
+        return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
+    };
+    RequestsService.prototype.postRequestMultipartFormAndDataWithOneFile = function (url, data, img) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'multipart/form-data');
+        var formData = new FormData();
+        formData.append('myObject', new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+        if (img != null) {
+            formData.append('img', img, img.name);
         }
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };

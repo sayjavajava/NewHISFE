@@ -73,11 +73,12 @@ export class RequestsService {
         ;
         //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
     }
-    findByIdAndType(url: any,type:any): Observable<any> {
+
+    findByIdAndType(url: any, type: any): Observable<any> {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
-        let params = new HttpParams().set("userType",type);
-        return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader,params:params})
+        let params = new HttpParams().set("userType", type);
+        return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params})
             .map((data: any) => {
                 return data.responseData as Object;
             });
@@ -98,14 +99,7 @@ export class RequestsService {
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader, params: params});
     }
 
-    putRequestWithParam(url: any, _param: any) {
-        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
-        reqHeader.append('Content-Type', 'application/json');
-        let params = new HttpParams().set('status', _param);
-        return this.http.put(this.getBEAPIServer() + url, params, {headers: reqHeader});
-    }
-
-    searchWithParam(url :any ,param1 :any, param2:any){
+    searchWithParam(url: any, param1: any, param2: any) {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
         let params = new HttpParams().set('doctorId', param1).set('branchId', param2);
@@ -117,6 +111,13 @@ export class RequestsService {
         let formData: FormData = new FormData();
         formData.append('file', data, data.name);
         return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
+    }
+
+    putRequestWithParam(url: any, _param: any) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'application/json');
+        let params = new HttpParams().set('status', _param);
+        return this.http.put(this.getBEAPIServer() + url, params, {headers: reqHeader});
     }
 
     postRequestMultipartFormAndData(url: any, data: any, profileImg: File, photoFront: File, photoBack: File) {
@@ -138,5 +139,20 @@ export class RequestsService {
         }
         return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
     }
+
+    postRequestMultipartFormAndDataWithOneFile(url: any, data: any, img: File) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'multipart/form-data');
+        let formData: FormData = new FormData();
+        formData.append('myObject', new Blob([JSON.stringify(data)],
+            {
+                type: "application/json"
+            }));
+        if (img != null) {
+            formData.append('img', img, img.name);
+        }
+        return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
+    }
+
 
 }
