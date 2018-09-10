@@ -64,11 +64,11 @@
                                 <tr class="tbl-pdng" *ngFor="let invc of invoiceList">
                                     <td>{{invc.invoiceId}}</td>
                                     <td>{{invc.patientName}}</td>
-                                    <td>{{invc.paidAmount}}</td>
+                                    <td>{{invc.invoiceAmount - invc.paidAmount >= 0 ? invc.invoiceAmount - invc.paidAmount : 0.00}}</td>
                                     <td>{{invc.invoiceAmount}}</td>
                                     <td>{{invc.status}}</td>
                                     <td>
-                                        <a title="Patient Invoice" (click)="runPayment(invc.id)">
+                                        <a title="Patient Invoice" (click)="runPayment(invc.id)" *ngIf="invc.status=='PENDING'">
                                             <i class="fa fa-dollar" style="font-size:18px"></i>
                                         </a>
                                     </td>
