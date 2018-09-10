@@ -144,6 +144,7 @@ export class AppConstants {
     public static FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
     public static LAB_ORDER_UPDATE ='/patient/laborder/update/';
     public static LAB_ORDER_DELETE = '/patient/laborder/delete/';
+    public static LAB_ORDER_CREATE ='/patient/laborder/create';
     public static FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
    ///////////////////Family History//////////
     public static FAMILY_HISTORY_CREATE ='/patient/family/create';
@@ -151,6 +152,7 @@ export class AppConstants {
     public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
+
 
 
 
