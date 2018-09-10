@@ -208,6 +208,8 @@ export class PatientInvoiceComponent implements OnInit {
         this.invoiceList.push(this.selectedInvoice);
         this.show = false;
         this.showEditButton = false;
+
+        this.getTotalOfAllInviceItems();
     }
 
 
