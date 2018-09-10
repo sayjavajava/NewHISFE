@@ -22,6 +22,8 @@ var HeaderComponent = (function () {
         this.userSharedService = userSharedService;
         this.HISUtilService = HISUtilService;
         this.permissionService = permissionService;
+        this.showMenu = false;
+        this.showSettings = false;
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -30,6 +32,11 @@ var HeaderComponent = (function () {
             this.lastName = this.userSharedService.lastName;
             this.profileImg = this.userSharedService.profileImg;
             this.role = this.userSharedService.roles;
+            var userType = atob(localStorage.getItem(btoa('user_type')));
+            if (userType === 'admin' || userType === 'manager') {
+                this.showMenu = true;
+                this.showSettings = true;
+            }
             this.requestsService.getRequest('/user/auth/loggedInUser')
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ADM_SUC_03') {

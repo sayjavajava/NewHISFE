@@ -20,7 +20,8 @@ export class ContentComponent implements OnInit {
     appointmentsCount: number;
     medicalServicesCount: number;
     icdsCount: number;
-
+    showLeftMenu: boolean = false;
+    leftMenuStyle: string;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private permissionsService: PermissionsService,
@@ -31,11 +32,16 @@ export class ContentComponent implements OnInit {
     ngOnInit() {
 
         if (window.localStorage.getItem(btoa('access_token'))) {
+            let userType: string = atob(localStorage.getItem(btoa('user_type')))
+            if(userType === 'admin' || userType==='manager') {
+                this.showLeftMenu = true;
+            }
             this.requestsService.getRequest(
                 '/user/auth/loggedInUser')
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ADM_SUC_03') {
+
                             this.userSharedService.firstName = response['responseData'].firstName;
                             this.userSharedService.lastName = response['responseData'].lastName;
                             this.userSharedService.profileImg = response['responseData'].profileImg;

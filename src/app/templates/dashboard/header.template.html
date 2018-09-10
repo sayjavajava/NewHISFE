@@ -9,23 +9,27 @@
         <a href="javascript:;" class="menu-toggler responsive-toggler menua" data-toggle="collapse"
            data-target=".navbar-collapse"><span></span></a>
         <div class="col-md-4">
-            <div class="hor-menu">
+            <div class="hor-menu" *ngIf="showMenu">
                 <ul class="nav navbar-nav hedr-menu-top dropdown-nav hedr-menu-top">
                     <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
-                        <a href="javascript:;"> Dashboard
-                        </a>
+                        <a href="javascript:;"> Dashboard </a>
                         <ul class="dropdown-menu pull-left hedr-menu-top dropdown-nav">
-                            <li aria-haspopup="true" class="">
+                            <!--<li aria-haspopup="true" class="">
                                 <a href="#" class="nav-link">Today Appointment</a>
-                            </li>
-                            <li aria-haspopup="true" class=" "
-                               > <!--*ngIf="permissionService.hasPermission('MANAGE_DASHBOARD');"-->
+                            </li>-->
+                            <li aria-haspopup="true" class=" "> <!--*ngIf="permissionService.hasPermission('MANAGE_DASHBOARD');"-->
                                 <a routerLink="/dashboard/doctor" class="nav-link">Doctor Dashboard</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Nurses Station</a>
+                                <a routerLink="/dashboard/nurse" class="nav-link">Nurses Station</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
+                                <a routerLink="/dashboard/receptionist" class="nav-link">Receptionist Dashboard</a>
+                            </li>
+                            <li aria-haspopup="true" class=" ">
+                                <a routerLink="/dashboard/cashier" class="nav-link">Cashier Dashboard</a>
+                            </li>
+                            <!--<li aria-haspopup="true" class=" ">
                                 <a href="#" class="nav-link">Invoices</a>
                             </li>
                             <li aria-haspopup="true" class=" ">
@@ -40,7 +44,7 @@
                             </li>
                             <li aria-haspopup="true" class=" ">
                                 <a href="#" class="nav-link">Reports</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                     <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
@@ -55,10 +59,10 @@
                             </li>
                             <!--<li aria-haspopup="true" class=" ">
                                 <a routerLink="/dashboard/appointment/manage" class="nav-link">Appointments</a>
-                            </li>-->
+                            </li>
                             <li aria-haspopup="true" class=" ">
                                 <a routerLink="/dashboard/appointment/reports" class="nav-link">Reports</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                     <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
@@ -67,16 +71,16 @@
                         <ul class="dropdown-menu pull-left dropdown-nav">
                             <!--<li aria-haspopup="true" class="">
                                 <a routerLink="/dashboard/patient/dashboard" class="nav-link">Dashboard</a>
-                            </li>-->
+                            </li>
                             <li aria-haspopup="true" class=" ">
                                 <a routerLink="/dashboard/patient/add" class="nav-link">Create New Patient</a>
-                            </li>
+                            </li>-->
                             <li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/patient/manage" class="nav-link">Patients</a>
+                                <a routerLink="/dashboard/patient/manage" class="nav-link">Patient</a>
                             </li>
-                            <li aria-haspopup="true" class=" ">
+                            <!--<li aria-haspopup="true" class=" ">
                                 <a routerLink="/dashboard/patient/reports" class="nav-link">Reports</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                 </ul>
@@ -85,14 +89,14 @@
         <div class="top-menu menu-pop col-md-4">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                    <!--<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                        data-close-others="true"><i class="icon-bell"></i>
-                        <!--<span class="badge badge-default"> 7 </span>--></a>
+                        <span class="badge badge-default"> 7 </span></a>-->
                     <ul class="dropdown-menu">
-                        <li class="external">
+                        <!--<li class="external">
                             <h3><span class="bold">12 pending</span> notifications</h3>
                             <a href="page_user_profile_1.html">view all</a>
-                        </li>
+                        </li>-->
                         <li>
                             <div class="slimScrollDiv"
                                  style="position: relative; overflow: hidden; width: auto; height: 250px;">
@@ -180,7 +184,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
+                <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar" *ngIf="showSettings">
                     <a routerLink="/dashboard/setting" class="dropdown-toggle" data-toggle="dropdown"
                        data-hover="dropdown"
                        data-close-others="true">
@@ -194,7 +198,7 @@
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
-                        <li>
+                        <!--<li>
                             <a href="page_user_profile_1.html">
                                 <i class="icon-user"></i> My Profile </a>
                         </li>
@@ -218,10 +222,10 @@
                         <li>
                             <a href="page_user_lock_1.html">
                                 <i class="icon-lock"></i> Lock Screen </a>
-                        </li>
+                        </li>-->
                         <li>
                             <a (click)="logout()">
-                                <i class="icon-key"></i> Logout </a>
+                                <i class="icon-key"></i> Logout</a>
                         </li>
                     </ul>
                 </li>

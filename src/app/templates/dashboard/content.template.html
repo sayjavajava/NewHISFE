@@ -1,6 +1,6 @@
     <!--<div class="page-content-wrapper">-->
-        <!--<div class="page-content mrgn-lft0">-->
-<div class="dashboard-menu">
+        <!--<div class="page-content mrgn-lft0">    *ngIf="!showMenu"        -->
+<div class="dashboard-menu" *ngIf="showLeftMenu">
     <menu-component></menu-component>
 </div>
 <div class="page-content-wrapper">

@@ -18,6 +18,7 @@ var MenuComponent = (function () {
         this.requestsService = requestsService;
         this.router = router;
         this.titleService = titleService;
+        this.showMenuBar = false;
     }
     ;
     MenuComponent.prototype.ngOnInit = function () {
@@ -28,6 +29,9 @@ var MenuComponent = (function () {
             this.userPermissions = JSON.parse(atob(window.localStorage.getItem(btoa('permissions'))));
         }
         this.titleService.setTitle('HIS | Dashboard');
+        var userType = atob(localStorage.getItem(btoa('user_type')));
+        if (userType === 'admin' || userType === 'manager')
+            this.showMenuBar = true;
     };
     MenuComponent = __decorate([
         core_1.Component({

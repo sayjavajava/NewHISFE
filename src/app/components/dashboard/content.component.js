@@ -22,11 +22,16 @@ var ContentComponent = (function () {
         this.permissionsService = permissionsService;
         this.userSharedService = userSharedService;
         this.HISUtilService = HISUtilService;
+        this.showLeftMenu = false;
     }
     ;
     ContentComponent.prototype.ngOnInit = function () {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
+            var userType = atob(localStorage.getItem(btoa('user_type')));
+            if (userType === 'admin' || userType === 'manager') {
+                this.showLeftMenu = true;
+            }
             this.requestsService.getRequest('/user/auth/loggedInUser')
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ADM_SUC_03') {
