@@ -1,0 +1,85 @@
+<div class="page-container">
+
+        <div class="page-content-wrapper">
+            <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="hr"><h3 class="text-info">Cashier Desk</h3></div>
+                         <div > <!--    class="hr padding round-table off-wite-bg" -->
+                           <!--   <div class="col-md-3 no-padding">
+                                 <h4 class="font-green-meadow">Branch</h4>
+                                 <select class="form-control" (change)="getFilteredBranch($event.target.value)">
+                                     <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                     <option *ngFor="let item of branches; let i = index;"
+                                             value={{item.branchName}} (keyup)="refresh.next()">
+                                         {{item.name}}
+                                     </option>
+                                 </select>
+                             </div> -->
+                           <!--   <div class="col-md-1"></div> -->
+                           <!--   <div class="col-md-3 no-padding">
+                                 <h4 class="font-green-meadow">Doctor</h4>
+                                 <select class="form-control" (change)="getfilteredDoctor($event.target.value)">
+                                     <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                     <option *ngFor="let item of doctorsList; let i = index;"
+                                             value={{item.lastName}} (keyup)="refresh.next()">
+                                         {{item.firstName}} {{item.lastName}}
+                                     </option>
+                                 </select>
+                             </div> -->
+                        <!--      <div class="col-md-1"></div> -->
+                            <!--  <div class="col-md-3 no-padding">
+                                 <h4 class="font-green-meadow">Statuses</h4>
+                                 <select class="form-control" (change)="getfilteredStatus($event.target.value)">
+                                     <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                     <option value="ARRIVED">Arrived</option>
+                                     <option value="CHECK_IN">Checked In</option>
+                                     <option value="IN_ROOM">In Room</option>
+                                     <option value="IN_SESSION">In Session</option>
+                                     <option value="COMPLETE">Complete</option>
+                                     <option value="NOT_CONFIRMED">NOT CONFIRMED</option>
+                                     <option value="RE_SCHEDULED">RE SCHEDULE</option>
+                                     <option value="CANCELLED">CANCELLED</option>
+                                     <option value="REGULAR">REGULAR</option>
+                                 </select>
+                             </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-scrollable tbl-brdr-radus">
+                            <table class="table table-hover table-light">
+                                <thead>
+                                <tr class="hedng-bck-clr tbl-pdng">
+                                    <th> Invoice Id </th>
+                                    <th> Patient Name </th>
+                                    <th> Amount Due </th>
+                                    <th> Invoice Amount </th>
+                                    <th> Status </th>
+                                    <th> Action </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="tbl-pdng" *ngFor="let invc of invoiceList">
+                                    <td>{{invc.invoiceId}}</td>
+                                    <td>{{invc.patientName}}</td>
+                                    <td>{{invc.paidAmount}}</td>
+                                    <td>{{invc.invoiceAmount}}</td>
+                                    <td>{{invc.status}}</td>
+                                    <td>
+                                        <a title="Patient Invoice" (click)="runPayment(invc.id)">
+                                            <i class="fa fa-dollar" style="font-size:18px"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>

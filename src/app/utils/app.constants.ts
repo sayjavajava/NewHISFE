@@ -27,6 +27,15 @@ export class AppConstants {
     public static FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
 
+    ////////////////////// Patients Invoices ///////////////////////////////
+    public static SAVE_INVOICE = '/invoice/saveInvoice';
+    public static GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
+
+    ////////////////////// Cashier Desk ///////////////////////////////
+    public static GET_All_INVOICES = '/cashier/getAllInvoices';
+    public static FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';
+    public static SAVE_PAYMENT = '/cashier/savePayment';
+
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';
