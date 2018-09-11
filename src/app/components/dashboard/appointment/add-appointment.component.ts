@@ -18,7 +18,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MatDialog} from '@angular/material';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from 'angular-calendar';
 import {AppConstants} from '../../../utils/app.constants';
-import {FormBuilder, NgForm} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, NgForm} from '@angular/forms';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Subject} from 'rxjs/Rx';
 import {RequestsService} from '../../../services/requests.service';
@@ -27,6 +27,7 @@ import {Router} from '@angular/router';
 import {Appointment} from '../../../model/Appointment';
 import {UserTypeEnum} from '../../../enums/user-type-enum';
 import DateTimeFormat = Intl.DateTimeFormat;
+import * as _ from "lodash";
 
 declare var $: any;
 
@@ -48,6 +49,7 @@ export class AddAppointmentComponent implements OnInit {
     eventsRequest: CalendarEvent[] = [];
     activeDayIsOpen: boolean = false;
     title = 'app';
+    patientChecked : boolean =false;
     popup: boolean = false;
     page: number = 0;
     color: string;
@@ -56,7 +58,6 @@ export class AddAppointmentComponent implements OnInit {
 
     view: string = 'month';
     newPatient: boolean = false;
-    isRequired:true;
 
     viewDate: Date = new Date();
     data: any = [];
@@ -128,9 +129,9 @@ export class AddAppointmentComponent implements OnInit {
                                 end :  addMinutes(startOfDay(new Date(apt.scheduleDate)),apt.appointmentEndedConvertedTime),
                                 // start: addHours(startOfDay(new Date(apt.scheduleDate)),126),
                                 //end : new Date(apt.scheduleDate).getMinutes()+34),
-                              //  end:addHours(startOfDay(new Date(apt.scheduleDate)),apt.appointmentEndedOn),
+                                //  end:addHours(startOfDay(new Date(apt.scheduleDate)),apt.appointmentEndedOn),
                                 // start: startOfDay(new Date(apt.scheduleDate)),
-                               // end: endOfDay(new Date((apt.scheduleDate),apt.appointmentEndedOn)),
+                                // end: endOfDay(new Date((apt.scheduleDate),apt.appointmentEndedOn)),
                                 color: {
                                     primary: apt.color,
                                     secondary: apt.color
@@ -138,7 +139,7 @@ export class AddAppointmentComponent implements OnInit {
                                 colorHash: apt.color,
                                 draggable: true,
                                 notes: apt.notes,
-                                // patientId: apt.patientId,
+                                patientId: apt.patientId,
                                 reason: apt.reason,
                                 status: apt.status,
                                 duration: apt.duration,
@@ -181,11 +182,16 @@ export class AddAppointmentComponent implements OnInit {
             .map(opt => opt.name);
     }
 
-    selectType() {
+    selectType(form:NgForm) {
         this.selectedType.length = 0;
         if (this.selectedOptions.indexOf('NewPatient') > -1) {
+            this.patientChecked = true;
             this.newPatient = true;
+            /*Object.keys((<FormGroup>form.form.get('branchDrp')).controls).forEach(element => {
+                console.log('ele testing...'+element);
+            });*/
         } else {
+            this.patientChecked=false;
             this.newPatient = false;
         }
         this.selectedType.push(...this.selectedOptions);
@@ -196,7 +202,6 @@ export class AddAppointmentComponent implements OnInit {
         console.log("test:" + event.title);
         this.popup = true;
     }
-
     mouseEnter(div: string) {
         //  console.log("mouse enter : " + div);
     }
@@ -242,10 +247,7 @@ export class AddAppointmentComponent implements OnInit {
                     this.appt = res.responseData;
                     console.log('test ' + res.responseData.id);
 
-
-                }
-
-                ,
+                },
                 (error: any) => {
 
                 }
@@ -265,7 +267,6 @@ export class AddAppointmentComponent implements OnInit {
                 }
             );
     }
-
     getDoctorsFromServer() {
         this.requestsService.getRequest(
             AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
@@ -297,6 +298,7 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+        console.log("day cliked in months");
         if (isSameMonth(date, this.viewDate)) {
             if (
                 (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -304,7 +306,7 @@ export class AddAppointmentComponent implements OnInit {
             ) {
                 this.activeDayIsOpen = false;
             } else {
-               // this.activeDayIsOpen = true;
+                // this.activeDayIsOpen = true;
                 this.viewDate = date;
             }
         }
@@ -316,16 +318,16 @@ export class AddAppointmentComponent implements OnInit {
                       }: CalendarEventTimesChangedEvent): void {
         event.start = newStart;
         event.end = newEnd;
+        console.log("time changing ....")
         this.handleEvent('Dropped or resized', event);
         this.refresh.next();
     }
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = {event, action};
-        console.log(event);
+        console.log('testing day ' +event);
         this.Type.filter(e => event.appointmentType.includes(e.name)).map(e => e.checked = true);
         this.selectedType = event.appointmentType;
-        console.log('color:' + event.colorHash);
         var filteredData2 = this.branches.filter(x => x.id == event.branchId);
         this.examRooms = filteredData2[0].examRooms;
         // this.modal.open(this.modalContent, {size: 'lg'});
@@ -370,7 +372,7 @@ export class AddAppointmentComponent implements OnInit {
             lastAppointment: new Date(),
             recurringAppointment: false,
             branch: 'select',
-            doctorId: 0,
+          //  doctorId: 0,
             examRoom: 'select',
             resizable: {
                 beforeStart: true,
@@ -449,7 +451,7 @@ export class AddAppointmentComponent implements OnInit {
                     }
 
                 }, (error: any) => {
-                console.log('user defined Erro ' + error);
+                    console.log('user defined Erro ' + error);
                 });
     }
 
@@ -484,42 +486,49 @@ export class AddAppointmentComponent implements OnInit {
 
     }
 
-    saveAppointment(event: any,form:NgForm) {
+    saveAppointment(event: any,form :NgForm) {
         var self = this;
         this.Type.map(x => x.checked = false);
-        console.log('In-valid..');
         if(form.valid) {
-            console.log('valid..');
             if (this.eventsRequest.length != 0) {
-                let obj = new Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
+                let obj = new Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
                     event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
                     event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
                 this.requestsService.postRequest(AppConstants.CREATE_APPOINTMENT_URL,
                     obj)
                     .subscribe(
                         (response: Response) => {
-                            this.refresh.next();
                             if (response['responseCode'] === 'APPT_SUC_02') {
                                 self.notificationService.success('created successfully', 'Appointment');
                                 self.router.navigate(['/dashboard/appointment/manage']);
                                 this.eventsRequest.length = 0;
                                 $('#exampleModalCenter2').modal('close');
-                            } else {
+                            }
+                            if(response['responseCode'] === 'APPT_ERR_06'){
+                                this.eventsRequest.length =0;
+                                self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
+                            }
+                            else {
+                                this.eventsRequest.length=0;
                                 self.notificationService.error('Appointment is not created', 'Appointment');
                             }
                         },
+
                         (error: any) => {
 
                         });
             }
-        }else {
-            this.notificationService.error('Fill Form Properly');
+        }else{
+            this.eventsRequest.length = 0;
+         //   $('#exampleModalCenter2').modal('close');
+         //   this.validateAllFormFields(form);
+           self.notificationService.error('Error','Invalid Form');
         }
     }
 
     updateAppointment(event: any) {
         var self = this;
-        let obj = new Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
+        let obj = new Appointment(event.id,event.appointmentId,event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
             event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
             event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId,event.newPatient,event.dob);
         this.requestsService.putRequest(AppConstants.UPDATE_APPOINTMENT + event.id,
@@ -536,5 +545,16 @@ export class AddAppointmentComponent implements OnInit {
 
             });
     }
+
+  /*  validateAllFormFields(formGroup: NgForm) {
+        Object.keys(formGroup.controls).forEach(field => {
+            const control = formGroup.get(field);
+            if (control instanceof FormControl) {
+                control.markAsTouched({onlySelf: true});
+            } else if (control instanceof FormGroup) {
+                this.validateAllFormFields(control);
+            }
+        });
+    }*/
 
 }

@@ -67,11 +67,11 @@ var PatientAddLabOrdersComponent = (function () {
     };
     PatientAddLabOrdersComponent.prototype.createLabOrderForm = function () {
         this.labForm = this.fb.group({
-            'orderStatus': [null],
+            'orderStatus': [null, forms_1.Validators.required],
             'orderTestDate': [null],
             'doctorSignOff': [null],
             'comments': [null],
-            'patientId': [null],
+            'patientId': [null, forms_1.Validators.required],
             'appointmentId': [null, forms_1.Validators.required],
             'labTest': this.fb.array([this.createLabTest()]),
         });

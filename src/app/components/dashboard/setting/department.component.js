@@ -119,9 +119,6 @@ var DepartmentComponent = (function () {
     };
     DepartmentComponent.prototype.saveClinicalDepartment = function (form) {
         var _this = this;
-        _.each(form.form.controls, function (control) {
-            control['_touched'] = true;
-        });
         if (form.valid) {
             this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_CLINICAL_DEPARTMENT_URL, this.selectedDepartment)
                 .subscribe(function (response) {

@@ -10,7 +10,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class MenuComponent implements OnInit{
     userPermissions: any[];
-
+    showMenuBar: boolean = false;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private titleService: Title) {
@@ -23,5 +23,8 @@ export class MenuComponent implements OnInit{
             this.userPermissions = JSON.parse( atob(window.localStorage.getItem( btoa('permissions')) ) );
         }
         this.titleService.setTitle('HIS | Dashboard');
+        let userType: string = atob(localStorage.getItem(btoa('user_type')))
+        if(userType === 'admin' || userType==='manager')
+            this.showMenuBar = true;
     }
 }

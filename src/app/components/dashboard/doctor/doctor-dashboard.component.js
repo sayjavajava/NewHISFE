@@ -126,6 +126,10 @@ var DoctorDashboardComponent = (function () {
         this.dataService.getPatientId(id);
         this.router.navigate(['/dashboard/patient/', id, 'history']);
     };
+    DoctorDashboardComponent.prototype.updateAppointmentData = function (id) {
+        console.log("From doctor-dashboard.component---> Appointment id : " + id);
+        this.router.navigate(['/dashboard/patient/invoice', id]);
+    };
     DoctorDashboardComponent = __decorate([
         core_1.Component({
             selector: 'doctor-dashboard-component',

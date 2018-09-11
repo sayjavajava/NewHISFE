@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit {
     profileImg: string;
     userDesignation: string;
     role: string;
-
+    showMenu: boolean = false;
+    showSettings: boolean = false;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private userSharedService: UserSharedService,
@@ -31,6 +32,13 @@ export class HeaderComponent implements OnInit {
             this.lastName = this.userSharedService.lastName;
             this.profileImg = this.userSharedService.profileImg;
             this.role = this.userSharedService.roles;
+
+            let userType: string = atob(localStorage.getItem(btoa('user_type')))
+            if(userType === 'admin' || userType === 'manager') {
+                this.showMenu = true;
+                this.showSettings = true;
+            }
+
             this.requestsService.getRequest(
                 '/user/auth/loggedInUser')
                 .subscribe(

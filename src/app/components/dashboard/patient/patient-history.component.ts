@@ -1,12 +1,14 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Patient} from "../../../model/patient";
 import {AppConstants} from "../../../utils/app.constants";
-import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {HISUtilService} from "../../../services/his-util.service";
 import {RequestsService} from "../../../services/requests.service";
-import {Race} from "../../../model/race-model";
 import {NotificationService} from "../../../services/notification.service";
+import {PatientProblemModel} from "../../../model/patient.problem.model";
+import {PatientAllergyModel} from "../../../model/patient.allergy.model";
+import {StatusEnum} from "../../../enums/StatusEnum";
+import {MedicationModel} from "../../../model/medication.model";
+import {DataService} from "../../../services/DataService";
 
 
 @Component({
@@ -14,54 +16,135 @@ import {NotificationService} from "../../../services/notification.service";
     templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
 })
 export class PatientHistoryComponent implements OnInit {
-    id:Number;
-    patient: Patient;// = new Patient();
-    selectedPatientId: any;
-    doctors: any = [];
+    problemPages: number[] = [];
+    problemNextPage: any;
+    problemPrePage: any;
+    problemCurrPage: any;
+    problemActiveData: PatientProblemModel[] = [];
 
-    constructor(private requestsService: RequestsService, private router: Router,private route:ActivatedRoute, private HISUTilService: HISUtilService, private notificationService :NotificationService) {
-        this.requestsService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
+    allergiesPages: number[] = [];
+    allergiesNextPage: any;
+    allergiesPrePage: any;
+    allergiesCurrPage: any;
+    allergiesActiveData: PatientAllergyModel[] = [];
+
+    medicationsPages: number[] = [];
+    medicationsNextPage: any;
+    medicationsPrePage: any;
+    medicationsCurrPage: any;
+    medicationsActiveData: MedicationModel[] = [];
+
+    selectedPatientId: any;
+
+    constructor(private requestsService: RequestsService,
+                private router: Router,
+                private route: ActivatedRoute,
+                private HISUTilService: HISUtilService,
+                private notificationService: NotificationService,
+                private dataService:DataService) {
+
+        this.selectedPatientId = this.route.snapshot.params['id'];
+
+        this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
+        this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
+        this.getPaginatedMedicationsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
+    }
+
+    ngOnInit(): void {
+    }
+
+    getPaginatedProblemsByActiveAndPatientIdFromServer(page: number, pageSize: number, problemStatus: any) {
+
+        this.requestsService.getRequest(
+            AppConstants.PATIENT_PROBLEM_FETCH_STATUS_URL + page +
+            "?selectedPatientId=" + this.selectedPatientId +
+            "&status=" + problemStatus +
+            "&pageSize=" + pageSize)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseStatus'] === 'SUCCESS') {
-                        this.doctors = response['responseData'];
+                    if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_16') {
+                        this.problemNextPage = response['responseData']['nextPage'];
+                        this.problemPrePage = response['responseData']['prePage'];
+                        this.problemCurrPage = response['responseData']['currPage'];
+                        this.problemPages = response['responseData']['pages'];
+                        this.problemActiveData = [];
+                        this.problemActiveData = response['responseData']['data'];
                     }
                 },
                 (error: any) => {
                     this.HISUTilService.tokenExpired(error.error.error);
-                });
-        this.requestsService.getRequest(
-            AppConstants.PATIENT_FETCH_URL + this.selectedPatientId
-        ).subscribe(
-            response => {
-                if (response['responseCode'] === 'USER_SUC_01') {
-                    this.patient = response['responseData'];
-                    let savedRace = response['responseData'].races;
-                    this.patient.races = new Patient().races;
-                    this.patient.races.forEach(function (race) {
-                        savedRace.forEach(function (dbRaces:Race) {
-                            if(race.nameRace === dbRaces.nameRace){
-                                race.selected = true;
-                            }
-                        })
-
-                    });
-                } else {
-                    this.notificationService.error(response['responseMessage'], 'Patient');
                 }
-            },
-            (error: any) => {
-                this.HISUTilService.tokenExpired(error.error.error);
-            });
-    }
-    ngOnInit(): void {
-        //throw new Error("Method not implemented.");
-        this.route.params.subscribe(params => {
-            this.id = params['id'];
-        });
+            );
     }
 
-    goToUserDashBoard(){
-        this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
+    getPageWiseProblemActive(page: number) {
+        this.getPaginatedProblemsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
     }
+
+    getPaginatedAllergiesByActiveAndPatientIdFromServer(page: number, pageSize: number, allergyStatus: any) {
+
+        this.requestsService.getRequest(
+            AppConstants.ALLERGY_PAGINATED_STATUS_URL + page +
+            "?selectedPatientId=" + this.selectedPatientId +
+            "&status=" + allergyStatus +
+            "&pageSize=" + pageSize)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ALLERGY_SUC_28') {
+                        this.allergiesNextPage = response['responseData']['nextPage'];
+                        this.allergiesPrePage = response['responseData']['prePage'];
+                        this.allergiesCurrPage = response['responseData']['currPage'];
+                        this.allergiesPages = response['responseData']['pages'];
+                        this.allergiesActiveData = [];
+                        this.allergiesActiveData = response['responseData']['data'];
+                    }
+                },
+                (error: any) => {
+                    this.HISUTilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
+    getPageWiseAllergiesByActive(page: number) {
+        this.getPaginatedAllergiesByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
+    }
+
+    goToUserDashBoard() {
+        this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+    }
+
+    getPaginatedMedicationsByActiveAndPatientIdFromServer(page: number, pageSize: number, medicationStatus: any) {
+        this.requestsService.getRequest(
+            AppConstants.MEDICATION_PAGINATED_STATUS_URL + page +
+            "?selectedPatientId=" + this.selectedPatientId +
+            "&status=" + medicationStatus +
+            "&pageSize=" + pageSize)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'MEDICATION_SUC_36') {
+                        this.medicationsNextPage = response['responseData']['nextPage'];
+                        this.medicationsPrePage = response['responseData']['prePage'];
+                        this.medicationsCurrPage = response['responseData']['currPage'];
+                        this.medicationsPages = response['responseData']['pages'];
+                        this.medicationsActiveData = [];
+                        this.medicationsActiveData = response['responseData']['data'];
+                    }
+                },
+                (error: any) => {
+                    this.HISUTilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
+    getPageWiseMedicationsByActive(page: number) {
+        this.getPaginatedMedicationsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
+    }
+
+    patientHistory() {
+        // this.dataService.getPatientId(id);//
+        var url = '/dashboard/patient/' + this.selectedPatientId + '/history';
+        console.log("url" + url);
+        this.router.navigate([url]);
+    }
+
 }
