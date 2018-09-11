@@ -122,7 +122,7 @@ export class AppConstants {
     //////////////////// Medication  ////////////////////////////////
     public static MEDICATION_SAVE_URL = '/patient/medication/save';
     public static MEDICATION_PAGINATED_URL = '/patient/medication/';
-    public static MEDICATION_PAGINATED_STATUS_URL = '/patient/medication/status';
+    public static MEDICATION_PAGINATED_STATUS_URL = '/patient/medication/status/';
     public static MEDICATION_GET_URL = '/patient/medication/get?';
     public static MEDICATION_UPDATE_URL = '/patient/medication/update';
     public static MEDICATION_DELETE_URI = '/patient/medication/delete/';

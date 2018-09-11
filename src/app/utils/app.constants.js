@@ -114,7 +114,7 @@ var AppConstants = (function () {
     //////////////////// Medication  ////////////////////////////////
     AppConstants.MEDICATION_SAVE_URL = '/patient/medication/save';
     AppConstants.MEDICATION_PAGINATED_URL = '/patient/medication/';
-    AppConstants.MEDICATION_PAGINATED_STATUS_URL = '/patient/medication/status';
+    AppConstants.MEDICATION_PAGINATED_STATUS_URL = '/patient/medication/status/';
     AppConstants.MEDICATION_GET_URL = '/patient/medication/get?';
     AppConstants.MEDICATION_UPDATE_URL = '/patient/medication/update';
     AppConstants.MEDICATION_DELETE_URI = '/patient/medication/delete/';
