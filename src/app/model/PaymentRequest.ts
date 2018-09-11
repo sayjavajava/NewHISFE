@@ -8,6 +8,9 @@ export class PaymentRequest
     description: string;
     paidAmount : number;
     invoiceAmount : number;
+    patientAdvanceDeposit : number;
+
+    useAdvancedBal:boolean ;
 
     constructor() {
     }

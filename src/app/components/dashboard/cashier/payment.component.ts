@@ -25,8 +25,11 @@ export class PaymentComponent implements OnInit {
     error: string;
     show:boolean = false;
 
+    useAdvancedBal:boolean = false;
+
     receivedAmount : number;
     paidAmount : number = 0.00;
+    patientAdvanceDeposit : number = 0.00;
 
     paymentRequest : PaymentRequest;
 
@@ -55,6 +58,7 @@ export class PaymentComponent implements OnInit {
             this.requestsService.getRequest(AppConstants.FETCH_APPOINTMENTS_BY_INOVICE_ID + this.invoiceId)
             .subscribe((res :any) =>{
                 this.appointment = res.responseData;
+                this.patientAdvanceDeposit = res.responseData.patientAdvanceDeposit;
                 this.patientName = res.responseData.patient;
                 this.scheduleDateAndTime = this.appointment.scheduleDateAndTime;
                 this.appointmentStartedOn= this.appointment.appointmentStartedOn;
@@ -117,7 +121,13 @@ export class PaymentComponent implements OnInit {
         this.paymentRequest.invoiceAmount = this.grandTotalWithTax ;
 
         this.paymentRequest.paidAmount = this.paidAmount ;
+        this.paymentRequest.useAdvancedBal = this.useAdvancedBal;
+        this.paymentRequest.patientAdvanceDeposit = this.patientAdvanceDeposit;
         console.log("save invoice data : " + this.paymentRequest);
+
+    //    alert("Use advance deposit : " + this.useAdvancedBal + "Patient Bal :" + this.patientAdvanceDeposit);
+        
+
         this.requestsService.postRequest(AppConstants.SAVE_PAYMENT, this.paymentRequest)
         .subscribe(
         (response: Response) => {

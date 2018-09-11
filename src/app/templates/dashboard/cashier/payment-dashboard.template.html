@@ -64,31 +64,49 @@
 
             <div class="col-md-4 mrgn-top8">
                 
-             <div class="form-group">
+                <div class="form-group">
                     <label><b> Payment Type </b></label>
                     <select class="form-control">
                         <option>Cash</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <!-- <div class="col-md-2">
+                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                            <input type="checkbox" class="form-control"
+                                   name="useAdvancedBal" 
+                                   [(ngModel)]="useAdvancedBal"><span></span>
+                        </label>
+                    </div>
+                    <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
+                    <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-top8">
+                            <input type="checkbox" [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
+                                    Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b>
+                            <span></span>
+                        </label>
+                </div>
+
+
                 
                 <div class="form-group mrgn-top4">
-                    <label class="control-label" style="width:30%">Amount</label>
-                    <div class="" style="width:70%; float:right">
+                    <label class="col-md-3 no-padding-lft">Amount</label>
+                    <div class="col-md-9 no-padding-rgt">
                         <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="paidAmount">
                     </div>
                 </div>
-                <div class="form-group  pull-right">
+                <div class="form-group  pull-right mrgn-top8">
                     <button  class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel</button>
                     <button  class="btn btn-default btn-outline btn-sm" (click)="savePayment()"> Payment </button>
                 </div>
-                <div class="form-group mrgn-top8">
+                <div class="form-group hr mrgn-top8">
                     <div class="sub-total">
                         <ul>
                             <li class="sar-total">
                                 <span> <b>Total Pay Amount</b> </span>
                                 <span> <b>{{receivedAmount}}</b> </span>
                             </li>
-                            <li class="sar-total">
+                            <li class="sar-total mrgn-top4">
                                     <span style="white-space: nowrap"> <b>Total Invoice Amount</b> </span>
                                     <span> <b>{{grandTotalWithTax}}</b> </span>
                                 </li>
