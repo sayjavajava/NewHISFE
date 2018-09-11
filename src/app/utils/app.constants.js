@@ -29,6 +29,13 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     AppConstants.FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
     AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
+    ////////////////////// Patients Invoices ///////////////////////////////
+    AppConstants.SAVE_INVOICE = '/invoice/saveInvoice';
+    AppConstants.GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
+    ////////////////////// Cashier Desk ///////////////////////////////
+    AppConstants.GET_All_INVOICES = '/cashier/getAllInvoices';
+    AppConstants.FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';
+    AppConstants.SAVE_PAYMENT = '/cashier/savePayment';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';

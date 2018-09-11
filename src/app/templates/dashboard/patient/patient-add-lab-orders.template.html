@@ -77,7 +77,8 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label class="control-label col-md-3">Status</label>
+                                <label class="control-label col-md-3"> Status <span
+                                        class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-5">
                                     <select class="form-control" formControlName="orderStatus" (change)="goToStatus($event.target.value)">
                                         <option value="">Select...</option>
@@ -88,6 +89,10 @@
 
                                     </select>
                                 </div>
+                                <span class="text-danger"
+                                      *ngIf="!labForm.controls['orderStatus'].valid && labForm.controls['orderStatus'].touched">
+                                                    <span *ngIf="labForm.controls['orderStatus'].errors.required"> Please Select Status </span>
+                                                </span>
                                 <div class="col-md-4">Status of the lab order.</div>
                             </div>
                             <!--<div class="form-group">
@@ -115,7 +120,8 @@
                                 <div class="col-md-4">Status of the lab order.</div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Appointments</label>
+                                <label class="control-label col-md-3">Appointments <span
+                                        class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-5">
                                     <select class="form-control" (change)="selectedAppointment($event.target.value)" formControlName="appointmentId" [(ngModel)]="appointmentId">
                                     <!--[ngModelOptions]="{standalone:true}"-->
@@ -126,6 +132,10 @@
                                         {{item.scheduleDate}}
                                     </option>
                                 </select>
+                                    <span class="text-danger"
+                                          *ngIf="!labForm.controls['appointmentId'].valid && labForm.controls['appointmentId'].touched">
+                                                    <span *ngIf="labForm.controls['appointmentId'].errors.required"> Please Select Appointment </span>
+                                                </span>
 
                                 </div>
                                 <span class="text-danger"
@@ -157,7 +167,9 @@
                                     <td rowspan="1" colspan="1"> <input type="text" formControlName="units" class="form-control" value="23"> </td>
                                     <td rowspan="1" colspan="1"> <input type="text" formControlName="resultValue" class="form-control" value="45"> </td>
                                     <td rowspan="1" colspan="1"> <input type="text" formControlName="normalRange" class="form-control" value="100"> </td>
-                                    <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>
+                                  <!--  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>-->
+                                <td rowspan="1" colspan="1"> <i (click)="deleteTest(i)" title="Remove"
+                                                                class="fa fa-close font-red"></i> </td>
                                 </tr>
 
                                 <!--<div formArrayName="examRooms"

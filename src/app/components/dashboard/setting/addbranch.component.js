@@ -72,7 +72,7 @@ var AddBranchComponent = (function () {
             'formattedAddress': [null],
             'officeHoursStart': [null, forms_1.Validators.required],
             'officeHoursEnd': [null, forms_1.Validators.required],
-            'noOfExamRooms': [null],
+            'noOfExamRooms': [null, forms_1.Validators.required],
             'examRooms': this.fb.array([this.createExamRoom()]),
         });
     };

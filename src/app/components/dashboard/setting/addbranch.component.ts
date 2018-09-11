@@ -80,7 +80,7 @@ export class AddBranchComponent implements OnInit {
             'formattedAddress': [null],
             'officeHoursStart': [null, Validators.required],
             'officeHoursEnd': [null, Validators.required],
-            'noOfExamRooms': [null],
+            'noOfExamRooms': [null,Validators.required],
             'examRooms': this.fb.array([this.createExamRoom()]),
         })
     }

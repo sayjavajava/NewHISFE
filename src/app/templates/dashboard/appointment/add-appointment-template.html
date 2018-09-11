@@ -14,7 +14,8 @@
                     <div class="modal-body schedule-body">
                         <div class="scroller" style="height:1350px" data-always-visible="1" data-rail-visible1="1">
                             <div class="row">
-                                <div class=" col-md-12">
+                                <form id="updateForm" class="login-form" #updateForm="ngForm">
+                                  <div class=" col-md-12">
                                     <div class="portlet-body">
                                         <ul class="nav nav-tabs">
                                             <li class="active">
@@ -29,6 +30,7 @@
                                                     <div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
                                                         <label>
                                                             <input type="checkbox"
+                                                                   [ngModelOptions]="{standalone:true}"
                                                                    value="{{item.name}}"
                                                                    (change)="selectType()"
                                                                    [(ngModel)]="item.checked"/>
@@ -41,6 +43,7 @@
                                                     <div class="hr">
                                                         <div class="col-md-3">
                                                             <input type="text" value="" class="form-control"
+                                                                   [ngModelOptions]="{standalone:true}"
                                                                    placeholder="First Name"
                                                                    [(ngModel)]="modalData?.event.title"
                                                                    (keyup)="refresh.next()">
@@ -49,6 +52,7 @@
                                                             <input
                                                                     type="text"
                                                                     class="form-control"
+                                                                    [ngModelOptions]="{standalone:true}"
                                                                     [(ngModel)]="modalData?.event.age" placeholder="age"
                                                                     (keyup)="refresh.next()">
                                                         </div>
@@ -65,6 +69,7 @@
                                                             <input
                                                                     type="text"
                                                                     class="form-control"
+                                                                    [ngModelOptions]="{standalone:true}"
                                                                     [(ngModel)]="modalData?.event.email"
                                                                     (keyup)="refresh.next()">
                                                         </div>
@@ -72,6 +77,7 @@
                                                             <input
                                                                     type="text"
                                                                     class="form-control"
+                                                                    [ngModelOptions]="{standalone:true}"
                                                                     [(ngModel)]="modalData?.event.cellPhone"
                                                                     (keyup)="refresh.next()">
                                                         </div>
@@ -114,6 +120,7 @@
                                                         <textarea
                                                                 rows="3"
                                                                 class="form-control"
+                                                                [ngModelOptions]="{standalone:true}"
                                                                 [(ngModel)]="modalData?.event.reason"
                                                                 (keyup)="refresh.next()"></textarea>
                                                             </div>
@@ -124,6 +131,7 @@
                                                                 <div class=" col-md-12 col-xs-12 pull-left no-padding">
                                                                     <mwl-demo-utils-date-time-picker
                                                                             [(ngModel)]="modalData?.event.start"
+                                                                            [ngModelOptions]="{standalone:true}"
                                                                             (ngModelChange)="refresh.next()"
                                                                             placeholder="Not set">
                                                                     </mwl-demo-utils-date-time-picker>
@@ -136,6 +144,7 @@
                                                                <textarea
                                                                        rows="3"
                                                                        class="form-control"
+                                                                       [ngModelOptions]="{standalone:true}"
                                                                        [(ngModel)]="modalData?.event.notes"
                                                                        (keyup)="refresh.next()"></textarea>
                                                             </div>
@@ -143,21 +152,25 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group hr">
-                                                            <label class="control-label col-md-4">Branch </label>
+                                                            <label class="control-label col-md-4">Branch <span
+                                                                    class="required" aria-required="true"> * </span> </label>
                                                             <div class="col-md-8">
                                                                 <select #selectedBranch class="form-control"
-
                                                                         (change)="getExamRoom(selectedBranch.value)"
+                                                                        name="upBranchDrp" #upBranchDrp="ngModel"
                                                                         name="branchDrp"
                                                                         [ngModelOptions]="{standalone:true}"
                                                                         [(ngModel)]="modalData?.event.branchId">
-
 
                                                                     <option *ngFor="let item of branches;"
                                                                             [ngValue]="item.id" (keyup)="refresh.next()">
                                                                         {{item.name}}
                                                                     </option>
                                                                 </select>
+                                                                <span *ngIf="upBranchDrp.invalid && upBbranchDrp.touched"
+                                                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                                               Select Branch
+                                                                  </span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group hr">
@@ -174,28 +187,33 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group hr">
-                                                            <label class="control-label col-md-4">Doctor:</label>
+                                                            <label class="control-label col-md-4">Doctor <span
+                                                                    class="required" aria-required="true"> * </span></label>
                                                             <div class="col-md-8">
-                                                                <select class="form-control" name="doctor"
-                                                                        [ngModelOptions]="{standalone:true}"
+                                                                <select class="form-control" name="upDoctor" #upDoctor
                                                                         [(ngModel)]="modalData?.event.doctorId">
                                                                     <!--[ngModelOptions]="{standalone:true}"-->
                                                                     <!--[(ngModel)]="event.branch"-->
-                                                                    <option value="0">-- Select --</option>
+
                                                                     <option *ngFor="let item of doctorsList; let i = index;"
                                                                             value={{item.id}} (keyup)="refresh.next()">
                                                                         {{item.firstName}} {{item.lastName}}
                                                                     </option>
                                                                 </select>
+                                                                <span *ngIf="upDoctor.invalid && upDoctor.touched"
+                                                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                                               Select Branch
+                                                                  </span>
+
                                                             </div>
                                                         </div>
-
 
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-4">Color
                                                             </label>
                                                             <div class="col-md-8">
                                                                 <input [(colorPicker)]="color" [value]="color"
+                                                                       [ngModelOptions]="{standalone:true}"
                                                                        [style.background]="modalData?.event.colorHash"
                                                                        (keyup)="refresh.next()" [(ngModel)]="modalData?.event.colorHash"/>
                                                             </div>
@@ -218,16 +236,22 @@
 
 
                                                         <div class="form-group hr">
-                                                            <label class="col-md-4 control-label">Duration:</label>
+                                                            <label class="col-md-4 control-label">Duration <span
+                                                                    class="required" aria-required="true"> * </span></label>
                                                             <div class="col-md-6 col-xs-12">
                                                                 <input
                                                                         type="text"
+                                                                        name="upDuration" #upDuration
                                                                         class="form-control"
                                                                         [(ngModel)]="modalData?.event.duration"
                                                                         (keyup)="refresh.next()">
                                                             </div>
                                                             <div class="col-md-2 text-center label-control2">minutes
                                                             </div>
+                                                            <span *ngIf="upDuration.invalid && upDuration.touched"
+                                                                  class="col-md-9 select pdng-lr-5 text-danger">
+                                                               Select Branch
+                                                                  </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -319,6 +343,7 @@
                                                     <label class="mt-checkbox mt-checkbox-outline col-md-12">
                                                         <input type="checkbox"
                                                                [(ngModel)]="modalData?.event.followUpReminder"
+                                                               [ngModelOptions]="{standalone:true}"
                                                                (keyup)="refresh.next()"> Arrange a Follow-up Reminder
                                                         <span></span>
                                                     </label>
@@ -331,6 +356,7 @@
                                                                     Date</label>
                                                                 <div class="col-md-8">
                                                                     <mwl-demo-utils-date-time-picker
+                                                                            [ngModelOptions]="{standalone:true}"
                                                                             [(ngModel)]="modalData?.event.followUpDate"
                                                                             (ngModelChange)="refresh.next()"
                                                                             placeholder="Not set">
@@ -343,13 +369,13 @@
                                                                 <label class="control-label col-md-4">Reason
                                                                 </label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" name="name" data-required="1"
+                                                                    <input type="text" name="name" data-required="1" [ngModelOptions]="{standalone:true}"
                                                                            [(ngModel)]="modalData?.event.followUpReason"
                                                                            (ngModelChange)="refresh.next()"
                                                                            value="" class="form-control"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12">
+                                                       <!-- <div class="col-md-12">
                                                             <div class="mrgn-btm10 pull-right">
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         (click)="eventsRequest.splice(index, 1); refresh.next()"
@@ -361,13 +387,13 @@
                                                                         class="btn btn-sm green btn-outline filter-submit margin-bottom">
                                                                     Save
                                                                 </button>
-                                                                <!--<button type="button" data-dismiss="modal"
+                                                                &lt;!&ndash;<button type="button" data-dismiss="modal"
                                                                         class="btn btn-sm red btn-outline filter-cancel"
                                                                         (click)="events.splice(index, 1); refresh.next()">
                                                                     Delete
-                                                                </button>-->
+                                                                </button>&ndash;&gt;
                                                             </div>
-                                                        </div>
+                                                        </div>-->
                                                     </div>
 
                                                 </div>
@@ -376,6 +402,7 @@
                                         <div class="clearfix margin-bottom-20"></div>
                                     </div>
                                 </div>
+                             </form>
                             </div>
                         </div>
                     </div>
@@ -512,7 +539,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                 <!--<h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>-->
+                <!--<h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>-->
             </div>
             <div class="col-md-4">
                 <div class="btn-group">
@@ -563,7 +590,9 @@
                     *ngSwitchCase="'day'"
                     [viewDate]="viewDate"
                     [events]="events"
+                    [hourSegments]="5"
                     [refresh]="refresh"
+                    (mouseoverr)="moveMouse('mouse moved',$event)"
                     (eventClicked)="handleEvent('Clicked', $event.event)"
                     (eventTimesChanged)="eventTimesChanged($event)">
             </mwl-calendar-day-view>
@@ -579,16 +608,16 @@
 </div>
 <div id="create-responsive" class="modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog schedle-appint-modal">
-        <form id="loginForm" class="login-form" #form="ngForm">
-           <div class="modal-content" *ngFor="let event of eventsRequest; let index = index">
-             <div class="modal-header off-wite-bg">
+        <div class="modal-content" *ngFor="let event of eventsRequest; let index = index">
+            <div class="modal-header off-wite-bg">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                 <h4 class="modal-title bold"> Schedule Appointment </h4>
-             </div>
-              <div class="modal-body schedule-body">
+            </div>
+            <div class="modal-body schedule-body">
                 <div class="scroller" style="height:1350px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
-                        <div class=" col-md-12">
+                        <form id="loginForm" class="login-form" #loginForm="ngForm">
+                          <div class=" col-md-12">
                             <div class="portlet-body">
                                 <ul class="nav nav-tabs">
                                     <li class="active">
@@ -597,15 +626,16 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
+
                                     <div class="tab-pane fade active in" id="tab_1_1">
 
-                                        <div class="form-group">
+                                             <div class="form-group">
                                             <div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
                                                 <label>
                                                     <input type="checkbox"
-                                                           value="{{item.name}}"
                                                            [ngModelOptions]="{standalone:true}"
-                                                           (change)="selectType()"
+                                                           value="{{item.name}}"
+                                                           (change)="selectType(loginForm)"
                                                            [(ngModel)]="item.checked"/>
                                                     {{item.name}}
                                                 </label>
@@ -615,38 +645,37 @@
                                              class="hr padding round-table off-wite-bg mrgn-btm10">
                                             <div class="hr">
                                                 <div class="row">
-                                                <div class="col-md-3">
-                                                    <input type="text" value="" class="form-control"
-                                                           [ngModelOptions]="{standalone:true}"
-                                                           placeholder="First Name" [(ngModel)]="event.newPatient"
-                                                           (keyup)="refresh.next()">
-                                                </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" value="" class="form-control" [ngModelOptions]="{standalone:true}"
+                                                               placeholder="First Name" [(ngModel)]="event.newPatient"
+                                                               (keyup)="refresh.next()">
+                                                    </div>
 
-                                                <div class="col-md-2">
-                                                    <select class="form-control" name="statusDrp"
-                                                            [ngModelOptions]="{standalone:true}"
-                                                            [(ngModel)]="event.gender">
-                                                        <option [ngValue]="undefined" disabled  selected> Please select </option>
-                                                        <option value="Male" selected> Male</option>
-                                                        <option value="Female">Female</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            [(ngModel)]="event.email"
-                                                            [ngModelOptions]="{standalone:true}"
-                                                            (keyup)="refresh.next()">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            [ngModelOptions]="{standalone:true}"
-                                                            [(ngModel)]="event.cellPhone"
-                                                            (keyup)="refresh.next()">
-                                                </div>
+                                                    <div class="col-md-2">
+                                                        <select class="form-control" name="statusDrp"
+                                                                [ngModelOptions]="{standalone:true}"
+                                                                [(ngModel)]="event.gender">
+                                                            <option [ngValue]="undefined" disabled  selected> Please select </option>
+                                                            <option value="Male" selected> Male</option>
+                                                            <option value="Female">Female</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input
+                                                                type="text"
+                                                                [ngModelOptions]="{standalone:true}"
+                                                                class="form-control"
+                                                                [(ngModel)]="event.email"
+                                                                (keyup)="refresh.next()">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                [ngModelOptions]="{standalone:true}"
+                                                                [(ngModel)]="event.cellPhone"
+                                                                (keyup)="refresh.next()">
+                                                    </div>
                                                     <div class="col-md-2">
                                                         <input type="date" class="form-control form-control-inline input-medium"
                                                                [(ngModel)]="event.dob" id="dob"
@@ -659,18 +688,18 @@
                                                         </div>
                                                     </div>
 
-                                              </div>
+                                                </div>
 
 
                                             </div>
                                         </div>
                                         <div class="hr padding round-table off-wite-bg">
                                             <div class="col-md-6">
-                                              <div class="form-group hr">
+                                                <div class="form-group hr">
                                                     <label class="col-md-3 control-label">Patient</label>
                                                     <div class="col-md-9">
                                                         <div class="ptn-apontmt-sch">
-                                                            <select class="form-control" name="statusDrp"
+                                                            <select class="form-control" name="statusDrp" [disabled]="patientChecked"
                                                                     [ngModelOptions]="{standalone:true}"
                                                                     [(ngModel)]="event.patientId">
                                                                 <option value="0">&#45;&#45; Select &#45;&#45;</option>
@@ -687,9 +716,9 @@
                                                                           routerLink="/dashboard/patient/add">
                                                                     <i class=" fa fa-plus"></i>
                                                                 </button>
-                                                               <!-- &lt;!&ndash; <button class="btn btn-default btn-outline font-yellow-gold pull-right"
-                                                                     <i class=" fa fa-pencil"></i>
-                                                                 </button>&ndash;&gt;-->
+                                                                <!-- &lt;!&ndash; <button class="btn btn-default btn-outline font-yellow-gold pull-right"
+                                                                      <i class=" fa fa-pencil"></i>
+                                                                  </button>&ndash;&gt;-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -700,17 +729,23 @@
                                                         <textarea
                                                                 rows="3"
                                                                 class="form-control"
+                                                                [ngModelOptions]="{standalone:true}" required
                                                                 [(ngModel)]="event.reason"
-                                                                [ngModelOptions]="{standalone:true}"
-                                                                (keyup)="refresh.next()"></textarea>
+                                                                (keyup)="refresh.next()"
+                                                                name="dptName" #dptName="ngModel"
+                                                                 ></textarea>
                                                     </div>
+                                                    <span *ngIf="dptName.invalid && dptName.touched"
+                                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter valid name.
+                                        </span>
                                                 </div>
                                                 <div class="form-group hr">
                                                     <label class="col-md-3 control-label">Scheduled:</label>
                                                     <div class="col-md-9 col-xs-12">
                                                         <div class=" col-md-12 col-xs-12 pull-left no-padding">
                                                             <mwl-demo-utils-date-time-picker
-                                                                    [(ngModel)]="event.start"
+                                                                    [(ngModel)]="event.start" name="name"
                                                                     [ngModelOptions]="{standalone:true}"
                                                                     (ngModelChange)="refresh.next()"
                                                                     placeholder="Not set">
@@ -722,9 +757,9 @@
                                                     <label class="col-md-3 control-label">Notes:</label>
                                                     <div class="col-md-9 col-xs-12">
                                                                <textarea
-                                                                       rows="3"
-                                                                       class="form-control"
+                                                                       rows="3" name="name"
                                                                        [ngModelOptions]="{standalone:true}"
+                                                                       class="form-control"
                                                                        [(ngModel)]="event.notes"
                                                                        (keyup)="refresh.next()"></textarea>
                                                     </div>
@@ -732,63 +767,59 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group hr">
-                                                    <label class="control-label col-md-4">Branch</label>
+                                                    <label class="control-label col-md-4">Branch <span
+                                                            class="required" aria-required="true"> * </span></label>
                                                     <div class="col-md-8">
-                                                        <select #selectedBranch class="form-control" [required]="isRequired"
-
+                                                        <select #selectedBranch class="form-control" required
                                                                 (change)="getExamRoom(selectedBranch.value)"
-                                                                name="branchDrp"
-                                                                [ngModelOptions]="{standalone:true}"
+                                                                name="branchDrp" #branchDrp="ngModel"
                                                                 [(ngModel)]="event.branchId">
                                                             <option *ngFor="let item of branches;"
                                                                     [ngValue]="item.id" (keyup)="refresh.next()">
                                                                 {{item.name}}
                                                             </option>
                                                         </select>
+                                                        <span *ngIf="branchDrp.invalid && branchDrp.touched"
+                                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                               Select Branch
+                                                                  </span>
+
                                                     </div>
                                                 </div>
-
-                                          <!--      <div class="col-md-9">
-                                                    <input class="form-control"
-                                                           type="number"
-                                                           [(ngModel)]="ms.cost" min="0"
-                                                           required pattern="^[0-9]{1,60}$"
-                                                           name="cost" #cost="ngModel"/>
-                                                </div>
-                                                <span *ngIf="cost.invalid && cost.touched"
-                                                      class="col-md-6 select pdng-lr-5 text-danger">
-                                                Please enter valid cost.
-                                    </span-->>
                                                 <div class="form-group hr">
                                                     <label class="control-label col-md-4">Room:</label>
                                                     <div class="col-md-8">
-                                                        <select class="form-control" name="exmDrp"
-                                                                [ngModelOptions]="{standalone:true}"
-                                                                [(ngModel)]="event.roomId">
-                                                            <option value="0">-- Select --</option>
+                                                        <select  class="form-control" name="roomDrp"
+                                                                 [(ngModel)]="event.roomId">
+
                                                             <option *ngFor="let item of examRooms;"
                                                                     value={{item.id}} (keyup)="refresh.next()">
                                                                 {{item.roomName}}
                                                             </option>
                                                         </select>
+
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group hr">
-                                                    <label class="control-label col-md-4">Doctor:</label>
+                                                    <label class="control-label col-md-4">Doctor <span
+                                                            class="required" aria-required="true"> * </span></label>
                                                     <div class="col-md-8">
-                                                        <select class="form-control" name="doctor"
-                                                                [ngModelOptions]="{standalone:true}"
+                                                        <select class="form-control" name="drDrp" #drDrp="ngModel"  required
                                                                 [(ngModel)]="event.doctorId">
-                                                            <!--[ngModelOptions]="{standalone:true}"-->
-                                                            <!--[(ngModel)]="event.branch"-->
-                                                            <option value="0">-- Select --</option>
-                                                            <option *ngFor="let item of doctorsList; let i = index;"
+                                                            <option *ngFor="let item of doctorsList;"
                                                                     value={{item.id}} (keyup)="refresh.next()">
                                                                 {{item.firstName}} {{item.lastName}}
                                                             </option>
                                                         </select>
+                                                        <span *ngIf="drDrp.invalid && drDrp.touched"
+                                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                               Select Doctor
+                                                                  </span>
                                                     </div>
                                                 </div>
+
+
                                                 <div class="form-group hr">
                                                     <label class="control-label col-md-4">Color
                                                     </label>
@@ -804,7 +835,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-4">Status:</label>
+                                                    <label class="control-label col-md-4">Status</label>
                                                     <div class="col-md-8">
                                                         <select class="form-control" name="statusDrp"
                                                                 [ngModelOptions]="{standalone:true}"
@@ -819,115 +850,116 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group hr">
-                                                    <label class="col-md-4 control-label">Duration:</label>
+                                                    <label class="col-md-4 control-label">Duration <span
+                                                            class="required" aria-required="true"> * </span></label>
                                                     <div class="col-md-6 col-xs-12">
                                                         <input
-                                                                type="text"  required
-                                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
-                                                                class="form-control"
+                                                                type="text" required
+                                                                name="duration" #duration ="ngModel"
                                                                 [ngModelOptions]="{standalone:true}"
+                                                                class="form-control"
                                                                 [(ngModel)]="event.duration"
-                                                                (keyup)="refresh.next()"
-                                                                name="dptName" #dptName="ngModel">
+                                                                (keyup)="refresh.next()">
                                                     </div>
-                                                    <span *ngIf="dptName.invalid && dptName.touched"
-                                                          class="col-md-9 select pdng-lr-5 text-danger">
-                                                Please enter duration name.
-                                                </span>
                                                     <div class="col-md-2 text-center label-control2">minutes
                                                     </div>
+                                                    <span *ngIf="duration.invalid && duration.touched"
+                                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                                Duration required
+                                                                  </span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="hr">
 
 
-<!--
+                                            <!--
+                                                                                        <label class="mt-checkbox mt-checkbox-outline col-md-12">
+                                                                                                    <input type="checkbox" [(ngModel)]="event.recurringAppointment"
+                                                                                                   (keyup)="refresh.next()"> Recurring Appointment
+                                                                                                   <span></span>
+                                                                                        </label>
+                                                                                      <div class="hr off-wite-bg round-table ">
+
+                                                                                            <div class="form-group hr">
+                                                                                                <label class="control-label col-md-2 col-xs-12"> Working
+                                                                                                    Days:
+                                                                                                </label>
+                                                                                                <div class="col-md-10 col-xs-12 text-center">
+
+                                                                                                    <div *ngFor="let item of recurringDays" class="">
+
+                                                                                                        <div class=" col-md-1 col-width14 col-xs-3">
+                                                                                                            <input type="checkbox"
+                                                                                                                   class="form-control spinner"
+                                                                                                                   value="{{item.id}}"
+                                                                                                                   (change)="selectRecurringDays($event,item)">
+                                                                                                            {{item.name}}
+                                                                                                        </div>
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="hr">
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="form-group hr">
+                                                                                                        <label class="control-label col-md-4">Recurs every
+                                                                                                        </label>
+                                                                                                        <div class="col-md-6">
+                                                                                                            <input
+                                                                                                                    type="text"
+                                                                                                                    class="form-control"
+                                                                                                                    [(ngModel)]="event.recurseEvery"
+                                                                                                                    (keyup)="refresh.next()">
+                                                                                                        </div>
+                                                                                                        <div class="col-md-2">Week(s)</div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="hr">
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="form-group hr">
+                                                                                                        <label class="control-label col-md-4">First
+                                                                                                            Appointment
+                                                                                                        </label>
+                                                                                                        <div class="col-md-8">
+                                                                                                            <mwl-demo-utils-date-time-picker
+                                                                                                                    [(ngModel)]="event.firstAppointment"
+                                                                                                                    (ngModelChange)="refresh.next()"
+                                                                                                                    placeholder="Not set">
+                                                                                                            </mwl-demo-utils-date-time-picker>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="form-group hr">
+                                                                                                        <label class="control-label col-md-4">Last
+                                                                                                            Appointment
+                                                                                                        </label>
+                                                                                                        <div class="col-md-8">
+                                                                                                            <mwl-demo-utils-date-time-picker
+                                                                                                                    [(ngModel)]="event.lastAppointment"
+                                                                                                                    (ngModelChange)="refresh.next()"
+                                                                                                                    placeholder="Not set">
+                                                                                                            </mwl-demo-utils-date-time-picker>
+                                                                                                            <div class="col-md-4 never-end">
+                                                                                                                <label class="mt-checkbox mt-checkbox-outline">
+                                                                                                                    <input type="checkbox"
+                                                                                                                           [(ngModel)]="modalData?.event.neverEnds"
+                                                                                                                           (keyup)="refresh.next()"> Never
+                                                                                                                    ends
+                                                                                                                    <span></span>
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>-->
                                             <label class="mt-checkbox mt-checkbox-outline col-md-12">
-                                                        <input type="checkbox" [(ngModel)]="event.recurringAppointment"
-                                                       (keyup)="refresh.next()"> Recurring Appointment
-                                                       <span></span>
-                                            </label>
-                                          <div class="hr off-wite-bg round-table ">
-
-                                                <div class="form-group hr">
-                                                    <label class="control-label col-md-2 col-xs-12"> Working
-                                                        Days:
-                                                    </label>
-                                                    <div class="col-md-10 col-xs-12 text-center">
-
-                                                        <div *ngFor="let item of recurringDays" class="">
-
-                                                            <div class=" col-md-1 col-width14 col-xs-3">
-                                                                <input type="checkbox"
-                                                                       class="form-control spinner"
-                                                                       value="{{item.id}}"
-                                                                       (change)="selectRecurringDays($event,item)">
-                                                                {{item.name}}
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="hr">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group hr">
-                                                            <label class="control-label col-md-4">Recurs every
-                                                            </label>
-                                                            <div class="col-md-6">
-                                                                <input
-                                                                        type="text"
-                                                                        class="form-control"
-                                                                        [(ngModel)]="event.recurseEvery"
-                                                                        (keyup)="refresh.next()">
-                                                            </div>
-                                                            <div class="col-md-2">Week(s)</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="hr">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group hr">
-                                                            <label class="control-label col-md-4">First
-                                                                Appointment
-                                                            </label>
-                                                            <div class="col-md-8">
-                                                                <mwl-demo-utils-date-time-picker
-                                                                        [(ngModel)]="event.firstAppointment"
-                                                                        (ngModelChange)="refresh.next()"
-                                                                        placeholder="Not set">
-                                                                </mwl-demo-utils-date-time-picker>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group hr">
-                                                            <label class="control-label col-md-4">Last
-                                                                Appointment
-                                                            </label>
-                                                            <div class="col-md-8">
-                                                                <mwl-demo-utils-date-time-picker
-                                                                        [(ngModel)]="event.lastAppointment"
-                                                                        (ngModelChange)="refresh.next()"
-                                                                        placeholder="Not set">
-                                                                </mwl-demo-utils-date-time-picker>
-                                                                <div class="col-md-4 never-end">
-                                                                    <label class="mt-checkbox mt-checkbox-outline">
-                                                                        <input type="checkbox"
-                                                                               [(ngModel)]="modalData?.event.neverEnds"
-                                                                               (keyup)="refresh.next()"> Never
-                                                                        ends
-                                                                        <span></span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>-->
-                                            <label class="mt-checkbox mt-checkbox-outline col-md-12">
-                                                <input type="checkbox" [(ngModel)]="event.followUpReminder" [ngModelOptions]="{standalone:true}"
+                                                <input type="checkbox" name="followUpReminder" [(ngModel)]="event.followUpReminder"
+                                                       [ngModelOptions]="{standalone:true}"
                                                        (keyup)="refresh.next()"> Arrange a Follow-up Reminder
                                                 <span></span>
                                             </label>
@@ -940,9 +972,10 @@
                                                             Date</label>
                                                         <div class="col-md-8">
                                                             <mwl-demo-utils-date-time-picker
-                                                                    [(ngModel)]="event.followUpDate"
                                                                     [ngModelOptions]="{standalone:true}"
+                                                                    [(ngModel)]="event.followUpDate"
                                                                     (ngModelChange)="refresh.next()"
+                                                                    name="foolowUp"
                                                                     placeholder="Not set">
                                                             </mwl-demo-utils-date-time-picker>
                                                         </div>
@@ -953,47 +986,33 @@
                                                         <label class="control-label col-md-4">Reason
                                                         </label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="name" data-required="1"  [(ngModel)]="event.followUpReason"
+                                                            <input type="text"
+                                                                   data-required="1"  [(ngModel)]="event.followUpReason"
                                                                    (ngModelChange)="refresh.next()"
                                                                    [ngModelOptions]="{standalone:true}"
+                                                                   name="followReason"
                                                                    value="" class="form-control"></div>
                                                     </div>
-                                                </div>
+                                                    <button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index,1);refresh.next()"
+                                                            class="btn btn-default btn-outline"> Cancel
+                                                    </button>
 
-                                                <div class="form-group hr">
+                                            </div>
+
+                                              <!--  <div class="form-group hr">
                                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
                                                             class="required" aria-required="true"> * </span></label>
                                                     <div class="col-md-9 select pdng-lr-5">
                                                         <input class="form-control" type="text" required
                                                                [(ngModel)]="event.reason"
-                                                               required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                                name="dptName" #dptName="ngModel"/>
                                                     </div>
                                                     <span *ngIf="dptName.invalid && dptName.touched"
                                                           class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter valid name.
                                         </span>
-                                                </div>
+                                                </div>-->
 
-                                                <div class="col-md-12">
-                                                    <div class="mrgn-btm10 pull-right">
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                (click)="eventsRequest.splice(index, 1);refresh.next()"
-                                                                class="btn btn-sm blue btn-outline filter-submit margin-bottom" >
-                                                            Cancel
-                                                        </button>
-                                                        <button type="button" (click)="saveAppointment(event)"
-                                                                data-dismiss="modal"
-                                                                class="btn btn-sm green btn-outline filter-submit margin-bottom">
-                                                            Save
-                                                        </button>
-                                                        <!--<button type="button" data-dismiss="modal"
-                                                                class="btn btn-sm red btn-outline filter-cancel"
-                                                                (click)="events.splice(index, 1); refresh.next()">
-                                                            Delete
-                                                        </button>-->
-                                                    </div>
-                                                </div>
                                             </div>
 
                                         </div>
@@ -1002,23 +1021,26 @@
                                 <div class="clearfix margin-bottom-20"></div>
                             </div>
                         </div>
+                      </form>
                     </div>
+
                 </div>
             </div>
             <div class="modal-footer">
-               <!-- <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)"
-                        class="btn red"> Delete
-                </button>-->
+                <!-- <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)"
+                         class="btn red"> Delete
+                 </button>-->
 
-                <button type="button" (click)="saveAppointment(event,form)" data-dismiss="modal" class="btn  blue">
+                <button type="button" (click)="saveAppointment(event,loginForm)"
+                        data-dismiss="modal"
+                        class="btn btn-sm green btn-outline filter-submit margin-bottom">
                     Save
                 </button>
-                <button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index, 1)"
+                <button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index,1);refresh.next()"
                         class="btn btn-default btn-outline"> Cancel
                 </button>
             </div>
         </div>
-      </form>
     </div>
 </div>
 

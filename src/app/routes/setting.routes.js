@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var staff_component_1 = require("../components/dashboard/setting/staff.component");
 var code_component_1 = require("../components/dashboard/setting/code.component");
 var department_component_1 = require("../components/dashboard/setting/department.component");
-var cashier_component_1 = require("../components/dashboard/setting/cashier.component");
+var cashier_component_1 = require("../components/dashboard/cashier/cashier.component");
 var medical_service_component_1 = require("../components/dashboard/setting/medical-service.component");
 var nurse_component_1 = require("../components/dashboard/setting/nurse.component");
 var receptionist_component_1 = require("../components/dashboard/setting/receptionist.component");

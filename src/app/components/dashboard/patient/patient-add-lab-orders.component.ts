@@ -65,11 +65,11 @@ export class PatientAddLabOrdersComponent implements OnInit {
     }
     createLabOrderForm() {
         this.labForm = this.fb.group({
-            'orderStatus': [null],
+            'orderStatus': [null,Validators.required],
             'orderTestDate': [null],
             'doctorSignOff': [null],
             'comments': [null],
-            'patientId' :[null],
+            'patientId' :[null,Validators.required],
             'appointmentId':[null,Validators.required],
             'labTest': this.fb.array([this.createLabTest()]),
         })
