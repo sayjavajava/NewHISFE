@@ -11,11 +11,15 @@ var appointment_component_1 = require("../components/dashboard/appointment/appoi
 var appointments_routes_1 = require("./appointments.routes");
 var nurse_dashboard_component_1 = require("../components/dashboard/nurse/nurse-dashboard.component");
 var receptionist_dashboard_component_1 = require("../components/dashboard/receptionist/receptionist-dashboard.component");
+var cashier_component_1 = require("../components/dashboard/cashier/cashier.component");
+var payment_component_1 = require("../components/dashboard/cashier/payment.component");
 exports.DashboardRoutes = [
     // Dashboard Pages
     { path: '', component: content_component_1.ContentComponent },
     { path: 'admin', component: content_component_1.ContentComponent },
     { path: 'doctor', component: doctor_dashboard_component_1.DoctorDashboardComponent },
+    { path: 'cashier', component: cashier_component_1.CashierComponent },
+    { path: 'payment/:id', component: payment_component_1.PaymentComponent },
     { path: 'nurse', component: nurse_dashboard_component_1.NurseDashboardComponent },
     { path: 'receptionist', component: receptionist_dashboard_component_1.ReceptionistDashboardComponent },
     { path: 'setting', component: setting_component_1.SettingComponent, children: setting_routes_1.SettingRoutes },

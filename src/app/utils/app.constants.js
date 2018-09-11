@@ -29,6 +29,13 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     AppConstants.FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
     AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
+    ////////////////////// Patients Invoices ///////////////////////////////
+    AppConstants.SAVE_INVOICE = '/invoice/saveInvoice';
+    AppConstants.GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
+    ////////////////////// Cashier Desk ///////////////////////////////
+    AppConstants.GET_All_INVOICES = '/cashier/getAllInvoices';
+    AppConstants.FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';
+    AppConstants.SAVE_PAYMENT = '/cashier/savePayment';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
@@ -93,23 +100,26 @@ var AppConstants = (function () {
     AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
     AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
     AppConstants.PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
+    AppConstants.PATIENT_PROBLEM_FETCH_STATUS_URL = '/patient/history/problem/status/';
     AppConstants.PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
     AppConstants.PATIENT_PROBLEM_GET_URL = '/patient/history/problem/get?';
     AppConstants.PATIENT_PROBLEM_UPDATE_URL = '/patient/history/problem/update';
     AppConstants.PATIENT_PROBLEM_DELETE_URI = '/patient/history/problem/delete/';
     AppConstants.ALLERGY_SAVE_URL = '/patient/allergy/save';
     AppConstants.ALLERGY_PAGINATED_URL = '/patient/allergy/';
+    AppConstants.ALLERGY_PAGINATED_STATUS_URL = '/patient/allergy/status/';
     AppConstants.ALLERGY_GET_URL = '/patient/allergy/get?';
     AppConstants.ALLERGY_UPDATE_URL = '/patient/allergy/update';
     AppConstants.ALLERGY_DELETE_URI = '/patient/allergy/delete/';
     //////////////////// Medication  ////////////////////////////////
     AppConstants.MEDICATION_SAVE_URL = '/patient/medication/save';
     AppConstants.MEDICATION_PAGINATED_URL = '/patient/medication/';
+    AppConstants.MEDICATION_PAGINATED_STATUS_URL = '/patient/medication/status';
     AppConstants.MEDICATION_GET_URL = '/patient/medication/get?';
     AppConstants.MEDICATION_UPDATE_URL = '/patient/medication/update';
     AppConstants.MEDICATION_DELETE_URI = '/patient/medication/delete/';
     AppConstants.PAGINATED_URL = '/patient/medication/paginated';
-    //////////////////// Medication  ////////////////////////////////
+    //////////////////// DOCUMENT  ////////////////////////////////
     AppConstants.DOCUMENT_SAVE_URL = '/patient/document/save';
     AppConstants.DOCUMENT_PAGINATED_URL = '/patient/document/';
     AppConstants.DOCUMENT_GET_URL = '/patient/document/get?';
@@ -131,14 +141,17 @@ var AppConstants = (function () {
     AppConstants.FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
     AppConstants.LAB_ORDER_UPDATE = '/patient/laborder/update/';
     AppConstants.LAB_ORDER_DELETE = '/patient/laborder/delete/';
-    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
     ///////////////////Family History//////////
     AppConstants.FAMILY_HISTORY_CREATE = '/patient/family/create';
     AppConstants.FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
+    AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     AppConstants.UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     AppConstants.FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
+    ///////////////////////Smoke Status URLs//////////////////////////////
+    AppConstants.SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
+    AppConstants.SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

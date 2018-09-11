@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 import {StaffComponent} from '../components/dashboard/setting/staff.component';
 import {CodeComponent} from '../components/dashboard/setting/code.component';
 import {DepartmentComponent} from '../components/dashboard/setting/department.component';
-import {CashierComponent} from '../components/dashboard/setting/cashier.component';
+import {CashierComponent} from '../components/dashboard/cashier/cashier.component';
 import {MedicalServiceComponent} from '../components/dashboard/setting/medical-service.component';
 import {NurseComponent} from '../components/dashboard/setting/nurse.component';
 import {ReceptionistComponent} from '../components/dashboard/setting/receptionist.component';

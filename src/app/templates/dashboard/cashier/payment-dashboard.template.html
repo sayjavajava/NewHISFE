@@ -1,0 +1,133 @@
+<div class="page-content-wrapper">
+    <div class="page-content" style="margin-top: 50px;">
+        <!--<div class="portlet-body">-->
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-info">
+                    <b>Patient Invoice</b>
+                </h4>
+                <div class="col-md-6 col-sm-6">
+                    <div class="sub-total">
+                        <ul>
+                            <li> <span>Patient Name:</span>    <span> {{patientName}} </span> </li>
+                            
+                            <li> <span>Appointment Date:</span> <span>{{scheduleDateAndTime}}</span> </li>
+                            
+                            <li> <span>Doctor Name:</span>      <span>{{docFirstName}} {{docLastName}} </span> </li>
+                            
+                            <li> <span>Cashier Name:</span>     <span>Administrator</span>    </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="">
+                    <div class="off-wite-bg">
+                        <h4 class="bold padding-10">Details</h4>
+                    </div>
+                    <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
+                        role="grid">
+                        <thead>
+                            <tr role="row" class="">
+                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Code </th>
+                                <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Services </th>
+                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Qty </th>
+                                <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Charges </th>
+                                <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Discount (%) </th>
+                                <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Discount (Amount) </th>
+                              
+                                <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Tax (%) </th>
+                                <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Tax (Amount) </th>
+                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Total </th>
+                            </tr>
+                            <tr role="row" class="filter" *ngFor="let invc of invoiceList;  let idx = index">
+                                <td rowspan="1" colspan="1">{{invc.code}}</td>
+                                <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
+                                <td rowspan="1" colspan="1">{{invc.quantity}}</td>
+                                <td rowspan="1" colspan="1">{{invc.unitFee}}</td>
+                                <td rowspan="1" colspan="1">{{invc.discountRate}}</td>
+                                <td rowspan="1" colspan="1">{{(invc.quantity*invc.unitFee) * (invc.discountRate/100)}}</td>
+                                <td rowspan="1" colspan="1">{{invc.taxRate}}</td>
+                                <td rowspan="1" colspan="1">{{(invc.quantity*invc.unitFee) * (invc.taxRate/100)}}</td>
+                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            
+
+            <div class="col-md-4 mrgn-top8">
+                
+             <div class="form-group">
+                    <label><b> Payment Type </b></label>
+                    <select class="form-control">
+                        <option>Cash</option>
+                    </select>
+                </div>
+                
+                <div class="form-group mrgn-top4">
+                    <label class="control-label" style="width:30%">Amount</label>
+                    <div class="" style="width:70%; float:right">
+                        <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="paidAmount">
+                    </div>
+                </div>
+                <div class="form-group  pull-right">
+                    <button  class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel</button>
+                    <button  class="btn btn-default btn-outline btn-sm" (click)="savePayment()"> Payment </button>
+                </div>
+                <div class="form-group mrgn-top8">
+                    <div class="sub-total">
+                        <ul>
+                            <li class="sar-total">
+                                <span> <b>Total Pay Amount</b> </span>
+                                <span> <b>{{receivedAmount}}</b> </span>
+                            </li>
+                            <li class="sar-total">
+                                    <span style="white-space: nowrap"> <b>Total Invoice Amount</b> </span>
+                                    <span> <b>{{grandTotalWithTax}}</b> </span>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+            
+            </div>
+
+            <div class="col-md-4 pull-right mrgn-top8">
+                <div class="hedng-bck-clr padding-10 sub-total">
+                    <ul>
+                        <li>
+                            <span>Total Amount:</span> <span>{{grandTotal}}</span>
+                        </li>
+                        <li>
+                            <span>Total Discount:</span> <span class="amount-border-botom">{{grandTotalDiscount}}</span>
+                        </li>
+                        <li>
+                            <span>Gross Total:</span> <span>{{grandTotal - grandTotalDiscount}}</span>
+                        </li>
+                        <li>
+                            <span>Total Tax:</span> <span>{{grandTotalTax}}</span>
+                        </li>
+                        <li>
+                            <span>Grand Total:</span> <span class="amount-border-botom amount-border-top">{{grandTotalWithTax}}</span>
+                        </li>
+                    </ul>
+                    <!-- <ul>
+                            <li>
+                                <span>Balance Due:</span>
+                                <span>0.00</span>
+                            </li>
+                        </ul> -->
+                </div>
+            </div>
+            
+        </div>
+
+        <!--</div>-->
+    </div>
+</div>

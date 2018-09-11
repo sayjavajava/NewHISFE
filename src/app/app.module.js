@@ -45,7 +45,8 @@ var setting_navigation_component_1 = require("./components/dashboard/setting/set
 var staff_component_1 = require("./components/dashboard/setting/staff.component");
 var code_component_1 = require("./components/dashboard/setting/code.component");
 var department_component_1 = require("./components/dashboard/setting/department.component");
-var cashier_component_1 = require("./components/dashboard/setting/cashier.component");
+var cashier_component_1 = require("./components/dashboard/cashier/cashier.component");
+var payment_component_1 = require("./components/dashboard/cashier/payment.component");
 var medical_service_component_1 = require("./components/dashboard/setting/medical-service.component");
 var nurse_component_1 = require("./components/dashboard/setting/nurse.component");
 var nurse_dashboard_component_1 = require("./components/dashboard/nurse/nurse-dashboard.component");
@@ -199,6 +200,7 @@ var AppModule = (function () {
                 code_version_component_1.CodeVersionComponent,
                 department_component_1.DepartmentComponent,
                 cashier_component_1.CashierComponent,
+                payment_component_1.PaymentComponent,
                 medical_service_component_1.MedicalServiceComponent,
                 add_medical_service_component_1.AddMedicalServiceComponent,
                 edit_medical_service_component_1.EditMedicalServiceComponent,

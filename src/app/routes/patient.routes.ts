@@ -11,15 +11,15 @@ import {PatientDemographicComponent} from "../components/dashboard/patient/patie
 import {PatientAppointmentComponent} from "../components/dashboard/patient/patient-appointment.component";
 
 
+
 import {PatientDocumentsComponent} from "../components/dashboard/patient/patient-document.component";
 import {PatientProblemListComponent} from "../components/dashboard/patient/patient-problem-list.component";
-
+import {PatientMedicationListComponent} from "../components/dashboard/patient/patient-medication-list.component";
+import {PatientAllergyListComponent} from "../components/dashboard/patient/patient-allergy-list.component";
 import {PatientLabOrdersComponent} from "../components/dashboard/patient/patient-lab-orders.component";
 import {PatientCommunicationComponent} from "../components/dashboard/patient/patient-communication.component";
 import {PatientFamilyHistoryComponent} from "../components/dashboard/patient/patient-family-history.component";
 import {PatientAddLabOrdersComponent} from "../components/dashboard/patient/patient-add-lab-orders.component";
-import {PatientMedicationListComponent} from "../components/dashboard/patient/patient-medication-list.component";
-import {PatientAllergyListComponent} from "../components/dashboard/patient/patient-allergy-list.component";
 
 export const PatientRoutes: Routes = [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -27,10 +27,15 @@ export const PatientRoutes: Routes = [
     {path: 'manage', component: ManagePatientComponent},
     {path: 'add', component: AddPatientComponent},
     {path: 'invoice', component: PatientInvoiceComponent},
+    {path: 'history/:id', component: PatientHistoryComponent},
+    {path: 'invoice/:id', component: PatientInvoiceComponent},
+    /* {path: 'history', component: PatientHistoryComponent}, */
+
+    {path: 'history/:id/problem', component: PatientProblemListComponent},
     {path: ':id/history', component: PatientHistoryComponent},
     {path: 'edit/:id', component: EditPatientComponent},
     {path: 'reports', component: PatientReportsComponent},
-    {path: 'demographic', component: PatientDemographicComponent},
+    {path: 'demographic/:id', component: PatientDemographicComponent},
     {path: 'appointments/:id/history', component: PatientAppointmentComponent},
     {path: 'documents', component: PatientDocumentsComponent},
     {path: 'problems-list', component: PatientProblemListComponent},

@@ -179,7 +179,11 @@
                                     <option value="REGULAR">REGULAR</option>
                                 </select></td>
                                 <td>
-                                    <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
+                              <!-- <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
+                                        <i class="fa fa-dollar" style="font-size:18px"></i>
+                                    </a> -->
+
+                                    <a title="Patient Invoice" (click)="updateAppointmentData(item.appointmentId)">
                                         <i class="fa fa-dollar" style="font-size:18px"></i>
                                     </a>
                                     <a title="Patient History" (click)="patientHistory(item.patientId)">

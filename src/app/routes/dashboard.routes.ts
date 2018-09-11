@@ -11,11 +11,18 @@ import {AppointmentRoutes} from "./appointments.routes";
 import {NurseDashboardComponent} from "../components/dashboard/nurse/nurse-dashboard.component";
 import {ReceptionistDashboardComponent} from "../components/dashboard/receptionist/receptionist-dashboard.component";
 
+import { CashierComponent } from "../components/dashboard/cashier/cashier.component";
+import { PaymentComponent } from "../components/dashboard/cashier/payment.component";
+
+
 export const DashboardRoutes: Routes = [      
     // Dashboard Pages
     {path: '', component: ContentComponent},
     {path: 'admin', component: ContentComponent},
     {path: 'doctor', component: DoctorDashboardComponent},
+    {path: 'cashier', component: CashierComponent },
+    {path: 'payment/:id', component: PaymentComponent },
+
     {path: 'nurse', component: NurseDashboardComponent},
     {path: 'receptionist', component: ReceptionistDashboardComponent},
     {path: 'setting', component: SettingComponent, children: SettingRoutes},
