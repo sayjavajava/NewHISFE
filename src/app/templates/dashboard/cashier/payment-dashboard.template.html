@@ -48,13 +48,13 @@
                             <tr role="row" class="filter" *ngFor="let invc of invoiceList;  let idx = index">
                                 <td rowspan="1" colspan="1">{{invc.code}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
-                                <td rowspan="1" colspan="1">{{invc.quantity}}</td>
-                                <td rowspan="1" colspan="1">{{invc.unitFee}}</td>
+                                <td rowspan="1" colspan="1">{{invc.quantity | number}}</td>
+                                <td rowspan="1" colspan="1">{{invc.unitFee | number}}</td>
                                 <td rowspan="1" colspan="1">{{invc.discountRate}}</td>
-                                <td rowspan="1" colspan="1">{{(invc.quantity*invc.unitFee) * (invc.discountRate/100)}}</td>
+                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number}}</td>
                                 <td rowspan="1" colspan="1">{{invc.taxRate}}</td>
-                                <td rowspan="1" colspan="1">{{(invc.quantity*invc.unitFee) * (invc.taxRate/100)}}</td>
-                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)}}</td>
+                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number}}</td>
+                                <td rowspan="1" colspan="1">{{(((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee) - ((invc.quantity*invc.unitFee) * (invc.discountRate/100))) | number}}</td>
                             </tr>
                         </thead>
                     </table>
@@ -82,7 +82,7 @@
                     <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
                     <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-top8">
                             <input type="checkbox" [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
-                                    Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b>
+                                    Use Advanced Balance : <b>{{patientAdvanceDeposit | number}}</b>
                             <span></span>
                         </label>
                 </div>
@@ -103,12 +103,12 @@
                     <div class="sub-total">
                         <ul>
                             <li class="sar-total">
-                                <span> <b>Total Pay Amount</b> </span>
-                                <span> <b>{{receivedAmount}}</b> </span>
+                                <span> <b>Total Paid Amount</b> </span>
+                                <span> <b>{{receivedAmount | number}}</b> </span>
                             </li>
                             <li class="sar-total mrgn-top4">
                                     <span style="white-space: nowrap"> <b>Total Invoice Amount</b> </span>
-                                    <span> <b>{{grandTotalWithTax}}</b> </span>
+                                    <span> <b>{{grandTotalWithTax | number}}</b> </span>
                                 </li>
                         </ul>
                     </div>
@@ -120,19 +120,19 @@
                 <div class="hedng-bck-clr padding-10 sub-total">
                     <ul>
                         <li>
-                            <span>Total Amount:</span> <span>{{grandTotal}}</span>
+                            <span>Total Amount:</span> <span>{{grandTotal | number}}</span>
                         </li>
                         <li>
-                            <span>Total Discount:</span> <span class="amount-border-botom">{{grandTotalDiscount}}</span>
+                            <span>Total Discount:</span> <span class="amount-border-botom">{{grandTotalDiscount | number}}</span>
                         </li>
                         <li>
-                            <span>Gross Total:</span> <span>{{grandTotal - grandTotalDiscount}}</span>
+                            <span>Gross Total:</span> <span>{{(grandTotal - grandTotalDiscount) | number}}</span>
                         </li>
                         <li>
-                            <span>Total Tax:</span> <span>{{grandTotalTax}}</span>
+                            <span>Total Tax:</span> <span>{{grandTotalTax | number}}</span>
                         </li>
                         <li>
-                            <span>Grand Total:</span> <span class="amount-border-botom amount-border-top">{{grandTotalWithTax}}</span>
+                            <span>Grand Total:</span> <span class="amount-border-botom amount-border-top">{{grandTotalWithTax | number}}</span>
                         </li>
                     </ul>
                     <!-- <ul>
