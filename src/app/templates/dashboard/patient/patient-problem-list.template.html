@@ -139,7 +139,7 @@
                         <tr class="tbl-pdng" *ngFor="let problem of problemData; let i = index;" class="filter">
                             <td>{{problem.versionName}}</td>
                             <td>{{problem.codeName}}</td>
-                            <td>{{problem.dateDiagnosis}}</td>
+                            <td>{{problem.dateDiagnosis | date:'medium'}}</td>
                             <td>{{problem.note}}</td>
                             <td>{{problem.status}}</td>
                             <td>
@@ -272,7 +272,7 @@
                                 <span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <input type="date" class="form-control"
+                                <input type="date" class="form-control" name="dateDiagnosis" id="dateDiagnosisId"
                                        [(ngModel)]="ppm.dateDiagnosis">
                             </div>
                         </div>

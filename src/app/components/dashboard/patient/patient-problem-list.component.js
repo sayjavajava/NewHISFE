@@ -33,6 +33,7 @@ var PatientProblemListComponent = (function () {
         this.isUpdate = false;
         this.futureAppointments = [];
         this.pastAppointments = [];
+        this.isRequestUnderProcess = false;
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.selectedPatientId = id;
         });
@@ -126,27 +127,60 @@ var PatientProblemListComponent = (function () {
     };
     PatientProblemListComponent.prototype.savePatientProblem = function () {
         var _this = this;
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.ppm.patientId = this.selectedPatientId;
-            this.requestsService.postRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_SAVE_URL, this.ppm)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
-                    _this.notificationService.success(response['responseMessage'], 'Problem of Patient');
-                    _this.getPaginatedProblemsFromServer(0);
-                    _this.closeBtn.nativeElement.click();
-                }
-                else {
-                    _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
-                    _this.getPaginatedProblemsFromServer(0);
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select patient from dashboard again ");
+            return;
+        }
+        if (this.ppm.appointmentId <= 0) {
+            this.notificationService.warn("Please select appoint.");
+            document.getElementById('selectedAppointmentId').focus();
+            return;
+        }
+        if (this.ppm.selectedICDVersionId <= 0) {
+            this.notificationService.warn("Please select Version.");
+            document.getElementById('icdVersionId').focus();
+            return;
+        }
+        if (this.ppm.selectedCodeId <= 0) {
+            this.notificationService.warn("Please select Code.");
+            document.getElementById('associatedCodesId').focus();
+            return;
+        }
+        if (this.ppm.dateDiagnosis === "") {
+            this.notificationService.warn("Please select Code.");
+            document.getElementById('dateDiagnosisId').focus();
+            return;
+        }
+        if (!this.isRequestUnderProcess) {
+            this.isRequestUnderProcess = true;
+            if (localStorage.getItem(btoa('access_token'))) {
+                this.ppm.patientId = this.selectedPatientId;
+                this.requestsService.postRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_SAVE_URL, this.ppm)
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
+                        _this.notificationService.success(response['responseMessage'], 'Problem of Patient');
+                        _this.getPaginatedProblemsFromServer(0);
+                        _this.closeBtn.nativeElement.click();
+                    }
+                    else {
+                        _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                        _this.getPaginatedProblemsFromServer(0);
+                    }
+                    _this.isRequestUnderProcess = false;
+                }, function (error) {
+                    _this.HISUtilService.tokenExpired(error.error.error);
+                    _this.isRequestUnderProcess = false;
+                });
+            }
+        }
+        else {
+            this.notificationService.warn('Your first request is under process,Please wait...');
+            return;
         }
     };
     PatientProblemListComponent.prototype.getPaginatedProblemsFromServer = function (page) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_FETCH_URL + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_FETCH_URL + page + "?patientId=" + this.selectedPatientId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_16') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -213,25 +247,58 @@ var PatientProblemListComponent = (function () {
     };
     PatientProblemListComponent.prototype.updatePatientProblem = function () {
         var _this = this;
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.putRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_UPDATE_URL, this.ppm)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
-                    _this.ppm = new patient_problem_model_1.PatientProblemModel();
-                    _this.notificationService.success(response['responseMessage'], 'Problem of Patient');
-                    _this.closeBtn.nativeElement.click();
-                    _this.getPaginatedProblemsFromServer(0);
-                }
-                else {
-                    _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
-                    _this.getPaginatedProblemsFromServer(0);
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select patient from dashboard again ");
+            return;
+        }
+        if (this.ppm.appointmentId <= 0) {
+            this.notificationService.warn("Please select appoint.");
+            document.getElementById('selectedAppointmentId').focus();
+            return;
+        }
+        if (this.ppm.selectedICDVersionId <= 0) {
+            this.notificationService.warn("Please select Version.");
+            document.getElementById('icdVersionId').focus();
+            return;
+        }
+        if (this.ppm.selectedCodeId <= 0) {
+            this.notificationService.warn("Please select Code.");
+            document.getElementById('associatedCodesId').focus();
+            return;
+        }
+        if (this.ppm.dateDiagnosis === "") {
+            this.notificationService.warn("Please enter Diagnose date.");
+            document.getElementById('dateDiagnosisId').focus();
+            return;
+        }
+        if (!this.isRequestUnderProcess) {
+            this.isRequestUnderProcess = true;
+            if (localStorage.getItem(btoa('access_token'))) {
+                this.requestsService.putRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_UPDATE_URL, this.ppm)
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_14') {
+                        _this.ppm = new patient_problem_model_1.PatientProblemModel();
+                        _this.notificationService.success(response['responseMessage'], 'Problem of Patient');
+                        _this.closeBtn.nativeElement.click();
+                        _this.getPaginatedProblemsFromServer(0);
+                    }
+                    else {
+                        _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                        _this.getPaginatedProblemsFromServer(0);
+                    }
+                    _this.isRequestUnderProcess = false;
+                }, function (error) {
+                    _this.HISUtilService.tokenExpired(error.error.error);
+                    _this.isRequestUnderProcess = false;
+                });
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
         }
         else {
-            this.router.navigate(['/login']);
+            this.notificationService.warn('Your first request is under process,Please wait...');
+            return;
         }
     };
     PatientProblemListComponent.prototype.getPageWisePatientProblem = function (page) {
