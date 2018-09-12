@@ -21,7 +21,9 @@ var PaymentComponent = (function () {
         this.requestsService = requestsService;
         this.invoiceList = [];
         this.show = false;
+        this.useAdvancedBal = false;
         this.paidAmount = 0.00;
+        this.patientAdvanceDeposit = 0.00;
         this.grandTotal = 0.00;
         this.grandTotalDiscount = 0.00;
         this.grandTotalTax = 0.00;
@@ -42,6 +44,7 @@ var PaymentComponent = (function () {
             this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_BY_INOVICE_ID + this.invoiceId)
                 .subscribe(function (res) {
                 _this.appointment = res.responseData;
+                _this.patientAdvanceDeposit = res.responseData.patientAdvanceDeposit;
                 _this.patientName = res.responseData.patient;
                 _this.scheduleDateAndTime = _this.appointment.scheduleDateAndTime;
                 _this.appointmentStartedOn = _this.appointment.appointmentStartedOn;
@@ -93,7 +96,10 @@ var PaymentComponent = (function () {
         this.paymentRequest.paidAmount = this.paidAmount;
         this.paymentRequest.invoiceAmount = this.grandTotalWithTax;
         this.paymentRequest.paidAmount = this.paidAmount;
+        this.paymentRequest.useAdvancedBal = this.useAdvancedBal;
+        this.paymentRequest.patientAdvanceDeposit = this.patientAdvanceDeposit;
         console.log("save invoice data : " + this.paymentRequest);
+        //    alert("Use advance deposit : " + this.useAdvancedBal + "Patient Bal :" + this.patientAdvanceDeposit);
         this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_PAYMENT, this.paymentRequest)
             .subscribe(function (response) {
             console.log(" Added : " + response);
