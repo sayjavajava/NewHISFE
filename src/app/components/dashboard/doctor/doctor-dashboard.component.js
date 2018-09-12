@@ -108,13 +108,13 @@ var DoctorDashboardComponent = (function () {
         var _this = this;
         var that = this;
         this.confirmationDialogService
-            .confirm('Delete', 'Are you sure you want to do this?')
+            .confirm('Update Status', 'Are you sure you want to do this?')
             .subscribe(function (res) {
             if (res == true) {
                 _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
                     .subscribe(function (res) {
                     if (res['responseCode'] === "STATUS_SUC_01") {
-                        _this.snackBar.open('Status Updated', 'Status has been Updated Successfully', { duration: 3000 });
+                        _this.snackBar.open('Status Updated', "Status has been Changed to " + statusValue + " Successfully", { duration: 3000 });
                     }
                 }, function (error) {
                     _this.error = error.error.error;

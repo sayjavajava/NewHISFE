@@ -128,13 +128,13 @@ export class DoctorDashboardComponent {
     getUpdatedStatus(statusValue: string, apptId: any) {
         var that = this;
         this.confirmationDialogService
-            .confirm('Delete', 'Are you sure you want to do this?')
+            .confirm('Update Status', 'Are you sure you want to do this?')
             .subscribe(res => {
                 if (res == true) {
                     this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
                         .subscribe((res: Response) => {
                             if (res['responseCode'] === "STATUS_SUC_01") {
-                                this.snackBar.open('Status Updated', 'Status has been Updated Successfully', {duration: 3000});
+                                this.snackBar.open('Status Updated', `Status has been Changed to ${statusValue} Successfully`, {duration: 3000});
                             }
                         }, (error: any) => {
                             this.error = error.error.error;

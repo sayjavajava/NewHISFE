@@ -18,11 +18,13 @@ var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
 var app_constants_1 = require("../../../utils/app.constants");
 var his_util_service_1 = require("../../../services/his-util.service");
+var DataService_1 = require("../../../services/DataService");
 var UpdateReceptionistComponent = (function () {
-    function UpdateReceptionistComponent(route, router, requestService, hisUtilService, fb, notificationService) {
+    function UpdateReceptionistComponent(route, router, requestService, dataService, hisUtilService, fb, notificationService) {
         this.route = route;
         this.router = router;
         this.requestService = requestService;
+        this.dataService = dataService;
         this.hisUtilService = hisUtilService;
         this.fb = fb;
         this.notificationService = notificationService;
@@ -34,6 +36,8 @@ var UpdateReceptionistComponent = (function () {
         this.allBranches();
         this.allDoctors();
     }
+    UpdateReceptionistComponent.prototype.ngOnDestroy = function () {
+    };
     UpdateReceptionistComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createUserForm();
@@ -41,6 +45,7 @@ var UpdateReceptionistComponent = (function () {
             _this.id = params['id'];
             console.log(_this.id);
         });
+        this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
         this.patchData();
     };
     UpdateReceptionistComponent.prototype.allDoctors = function () {
@@ -177,7 +182,7 @@ var UpdateReceptionistComponent = (function () {
     };
     UpdateReceptionistComponent.prototype.makeService = function (user) {
         var _this = this;
-        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(function (response) {
+        this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 console.log('saved00');
                 _this.responseUser = response['responseData'];
@@ -255,7 +260,7 @@ var UpdateReceptionistComponent = (function () {
             selector: 'addcashier-component',
             templateUrl: '../../../templates/dashboard/setting/update-receptionist.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService,
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService, DataService_1.DataService,
             his_util_service_1.HISUtilService, forms_1.FormBuilder, notification_service_1.NotificationService])
     ], UpdateReceptionistComponent);
     return UpdateReceptionistComponent;

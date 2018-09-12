@@ -29,7 +29,7 @@ var HISUtilService = (function () {
     HISUtilService.prototype.hidePopupWithCloseButtonId = function (closeButtonId) {
         document.getElementById(closeButtonId).click();
     };
-    HISUtilService.prototype.staffId = function (id) {
+    HISUtilService.prototype.setStaffId = function (id) {
         this.staffID = id;
     };
     HISUtilService.prototype.setPatientId = function (id) {

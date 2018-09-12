@@ -17,16 +17,16 @@ var User_1 = require("../../../model/User");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var router_1 = require("@angular/router");
 var app_constants_1 = require("../../../utils/app.constants");
-var his_util_service_1 = require("../../../services/his-util.service");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
+var DataService_1 = require("../../../services/DataService");
 var UpdateNurseComponent = (function () {
-    function UpdateNurseComponent(route, router, requestService, fb, notificationService, hisUtilService, amazingTimePickerService) {
+    function UpdateNurseComponent(route, router, requestService, fb, notificationService, dataService, amazingTimePickerService) {
         this.route = route;
         this.router = router;
         this.requestService = requestService;
         this.fb = fb;
         this.notificationService = notificationService;
-        this.hisUtilService = hisUtilService;
+        this.dataService = dataService;
         this.amazingTimePickerService = amazingTimePickerService;
         this.selectedDepartment = [];
         this.staffDepartment = [];
@@ -44,12 +44,16 @@ var UpdateNurseComponent = (function () {
         this.allDepartments();
         this.allDoctors();
     }
+    UpdateNurseComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
     UpdateNurseComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createUserForm();
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
+        this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
         this.patchData();
     };
     UpdateNurseComponent.prototype.allBranches = function () {
@@ -221,7 +225,7 @@ var UpdateNurseComponent = (function () {
     };
     UpdateNurseComponent.prototype.makeService = function (user) {
         var _this = this;
-        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(function (response) {
+        this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 console.log('saved00');
                 _this.responseUser = response['responseData'];
@@ -326,7 +330,7 @@ var UpdateNurseComponent = (function () {
             templateUrl: '../../../templates/dashboard/setting/updatenurse.template.html',
         }),
         __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService,
-            forms_1.FormBuilder, notification_service_1.NotificationService, his_util_service_1.HISUtilService,
+            forms_1.FormBuilder, notification_service_1.NotificationService, DataService_1.DataService,
             amazing_time_picker_1.AmazingTimePickerService])
     ], UpdateNurseComponent);
     return UpdateNurseComponent;

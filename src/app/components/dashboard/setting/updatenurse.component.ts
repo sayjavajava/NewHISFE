@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserEditModel} from '../../../model/UserEditModel';
 import {RequestsService} from '../../../services/requests.service';
@@ -10,12 +10,17 @@ import {AppConstants} from '../../../utils/app.constants';
 import {HISUtilService} from '../../../services/his-util.service';
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {forEach} from "@angular/router/src/utils/collection";
+import {Subscription} from "rxjs/Subscription";
+import {DataService} from "../../../services/DataService";
 
 @Component({
     selector: 'addnurse-component',
     templateUrl: '../../../templates/dashboard/setting/updatenurse.template.html',
 })
-export class UpdateNurseComponent implements OnInit {
+export class UpdateNurseComponent implements OnInit,OnDestroy {
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 
     department: boolean;
     dutytimmingshift1: boolean;
@@ -54,10 +59,12 @@ export class UpdateNurseComponent implements OnInit {
     id: number;
     userSelected: string = 'doctor';
     user: UserEditModel;
+    private subscription :Subscription;
+    userId:number;
 
     filterBranches: any [];
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
-                private fb: FormBuilder, private notificationService: NotificationService,private hisUtilService: HISUtilService,
+                private fb: FormBuilder, private notificationService: NotificationService,private dataService: DataService,
         private amazingTimePickerService?: AmazingTimePickerService) {
         this.allBranches();
         this.allDepartments();
@@ -69,6 +76,7 @@ export class UpdateNurseComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
         });
+       this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();
     }
     allBranches() {
@@ -260,7 +268,7 @@ export class UpdateNurseComponent implements OnInit {
 
     makeService(user: any) {
 
-        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(
+        this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
                     console.log('saved00')

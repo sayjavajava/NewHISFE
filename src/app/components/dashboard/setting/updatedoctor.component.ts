@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
@@ -10,12 +10,17 @@ import {UserEditModel} from '../../../model/UserEditModel';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {AppConstants} from '../../../utils/app.constants';
 import {HISUtilService} from '../../../services/his-util.service';
+import {Subscription} from "rxjs/Subscription";
+import {DataService} from "../../../services/DataService";
 
 @Component({
     selector: 'adddoctor-component',
     templateUrl: '../../../templates/dashboard/setting/updatedoctor.template.html',
 })
-export class UpdatedoctorComponent implements OnInit {
+export class UpdatedoctorComponent implements OnInit,OnDestroy {
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 
 
     department: boolean;
@@ -62,7 +67,9 @@ export class UpdatedoctorComponent implements OnInit {
         {id: 6, name: 'Satureday'},
         {id: 7, name: 'Sunday'},
     ];
-    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService, private hisUtilService: HISUtilService
+    private subscription :Subscription;
+    userId:number;
+    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService
                 ,private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
            this.allBranches();
@@ -77,6 +84,7 @@ export class UpdatedoctorComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
         });
+        this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();
 
         }
@@ -379,7 +387,7 @@ export class UpdatedoctorComponent implements OnInit {
 
     makeService(user: any) {
 
-        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(
+        this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
 

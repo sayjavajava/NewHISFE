@@ -17,13 +17,13 @@ var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var app_constants_1 = require("../../../utils/app.constants");
-var his_util_service_1 = require("../../../services/his-util.service");
+var DataService_1 = require("../../../services/DataService");
 var UpdatedoctorComponent = (function () {
-    function UpdatedoctorComponent(route, router, requestService, hisUtilService, fb, notificationService, amazingTimePickerService) {
+    function UpdatedoctorComponent(route, router, requestService, dataService, fb, notificationService, amazingTimePickerService) {
         this.route = route;
         this.router = router;
         this.requestService = requestService;
-        this.hisUtilService = hisUtilService;
+        this.dataService = dataService;
         this.fb = fb;
         this.notificationService = notificationService;
         this.amazingTimePickerService = amazingTimePickerService;
@@ -56,12 +56,16 @@ var UpdatedoctorComponent = (function () {
         this.allDepartments();
         this.allDoctors();
     }
+    UpdatedoctorComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
     UpdatedoctorComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createUserForm();
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
+        this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
         this.patchData();
     };
     UpdatedoctorComponent.prototype.allBranches = function () {
@@ -336,7 +340,7 @@ var UpdatedoctorComponent = (function () {
     };
     UpdatedoctorComponent.prototype.makeService = function (user) {
         var _this = this;
-        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(function (response) {
+        this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 _this.responseUser = response['responseData'];
                 _this.notificationService.success('User has been updated Successfully');
@@ -507,7 +511,7 @@ var UpdatedoctorComponent = (function () {
             selector: 'adddoctor-component',
             templateUrl: '../../../templates/dashboard/setting/updatedoctor.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService, his_util_service_1.HISUtilService,
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService, DataService_1.DataService,
             forms_1.FormBuilder, notification_service_1.NotificationService,
             amazing_time_picker_1.AmazingTimePickerService])
     ], UpdatedoctorComponent);
