@@ -4,9 +4,9 @@
 export class PatientAllergyModel {
 
     appointmentId: number = -1;
-    patientId: number;
+    patientId: number = -1;
     id: number;
-    name: string;
+    name: string = "";
     allergyType: string = "-1";
     reaction: string;
     status: string = "ACTIVE";

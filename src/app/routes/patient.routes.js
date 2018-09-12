@@ -34,7 +34,7 @@ exports.PatientRoutes = [
     { path: 'appointments/:id/history', component: patient_appointment_component_1.PatientAppointmentComponent },
     { path: 'documents', component: patient_document_component_1.PatientDocumentsComponent },
     { path: 'problems-list', component: patient_problem_list_component_1.PatientProblemListComponent },
-    { path: 'medical-list', component: patient_medication_list_component_1.PatientMedicationListComponent },
+    { path: 'medication-list', component: patient_medication_list_component_1.PatientMedicationListComponent },
     { path: 'allergy-list', component: patient_allergy_list_component_1.PatientAllergyListComponent },
     { path: 'lab-orders/:id/history', component: patient_lab_orders_component_1.PatientLabOrdersComponent },
     { path: 'create-order/:id/add/:orderId/order', component: patient_add_lab_orders_component_1.PatientAddLabOrdersComponent },

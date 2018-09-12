@@ -51,7 +51,7 @@ export class PatientAllergyListComponent implements OnInit {
 
     getPaginatedAllergyFromServer(p: number) {
         this.requestsService.getRequest(
-            AppConstants.ALLERGY_PAGINATED_URL + p)
+            AppConstants.ALLERGY_PAGINATED_URL + p + "?patientId=" + this.selectedPatientId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'ALLERGY_SUC_18') {
@@ -104,6 +104,31 @@ export class PatientAllergyListComponent implements OnInit {
     }
 
     saveAllergy() {
+
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select proper patient from dashboard again");
+            return;
+        }
+
+        if (this.pam.appointmentId <= 0) {
+            this.notificationService.warn("Please select proper appoint ");
+            document.getElementById("appointmentId").focus();
+            return;
+        }
+
+        if (this.pam.allergyType === "-1") {
+            this.notificationService.warn("Please select type of allergy.");
+            document.getElementById("typeId").focus();
+            return;
+        }
+
+        if (this.pam.name === "") {
+            this.notificationService.warn("Please enter name of allergy.");
+            document.getElementById("nameId").focus();
+            return;
+        }
+
+
         if (localStorage.getItem(btoa('access_token'))) {
             this.pam.patientId = this.selectedPatientId;
             this.requestsService.postRequest(
@@ -158,6 +183,30 @@ export class PatientAllergyListComponent implements OnInit {
     }
 
     updateAllergy() {
+
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select proper patient from dashboard again");
+            return;
+        }
+
+        if (this.pam.appointmentId <= 0) {
+            this.notificationService.warn("Please select proper appoint ");
+            document.getElementById("appointmentId").focus();
+            return;
+        }
+
+        if (this.pam.allergyType === "-1") {
+            this.notificationService.warn("Please select type of allergy.");
+            document.getElementById("typeId").focus();
+            return;
+        }
+
+        if (this.pam.name === "") {
+            this.notificationService.warn("Please enter name of allergy.");
+            document.getElementById("nameId").focus();
+            return;
+        }
+
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.putRequest(AppConstants.ALLERGY_UPDATE_URL, this.pam)
                 .subscribe(

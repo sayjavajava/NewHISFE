@@ -205,6 +205,7 @@
                             <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
                                     <select
+                                            name="appointment" id="appointmentId"
                                             [(ngModel)]="pam.appointmentId"
                                             class="form-control">
                                         <option value="-1">--- Select Appointment ---</option>
@@ -225,7 +226,7 @@
                             <div class="col-md-7 select pdng-lr-5">
                                 <select class="form-control"
                                         id="allergyTypeId"
-                                        name="allergyTypeId"
+                                        name="allergyType"
                                         [(ngModel)]="pam.allergyType">
                                     <option value="-1">---------</option>
                                     <option value="specificdrug">Specific Drug allergy</option>
