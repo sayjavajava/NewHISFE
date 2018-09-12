@@ -9,6 +9,7 @@ import {PatientAllergyModel} from "../../../model/patient.allergy.model";
 import {StatusEnum} from "../../../enums/StatusEnum";
 import {MedicationModel} from "../../../model/medication.model";
 import {DataService} from "../../../services/DataService";
+import {Subscription} from "rxjs/Subscription";
 
 
 @Component({
@@ -35,15 +36,19 @@ export class PatientHistoryComponent implements OnInit {
     medicationsActiveData: MedicationModel[] = [];
 
     selectedPatientId: any;
+    subscription: Subscription;
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private route: ActivatedRoute,
                 private HISUTilService: HISUtilService,
                 private notificationService: NotificationService,
-                private dataService:DataService) {
+                private dataService: DataService) {
 
-        this.selectedPatientId = this.route.snapshot.params['id'];
+
+        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+            this.selectedPatientId = id;
+        });
 
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');

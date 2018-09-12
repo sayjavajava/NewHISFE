@@ -196,247 +196,258 @@
 
 <div id="responsiveMedication" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close"
-                        data-dismiss="modal"
-                        aria-hidden="true">
-                </button>
-                <span [hidden]="isUpdate">
+        <form id="mdForm" #mdForm="ngForm">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal"
+                            aria-hidden="true">
+                    </button>
+                    <span [hidden]="isUpdate">
                     <h4 class="modal-title">Add Medication</h4>
                 </span>
-                <span [hidden]="!isUpdate">
+                    <span [hidden]="!isUpdate">
                      <h4 class="modal-title">Update Medication</h4>
                 </span>
-            </div>
-            <div class="modal-body">
-                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
-                    <div class="row">
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="form-group hr">
+                                <label class="control-label txt-size pdng-lr-5 col-md-4">
+                                    Appointments<span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-7 pdng-lr-5">
+                                    <div class="select2-bootstrap-prepend">
+                                        <select [ngModelOptions]="{standalone:true}"
+                                                name="appointment"
+                                                id="appointmentId"
+                                                [(ngModel)]="medicationModel.appointmentId"
+                                                class="form-control">
+                                            <option value="-1">--- Select Appointment ---</option>
+                                            <option
+                                                    *ngFor="let pastApp of pastAppointments"
+                                                    [value]="pastApp.id">
+                                                {{pastApp.appointmentId}},
+                                                {{"Schedule Date:"+pastApp.scheduleDate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div class="form-group hr">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">
-                                Appointments<span class="required" aria-required="true"> * </span>
-                            </label>
-                            <div class="col-md-7 pdng-lr-5">
-                                <div class="select2-bootstrap-prepend">
-                                    <select
-                                            [(ngModel)]="medicationModel.appointmentId"
-                                            class="form-control">
-                                        <option value="-1">--- Select Appointment ---</option>
-                                        <option
-                                                *ngFor="let pastApp of pastAppointments"
-                                                [value]="pastApp.id">
-                                            {{pastApp.appointmentId}},
-                                            {{"Schedule Date:"+pastApp.scheduleDate}}
-                                        </option>
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                    Drug name:<span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <input type="text" class="form-control"
+                                           aria-autocomplete="list"
+                                           id="drugNameId"
+                                           name="drugName"
+                                           [(ngModel)]="medicationModel.drugName">
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                    PRN
+                                </label>
+                                <div class="col-md-1 select pdng-lr-5">
+                                    <input type="checkbox" class="form-control"
+                                           id="prnId"
+                                           name="prn"
+                                           #prnId="ngModel"
+                                           [(ngModel)]="medicationModel.prn">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">Sig note</label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <textarea class="form-control"
+                                              id="sigNoteId" rows="1" cols="60"
+                                              name="sigNote"
+                                              #sigNoteId="ngModel"
+                                              [(ngModel)]="medicationModel.sigNote">
+                                    </textarea>
+                                </div>
+                            </div>-->
+
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">Indication</label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <input type="text" class="form-control"
+                                           name="indication"
+                                           id="indicationId"
+                                           [(ngModel)]="medicationModel.indication">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <select class="form-control"
+                                            name="status" [ngModelOptions]="{standalone:true}"
+                                            id="statusId"
+                                            [(ngModel)]="medicationModel.status">
+                                        <option value="ACTIVE">Active</option>
+                                        <option value="IN_ACTIVE">In_Active</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                            <!-- date fields -->
 
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                Drug name:<span class="required" aria-required="true"> * </span>
-                            </label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <input type="text" class="form-control"
-                                       aria-autocomplete="list"
-                                       id="drugNameId"
-                                       name="drugName"
-                                       [(ngModel)]="medicationModel.drugName">
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                    Datetime Prescribed <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <input type="datetime-local"
+                                           class="form-control"
+                                           name="datePrescribed"
+                                           id="datePrescribedId"
+                                           [(ngModel)]="medicationModel.datePrescribedString">
+                                </div>
                             </div>
-                        </div>
 
-                        <!--<div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                PRN
-                            </label>
-                            <div class="col-md-1 select pdng-lr-5">
-                                <input type="checkbox" class="form-control"
-                                       id="prnId"
-                                       name="prn"
-                                       #prnId="ngModel"
-                                       [(ngModel)]="medicationModel.prn">
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                    Datetime Started Taking<span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <input type="datetime-local"
+                                           class="form-control"
+                                           name="dateStartedTaking"
+                                           id="dateStartedTakingId"
+                                           [(ngModel)]="medicationModel.dateStartedTakingString">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Sig note</label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <textarea class="form-control"
-                                          id="sigNoteId" rows="1" cols="60"
-                                          name="sigNote"
-                                          #sigNoteId="ngModel"
-                                          [(ngModel)]="medicationModel.sigNote">
-                                </textarea>
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                    Datetime Stopped Taking<span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <input type="datetime-local"
+                                           class="form-control"
+                                           name="dateStoppedTaking"
+                                           id="dateStoppedTakingId"
+                                           [(ngModel)]="medicationModel.dateStoppedTakingString">
+                                </div>
                             </div>
-                        </div>-->
 
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Indication</label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <input type="text" class="form-control"
-                                       name="indication"
-                                       id="indicationId"
-                                       [(ngModel)]="medicationModel.indication">
+                            <!--date fields -->
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                    Dispense quantity
+                                </label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <input type="number" step="0.001"
+                                           class="form-control"
+                                           name="dispenseQuantity"
+                                           id="dispenseQuantityId"
+                                           [(ngModel)]="medicationModel.dispenseQuantity">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <select class="form-control"
-                                        name="status"
-                                        id="statusId"
-                                        [(ngModel)]="medicationModel.status">
-                                    <option value="ACTIVE">Active</option>
-                                    <option value="IN_ACTIVE">In_Active</option>
-                                </select>
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                    Dispense Package
+                                </label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <input type="text"
+                                           class="form-control"
+                                           name="dispensePackage"
+                                           id="dispensePackageId"
+                                           [(ngModel)]="medicationModel.dispensePackage">
+                                </div>
                             </div>
-                        </div>
-                        <!-- date fields -->
 
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Prescribed</label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <input type="datetime-local"
-                                       class="form-control"
-                                       name="datePrescribed"
-                                       id="datePrescribedId"
-                                       [(ngModel)]="medicationModel.datePrescribedString">
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                    DAW
+                                </label>
+                                <div class="col-md-1 select pdng-lr-5">
+                                    <input type="checkbox" class="form-control"
+                                           id="dawId"
+                                           name="daw"
+                                           [(ngModel)]="medicationModel.daw">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Started Taking</label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <input type="datetime-local"
-                                       class="form-control"
-                                       name="dateStartedTaking"
-                                       id="dateStartedTakingId"
-                                       [(ngModel)]="medicationModel.dateStartedTakingString">
-                            </div>
-                        </div>
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Stopped Taking</label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <input type="datetime-local"
-                                       class="form-control"
-                                       name="dateStoppedTaking"
-                                       id="dateStoppedTakingId"
-                                       [(ngModel)]="medicationModel.dateStoppedTakingString">
-                            </div>
-                        </div>
-
-                        <!--date fields -->
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                Dispense quantity
-                            </label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <input type="number" step="0.001"
-                                       class="form-control"
-                                       name="dispenseQuantity"
-                                       id="dispenseQuantityId"
-                                       [(ngModel)]="medicationModel.dispenseQuantity">
-                            </div>
-                        </div>
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                Dispense Package
-                            </label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <input type="text"
-                                       class="form-control"
-                                       name="dispensePackage"
-                                       id="dispensePackageId"
-                                       [(ngModel)]="medicationModel.dispensePackage">
-                            </div>
-                        </div>
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                DAW
-                            </label>
-                            <div class="col-md-1 select pdng-lr-5">
-                                <input type="checkbox" class="form-control"
-                                       id="dawId"
-                                       name="daw"
-                                       [(ngModel)]="medicationModel.daw">
-                            </div>
-                        </div>
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Pharmacy note</label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <textarea class="form-control"
+                            <div class="form-group hr">
+                                <label class="col-md-4 pdng-lr-5 control-label txt-size">Pharmacy note</label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                <textarea class="form-control" id="pharmacyNoteId" name="pharmacyNote"
                                           rows="3"
                                           [(ngModel)]="medicationModel.pharmacyNote">
                                 </textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group hr">
-                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes</label>
-                            <div class="col-md-7 select pdng-lr-5">
+                            <div class="form-group hr">
+                                <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes</label>
+                                <div class="col-md-7 select pdng-lr-5">
                                 <textarea class="form-control"
-                                          rows="3"
+                                          rows="3" id="noteId" name="note"
                                           [(ngModel)]="medicationModel.note">
                                 </textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Order Status</label>
-                            <div class="col-md-7 select pdng-lr-5">
-                                <select class="form-control"
-                                        name="orderStatus"
-                                        id="orderStatusId"
-                                        [(ngModel)]="medicationModel.orderStatus">
-                                    <option value="">--- Select Order Status ---</option>
-                                    <option value="Ordered">Ordered</option>
+                            <div class="form-group hr">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">Order Status</label>
+                                <div class="col-md-7 select pdng-lr-5">
+                                    <select class="form-control" [ngModelOptions]="{standalone:true}"
+                                            name="orderStatus"
+                                            id="orderStatusId"
+                                            [(ngModel)]="medicationModel.orderStatus">
+                                        <option value="">--- Select Order Status ---</option>
+                                        <option value="Ordered">Ordered</option>
 
-                                    <option value="Administered during visit">Administered during visit</option>
+                                        <option value="Administered during visit">Administered during visit</option>
 
-                                    <option value="Electronic eRx Sent">Electronic eRx Sent</option>
+                                        <option value="Electronic eRx Sent">Electronic eRx Sent</option>
 
-                                    <option value="Phoned into Pharmacy">Phoned into Pharmacy</option>
+                                        <option value="Phoned into Pharmacy">Phoned into Pharmacy</option>
 
-                                    <option value="Faxed to Pharmacy">Faxed to Pharmacy</option>
+                                        <option value="Faxed to Pharmacy">Faxed to Pharmacy</option>
 
-                                    <option value="Paper Rx">Paper Rx</option>
+                                        <option value="Paper Rx">Paper Rx</option>
 
-                                    <option value="Prescription Printed">Prescription Printed</option>
+                                        <option value="Prescription Printed">Prescription Printed</option>
 
-                                    <option value="Discontinued">Discontinued</option>
+                                        <option value="Discontinued">Discontinued</option>
 
-                                    <option value="Prescribed by other Dr">Prescribed by other Dr</option>
+                                        <option value="Prescribed by other Dr">Prescribed by other Dr</option>
 
-                                    <option value="Over the Counter">Over the Counter</option>
-                                </select>
+                                        <option value="Over the Counter">Over the Counter</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal"
-                        #closeBtnMedication
-                        id="closeBtnMedication"
-                        name="closeBtnMedication"
-                        class="btn btn-default btn-outline">Close
-                </button>
-                <span [hidden]="isUpdate">
-                    <button type="button" class="btn green" (click)="saveMedication()">Save</button>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal"
+                            #closeBtnMedication name="btnCloseMD"
+                            id="closeBtnMedication"
+                            name="closeBtnMedication"
+                            class="btn btn-default btn-outline">Close
+                    </button>
+                    <span [hidden]="isUpdate">
+                    <button type="button" class="btn green" name="btnSaveMD"
+                            (click)="saveMedication(mdForm)">Save</button>
                 </span>
-                <span [hidden]="!isUpdate">
-                    <button type="button" class="btn green" (click)="updateMedication()">Update
+                    <span [hidden]="!isUpdate">
+                    <button type="button" class="btn green" name="btnUpdateMD" (click)="updateMedication(mdForm)">Update
                     </button>
                 </span>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
