@@ -9,6 +9,8 @@ import {ICDVersionModel} from "../../../model/ICDVersionModel";
 import {AppConstants} from "../../../utils/app.constants";
 import {Appointment} from "../../../model/Appointment";
 import {Patient} from "../../../model/patient";
+import {Subscription} from "rxjs/Subscription";
+import {DataService} from "../../../services/DataService";
 
 
 @Component({
@@ -30,17 +32,19 @@ export class PatientProblemListComponent implements OnInit {
     futureAppointments: Appointment [] = [];
     pastAppointments: Appointment [] = [];
     private selectedPatientId: number;
+    subscription: Subscription;
+
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private dataService: DataService) {
 
-        this.activatedRoute.params.subscribe(
-            params => {
-                this.selectedPatientId = Number(params['id']);
-            });
+        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+            this.selectedPatientId = id;
+        });
     }
 
     ngOnInit() {

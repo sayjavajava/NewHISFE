@@ -16,13 +16,16 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var patient_allergy_model_1 = require("../../../model/patient.allergy.model");
+var DataService_1 = require("../../../services/DataService");
 var PatientAllergyListComponent = (function () {
-    function PatientAllergyListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
+    function PatientAllergyListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
+        var _this = this;
         this.notificationService = notificationService;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.dataService = dataService;
         this.pages = [];
         this.allergyData = [];
         this.pam = new patient_allergy_model_1.PatientAllergyModel(); //Patient Allergy model, it mean wrapper
@@ -30,19 +33,16 @@ var PatientAllergyListComponent = (function () {
         this.isUpdate = false;
         this.futureAppointments = [];
         this.pastAppointments = [];
-        var queryParams = this.activatedRoute.snapshot.queryParams;
-        console.log(queryParams);
-        var routeParams = this.activatedRoute.snapshot.params;
-        console.log(routeParams);
-        // do something with the parameters
-        this.selectedPatientId = routeParams.id; // i think id will patient id according to current situation
+        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
+            _this.selectedPatientId = id;
+        });
         this.getPaginatedAllergyFromServer(0);
     }
     PatientAllergyListComponent.prototype.ngOnInit = function () {
     };
     PatientAllergyListComponent.prototype.getPaginatedAllergyFromServer = function (p) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.ALLERGY_PAGINATED_URL + p)
+        this.requestsService.getRequest(app_constants_1.AppConstants.ALLERGY_PAGINATED_URL + p + "?patientId=" + this.selectedPatientId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ALLERGY_SUC_18') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -87,6 +87,25 @@ var PatientAllergyListComponent = (function () {
     };
     PatientAllergyListComponent.prototype.saveAllergy = function () {
         var _this = this;
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select proper patient from dashboard again");
+            return;
+        }
+        if (this.pam.appointmentId <= 0) {
+            this.notificationService.warn("Please select proper appoint ");
+            document.getElementById("appointmentId").focus();
+            return;
+        }
+        if (this.pam.allergyType === "-1") {
+            this.notificationService.warn("Please select type of allergy.");
+            document.getElementById("typeId").focus();
+            return;
+        }
+        if (this.pam.name === "") {
+            this.notificationService.warn("Please enter name of allergy.");
+            document.getElementById("nameId").focus();
+            return;
+        }
         if (localStorage.getItem(btoa('access_token'))) {
             this.pam.patientId = this.selectedPatientId;
             this.requestsService.postRequest(app_constants_1.AppConstants.ALLERGY_SAVE_URL, this.pam)
@@ -140,6 +159,25 @@ var PatientAllergyListComponent = (function () {
     };
     PatientAllergyListComponent.prototype.updateAllergy = function () {
         var _this = this;
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select proper patient from dashboard again");
+            return;
+        }
+        if (this.pam.appointmentId <= 0) {
+            this.notificationService.warn("Please select proper appoint ");
+            document.getElementById("appointmentId").focus();
+            return;
+        }
+        if (this.pam.allergyType === "-1") {
+            this.notificationService.warn("Please select type of allergy.");
+            document.getElementById("typeId").focus();
+            return;
+        }
+        if (this.pam.name === "") {
+            this.notificationService.warn("Please enter name of allergy.");
+            document.getElementById("nameId").focus();
+            return;
+        }
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.putRequest(app_constants_1.AppConstants.ALLERGY_UPDATE_URL, this.pam)
                 .subscribe(function (response) {
@@ -196,7 +234,8 @@ var PatientAllergyListComponent = (function () {
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router,
-            router_1.ActivatedRoute])
+            router_1.ActivatedRoute,
+            DataService_1.DataService])
     ], PatientAllergyListComponent);
     return PatientAllergyListComponent;
 }());

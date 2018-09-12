@@ -18,6 +18,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var DataService_1 = require("../../../services/DataService");
 var PatientHistoryComponent = (function () {
     function PatientHistoryComponent(requestsService, router, route, HISUTilService, notificationService, dataService) {
+        var _this = this;
         this.requestsService = requestsService;
         this.router = router;
         this.route = route;
@@ -30,7 +31,9 @@ var PatientHistoryComponent = (function () {
         this.allergiesActiveData = [];
         this.medicationsPages = [];
         this.medicationsActiveData = [];
-        this.selectedPatientId = this.route.snapshot.params['id'];
+        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
+            _this.selectedPatientId = id;
+        });
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');

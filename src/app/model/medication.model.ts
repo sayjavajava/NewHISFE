@@ -4,6 +4,7 @@
 
 export class MedicationModel {
 
+    id:number;
     drugName: string = "";
     prn: boolean = false;
     sigNote: string = "";

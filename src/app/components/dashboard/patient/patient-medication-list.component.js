@@ -16,14 +16,16 @@ var notification_service_1 = require("../../../services/notification.service");
 var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
+var DataService_1 = require("../../../services/DataService");
 var PatientMedicationListComponent = (function () {
-    function PatientMedicationListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
+    function PatientMedicationListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
         var _this = this;
         this.notificationService = notificationService;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.dataService = dataService;
         this.pages = [];
         this.medicationData = [];
         this.medicationModel = new medication_model_1.MedicationModel();
@@ -31,8 +33,8 @@ var PatientMedicationListComponent = (function () {
         this.isUpdate = false;
         this.futureAppointments = [];
         this.pastAppointments = [];
-        this.activatedRoute.params.subscribe(function (params) {
-            _this.selectedPatientId = params['id'];
+        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
+            _this.selectedPatientId = id;
         });
         this.getPaginatedMedicationFromServer(0);
     }
@@ -67,25 +69,39 @@ var PatientMedicationListComponent = (function () {
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
     };
-    PatientMedicationListComponent.prototype.saveMedication = function () {
+    PatientMedicationListComponent.prototype.saveMedication = function (mdForm) {
         var _this = this;
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select patient from dashboard again ");
+            return;
+        }
+        if (this.medicationModel.appointmentId <= 0) {
+            this.notificationService.warn("Please select appoint.");
+            document.getElementById('appointmentId').focus();
+            return;
+        }
+        if (this.medicationModel.drugName === "") {
+            this.notificationService.warn("Please provide drug name.");
+            document.getElementById('drugNameId').focus();
+            return;
+        }
+        if (this.medicationModel.datePrescribedString === "") {
+            this.notificationService.warn("Please provide proper prescribed date and time.");
+            document.getElementById('datePrescribedId').focus();
+            return;
+        }
+        if (this.medicationModel.dateStartedTakingString === "") {
+            this.notificationService.warn("Please provide proper start taking date and time.");
+            document.getElementById('dateStartedTakingId').focus();
+            return;
+        }
+        if (this.medicationModel.dateStoppedTakingString === "") {
+            this.notificationService.warn("Please provide proper stoop taking date and time.");
+            document.getElementById('dateStoppedTakingId').focus();
+            return;
+        }
         if (localStorage.getItem(btoa('access_token'))) {
             this.medicationModel.patientId = this.selectedPatientId;
-            //date.toISOString().slice(0,16)
-            console.log(this.medicationModel.datePrescribedString.toString().slice(0, 16));
-            // console.log(this.medicationModel.datePrescribedDate.toISOString().re(0,16));
-            // console.log(this.medicationModel.datePrescribedDate.toISOString());
-            // console.log(this.medicationModel.datePrescribedDate.toString());
-            // console.log(this.medicationModel.datePrescribedDate.toDateString());
-            // console.log(this.medicationModel.datePrescribedDate.toTimeString());
-            // console.log(this.medicationModel.datePrescribedDate.toLocaleDateString());
-            // console.log(this.medicationModel.datePrescribedDate.toUTCString());
-            // console.log(this.medicationModel.datePrescribedDate.getTimezoneOffset());
-            // this.medicationModel.datePrescribedString = this.medicationModel.datePrescribedDate.toISOString();
-            //
-            // this.medicationModel.dateStartedTakingString = this.medicationModel.dateStartedTakingDate.toString();
-            //
-            // this.medicationModel.dateStoppedTakingString = this.medicationModel.dateStoppedTakingDate.toLocaleString();
             this.requestsService.postRequest(app_constants_1.AppConstants.MEDICATION_SAVE_URL, this.medicationModel)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MEDICATION_SUC_28') {
@@ -110,7 +126,7 @@ var PatientMedicationListComponent = (function () {
     };
     PatientMedicationListComponent.prototype.getPaginatedMedicationFromServer = function (page) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.MEDICATION_PAGINATED_URL + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.MEDICATION_PAGINATED_URL + page + "?selectedPatientId=" + this.selectedPatientId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'MEDICATION_SUC_32') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -176,8 +192,37 @@ var PatientMedicationListComponent = (function () {
             this.notificationService.error('Please select proper Medication', 'Medication');
         }
     };
-    PatientMedicationListComponent.prototype.updateMedication = function () {
+    PatientMedicationListComponent.prototype.updateMedication = function (mdForm) {
         var _this = this;
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select patient from dashboard again ");
+            return;
+        }
+        if (this.medicationModel.appointmentId <= 0) {
+            this.notificationService.warn("Please select appoint.");
+            document.getElementById('appointmentId').focus();
+            return;
+        }
+        if (this.medicationModel.drugName === "") {
+            this.notificationService.warn("Please provide drug name.");
+            document.getElementById('drugNameId').focus();
+            return;
+        }
+        if (this.medicationModel.datePrescribedString === "") {
+            this.notificationService.warn("Please provide proper prescribed date and time.");
+            document.getElementById('datePrescribedId').focus();
+            return;
+        }
+        if (this.medicationModel.dateStartedTakingString === "") {
+            this.notificationService.warn("Please provide proper start taking date and time.");
+            document.getElementById('dateStartedTakingId').focus();
+            return;
+        }
+        if (this.medicationModel.dateStoppedTakingString === "") {
+            this.notificationService.warn("Please provide proper stoop taking date and time.");
+            document.getElementById('dateStoppedTakingId').focus();
+            return;
+        }
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.putRequest(app_constants_1.AppConstants.MEDICATION_UPDATE_URL, this.medicationModel)
                 .subscribe(function (response) {
@@ -226,7 +271,8 @@ var PatientMedicationListComponent = (function () {
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router,
-            router_1.ActivatedRoute])
+            router_1.ActivatedRoute,
+            DataService_1.DataService])
     ], PatientMedicationListComponent);
     return PatientMedicationListComponent;
 }());

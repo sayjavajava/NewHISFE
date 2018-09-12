@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var PatientAllergyModel = (function () {
     function PatientAllergyModel() {
         this.appointmentId = -1;
+        this.patientId = -1;
+        this.name = "";
         this.allergyType = "-1";
         this.status = "ACTIVE";
     }

@@ -139,7 +139,7 @@ export class AddAppointmentComponent implements OnInit {
                                 colorHash: apt.color,
                                 draggable: true,
                                 notes: apt.notes,
-                                patientId: apt.patientId,
+                                // patientId: apt.patientId,
                                 reason: apt.reason,
                                 status: apt.status,
                                 duration: apt.duration,

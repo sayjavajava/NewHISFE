@@ -148,13 +148,13 @@
                             <tr role="row" class="filter" *ngFor="let invc of invoiceList;  let idx = index">
                                 <td rowspan="1" colspan="1">{{invc.code}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
-                                <td rowspan="1" colspan="1">{{invc.quantity}}</td>
-                                <td rowspan="1" colspan="1">{{invc.unitFee}}</td>
+                                <td rowspan="1" colspan="1">{{invc.quantity | number}}</td>
+                                <td rowspan="1" colspan="1">{{invc.unitFee | number}}</td>
                                 <td rowspan="1" colspan="1">{{invc.discountRate}}</td>
-                                <td rowspan="1" colspan="1">{{(invc.quantity*invc.unitFee) * (invc.discountRate/100)}}</td>
+                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number}}</td>
                                 <td rowspan="1" colspan="1">{{invc.taxRate}}</td>
-                                <td rowspan="1" colspan="1">{{(invc.quantity*invc.unitFee) * (invc.taxRate/100)}}</td>
-                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)}}</td>
+                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number}}</td>
+                                <td rowspan="1" colspan="1">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number}}</td>
                                 <td rowspan="1" colspan="1">
                                         <button (click)="editInvoic(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
                                         <button (click)="removeInvoic(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
@@ -220,23 +220,23 @@
                     <ul>
                         <li>
                             <span>Total Amount:</span>
-                            <span>{{grandTotal}}</span>
+                            <span>{{grandTotal | number}}</span>
                         </li>
                         <li>
                             <span>Total Discount:</span>
-                            <span class="amount-border-botom">{{grandTotalDiscount}}</span>
+                            <span class="amount-border-botom">{{grandTotalDiscount | number}}</span>
                         </li>
                         <li>
                                 <span>Gross Total:</span>
-                                <span>{{grandTotal - grandTotalDiscount}}</span>
+                                <span>{{(grandTotal - grandTotalDiscount)  | number}}</span>
                             </li>
                         <li>
                             <span>Total Tax:</span>
-                            <span>{{grandTotalTax}}</span>
+                            <span>{{grandTotalTax | number}}</span>
                         </li>
                         <li>
                             <span>Grand Total:</span>
-                            <span class="amount-border-botom amount-border-top">{{grandTotalWithTax}}</span>
+                            <span class="amount-border-botom amount-border-top">{{grandTotalWithTax | number}}</span>
                         </li>
                     </ul>
                     <!-- <ul>
