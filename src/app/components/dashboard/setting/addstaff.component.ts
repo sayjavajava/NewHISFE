@@ -71,7 +71,7 @@ export class AddStaffComponent implements OnInit {
     passwordError: string = 'Password is required';
     confirmPasswordError: string = 'Password must be equal';
     primaryBranchError: string = 'Select Primary Branch';
-    restrictBranchError: string = 'Select Restrict Branch';
+    restrictBranchError: string = 'Select Allow Branch';
     departmentError: string = 'Select one or more Departments';
     serviceError: string = 'Select one or more Services';
     dutyTimmingShiftError: string = 'Select Duty Time';

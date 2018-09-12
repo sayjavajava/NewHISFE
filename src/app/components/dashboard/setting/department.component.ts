@@ -130,10 +130,6 @@ export class DepartmentComponent implements OnInit {
     }
 
     saveClinicalDepartment(form: NgForm) {
-        _.each(form.form.controls, function (control) {
-            control['_touched'] = true
-        });
-
         if (form.valid) {
             this.requestsService.postRequest(
                 AppConstants.SAVE_CLINICAL_DEPARTMENT_URL,

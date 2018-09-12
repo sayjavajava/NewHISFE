@@ -168,7 +168,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select class="form-control"
+                                                    <select class="form-control" formControlName="noOfExamRooms"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="">Select...</option>
                                                         <option value="1">1</option>
@@ -178,6 +178,10 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <span class="text-danger"
+                                                  *ngIf="!branchForm.controls['noOfExamRooms'].valid && branchForm.controls['noOfExamRooms'].touched">
+                                                    <span *ngIf="branchForm.controls['noOfExamRooms'].errors.required"> Please Select Rooms </span>
+                                                </span>
                                             <div formArrayName="examRooms"
                                                  *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
                                                 <div class="form-group" [formGroupName]="i">

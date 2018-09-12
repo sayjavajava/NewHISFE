@@ -36,6 +36,7 @@ var AddAppointmentComponent = (function () {
         this.eventsRequest = [];
         this.activeDayIsOpen = false;
         this.title = 'app';
+        this.patientChecked = false;
         this.popup = false;
         this.page = 0;
         this.startDate = new Date(2018, 1, 1);
@@ -132,7 +133,7 @@ var AddAppointmentComponent = (function () {
                         colorHash: apt.color,
                         draggable: true,
                         notes: apt.notes,
-                        // patientId: apt.patientId,
+                        patientId: apt.patientId,
                         reason: apt.reason,
                         status: apt.status,
                         duration: apt.duration,
@@ -172,12 +173,17 @@ var AddAppointmentComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    AddAppointmentComponent.prototype.selectType = function () {
+    AddAppointmentComponent.prototype.selectType = function (form) {
         this.selectedType.length = 0;
         if (this.selectedOptions.indexOf('NewPatient') > -1) {
+            this.patientChecked = true;
             this.newPatient = true;
+            /*Object.keys((<FormGroup>form.form.get('branchDrp')).controls).forEach(element => {
+                console.log('ele testing...'+element);
+            });*/
         }
         else {
+            this.patientChecked = false;
             this.newPatient = false;
         }
         (_a = this.selectedType).push.apply(_a, this.selectedOptions);
@@ -236,6 +242,7 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.dayClicked = function (_a) {
         var date = _a.date, events = _a.events;
+        console.log("day cliked in months");
         if (date_fns_1.isSameMonth(date, this.viewDate)) {
             if ((date_fns_1.isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
                 events.length === 0) {
@@ -252,15 +259,15 @@ var AddAppointmentComponent = (function () {
         var event = _a.event, newStart = _a.newStart, newEnd = _a.newEnd;
         event.start = newStart;
         event.end = newEnd;
+        console.log("time changing ....");
         this.handleEvent('Dropped or resized', event);
         this.refresh.next();
     };
     AddAppointmentComponent.prototype.handleEvent = function (action, event) {
         this.modalData = { event: event, action: action };
-        console.log(event);
+        console.log('testing day ' + event);
         this.Type.filter(function (e) { return event.appointmentType.includes(e.name); }).map(function (e) { return e.checked = true; });
         this.selectedType = event.appointmentType;
-        console.log('color:' + event.colorHash);
         var filteredData2 = this.branches.filter(function (x) { return x.id == event.branchId; });
         this.examRooms = filteredData2[0].examRooms;
         // this.modal.open(this.modalContent, {size: 'lg'});
@@ -301,7 +308,7 @@ var AddAppointmentComponent = (function () {
             lastAppointment: new Date(),
             recurringAppointment: false,
             branch: 'select',
-            doctorId: 0,
+            //  doctorId: 0,
             examRoom: 'select',
             resizable: {
                 beforeStart: true,
@@ -403,21 +410,23 @@ var AddAppointmentComponent = (function () {
         var _this = this;
         var self = this;
         this.Type.map(function (x) { return x.checked = false; });
-        console.log('In-valid..');
         if (form.valid) {
-            console.log('valid..');
             if (this.eventsRequest.length != 0) {
-                var obj = new Appointment_1.Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
+                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
                 this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
                     .subscribe(function (response) {
-                    _this.refresh.next();
                     if (response['responseCode'] === 'APPT_SUC_02') {
                         self.notificationService.success('created successfully', 'Appointment');
                         self.router.navigate(['/dashboard/appointment/manage']);
                         _this.eventsRequest.length = 0;
                         $('#exampleModalCenter2').modal('close');
                     }
+                    if (response['responseCode'] === 'APPT_ERR_06') {
+                        _this.eventsRequest.length = 0;
+                        self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
+                    }
                     else {
+                        _this.eventsRequest.length = 0;
                         self.notificationService.error('Appointment is not created', 'Appointment');
                     }
                 }, function (error) {
@@ -425,12 +434,15 @@ var AddAppointmentComponent = (function () {
             }
         }
         else {
-            this.notificationService.error('Fill Form Properly');
+            this.eventsRequest.length = 0;
+            //   $('#exampleModalCenter2').modal('close');
+            //   this.validateAllFormFields(form);
+            self.notificationService.error('Error', 'Invalid Form');
         }
     };
     AddAppointmentComponent.prototype.updateAppointment = function (event) {
         var self = this;
-        var obj = new Appointment_1.Appointment(event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
+        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
         this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_APPOINTMENT + event.id, obj).subscribe(function (response) {
             if (response['responseCode'] === 'APPT_SUC_03') {
                 self.notificationService.success('Updated successfully', 'Appointment');

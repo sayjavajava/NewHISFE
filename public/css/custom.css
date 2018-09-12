@@ -32,6 +32,7 @@ p, h3, h4{margin:0; padding:0;}
 .pdng-l-r-15{padding-left: 15px; padding-right: 15px;}
 .pdng-lr-5{padding-left:5px !important; padding-right:5px !important;}
 .no-padding-rgt{ padding-right:0 !important;}
+.no-padding-lft{ padding-left:0 !important;}
 .control-label { line-height: 35px; padding-top:0px !important; font-size: 12px !important;}
 .label-control2 { line-height: 35px; padding-top:0px !important; font-size: 12px !important;}
 .patient-profile .control-label { line-height: 18px;}
@@ -45,6 +46,7 @@ p, h3, h4{margin:0; padding:0;}
 .mrgn-top14{margin-top: 14px;}
 .mrgn-top24{margin-top: 24px;}
 .mrgn-top30{margin-top: 30px;}
+.mrgn-rght10{margin-right: 10px;}
 .font-smaller{ font-size:70%;}
 .label-lineheight{line-height: 16px !important;}
 .patient-icon i{font-size: 60px; margin-top: 20px; color: #dddddd;}
