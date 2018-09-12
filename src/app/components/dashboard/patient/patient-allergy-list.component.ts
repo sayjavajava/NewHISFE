@@ -6,6 +6,8 @@ import {NotificationService} from "../../../services/notification.service";
 import {Appointment} from "../../../model/Appointment";
 import {AppConstants} from "../../../utils/app.constants";
 import {PatientAllergyModel} from "../../../model/patient.allergy.model";
+import {Subscription} from "rxjs/Subscription";
+import {DataService} from "../../../services/DataService";
 
 
 @Component({
@@ -29,21 +31,18 @@ export class PatientAllergyListComponent implements OnInit {
     pastAppointments: Appointment [] = [];
     @ViewChild('closeBtnAllergy') closeBtnAllergy: ElementRef;
     private selectedPatientId: number;
-
+    subscription: Subscription;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private dataService: DataService) {
 
-        const queryParams = this.activatedRoute.snapshot.queryParams
-        console.log(queryParams);
-        const routeParams = this.activatedRoute.snapshot.params;
-        console.log(routeParams);
-        // do something with the parameters
-        this.selectedPatientId = routeParams.id;// i think id will patient id according to current situation
-
+        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+            this.selectedPatientId = id;
+        });
         this.getPaginatedAllergyFromServer(0);
     }
 

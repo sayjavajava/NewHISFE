@@ -16,19 +16,24 @@ var notification_service_1 = require("../../../services/notification.service");
 var requests_service_1 = require("../../../services/requests.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var his_util_service_1 = require("../../../services/his-util.service");
+var DataService_1 = require("../../../services/DataService");
 var PatientDocumentsComponent = (function () {
-    function PatientDocumentsComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
+    function PatientDocumentsComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
+        var _this = this;
         this.notificationService = notificationService;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.dataService = dataService;
         this.pages = [];
         this.documentData = [];
         this.dm = new document_1.DocumentModel();
         this.uploadedImage = null;
         this.isRequestUnderProcess = false;
-        this.selectedPatientId = this.activatedRoute.snapshot.params['id'];
+        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
+            _this.selectedPatientId = id;
+        });
         this.getPageWiseDocumentsFromServer(0);
     }
     PatientDocumentsComponent.prototype.ngOnInit = function () {
@@ -206,7 +211,8 @@ var PatientDocumentsComponent = (function () {
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router,
-            router_1.ActivatedRoute])
+            router_1.ActivatedRoute,
+            DataService_1.DataService])
     ], PatientDocumentsComponent);
     return PatientDocumentsComponent;
 }());

@@ -7,6 +7,9 @@ import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {AppConstants} from "../../../utils/app.constants";
 import any = jasmine.any;
+import {DataService} from "../../../services/DataService";
+import {Subscription} from "rxjs/Subscription";
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -29,15 +32,17 @@ export class PatientMedicationListComponent implements OnInit {
     pastAppointments: Appointment [] = [];
     private selectedPatientId: number;
     @ViewChild('closeBtnMedication') closeBtnMedication: ElementRef;
+    private subscription: Subscription;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private dataService: DataService) {
 
-        this.activatedRoute.params.subscribe(params => {
-            this.selectedPatientId = params['id'];
+        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+            this.selectedPatientId = id;
         });
         this.getPaginatedMedicationFromServer(0);
     }
@@ -78,28 +83,43 @@ export class PatientMedicationListComponent implements OnInit {
         this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
 
-    saveMedication() {
+    saveMedication(mdForm: NgForm) {
+
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select patient from dashboard again ");
+            return;
+        }
+
+        if (this.medicationModel.appointmentId <= 0) {
+            this.notificationService.warn("Please select appoint.");
+            document.getElementById('appointmentId').focus();
+            return;
+        }
+
+        if (this.medicationModel.drugName === "") {
+            this.notificationService.warn("Please provide drug name.");
+            document.getElementById('drugNameId').focus();
+            return;
+        }
+
+        if (this.medicationModel.datePrescribedString === "") {
+            this.notificationService.warn("Please provide proper prescribed date and time.");
+            document.getElementById('datePrescribedId').focus();
+            return;
+        }
+        if (this.medicationModel.dateStartedTakingString === "") {
+            this.notificationService.warn("Please provide proper start taking date and time.");
+            document.getElementById('dateStartedTakingId').focus();
+            return;
+        }
+        if (this.medicationModel.dateStoppedTakingString === "") {
+            this.notificationService.warn("Please provide proper stoop taking date and time.");
+            document.getElementById('dateStoppedTakingId').focus();
+            return;
+        }
+
         if (localStorage.getItem(btoa('access_token'))) {
             this.medicationModel.patientId = this.selectedPatientId;
-
-//date.toISOString().slice(0,16)
-
-            console.log(this.medicationModel.datePrescribedString.toString().slice(0,16));
-            // console.log(this.medicationModel.datePrescribedDate.toISOString().re(0,16));
-            // console.log(this.medicationModel.datePrescribedDate.toISOString());
-            // console.log(this.medicationModel.datePrescribedDate.toString());
-            // console.log(this.medicationModel.datePrescribedDate.toDateString());
-            // console.log(this.medicationModel.datePrescribedDate.toTimeString());
-            // console.log(this.medicationModel.datePrescribedDate.toLocaleDateString());
-            // console.log(this.medicationModel.datePrescribedDate.toUTCString());
-            // console.log(this.medicationModel.datePrescribedDate.getTimezoneOffset());
-
-
-            // this.medicationModel.datePrescribedString = this.medicationModel.datePrescribedDate.toISOString();
-            //
-            // this.medicationModel.dateStartedTakingString = this.medicationModel.dateStartedTakingDate.toString();
-            //
-            // this.medicationModel.dateStoppedTakingString = this.medicationModel.dateStoppedTakingDate.toLocaleString();
 
             this.requestsService.postRequest(
                 AppConstants.MEDICATION_SAVE_URL, this.medicationModel)
@@ -128,7 +148,7 @@ export class PatientMedicationListComponent implements OnInit {
 
     getPaginatedMedicationFromServer(page: number) {
         this.requestsService.getRequest(
-            AppConstants.MEDICATION_PAGINATED_URL + page)
+            AppConstants.MEDICATION_PAGINATED_URL + page + "?selectedPatientId=" + this.selectedPatientId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'MEDICATION_SUC_32') {
@@ -199,7 +219,41 @@ export class PatientMedicationListComponent implements OnInit {
         }
     }
 
-    updateMedication() {
+    updateMedication(mdForm: NgForm) {
+
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn("Please select patient from dashboard again ");
+            return;
+        }
+
+        if (this.medicationModel.appointmentId <= 0) {
+            this.notificationService.warn("Please select appoint.");
+            document.getElementById('appointmentId').focus();
+            return;
+        }
+
+        if (this.medicationModel.drugName === "") {
+            this.notificationService.warn("Please provide drug name.");
+            document.getElementById('drugNameId').focus();
+            return;
+        }
+
+        if (this.medicationModel.datePrescribedString === "") {
+            this.notificationService.warn("Please provide proper prescribed date and time.");
+            document.getElementById('datePrescribedId').focus();
+            return;
+        }
+        if (this.medicationModel.dateStartedTakingString === "") {
+            this.notificationService.warn("Please provide proper start taking date and time.");
+            document.getElementById('dateStartedTakingId').focus();
+            return;
+        }
+        if (this.medicationModel.dateStoppedTakingString === "") {
+            this.notificationService.warn("Please provide proper stoop taking date and time.");
+            document.getElementById('dateStoppedTakingId').focus();
+            return;
+        }
+
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.putRequest(AppConstants.MEDICATION_UPDATE_URL, this.medicationModel)
                 .subscribe(

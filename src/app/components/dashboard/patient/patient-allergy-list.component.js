@@ -16,13 +16,16 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var patient_allergy_model_1 = require("../../../model/patient.allergy.model");
+var DataService_1 = require("../../../services/DataService");
 var PatientAllergyListComponent = (function () {
-    function PatientAllergyListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
+    function PatientAllergyListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
+        var _this = this;
         this.notificationService = notificationService;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.dataService = dataService;
         this.pages = [];
         this.allergyData = [];
         this.pam = new patient_allergy_model_1.PatientAllergyModel(); //Patient Allergy model, it mean wrapper
@@ -30,12 +33,9 @@ var PatientAllergyListComponent = (function () {
         this.isUpdate = false;
         this.futureAppointments = [];
         this.pastAppointments = [];
-        var queryParams = this.activatedRoute.snapshot.queryParams;
-        console.log(queryParams);
-        var routeParams = this.activatedRoute.snapshot.params;
-        console.log(routeParams);
-        // do something with the parameters
-        this.selectedPatientId = routeParams.id; // i think id will patient id according to current situation
+        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
+            _this.selectedPatientId = id;
+        });
         this.getPaginatedAllergyFromServer(0);
     }
     PatientAllergyListComponent.prototype.ngOnInit = function () {
@@ -196,7 +196,8 @@ var PatientAllergyListComponent = (function () {
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router,
-            router_1.ActivatedRoute])
+            router_1.ActivatedRoute,
+            DataService_1.DataService])
     ], PatientAllergyListComponent);
     return PatientAllergyListComponent;
 }());

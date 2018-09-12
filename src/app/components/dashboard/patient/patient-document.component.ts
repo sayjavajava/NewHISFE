@@ -5,6 +5,8 @@ import {NotificationService} from "../../../services/notification.service";
 import {RequestsService} from "../../../services/requests.service";
 import {AppConstants} from "../../../utils/app.constants";
 import {HISUtilService} from "../../../services/his-util.service";
+import {DataService} from "../../../services/DataService";
+import {Subscription} from "rxjs/Subscription";
 
 
 @Component({
@@ -22,14 +24,18 @@ export class PatientDocumentsComponent implements OnInit {
     private selectedPatientId: number;
     private uploadedImage: File = null;
     private isRequestUnderProcess: boolean = false;
+    private subscription: Subscription;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private dataService: DataService) {
 
-        this.selectedPatientId = this.activatedRoute.snapshot.params['id'];
+        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+            this.selectedPatientId = id;
+        });
 
 
         this.getPageWiseDocumentsFromServer(0);
@@ -60,7 +66,7 @@ export class PatientDocumentsComponent implements OnInit {
                 return;
             }
 
-            if ( this.selectedPatientId <= 0 ) {
+            if (this.selectedPatientId <= 0) {
                 this.notificationService.warn('Please provide proper patient.');
                 return;
             }
