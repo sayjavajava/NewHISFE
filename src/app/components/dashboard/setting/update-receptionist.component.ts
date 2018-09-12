@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from './PasswordValidation';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,14 +9,18 @@ import {Receptionist} from '../../../model/Receptionist';
 import {UserEditModel} from '../../../model/UserEditModel';
 import {AppConstants} from '../../../utils/app.constants';
 import {HISUtilService} from '../../../services/his-util.service';
+import {Subscription} from "rxjs/Subscription";
+import {DataService} from "../../../services/DataService";
 
 
 @Component({
     selector: 'addcashier-component',
     templateUrl: '../../../templates/dashboard/setting/update-receptionist.template.html',
 })
-export class UpdateReceptionistComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
+export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
+    ngOnDestroy(): void {
+    }
+    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService,
                 private hisUtilService: HISUtilService ,private fb: FormBuilder, private notificationService: NotificationService) {
         this.allBranches();
         this.allDoctors();
@@ -33,12 +37,15 @@ export class UpdateReceptionistComponent implements OnInit {
     receptionist: UserEditModel;
     selectedVisitBranches:any=[];
     staffBranches: any [];
+    private subscription :Subscription;
+    userId:number;
     ngOnInit() {
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
             console.log(this.id);
         });
+        this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();
     }
     allDoctors() {
@@ -190,7 +197,7 @@ export class UpdateReceptionistComponent implements OnInit {
 
     makeService(user: any) {
 
-        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID,user).subscribe(
+        this.requestService.putRequest('/user/edit/' + this.userId,user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
                     console.log('saved00')

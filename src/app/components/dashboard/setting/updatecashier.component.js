@@ -17,13 +17,13 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
 var app_constants_1 = require("../../../utils/app.constants");
-var his_util_service_1 = require("../../../services/his-util.service");
+var DataService_1 = require("../../../services/DataService");
 var UpdateCashierComponent = (function () {
-    function UpdateCashierComponent(route, router, requestService, hisUtilService, fb, notificationService) {
+    function UpdateCashierComponent(route, router, requestService, dataService, fb, notificationService) {
         this.route = route;
         this.router = router;
         this.requestService = requestService;
-        this.hisUtilService = hisUtilService;
+        this.dataService = dataService;
         this.fb = fb;
         this.notificationService = notificationService;
         this.branchesList = [];
@@ -34,6 +34,9 @@ var UpdateCashierComponent = (function () {
         this.allBranches();
         this.allDoctors();
     }
+    UpdateCashierComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
     UpdateCashierComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createUserForm();
@@ -41,6 +44,7 @@ var UpdateCashierComponent = (function () {
             _this.id = params['id'];
             console.log(_this.id);
         });
+        this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
         this.patchData();
     };
     UpdateCashierComponent.prototype.allDoctors = function () {
@@ -179,7 +183,7 @@ var UpdateCashierComponent = (function () {
     };
     UpdateCashierComponent.prototype.makeService = function (user) {
         var _this = this;
-        this.requestService.putRequest('/user/edit/' + this.hisUtilService.staffID, user).subscribe(function (response) {
+        this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 console.log('saved00');
                 _this.responseUser = response['responseData'];
@@ -253,7 +257,7 @@ var UpdateCashierComponent = (function () {
             selector: 'addcashier-component',
             templateUrl: '../../../templates/dashboard/setting/updatecashier.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService, his_util_service_1.HISUtilService,
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService, DataService_1.DataService,
             forms_1.FormBuilder, notification_service_1.NotificationService])
     ], UpdateCashierComponent);
     return UpdateCashierComponent;

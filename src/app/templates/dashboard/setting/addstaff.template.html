@@ -131,7 +131,7 @@
                                 </div>
                                 <div *ngIf="services" class="form-group">
                                     <label class="control-label col-md-4">Services
-                                        <span class="required" aria-required="true"> * </span>
+                                        <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box cod-higt" id="not-due">
@@ -418,8 +418,9 @@
                                             <option value="60">60</option>
 
                                         </select>
-                                        <span class="text-danger"
+                                       <!-- <span class="text-danger"
                                               *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
+                                        <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>-->
                                     </div>
                                 </div>
 

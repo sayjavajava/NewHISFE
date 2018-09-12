@@ -23,7 +23,7 @@ export class HISUtilService {
     hidePopupWithCloseButtonId(closeButtonId: string){
         document.getElementById(closeButtonId).click();
     }
-      staffId(id:number){
+      setStaffId(id:number){
         this.staffID=id;
     }
     setPatientId(id:number){

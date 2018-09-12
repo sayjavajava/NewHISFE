@@ -15,9 +15,14 @@ var DataService = (function () {
     function DataService() {
         this.patientIdSource = new rxjs_1.BehaviorSubject(0);
         this.currentPatientId = this.patientIdSource.asObservable();
+        this.staffSource = new rxjs_1.BehaviorSubject(0);
+        this.currentStaffServiceId = this.staffSource.asObservable();
     }
     DataService.prototype.getPatientId = function (id) {
         this.patientIdSource.next(id);
+    };
+    DataService.prototype.updateStaffId = function (id) {
+        this.staffSource.next(id);
     };
     DataService = __decorate([
         core_1.Injectable(),
