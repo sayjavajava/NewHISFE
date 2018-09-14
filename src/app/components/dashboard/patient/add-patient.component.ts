@@ -98,6 +98,7 @@ export class AddPatientComponent implements OnInit {
             return;
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
+                this.patient.smokingStatus = null;
                 this.requestsService.postRequestMultipartFormAndData(
                     AppConstants.PATIENT_SAVE_URL,
                     this.patient, this.profileImg,this.photoFront,this.photoBack

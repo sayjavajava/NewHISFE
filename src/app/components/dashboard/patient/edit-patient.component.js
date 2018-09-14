@@ -106,6 +106,7 @@ var EditPatientComponent = (function () {
         }
         else {
             if (localStorage.getItem(btoa('access_token'))) {
+                this.patient.smokingStatus = null;
                 this.requestsService.putRequest(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient).subscribe(function (response) {
                     if (response['responseCode'] === 'PATIENT_SUC_08') {
                         _this.patient = new patient_1.Patient();

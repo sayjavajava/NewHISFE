@@ -107,6 +107,7 @@ export class EditPatientComponent implements OnInit {
             return;
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
+                this.patient.smokingStatus = null;
                 this.requestsService.putRequest(
                     AppConstants.PATIENT_UPDATE_URL,
                     this.patient

@@ -24,9 +24,9 @@
                             <div class="col-xs-6">
                                 <div class="wrap-input100 validate-input">
                                     <input class="form-control form-control-solid placeholder-no-fix form-group input100"
-                                           type="text" required (keyup.enter)="login(form)" [(ngModel)]="username"
+                                           type="text" required (keyup.enter)="login(form)" [(ngModel)]="username" placeholder="Enter UserName or Email"
                                            name="username" #name="ngModel" pattern="[a-zA-Z0-9-_. @]+"/>
-                                    <span class="focus-input100" data-placeholder="Enter UserName or Email"></span>
+                                    <!--<span class="focus-input100" data-placeholder="Enter UserName or Email"></span>-->
                                 </div>
                             </div>
                             <div class="col-xs-6">
@@ -35,7 +35,7 @@
                                            type="password" name="pass" required
                                            (keyup.enter)="login(form)" [(ngModel)]="password"
                                            #pass="ngModel"/>
-                                    <span class="focus-input100" data-placeholder="Password"></span>
+                                    <!--<span class="focus-input100" data-placeholder="Password"></span>-->
                                 </div>
                             </div>
                         </div>

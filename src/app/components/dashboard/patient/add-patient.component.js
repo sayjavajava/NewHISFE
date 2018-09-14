@@ -98,6 +98,7 @@ var AddPatientComponent = (function () {
         }
         else {
             if (localStorage.getItem(btoa('access_token'))) {
+                this.patient.smokingStatus = null;
                 this.requestsService.postRequestMultipartFormAndData(app_constants_1.AppConstants.PATIENT_SAVE_URL, this.patient, this.profileImg, this.photoFront, this.photoBack).subscribe(function (response) {
                     if (response['responseCode'] === 'PATIENT_SUC_04') {
                         _this.patient = new patient_1.Patient();
