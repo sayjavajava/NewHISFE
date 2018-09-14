@@ -17,12 +17,14 @@ var user_type_enum_1 = require("../../../enums/user-type-enum");
 var app_constants_1 = require("../../../utils/app.constants");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var material_1 = require("@angular/material");
+var DataService_1 = require("../../../services/DataService");
 var ReceptionistDashboardComponent = (function () {
-    function ReceptionistDashboardComponent(requestService, router, confirmationDialogService, snackBar, titleService) {
+    function ReceptionistDashboardComponent(requestService, router, confirmationDialogService, snackBar, dataService, titleService) {
         this.requestService = requestService;
         this.router = router;
         this.confirmationDialogService = confirmationDialogService;
         this.snackBar = snackBar;
+        this.dataService = dataService;
         this.titleService = titleService;
         this.title = 'Receptionist Dashboard';
         this.dashboardList = [];
@@ -118,7 +120,8 @@ var ReceptionistDashboardComponent = (function () {
         });
     };
     ReceptionistDashboardComponent.prototype.patientHistory = function (id) {
-        this.router.navigate(['/dashboard/patient/history', id]);
+        this.dataService.getPatientId(id);
+        this.router.navigate(['/dashboard/patient/', id, 'history']);
     };
     ReceptionistDashboardComponent = __decorate([
         core_1.Component({
@@ -130,6 +133,7 @@ var ReceptionistDashboardComponent = (function () {
             router_1.Router,
             ConformationDialogService_1.ConformationDialogService,
             material_1.MatSnackBar,
+            DataService_1.DataService,
             platform_browser_1.Title])
     ], ReceptionistDashboardComponent);
     return ReceptionistDashboardComponent;

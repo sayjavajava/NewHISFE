@@ -7,6 +7,7 @@ import {AppConstants} from '../../../utils/app.constants';
 import {Dashboard} from '../../../model/Dashboard';
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {MatSnackBar} from "@angular/material";
+import {DataService} from "../../../services/DataService";
 
 @Component({
     selector: 'receptionist-dashboard-component',
@@ -29,6 +30,7 @@ export class ReceptionistDashboardComponent {
                 private router: Router,
                 private confirmationDialogService: ConformationDialogService,
                 private snackBar:MatSnackBar,
+                private dataService:DataService,
                 private titleService: Title) {
         this.showDashboard();
 
@@ -132,7 +134,8 @@ export class ReceptionistDashboardComponent {
             });
     }
     patientHistory(id:any){
-        this.router.navigate(['/dashboard/patient/history',id]);
+        this.dataService.getPatientId(id);
+        this.router.navigate(['/dashboard/patient/',id,'history']);
     }
 
 

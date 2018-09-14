@@ -136,9 +136,7 @@
                         <tr *ngFor="let problemActive of problemActiveData" class="filter">
                             <td>{{problemActive.versionName}}</td>
                             <td>{{problemActive.codeName}}</td>
-                            <td>{{problemActive.dateDiagnosis | date:'medium'}}</td>
-                            <!-- <td>{{problemActive.createdOn | date:'medium'}}</td>
-                             <td>{{problemActive.updatedOn | date:'medium'}}</td>-->
+                            <td> {{problemActive.dateDiagnosis }}</td>
                             <td>{{problemActive.status}}</td>
                             <td>{{problemActive.note}}</td>
                         </tr>

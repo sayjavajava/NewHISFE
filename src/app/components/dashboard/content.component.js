@@ -53,7 +53,7 @@ var ContentComponent = (function () {
                         }
                     }, function (error) {
                         //console.log(error.json())
-                        _this.HISUtilService.tokenExpired(error.error.error);
+                        //  this.HISUtilService.tokenExpired(error.error.error);
                     });
                 }
             }, function (error) {

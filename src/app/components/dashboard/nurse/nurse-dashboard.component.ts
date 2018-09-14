@@ -7,6 +7,7 @@ import {Dashboard} from '../../../model/Dashboard';
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {MatSnackBar} from "@angular/material";
 import {Component} from "@angular/core";
+import {DataService} from "../../../services/DataService";
 
 @Component({
     selector: 'nurse-dashboard-component',
@@ -29,6 +30,7 @@ export class NurseDashboardComponent {
                 private router: Router,
                 private confirmationDialogService: ConformationDialogService,
                 private snackBar:MatSnackBar,
+                private dataService:DataService,
                 private titleService: Title) {
         this.showDashboard();
 
@@ -113,6 +115,10 @@ export class NurseDashboardComponent {
             const arr = this.dashboardListModified.filter(x => x.status == value);
             this.dashboardListModified = arr;
         }
+    }
+    patientHistory(id:any){
+        this.dataService.getPatientId(id);
+        this.router.navigate(['/dashboard/patient/',id,'history']);
     }
     getUpdatedStatus(statusValue: string, apptId: any) {
         var that = this;

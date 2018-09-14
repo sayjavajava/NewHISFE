@@ -27,6 +27,7 @@ var PermissionsService = (function () {
         var permissions;
         var userPermissions = localStorage.getItem(btoa('permissions'));
         if (userPermissions) {
+            console.log('permission awa' + userPermissions.length);
             permissions = JSON.parse(atob(userPermissions));
             permissions.forEach(function (item, index) {
                 //properties.hasOwnProperty('name') && properties.

@@ -27,7 +27,7 @@ export const PatientRoutes: Routes = [
     {path: 'manage', component: ManagePatientComponent},
     {path: 'add', component: AddPatientComponent},
     {path: 'invoice', component: PatientInvoiceComponent},
-    {path: 'history/:id', component: PatientHistoryComponent},
+    /*{path: 'history/:id', component: PatientHistoryComponent},*/
     {path: 'invoice/:id', component: PatientInvoiceComponent},
     /* {path: 'history', component: PatientHistoryComponent}, */
 

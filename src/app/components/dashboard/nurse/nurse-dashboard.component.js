@@ -17,12 +17,14 @@ var app_constants_1 = require("../../../utils/app.constants");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var material_1 = require("@angular/material");
 var core_1 = require("@angular/core");
+var DataService_1 = require("../../../services/DataService");
 var NurseDashboardComponent = (function () {
-    function NurseDashboardComponent(requestService, router, confirmationDialogService, snackBar, titleService) {
+    function NurseDashboardComponent(requestService, router, confirmationDialogService, snackBar, dataService, titleService) {
         this.requestService = requestService;
         this.router = router;
         this.confirmationDialogService = confirmationDialogService;
         this.snackBar = snackBar;
+        this.dataService = dataService;
         this.titleService = titleService;
         this.title = 'Doctor Dashboard';
         this.dashboardList = [];
@@ -100,6 +102,10 @@ var NurseDashboardComponent = (function () {
             this.dashboardListModified = arr;
         }
     };
+    NurseDashboardComponent.prototype.patientHistory = function (id) {
+        this.dataService.getPatientId(id);
+        this.router.navigate(['/dashboard/patient/', id, 'history']);
+    };
     NurseDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId) {
         var _this = this;
         var that = this;
@@ -128,6 +134,7 @@ var NurseDashboardComponent = (function () {
             router_1.Router,
             ConformationDialogService_1.ConformationDialogService,
             material_1.MatSnackBar,
+            DataService_1.DataService,
             platform_browser_1.Title])
     ], NurseDashboardComponent);
     return NurseDashboardComponent;
