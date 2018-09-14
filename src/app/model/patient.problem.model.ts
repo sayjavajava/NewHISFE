@@ -8,7 +8,6 @@ export class PatientProblemModel {
     appointmentId:number = -1;
     selectedICDVersionId: number = -1;
     codeName: string;
-    codeTitle: string;
     selectedCodeId: number = -1;
     versionName: string;
     dateDiagnosis: string = "";
