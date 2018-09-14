@@ -166,7 +166,7 @@
                                 <td><a href="#" class="font-blue"></a><a href="#" class="font-blue">{{item.scheduleAt}}</a></td>
                                 <td>{{item.doctorFirstName}} {{item.doctorLastName}}</td>
                                 <td>{{item.examRoom}}</td>
-                                <td><select class="form-control" [ngModelOptions]="{standalone:true}" (change)="getUpdatedStatus(item.status,item.apptNaturalId)"
+                                <td><select class="form-control" [ngModelOptions]="{standalone:true}" (change)="getUpdatedStatus(item.status,item.apptNaturalId,item.appointmentId)"
                                             [(ngModel)]="item.status">
                                     <option value="IN_SESSION">IN SESSION</option>
                                     <option value="COMPLETE">COMPLETE</option>
