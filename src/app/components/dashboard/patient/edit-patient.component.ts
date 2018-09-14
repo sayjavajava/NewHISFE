@@ -9,10 +9,7 @@ import {NotificationService} from "../../../services/notification.service";
 import {NgForm} from "@angular/forms";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {ImageModel} from "../../../model/image-model";
-import any = jasmine.any;
-import {forEach} from "@angular/router/src/utils/collection";
 import {Race} from "../../../model/race-model";
-import {race} from "q";
 
 @Component({
     selector: 'add-patient',

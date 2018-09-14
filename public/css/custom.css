@@ -135,15 +135,15 @@ p, h3, h4{margin:0; padding:0;}
 .chckbox span{ margin-top:10px !important;}
 .checkbox-box{border:1px solid #c2cad8; background:#fff; padding:10px;}
 .checkbox-box address, .checkbox-box address label{ margin-bottom:2px !important;}
-<<<<<<< HEAD
+
 .txt-size-detail {
     line-height: 24px !important;
     margin-top: 0px !important;
     padding-top: 0 !important;
 }
-=======
+
 .width100{width:100%;}
->>>>>>> 3fc54d6184d7aa60750ecac79a13cb634f1527c3
+
 .funkycheckbox div {
     clear: both;
     overflow: hidden;
@@ -514,3 +514,16 @@ textarea {
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{background: #fff !important;}
 .amount-border-botom{border-bottom: 1px solid #333;}
 .amount-border-top{border-top: 1px solid #333;}
+.my-panel .mat-dialog-container {
+    height: 175px;
+    width: 475px;
+    border-radius: 10px;
+    background: #fffefe;
+    color: red;
+}
+.popup-body{
+    margin-top: 10px;
+}
+.popup-footer{
+    margin-left: 110px;
+}

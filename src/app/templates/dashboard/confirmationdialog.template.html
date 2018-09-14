@@ -1,10 +1,17 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<p>{{ title }}</p>
-<p>{{ message }}</p>
-<br/>
-<br/>
-<button type="button"  mat-raised-button
-        (click)="dialogRef.close(true)"><mat-icon>done</mat-icon></button>
-<button type="button"  mat-raised-button
-        (click)="dialogRef.close()">Cancel</button>
+<div class="popup">
+    <div class="popup-header">
+        <p>{{ title }}</p>
+    </div>
+    <div class="popup-body">
+        <p>{{ message }}</p>
+    </div>
+    <br/>
+    <br/>
+    <div class="popup-footer">
+        <button type="button"  mat-raised-button
+                (click)="dialogRef.close(true)"><mat-icon>done</mat-icon></button>
+        <button type="button"  mat-raised-button
+                (click)="dialogRef.close()">Cancel</button>
+    </div>
+</div>

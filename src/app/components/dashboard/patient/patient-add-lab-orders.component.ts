@@ -105,7 +105,6 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
     }
 
-
     addMoreTest(): void {
         this.labTest = this.labForm.get('labTest') as FormArray;
         this.labTest.push(this.createLabTest());

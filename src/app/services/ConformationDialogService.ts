@@ -14,9 +14,7 @@ export class ConformationDialogService {
         let dialogref: MatDialogRef<ConfirmationdialogComponent>;
 
         dialogref = this.matdialog.open(ConfirmationdialogComponent, {
-            height: "230px",
-            width: "320px",
-            panelClass: 'myapp-no-padding-dialog'
+            panelClass: 'my-panel'
         });
         dialogref.componentInstance.title = title;
         dialogref.componentInstance.message = message;

@@ -157,7 +157,7 @@ export class StaffComponent implements OnInit {
         this.confirmationDialogService
             .confirm('Delete', 'Are you sure you want to do this?')
             .subscribe(res => {
-                if (id) {
+                if (res == true) {
                     this.requestService.deleteRequest('/user/delete/' + id).subscribe((data: Response) => {
                         if (data['responseCode'] === 'USER_DEL_SUC_01') {
                             this.notificationService.success('User has been Deleted Successfully');
