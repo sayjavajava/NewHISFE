@@ -8,6 +8,7 @@ import {AppConstants} from "../../../utils/app.constants";
 import {PatientAllergyModel} from "../../../model/patient.allergy.model";
 import {Subscription} from "rxjs/Subscription";
 import {DataService} from "../../../services/DataService";
+import {Patient} from "../../../model/patient";
 
 
 @Component({
@@ -26,7 +27,7 @@ export class PatientAllergyListComponent implements OnInit {
 
     appointments: Appointment [] = [];
     isUpdate: boolean = false;
-    private patient: any;
+    patient: Patient = new Patient();
     futureAppointments: Appointment [] = [];
     pastAppointments: Appointment [] = [];
     @ViewChild('closeBtnAllergy') closeBtnAllergy: ElementRef;
@@ -44,6 +45,7 @@ export class PatientAllergyListComponent implements OnInit {
             this.selectedPatientId = id;
         });
         this.getPaginatedAllergyFromServer(0);
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
 
     ngOnInit(): void {

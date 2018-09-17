@@ -7,6 +7,7 @@ import {AppConstants} from "../../../utils/app.constants";
 import {HISUtilService} from "../../../services/his-util.service";
 import {DataService} from "../../../services/DataService";
 import {Subscription} from "rxjs/Subscription";
+import {Patient} from "../../../model/patient";
 
 
 @Component({
@@ -14,6 +15,7 @@ import {Subscription} from "rxjs/Subscription";
     templateUrl: '../../../templates/dashboard/patient/patient-documents.template.html',
 })
 export class PatientDocumentsComponent implements OnInit {
+    patient: Patient = new Patient();
     isUpdate: boolean;
     nextPage: any;
     prePage: any;
@@ -39,6 +41,7 @@ export class PatientDocumentsComponent implements OnInit {
 
 
         this.getPageWiseDocumentsFromServer(0);
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
 
 
@@ -225,5 +228,30 @@ export class PatientDocumentsComponent implements OnInit {
 
     goToUserDashBoard() {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+    }
+
+    appointmentsByPatientFromServer(selectedPatientId: number) {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(
+                AppConstants.PATIENT_FETCH_URL + selectedPatientId
+            ).subscribe(
+                response => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.patient = response['responseData'];
+                        /*this.futureAppointments = [];
+                         this.futureAppointments = response['responseData'].futureAppointments;
+                         this.pastAppointments = [];
+                         this.pastAppointments = response['responseData'].pastAppointments;*/
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Patient');
+                    }
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                });
+
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 }

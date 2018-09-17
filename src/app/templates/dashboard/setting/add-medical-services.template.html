@@ -17,8 +17,8 @@
                                         <input class="form-control"
                                                type="text" required
                                                [(ngModel)]="ms.name"
-                                               required pattern="^[a-zA-Z 0-9_-]{1,60}$"
-                                               name="msTitle" #msTitle="ngModel"/>
+                                               required
+                                               name="msTitle" #msTitle="ngModel"/>  <!--pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
                                     </div>
                                     <span *ngIf="msTitle.invalid && msTitle.touched"
                                           class="col-md-6 select pdng-lr-5 text-danger">

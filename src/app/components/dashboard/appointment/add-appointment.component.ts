@@ -73,9 +73,7 @@ export class AddAppointmentComponent implements OnInit {
     selectedPatientId: number;
     searchedDoctor: number;
     searchedBranch: number;
-    //temp variable
-    apptId=38;
-    appt:Appointment[];
+
 
 
 
@@ -112,8 +110,7 @@ export class AddAppointmentComponent implements OnInit {
     ];
 
     ngOnInit() {
-        //temp
-        this.getAppointmentById();
+
         var startTime =new Date('August 8 2018 08:20');
         var endTime =new Date('August 8 2018 08:25');
         this.requestsService.getRequest(
@@ -238,21 +235,6 @@ export class AddAppointmentComponent implements OnInit {
         }
     ];
 
-    //temp method
-
-    getAppointmentById() {
-        this.requestsService.getRequest(
-            AppConstants.FETCH_APPOINTMENTS_BY_ID +this.apptId)
-            .subscribe((res :any) =>{
-                    this.appt = res.responseData;
-                    console.log('test ' + res.responseData.id);
-
-                },
-                (error: any) => {
-
-                }
-            );
-    }
     getBranchesFromServer() {
         this.requestsService.getRequest(
             AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
