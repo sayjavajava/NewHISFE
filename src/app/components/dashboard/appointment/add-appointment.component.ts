@@ -26,8 +26,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {Router} from '@angular/router';
 import {Appointment} from '../../../model/Appointment';
 import {UserTypeEnum} from '../../../enums/user-type-enum';
-import DateTimeFormat = Intl.DateTimeFormat;
-import * as _ from "lodash";
+
 
 declare var $: any;
 
@@ -42,6 +41,7 @@ export class AddAppointmentComponent implements OnInit {
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
         this.getPatientFromServer();
+        this.allServices();
     }
 
     refresh: Subject<any> = new ReplaySubject<any>(1);
@@ -73,9 +73,8 @@ export class AddAppointmentComponent implements OnInit {
     selectedPatientId: number;
     searchedDoctor: number;
     searchedBranch: number;
-    //temp variable
-    apptId=38;
-    appt:Appointment[];
+    servicesList: any = [];
+    error:string;
 
 
 
@@ -112,8 +111,7 @@ export class AddAppointmentComponent implements OnInit {
     ];
 
     ngOnInit() {
-        //temp
-        this.getAppointmentById();
+
         var startTime =new Date('August 8 2018 08:20');
         var endTime =new Date('August 8 2018 08:25');
         this.requestsService.getRequest(
@@ -161,7 +159,8 @@ export class AddAppointmentComponent implements OnInit {
                                 examRoom: apt.examName,
                                 branchId: apt.branchId,
                                 roomId: apt.roomId,
-                                doctorId: apt.doctorId
+                                doctorId: apt.doctorId,
+                                serviceId:apt.serviceId
 
                             });
                             this.refresh.next();
@@ -180,6 +179,21 @@ export class AddAppointmentComponent implements OnInit {
         return this.Type
             .filter(opt => opt.checked)
             .map(opt => opt.name);
+    }
+    allServices() {
+        this.requestsService.getRequest(AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+            .subscribe(
+                (response: Response) => {
+                    //console.log('i am branch call');
+                    if (response['responseCode'] === 'MED_SER_SUC_01') {
+                        this.servicesList = response['responseData'];
+                        //console.log(this.servicesList);
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+
     }
 
     selectType(form:NgForm) {
@@ -238,21 +252,7 @@ export class AddAppointmentComponent implements OnInit {
         }
     ];
 
-    //temp method
 
-    getAppointmentById() {
-        this.requestsService.getRequest(
-            AppConstants.FETCH_APPOINTMENTS_BY_ID +this.apptId)
-            .subscribe((res :any) =>{
-                    this.appt = res.responseData;
-                    console.log('test ' + res.responseData.id);
-
-                },
-                (error: any) => {
-
-                }
-            );
-    }
     getBranchesFromServer() {
         this.requestsService.getRequest(
             AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
@@ -363,7 +363,7 @@ export class AddAppointmentComponent implements OnInit {
             selectWorkingDays: this.selectedRecurringDays,
             appointmentType: this.selectedType,
             followUpDate: new Date(),
-            followUpReason: 'reason',
+            followUpReason: '',
             recurseEvery: 'rescurse',
             neverEnds: false,
             followUpReminder: false,
@@ -439,7 +439,7 @@ export class AddAppointmentComponent implements OnInit {
                                 branchId: apt.branchId,
                                 roomId: apt.roomId,
                                 doctorId: apt.doctorId
-
+ //service id
                             });
                             this.refresh.next();
                         }
@@ -493,7 +493,7 @@ export class AddAppointmentComponent implements OnInit {
             if (this.eventsRequest.length != 0) {
                 let obj = new Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
                     event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
-                    event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
+                    event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob,event.serviceId);
                 this.requestsService.postRequest(AppConstants.CREATE_APPOINTMENT_URL,
                     obj)
                     .subscribe(
@@ -530,7 +530,7 @@ export class AddAppointmentComponent implements OnInit {
         var self = this;
         let obj = new Appointment(event.id,event.appointmentId,event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
             event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
-            event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId,event.newPatient,event.dob);
+            event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId,event.newPatient,event.dob,event.serviceId);
         this.requestsService.putRequest(AppConstants.UPDATE_APPOINTMENT + event.id,
             obj).subscribe(
             (response: Response) => {

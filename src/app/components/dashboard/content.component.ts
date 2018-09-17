@@ -65,7 +65,7 @@ export class ContentComponent implements OnInit {
                                     },
                                     (error: any) => {
                                         //console.log(error.json())
-                                        this.HISUtilService.tokenExpired(error.error.error);
+                                      //  this.HISUtilService.tokenExpired(error.error.error);
                                     }
                                 );
                         }

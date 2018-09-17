@@ -109,6 +109,9 @@ var PatientHistoryComponent = (function () {
     PatientHistoryComponent.prototype.getPageWiseMedicationsByActive = function (page) {
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
     };
+    PatientHistoryComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
     PatientHistoryComponent.prototype.patientHistory = function () {
         // this.dataService.getPatientId(id);//
         var url = '/dashboard/patient/' + this.selectedPatientId + '/history';

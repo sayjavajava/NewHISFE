@@ -38,10 +38,11 @@ export class Appointment{
     doctorId:number;
     dob:Date;
     newPatient :string;
+    serviceId:number;
 
     constructor(id?:number,appointmentId?:string,title ?: string, branchId ?: number, doctorId ?: number,scheduleDateAndTime ?:DateTimeFormat, scheduleDate?: string, end?: string, draggable?: boolean,selectedRecurringDays ?:any[], appointmentType?: any[], notes?: string, patient?: number, reason?:
          string, status?: string, duration?: number, followUpDate?: Date, followUpReason?: string ,followUpReminder?:boolean,recurringAppointment?:boolean,recurseEvery?:string
-        ,firstAppointment?:string,lastAppointment?:string,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string,roomId?:number,newPatient ?:string,dob?:Date
+        ,firstAppointment?:string,lastAppointment?:string,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string,roomId?:number,newPatient ?:string,dob?:Date,serviceId?:number
     ) {
         this.id = id;
         this.appointmentId = appointmentId;
@@ -73,6 +74,7 @@ export class Appointment{
         this.email=email;
         this.color=color;
         this.roomId=roomId;
+        this.serviceId=serviceId;
 
     }
 }

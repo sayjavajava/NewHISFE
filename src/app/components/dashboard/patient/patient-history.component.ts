@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppConstants} from "../../../utils/app.constants";
 import {HISUtilService} from "../../../services/his-util.service";
@@ -6,7 +6,6 @@ import {RequestsService} from "../../../services/requests.service";
 import {NotificationService} from "../../../services/notification.service";
 import {PatientProblemModel} from "../../../model/patient.problem.model";
 import {PatientAllergyModel} from "../../../model/patient.allergy.model";
-import {StatusEnum} from "../../../enums/StatusEnum";
 import {MedicationModel} from "../../../model/medication.model";
 import {DataService} from "../../../services/DataService";
 import {Subscription} from "rxjs/Subscription";
@@ -16,7 +15,8 @@ import {Subscription} from "rxjs/Subscription";
     selector: 'patient-history',
     templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
 })
-export class PatientHistoryComponent implements OnInit {
+export class PatientHistoryComponent implements OnInit,OnDestroy {
+
     problemPages: number[] = [];
     problemNextPage: any;
     problemPrePage: any;
@@ -143,6 +143,9 @@ export class PatientHistoryComponent implements OnInit {
 
     getPageWiseMedicationsByActive(page: number) {
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
+    }
+    ngOnDestroy(): void {
+       this.subscription.unsubscribe();
     }
 
     patientHistory() {

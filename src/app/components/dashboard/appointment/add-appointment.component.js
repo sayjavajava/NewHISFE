@@ -50,8 +50,7 @@ var AddAppointmentComponent = (function () {
         this.appointmentType = [];
         this.examRooms = [];
         this.test = 'lahore';
-        //temp variable
-        this.apptId = 38;
+        this.servicesList = [];
         this.status = [
             { id: 1, name: 'CONFIRMED' },
             { id: 2, name: 'CHECK_IN' },
@@ -104,11 +103,10 @@ var AddAppointmentComponent = (function () {
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
         this.getPatientFromServer();
+        this.allServices();
     }
     AddAppointmentComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //temp
-        this.getAppointmentById();
         var startTime = new Date('August 8 2018 08:20');
         var endTime = new Date('August 8 2018 08:25');
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_URL)
@@ -155,7 +153,8 @@ var AddAppointmentComponent = (function () {
                         examRoom: apt.examName,
                         branchId: apt.branchId,
                         roomId: apt.roomId,
-                        doctorId: apt.doctorId
+                        doctorId: apt.doctorId,
+                        serviceId: apt.serviceId
                     });
                     _this.refresh.next();
                 }
@@ -173,6 +172,19 @@ var AddAppointmentComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    AddAppointmentComponent.prototype.allServices = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+            .subscribe(function (response) {
+            //console.log('i am branch call');
+            if (response['responseCode'] === 'MED_SER_SUC_01') {
+                _this.servicesList = response['responseData'];
+                //console.log(this.servicesList);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
     AddAppointmentComponent.prototype.selectType = function (form) {
         this.selectedType.length = 0;
         if (this.selectedOptions.indexOf('NewPatient') > -1) {
@@ -199,16 +211,6 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.mouseLeave = function (action, event) {
         this.popup = false;
-    };
-    //temp method
-    AddAppointmentComponent.prototype.getAppointmentById = function () {
-        var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_BY_ID + this.apptId)
-            .subscribe(function (res) {
-            _this.appt = res.responseData;
-            console.log('test ' + res.responseData.id);
-        }, function (error) {
-        });
     };
     AddAppointmentComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
@@ -299,7 +301,7 @@ var AddAppointmentComponent = (function () {
             selectWorkingDays: this.selectedRecurringDays,
             appointmentType: this.selectedType,
             followUpDate: new Date(),
-            followUpReason: 'reason',
+            followUpReason: '',
             recurseEvery: 'rescurse',
             neverEnds: false,
             followUpReminder: false,
@@ -369,6 +371,7 @@ var AddAppointmentComponent = (function () {
                         branchId: apt.branchId,
                         roomId: apt.roomId,
                         doctorId: apt.doctorId
+                        //service id
                     });
                     _this.refresh.next();
                 }
@@ -412,7 +415,7 @@ var AddAppointmentComponent = (function () {
         this.Type.map(function (x) { return x.checked = false; });
         if (form.valid) {
             if (this.eventsRequest.length != 0) {
-                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
+                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
                 this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'APPT_SUC_02') {
@@ -442,7 +445,7 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.updateAppointment = function (event) {
         var self = this;
-        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob);
+        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
         this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_APPOINTMENT + event.id, obj).subscribe(function (response) {
             if (response['responseCode'] === 'APPT_SUC_03') {
                 self.notificationService.success('Updated successfully', 'Appointment');

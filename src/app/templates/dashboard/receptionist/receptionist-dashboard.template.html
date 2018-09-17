@@ -91,7 +91,7 @@
                                     <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
                                         <i class="fa fa-dollar" style="font-size:18px"></i>
                                     </a>
-                                    <a title="Patient History" routerLink="/dashboard/patient/history">
+                                    <a title="Patient History" (click)="patientHistory(item.patientId)">
                                         <i class="fa fa-hospital-o" style="font-size:18px"></i>
                                     </a>
                                 </td>

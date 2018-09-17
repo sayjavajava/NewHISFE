@@ -104,7 +104,7 @@ var DoctorDashboardComponent = (function () {
             this.dashboardListModified = arr;
         }
     };
-    DoctorDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId) {
+    DoctorDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId, pmID) {
         var _this = this;
         var that = this;
         this.confirmationDialogService
@@ -121,6 +121,16 @@ var DoctorDashboardComponent = (function () {
                 });
             }
         });
+        if (statusValue === 'CHECK_IN') {
+            this.requestService.getRequest(app_constants_1.AppConstants.INVOICE_CHECK_IN + pmID)
+                .subscribe(function (res) {
+                if (res['responseCode'] === "INVOICE_ERR_01") {
+                    _this.snackBar.open('Error', "Invoices Not Generated", { duration: 3000 });
+                }
+            }, function (error) {
+                _this.error = error.error.error;
+            });
+        }
     };
     DoctorDashboardComponent.prototype.patientHistory = function (id) {
         this.dataService.getPatientId(id);
