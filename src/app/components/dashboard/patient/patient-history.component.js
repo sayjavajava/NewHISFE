@@ -16,6 +16,7 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var DataService_1 = require("../../../services/DataService");
+var patient_1 = require("../../../model/patient");
 var PatientHistoryComponent = (function () {
     function PatientHistoryComponent(requestsService, router, route, HISUTilService, notificationService, dataService) {
         var _this = this;
@@ -31,14 +32,31 @@ var PatientHistoryComponent = (function () {
         this.allergiesActiveData = [];
         this.medicationsPages = [];
         this.medicationsActiveData = [];
+        this.patient = new patient_1.Patient();
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.selectedPatientId = id;
         });
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
+        this.getPatientByIdFromServer(this.selectedPatientId);
     }
     PatientHistoryComponent.prototype.ngOnInit = function () {
+    };
+    PatientHistoryComponent.prototype.getPatientByIdFromServer = function (patientId) {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + patientId).subscribe(function (response) {
+            if (response['responseCode'] === 'USER_SUC_01') {
+                _this.patient = response['responseData'];
+                var apptId = response['responseData']['pastAppointments'];
+            }
+            else {
+                _this.notificationService.error(response['responseMessage'], 'Patient');
+                // this.router.navigate(['404-not-found'])
+            }
+        }, function (error) {
+            _this.HISUTilService.tokenExpired(error.error.error);
+        });
     };
     PatientHistoryComponent.prototype.getPaginatedProblemsByActiveAndPatientIdFromServer = function (page, pageSize, problemStatus) {
         var _this = this;
