@@ -23,6 +23,7 @@ export class PermissionsService {
         let permissions: Permission[];
         const userPermissions = localStorage.getItem(btoa('permissions'));
         if (userPermissions) {
+            console.log('permission awa'+ userPermissions.length);
             permissions = JSON.parse(atob(userPermissions));
             permissions.forEach((item, index) => {
                 //properties.hasOwnProperty('name') && properties.
