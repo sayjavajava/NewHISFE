@@ -17,6 +17,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var patient_allergy_model_1 = require("../../../model/patient.allergy.model");
 var DataService_1 = require("../../../services/DataService");
+var patient_1 = require("../../../model/patient");
 var PatientAllergyListComponent = (function () {
     function PatientAllergyListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
         var _this = this;
@@ -31,12 +32,14 @@ var PatientAllergyListComponent = (function () {
         this.pam = new patient_allergy_model_1.PatientAllergyModel(); //Patient Allergy model, it mean wrapper
         this.appointments = [];
         this.isUpdate = false;
+        this.patient = new patient_1.Patient();
         this.futureAppointments = [];
         this.pastAppointments = [];
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.selectedPatientId = id;
         });
         this.getPaginatedAllergyFromServer(0);
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
     PatientAllergyListComponent.prototype.ngOnInit = function () {
     };

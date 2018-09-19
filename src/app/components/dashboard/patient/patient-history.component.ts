@@ -9,13 +9,14 @@ import {PatientAllergyModel} from "../../../model/patient.allergy.model";
 import {MedicationModel} from "../../../model/medication.model";
 import {DataService} from "../../../services/DataService";
 import {Subscription} from "rxjs/Subscription";
+import {Patient} from "../../../model/patient";
 
 
 @Component({
     selector: 'patient-history',
     templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
 })
-export class PatientHistoryComponent implements OnInit,OnDestroy {
+export class PatientHistoryComponent implements OnInit, OnDestroy {
 
     problemPages: number[] = [];
     problemNextPage: any;
@@ -37,6 +38,7 @@ export class PatientHistoryComponent implements OnInit,OnDestroy {
 
     selectedPatientId: any;
     subscription: Subscription;
+    patient: Patient = new Patient();
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -53,9 +55,28 @@ export class PatientHistoryComponent implements OnInit,OnDestroy {
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
+        this.getPatientByIdFromServer(this.selectedPatientId);
     }
 
     ngOnInit(): void {
+    }
+
+    getPatientByIdFromServer(patientId: number) {
+        this.requestsService.getRequest(
+            AppConstants.PATIENT_FETCH_URL + patientId
+        ).subscribe(
+            response => {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    this.patient = response['responseData'];
+                    let apptId = response['responseData']['pastAppointments'];
+                } else {
+                    this.notificationService.error(response['responseMessage'], 'Patient');
+                    // this.router.navigate(['404-not-found'])
+                }
+            },
+            (error: any) => {
+                this.HISUTilService.tokenExpired(error.error.error);
+            });
     }
 
     getPaginatedProblemsByActiveAndPatientIdFromServer(page: number, pageSize: number, problemStatus: any) {
@@ -144,8 +165,9 @@ export class PatientHistoryComponent implements OnInit,OnDestroy {
     getPageWiseMedicationsByActive(page: number) {
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
     }
+
     ngOnDestroy(): void {
-       this.subscription.unsubscribe();
+        this.subscription.unsubscribe();
     }
 
     patientHistory() {

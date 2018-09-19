@@ -16,6 +16,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var patient_problem_model_1 = require("../../../model/patient.problem.model");
 var app_constants_1 = require("../../../utils/app.constants");
+var patient_1 = require("../../../model/patient");
 var DataService_1 = require("../../../services/DataService");
 var PatientProblemListComponent = (function () {
     function PatientProblemListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
@@ -31,12 +32,14 @@ var PatientProblemListComponent = (function () {
         this.ppm = new patient_problem_model_1.PatientProblemModel();
         this.appointments = [];
         this.isUpdate = false;
+        this.patient = new patient_1.Patient();
         this.futureAppointments = [];
         this.pastAppointments = [];
         this.isRequestUnderProcess = false;
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.selectedPatientId = id;
         });
+        this.appointmentsByServer();
     }
     PatientProblemListComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Problem list';
@@ -147,7 +150,7 @@ var PatientProblemListComponent = (function () {
             return;
         }
         if (this.ppm.dateDiagnosis === "") {
-            this.notificationService.warn("Please select Code.");
+            this.notificationService.warn("Please enter Diagnosis Date.");
             document.getElementById('dateDiagnosisId').focus();
             return;
         }

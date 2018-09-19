@@ -21,6 +21,8 @@ var Patient = (function () {
         this.preferredCommunication = "ENGLISH";
         this.reminderLanguage = "ENGLISH";
         this.statusUser = true;
+        this.primaryDoctorFirstName = "";
+        this.primaryDoctorLastName = "";
         ////////Appointment
         this.pastAppointments = [];
         this.patientSSN = "";
@@ -54,13 +56,13 @@ var Patient = (function () {
         this.cardExpiryDate = "";
         this.primaryInsuranceNotes = "";
         /*this.races = [
-            {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
-            {id: 2, nameRace: 'Asian', selected: false},
-            {id: 3, nameRace: 'Black or African American', selected: false},
-            {id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false},
-            {id: 5, nameRace: 'White', selected: false},
-            {id: 6, nameRace: 'Other RAce', selected: false}
-        ];*/
+         {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
+         {id: 2, nameRace: 'Asian', selected: false},
+         {id: 3, nameRace: 'Black or African American', selected: false},
+         {id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false},
+         {id: 5, nameRace: 'White', selected: false},
+         {id: 6, nameRace: 'Other RAce', selected: false}
+         ];*/
     }
     return Patient;
 }());

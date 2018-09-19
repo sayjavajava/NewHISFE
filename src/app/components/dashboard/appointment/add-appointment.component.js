@@ -154,7 +154,6 @@ var AddAppointmentComponent = (function () {
                         branchId: apt.branchId,
                         roomId: apt.roomId,
                         doctorId: apt.doctorId,
-                        serviceId: apt.serviceId
                     });
                     _this.refresh.next();
                 }

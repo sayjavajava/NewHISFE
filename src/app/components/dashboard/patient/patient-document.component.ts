@@ -7,6 +7,7 @@ import {AppConstants} from "../../../utils/app.constants";
 import {HISUtilService} from "../../../services/his-util.service";
 import {DataService} from "../../../services/DataService";
 import {Subscription} from "rxjs/Subscription";
+import {Patient} from "../../../model/patient";
 
 
 @Component({
@@ -14,6 +15,7 @@ import {Subscription} from "rxjs/Subscription";
     templateUrl: '../../../templates/dashboard/patient/patient-documents.template.html',
 })
 export class PatientDocumentsComponent implements OnInit {
+    patient: Patient = new Patient();
     isUpdate: boolean;
     nextPage: any;
     prePage: any;
@@ -39,6 +41,7 @@ export class PatientDocumentsComponent implements OnInit {
 
 
         this.getPageWiseDocumentsFromServer(0);
+        this.getPatientByIdFromServer(this.selectedPatientId);
     }
 
 
@@ -225,5 +228,32 @@ export class PatientDocumentsComponent implements OnInit {
 
     goToUserDashBoard() {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+    }
+
+    getPatientByIdFromServer(patientId: number) {
+        this.requestsService.getRequest(
+            AppConstants.PATIENT_FETCH_URL + patientId
+        ).subscribe(
+            response => {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    this.patient = response['responseData'];
+                    let apptId = response['responseData']['pastAppointments'];
+                } else {
+                    this.notificationService.error(response['responseMessage'], 'Patient');
+                    // this.router.navigate(['404-not-found'])
+                }
+            },
+            (error: any) => {
+                this.HISUtilService.tokenExpired(error.error.error);
+            });
+    }
+
+
+    downloadFile(data: Response) {
+        console.log(data);
+        // may be you need to use data._body to get data of body
+        var blob = new Blob([data], {type: 'image/jpeg'});
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
     }
 }

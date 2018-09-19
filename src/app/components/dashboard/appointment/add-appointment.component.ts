@@ -160,7 +160,7 @@ export class AddAppointmentComponent implements OnInit {
                                 branchId: apt.branchId,
                                 roomId: apt.roomId,
                                 doctorId: apt.doctorId,
-                                serviceId:apt.serviceId
+                                // serviceId:apt.serviceId
 
                             });
                             this.refresh.next();

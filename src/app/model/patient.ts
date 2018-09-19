@@ -25,9 +25,11 @@ export class Patient {
     preferredCommunication: string = "ENGLISH";
     reminderLanguage: string = "ENGLISH";
     statusUser: boolean = true;
+    primaryDoctorFirstName: string = "";
+    primaryDoctorLastName: string = "";
     ////////Appointment
-    pastAppointments :any =[];
-    futureAppointments : any[];
+    pastAppointments: any = [];
+    futureAppointments: any[];
     /////// DEMOGRAPHY
     patientId: number;
     patientSSN: string = "";
@@ -63,22 +65,22 @@ export class Patient {
     cardIssuedDate: string = "";
     cardExpiryDate: string = "";
     primaryInsuranceNotes: string = "";
-    photoBackURL:string
-    photoFrontURL:string
+    photoBackURL: string
+    photoFrontURL: string
     photoFront: File;
     photoBack: File;
 
     ////////////Smoking Status
-    smokingStatus : any [];
+    smokingStatus: any [];
 
     constructor() {
         /*this.races = [
-            {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
-            {id: 2, nameRace: 'Asian', selected: false},
-            {id: 3, nameRace: 'Black or African American', selected: false},
-            {id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false},
-            {id: 5, nameRace: 'White', selected: false},
-            {id: 6, nameRace: 'Other RAce', selected: false}
-        ];*/
+         {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
+         {id: 2, nameRace: 'Asian', selected: false},
+         {id: 3, nameRace: 'Black or African American', selected: false},
+         {id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false},
+         {id: 5, nameRace: 'White', selected: false},
+         {id: 6, nameRace: 'Other RAce', selected: false}
+         ];*/
     }
 }

@@ -17,6 +17,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var DataService_1 = require("../../../services/DataService");
+var patient_1 = require("../../../model/patient");
 var PatientMedicationListComponent = (function () {
     function PatientMedicationListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
         var _this = this;
@@ -31,12 +32,14 @@ var PatientMedicationListComponent = (function () {
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointments = [];
         this.isUpdate = false;
+        this.patient = new patient_1.Patient();
         this.futureAppointments = [];
         this.pastAppointments = [];
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.selectedPatientId = id;
         });
         this.getPaginatedMedicationFromServer(0);
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
     PatientMedicationListComponent.prototype.ngOnInit = function () {
         console.log(this.selectedPatientId);

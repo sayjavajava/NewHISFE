@@ -28,7 +28,7 @@ export class PatientProblemListComponent implements OnInit {
     associatedCodes: ICDCodeModel [];
     appointments: Appointment [] = [];
     isUpdate: boolean = false;
-    private patient: any;
+    patient: Patient = new Patient();
     futureAppointments: Appointment [] = [];
     pastAppointments: Appointment [] = [];
     private selectedPatientId: number;
@@ -46,6 +46,7 @@ export class PatientProblemListComponent implements OnInit {
         this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
         });
+        this.appointmentsByServer();
     }
 
     ngOnInit() {
@@ -177,7 +178,7 @@ export class PatientProblemListComponent implements OnInit {
         }
 
         if (this.ppm.dateDiagnosis === "") {
-            this.notificationService.warn("Please select Code.");
+            this.notificationService.warn("Please enter Diagnosis Date.");
             document.getElementById('dateDiagnosisId').focus();
             return;
         }

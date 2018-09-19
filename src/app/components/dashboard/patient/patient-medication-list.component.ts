@@ -6,10 +6,11 @@ import {NotificationService} from "../../../services/notification.service";
 import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
 import {AppConstants} from "../../../utils/app.constants";
-import any = jasmine.any;
 import {DataService} from "../../../services/DataService";
 import {Subscription} from "rxjs/Subscription";
 import {NgForm} from "@angular/forms";
+import {Patient} from "../../../model/patient";
+import any = jasmine.any;
 
 
 @Component({
@@ -27,7 +28,7 @@ export class PatientMedicationListComponent implements OnInit {
     medicationModel: MedicationModel = new MedicationModel();
     appointments: Appointment [] = [];
     isUpdate: boolean = false;
-    private patient: any;
+    patient: Patient = new Patient();
     futureAppointments: Appointment [] = [];
     pastAppointments: Appointment [] = [];
     private selectedPatientId: number;
@@ -45,6 +46,7 @@ export class PatientMedicationListComponent implements OnInit {
             this.selectedPatientId = id;
         });
         this.getPaginatedMedicationFromServer(0);
+        this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
 
     ngOnInit(): void {
