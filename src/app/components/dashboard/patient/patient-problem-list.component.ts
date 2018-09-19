@@ -178,7 +178,7 @@ export class PatientProblemListComponent implements OnInit {
         }
 
         if (this.ppm.dateDiagnosis === "") {
-            this.notificationService.warn("Please select Code.");
+            this.notificationService.warn("Please enter Diagnosis Date.");
             document.getElementById('dateDiagnosisId').focus();
             return;
         }

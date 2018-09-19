@@ -41,7 +41,7 @@ export class PatientDocumentsComponent implements OnInit {
 
 
         this.getPageWiseDocumentsFromServer(0);
-        this.appointmentsByPatientFromServer(this.selectedPatientId);
+        this.getPatientByIdFromServer(this.selectedPatientId);
     }
 
 
@@ -230,28 +230,30 @@ export class PatientDocumentsComponent implements OnInit {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     }
 
-    appointmentsByPatientFromServer(selectedPatientId: number) {
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest(
-                AppConstants.PATIENT_FETCH_URL + selectedPatientId
-            ).subscribe(
-                response => {
-                    if (response['responseCode'] === 'USER_SUC_01') {
-                        this.patient = response['responseData'];
-                        /*this.futureAppointments = [];
-                         this.futureAppointments = response['responseData'].futureAppointments;
-                         this.pastAppointments = [];
-                         this.pastAppointments = response['responseData'].pastAppointments;*/
-                    } else {
-                        this.notificationService.error(response['responseMessage'], 'Patient');
-                    }
-                },
-                (error: any) => {
-                    this.HISUtilService.tokenExpired(error.error.error);
-                });
+    getPatientByIdFromServer(patientId: number) {
+        this.requestsService.getRequest(
+            AppConstants.PATIENT_FETCH_URL + patientId
+        ).subscribe(
+            response => {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    this.patient = response['responseData'];
+                    let apptId = response['responseData']['pastAppointments'];
+                } else {
+                    this.notificationService.error(response['responseMessage'], 'Patient');
+                    // this.router.navigate(['404-not-found'])
+                }
+            },
+            (error: any) => {
+                this.HISUtilService.tokenExpired(error.error.error);
+            });
+    }
 
-        } else {
-            this.router.navigate(['/login']);
-        }
+
+    downloadFile(data: Response) {
+        console.log(data);
+        // may be you need to use data._body to get data of body
+        var blob = new Blob([data], {type: 'image/jpeg'});
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
     }
 }

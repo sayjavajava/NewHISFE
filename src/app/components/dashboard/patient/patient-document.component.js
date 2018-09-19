@@ -17,6 +17,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var his_util_service_1 = require("../../../services/his-util.service");
 var DataService_1 = require("../../../services/DataService");
+var patient_1 = require("../../../model/patient");
 var PatientDocumentsComponent = (function () {
     function PatientDocumentsComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
         var _this = this;
@@ -26,6 +27,7 @@ var PatientDocumentsComponent = (function () {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.dataService = dataService;
+        this.patient = new patient_1.Patient();
         this.pages = [];
         this.documentData = [];
         this.dm = new document_1.DocumentModel();
@@ -35,6 +37,7 @@ var PatientDocumentsComponent = (function () {
             _this.selectedPatientId = id;
         });
         this.getPageWiseDocumentsFromServer(0);
+        this.getPatientByIdFromServer(this.selectedPatientId);
     }
     PatientDocumentsComponent.prototype.ngOnInit = function () {
     };
@@ -201,6 +204,28 @@ var PatientDocumentsComponent = (function () {
     };
     PatientDocumentsComponent.prototype.goToUserDashBoard = function () {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+    };
+    PatientDocumentsComponent.prototype.getPatientByIdFromServer = function (patientId) {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + patientId).subscribe(function (response) {
+            if (response['responseCode'] === 'USER_SUC_01') {
+                _this.patient = response['responseData'];
+                var apptId = response['responseData']['pastAppointments'];
+            }
+            else {
+                _this.notificationService.error(response['responseMessage'], 'Patient');
+                // this.router.navigate(['404-not-found'])
+            }
+        }, function (error) {
+            _this.HISUtilService.tokenExpired(error.error.error);
+        });
+    };
+    PatientDocumentsComponent.prototype.downloadFile = function (data) {
+        console.log(data);
+        // may be you need to use data._body to get data of body
+        var blob = new Blob([data], { type: 'image/jpeg' });
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
     };
     PatientDocumentsComponent = __decorate([
         core_1.Component({
