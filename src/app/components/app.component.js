@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var notification_service_1 = require("../services/notification.service");
 var material_1 = require("@angular/material");
-var AppComponent = (function () {
+var AppComponent = /** @class */ (function () {
     function AppComponent(notificationservice, snackbar) {
         this.notificationservice = notificationservice;
         this.snackbar = snackbar;

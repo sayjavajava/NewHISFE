@@ -18,7 +18,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var notification_service_1 = require("../../../services/notification.service");
 var PasswordValidation_1 = require("./PasswordValidation");
-var AddStaffComponent = (function () {
+var AddStaffComponent = /** @class */ (function () {
     function AddStaffComponent(router, fb, requestsService, notificationService, amazingTimePickerService) {
         this.router = router;
         this.fb = fb;

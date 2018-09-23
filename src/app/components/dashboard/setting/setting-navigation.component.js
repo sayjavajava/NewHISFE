@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var requests_service_1 = require("../../../services/requests.service");
 var router_1 = require("@angular/router");
-var SettingNavigationComponent = (function () {
+var SettingNavigationComponent = /** @class */ (function () {
     function SettingNavigationComponent(requestsService, router) {
         this.requestsService = requestsService;
         this.router = router;

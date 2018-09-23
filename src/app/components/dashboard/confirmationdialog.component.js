@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
-var ConfirmationdialogComponent = (function () {
+var ConfirmationdialogComponent = /** @class */ (function () {
     function ConfirmationdialogComponent(dialogRef) {
         this.dialogRef = dialogRef;
     }

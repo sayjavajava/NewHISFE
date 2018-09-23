@@ -17,7 +17,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var app_constants_1 = require("../../../utils/app.constants");
-var UpdatedoctorComponent = (function () {
+var UpdatedoctorComponent = /** @class */ (function () {
     function UpdatedoctorComponent(route, router, requestService, fb, notificationService, amazingTimePickerService) {
         this.route = route;
         this.router = router;
@@ -30,30 +30,15 @@ var UpdatedoctorComponent = (function () {
         this.selectedWorkingDays = [];
         this.selectedVisitBranches = [];
         this.selectedDoctors = [];
+        this.branchesList = [];
         this.branches = [
             { id: 1, name: 'Primary' },
             { id: 2, name: 'Lahore' },
             { id: 3, name: 'Karachi' },
         ];
-        this.departmentList = [
-            { id: 1, name: 'Dermatolgy' },
-            { id: 2, name: 'Plasticsurgery' },
-            { id: 3, name: 'Dental' },
-            { id: 4, name: 'DkinCareLaser' },
-            { id: 5, name: 'MessageClinic' },
-        ];
-        this.servicesList = [{ id: 1, name: 'Consultation' },
-            { id: 2, name: 'Consultation-Complimentary' },
-            { id: 3, name: 'BotoxAxilla' },
-            { id: 4, name: 'BotoxFullFace' },
-            { id: 5, name: 'BotoxUpperFace' },
-            { id: 6, name: 'GummySmile' },
-            { id: 7, name: 'MesotherapyForHair' },
-            { id: 8, name: 'TesoyalKiss1ml' },
-            { id: 9, name: 'RestylanceVital1ml' },
-            { id: 10, name: 'RestylanceVital1ml' },
-            { id: 10, name: 'RestyLaneSubLidocain2ml' },
-        ];
+        this.departmentList = [];
+        this.departmentList2 = [];
+        this.servicesList = [];
         this.RestrictBranch = [
             { id: 1, name: 'PrimaryOffice' },
             { id: 2, name: 'LahoreOffice' },
@@ -75,6 +60,9 @@ var UpdatedoctorComponent = (function () {
         ];
         this.matches = [];
         this.date = new forms_1.FormControl(new Date());
+        this.allBranches();
+        this.allDepartments();
+        this.allServices();
     }
     UpdatedoctorComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -85,6 +73,67 @@ var UpdatedoctorComponent = (function () {
         });
         this.patchData();
         //console.log('value:'+this.userForm.controls['firstName'].value);
+    };
+    UpdatedoctorComponent.prototype.allBranches = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BR_SUC_01') {
+                _this.branchesList = response['responseData'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    // allDoctors() {
+    //     this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+    //         .subscribe(
+    //             (response: Response) => {
+    //                 if (response['responseStatus'] === 'SUCCESS') {
+    //                     let data = response['responseData'];
+    //                     let userNameData = data;
+    //                     this.primaryDoctor = response['responseData'];
+    //                 }
+    //             },
+    //             (error: any) => {
+    //                 this.error = error.error.error;
+    //             });
+    // }
+    UpdatedoctorComponent.prototype.allDepartments = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                _this.departmentList = response['responseData'];
+                var data = response['responseData'][0];
+                _this.departmentList2 = data['name'];
+                console.log(' dep list' + data['name']);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    UpdatedoctorComponent.prototype.createDepartment = function () {
+        return this.fb.group({
+            'name': '' //checkbox value true or false
+        });
+    };
+    UpdatedoctorComponent.prototype.addFields = function () {
+        this.departmentList2 = this.userForm.get('departmentList2');
+        this.departmentList2.push(this.createDepartment());
+    };
+    UpdatedoctorComponent.prototype.allServices = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+            .subscribe(function (response) {
+            console.log('i am branch call');
+            if (response['responseCode'] === 'MED_SER_SUC_01') {
+                _this.servicesList = response['responseData'];
+                console.log(_this.servicesList);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
     };
     UpdatedoctorComponent.prototype.createUserForm = function () {
         this.userForm = this.fb.group({
@@ -114,6 +163,7 @@ var UpdatedoctorComponent = (function () {
             'servicesControl': [null],
             'shift1': [null, forms_1.Validators.required],
             'secondShiftFromTimeControl': [null],
+            'departmentList2': this.fb.array([this.createDepartment()]),
             workingDaysContorl: new forms_1.FormGroup({
                 //  new FormControl(''),
                 sunday: new forms_1.FormControl(''),
@@ -160,6 +210,8 @@ var UpdatedoctorComponent = (function () {
                     //dateFrom:user.vacation.startDate,
                     dateFrom: '',
                 });
+                _this.userForm.controls['departmentList2'].patchValue(user.ClinicalDepartment);
+                console.log('data dep:' + user.ClinicalDepartment);
                 _this.userForm.controls['workingDaysContorl'].patchValue({
                     sunday: _this.checkAvailabilty('sunday', user.profile.workingDays),
                     monday: _this.checkAvailabilty('Monday', user.profile.workingDays),

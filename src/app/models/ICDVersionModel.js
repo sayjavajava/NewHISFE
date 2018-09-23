@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ICDVersionModel = (function () {
+var ICDVersionModel = /** @class */ (function () {
     function ICDVersionModel() {
     }
     return ICDVersionModel;

@@ -16,7 +16,7 @@ var router_1 = require("@angular/router");
 var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
-var UpdateCashierComponent = (function () {
+var UpdateCashierComponent = /** @class */ (function () {
     function UpdateCashierComponent(route, router, requestService, fb, notificationService) {
         this.route = route;
         this.router = router;

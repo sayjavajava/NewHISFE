@@ -16,7 +16,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var roleandpermission_1 = require("../../../models/roleandpermission");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
-var RolePermissionsComponent = (function () {
+var RolePermissionsComponent = /** @class */ (function () {
     function RolePermissionsComponent(notificationService, requestService, fb, hisUtilService, elementRef) {
         this.notificationService = notificationService;
         this.requestService = requestService;

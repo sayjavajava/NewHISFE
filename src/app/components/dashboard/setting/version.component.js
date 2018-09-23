@@ -16,7 +16,7 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var router_1 = require("@angular/router");
 var ICDVersionModel_1 = require("../../../models/ICDVersionModel");
 var app_constants_1 = require("../../../utils/app.constants");
-var VersionComponent = (function () {
+var VersionComponent = /** @class */ (function () {
     function VersionComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;

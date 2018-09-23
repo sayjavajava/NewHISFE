@@ -15,7 +15,7 @@ var requests_service_1 = require("../services/requests.service");
 var user_shared_service_1 = require("../services/user.shared.service");
 var his_util_service_1 = require("../services/his-util.service");
 var permissions_service_1 = require("../services/permissions.service");
-var LoginComponent = (function () {
+var LoginComponent = /** @class */ (function () {
     function LoginComponent(requestsService, router, sharedService, HISUtilService, permissionService) {
         this.requestsService = requestsService;
         this.router = router;

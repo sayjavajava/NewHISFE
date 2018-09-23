@@ -5,7 +5,7 @@
 /* Deployment Profiles */
 Object.defineProperty(exports, "__esModule", { value: true });
 /* Local Or Default */
-var AppConfig = (function () {
+var AppConfig = /** @class */ (function () {
     function AppConfig() {
     }
     /*********************************************************************/

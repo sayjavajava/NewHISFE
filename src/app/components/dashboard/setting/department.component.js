@@ -18,7 +18,7 @@ var app_constants_1 = require("../../../utils/app.constants");
 var notification_service_1 = require("../../../services/notification.service");
 var clinical_department_1 = require("../../../models/clinical-department");
 //import * as _ from 'lodash'
-var DepartmentComponent = (function () {
+var DepartmentComponent = /** @class */ (function () {
     function DepartmentComponent(requestsService, router, userSharedService, HISUtilService, notificationService) {
         this.requestsService = requestsService;
         this.router = router;

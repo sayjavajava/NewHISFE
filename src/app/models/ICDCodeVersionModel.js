@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ICDCodeVersionModel = (function () {
+var ICDCodeVersionModel = /** @class */ (function () {
     function ICDCodeVersionModel() {
         this.selectedICDVersionId = 0;
         this.selectedICDCodes = [];

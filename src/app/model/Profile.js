@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Profile = (function () {
+var Profile = /** @class */ (function () {
     function Profile() {
     }
     return Profile;

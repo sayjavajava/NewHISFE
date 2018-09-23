@@ -16,7 +16,7 @@ var router_1 = require("@angular/router");
 var notification_service_1 = require("../../../services/notification.service");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var app_constants_1 = require("../../../utils/app.constants");
-var AddBranchComponent = (function () {
+var AddBranchComponent = /** @class */ (function () {
     function AddBranchComponent(router, requestService, fb, notificationService, amazingTimePickerService) {
         var _this = this;
         this.router = router;

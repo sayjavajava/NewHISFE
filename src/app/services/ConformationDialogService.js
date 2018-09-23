@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var confirmationdialog_component_1 = require("../components/dashboard/confirmationdialog.component");
-var ConformationDialogService = (function () {
+var ConformationDialogService = /** @class */ (function () {
     function ConformationDialogService(matdialog) {
         this.matdialog = matdialog;
     }

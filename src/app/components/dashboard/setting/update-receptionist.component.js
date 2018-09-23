@@ -16,7 +16,7 @@ var forms_1 = require("@angular/forms");
 var PasswordValidation_1 = require("./PasswordValidation");
 var User_1 = require("../../../model/User");
 var notification_service_1 = require("../../../services/notification.service");
-var UpdateReceptionistComponent = (function () {
+var UpdateReceptionistComponent = /** @class */ (function () {
     function UpdateReceptionistComponent(route, router, requestService, fb, notificationService) {
         this.route = route;
         this.router = router;

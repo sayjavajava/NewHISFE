@@ -16,7 +16,7 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var EmailTemplateModel_1 = require("../../../models/EmailTemplateModel");
 var router_1 = require("@angular/router");
 var app_constants_1 = require("../../../utils/app.constants");
-var AddEmailTemplateComponent = (function () {
+var AddEmailTemplateComponent = /** @class */ (function () {
     function AddEmailTemplateComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;

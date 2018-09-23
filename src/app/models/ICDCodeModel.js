@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ICDCodeModel = (function () {
+var ICDCodeModel = /** @class */ (function () {
     function ICDCodeModel() {
     }
     return ICDCodeModel;

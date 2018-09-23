@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 require("rxjs/Rx");
 var router_1 = require("@angular/router");
-var HISUtilService = (function () {
+var HISUtilService = /** @class */ (function () {
     function HISUtilService(router) {
         this.router = router;
     }

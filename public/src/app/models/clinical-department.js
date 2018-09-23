@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ClinicalDepartment = (function () {
+var ClinicalDepartment = /** @class */ (function () {
     function ClinicalDepartment() {
     }
     return ClinicalDepartment;

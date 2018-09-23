@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var WorkingDays = (function () {
+var WorkingDays = /** @class */ (function () {
     function WorkingDays() {
     }
     return WorkingDays;

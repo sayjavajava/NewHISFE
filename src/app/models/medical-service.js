@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var MedicalService = (function () {
+var MedicalService = /** @class */ (function () {
     function MedicalService() {
         this.id = 0;
         this.branchId = 0;

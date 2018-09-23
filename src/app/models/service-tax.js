@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ServiceTax = (function () {
+var ServiceTax = /** @class */ (function () {
     function ServiceTax() {
         this.id = 0;
         this.name = "";

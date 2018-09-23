@@ -15,7 +15,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var MedicalServiceSearchModel_1 = require("../../../models/MedicalServiceSearchModel");
-var MedicalServiceComponent = (function () {
+var MedicalServiceComponent = /** @class */ (function () {
     function MedicalServiceComponent(notificationService, requestsService, HISUtilService) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;

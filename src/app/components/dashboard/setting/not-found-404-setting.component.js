@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
-var NotFound404SettingComponent = (function () {
+var NotFound404SettingComponent = /** @class */ (function () {
     function NotFound404SettingComponent(titleService) {
         this.titleService = titleService;
     }

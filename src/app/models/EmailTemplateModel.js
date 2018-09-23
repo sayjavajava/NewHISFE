@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var EmailTemplateModel = (function () {
+var EmailTemplateModel = /** @class */ (function () {
     function EmailTemplateModel() {
         this.type = "Email Type A";
     }

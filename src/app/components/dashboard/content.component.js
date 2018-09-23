@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var permissions_service_1 = require("../../services/permissions.service");
 var user_shared_service_1 = require("../../services/user.shared.service");
 var his_util_service_1 = require("../../services/his-util.service");
-var ContentComponent = (function () {
+var ContentComponent = /** @class */ (function () {
     function ContentComponent(requestsService, router, permissionsService, userSharedService, HISUtilService) {
         this.requestsService = requestsService;
         this.router = router;

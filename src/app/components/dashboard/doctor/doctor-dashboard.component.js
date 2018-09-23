@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var requests_service_1 = require("../../../services/requests.service");
 var platform_browser_1 = require("@angular/platform-browser");
-var DoctorDashboardComponent = (function () {
+var DoctorDashboardComponent = /** @class */ (function () {
     function DoctorDashboardComponent(requestsService, router, titleService) {
         this.requestsService = requestsService;
         this.router = router;

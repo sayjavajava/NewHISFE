@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var notification_service_1 = require("../../../services/notification.service");
-var ICDComponent = (function () {
+var ICDComponent = /** @class */ (function () {
     function ICDComponent(notificationService) {
         this.notificationService = notificationService;
     }

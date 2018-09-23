@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var User = (function () {
+var User = /** @class */ (function () {
     function User(user) {
         this.userType = user.userType;
         this.firstName = user.firstName;

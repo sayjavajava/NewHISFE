@@ -18,7 +18,7 @@ var SearchUser_1 = require("../../../model/SearchUser");
 var app_constants_1 = require("../../../utils/app.constants");
 var material_1 = require("@angular/material");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
-var StaffComponent = (function () {
+var StaffComponent = /** @class */ (function () {
     function StaffComponent(requestService, router, notificationService, fb, matDialog, confirmationDialogService) {
         this.requestService = requestService;
         this.router = router;

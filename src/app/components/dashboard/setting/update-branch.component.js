@@ -16,7 +16,7 @@ var requests_service_1 = require("../../../services/requests.service");
 var notification_service_1 = require("../../../services/notification.service");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var app_constants_1 = require("../../../utils/app.constants");
-var UpdateBranchComponent = (function () {
+var UpdateBranchComponent = /** @class */ (function () {
     function UpdateBranchComponent(route, router, requestService, fb, notificationService, amazingTimePickerService) {
         var _this = this;
         this.route = route;

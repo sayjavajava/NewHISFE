@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Branch = (function () {
+var Branch = /** @class */ (function () {
     function Branch(branchName, officeHoursStart, officeHoursEnd, noOfExamRooms, state, city, primaryDoctor, zipCode, address, officePhone, fax, formattedAddress) {
         this.branchName = branchName;
         this.officeHoursStart = officeHoursStart;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var MedicalServiceSearchModel = (function () {
+var MedicalServiceSearchModel = /** @class */ (function () {
     function MedicalServiceSearchModel() {
         this.searchServiceId = 0;
         this.searchServiceName = '';

@@ -17,7 +17,7 @@ var app_constants_1 = require("../../../utils/app.constants");
 var medical_service_1 = require("../../../models/medical-service");
 //import * as _ from 'lodash';
 var router_1 = require("@angular/router");
-var EditMedicalServiceComponent = (function () {
+var EditMedicalServiceComponent = /** @class */ (function () {
     function EditMedicalServiceComponent(notificationService, requestsService, HISUtilService, router, activatedRoute) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;

@@ -71,7 +71,7 @@ var not_found_404_setting_component_1 = require("./components/dashboard/setting/
 var email_template_component_1 = require("./components/dashboard/setting/email-template-component");
 var add_email_template_component_1 = require("./components/dashboard/setting/add-email-template.component");
 var edit_email_template_component_1 = require("./components/dashboard/setting/edit-email-template.component");
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule.prototype.ngOnInit = function () {

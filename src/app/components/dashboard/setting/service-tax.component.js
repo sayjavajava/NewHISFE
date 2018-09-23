@@ -16,7 +16,7 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var service_tax_1 = require("../../../models/service-tax");
 var router_1 = require("@angular/router");
-var ServiceTaxComponent = (function () {
+var ServiceTaxComponent = /** @class */ (function () {
     function ServiceTaxComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;

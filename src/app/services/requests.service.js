@@ -14,7 +14,7 @@ require("rxjs/Rx");
 var router_1 = require("@angular/router");
 var app_config_1 = require("../configuration/app.config");
 var http_1 = require("@angular/common/http");
-var RequestsService = (function () {
+var RequestsService = /** @class */ (function () {
     function RequestsService(http, router, appConfig) {
         this.http = http;
         this.router = router;

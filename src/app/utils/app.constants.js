@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @since 07-Sep-17
  * @Description Application Constants
  */
-var AppConstants = (function () {
+var AppConstants = /** @class */ (function () {
     function AppConstants() {
     }
     AppConstants.ACCESS_TOKEN = 'access_token';

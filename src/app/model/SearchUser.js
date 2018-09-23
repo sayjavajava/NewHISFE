@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var SearchUser = (function () {
+var SearchUser = /** @class */ (function () {
     function SearchUser(name, email, role) {
         this.email = email;
         this.name = name;

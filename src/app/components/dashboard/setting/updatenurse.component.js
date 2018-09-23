@@ -16,7 +16,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var router_1 = require("@angular/router");
-var UpdateNurseComponent = (function () {
+var UpdateNurseComponent = /** @class */ (function () {
     function UpdateNurseComponent(route, router, requestService, fb, notificationService, amazingTimePickerService) {
         this.route = route;
         this.router = router;

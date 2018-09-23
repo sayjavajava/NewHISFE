@@ -18,7 +18,7 @@ var material_1 = require("@angular/material");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var app_constants_1 = require("../../../utils/app.constants");
 var searchBranch_1 = require("../../../model/searchBranch");
-var BranchComponent = (function () {
+var BranchComponent = /** @class */ (function () {
     function BranchComponent(requestService, router, notificationService, fb, matDialog, confirmationDialogService) {
         this.requestService = requestService;
         this.router = router;
