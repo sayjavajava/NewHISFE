@@ -1,13 +1,13 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {DocumentModel} from "../../../model/document";
-import {NotificationService} from "../../../services/notification.service";
-import {RequestsService} from "../../../services/requests.service";
-import {AppConstants} from "../../../utils/app.constants";
-import {HISUtilService} from "../../../services/his-util.service";
-import {DataService} from "../../../services/DataService";
-import {Subscription} from "rxjs/Subscription";
-import {Patient} from "../../../model/patient";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DocumentModel} from '../../../model/document';
+import {NotificationService} from '../../../services/notification.service';
+import {RequestsService} from '../../../services/requests.service';
+import {AppConstants} from '../../../utils/app.constants';
+import {HISUtilService} from '../../../services/his-util.service';
+import {DataService} from '../../../services/DataService';
+import {Subscription} from 'rxjs/Subscription';
+import {Patient} from '../../../model/patient';
 
 
 @Component({
@@ -51,7 +51,7 @@ export class PatientDocumentsComponent implements OnInit {
     uploadImgOnChange(event: any) {
         let fileList: FileList = event.target.files;
         if (fileList != null && fileList.length > 0) {
-            if (event.target.name === "documentName") {
+            if (event.target.name === 'documentName') {
                 if (fileList[0].size < 4000000) {
                     this.uploadedImage = fileList[0];
                     this.dm.name = this.uploadedImage.name;
@@ -108,7 +108,7 @@ export class PatientDocumentsComponent implements OnInit {
     }
 
     private getPageWiseDocumentsFromServer(page: number) {
-        this.requestsService.getRequest(AppConstants.DOCUMENT_PAGINATED_URL + page)
+        this.requestsService.getRequest(AppConstants.DOCUMENT_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DOC_SUC_39') {
@@ -203,7 +203,7 @@ export class PatientDocumentsComponent implements OnInit {
 
     deleteDocument(documentId: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.DOCUMENT_DELETE_URI + documentId)
                 .subscribe(

@@ -44,7 +44,7 @@ var PatientDocumentsComponent = (function () {
     PatientDocumentsComponent.prototype.uploadImgOnChange = function (event) {
         var fileList = event.target.files;
         if (fileList != null && fileList.length > 0) {
-            if (event.target.name === "documentName") {
+            if (event.target.name === 'documentName') {
                 if (fileList[0].size < 4000000) {
                     this.uploadedImage = fileList[0];
                     this.dm.name = this.uploadedImage.name;
@@ -97,7 +97,7 @@ var PatientDocumentsComponent = (function () {
     };
     PatientDocumentsComponent.prototype.getPageWiseDocumentsFromServer = function (page) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.DOCUMENT_PAGINATED_URL + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.DOCUMENT_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'DOC_SUC_39') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -182,7 +182,7 @@ var PatientDocumentsComponent = (function () {
     PatientDocumentsComponent.prototype.deleteDocument = function (documentId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.DOCUMENT_DELETE_URI + documentId)
                 .subscribe(function (response) {
