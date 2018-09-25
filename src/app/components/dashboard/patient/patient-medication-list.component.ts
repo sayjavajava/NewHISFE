@@ -159,6 +159,8 @@ export class PatientMedicationListComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.medicationData = response['responseData']['data'];
+                    } else {
+                        this.notificationService.error(response['responseMessage'])
                     }
                 },
                 (error: any) => {

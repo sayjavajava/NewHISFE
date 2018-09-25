@@ -1,14 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {HISUtilService} from "../../../services/his-util.service";
-import {RequestsService} from "../../../services/requests.service";
-import {NotificationService} from "../../../services/notification.service";
-import {Appointment} from "../../../model/Appointment";
-import {AppConstants} from "../../../utils/app.constants";
-import {PatientAllergyModel} from "../../../model/patient.allergy.model";
-import {Subscription} from "rxjs/Subscription";
-import {DataService} from "../../../services/DataService";
-import {Patient} from "../../../model/patient";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HISUtilService} from '../../../services/his-util.service';
+import {RequestsService} from '../../../services/requests.service';
+import {NotificationService} from '../../../services/notification.service';
+import {Appointment} from '../../../model/Appointment';
+import {AppConstants} from '../../../utils/app.constants';
+import {PatientAllergyModel} from '../../../model/patient.allergy.model';
+import {Subscription} from 'rxjs/Subscription';
+import {DataService} from '../../../services/DataService';
+import {Patient} from '../../../model/patient';
 
 
 @Component({
@@ -53,7 +53,7 @@ export class PatientAllergyListComponent implements OnInit {
 
     getPaginatedAllergyFromServer(p: number) {
         this.requestsService.getRequest(
-            AppConstants.ALLERGY_PAGINATED_URL + p + "?patientId=" + this.selectedPatientId)
+            AppConstants.ALLERGY_PAGINATED_URL + p + '?patientId=' + this.selectedPatientId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'ALLERGY_SUC_18') {
@@ -62,6 +62,8 @@ export class PatientAllergyListComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.allergyData = response['responseData']['data'];
+                    } else {
+                        this.notificationService.error(response['responseMessage'])
                     }
                 },
                 (error: any) => {
@@ -108,25 +110,25 @@ export class PatientAllergyListComponent implements OnInit {
     saveAllergy() {
 
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select proper patient from dashboard again");
+            this.notificationService.warn('Please select proper patient from dashboard again');
             return;
         }
 
         if (this.pam.appointmentId <= 0) {
-            this.notificationService.warn("Please select proper appoint ");
-            document.getElementById("appointmentId").focus();
+            this.notificationService.warn('Please select proper appoint ');
+            document.getElementById('appointmentId').focus();
             return;
         }
 
-        if (this.pam.allergyType === "-1") {
-            this.notificationService.warn("Please select type of allergy.");
-            document.getElementById("typeId").focus();
+        if (this.pam.allergyType === '-1') {
+            this.notificationService.warn('Please select type of allergy.');
+            document.getElementById('typeId').focus();
             return;
         }
 
-        if (this.pam.name === "") {
-            this.notificationService.warn("Please enter name of allergy.");
-            document.getElementById("nameId").focus();
+        if (this.pam.name === '') {
+            this.notificationService.warn('Please enter name of allergy.');
+            document.getElementById('nameId').focus();
             return;
         }
 
@@ -147,8 +149,8 @@ export class PatientAllergyListComponent implements OnInit {
                         }
                     },
                     (error: any) => {
-                        if (error.error.responseMessage === "Patient not found" ||
-                            error.error.responseMessage === "Appoint not found") {
+                        if (error.error.responseMessage === 'Patient not found' ||
+                            error.error.responseMessage === 'Appoint not found') {
                             this.notificationService.error(error.error.responseMessage, 'Allergy of Patient');
                         } else {
                             this.HISUtilService.tokenExpired(error.error.error);
@@ -187,25 +189,25 @@ export class PatientAllergyListComponent implements OnInit {
     updateAllergy() {
 
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select proper patient from dashboard again");
+            this.notificationService.warn('Please select proper patient from dashboard again');
             return;
         }
 
         if (this.pam.appointmentId <= 0) {
-            this.notificationService.warn("Please select proper appoint ");
-            document.getElementById("appointmentId").focus();
+            this.notificationService.warn('Please select proper appoint ');
+            document.getElementById('appointmentId').focus();
             return;
         }
 
-        if (this.pam.allergyType === "-1") {
-            this.notificationService.warn("Please select type of allergy.");
-            document.getElementById("typeId").focus();
+        if (this.pam.allergyType === '-1') {
+            this.notificationService.warn('Please select type of allergy.');
+            document.getElementById('typeId').focus();
             return;
         }
 
-        if (this.pam.name === "") {
-            this.notificationService.warn("Please enter name of allergy.");
-            document.getElementById("nameId").focus();
+        if (this.pam.name === '') {
+            this.notificationService.warn('Please enter name of allergy.');
+            document.getElementById('nameId').focus();
             return;
         }
 
@@ -233,7 +235,7 @@ export class PatientAllergyListComponent implements OnInit {
 
     deleteAllergy(allergyId: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.ALLERGY_DELETE_URI + allergyId)
                 .subscribe(

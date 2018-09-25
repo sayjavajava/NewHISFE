@@ -117,6 +117,8 @@ export class PatientDocumentsComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.documentData = response['responseData']['data'];
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Document');
                     }
                 },
                 (error: any) => {

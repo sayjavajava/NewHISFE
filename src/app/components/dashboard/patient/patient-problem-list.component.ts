@@ -1,16 +1,16 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {NotificationService} from "../../../services/notification.service";
-import {RequestsService} from "../../../services/requests.service";
-import {HISUtilService} from "../../../services/his-util.service";
-import {PatientProblemModel} from "../../../model/patient.problem.model";
-import {ICDCodeModel} from "../../../model/ICDCodeModel";
-import {ICDVersionModel} from "../../../model/ICDVersionModel";
-import {AppConstants} from "../../../utils/app.constants";
-import {Appointment} from "../../../model/Appointment";
-import {Patient} from "../../../model/patient";
-import {Subscription} from "rxjs/Subscription";
-import {DataService} from "../../../services/DataService";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NotificationService} from '../../../services/notification.service';
+import {RequestsService} from '../../../services/requests.service';
+import {HISUtilService} from '../../../services/his-util.service';
+import {PatientProblemModel} from '../../../model/patient.problem.model';
+import {ICDCodeModel} from '../../../model/ICDCodeModel';
+import {ICDVersionModel} from '../../../model/ICDVersionModel';
+import {AppConstants} from '../../../utils/app.constants';
+import {Appointment} from '../../../model/Appointment';
+import {Patient} from '../../../model/patient';
+import {Subscription} from 'rxjs/Subscription';
+import {DataService} from '../../../services/DataService';
 
 
 @Component({
@@ -155,30 +155,30 @@ export class PatientProblemListComponent implements OnInit {
     savePatientProblem() {
 
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select patient from dashboard again ");
+            this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
 
         if (this.ppm.appointmentId <= 0) {
-            this.notificationService.warn("Please select appoint.");
+            this.notificationService.warn('Please select appoint.');
             document.getElementById('selectedAppointmentId').focus();
             return;
         }
 
         if (this.ppm.selectedICDVersionId <= 0) {
-            this.notificationService.warn("Please select Version.");
+            this.notificationService.warn('Please select Version.');
             document.getElementById('icdVersionId').focus();
             return;
         }
 
         if (this.ppm.selectedCodeId <= 0) {
-            this.notificationService.warn("Please select Code.");
+            this.notificationService.warn('Please select Code.');
             document.getElementById('associatedCodesId').focus();
             return;
         }
 
-        if (this.ppm.dateDiagnosis === "") {
-            this.notificationService.warn("Please enter Diagnosis Date.");
+        if (this.ppm.dateDiagnosis === '') {
+            this.notificationService.warn('Please enter Diagnosis Date.');
             document.getElementById('dateDiagnosisId').focus();
             return;
         }
@@ -219,7 +219,7 @@ export class PatientProblemListComponent implements OnInit {
 
     getPaginatedProblemsFromServer(page: number) {
         this.requestsService.getRequest(
-            AppConstants.PATIENT_PROBLEM_FETCH_URL + page + "?patientId=" + this.selectedPatientId)
+            AppConstants.PATIENT_PROBLEM_FETCH_URL + page + '?patientId=' + this.selectedPatientId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_16') {
@@ -228,6 +228,8 @@ export class PatientProblemListComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.problemData = response['responseData']['data'];
+                    } else {
+                        this.notificationService.error(response['responseMessage'])
                     }
                 },
                 (error: any) => {
@@ -239,7 +241,7 @@ export class PatientProblemListComponent implements OnInit {
 
     deletePatientProblem(problemId: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.PATIENT_PROBLEM_DELETE_URI + problemId)
                 .subscribe(
@@ -294,30 +296,30 @@ export class PatientProblemListComponent implements OnInit {
     updatePatientProblem() {
 
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select patient from dashboard again ");
+            this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
 
         if (this.ppm.appointmentId <= 0) {
-            this.notificationService.warn("Please select appoint.");
+            this.notificationService.warn('Please select appoint.');
             document.getElementById('selectedAppointmentId').focus();
             return;
         }
 
         if (this.ppm.selectedICDVersionId <= 0) {
-            this.notificationService.warn("Please select Version.");
+            this.notificationService.warn('Please select Version.');
             document.getElementById('icdVersionId').focus();
             return;
         }
 
         if (this.ppm.selectedCodeId <= 0) {
-            this.notificationService.warn("Please select Code.");
+            this.notificationService.warn('Please select Code.');
             document.getElementById('associatedCodesId').focus();
             return;
         }
 
-        if (this.ppm.dateDiagnosis === "") {
-            this.notificationService.warn("Please enter Diagnose date.");
+        if (this.ppm.dateDiagnosis === '') {
+            this.notificationService.warn('Please enter Diagnose date.');
             document.getElementById('dateDiagnosisId').focus();
             return;
         }

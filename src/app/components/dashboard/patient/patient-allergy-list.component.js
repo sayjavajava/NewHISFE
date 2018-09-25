@@ -45,7 +45,7 @@ var PatientAllergyListComponent = (function () {
     };
     PatientAllergyListComponent.prototype.getPaginatedAllergyFromServer = function (p) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.ALLERGY_PAGINATED_URL + p + "?patientId=" + this.selectedPatientId)
+        this.requestsService.getRequest(app_constants_1.AppConstants.ALLERGY_PAGINATED_URL + p + '?patientId=' + this.selectedPatientId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ALLERGY_SUC_18') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -53,6 +53,9 @@ var PatientAllergyListComponent = (function () {
                 _this.currPage = response['responseData']['currPage'];
                 _this.pages = response['responseData']['pages'];
                 _this.allergyData = response['responseData']['data'];
+            }
+            else {
+                _this.notificationService.error(response['responseMessage']);
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
@@ -91,22 +94,22 @@ var PatientAllergyListComponent = (function () {
     PatientAllergyListComponent.prototype.saveAllergy = function () {
         var _this = this;
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select proper patient from dashboard again");
+            this.notificationService.warn('Please select proper patient from dashboard again');
             return;
         }
         if (this.pam.appointmentId <= 0) {
-            this.notificationService.warn("Please select proper appoint ");
-            document.getElementById("appointmentId").focus();
+            this.notificationService.warn('Please select proper appoint ');
+            document.getElementById('appointmentId').focus();
             return;
         }
-        if (this.pam.allergyType === "-1") {
-            this.notificationService.warn("Please select type of allergy.");
-            document.getElementById("typeId").focus();
+        if (this.pam.allergyType === '-1') {
+            this.notificationService.warn('Please select type of allergy.');
+            document.getElementById('typeId').focus();
             return;
         }
-        if (this.pam.name === "") {
-            this.notificationService.warn("Please enter name of allergy.");
-            document.getElementById("nameId").focus();
+        if (this.pam.name === '') {
+            this.notificationService.warn('Please enter name of allergy.');
+            document.getElementById('nameId').focus();
             return;
         }
         if (localStorage.getItem(btoa('access_token'))) {
@@ -123,8 +126,8 @@ var PatientAllergyListComponent = (function () {
                     _this.getPaginatedAllergyFromServer(0);
                 }
             }, function (error) {
-                if (error.error.responseMessage === "Patient not found" ||
-                    error.error.responseMessage === "Appoint not found") {
+                if (error.error.responseMessage === 'Patient not found' ||
+                    error.error.responseMessage === 'Appoint not found') {
                     _this.notificationService.error(error.error.responseMessage, 'Allergy of Patient');
                 }
                 else {
@@ -163,22 +166,22 @@ var PatientAllergyListComponent = (function () {
     PatientAllergyListComponent.prototype.updateAllergy = function () {
         var _this = this;
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select proper patient from dashboard again");
+            this.notificationService.warn('Please select proper patient from dashboard again');
             return;
         }
         if (this.pam.appointmentId <= 0) {
-            this.notificationService.warn("Please select proper appoint ");
-            document.getElementById("appointmentId").focus();
+            this.notificationService.warn('Please select proper appoint ');
+            document.getElementById('appointmentId').focus();
             return;
         }
-        if (this.pam.allergyType === "-1") {
-            this.notificationService.warn("Please select type of allergy.");
-            document.getElementById("typeId").focus();
+        if (this.pam.allergyType === '-1') {
+            this.notificationService.warn('Please select type of allergy.');
+            document.getElementById('typeId').focus();
             return;
         }
-        if (this.pam.name === "") {
-            this.notificationService.warn("Please enter name of allergy.");
-            document.getElementById("nameId").focus();
+        if (this.pam.name === '') {
+            this.notificationService.warn('Please enter name of allergy.');
+            document.getElementById('nameId').focus();
             return;
         }
         if (localStorage.getItem(btoa('access_token'))) {
@@ -204,7 +207,7 @@ var PatientAllergyListComponent = (function () {
     PatientAllergyListComponent.prototype.deleteAllergy = function (allergyId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ALLERGY_DELETE_URI + allergyId)
                 .subscribe(function (response) {

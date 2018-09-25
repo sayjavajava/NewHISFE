@@ -131,26 +131,26 @@ var PatientProblemListComponent = (function () {
     PatientProblemListComponent.prototype.savePatientProblem = function () {
         var _this = this;
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select patient from dashboard again ");
+            this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
         if (this.ppm.appointmentId <= 0) {
-            this.notificationService.warn("Please select appoint.");
+            this.notificationService.warn('Please select appoint.');
             document.getElementById('selectedAppointmentId').focus();
             return;
         }
         if (this.ppm.selectedICDVersionId <= 0) {
-            this.notificationService.warn("Please select Version.");
+            this.notificationService.warn('Please select Version.');
             document.getElementById('icdVersionId').focus();
             return;
         }
         if (this.ppm.selectedCodeId <= 0) {
-            this.notificationService.warn("Please select Code.");
+            this.notificationService.warn('Please select Code.');
             document.getElementById('associatedCodesId').focus();
             return;
         }
-        if (this.ppm.dateDiagnosis === "") {
-            this.notificationService.warn("Please enter Diagnosis Date.");
+        if (this.ppm.dateDiagnosis === '') {
+            this.notificationService.warn('Please enter Diagnosis Date.');
             document.getElementById('dateDiagnosisId').focus();
             return;
         }
@@ -183,7 +183,7 @@ var PatientProblemListComponent = (function () {
     };
     PatientProblemListComponent.prototype.getPaginatedProblemsFromServer = function (page) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_FETCH_URL + page + "?patientId=" + this.selectedPatientId)
+        this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_FETCH_URL + page + '?patientId=' + this.selectedPatientId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'PATIENT_PROBLEM_SUC_16') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -192,6 +192,9 @@ var PatientProblemListComponent = (function () {
                 _this.pages = response['responseData']['pages'];
                 _this.problemData = response['responseData']['data'];
             }
+            else {
+                _this.notificationService.error(response['responseMessage']);
+            }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
@@ -199,7 +202,7 @@ var PatientProblemListComponent = (function () {
     PatientProblemListComponent.prototype.deletePatientProblem = function (problemId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.PATIENT_PROBLEM_DELETE_URI + problemId)
                 .subscribe(function (response) {
@@ -251,26 +254,26 @@ var PatientProblemListComponent = (function () {
     PatientProblemListComponent.prototype.updatePatientProblem = function () {
         var _this = this;
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select patient from dashboard again ");
+            this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
         if (this.ppm.appointmentId <= 0) {
-            this.notificationService.warn("Please select appoint.");
+            this.notificationService.warn('Please select appoint.');
             document.getElementById('selectedAppointmentId').focus();
             return;
         }
         if (this.ppm.selectedICDVersionId <= 0) {
-            this.notificationService.warn("Please select Version.");
+            this.notificationService.warn('Please select Version.');
             document.getElementById('icdVersionId').focus();
             return;
         }
         if (this.ppm.selectedCodeId <= 0) {
-            this.notificationService.warn("Please select Code.");
+            this.notificationService.warn('Please select Code.');
             document.getElementById('associatedCodesId').focus();
             return;
         }
-        if (this.ppm.dateDiagnosis === "") {
-            this.notificationService.warn("Please enter Diagnose date.");
+        if (this.ppm.dateDiagnosis === '') {
+            this.notificationService.warn('Please enter Diagnose date.');
             document.getElementById('dateDiagnosisId').focus();
             return;
         }

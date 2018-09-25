@@ -106,6 +106,9 @@ var PatientDocumentsComponent = (function () {
                 _this.pages = response['responseData']['pages'];
                 _this.documentData = response['responseData']['data'];
             }
+            else {
+                _this.notificationService.error(response['responseMessage'], 'Document');
+            }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
         });

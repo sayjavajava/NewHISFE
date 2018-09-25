@@ -138,6 +138,9 @@ var PatientMedicationListComponent = (function () {
                 _this.pages = response['responseData']['pages'];
                 _this.medicationData = response['responseData']['data'];
             }
+            else {
+                _this.notificationService.error(response['responseMessage']);
+            }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
