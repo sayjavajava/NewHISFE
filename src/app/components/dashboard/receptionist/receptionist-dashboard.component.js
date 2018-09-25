@@ -30,6 +30,7 @@ var ReceptionistDashboardComponent = (function () {
         this.dashboardList = [];
         this.branches = [];
         this.doctorsList = [];
+        this.checkInTest = false;
         this.dashboardListModified = [];
         this.showDashboard();
     }
@@ -43,7 +44,9 @@ var ReceptionistDashboardComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DASHBOARD_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'DASHBOARD_SUC_01') {
-                _this.dashboardList = response['responseData'];
+                // this.dashboardList = response['responseData'];
+                var dashboardListTemp = response['responseData'];
+                _this.dashboardList = dashboardListTemp.filter(function (x) { return x.status == "CHECK_IN" || x.status == "CONFIRMED" || x.NOT_CONFIRMED == "NOT_CONFIRMED"; });
                 _this.dashboardListModified = _this.dashboardList;
             }
         }, function (error) {
@@ -110,6 +113,11 @@ var ReceptionistDashboardComponent = (function () {
             if (res == true) {
                 _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
                     .subscribe(function (res) {
+                    if (statusValue == "CHECK_IN") {
+                        _this.checkInTest = true;
+                    }
+                    else
+                        _this.checkInTest = false;
                     if (res['responseCode'] === "STATUS_SUC_01") {
                         _this.snackBar.open('Status Updated', 'Status has been Updated Successfully', { duration: 3000 });
                     }

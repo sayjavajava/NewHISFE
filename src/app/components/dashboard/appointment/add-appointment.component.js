@@ -57,10 +57,9 @@ var AddAppointmentComponent = (function () {
             { id: 3, name: 'IN_SESSION' },
             { id: 4, name: 'RE_SCHEDULED' },
             { id: 5, name: 'COMPLETE' },
-            { id: 6, name: 'REGULAR' },
+            { id: 9, name: 'CANCELLED' },
             { id: 7, name: 'IN_ROOM' },
             { id: 8, name: 'NOT_CONFIRMED' },
-            { id: 9, name: 'CANCELLED' }
         ];
         this.Type = [
             { id: 1, name: 'Regular', checked: false },
@@ -154,6 +153,8 @@ var AddAppointmentComponent = (function () {
                         branchId: apt.branchId,
                         roomId: apt.roomId,
                         doctorId: apt.doctorId,
+                        serviceId: apt.serviceId,
+                        patientId: apt.patientId
                     });
                     _this.refresh.next();
                 }

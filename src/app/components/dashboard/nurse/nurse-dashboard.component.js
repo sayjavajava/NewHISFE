@@ -43,7 +43,8 @@ var NurseDashboardComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DASHBOARD_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'DASHBOARD_SUC_01') {
-                _this.dashboardList = response['responseData'];
+                var dashboardListTemp = response['responseData'];
+                _this.dashboardList = dashboardListTemp.filter(function (x) { return x.status == "COMPLETE" || x.status == "IN_SESSION"; });
                 _this.dashboardListModified = _this.dashboardList;
             }
         }, function (error) {

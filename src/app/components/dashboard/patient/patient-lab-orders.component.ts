@@ -65,7 +65,7 @@ export class PatientLabOrdersComponent implements OnInit {
 
                     }
                     if(response['responseCode'] =='LAB_ORDER_ERR_02'){
-                        this.notificationService.error(`Error ${response['responseMessage']}`)
+                        this.notificationService.warn(`Info ${response['responseMessage']}`)
                     }
                 },
                 (error: any) => {

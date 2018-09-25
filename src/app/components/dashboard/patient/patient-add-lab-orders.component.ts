@@ -128,7 +128,6 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
     }
 
-
     goToStatus(value:any){
         this.labForm.controls['orderStatus'].setValue(value);
     }

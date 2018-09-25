@@ -51,9 +51,9 @@ export class DoctorDashboardComponent {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
-                        this.dashboardList = response['responseData'];
+                        let dashboardListTemp = response['responseData'];
+                        this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" );
                         this.dashboardListModified = this.dashboardList;
-
                     }
                 },
                 (error: any) => {

@@ -75,6 +75,8 @@ export class Appointment{
         this.color=color;
         this.roomId=roomId;
         this.serviceId=serviceId;
+        this.newPatient=newPatient;
+        this.dob=dob;
 
     }
 }

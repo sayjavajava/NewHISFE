@@ -33,6 +33,8 @@ var Appointment = (function () {
         this.color = color;
         this.roomId = roomId;
         this.serviceId = serviceId;
+        this.newPatient = newPatient;
+        this.dob = dob;
     }
     return Appointment;
 }());

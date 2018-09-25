@@ -28,7 +28,7 @@
                             </select>
                         </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-3 no-padding">
+                       <!-- <div class="col-md-3 no-padding">
                             <h4 class="font-green-meadow">Statuses</h4>
                             <select class="form-control" (change)="getfilteredStatus($event.target.value)">
                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
@@ -43,7 +43,7 @@
                                 <option value="REGULAR">REGULAR</option>
 
                             </select>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -68,32 +68,35 @@
                             <tbody>
                             <tr class="tbl-pdng" *ngFor="let item of dashboardListModified">
                                 <td>{{item.apptNaturalId}}</td>
-                                <td><div class="mt-action-dot bg-green-meadow"></div></td>
+                                <td><ng-container *ngIf="item.status == 'IN_SESSION'" ><div class="mt-action-dot bg-green-meadow" ></div></ng-container>
+                                    <ng-container *ngIf="item.status != 'IN_SESSION'" ><div class="mt-action-dot bg-gray-meadow" ></div></ng-container>
+                                </td>
                                 <td>{{item.inTime | date: 'shortTime' }}</td>
                                 <td>{{item.branch}}</td>
                                 <td><p> {{item.patientFirstName}} {{item.patientLastName}}</p></td>
-                                <td><a href="#" class="font-blue"></a><a href="#" class="font-blue">{{item.scheduleAt}}</a></td>
+                                <td><span class="font-blue"> {{item.scheduleAt}}</span></td>
                                 <td>{{item.doctorFirstName}} {{item.doctorLastName}}</td>
                                 <td>{{item.examRoom}}</td>
                                 <td><select class="form-control" (change)="getUpdatedStatus($event.target.value,item.apptNaturalId)" [ngModelOptions]="{standalone:true}"
                                             [(ngModel)]="item.status">
                                     <option value="IN_SESSION">IN SESSION</option>
                                     <option value="COMPLETE">COMPLETE</option>
-                                    <option value="IN_ROOM">IN ROOM</option>
+                                    <!--<option value="IN_ROOM">IN ROOM</option>
                                     <option value="CONFIRMED">CONFIRMED</option>
                                     <option value="NOT_CONFIRMED">NOT_CONFIRMED</option>
                                     <option value="RE_SCHEDULED">RE_SCHEDULED</option>
                                     <option value="CANCELLED">CANCELLED</option>
                                     <option value="CHECK_IN">CHECK_IN</option>
-                                    <option value="REGULAR">REGULAR</option>
+                                    <option value="REGULAR">REGULAR</option>-->
                                 </select></td>
-                                <td>
-                                    <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
+                                <td><ng-container *ngIf="item.status == 'IN_SESSION'">
+                                    <!--<a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
                                         <i class="fa fa-dollar" style="font-size:18px"></i>
-                                    </a>
+                                    </a>-->
+
                                     <a title="Patient History" (click)="patientHistory(item.patientId)">
-                                        <i class="fa fa-hospital-o" style="font-size:18px"></i>
-                                    </a>
+                                            <i class="fa fa-hospital-o" style="font-size:18px"></i>
+                                        </a></ng-container>
                                 </td>
                             </tr>
 

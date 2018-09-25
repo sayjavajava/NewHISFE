@@ -63,7 +63,7 @@ var PatientLabOrdersComponent = (function () {
                 _this.allOrders = response['responseData']['data'];
             }
             if (response['responseCode'] == 'LAB_ORDER_ERR_02') {
-                _this.notificationService.error("Error " + response['responseMessage']);
+                _this.notificationService.warn("Info " + response['responseMessage']);
             }
         }, function (error) {
             _this.error = error.error.error;
