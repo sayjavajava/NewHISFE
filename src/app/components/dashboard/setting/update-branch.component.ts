@@ -182,6 +182,11 @@ export class UpdateBranchComponent implements OnInit {
                             that.notificationService.success(' Branch has been Updated Successfully');
                             that.router.navigate(['/dashboard/setting/branch']);
                         }
+                        if (response['responseCode'] === 'BR_ALREADY_EXISTS_01') {
+                            this.notificationService.warn('Branch already Exists');
+                            //  this.router.navigate(['/dashboard/setting/branch'])
+                        }
+
                     }, function (error) {
                         this.error = error.error.error_description;
                         this.notificationService.error('ERROR', 'Branch is not updated ');

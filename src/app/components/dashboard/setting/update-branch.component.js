@@ -147,6 +147,7 @@ var UpdateBranchComponent = (function () {
         });
     };
     UpdateBranchComponent.prototype.addBranch = function (data) {
+        var _this = this;
         if (this.branchForm.valid) {
             //  let branchObject = this.prepareSaveBranch();
             var that = this;
@@ -157,6 +158,10 @@ var UpdateBranchComponent = (function () {
                     console.log('updated...');
                     that.notificationService.success(' Branch has been Updated Successfully');
                     that.router.navigate(['/dashboard/setting/branch']);
+                }
+                if (response['responseCode'] === 'BR_ALREADY_EXISTS_01') {
+                    _this.notificationService.warn('Branch already Exists');
+                    //  this.router.navigate(['/dashboard/setting/branch'])
                 }
             }, function (error) {
                 this.error = error.error.error_description;
