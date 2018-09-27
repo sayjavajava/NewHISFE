@@ -1,5 +1,5 @@
 <div class="page-content-wrapper">
-    <div class="page-content" style="margin-top: 50px;">
+    <div class="page-content" style="margin-top: 50px;margin-left: 0px !important;">
         <!--<div class="portlet-body">-->
 
         <div class="row">
@@ -82,7 +82,7 @@
                     <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
                     <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-top8">
                             <input type="checkbox" [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
-                                    Use Advanced Balance : <b>{{patientAdvanceDeposit | number}}</b>
+                                    Use Advanced Balance : <b>{{  patientAdvanceDeposit | number  }}</b>
                             <span></span>
                         </label>
                 </div>

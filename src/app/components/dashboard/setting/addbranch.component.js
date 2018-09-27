@@ -140,6 +140,10 @@ var AddBranchComponent = (function () {
                     _this.notificationService.success('Branch is Created Successfully');
                     _this.router.navigate(['/dashboard/setting/branch']);
                 }
+                if (response['responseCode'] === 'BR_ALREADY_EXISTS_01') {
+                    _this.notificationService.warn('Branch already Exists');
+                    //  this.router.navigate(['/dashboard/setting/branch'])
+                }
             }, function (error) {
                 this.notificationService.error('ERROR', 'Branch is not Created');
             });

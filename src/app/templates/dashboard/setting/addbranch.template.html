@@ -168,7 +168,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select class="form-control" formControlName="noOfExamRooms"
+                                                    <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"   [(ngModel)]="noOfRoom"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="">Select...</option>
                                                         <option value="1">1</option>

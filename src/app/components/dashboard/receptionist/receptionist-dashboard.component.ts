@@ -17,13 +17,13 @@ import {DataService} from "../../../services/DataService";
 export class ReceptionistDashboardComponent {
 
     title: string = 'Receptionist Dashboard';
-    filteredBranch: Number;
-    filteredDocotr: Number;
     error: any;
     dashboardList : Dashboard[] = [];
     branches: any = [];
     doctorsList: any = [];
+    checkInTest:boolean=false;
     dashboardListModified : any[] = [];
+
 
 
     constructor(private requestService: RequestsService,
@@ -36,7 +36,6 @@ export class ReceptionistDashboardComponent {
 
     };
     ngOnInit() {
-
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
 
@@ -47,7 +46,10 @@ export class ReceptionistDashboardComponent {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
-                        this.dashboardList = response['responseData'];
+                       // this.dashboardList = response['responseData'];
+                        let dashboardListTemp = response['responseData'];
+                        this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="CHECK_IN" || x.status=="CONFIRMED" || x.NOT_CONFIRMED=="NOT_CONFIRMED");
+
                         this.dashboardListModified = this.dashboardList;
                     }
                 },
@@ -124,6 +126,9 @@ export class ReceptionistDashboardComponent {
                 if (res == true) {
                     this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
                         .subscribe((res: Response) => {
+                        if(statusValue =="CHECK_IN"){
+                            this.checkInTest =true;
+                        }else this.checkInTest =false;
                             if (res['responseCode'] === "STATUS_SUC_01") {
                                 this.snackBar.open('Status Updated', 'Status has been Updated Successfully', {duration: 3000});
                             }
