@@ -83,7 +83,7 @@
                                 <td><span class="font-blue"> {{item.scheduleAt}}</span></td>
                                 <td>{{item.doctorFirstName}} {{item.doctorLastName}}</td>
                                 <td>{{item.examRoom}}</td>
-                                <td><select class="form-control" (change)="getUpdatedStatus($event.target.value,item.apptNaturalId)" [ngModelOptions]="{standalone:true}"
+                                <td><select class="form-control" (change)="getUpdatedStatus($event.target.value,item.apptNaturalId,item.appointmentId)" [ngModelOptions]="{standalone:true}"
                                             [(ngModel)]="item.status">
                                  <!--   <option value="IN_SESSION">IN SESSION</option>
                                     <option value="COMPLETE">COMPLETE</option>

@@ -186,6 +186,7 @@ var AddBranchComponent = (function () {
     };
     AddBranchComponent.prototype.deleteField = function (index) {
         this.examRooms = this.branchForm.get('examRooms');
+        this.noOfRoom = this.noOfRoom - 1;
         this.examRooms.removeAt(index);
     };
     AddBranchComponent.prototype.getOfficeHoursStart = function () {
@@ -226,6 +227,7 @@ var AddBranchComponent = (function () {
     };
     AddBranchComponent.prototype.getNoOfExamRooms = function (value) {
         if (value) {
+            this.noOfRoom = value;
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);
