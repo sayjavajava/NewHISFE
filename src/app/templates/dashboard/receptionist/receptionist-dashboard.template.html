@@ -96,9 +96,10 @@
                                     <option value="NOT_CONFIRMED">NOT_CONFIRMED</option>
                                 </select></td>
                                 <td><ng-container *ngIf="item.status == 'CHECK_IN'">
-                                    <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
+                                    <a title="Patient Invoice" (click)="updateAppointmentData(item.appointmentId)">
                                         <i class="fa fa-dollar" style="font-size:18px"></i>
-                                    </a></ng-container>
+                                    </a>
+                                </ng-container>
                                     <ng-container *ngIf="item.status == 'CHECK_IN'">
                                     <a title="Patient History" (click)="patientHistory(item.patientId)">
                                         <i class="fa fa-hospital-o" style="font-size:18px"></i>

@@ -141,6 +141,10 @@ var ReceptionistDashboardComponent = (function () {
         this.dataService.getPatientId(id);
         this.router.navigate(['/dashboard/patient/', id, 'history']);
     };
+    ReceptionistDashboardComponent.prototype.updateAppointmentData = function (id) {
+        console.log("From doctor-dashboard.component---> Appointment id : " + id);
+        this.router.navigate(['/dashboard/patient/invoice', id]);
+    };
     ReceptionistDashboardComponent = __decorate([
         core_1.Component({
             selector: 'receptionist-dashboard-component',
