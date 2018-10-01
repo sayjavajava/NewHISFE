@@ -104,7 +104,7 @@ var ReceptionistDashboardComponent = (function () {
             this.dashboardListModified = arr;
         }
     };
-    ReceptionistDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId) {
+    ReceptionistDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId, pmID) {
         var _this = this;
         var that = this;
         this.confirmationDialogService
@@ -126,10 +126,24 @@ var ReceptionistDashboardComponent = (function () {
                 });
             }
         });
+        if (statusValue === 'CHECK_IN') {
+            this.requestService.getRequest(app_constants_1.AppConstants.INVOICE_CHECK_IN + pmID)
+                .subscribe(function (res) {
+                if (res['responseCode'] === "INVOICE_ERR_01") {
+                    _this.snackBar.open('Error', "Invoices Not Generated", { duration: 3000 });
+                }
+            }, function (error) {
+                _this.error = error.error.error;
+            });
+        }
     };
     ReceptionistDashboardComponent.prototype.patientHistory = function (id) {
         this.dataService.getPatientId(id);
         this.router.navigate(['/dashboard/patient/', id, 'history']);
+    };
+    ReceptionistDashboardComponent.prototype.updateAppointmentData = function (id) {
+        console.log("From doctor-dashboard.component---> Appointment id : " + id);
+        this.router.navigate(['/dashboard/patient/invoice', id]);
     };
     ReceptionistDashboardComponent = __decorate([
         core_1.Component({

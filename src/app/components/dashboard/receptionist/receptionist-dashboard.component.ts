@@ -118,7 +118,7 @@ export class ReceptionistDashboardComponent {
         }
     }
 
-    getUpdatedStatus(statusValue: string, apptId: any) {
+    getUpdatedStatus(statusValue: string, apptId: any, pmID:number) {
         var that = this;
         this.confirmationDialogService
             .confirm('Delete', 'Are you sure you want to do this?')
@@ -137,10 +137,26 @@ export class ReceptionistDashboardComponent {
                         });
                 }
             });
+
+        if(statusValue === 'CHECK_IN'){
+            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
+                .subscribe((res: Response) => {
+                    if (res['responseCode'] === "INVOICE_ERR_01") {
+                        this.snackBar.open('Error', `Invoices Not Generated`, {duration: 3000});
+                    }
+                }, (error: any) => {
+                    this.error = error.error.error;
+                });
+        }
     }
     patientHistory(id:any){
         this.dataService.getPatientId(id);
         this.router.navigate(['/dashboard/patient/',id,'history']);
+    }
+    updateAppointmentData(id: any) {
+        console.log("From doctor-dashboard.component---> Appointment id : " + id);
+        this.router.navigate(['/dashboard/patient/invoice', id]);
+
     }
 
 

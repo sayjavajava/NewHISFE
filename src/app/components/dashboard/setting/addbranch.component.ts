@@ -208,6 +208,7 @@ export class AddBranchComponent implements OnInit {
 
     deleteField(index: number) {
         this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        this.noOfRoom=this.noOfRoom-1;
         this.examRooms.removeAt(index);
     }
 
@@ -253,6 +254,7 @@ export class AddBranchComponent implements OnInit {
 
     getNoOfExamRooms(value: any) {
         if (value) {
+            this.noOfRoom=value;
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);
