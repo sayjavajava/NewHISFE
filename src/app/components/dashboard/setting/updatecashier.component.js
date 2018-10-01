@@ -42,7 +42,6 @@ var UpdateCashierComponent = (function () {
         this.createUserForm();
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
-            console.log(_this.id);
         });
         this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
         this.patchData();
@@ -114,7 +113,6 @@ var UpdateCashierComponent = (function () {
         var _this = this;
         if (this.id) {
             this.requestService.findByIdAndType(app_constants_1.AppConstants.FETCH_USER_BY_ID + this.id, 'CASHIER').subscribe(function (cashier) {
-                //  this.id = user.id;
                 _this.userForm.patchValue({
                     firstName: cashier.firstName,
                     lastName: cashier.lastName,
@@ -139,7 +137,6 @@ var UpdateCashierComponent = (function () {
                     }
                 }
             }, function (error) {
-                //console.log(error.json());
                 _this.error = error.error.error_description;
             });
         }
@@ -152,9 +149,7 @@ var UpdateCashierComponent = (function () {
         });
     };
     UpdateCashierComponent.prototype.addCashier = function (data) {
-        console.log('i am invalid');
         if (this.userForm.valid) {
-            console.log('i am cashier submit' + data);
             var cashier = new User_1.User({
                 userType: 'cashier',
                 firstName: data.firstName,
@@ -177,7 +172,6 @@ var UpdateCashierComponent = (function () {
             this.makeService(cashier);
         }
         else {
-            console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     };
@@ -191,7 +185,6 @@ var UpdateCashierComponent = (function () {
                 _this.router.navigate(['/dashboard/setting/staff']);
             }
         }, function (error) {
-            //console.log(error.json());
             _this.error = error.error.error_description;
             _this.notificationService.error('ERROR', 'User is not Updated');
         });
@@ -208,7 +201,6 @@ var UpdateCashierComponent = (function () {
     UpdateCashierComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
         Object.keys(formGroup.controls).forEach(function (field) {
-            //console.log(field);
             var control = formGroup.get(field);
             if (control instanceof forms_1.FormControl) {
                 control.markAsTouched({ onlySelf: true });
@@ -219,7 +211,6 @@ var UpdateCashierComponent = (function () {
         });
     };
     UpdateCashierComponent.prototype.selectVisitBranches = function (event, item) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }
@@ -228,7 +219,6 @@ var UpdateCashierComponent = (function () {
             var index = this.selectedVisitBranches.indexOf(updateItem);
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
     };
     UpdateCashierComponent.prototype.findIndexToUpdate = function (type) {
         return type.name === this;
@@ -242,13 +232,10 @@ var UpdateCashierComponent = (function () {
         this.router.navigate(['/dashboard/setting/staff']);
     };
     UpdateCashierComponent.prototype.getSelectedBranch = function (value) {
-        console.log(value);
         if (value === undefined) {
-            console.log('i am esss');
             this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
         else {
-            console.log('i am too' + value);
             this.userForm.controls['primaryBranch'].setValue(value);
         }
     };

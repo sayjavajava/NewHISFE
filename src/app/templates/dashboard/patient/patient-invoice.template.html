@@ -53,7 +53,7 @@
                                     <label class="col-md-4 control-label txt-size-detail pdng-lr-5">Services:</label>
 
                                     <select class="col-md-8 select pdng-lr-5"  (change)="selectServices($event.target.value)">
-                                        <option value="-1">--- Please select service ---</option>
+                                        <!--<option value="-1">-&#45;&#45; Please select service -&#45;&#45;</option>-->
                                         <option *ngFor="let service of servicesList" value={{service.id}}>
                                                 {{service.name}}
                                         </option>
