@@ -108,7 +108,7 @@ var ReceptionistDashboardComponent = (function () {
         var _this = this;
         var that = this;
         this.confirmationDialogService
-            .confirm('Delete', 'Are you sure you want to do this?')
+            .confirm("Upadte Status to " + statusValue, 'Are you sure ?')
             .subscribe(function (res) {
             if (res == true) {
                 _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)

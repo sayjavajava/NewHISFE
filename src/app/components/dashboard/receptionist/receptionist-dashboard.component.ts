@@ -121,7 +121,7 @@ export class ReceptionistDashboardComponent {
     getUpdatedStatus(statusValue: string, apptId: any, pmID:number) {
         var that = this;
         this.confirmationDialogService
-            .confirm('Delete', 'Are you sure you want to do this?')
+            .confirm(`Upadte Status to ${statusValue}`, 'Are you sure ?')
             .subscribe(res => {
                 if (res == true) {
                     this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)

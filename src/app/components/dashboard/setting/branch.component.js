@@ -47,7 +47,9 @@ var BranchComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                //    this.defaultSelectedBranch= this.branchesList[0].id;
             }
+            //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
         }, function (error) {
             _this.error = error.error.error;
         });
@@ -66,24 +68,24 @@ var BranchComponent = (function () {
     };
     BranchComponent.prototype.searchData = function (data) {
         var _this = this;
-        if (this.searchForm.valid) {
-            var searchUserObj = new searchBranch_1.SearchBranch(data.branch, data.department, data.description);
-            this.requestService.getRequest(app_constants_1.AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'BRANCH_SUC_01') {
-                    _this.nextPage = response['responseData']['nextPage'];
-                    _this.prePage = response['responseData']['prePage'];
-                    _this.currPage = response['responseData']['currPage'];
-                    _this.pages = response['responseData']['pages'];
-                    _this.data = response['responseData']['data'];
-                }
-            }, function (error) {
-                _this.error = error.error.error;
-            });
-        }
-        else {
-            this.validateAllFormFields(this.searchForm);
-        }
+        //   if (this.searchForm.valid) {
+        var searchUserObj = new searchBranch_1.SearchBranch(data.branch, data.department, data.description);
+        //   this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
+        this.requestService.getRequest(app_constants_1.AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BRANCH_SUC_01') {
+                _this.nextPage = response['responseData']['nextPage'];
+                _this.prePage = response['responseData']['prePage'];
+                _this.currPage = response['responseData']['currPage'];
+                _this.pages = response['responseData']['pages'];
+                _this.data = response['responseData']['data'];
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+        /*} else {
+            this.validateAllFormFields(this.searchForm)
+        }*/
     };
     BranchComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;

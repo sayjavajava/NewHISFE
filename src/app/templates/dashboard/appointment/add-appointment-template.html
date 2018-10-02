@@ -6,7 +6,7 @@
             <div class="modal-dialog modal-dialog-centered schedle-appint-modal" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Edit Appointment</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -92,7 +92,7 @@
                                                                     <select class="form-control" name="statusDrp"
                                                                             [ngModelOptions]="{standalone:true}"
                                                                             [(ngModel)]="modalData?.event.patientId">
-                                                                        <option value="0">-- Select --</option>
+                                                                       <!-- <option value="0">&#45;&#45; Select &#45;&#45;</option>-->
                                                                         <option *ngFor="let item of patients; let i = index;"
                                                                                 value="{{item.id}}"
                                                                                 (keyup)="refresh.next()">
@@ -237,7 +237,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="control-label col-md-4">Status:</label>
+                                                            <label class="control-label col-md-4">Status <span
+                                                                    class="required" aria-required="true"> * </span></label>
                                                             <div class="col-md-8">
                                                                 <select class="form-control" name="statusDrp"
                                                                         [ngModelOptions]="{standalone:true}"
@@ -623,12 +624,12 @@
     </div>
 
 
-</div>
+</div><div #divClick id="divClick" (click)="testClose()"></div>
 <div id="create-responsive" class="modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog schedle-appint-modal">
         <div class="modal-content" *ngFor="let event of eventsRequest; let index = index">
             <div class="modal-header off-wite-bg">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeAddModal(index)"></button>
                 <h4 class="modal-title bold"> Schedule Appointment </h4>
             </div>
             <div class="modal-body schedule-body">
@@ -647,8 +648,8 @@
 
                                     <div class="tab-pane fade active in" id="tab_1_1">
 
-                                             <div class="form-group">
-                                            <div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
+                                        <div class="form-group">
+                                             <div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
                                                 <label>
                                                     <input type="checkbox"
                                                            [ngModelOptions]="{standalone:true}"
@@ -669,32 +670,34 @@
                                                                (keyup)="refresh.next()">
                                                     </div>
 
-                                                    <div class="col-md-2">
+                                                   <!-- <div class="col-md-2">
                                                         <select class="form-control" name="statusDrp"
                                                                 [ngModelOptions]="{standalone:true}"
                                                                 [(ngModel)]="event.gender">
-                                                            <option [ngValue]="undefined" disabled  selected> Please select </option>
+                                                            <option [ngValue]="undefined" disabled  selected>  select </option>
                                                             <option value="Male" selected> Male</option>
                                                             <option value="Female">Female</option>
                                                         </select>
-                                                    </div>
-                                                    <div class="col-md-3">
+                                                    </div>-->
+                                                    <!--<div class="col-md-3">
                                                         <input
                                                                 type="text"
+                                                                placeholder="Email"
                                                                 [ngModelOptions]="{standalone:true}"
                                                                 class="form-control"
                                                                 [(ngModel)]="event.email"
                                                                 (keyup)="refresh.next()">
-                                                    </div>
+                                                    </div>-->
                                                     <div class="col-md-2">
                                                         <input
                                                                 type="text"
+                                                                placeholder="cell Phone"
                                                                 class="form-control"
                                                                 [ngModelOptions]="{standalone:true}"
                                                                 [(ngModel)]="event.cellPhone"
                                                                 (keyup)="refresh.next()">
                                                     </div>
-                                                    <div class="col-md-2">
+                                                    <!--<div class="col-md-2">
                                                         <input type="date" class="form-control form-control-inline input-medium"
                                                                [(ngModel)]="event.dob" id="dob"
                                                                [ngModelOptions]="{standalone:true}"
@@ -704,7 +707,7 @@
                                                              class="alert alert-danger">
                                                             please provide valid Date of Birth
                                                         </div>
-                                                    </div>
+                                                    </div>-->
 
                                                 </div>
 
@@ -720,7 +723,7 @@
                                                             <select class="form-control" name="statusDrp" [disabled]="patientChecked"
                                                                     [ngModelOptions]="{standalone:true}"
                                                                     [(ngModel)]="event.patientId">
-                                                                <option value="0">&#45;&#45; Select &#45;&#45;</option>
+                                                                <option [ngValue]="undefined" disabled  selected>  Select Patient </option>
                                                                 <option *ngFor="let item of patients; let i = index;"
                                                                         value="{{item.id}}"
                                                                         (keyup)="refresh.next()">
@@ -730,7 +733,7 @@
                                                                 </option>
                                                             </select>
                                                             <div class="">
-                                                                <button   class="btn btn-default btn-outline font-green-dark" data-dismiss="modal"
+                                                                <button type="button"  class="btn btn-default btn-outline font-green-dark" data-dismiss="modal"
                                                                           routerLink="/dashboard/patient/add">
                                                                     <i class=" fa fa-plus"></i>
                                                                 </button>
@@ -792,6 +795,7 @@
                                                                 (change)="getExamRoom(selectedBranch.value)"
                                                                 name="branchDrp" #branchDrp="ngModel"
                                                                 [(ngModel)]="event.branchId">
+                                                            <option [ngValue]="undefined" disabled  selected> Please select Branch </option>
                                                             <option *ngFor="let item of branches;"
                                                                     [ngValue]="item.id" (keyup)="refresh.next()">
                                                                 {{item.name}}
@@ -825,6 +829,7 @@
                                                     <div class="col-md-8">
                                                         <select class="form-control" name="drDrp" #drDrp="ngModel"  required
                                                                 [(ngModel)]="event.doctorId">
+                                                            <option [ngValue]="undefined" disabled  selected>  Select Doctor </option>
                                                             <option *ngFor="let item of doctorsList;"
                                                                     value={{item.id}} (keyup)="refresh.next()">
                                                                 {{item.firstName}} {{item.lastName}}
@@ -843,6 +848,7 @@
                                                     <div class="col-md-8">
                                                         <select class="form-control" name="service" #service="ngModel"  required
                                                                 [(ngModel)]="event.serviceId">
+                                                            <option [ngValue]="undefined" disabled  selected>  Select Service </option>
                                                             <option *ngFor="let item of servicesList;"
                                                                     value={{item.id}} (keyup)="refresh.next()">
                                                                 {{item.name}}
@@ -871,18 +877,22 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-4">Status</label>
+                                                    <label class="control-label col-md-4"> Status <span
+                                                            class="required" aria-required="true"> * </span></label>
                                                     <div class="col-md-8">
-                                                        <select class="form-control" name="statusDrp"
-                                                                [ngModelOptions]="{standalone:true}"
+                                                        <select class="form-control" name="statusDrpdn"  #statusDrpdn="ngModel"  required
                                                                 [(ngModel)]="event.status">
-                                                            <option value="0">-- Select --</option>
+                                                            <option [ngValue]="undefined" disabled  selected> Please select Status </option>
                                                             <option *ngFor="let item of status; let i = index;"
                                                                     value={{item.name}}
                                                                     (keyup)="refresh.next()">
                                                                 {{item.name}}
                                                             </option>
                                                         </select>
+                                                        <span *ngIf="statusDrpdn.invalid && statusDrpdn.touched"
+                                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                               Select Status
+                                                                  </span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group hr">
@@ -1065,7 +1075,7 @@
                          class="btn red"> Delete
                  </button>-->
 
-                <button type="button" (click)="saveAppointment(event,loginForm)"
+                <button  (click)="saveAppointment(event,loginForm)"
                         data-dismiss="modal"
                         class="btn btn-sm green btn-outline filter-submit margin-bottom">
                     Save
