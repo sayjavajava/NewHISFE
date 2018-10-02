@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="form-group mrgn-btm10" >
                                     <label class="control-label col-md-4">Visit Branches
-                                        <span class="required" aria-required="true"> * </span>
+                                        <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box cod-higt" id="not-due">
@@ -88,6 +88,7 @@
                                                     <input type="checkbox" formControlName="restrictBranch"
                                                            name={{item}}
                                                            value="{{item}}"
+                                                           [checked]="item.checked"
                                                            (change)="selectVisitBranches($event,item)">
                                                     {{item.name}}
 

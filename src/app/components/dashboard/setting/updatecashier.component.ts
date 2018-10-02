@@ -44,7 +44,6 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
-            console.log(this.id);
         });
         this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
 
@@ -58,7 +57,6 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
                         let data = response['responseData'];
                         let userNameData = data;
                         this.primaryDoctor = response['responseData'];
-
                     }
                 },
                 (error: any) => {
@@ -122,12 +120,10 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
         )
     }
 
-
     public patchData() {
         if (this.id) {
             this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'CASHIER').subscribe(
                 cashier => {
-                    //  this.id = user.id;
                     this.userForm.patchValue({
                         firstName: cashier.firstName,
                         lastName: cashier.lastName,
@@ -152,7 +148,6 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
                         }
                     }
                 }, (error: any) => {
-                    //console.log(error.json());
                     this.error = error.error.error_description;
 
                 });
@@ -166,10 +161,7 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
     }
 
     addCashier(data: any) {
-        console.log('i am invalid');
         if (this.userForm.valid) {
-
-            console.log('i am cashier submit' + data);
             let cashier = new User({
                 userType: 'cashier',
                 firstName: data.firstName,
@@ -188,13 +180,9 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
-
             });
-
             this.makeService(cashier);
-
         } else {
-            console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     }
@@ -210,7 +198,6 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
                 }
             }
             , (error: any) => {
-                //console.log(error.json());
                 this.error = error.error.error_description;
                 this.notificationService.error('ERROR', 'User is not Updated');
             });
@@ -229,7 +216,6 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
 
     validateAllFormFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(field => {
-            //console.log(field);
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
                 control.markAsTouched({onlySelf: true});
@@ -240,19 +226,14 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
     }
 
     selectVisitBranches(event: any, item: any) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }
         else {
             let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
-
             let index = this.selectedVisitBranches.indexOf(updateItem);
-
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
-
     }
     findIndexToUpdate(type: any) {
         return type.name === this;
@@ -260,22 +241,18 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
     getSelectedDashboard(value: any) {
         if (value) {
             this.userForm.controls['otherDashboard'].setValue(value);
-
         }
     }
     cancel(){
         this.router.navigate(['/dashboard/setting/staff']);
     }
     getSelectedBranch(value: any) {
-        console.log(value);
         if (value === undefined) {
-            console.log('i am esss');
             this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
         else {
-            console.log('i am too' + value);
-            this.userForm.controls['primaryBranch'].setValue(value);}
-
+            this.userForm.controls['primaryBranch'].setValue(value);
+        }
     }
 
 }

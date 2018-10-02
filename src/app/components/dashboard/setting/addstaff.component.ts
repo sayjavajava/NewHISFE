@@ -75,6 +75,7 @@ export class AddStaffComponent implements OnInit {
     departmentError: string = 'Select one or more Departments';
     serviceError: string = 'Select one or more Services';
     dutyTimmingShiftError: string = 'Select Duty Time';
+    userRoleError: string = 'Select atleast one role';
     allStaffTypes = [
         {name: 'NURSE'},
         {name: 'DOCTOR'},
@@ -184,15 +185,17 @@ export class AddStaffComponent implements OnInit {
     }
 
     createUserForm() {
+        //console.log('P.B:'+this.branchesList.length);
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
                 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
                 'password': [null, Validators.compose([Validators.required, Validators.minLength(6)])],
                 'confirmPassword': [null, Validators.compose([Validators.required])],
+                'userRole': [null, Validators.required],
                 'homePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'cellPhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-                'primaryBranch': [null, Validators.required],
+                'primaryBranch': [Validators.required],
                 'interval': [null,Validators.required],
                 'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'restrictBranch': [null, Validators.required],
@@ -213,7 +216,7 @@ export class AddStaffComponent implements OnInit {
                 'servicesControl': [null],
                 'shift1': [null],
                 'nurseDutyWithDoctor': [null],
-                'changeUser': [null],
+                'changeUser': [this.allStaffTypes[2].name],
 
             },
             {
@@ -667,6 +670,18 @@ export class AddStaffComponent implements OnInit {
                 this.allDepartments();
                 this.allServices();
             }
+        }else{
+            this.checkUpInterval = false;
+            this.doctorDepartment = false;
+            this.dutytimmingshift1 = false;
+            this.dutytimmingshift2 = false;
+            this.vacation = false;
+            this.vacationweek = false;
+            this.services = false;
+            this.nurseDepartment = false;
+            this.managepatientinvoices = false;
+            this.managepatientrecord = false;
+            this.dutywithdoctor = false;
         }
 
     }
@@ -687,7 +702,7 @@ export class AddStaffComponent implements OnInit {
         this.userForm.controls['active'].setValue('');
         this.userForm.controls['vacation'].setValue('');
         this.userForm.controls['interval'].setValue('');
-        this.userForm.controls['primaryBranch'].setValue('');
+        //this.userForm.controls['primaryBranch'].setValue('');
         this.userForm.controls['dateFrom'].setValue('');
         this.userForm.controls['dateTo'].setValue('');
         this.userForm.controls['accountExpiry'].setValue('');
