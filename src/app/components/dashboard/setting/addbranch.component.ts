@@ -27,7 +27,7 @@ export class AddBranchComponent implements OnInit {
     defaultBranch:string='primaryBranch';
     billingForm: FormGroup;
     scheduleForm: FormGroup;
-    noOfRoom:number;
+    noOfRoom:number=1;
 
     constructor(private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,
@@ -84,6 +84,7 @@ export class AddBranchComponent implements OnInit {
             'noOfExamRooms': [null,Validators.required],
             'examRooms': this.fb.array([this.createExamRoom()]),
         })
+        this.examRooms.push(this.createExamRoom());
     }
 /*    removeDoctor(){
         this.pDoctor.forEach( (item: any, index :any) => {
@@ -169,6 +170,13 @@ export class AddBranchComponent implements OnInit {
 
         } else {
             this.validateAllFormFields(this.branchForm);
+            if(this.examRooms.length != 0){
+                /*let examRoomLen = this.examRooms.length;
+                for (var i = 0; i < examRoomLen; i++) {
+                   console.log(this.examRooms.controls(i).controls['roomName'].value);
+                }*/
+                this.notificationService.error("Fill examroom Properly");
+            }
         }
     }
 
@@ -185,7 +193,7 @@ export class AddBranchComponent implements OnInit {
 
     createExamRoom(): FormGroup {
         return this.fb.group({
-            'roomName': '',
+            'roomName': [null,Validators.required],
             'allowOnlineScheduling': '',
         });
     }

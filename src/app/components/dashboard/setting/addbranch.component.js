@@ -30,6 +30,7 @@ var AddBranchComponent = (function () {
         this.branchesList = [];
         // defaultDoctor:string='primarydoctor';
         this.defaultBranch = 'primaryBranch';
+        this.noOfRoom = 1;
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
@@ -75,6 +76,7 @@ var AddBranchComponent = (function () {
             'noOfExamRooms': [null, forms_1.Validators.required],
             'examRooms': this.fb.array([this.createExamRoom()]),
         });
+        this.examRooms.push(this.createExamRoom());
     };
     /*    removeDoctor(){
             this.pDoctor.forEach( (item: any, index :any) => {
@@ -150,6 +152,13 @@ var AddBranchComponent = (function () {
         }
         else {
             this.validateAllFormFields(this.branchForm);
+            if (this.examRooms.length != 0) {
+                /*let examRoomLen = this.examRooms.length;
+                for (var i = 0; i < examRoomLen; i++) {
+                   console.log(this.examRooms.controls(i).controls['roomName'].value);
+                }*/
+                this.notificationService.error("Fill examroom Properly");
+            }
         }
     };
     AddBranchComponent.prototype.validateAllFormFields = function (formGroup) {
@@ -166,7 +175,7 @@ var AddBranchComponent = (function () {
     };
     AddBranchComponent.prototype.createExamRoom = function () {
         return this.fb.group({
-            'roomName': '',
+            'roomName': [null, forms_1.Validators.required],
             'allowOnlineScheduling': '',
         });
     };

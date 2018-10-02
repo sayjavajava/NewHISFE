@@ -61,6 +61,7 @@ var AddStaffComponent = (function () {
         this.departmentError = 'Select one or more Departments';
         this.serviceError = 'Select one or more Services';
         this.dutyTimmingShiftError = 'Select Duty Time';
+        this.userRoleError = 'Select atleast one role';
         this.allStaffTypes = [
             { name: 'NURSE' },
             { name: 'DOCTOR' },
@@ -139,15 +140,17 @@ var AddStaffComponent = (function () {
         });
     };
     AddStaffComponent.prototype.createUserForm = function () {
+        //console.log('P.B:'+this.branchesList.length);
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
             'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
             'password': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(6)])],
             'confirmPassword': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'userRole': [null, forms_1.Validators.required],
             'homePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'cellPhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-            'primaryBranch': [null, forms_1.Validators.required],
+            'primaryBranch': [forms_1.Validators.required],
             'interval': [null, forms_1.Validators.required],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'restrictBranch': [null, forms_1.Validators.required],
@@ -168,7 +171,7 @@ var AddStaffComponent = (function () {
             'servicesControl': [null],
             'shift1': [null],
             'nurseDutyWithDoctor': [null],
-            'changeUser': [null],
+            'changeUser': [this.allStaffTypes[2].name],
         }, {
             validator: PasswordValidation_1.CustomValidators.Match('password', 'confirmPassword')
         });
@@ -561,6 +564,19 @@ var AddStaffComponent = (function () {
                 this.allServices();
             }
         }
+        else {
+            this.checkUpInterval = false;
+            this.doctorDepartment = false;
+            this.dutytimmingshift1 = false;
+            this.dutytimmingshift2 = false;
+            this.vacation = false;
+            this.vacationweek = false;
+            this.services = false;
+            this.nurseDepartment = false;
+            this.managepatientinvoices = false;
+            this.managepatientrecord = false;
+            this.dutywithdoctor = false;
+        }
     };
     AddStaffComponent.prototype.clearFormFields = function () {
         this.userForm.controls['email'].setValue('');
@@ -578,7 +594,7 @@ var AddStaffComponent = (function () {
         this.userForm.controls['active'].setValue('');
         this.userForm.controls['vacation'].setValue('');
         this.userForm.controls['interval'].setValue('');
-        this.userForm.controls['primaryBranch'].setValue('');
+        //this.userForm.controls['primaryBranch'].setValue('');
         this.userForm.controls['dateFrom'].setValue('');
         this.userForm.controls['dateTo'].setValue('');
         this.userForm.controls['accountExpiry'].setValue('');

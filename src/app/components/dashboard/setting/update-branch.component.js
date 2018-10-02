@@ -30,6 +30,8 @@ var UpdateBranchComponent = (function () {
         this.userSelected = 'DOCTOR';
         this.pDoctor = [];
         this.defaultBranch = 'primary';
+        this.noOfRoom = 1;
+        this.disable = true;
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
@@ -122,9 +124,9 @@ var UpdateBranchComponent = (function () {
                          billingBranch: branch.billingBranch,
                          billingName: branch.billingName,
                          billingTaxID: branch.billingTaxID
- 
+
                      });
- 
+
                      this.scheduleForm.patchValue({
                              showBranchOnline: branch.showBranchOnline,
                              allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
@@ -168,7 +170,16 @@ var UpdateBranchComponent = (function () {
                 this.notificationService.error('ERROR', 'Branch is not updated ');
             });
         }
-        this.validateAllFormFields(this.branchForm);
+        else {
+            this.validateAllFormFields(this.branchForm);
+            if (this.examRooms.length != 0) {
+                /*let examRoomLen = this.examRooms.length;
+                for (var i = 0; i < examRoomLen; i++) {
+                   console.log(this.examRooms.controls(i).controls['roomName'].value);
+                }*/
+                this.notificationService.error("Fill examroom Properly");
+            }
+        }
     };
     UpdateBranchComponent.prototype.deleteField = function (index) {
         this.examRooms = this.branchForm.get('examRooms');

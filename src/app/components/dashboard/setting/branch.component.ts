@@ -27,6 +27,7 @@ export class BranchComponent implements OnInit {
     branchesList: any = [];
     searchForm: FormGroup;
     responseUser: any[];
+    defaultSelectedBranch :any;
 
 
     constructor(private requestService: RequestsService, private router: Router,
@@ -52,7 +53,9 @@ export class BranchComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                    //    this.defaultSelectedBranch= this.branchesList[0].id;
                     }
+               //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -75,9 +78,10 @@ export class BranchComponent implements OnInit {
     }
 
     searchData(data: SearchBranch) {
-        if (this.searchForm.valid) {
+     //   if (this.searchForm.valid) {
             let searchUserObj = new SearchBranch(data.branch, data.department, data.description);
-            this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
+         //   this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
+        this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch )
                 .subscribe(
                     (response: Response) => {
 
@@ -94,9 +98,9 @@ export class BranchComponent implements OnInit {
 
                         this.error = error.error.error;
                     })
-        } else {
+        /*} else {
             this.validateAllFormFields(this.searchForm)
-        }
+        }*/
     }
 
 

@@ -57,9 +57,10 @@
                                                 <label class="control-label col-md-4">Country
                                                 </label>
                                                 <div class="col-md-8">
+
                                                     <select class="form-control" formControlName="country"
                                                             (change)="getCountry($event.target.value)">
-                                                        <option value="">Select...</option>
+                                                        <option value="-1">Select...</option>
                                                         <option value="Pakistan">Pakistan</option>
                                                         <option value="Saudi Arabia">Saudi Arabia</option>
                                                         <option value="USA">USA</option>
@@ -168,9 +169,8 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"   [(ngModel)]="noOfRoom"
+                                                    <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom"
                                                             (change)="getNoOfExamRooms($event.target.value)">
-                                                        <option value="">Select...</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
@@ -192,6 +192,7 @@
                                                                style="width: 128px !important;"
                                                                formControlName="roomName">
                                                     </div>
+
                                                     <div class="col-md-5 pdng-lr-5 mrgn-top4">
                                                         <label class="mt-checkbox-outline">
                                                             <input type="checkbox"
@@ -202,6 +203,12 @@
                                                         <i (click)="deleteField(i)" title="Remove"
                                                            class="fa fa-close font-red"></i>
                                                     </div>
+                                                    <!--{{ branchForm.controls.examRooms.controls[i].controls.roomName.value }}-->
+                                                    <span class="text-danger"
+                                                          *ngIf="!branchForm.controls.examRooms.controls[i].controls.roomName.valid && branchForm.controls.examRooms.controls[i].controls.roomName.touched">
+                                                    <span *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
+                                                </span>
+                                                  <!--  <span *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>-->
                                                     <!--<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>-->
                                                 </div>
                                             </div>

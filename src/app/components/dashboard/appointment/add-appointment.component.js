@@ -115,7 +115,8 @@ var AddAppointmentComponent = (function () {
                     var apt = _a[_i];
                     _this.events.push({
                         id: apt.id,
-                        title: apt.patient + '  ' + apt.scheduleDateAndTime + ' ' + apt.branchName,
+                        /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
+                        title: apt.patient + " " + apt.scheduleDate + " " + apt.branchName,
                         start: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                         end: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
                         // start: addHours(startOfDay(new Date(apt.scheduleDate)),126),
@@ -185,6 +186,13 @@ var AddAppointmentComponent = (function () {
             _this.error = error.error.error;
         });
     };
+    AddAppointmentComponent.prototype.closeAddModal = function (index) {
+        this.eventsRequest.splice(index, 1);
+        this.refresh.next();
+        var htmlelement = document.getElementById("divClick");
+        htmlelement.click();
+    };
+    AddAppointmentComponent.prototype.testClose = function () { console.log('i am called'); };
     AddAppointmentComponent.prototype.selectType = function (form) {
         this.selectedType.length = 0;
         if (this.selectedOptions.indexOf('NewPatient') > -1) {
@@ -289,15 +297,15 @@ var AddAppointmentComponent = (function () {
             end: date_fns_1.endOfDay(date),
             draggable: true,
             notes: '',
-            email: 'email',
+            email: '',
             patient: 0,
             reason: 'malairia',
-            status: 'confiremed',
+            status: 'CONFIRMED',
             duration: 0,
             age: 'age',
             type: '',
             gender: 'Gender',
-            cellPhone: 'Phone #',
+            cellPhone: '',
             selectWorkingDays: this.selectedRecurringDays,
             appointmentType: this.selectedType,
             followUpDate: new Date(),
@@ -414,6 +422,15 @@ var AddAppointmentComponent = (function () {
         var self = this;
         this.Type.map(function (x) { return x.checked = false; });
         if (form.valid) {
+            if (this.newPatient == false && event.patientId == null) {
+                this.eventsRequest.length = 0;
+                self.notificationService.error('Patient is required', 'Invalid Form');
+            }
+            if (this.newPatient == true && event.newPatient == undefined) {
+                this.eventsRequest.length = 0;
+                this.newPatient = false;
+                self.notificationService.error('Patient Name and Cell Phone are mandatory', 'Invalid Form');
+            }
             if (this.eventsRequest.length != 0) {
                 var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
                 this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
@@ -422,9 +439,9 @@ var AddAppointmentComponent = (function () {
                         self.notificationService.success('created successfully', 'Appointment');
                         self.router.navigate(['/dashboard/appointment/manage']);
                         _this.eventsRequest.length = 0;
-                        $('#exampleModalCenter2').modal('close');
+                        /*  $('#exampleModalCenter2').modal('close');*/
                     }
-                    if (response['responseCode'] === 'APPT_ERR_06') {
+                    else if (response['responseCode'] === 'APPT_ERR_06') {
                         _this.eventsRequest.length = 0;
                         self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
                     }
@@ -432,6 +449,7 @@ var AddAppointmentComponent = (function () {
                         _this.eventsRequest.length = 0;
                         self.notificationService.error('Appointment is not created', 'Appointment');
                     }
+                    _this.newPatient = false;
                 }, function (error) {
                 });
             }
@@ -461,6 +479,10 @@ var AddAppointmentComponent = (function () {
         core_2.ViewChild('modalContent'),
         __metadata("design:type", core_2.TemplateRef)
     ], AddAppointmentComponent.prototype, "modalContent", void 0);
+    __decorate([
+        core_2.ViewChild('divClick'),
+        __metadata("design:type", core_1.ElementRef)
+    ], AddAppointmentComponent.prototype, "divClick", void 0);
     AddAppointmentComponent = __decorate([
         core_1.Component({
             selector: 'add-appointment-component',

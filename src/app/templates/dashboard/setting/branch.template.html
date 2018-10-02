@@ -11,6 +11,13 @@
                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
                                 </button>
                             </a>
+
+                            <button class="btn mt-sweetalert btn blue"
+                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                    data-type="success" data-allow-outside-click="true"
+                                    (click)="getBranchFromServer(0)"
+                                    data-confirm-button-class="btn-success"> Refresh
+                            </button>
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
                         </div>
@@ -24,15 +31,16 @@
                                     <label>Branch</label>
                                     <select class="form-control"
                                             (change)="getSelectedBranch($event.target.value)"
-                                            formControlName="branch" placeholder="Select Branch">
-                                        <option *ngFor="let br of branchesList" value={{br.id}}>
+                                            formControlName="branch">
+
+                                        <option *ngFor="let br of branchesList" value={{br.id}} >
                                             {{br.branchName}}
                                         </option>
 
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <!--<div class="col-md-4">
                                 <div class="form-group font-siz11">
                                     <label>Department:</label>
                                     <select class="form-control"
@@ -44,7 +52,7 @@
 
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="col-md-1">
                                 <div class="form-group mrgn-top24">

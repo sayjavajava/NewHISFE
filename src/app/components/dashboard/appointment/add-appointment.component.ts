@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {
     ViewChild,
     TemplateRef
@@ -26,6 +26,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {Router} from '@angular/router';
 import {Appointment} from '../../../model/Appointment';
 import {UserTypeEnum} from '../../../enums/user-type-enum';
+import {isNullOrUndefined} from "util";
 
 
 declare var $: any;
@@ -55,6 +56,7 @@ export class AddAppointmentComponent implements OnInit {
     color: string;
     startDate = new Date(2018,1,1);
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
+    @ViewChild('divClick') divClick: ElementRef;
 
     view: string = 'month';
     newPatient: boolean = false;
@@ -122,7 +124,8 @@ export class AddAppointmentComponent implements OnInit {
                         for (let apt of response['responseData']) {
                             this.events.push({
                                 id: apt.id,
-                                title: apt.patient + '  '+apt.scheduleDateAndTime + ' ' + apt.branchName,
+                               /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
+                                title : apt.patient  + " " + apt.scheduleDate  +" "+ apt.branchName,
                                 start : addMinutes(startOfDay(new Date(apt.scheduleDate)),apt.appointmentConvertedTime),
                                 end :  addMinutes(startOfDay(new Date(apt.scheduleDate)),apt.appointmentEndedConvertedTime),
                                 // start: addHours(startOfDay(new Date(apt.scheduleDate)),126),
@@ -196,6 +199,14 @@ export class AddAppointmentComponent implements OnInit {
                 })
 
     }
+    closeAddModal(index:any){
+       this.eventsRequest.splice(index,1);
+       this.refresh.next();
+       let htmlelement =document.getElementById("divClick")as HTMLElement;
+        htmlelement.click();
+
+    }
+    testClose() {console.log('i am called');}
 
     selectType(form:NgForm) {
         this.selectedType.length = 0;
@@ -352,15 +363,15 @@ export class AddAppointmentComponent implements OnInit {
             end: endOfDay(date),
             draggable: true,
             notes: '',
-            email: 'email',
+            email: '',
             patient: 0,
             reason: 'malairia',
-            status: 'confiremed',
+            status: 'CONFIRMED',
             duration: 0,
             age: 'age',
             type: '',
             gender: 'Gender',
-            cellPhone: 'Phone #',
+            cellPhone: '',
             selectWorkingDays: this.selectedRecurringDays,
             appointmentType: this.selectedType,
             followUpDate: new Date(),
@@ -491,6 +502,8 @@ export class AddAppointmentComponent implements OnInit {
         var self = this;
         this.Type.map(x => x.checked = false);
         if(form.valid) {
+            if(this.newPatient ==false && event.patientId == null){ this.eventsRequest.length = 0;self.notificationService.error('Patient is required','Invalid Form');}
+            if( this.newPatient ==true && event.newPatient == undefined ){ this.eventsRequest.length = 0; this.newPatient =false;self.notificationService.error('Patient Name and Cell Phone are mandatory','Invalid Form');}
             if (this.eventsRequest.length != 0) {
                 let obj = new Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
                     event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
@@ -503,9 +516,9 @@ export class AddAppointmentComponent implements OnInit {
                                 self.notificationService.success('created successfully', 'Appointment');
                                 self.router.navigate(['/dashboard/appointment/manage']);
                                 this.eventsRequest.length = 0;
-                                $('#exampleModalCenter2').modal('close');
+                              /*  $('#exampleModalCenter2').modal('close');*/
                             }
-                            if(response['responseCode'] === 'APPT_ERR_06'){
+                           else if(response['responseCode'] === 'APPT_ERR_06'){
                                 this.eventsRequest.length =0;
                                 self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
                             }
@@ -513,6 +526,7 @@ export class AddAppointmentComponent implements OnInit {
                                 this.eventsRequest.length=0;
                                 self.notificationService.error('Appointment is not created', 'Appointment');
                             }
+                            this.newPatient = false;
                         },
 
                         (error: any) => {
