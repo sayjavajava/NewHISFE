@@ -143,10 +143,10 @@ var RequestsService = (function () {
     RequestsService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient,
-            router_1.Router,
-            app_config_1.AppConfig])
+            router_1.Router, typeof (_a = typeof app_config_1.AppConfig !== "undefined" && app_config_1.AppConfig) === "function" && _a || Object])
     ], RequestsService);
     return RequestsService;
+    var _a;
 }());
 exports.RequestsService = RequestsService;
 //# sourceMappingURL=requests.service.js.map
