@@ -27,6 +27,10 @@ var CodeComponent = (function () {
         this.searchCode = '';
         this.searched = false;
         this.isCodeUpdate = false;
+        /**
+         * we decided if code has child record then we should not update status
+         * */
+        this.statusReadonly = false;
     }
     CodeComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code';
@@ -54,12 +58,12 @@ var CodeComponent = (function () {
     CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_DELETE_URL + codeId)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
-                    _this.notificationService.success(response['responseMessage'], 'ICD Code');
+                    _this.notificationService.success('ICD Code', response['responseMessage']);
                     _this.getICDsFromServer(0);
                 }
                 else {
@@ -100,13 +104,13 @@ var CodeComponent = (function () {
                     if (response['responseCode'] === 'ICD_SAVE_SUC_01') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
                         _this.iCDData = response['responseData'];
-                        _this.notificationService.success(response['responseMessage'], 'ICD Code');
+                        _this.notificationService.success('ICD Code', response['responseMessage']);
                         document.getElementById('close-btn').click();
                         _this.refreshICDsTable(0);
                     }
                     else {
                         _this.iCDData = response['responseData'];
-                        _this.notificationService.error('ICD', response['responseMessage']);
+                        _this.notificationService.error('ICD Code', response['responseMessage']);
                     }
                 }, function (error) {
                     _this.HISUtilService.tokenExpired(error.error.error);
@@ -117,7 +121,12 @@ var CodeComponent = (function () {
             }
         }
         else {
-            this.notificationService.error('Required Fields are missing', 'ICD Code');
+            if (this.iCDModel.code === '') {
+                this.notificationService.warn('Please enter Code value.');
+                document.getElementById('codeId').focus();
+                return;
+            }
+            this.notificationService.error('ICD Code', 'Required Fields are missing');
         }
     };
     CodeComponent.prototype.updateICDCode = function (updateCodeForm) {
@@ -128,13 +137,13 @@ var CodeComponent = (function () {
                     if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
                         _this.iCDData = response['responseData'];
-                        _this.notificationService.success(response['responseMessage'], 'ICD Code');
+                        _this.notificationService.success('ICD Code', response['responseMessage']);
                         document.getElementById('close-btn').click();
                         _this.refreshICDsTable(0);
                     }
                     else {
                         _this.iCDData = response['responseData'];
-                        _this.notificationService.error(response['responseMessage'], 'ICD Code');
+                        _this.notificationService.error('ICD Code', response['responseMessage']);
                     }
                 }, function (error) {
                     _this.HISUtilService.tokenExpired(error.error.error);
@@ -145,16 +154,23 @@ var CodeComponent = (function () {
             }
         }
         else {
-            this.notificationService.error('Required Fields are missing', 'ICD Code');
+            if (this.iCDModel.code === '') {
+                this.notificationService.warn('Please enter Code value.');
+                document.getElementById('codeId').focus();
+                return;
+            }
+            this.notificationService.error('ICD Code', 'Required Fields are missing');
         }
     };
     CodeComponent.prototype.editICDCode = function (iCDCode) {
         this.isCodeUpdate = true;
         this.iCDModel = iCDCode;
+        this.statusReadonly = iCDCode.hasChild; // means it has child and we should not update its status
     };
     CodeComponent.prototype.onAddICDCodePopupLoad = function () {
         this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
+        this.statusReadonly = false;
     };
     CodeComponent.prototype.searchByCode = function (pageNo) {
         var _this = this;

@@ -23,6 +23,11 @@ export class CodeComponent implements OnInit {
     searched: boolean = false;
     isCodeUpdate: boolean = false;
 
+    /**
+     * we decided if code has child record then we should not update status
+     * */
+    statusReadonly: boolean = false;
+
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -57,13 +62,13 @@ export class CodeComponent implements OnInit {
 
     deleteICD(codeId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.ICD_CODE_DELETE_URL + codeId)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_03') {
-                            this.notificationService.success(response['responseMessage'], 'ICD Code');
+                            this.notificationService.success('ICD Code', response['responseMessage']);
                             this.getICDsFromServer(0);
                         } else {
                             this.getICDsFromServer(0);
@@ -112,12 +117,12 @@ export class CodeComponent implements OnInit {
                         if (response['responseCode'] === 'ICD_SAVE_SUC_01') {
                             this.iCDModel = new ICDCodeModel();
                             this.iCDData = response['responseData'];
-                            this.notificationService.success(response['responseMessage'], 'ICD Code');
+                            this.notificationService.success('ICD Code', response['responseMessage']);
                             document.getElementById('close-btn').click();
                             this.refreshICDsTable(0);
                         } else {
                             this.iCDData = response['responseData'];
-                            this.notificationService.error('ICD', response['responseMessage'])
+                            this.notificationService.error('ICD Code', response['responseMessage'])
                         }
                     },
                     (error: any) => {
@@ -128,7 +133,12 @@ export class CodeComponent implements OnInit {
                 this.router.navigate(['/login']);
             }
         } else {
-            this.notificationService.error('Required Fields are missing', 'ICD Code');
+            if (this.iCDModel.code === '') {
+                this.notificationService.warn('Please enter Code value.');
+                document.getElementById('codeId').focus();
+                return;
+            }
+            this.notificationService.error('ICD Code', 'Required Fields are missing');
         }
     }
 
@@ -143,12 +153,12 @@ export class CodeComponent implements OnInit {
                         if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
                             this.iCDModel = new ICDCodeModel();
                             this.iCDData = response['responseData'];
-                            this.notificationService.success(response['responseMessage'], 'ICD Code');
+                            this.notificationService.success('ICD Code', response['responseMessage']);
                             document.getElementById('close-btn').click();
                             this.refreshICDsTable(0);
                         } else {
                             this.iCDData = response['responseData'];
-                            this.notificationService.error(response['responseMessage'], 'ICD Code')
+                            this.notificationService.error('ICD Code', response['responseMessage'])
                         }
                     },
                     (error: any) => {
@@ -159,18 +169,25 @@ export class CodeComponent implements OnInit {
                 this.router.navigate(['/login']);
             }
         } else {
-            this.notificationService.error('Required Fields are missing', 'ICD Code');
+            if (this.iCDModel.code === '') {
+                this.notificationService.warn('Please enter Code value.');
+                document.getElementById('codeId').focus();
+                return;
+            }
+            this.notificationService.error('ICD Code', 'Required Fields are missing');
         }
     }
 
     editICDCode(iCDCode: any) {
         this.isCodeUpdate = true;
         this.iCDModel = iCDCode;
+        this.statusReadonly = iCDCode.hasChild;// means it has child and we should not update its status
     }
 
     onAddICDCodePopupLoad() {
         this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel();
+        this.statusReadonly = false;
     }
 
     searchByCode(pageNo: number) {

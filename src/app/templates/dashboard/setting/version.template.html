@@ -52,7 +52,8 @@
                             <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" *ngFor="let item of data; let i = index;" class="filter">
-                            <td rowspan="1" colspan="1" class="font-green-dark col-txt-left"><strong>{{item.name}}</strong></td>
+                            <td rowspan="1" colspan="1" class="font-green-dark col-txt-left">
+                                <strong>{{item.name}}</strong></td>
                             <td rowspan="1" colspan="1">{{item.title}}</td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.status === true ? 'Active' : 'In-Active'}}
@@ -65,10 +66,14 @@
                                         <i class="fa fa-pencil"></i>
                                     </button>
                                 </a>
-                                <button class="btn btn-default btn-outline btn-sm" (click)="deleteICDVersion(item.id)">
-                                    <i class="fa fa-remove">
-                                    </i>
-                                </button>
+                                <span [hidden]="item.hasChild">
+                                    <button
+                                            class="btn btn-default btn-outline btn-sm"
+                                            (click)="deleteICDVersion(item.id)">
+                                        <i class="fa fa-remove">
+                                        </i>
+                                    </button>
+                                </span>
                             </td>
                         </tr>
                         </thead>
@@ -134,7 +139,7 @@
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" [(ngModel)]="iCDVersionModel.name"
-                                           required name="nameName"
+                                           required name="nameName" id="nameNameId"
                                            class="form-control"
                                            pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                            placeholder="Enter Name"
@@ -160,16 +165,17 @@
                                     Please enter valid code.
                             </span>
                             </div>
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
-                                <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
-                                    <label class="mt-checkbox mt-checkbox-outline">
-                                        <input type="checkbox" [(ngModel)]="iCDVersionModel.status" name="status">
-                                        <span></span>
-                                    </label>
+                            <span [hidden]="statusReadonly">
+                                <div class="form-group hr">
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+                                    <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
+                                        <label class="mt-checkbox mt-checkbox-outline">
+                                            <input type="checkbox" [(ngModel)]="iCDVersionModel.status" name="status">
+                                            <span></span>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-
+                            </span>
                         </div>
                     </div>
                 </div>
