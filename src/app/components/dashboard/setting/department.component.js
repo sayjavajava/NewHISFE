@@ -28,6 +28,10 @@ var DepartmentComponent = (function () {
         this.pages = [];
         this.searched = false;
         this.selectedDepartment = new department_1.Department();
+        /**
+         * we decided if child record found then we should not update status
+         * */
+        this.statusShowHide = false;
     }
     DepartmentComponent.prototype.ngOnInit = function () {
         if (window.localStorage.getItem(btoa('access_token'))) {
@@ -48,10 +52,12 @@ var DepartmentComponent = (function () {
     };
     DepartmentComponent.prototype.refreshPage = function () {
         this.searched = false;
+        this.searchDepart = "";
         this.getPageWiseDepartmentFromServer(0);
     };
     DepartmentComponent.prototype.getPageWiseDepartmentFromServer = function (page) {
         var _this = this;
+        this.searchDepart = '';
         if (page > 0) {
             page = page;
         }
@@ -166,9 +172,11 @@ var DepartmentComponent = (function () {
     };
     DepartmentComponent.prototype.onUpdatePopupLoad = function (department) {
         this.selectedDepartment = department;
+        this.statusShowHide = department.hasChild;
     };
     DepartmentComponent.prototype.onAddPopupLoad = function () {
         this.selectedDepartment = new department_1.Department();
+        this.statusShowHide = false;
     };
     DepartmentComponent = __decorate([
         core_1.Component({
