@@ -28,6 +28,7 @@ var AppConstants = (function () {
     AppConstants.BRANCH_SEARCH = '/setting/branch/search/';
     AppConstants.FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     AppConstants.FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
+    AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
     AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
     ////////////////////// Patients Invoices ///////////////////////////////
     AppConstants.SAVE_INVOICE = '/invoice/saveInvoice';

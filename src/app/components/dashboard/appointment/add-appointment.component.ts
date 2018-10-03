@@ -43,6 +43,7 @@ export class AddAppointmentComponent implements OnInit {
         this.getDoctorsFromServer();
         this.getPatientFromServer();
         this.allServices();
+        this.getBranchesAndDoctorFromServer();
     }
 
     refresh: Subject<any> = new ReplaySubject<any>(1);
@@ -57,7 +58,6 @@ export class AddAppointmentComponent implements OnInit {
     startDate = new Date(2018,1,1);
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
     @ViewChild('divClick') divClick: ElementRef;
-
     view: string = 'month';
     newPatient: boolean = false;
 
@@ -125,7 +125,7 @@ export class AddAppointmentComponent implements OnInit {
                             this.events.push({
                                 id: apt.id,
                                /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
-                                title : apt.patient  + " " + apt.scheduleDate  +" "+ apt.branchName,
+                                title : apt.patient  +'<br/>'+ " " + apt.scheduleDate +'<br/>' +" "+ apt.branchName,
                                 start : addMinutes(startOfDay(new Date(apt.scheduleDate)),apt.appointmentConvertedTime),
                                 end :  addMinutes(startOfDay(new Date(apt.scheduleDate)),apt.appointmentEndedConvertedTime),
                                 // start: addHours(startOfDay(new Date(apt.scheduleDate)),126),
@@ -225,7 +225,6 @@ export class AddAppointmentComponent implements OnInit {
 
     moveMouse(action: string, event: CalendarEvent) {
         this.modalData = {event, action};
-        console.log("test:" + event.title);
         this.popup = true;
     }
     mouseEnter(div: string) {
@@ -294,6 +293,21 @@ export class AddAppointmentComponent implements OnInit {
             );
     }
 
+    getBranchesAndDoctorFromServer() {
+        this.requestsService.getRequest(
+            AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTOR_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        this.branches = response['responseData'];
+                    }
+                },
+                (error: any) => {
+
+                }
+            );
+    }
+
     getPatientFromServer() {
         this.requestsService.getRequest(
             AppConstants.GET_ALL_PATIENT_URL)
@@ -330,7 +344,6 @@ export class AddAppointmentComponent implements OnInit {
                       }: CalendarEventTimesChangedEvent): void {
         event.start = newStart;
         event.end = newEnd;
-        console.log("time changing ....")
         this.handleEvent('Dropped or resized', event);
         this.refresh.next();
     }

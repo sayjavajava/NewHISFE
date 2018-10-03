@@ -25,6 +25,7 @@ export class AppConstants {
     public static BRANCH_SEARCH = '/setting/branch/search/';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     public static FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
+    public static FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
 
     ////////////////////// Patients Invoices ///////////////////////////////
