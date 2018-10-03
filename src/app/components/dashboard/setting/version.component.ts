@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
-import {RequestsService} from "../../../services/requests.service";
-import {HISUtilService} from "../../../services/his-util.service";
-import {Router} from "@angular/router";
-import {ICDVersionModel} from "../../../model/ICDVersionModel";
-import {NgForm} from "@angular/forms";
-import {AppConstants} from "../../../utils/app.constants";
+import {RequestsService} from '../../../services/requests.service';
+import {HISUtilService} from '../../../services/his-util.service';
+import {Router} from '@angular/router';
+import {ICDVersionModel} from '../../../model/ICDVersionModel';
+import {NgForm} from '@angular/forms';
+import {AppConstants} from '../../../utils/app.constants';
 
 @Component({
     selector: 'icd-version-component',
@@ -18,9 +18,13 @@ export class VersionComponent implements OnInit {
     currPage: any;
     pages: number[] = [];
     data: any;
-    searchVersion: string = "";
+    searchVersion: string = '';
     private searched: boolean;
     private isVersionUpdate: boolean;
+    /**
+     * we decided if version has child record then we should not update status
+     * */
+    statusReadonly: boolean = false;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -45,7 +49,7 @@ export class VersionComponent implements OnInit {
     }
 
     refreshVersionsTable() {
-        this.searchVersion = "";
+        this.searchVersion = '';
         this.searched = false;
         this.getVersionsFromServer(0);
     }
@@ -76,6 +80,7 @@ export class VersionComponent implements OnInit {
     editICDVersion(iCDVersion: any) {
         this.isVersionUpdate = true;
         this.iCDVersionModel = iCDVersion;
+        this.statusReadonly = iCDVersion.hasChild;
     }
 
     updateICDVersion(versionForm: NgForm) {
@@ -88,11 +93,11 @@ export class VersionComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_VERSION_UPDATE_SUC_07') {
                             this.iCDVersionModel = new ICDVersionModel();
-                            this.notificationService.success(response['responseMessage'], 'ICD');
+                            this.notificationService.success(response['responseMessage'], 'ICD Version');
                             document.getElementById('close-btn-ICDVersion').click();
                             this.getPageWiseICDsVersion(this.currPage);
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'ICD')
+                            this.notificationService.error(response['responseMessage'], 'ICD Version')
                         }
                     },
                     (error: any) => {
@@ -110,6 +115,7 @@ export class VersionComponent implements OnInit {
     onAddICDVersionPopupLoad() {
         this.isVersionUpdate = false;
         this.iCDVersionModel = new ICDVersionModel();
+        this.statusReadonly = false;
     }
 
     searchByVersion(page: number) {
@@ -151,11 +157,11 @@ export class VersionComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_VERSION_SUC_08') {
                             this.iCDVersionModel = new ICDVersionModel();
-                            this.notificationService.success(response['responseMessage'], 'ICD');
+                            this.notificationService.success('ICD Version', response['responseMessage']);
                             document.getElementById('close-btn-ICDVersion').click();
                             this.refreshICDsVersionTable(0);
                         } else {
-                            this.notificationService.error('ICD', response['responseMessage'])
+                            this.notificationService.error(response['responseMessage'], 'ICD Version')
                         }
                     },
                     (error: any) => {
@@ -166,13 +172,18 @@ export class VersionComponent implements OnInit {
                 this.router.navigate(['/login']);
             }
         } else {
+            if (this.iCDVersionModel.name === '') {
+                this.notificationService.warn('Please enter Version value.');
+                document.getElementById('nameNameId').focus();
+                return;
+            }
             this.notificationService.error('Required Fields are missing', 'ICD Version');
         }
     }
 
     deleteICDVersion(iCDVersionId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.ICD_VERSION_DELETE_URL + iCDVersionId)
                 .subscribe(
