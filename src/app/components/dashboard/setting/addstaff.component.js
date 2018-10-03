@@ -48,7 +48,7 @@ var AddStaffComponent = (function () {
             { name: 'Wednesday' },
             { name: 'Thursday' },
             { name: 'Friday' },
-            { name: 'Satureday' },
+            { name: 'Saturday' },
             { name: 'Sunday' },
         ];
         this.firstNameError = 'First name is required';
@@ -151,7 +151,7 @@ var AddStaffComponent = (function () {
             'userRole': [null, forms_1.Validators.required],
             'homePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'cellPhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-            'primaryBranch': [forms_1.Validators.required],
+            'primaryBranch': [null, forms_1.Validators.required],
             'interval': [null, forms_1.Validators.required],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'restrictBranch': [null, forms_1.Validators.required],
@@ -176,9 +176,13 @@ var AddStaffComponent = (function () {
         }, {
             validator: PasswordValidation_1.CustomValidators.Match('password', 'confirmPassword')
         });
+        if (this.allStaffTypes[2].name === 'RECEPTIONIST') {
+            this.goTo(this.allStaffTypes[2].name);
+        }
     };
     AddStaffComponent.prototype.addData = function (data) {
         //console.log('i am submit' + data);
+        console.log("P.B:" + this.userForm.get('primaryBranch'));
         if (this.userForm.valid) {
             //console.log('i am valid' + this.selectedUser);
             if (this.selectedUser === 'CASHIER') {
@@ -420,7 +424,6 @@ var AddStaffComponent = (function () {
         var amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(function (time) {
             _this.secondShiftFromTime = time;
-            console.log(_this.secondShiftFromTime);
         });
     };
     AddStaffComponent.prototype.firstShiftFrom = function () {
@@ -550,7 +553,7 @@ var AddStaffComponent = (function () {
         this.selectedDoctors.length = 0;
         this.selectedWorkingDays.length = 0;
         this.firstShiftFromTime = '';
-        this.userForm.controls['restrictBranch'].setValue('');
+        //this.userForm.controls['restrictBranch'].setValue('');
         this.firstShiftToTime = '';
         this.secondShiftFromTime = '';
         this.secondShiftToTime = '';

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
-                    <h4 class="text-info">Update Cashier</h4>
+                    <h4 class="text-info">Update Receptionist</h4>
                 </div>
                 <form [formGroup]="userForm" class="form-horizontal">
                     <div class="form-body">
@@ -85,11 +85,8 @@
                                                 <label class="mt-checkbox mt-checkbox-outline">
                                                     <div *ngFor="let item of branchesList" class="col-md-6">
                                                         <input type="checkbox" formControlName="restrictBranch" class="mt-checkbox mt-checkbox-outline"
-                                                               name={{item}}
-                                                               value="{{item}}"
-                                                               (change)="selectVisitBranches($event,item)">
+                                                               name={{item}} value="{{item}}" [checked]="item.checked" (change)="selectVisitBranches($event,item)">
                                                         {{item.name}}
-
                                                     </div>
                                                 </label>
                                             </address>
@@ -157,7 +154,7 @@
                         </div>
                         <div class="hr">
                             <div class="col-md-12 text-center">
-                                <button (click)="addCashier(userForm.value)" class="btn blue"><i
+                                <button (click)="addReceptionist(userForm.value)" class="btn blue"><i
                                         class="fa fa-plus"></i> Update
                                 </button>
                                 <button (click)="cancel()" class="btn default"><i
