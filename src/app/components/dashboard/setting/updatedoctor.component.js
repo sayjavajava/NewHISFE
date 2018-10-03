@@ -45,9 +45,9 @@ var UpdatedoctorComponent = (function () {
             { id: 1, name: 'Monday' },
             { id: 2, name: 'Tuesday' },
             { id: 3, name: 'Wednesday' },
-            { id: 4, name: 'Thurseday' },
+            { id: 4, name: 'Thursday' },
             { id: 5, name: 'Friday' },
-            { id: 6, name: 'Satureday' },
+            { id: 6, name: 'Saturday' },
             { id: 7, name: 'Sunday' },
         ];
         this.date = new forms_1.FormControl(new Date());
@@ -127,7 +127,7 @@ var UpdatedoctorComponent = (function () {
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
             'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
-            'homePhone': [null, forms_1.Validators.required],
+            'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
             'interval': [null, forms_1.Validators.required],
@@ -153,9 +153,9 @@ var UpdatedoctorComponent = (function () {
                 sunday: new forms_1.FormControl(''),
                 monday: new forms_1.FormControl(''),
                 tuesday: new forms_1.FormControl(''),
-                thurseday: new forms_1.FormControl(''),
+                thursday: new forms_1.FormControl(''),
                 friday: new forms_1.FormControl(''),
-                satureday: new forms_1.FormControl(''),
+                saturday: new forms_1.FormControl(''),
                 wednesday: new forms_1.FormControl(''),
             })
         });
@@ -195,25 +195,27 @@ var UpdatedoctorComponent = (function () {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                 }
                 //let shifts: any [] = user.dutyShifts;
-                for (var s in user.dutyShifts) {
-                    if (user.dutyShifts[s].shiftName === 'SHIFT1') {
+                if (user.dutyShifts != null && user.dutyShifts.length > 0) {
+                    for (var s in user.dutyShifts) {
+                        if (user.dutyShifts[s].shiftName === 'SHIFT1') {
+                            _this.userForm.controls['shift1'].setValue(true);
+                            _this.firstShiftFromTime = user.dutyShifts[s].startTime;
+                            _this.firstShiftToTime = user.dutyShifts[s].endTime;
+                        }
+                        else if (user.dutyShifts[s].shiftName === 'SHIFT2') {
+                            _this.userForm.controls['shift2'].setValue(true);
+                            _this.secondShiftFromTime = user.dutyShifts[s].startTime;
+                            _this.secondShiftToTime = user.dutyShifts[s].endTime;
+                        }
+                    }
+                    if (user.dutyShifts[0].shiftName == 'MORNING') {
+                        // console.log('doneee'+user.dutyShifts[0].shiftName);
                         _this.userForm.controls['shift1'].setValue(true);
-                        _this.firstShiftFromTime = user.dutyShifts[s].startTime;
-                        _this.firstShiftToTime = user.dutyShifts[s].endTime;
                     }
-                    else if (user.dutyShifts[s].shiftName === 'SHIFT2') {
+                    if (user.dutyShifts.length > 1 && user.dutyShifts[1].shiftName == 'EVENING') {
+                        // console.log('doneee'+user.dutyShifts[0].shiftName);
                         _this.userForm.controls['shift2'].setValue(true);
-                        _this.secondShiftFromTime = user.dutyShifts[s].startTime;
-                        _this.secondShiftToTime = user.dutyShifts[s].endTime;
                     }
-                }
-                if (user.dutyShifts[0].shiftName == 'MORNING') {
-                    // console.log('doneee'+user.dutyShifts[0].shiftName);
-                    _this.userForm.controls['shift1'].setValue(true);
-                }
-                if (user.dutyShifts.length > 1 && user.dutyShifts[1].shiftName == 'EVENING') {
-                    // console.log('doneee'+user.dutyShifts[0].shiftName);
-                    _this.userForm.controls['shift2'].setValue(true);
                 }
                 var docDeptId = user.docDepartmentId;
                 for (var k in _this.departmentList) {
@@ -251,9 +253,9 @@ var UpdatedoctorComponent = (function () {
                     sunday: _this.checkAvailabilty('sunday', user.workingDays),
                     monday: _this.checkAvailabilty('monday', user.workingDays),
                     tuesday: _this.checkAvailabilty('tuesday', user.workingDays),
-                    thurseday: _this.checkAvailabilty('thurseday', user.workingDays),
+                    thursday: _this.checkAvailabilty('thursday', user.workingDays),
                     friday: _this.checkAvailabilty('friday', user.workingDays),
-                    satureday: _this.checkAvailabilty('satureday', user.workingDays),
+                    saturday: _this.checkAvailabilty('saturday', user.workingDays),
                     wednesday: _this.checkAvailabilty('wednesday', user.workingDays)
                 });
                 /*this.secondShiftFromTime = user.dutyShifts[0].startTime,
@@ -277,20 +279,19 @@ var UpdatedoctorComponent = (function () {
         this.workingDaysContorl.patchValue(['LA', 'MTV']);
     };
     UpdatedoctorComponent.prototype.addUser = function (data) {
-        console.log('i am invalid');
         var days = this.userForm.get('workingDaysContorl');
         var daysOfDoctor = [];
         daysOfDoctor.push({ key: 'sunday', value: days.get('sunday').value });
         daysOfDoctor.push({ key: 'monday', value: days.get('monday').value });
         daysOfDoctor.push({ key: 'tuesday', value: days.get('tuesday').value });
-        daysOfDoctor.push({ key: 'thurseday', value: days.get('thurseday').value });
+        daysOfDoctor.push({ key: 'wednesday', value: days.get('wednesday').value });
+        daysOfDoctor.push({ key: 'thursday', value: days.get('thursday').value });
         daysOfDoctor.push({ key: 'friday', value: days.get('friday').value });
-        daysOfDoctor.push({ key: 'satureday', value: days.get('satureday').value });
+        daysOfDoctor.push({ key: 'saturday', value: days.get('saturday').value });
         if (this.userForm.valid) {
             var result = daysOfDoctor.filter(function (obj) {
                 return obj.value == true;
             });
-            console.log('res :' + result);
             for (var key in result) {
                 this.selectedWorkingDays.push(result[key].key);
             }
@@ -334,6 +335,7 @@ var UpdatedoctorComponent = (function () {
         }
     };
     UpdatedoctorComponent.prototype.selectDoctorDepartment = function (itemId) {
+        console.log("Doc Dept:" + itemId);
         if (itemId) {
             this.selectedDepartment[0] = itemId;
         }
@@ -381,7 +383,6 @@ var UpdatedoctorComponent = (function () {
     };
     UpdatedoctorComponent.prototype.secondShiftFrom = function () {
         var _this = this;
-        console.log('time from');
         var amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(function (time) {
             _this.secondShiftFromTime = time;
@@ -427,20 +428,20 @@ var UpdatedoctorComponent = (function () {
             this.userForm.controls['interval'].setValue(value);
         }
     };
-    UpdatedoctorComponent.prototype.selectDepartment = function (event, item) {
-        console.log(event.checked);
+    /*selectDepartment(event: any, item: any) {
         if (event.target.checked) {
+
             this.selectedDepartment.push(item.id);
         }
         else {
-            var updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
-            var index = this.selectedDepartment.indexOf(updateItem);
+            let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
+
+            let index = this.selectedDepartment.indexOf(updateItem);
+
             this.selectedDepartment.splice(index, 1);
         }
-        console.log(this.selectedDepartment);
-    };
+    }*/
     UpdatedoctorComponent.prototype.selectWorkingDays = function (event, item) {
-        console.log(event.checked);
         if (event.target.checked) {
             this.selectedWorkingDays.push(item.name);
         }
@@ -449,7 +450,6 @@ var UpdatedoctorComponent = (function () {
             var index = this.selectedWorkingDays.indexOf(updateItem);
             this.selectedWorkingDays.splice(index, 1);
         }
-        console.log(this.selectedWorkingDays);
     };
     UpdatedoctorComponent.prototype.selectRestrictBranch = function (event, item) {
         console.log(item);

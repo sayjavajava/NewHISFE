@@ -64,7 +64,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Primary Branch
                                         <span class="required" aria-required="true"> * </span>
@@ -73,7 +72,8 @@
                                         <select class="form-control"
                                                 (change)="getSelectedBranch($event.target.value)"
                                                 formControlName="primaryBranch" placeholder="Select Branch">
-                                            <option *ngFor="let br of branchesList; let i = index" [value]="br.id" [attr.selected]="i == 0 ? true : false">
+                                            <option  [value]="null">Select Primary Branch</option>
+                                            <option *ngFor="let br of branchesList; let i = index" [value]="br.id">
                                                 {{br.name}}
                                             </option>
 
@@ -120,6 +120,47 @@
                                     <span class="text-danger"
                                           *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
                                 </div>
+
+                                <!--nurse department container-->
+                                <div *ngIf="nurseDepartment" class="form-group mrgn-btm10">
+                                    <label class="control-label col-md-4">Department
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="checkbox-box cod-higt" id="not-due">
+                                            <address class="row">
+                                                <label class="col-md-6" *ngFor="let item of departmentList">
+                                                    <input type="checkbox" formControlName="departmentControl"
+                                                           name={{item.name}}
+                                                           value="{{item.id}}"
+                                                           (change)="selectDepartment($event,item)">
+                                                    {{item.name}}
+
+                                                    <span></span>
+                                                </label>
+                                            </address>
+                                        </div>
+                                        <span class="text-danger"
+                                              *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
+                                    </div>
+                                </div>
+
+                                <!--doctor department container-->
+                                <div *ngIf="doctorDepartment" class="form-group mrgn-btm10">
+                                    <label class="control-label col-md-4">Department
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" (change)="selectDoctorDepartment($event.target.value)" formControlName="changeUser">
+                                            <option value="" selected="selected">Select Department</option>
+                                            <option *ngFor="let item of departmentList" value="{{item.id}}">{{item.name}}</option>
+                                        </select>
+                                        <span></span>
+                                        <span class="text-danger"
+                                              *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
+                                    </div>
+                                </div>
+
                                 <div *ngIf="services" class="form-group">
                                     <label class="control-label col-md-4">Services
                                         <!--<span class="required" aria-required="true"> * </span>-->
@@ -129,7 +170,7 @@
                                             <address class="row">
                                                 <label class="mt-checkbox mt-checkbox-outline">
                                                     <div *ngFor="let item of servicesList" class="col-md-6">
-                                                        <input type="checkbox" formControlName="servicesControl"
+                                                        <input type="checkbox" formControlName="servicesControl" class="mt-checkbox mt-checkbox-outline"
                                                                name={{item.name}}
                                                                value="{{item.id}}"
                                                                (change)="selectServices($event,item)">
@@ -190,7 +231,7 @@
                                             <input type="checkbox" formControlName="managePatientInvoices"><span></span></label>
                                     </div>
                                 </div>
-                                <div *ngIf="dutytimmingshift2" class="form-group">
+                                <!--<div *ngIf="dutytimmingshift2" class="form-group">
                                     <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
                                     </label>
                                     <div class="col-md-8  col-xs-12">
@@ -200,16 +241,6 @@
                                                        formControlName="shift2"><span></span></label>
                                         </div>
                                         <div class="mrgn-top8">
-
-                                            <!--<span class="col-md-2 width12"><button type="button"
-                                                                                   (click)="secondShiftFrom()">From</button></span>
-                                            <input class="col-md-4" type="time" value="{{secondShiftFromTime}}">
-                                            &emsp;
-                                            <span class="col-md-2 width12"> <button type="button"
-                                                                                    (click)="secondShiftTo()">To</button></span>
-                                            <input class="col-md-4" type="time" value="{{secondShiftToTime}}">
-
--->
                                             <div class="col-md-2">
                                                 <button type="button" (click)="secondShiftFrom()">From</button>
                                             </div>
@@ -224,11 +255,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="col-md-6">
-                                <!--nurse department container-->
-                                <div *ngIf="nurseDepartment" class="form-group mrgn-btm10">
+                               <!-- nurse department container
+                               <div *ngIf="nurseDepartment" class="form-group mrgn-btm10">
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -243,16 +274,16 @@
                                                     {{item.name}}
 
                                                     <span></span>
-                                                 </label>
+                                                </label>
                                             </address>
                                         </div>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <!--doctor department container-->
-                                <div *ngIf="doctorDepartment" class="form-group mrgn-btm10">
+                                <!--<div *ngIf="doctorDepartment" class="form-group mrgn-btm10">
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -265,7 +296,7 @@
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Password
@@ -457,6 +488,34 @@
                                 <span class="text-danger"
                                       *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
                             </div>
+
+                            <div *ngIf="dutytimmingshift2" class="form-group">
+                                <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
+                                </label>
+                                <div class="col-md-8  col-xs-12">
+                                    <div class="width6 col-md-1 pull-left no-padding">
+                                        <label class="mrgn-top10 mt-checkbox-outline chckbox">
+                                            <input type="checkbox" class=""
+                                                   formControlName="shift2"><span></span></label>
+                                    </div>
+                                    <div class="mrgn-top8">
+                                        <div class="col-md-2">
+                                            <button type="button" (click)="secondShiftFrom()">From</button>
+                                        </div>
+                                        <div class="col-md-2" style="width: 72px">
+                                            <input type="time" style="width: 122px" value="{{secondShiftFromTime}}">
+                                        </div>
+                                        <div class="col-md-2" style="width: 68px;margin-left: 55px;">
+                                            <button type="button" (click)="secondShiftTo()">To</button>
+                                        </div>
+                                        <div class="col-md-2" style="width: 72px;margin-left: -37px;">
+                                            <input type="time" style="width: 122px" value="{{secondShiftToTime}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div *ngIf="vacation" class="form-group">
                                 <label class="control-label col-md-4 col-xs-12 mrgn-top14"> Vacation:
                                 </label>
@@ -493,7 +552,7 @@
                                 <div class="col-md-8 col-xs-12 text-center">
                                     <div *ngFor="let item of workingDays" class="">
                                         <div class=" col-md-1 col-width25 col-xs-3">
-                                            <input type="checkbox" class="form-control spinner"
+                                            <input type="checkbox" class="spinner"
                                                    value="{{item.id}}"
                                                    (change)="selectWorkingDays($event,item)">
                                             {{item.name}}

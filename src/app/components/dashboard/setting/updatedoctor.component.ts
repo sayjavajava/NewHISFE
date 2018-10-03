@@ -62,9 +62,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         {id: 1, name: 'Monday'},
         {id: 2, name: 'Tuesday'},
         {id: 3, name: 'Wednesday'},
-        {id: 4, name: 'Thurseday'},
+        {id: 4, name: 'Thursday'},
         {id: 5, name: 'Friday'},
-        {id: 6, name: 'Satureday'},
+        {id: 6, name: 'Saturday'},
         {id: 7, name: 'Sunday'},
     ];
     private subscription :Subscription;
@@ -159,7 +159,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
                 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
-                'homePhone': [null, Validators.required],
+                'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'interval': [null, Validators.required],
@@ -185,9 +185,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     sunday: new FormControl(''),
                     monday: new FormControl(''),
                     tuesday: new FormControl(''),
-                    thurseday: new FormControl(''),
+                    thursday: new FormControl(''),
                     friday: new FormControl(''),
-                    satureday: new FormControl(''),
+                    saturday: new FormControl(''),
                     wednesday: new FormControl(''),
 
                 })
@@ -205,7 +205,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
             this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'DOCTOR').subscribe(
                 user => {
                     //  this.id = user.id;
-                     this.userForm.patchValue({
+                    this.userForm.patchValue({
                         firstName: user.firstName,
                         lastName: user.lastName,
                         email: user.email,
@@ -220,36 +220,36 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         otherDoctorDashBoard: user.otherDoctorDashBoard,
                         primaryBranch: user.primaryBranchId,
                         interval: user.checkUpInterval,
-                       // shift1: user.dutyShift.dutyTimmingShift1,
-                       // shift2: user.dutyShift.dutyTimmingShift2,
-                      //  secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
+                        // shift1: user.dutyShift.dutyTimmingShift1,
+                        // shift2: user.dutyShift.dutyTimmingShift2,
+                        //  secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
                         vacation: user.vacation,
-                     });
-                     if(user.expiryDate !=null){
-                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
-                     }
-                     //let shifts: any [] = user.dutyShifts;
-                     for (let s in user.dutyShifts){
+                    });
+                    if (user.expiryDate != null) {
+                        this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
+                    }
+                    //let shifts: any [] = user.dutyShifts;
+                    if (user.dutyShifts!=null && user.dutyShifts.length > 0) {
+                        for (let s in user.dutyShifts) {
+                            if (user.dutyShifts[s].shiftName === 'SHIFT1') {
+                                this.userForm.controls['shift1'].setValue(true);
+                                this.firstShiftFromTime = user.dutyShifts[s].startTime;
+                                this.firstShiftToTime = user.dutyShifts[s].endTime;
+                            } else if (user.dutyShifts[s].shiftName === 'SHIFT2') {
+                                this.userForm.controls['shift2'].setValue(true);
+                                this.secondShiftFromTime = user.dutyShifts[s].startTime;
+                                this.secondShiftToTime = user.dutyShifts[s].endTime;
+                            }
+                        }
 
-                         if(user.dutyShifts[s].shiftName === 'SHIFT1'){
-                             this.userForm.controls['shift1'].setValue(true);
-                             this.firstShiftFromTime = user.dutyShifts[s].startTime;
-                             this.firstShiftToTime = user.dutyShifts[s].endTime;
-                         }else
-                         if(user.dutyShifts[s].shiftName === 'SHIFT2'){
-                             this.userForm.controls['shift2'].setValue(true);
-                             this.secondShiftFromTime = user.dutyShifts[s].startTime;
-                             this.secondShiftToTime = user.dutyShifts[s].endTime;
-                         }
-                     }
-
-                    if(user.dutyShifts[0].shiftName == 'MORNING'){
-                        // console.log('doneee'+user.dutyShifts[0].shiftName);
-                         this.userForm.controls['shift1'].setValue(true);
-                     }
-                    if(user.dutyShifts.length>1 && user.dutyShifts[1].shiftName == 'EVENING'){
-                        // console.log('doneee'+user.dutyShifts[0].shiftName);
-                        this.userForm.controls['shift2'].setValue(true);
+                        if (user.dutyShifts[0].shiftName == 'MORNING') {
+                            // console.log('doneee'+user.dutyShifts[0].shiftName);
+                            this.userForm.controls['shift1'].setValue(true);
+                        }
+                        if (user.dutyShifts.length > 1 && user.dutyShifts[1].shiftName == 'EVENING') {
+                            // console.log('doneee'+user.dutyShifts[0].shiftName);
+                            this.userForm.controls['shift2'].setValue(true);
+                        }
                     }
                     let docDeptId = user.docDepartmentId;
                     for(let k in this.departmentList){
@@ -286,9 +286,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         sunday: this.checkAvailabilty('sunday', user.workingDays),
                         monday: this.checkAvailabilty('monday', user.workingDays),
                         tuesday: this.checkAvailabilty('tuesday', user.workingDays),
-                        thurseday: this.checkAvailabilty('thurseday', user.workingDays),
+                        thursday: this.checkAvailabilty('thursday', user.workingDays),
                         friday: this.checkAvailabilty('friday', user.workingDays),
-                        satureday: this.checkAvailabilty('satureday', user.workingDays),
+                        saturday: this.checkAvailabilty('saturday', user.workingDays),
                         wednesday: this.checkAvailabilty('wednesday', user.workingDays)
 
                     })
@@ -320,26 +320,23 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     }
 
     addUser(data: any) {
-        console.log('i am invalid');
         let days = this.userForm.get('workingDaysContorl');
         let daysOfDoctor: { key: string, value: boolean }[] = []
         daysOfDoctor.push({key: 'sunday', value: days.get('sunday').value});
         daysOfDoctor.push({key: 'monday', value: days.get('monday').value});
         daysOfDoctor.push({key: 'tuesday', value: days.get('tuesday').value});
-        daysOfDoctor.push({key: 'thurseday', value: days.get('thurseday').value});
+        daysOfDoctor.push({key: 'wednesday', value: days.get('wednesday').value});
+        daysOfDoctor.push({key: 'thursday', value: days.get('thursday').value});
         daysOfDoctor.push({key: 'friday', value: days.get('friday').value});
-        daysOfDoctor.push({key: 'satureday', value: days.get('satureday').value});
+        daysOfDoctor.push({key: 'saturday', value: days.get('saturday').value});
         if (this.userForm.valid) {
             var result = daysOfDoctor.filter(function (obj) {
-
                 return obj.value == true;
             });
-            console.log('res :' + result);
             for (var key in result) {
                 this.selectedWorkingDays.push(result[key].key);
             }
             let doctor = new User({
-
                     firstName: data.firstName,
                     lastName: data.lastName,
                     userName: data.userName,
@@ -380,13 +377,13 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     }
 
     selectDoctorDepartment(itemId: any) {
+        console.log("Doc Dept:"+itemId);
         if (itemId) {
             this.selectedDepartment[0] = itemId;
         }
     }
 
     makeService(user: any) {
-
         this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
@@ -433,7 +430,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     }
 
     secondShiftFrom() {
-        console.log('time from');
         const amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(time => {
             this.secondShiftFromTime = time;
@@ -443,7 +439,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
 
     firstShiftFrom() {
         const amazingTimePicker = this.amazingTimePickerService.open({
-
             time: this.firstShiftFromTime,
             theme: 'dark',
             arrowStyle: {
@@ -459,7 +454,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
 
     firstShiftTo() {
         const amazingTimePicker = this.amazingTimePickerService.open({
-
             time: this.firstShiftToTime,
             theme: 'dark',
             arrowStyle: {
@@ -485,9 +479,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         }
     }
 
-    selectDepartment(event: any, item: any) {
-        console.log(event.checked);
-
+    /*selectDepartment(event: any, item: any) {
         if (event.target.checked) {
 
             this.selectedDepartment.push(item.id);
@@ -499,25 +491,17 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
 
             this.selectedDepartment.splice(index, 1);
         }
-        console.log(this.selectedDepartment);
-
-    }
+    }*/
 
     selectWorkingDays(event: any, item: any) {
-        console.log(event.checked);
-
         if (event.target.checked) {
             this.selectedWorkingDays.push(item.name);
         }
         else {
             let updateItem = this.selectedWorkingDays.find(this.findIndexToUpdate, item.name);
-
             let index = this.selectedWorkingDays.indexOf(updateItem);
-
             this.selectedWorkingDays.splice(index, 1);
         }
-        console.log(this.selectedWorkingDays);
-
     }
 
     selectRestrictBranch(event: any, item: any) {
@@ -527,12 +511,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         }
         else {
             let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
-
             let index = this.selectedVisitBranches.indexOf(updateItem);
-
             this.selectedVisitBranches.splice(index, 1);
         }
-
     }
 
 

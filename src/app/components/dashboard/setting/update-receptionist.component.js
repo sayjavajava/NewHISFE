@@ -43,7 +43,6 @@ var UpdateReceptionistComponent = (function () {
         this.createUserForm();
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
-            console.log(_this.id);
         });
         this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
         this.patchData();
@@ -138,7 +137,6 @@ var UpdateReceptionistComponent = (function () {
                     }
                 }
             }, function (error) {
-                //console.log(error.json());
                 _this.error = error.error.error_description;
             });
         }
@@ -150,10 +148,8 @@ var UpdateReceptionistComponent = (function () {
                 _this.branchesList.splice(index, 1);
         });
     };
-    UpdateReceptionistComponent.prototype.addCashier = function (data) {
-        console.log('i am invalid');
+    UpdateReceptionistComponent.prototype.addReceptionist = function (data) {
         if (this.userForm.valid) {
-            console.log('i am cashier submit' + data);
             var cashier = new User_1.User({
                 userType: 'receptionist',
                 firstName: data.firstName,
@@ -231,7 +227,6 @@ var UpdateReceptionistComponent = (function () {
             var index = this.selectedVisitBranches.indexOf(updateItem);
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
     };
     UpdateReceptionistComponent.prototype.findIndexToUpdate = function (type) {
         return type.name === this;
@@ -247,11 +242,9 @@ var UpdateReceptionistComponent = (function () {
     UpdateReceptionistComponent.prototype.getSelectedBranch = function (value) {
         console.log(value);
         if (value === undefined) {
-            console.log('i am esss');
             this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
         else {
-            console.log('i am too' + value);
             this.userForm.controls['primaryBranch'].setValue(value);
         }
     };

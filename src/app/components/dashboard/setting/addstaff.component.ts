@@ -61,7 +61,7 @@ export class AddStaffComponent implements OnInit {
         {name: 'Wednesday'},
         {name: 'Thursday'},
         {name: 'Friday'},
-        {name: 'Satureday'},
+        {name: 'Saturday'},
         {name: 'Sunday'},
 
     ];
@@ -132,7 +132,6 @@ export class AddStaffComponent implements OnInit {
                     }
                 },
                 (error: any) => {
-
                 }
             );
     }
@@ -148,7 +147,6 @@ export class AddStaffComponent implements OnInit {
                     }
                 },
                 (error: any) => {
-
                 }
             );
     }
@@ -159,7 +157,6 @@ export class AddStaffComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                         this.departmentList = response['responseData'];
-
                     }
                 },
                 (error: any) => {
@@ -195,7 +192,7 @@ export class AddStaffComponent implements OnInit {
                 'userRole': [null, Validators.required],
                 'homePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'cellPhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-                'primaryBranch': [Validators.required],
+                'primaryBranch': [null, Validators.required],
                 'interval': [null,Validators.required],
                 'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'restrictBranch': [null, Validators.required],
@@ -223,10 +220,14 @@ export class AddStaffComponent implements OnInit {
                 validator: CustomValidators.Match('password', 'confirmPassword')
             }
         )
+        if(this.allStaffTypes[2].name==='RECEPTIONIST'){
+            this.goTo(this.allStaffTypes[2].name);
+        }
     }
 
     addData(data: any) {
         //console.log('i am submit' + data);
+        console.log("P.B:"+this.userForm.get('primaryBranch'));
         if (this.userForm.valid) {
             //console.log('i am valid' + this.selectedUser);
 
@@ -498,7 +499,6 @@ export class AddStaffComponent implements OnInit {
         const amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(time => {
             this.secondShiftFromTime = time;
-            console.log(this.secondShiftFromTime);
         })
     }
 
@@ -514,7 +514,6 @@ export class AddStaffComponent implements OnInit {
         });
         amazingTimePicker.afterClose().subscribe(time => {
             this.firstShiftFromTime = time;
-
         })
     }
 
@@ -654,7 +653,7 @@ export class AddStaffComponent implements OnInit {
         this.selectedDoctors.length = 0;
         this.selectedWorkingDays.length = 0;
         this.firstShiftFromTime = '';
-        this.userForm.controls['restrictBranch'].setValue('');
+        //this.userForm.controls['restrictBranch'].setValue('');
         this.firstShiftToTime = '';
         this.secondShiftFromTime = '';
         this.secondShiftToTime = '';

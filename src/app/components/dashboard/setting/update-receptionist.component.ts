@@ -43,7 +43,6 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
-            console.log(this.id);
         });
         this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();
@@ -56,7 +55,6 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         let data = response['responseData'];
                         let userNameData = data;
                         this.primaryDoctor = response['responseData'];
-
                     }
                 },
                 (error: any) => {
@@ -148,9 +146,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         }
                     }
                 }, (error: any) => {
-                    //console.log(error.json());
                     this.error = error.error.error_description;
-
                 });
         }
 
@@ -161,11 +157,8 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
         });
     }
 
-    addCashier(data: any) {
-        console.log('i am invalid');
+    addReceptionist(data: any) {
         if (this.userForm.valid) {
-
-            console.log('i am cashier submit' + data);
             let cashier = new User({
                 userType: 'receptionist',
                 firstName: data.firstName,
@@ -184,11 +177,8 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
-
             });
-
             this.makeService(cashier);
-
         } else {
             console.log('i am else');
             this.validateAllFormFields(this.userForm);
@@ -196,7 +186,6 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     }
 
     makeService(user: any) {
-
         this.requestService.putRequest('/user/edit/' + this.userId,user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
@@ -248,12 +237,9 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
         }
         else {
             let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
-
             let index = this.selectedVisitBranches.indexOf(updateItem);
-
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
 
     }
     findIndexToUpdate(type: any) {
@@ -262,7 +248,6 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     getSelectedDashboard(value: any) {
         if (value) {
             this.userForm.controls['otherDashboard'].setValue(value);
-
         }
     }
     cancel(){
@@ -271,11 +256,9 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     getSelectedBranch(value: any) {
         console.log(value);
         if (value === undefined) {
-            console.log('i am esss');
             this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
         else {
-            console.log('i am too' + value);
             this.userForm.controls['primaryBranch'].setValue(value);}
 
     }
