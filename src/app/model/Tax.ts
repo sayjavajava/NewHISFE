@@ -9,6 +9,10 @@ export class Tax{
     fromDate:string;
     toDate:string;
     active:boolean;
+    /**
+     * we decided if child record found then we should not update status
+     * */
+    hasChild: boolean = false;
 
     constructor(){
 

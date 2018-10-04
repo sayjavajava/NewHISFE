@@ -22,7 +22,6 @@ export class ServiceTaxComponent implements OnInit {
     isUpdateServiceTax: boolean = false;
     isSearchedTax: boolean = false;
     searchTax: string = "";
-
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,

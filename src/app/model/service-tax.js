@@ -6,8 +6,12 @@ var ServiceTax = (function () {
         this.name = "";
         this.description = "";
         this.rate = 0.0;
-        this.active = false;
+        this.active = true;
         this.deleted = false;
+        /**
+         * we decided if child record found then we should not update status
+         * */
+        this.hasChild = false;
     }
     return ServiceTax;
 }());

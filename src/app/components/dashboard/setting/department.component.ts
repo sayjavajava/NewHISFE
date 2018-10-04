@@ -23,11 +23,6 @@ export class DepartmentComponent implements OnInit {
     searchDepart: string;
     searched: boolean = false;
     selectedDepartment: Department = new Department();
-    /**
-     * we decided if child record found then we should not update status
-     * */
-    statusShowHide: boolean = false;
-
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -55,7 +50,7 @@ export class DepartmentComponent implements OnInit {
 
     refreshPage() {
         this.searched = false;
-        this.searchDepart = "";
+        this.searchDepart = '';
         this.getPageWiseDepartmentFromServer(0);
     }
 
@@ -85,7 +80,7 @@ export class DepartmentComponent implements OnInit {
 
     deleteDepartment(dptId: number) {
         if (window.localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(
@@ -192,11 +187,9 @@ export class DepartmentComponent implements OnInit {
 
     onUpdatePopupLoad(department: Department) {
         this.selectedDepartment = department;
-        this.statusShowHide = department.hasChild;
     }
 
     onAddPopupLoad() {
         this.selectedDepartment = new Department();
-        this.statusShowHide = false;
     }
 }

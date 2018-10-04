@@ -31,7 +31,7 @@ export class AppConstants {
     ////////////////////// Patients Invoices ///////////////////////////////
     public static SAVE_INVOICE = '/invoice/saveInvoice';
     public static GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
-    public static INVOICE_CHECK_IN= '/invoice/generateInvoiceOnCheckIn/';
+    public static INVOICE_CHECK_IN = '/invoice/generateInvoiceOnCheckIn/';
 
 
     ////////////////////// Cashier Desk ///////////////////////////////
@@ -139,8 +139,6 @@ export class AppConstants {
     public static DOCUMENT_DELETE_URI = '/patient/document/delete/';
 
 
-
-
     ////////////////////// Appointments URLs ///////////////////////////////
     public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     public static CREATE_APPOINTMENT_URL = '/appointment/create';
@@ -157,13 +155,13 @@ export class AppConstants {
     ////////////////////// Patient History ///////////////////////////////
     public static FETCH_ALL_LABORDER_URL = '/patient/laborder/';
     public static FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
-    public static LAB_ORDER_UPDATE ='/patient/laborder/update/';
+    public static LAB_ORDER_UPDATE = '/patient/laborder/update/';
     public static LAB_ORDER_DELETE = '/patient/laborder/delete/';
     public static FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
     ///////////////////Family History//////////
-    public static FAMILY_HISTORY_CREATE ='/patient/family/create';
+    public static FAMILY_HISTORY_CREATE = '/patient/family/create';
     public static FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
-    public static LAB_ORDER_CREATE ='/patient/laborder/create';
+    public static LAB_ORDER_CREATE = '/patient/laborder/create';
     public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';

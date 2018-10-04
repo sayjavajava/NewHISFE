@@ -28,10 +28,6 @@ var DepartmentComponent = (function () {
         this.pages = [];
         this.searched = false;
         this.selectedDepartment = new department_1.Department();
-        /**
-         * we decided if child record found then we should not update status
-         * */
-        this.statusShowHide = false;
     }
     DepartmentComponent.prototype.ngOnInit = function () {
         if (window.localStorage.getItem(btoa('access_token'))) {
@@ -52,7 +48,7 @@ var DepartmentComponent = (function () {
     };
     DepartmentComponent.prototype.refreshPage = function () {
         this.searched = false;
-        this.searchDepart = "";
+        this.searchDepart = '';
         this.getPageWiseDepartmentFromServer(0);
     };
     DepartmentComponent.prototype.getPageWiseDepartmentFromServer = function (page) {
@@ -78,7 +74,7 @@ var DepartmentComponent = (function () {
     DepartmentComponent.prototype.deleteDepartment = function (dptId) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(function (response) {
@@ -172,11 +168,9 @@ var DepartmentComponent = (function () {
     };
     DepartmentComponent.prototype.onUpdatePopupLoad = function (department) {
         this.selectedDepartment = department;
-        this.statusShowHide = department.hasChild;
     };
     DepartmentComponent.prototype.onAddPopupLoad = function () {
         this.selectedDepartment = new department_1.Department();
-        this.statusShowHide = false;
     };
     DepartmentComponent = __decorate([
         core_1.Component({
