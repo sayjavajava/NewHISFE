@@ -103,6 +103,7 @@ var AddAppointmentComponent = (function () {
         this.getDoctorsFromServer();
         this.getPatientFromServer();
         this.allServices();
+        this.getBranchesAndDoctorFromServer();
     }
     AddAppointmentComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -116,7 +117,7 @@ var AddAppointmentComponent = (function () {
                     _this.events.push({
                         id: apt.id,
                         /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
-                        title: apt.patient + " " + apt.scheduleDate + " " + apt.branchName,
+                        title: apt.patient + '<br/>' + " " + apt.scheduleDate + '<br/>' + " " + apt.branchName,
                         start: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                         end: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
                         // start: addHours(startOfDay(new Date(apt.scheduleDate)),126),
@@ -211,7 +212,6 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.moveMouse = function (action, event) {
         this.modalData = { event: event, action: action };
-        console.log("test:" + event.title);
         this.popup = true;
     };
     AddAppointmentComponent.prototype.mouseEnter = function (div) {
@@ -236,6 +236,16 @@ var AddAppointmentComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.doctorsList = response['responseData'];
+            }
+        }, function (error) {
+        });
+    };
+    AddAppointmentComponent.prototype.getBranchesAndDoctorFromServer = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTOR_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BR_SUC_01') {
+                _this.branches = response['responseData'];
             }
         }, function (error) {
         });
@@ -269,7 +279,6 @@ var AddAppointmentComponent = (function () {
         var event = _a.event, newStart = _a.newStart, newEnd = _a.newEnd;
         event.start = newStart;
         event.end = newEnd;
-        console.log("time changing ....");
         this.handleEvent('Dropped or resized', event);
         this.refresh.next();
     };

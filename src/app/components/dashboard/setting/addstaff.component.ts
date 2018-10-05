@@ -112,8 +112,8 @@ export class AddStaffComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-
                     }
+                   // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
                 },
                 (error: any) => {
                     this.error = error.error.error;

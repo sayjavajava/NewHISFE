@@ -61,10 +61,13 @@
 
                                         </button>
                                     </a>
-                                    <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="deleteDepartment(item.id)">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
+                                    <span [hidden]="item.hasChild">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="deleteDepartment(item.id)">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </span>
+
                                 </td>
                             </tr>
                             </thead>
@@ -146,17 +149,20 @@
                                             </textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Status</label>
-                                        <div class="col-md-3 select pdng-lr-5">
-                                            <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                                <input type="checkbox"
-                                                       class="form-control"
-                                                       [(ngModel)]="selectedDepartment.active"
-                                                       name="active"
-                                                       #active="ngModel"><span></span></label>
+                                    <span [hidden]="selectedDepartment.hasChild">
+                                        <div class="form-group hr">
+                                            <label class="col-md-3 pdng-lr-5 control-label txt-size">Status</label>
+                                            <div class="col-md-3 select pdng-lr-5">
+                                                <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                                    <input type="checkbox"
+                                                           class="form-control"
+                                                           [(ngModel)]="selectedDepartment.active"
+                                                           name="active"
+                                                           #active="ngModel"><span></span></label>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </span>
+
                                 </div>
                             </div>
                             <div class="slimScrollBar"

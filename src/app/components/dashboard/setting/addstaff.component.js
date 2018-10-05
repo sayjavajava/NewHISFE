@@ -89,6 +89,7 @@ var AddStaffComponent = (function () {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
             }
+            // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
         }, function (error) {
             _this.error = error.error.error;
         });
