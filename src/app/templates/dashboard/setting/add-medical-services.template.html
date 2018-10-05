@@ -14,11 +14,12 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input class="form-control"
+                                        <input class="form-control" minlength="1"
                                                type="text" required
                                                [(ngModel)]="ms.name"
-                                               required
-                                               name="msTitle" #msTitle="ngModel"/>  <!--pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+                                               required id="msTitle"
+                                               name="msTitle" #msTitle="ngModel"/>
+                                        <!--pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
                                     </div>
                                     <span *ngIf="msTitle.invalid && msTitle.touched"
                                           class="col-md-6 select pdng-lr-5 text-danger">
@@ -36,7 +37,7 @@
                                         <input class="form-control"
                                                type="text"
                                                [(ngModel)]="ms.code" minlength="3"
-                                               required
+                                               required id="code"
                                                name="code" #code="ngModel"/>
                                     </div>
                                     <span *ngIf="code.invalid && code.touched"
@@ -44,7 +45,6 @@
                                                 Please enter valid Code.
                                     </span>
                                 </div>
-
 
 
                                 <!---->
@@ -79,19 +79,19 @@
                                     </label>
                                     <div class="col-md-9">
                                         <div class="checkbox-box  cod-higt" id="departmentDiv">
-                                                <div class="col-md-6" *ngFor="let department of ms.departments">
-                                                    <address>
-                                                        <label class="mt-checkbox-outline">
-                                                            <input type="checkbox"
-                                                                   id="departmentId"
-                                                                   name="{{department.id}}"
-                                                                   [(ngModel)]="department.checkedDepartment">
-                                                            {{department.name}}
-                                                            <span></span>
-                                                        </label>
-                                                    </address>
-                                                </div>
+                                            <div class="col-md-6" *ngFor="let department of ms.departments">
+                                                <address>
+                                                    <label class="mt-checkbox-outline">
+                                                        <input type="checkbox"
+                                                               id="departmentId"
+                                                               name="{{department.id}}"
+                                                               [(ngModel)]="department.checkedDepartment">
+                                                        {{department.name}}
+                                                        <span></span>
+                                                    </label>
+                                                </address>
                                             </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -133,8 +133,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <select class="form-control"
-                                                required
-                                                name="dptDrp"
+                                                name="taxId" id="taxId"
                                                 [ngModelOptions]="{standalone:true}"
                                                 [(ngModel)]="ms.tax.id">
                                             <option value="-1">-- Select --</option>
@@ -150,9 +149,8 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input class="form-control"
-                                               type="number"
-                                               [(ngModel)]="ms.duration" min="0"
-                                               pattern="^[0-9]{1,60}$"
+                                               type="number" required
+                                               [(ngModel)]="ms.duration" min="0" maxlength="5"
                                                name="duration"
                                                #duration="ngModel"/>
                                     </div>
@@ -177,13 +175,13 @@
                                         </textarea>
                                     </div>
                                 </div>
-                               <!-- <div class="form-group">
-                                    <label class="col-md-3 control-label">File Image</label>
-                                    <div class="col-md-9">
-                                        &lt;!&ndash;<input type="file" id="exampleInputFile">&ndash;&gt;
-                                        <p class="help-block"> (Recommended: width 400px X height 300px) </p>
-                                    </div>
-                                </div>-->
+                                <!-- <div class="form-group">
+                                     <label class="col-md-3 control-label">File Image</label>
+                                     <div class="col-md-9">
+                                         &lt;!&ndash;<input type="file" id="exampleInputFile">&ndash;&gt;
+                                         <p class="help-block"> (Recommended: width 400px X height 300px) </p>
+                                     </div>
+                                 </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-md-3">Status
                                     </label>

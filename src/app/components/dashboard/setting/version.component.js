@@ -25,10 +25,6 @@ var VersionComponent = (function () {
         this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
         this.pages = [];
         this.searchVersion = '';
-        /**
-         * we decided if version has child record then we should not update status
-         * */
-        this.statusReadonly = false;
     }
     VersionComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Manage ICD';
@@ -71,7 +67,6 @@ var VersionComponent = (function () {
     VersionComponent.prototype.editICDVersion = function (iCDVersion) {
         this.isVersionUpdate = true;
         this.iCDVersionModel = iCDVersion;
-        this.statusReadonly = iCDVersion.hasChild;
     };
     VersionComponent.prototype.updateICDVersion = function (versionForm) {
         var _this = this;
@@ -102,7 +97,6 @@ var VersionComponent = (function () {
     VersionComponent.prototype.onAddICDVersionPopupLoad = function () {
         this.isVersionUpdate = false;
         this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
-        this.statusReadonly = false;
     };
     VersionComponent.prototype.searchByVersion = function (page) {
         var _this = this;

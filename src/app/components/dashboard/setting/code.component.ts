@@ -23,11 +23,6 @@ export class CodeComponent implements OnInit {
     searched: boolean = false;
     isCodeUpdate: boolean = false;
 
-    /**
-     * we decided if code has child record then we should not update status
-     * */
-    statusReadonly: boolean = false;
-
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -181,13 +176,11 @@ export class CodeComponent implements OnInit {
     editICDCode(iCDCode: any) {
         this.isCodeUpdate = true;
         this.iCDModel = iCDCode;
-        this.statusReadonly = iCDCode.hasChild;// means it has child and we should not update its status
     }
 
     onAddICDCodePopupLoad() {
         this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel();
-        this.statusReadonly = false;
     }
 
     searchByCode(pageNo: number) {

@@ -165,17 +165,15 @@
                                     Please enter valid code.
                             </span>
                             </div>
-                            <span [hidden]="statusReadonly">
-                                <div class="form-group hr">
-                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
-                                    <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
-                                        <label class="mt-checkbox mt-checkbox-outline">
-                                            <input type="checkbox" [(ngModel)]="iCDVersionModel.status" name="status">
-                                            <span></span>
-                                        </label>
-                                    </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+                                <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox" [(ngModel)]="iCDVersionModel.status" name="status">
+                                        <span></span>
+                                    </label>
                                 </div>
-                            </span>
+                            </div>
                         </div>
                     </div>
                 </div>
