@@ -21,6 +21,7 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var DataService_1 = require("../../../services/DataService");
 var UpdateReceptionistComponent = (function () {
     function UpdateReceptionistComponent(route, router, requestService, dataService, hisUtilService, fb, notificationService) {
+        var _this = this;
         this.route = route;
         this.router = router;
         this.requestService = requestService;
@@ -33,19 +34,24 @@ var UpdateReceptionistComponent = (function () {
         this.defaultBranch = 'primaryBranch';
         this.userSelected = 'doctor';
         this.selectedVisitBranches = [];
-        this.allBranches();
-        this.allDoctors();
-    }
-    UpdateReceptionistComponent.prototype.ngOnDestroy = function () {
-    };
-    UpdateReceptionistComponent.prototype.ngOnInit = function () {
-        var _this = this;
+        //this.allBranches();
+        //this.allDoctors();
         this.createUserForm();
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
         this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
         this.patchData();
+    }
+    UpdateReceptionistComponent.prototype.ngOnDestroy = function () {
+    };
+    UpdateReceptionistComponent.prototype.ngOnInit = function () {
+        /*this.createUserForm();
+        this.sub = this.route.params.subscribe(params => {
+            this.id = params['id'];
+        });
+        this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
+        this.patchData();*/
     };
     UpdateReceptionistComponent.prototype.allDoctors = function () {
         var _this = this;
@@ -67,9 +73,9 @@ var UpdateReceptionistComponent = (function () {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
                 //  this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
-                if (_this.branchesList.length > 1) {
-                    _this.removeBranch();
-                }
+                /*if(this.branchesList.length >1 ){
+                 this.removeBranch();
+                }*/
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -127,15 +133,23 @@ var UpdateReceptionistComponent = (function () {
                     primaryBranch: receptionist.primaryBranchId,
                 });
                 _this.staffBranches = receptionist.staffBranches;
-                for (var key in _this.branchesList) {
-                    for (var k in _this.staffBranches) {
-                        if (_this.staffBranches[k].id == _this.branchesList[key].id) {
-                            _this.branchesList[key].checked = true;
-                            _this.selectedVisitBranches.push(_this.staffBranches[k].id);
-                            break;
+                _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        _this.branchesList = response['responseData'];
+                        for (var key in _this.branchesList) {
+                            for (var k in _this.staffBranches) {
+                                if (_this.staffBranches[k].id == _this.branchesList[key].id) {
+                                    _this.branchesList[key].checked = true;
+                                    _this.selectedVisitBranches.push(_this.staffBranches[k].id);
+                                    break;
+                                }
+                            }
                         }
                     }
-                }
+                }, function (error) {
+                    _this.error = error.error.error;
+                });
             }, function (error) {
                 _this.error = error.error.error_description;
             });
