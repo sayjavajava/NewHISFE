@@ -14,6 +14,7 @@ import { Appointment } from "../../../model/Appointment";
 })
 export class PatientInvoiceComponent implements OnInit {
 
+    invoiceForm:FormGroup;
     appointment : any;
     patientName : string;
     scheduleDateAndTime : any;
@@ -23,8 +24,10 @@ export class PatientInvoiceComponent implements OnInit {
 
     appointmentId : string;
 
-    servicesList: MedicalService[] ;
+    servicesList: MedicalService[] ; // All Services List
+    unSelectedServicesList: any = [] ; // remove selected service from all services List
     selectedService: MedicalService ;
+    selectedServiceIndex : number = -1;
     error: string;
 
     serviceName: string;
@@ -98,6 +101,18 @@ export class PatientInvoiceComponent implements OnInit {
                 this.invoiceList = res.responseData ;
                 console.log("get Invoice Items By Id Data : " + this.invoiceList );
 
+                var i = 0, len = this.invoiceList.length;
+                for(;i<len; i++){
+                    let arr:MedicalService[] = this.servicesList.filter((x:any) => x.code != this.invoiceList[i].code);
+                    if(this.unSelectedServicesList.length > 0 && !this.unSelectedServicesList.filter((x:any) =>  x.code == arr[0].code)) {
+                        console.log("un Selected Services List By Code Data : " + arr[0].name );
+                        this.unSelectedServicesList.push(arr[0]);
+                    }
+                    else if(this.unSelectedServicesList.length ==0){
+                        this.unSelectedServicesList.push(arr[0]);
+                    }
+                }
+
                 this.getTotalOfAllInviceItems();
                  },
                 (error: any) => {
@@ -113,7 +128,7 @@ export class PatientInvoiceComponent implements OnInit {
                 (response: Response) => {
                     //console.log('i am branch call');
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
-                        this.servicesList = response['responseData'];
+                        this.servicesList = response['responseData'];                       
                         console.log(this.servicesList);
                     }
                 },
@@ -122,21 +137,33 @@ export class PatientInvoiceComponent implements OnInit {
                 })
     }
 
-    selectServices(service: any) {
+    selectServices(service: any) {      
         if(service !="-1"){
-            console.log('test:'+ this.servicesList[0].name);  
-            let arr:MedicalService[] = this.servicesList.filter((x:any) => x.id == service);
-            console.log('tax rate:'+ arr[0].tax.rate);  
-            
+             
             if (service) {
-                this.show = true;
-                this.selectedService = arr[0];
-                this.serviceName = arr[0].name;
-                this.taxRate = arr[0].tax.rate;
-                
+                 this.show = true;
+           //      this.selectedService = this.servicesList[service];
+                 this.selectedService = this.unSelectedServicesList[service];
+                 this.serviceName = this.unSelectedServicesList[service].name;
+                 this.taxRate = this.unSelectedServicesList[service].tax.rate;
+                 this.selectedServiceIndex = service;
             }else{
                 this.show = false;
             }
+            
+   //        let arr:MedicalService[] = this.servicesList.filter((x:any) => x.id == service);
+            // console.log('tax rate:'+ arr[0].tax.rate);  
+            
+            // if (service) {
+            //     this.show = true;
+            //     this.selectedService = arr[0];
+            //     this.serviceName = arr[0].name;
+            //     this.taxRate = arr[0].tax.rate;
+            //     this.selectedServiceIndex = service;
+                
+            // }else{
+            //     this.show = false;
+            // }
         }else{
             this.show = false;
         }
@@ -208,7 +235,10 @@ export class PatientInvoiceComponent implements OnInit {
         this.invoiceList.push(this.selectedInvoice);
         this.show = false;
         this.showEditButton = false;
-
+        
+/*         this.selectedService = this.servicesList.filter((x:any) => x.code == this.selectedInvoice.code)[0]; */
+        this.unSelectedServicesList.splice(this.selectedServiceIndex,1);
+        this.selectedServiceIndex = -1;
         this.getTotalOfAllInviceItems();
     }
 
@@ -235,7 +265,11 @@ export class PatientInvoiceComponent implements OnInit {
 
 
     removeInvoic(value : any){
+        
+        let arr:MedicalService[] = this.servicesList.filter((x:any) => x.code == this.invoiceList[value].code);
+        this.unSelectedServicesList.push(arr[0]);
         this.invoiceList.splice(value,1);
+        this.getTotalOfAllInviceItems();
     }
 
     editInvoic(value : any){
