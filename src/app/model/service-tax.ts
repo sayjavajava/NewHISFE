@@ -7,9 +7,7 @@ export class ServiceTax {
     toDate: string = '';
     active: boolean = true;
     deleted: boolean = false;
-    /**
-     * we decided if child record found then we should not update status
-     * */
+
     hasChild: boolean = false;
 
     constructor() {

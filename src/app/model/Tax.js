@@ -5,10 +5,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var Tax = (function () {
     function Tax() {
+        this.id = -1;
         this.rate = 0.0;
-        /**
-         * we decided if child record found then we should not update status
-         * */
         this.hasChild = false;
     }
     return Tax;

@@ -11,7 +11,7 @@ var AppConstants = (function () {
     AppConstants.ACCESS_TOKEN = 'access_token';
     AppConstants.EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     AppConstants.USER_BY_ROLE = '/user/role';
-    AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';
+    AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/'; ///only active departments
     AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
     AppConstants.SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
@@ -74,7 +74,7 @@ var AppConstants = (function () {
     AppConstants.EMAIL_TEMPLATE_UPDATE_URL = '/setting/emailTemplate/update';
     AppConstants.EMAIL_TEMPLATE_SEARCH_URL = '/setting/emailTemplate/search/';
     ////////////////////// Medical Service URLs ///////////////////////////////
-    AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
+    AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/'; //all only active or if by /1 or 0 or some number then paging method call
     AppConstants.SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
     AppConstants.UPDATE_MEDICAL_SERVICES_URL = '/setting/medicalService/update';
     AppConstants.DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
