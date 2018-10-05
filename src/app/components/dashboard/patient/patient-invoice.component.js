@@ -19,6 +19,8 @@ var PatientInvoiceComponent = (function () {
         this.router = router;
         this.route = route;
         this.requestsService = requestsService;
+        this.unSelectedServicesList = []; // remove selected service from all services List
+        this.selectedServiceIndex = -1;
         this.quantity = 1;
         this.unitFee = 0;
         this.discountRate = 0;
@@ -71,6 +73,20 @@ var PatientInvoiceComponent = (function () {
                 .subscribe(function (res) {
                 _this.invoiceList = res.responseData;
                 console.log("get Invoice Items By Id Data : " + _this.invoiceList);
+                var i = 0, len = _this.invoiceList.length;
+                var _loop_1 = function () {
+                    var arr = _this.servicesList.filter(function (x) { return x.code != _this.invoiceList[i].code; });
+                    if (_this.unSelectedServicesList.length > 0 && !_this.unSelectedServicesList.filter(function (x) { return x.code == arr[0].code; })) {
+                        console.log("un Selected Services List By Code Data : " + arr[0].name);
+                        _this.unSelectedServicesList.push(arr[0]);
+                    }
+                    else if (_this.unSelectedServicesList.length == 0) {
+                        _this.unSelectedServicesList.push(arr[0]);
+                    }
+                };
+                for (; i < len; i++) {
+                    _loop_1();
+                }
                 _this.getTotalOfAllInviceItems();
             }, function (error) {
                 _this.error = error;
@@ -92,18 +108,28 @@ var PatientInvoiceComponent = (function () {
     };
     PatientInvoiceComponent.prototype.selectServices = function (service) {
         if (service != "-1") {
-            console.log('test:' + this.servicesList[0].name);
-            var arr = this.servicesList.filter(function (x) { return x.id == service; });
-            console.log('tax rate:' + arr[0].tax.rate);
             if (service) {
                 this.show = true;
-                this.selectedService = arr[0];
-                this.serviceName = arr[0].name;
-                this.taxRate = arr[0].tax.rate;
+                //      this.selectedService = this.servicesList[service];
+                this.selectedService = this.unSelectedServicesList[service];
+                this.serviceName = this.unSelectedServicesList[service].name;
+                this.taxRate = this.unSelectedServicesList[service].tax.rate;
+                this.selectedServiceIndex = service;
             }
             else {
                 this.show = false;
             }
+            //        let arr:MedicalService[] = this.servicesList.filter((x:any) => x.id == service);
+            // console.log('tax rate:'+ arr[0].tax.rate);  
+            // if (service) {
+            //     this.show = true;
+            //     this.selectedService = arr[0];
+            //     this.serviceName = arr[0].name;
+            //     this.taxRate = arr[0].tax.rate;
+            //     this.selectedServiceIndex = service;
+            // }else{
+            //     this.show = false;
+            // }
         }
         else {
             this.show = false;
@@ -160,6 +186,9 @@ var PatientInvoiceComponent = (function () {
         this.invoiceList.push(this.selectedInvoice);
         this.show = false;
         this.showEditButton = false;
+        /*         this.selectedService = this.servicesList.filter((x:any) => x.code == this.selectedInvoice.code)[0]; */
+        this.unSelectedServicesList.splice(this.selectedServiceIndex, 1);
+        this.selectedServiceIndex = -1;
         this.getTotalOfAllInviceItems();
     };
     PatientInvoiceComponent.prototype.updateInovice = function (event) {
@@ -180,7 +209,11 @@ var PatientInvoiceComponent = (function () {
         this.getTotalOfAllInviceItems();
     };
     PatientInvoiceComponent.prototype.removeInvoic = function (value) {
+        var _this = this;
+        var arr = this.servicesList.filter(function (x) { return x.code == _this.invoiceList[value].code; });
+        this.unSelectedServicesList.push(arr[0]);
         this.invoiceList.splice(value, 1);
+        this.getTotalOfAllInviceItems();
     };
     PatientInvoiceComponent.prototype.editInvoic = function (value) {
         this.selectedService = this.invoiceList[value];
