@@ -141,7 +141,7 @@
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text"
                                            class="form-control"
-                                           [(ngModel)]="serviceTax.name"
+                                           [(ngModel)]="serviceTax.name" id="name"
                                            placeholder="Enter Name" name="name"
                                            pattern="^[a-zA-Z% 0-9_-]{0,60}$" required
                                            #name="ngModel">
@@ -161,8 +161,8 @@
                                            [(ngModel)]="serviceTax.rate"
                                            disabled="{{isUpdateServiceTax}}"
                                            placeholder="Enter rate" name="rate"
-                                           max="100" min="1" step="0.1"
-                                           required
+                                           max="100" min="0" step="0.01"
+                                           required id="rate"
                                            #rate="ngModel">
                                 </div>
                                 <span *ngIf="rate.invalid && rate.touched || rate.value>100"
@@ -176,8 +176,8 @@
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="date" class="form-control form-control-inline input-medium"
-                                           [(ngModel)]="serviceTax.fromDate"
-                                           (ngModelChange)="serviceTax.fromDate = $event"
+                                           [(ngModel)]="serviceTax.fromDate" id="fromDate"
+                                           (ngModelChange)="serviceTax.fromDate = $event" required
                                            name="fromDate" #fromDate="ngModel">
                                 </div>
                                 <span *ngIf="fromDate.invalid && fromDate.touched"
@@ -191,7 +191,7 @@
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="date" class="form-control form-control-inline input-medium"
-                                           [(ngModel)]="serviceTax.toDate"
+                                           [(ngModel)]="serviceTax.toDate" id="toDate" required
                                            (ngModelChange)="serviceTax.toDate = $event"
                                            name="toDate" #toDate="ngModel">
                                 </div>
