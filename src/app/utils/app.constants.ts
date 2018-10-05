@@ -32,7 +32,7 @@ export class AppConstants {
     public static SAVE_INVOICE = '/invoice/saveInvoice';
     public static GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
     public static INVOICE_CHECK_IN = '/invoice/generateInvoiceOnCheckIn/';
-
+    public static PATIENT_ALLINVOICE_BALANCE = '/invoice/getPatientInvBal/';
 
     ////////////////////// Cashier Desk ///////////////////////////////
     public static GET_All_INVOICES = '/cashier/getAllInvoices';

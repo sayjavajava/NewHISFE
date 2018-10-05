@@ -11,7 +11,7 @@
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
                                 <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob}})</small>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob  | date: 'MM-dd-yyyy' }})</small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
@@ -182,6 +182,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!--<div class="form-group">
+                                                <label class="col-md-4 control-label txt-size">Nick Name</label>
+                                                <div class="col-md-8 frm-stng">
+                                                    <input type="text" name="name" data-required="1" value="" placeholder="Nick Name" class="form-control">
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                    <div class="hr bdr-btm">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Middle Name
                                                 </label>
@@ -212,16 +223,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--<div class="form-group">
-                                                <label class="col-md-4 control-label txt-size">Nick Name</label>
-                                                <div class="col-md-8 frm-stng">
-                                                    <input type="text" name="name" data-required="1" value="" placeholder="Nick Name" class="form-control">
-                                                </div>
-                                            </div>-->
-                                        </div>
-                                    </div>
-                                    <div class="hr bdr-btm">
-                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Home Phone
                                                 </label>
@@ -985,9 +986,9 @@
                                         <tbody>
                                         <tr class="tbl-pdng" *ngFor="let ss of smokeStatusList">
                                             <td>{{ss.smokingStatus}}</td>
-                                            <td>{{ss.startDate | date: 'MM-dd-yyyy'}}</td>
-                                            <td>{{ss.endDate | date: 'MM-dd-yyyy'}}</td>
-                                            <td>{{ss.recordedDate | date: 'MM-dd-yyyy'}}</td>
+                                            <td>{{ss.startDate | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{ss.endDate | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{ss.recordedDate | date: 'dd-MM-yyyy'}}</td>
                                             <td>
                                                 <button class="btn btn-default btn-outline btn-sm" (click)="deleteSmokeStatus(ss.id)"> <i class="fa fa-remove"></i></button>
                                             </td>
@@ -1004,10 +1005,10 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="hr margin-0">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Smoking Status</label>
+                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Smoking Status *</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-6">
                                                         <input type="text" class="form-control"
-                                                               [(ngModel)]="smokeStatus.smokingStatus"
+                                                               [(ngModel)]="smokeStatus.smokingStatus" required="required"
                                                                placeholder="Enter Smoking Status" name="smokingStatus"
                                                                pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                                #smokingStatus="ngModel">
@@ -1021,10 +1022,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="hr no-padding">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Start Date</label>
+                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Start Date *</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-6">
                                                         <div class="input-group date form_datetime form_datetime bs-datetime">
-                                                            <input type="date" required size="16" [(ngModel)]="smokeStatus.startDate"
+                                                            <input type="date" required="required" size="16" [(ngModel)]="smokeStatus.startDate"
                                                                    class="form-control" name="startStatus">
                                                             <!--<span class="input-group-addon">
                                                                 <button class="btn default date-set" type="button"> <i class="fa fa-calendar"></i> </button>
@@ -1047,10 +1048,10 @@
                                                 </div>
 
                                                 <div class="hr no-padding">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Recorded Date</label>
+                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Recorded Date *</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-6">
                                                         <div class="input-group date form_datetime form_datetime bs-datetime">
-                                                            <input type="date" required size="16" [(ngModel)]="smokeStatus.recordedDate"
+                                                            <input type="date" required="required" size="16" [(ngModel)]="smokeStatus.recordedDate"
                                                                    class="form-control" name="recordedDate">
                                                             <!--<span class="input-group-addon">
                                                                 <button class="btn default date-set" type="button"> <i class="fa fa-calendar"></i> </button>
@@ -1069,7 +1070,7 @@
                                 <!-- /.modal -->
                                 <div class="hr bdr-btm padding-b-10">
                                     <div class=" pull-right">
-                                        <button class="btn btn-xs green-haze" type="button" data-target="#edit1" data-toggle="modal"> <i class="fa fa-plus"></i> Add Record </button>
+                                        <button class="btn btn-xs green-haze" type="button" data-target="#edit1" data-toggle="modal"> <i class="fa fa-plus"></i> Add Smoking Status </button>
                                     </div>
                                 </div>
                             </div>
@@ -1080,31 +1081,29 @@
                                         <tbody>
                                         <tr class="">
                                             <td>Total Billed</td>
-                                            <td>$0.00</td>
-                                            <td>Total Allowed</td>
-                                            <td>$0.00</td>
+                                            <td>{{patientInvBal.totalBill}}</td>
                                         </tr>
                                         <tr class="off-wite-bg">
                                             <td>Total Patient Paid</td>
-                                            <td>$0.00</td>
-                                            <td>Total Insurance Paid</td>
-                                            <td>$0.00</td>
+                                            <td>{{patientInvBal.totalPaid+patientInvBal.advanceBalance}}</td>
                                         </tr>
                                         <tr class="">
                                             <td>Total Patient Balance</td>
-                                            <td>$0.00</td>
-                                            <td>Insuance Balance</td>
-                                            <td>$0.00</td>
+                                            <td>{{patientInvBal.balance}}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Total Patient Balance</td>
+                                            <td>{{patientInvBal.advanceBalance}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="hr bdr-btm padding-b-10">
+                                <!--<div class="hr bdr-btm padding-b-10">
                                     <button class="btn btn-xs green-haze" type="submit" data-target="#edit1" data-toggle="modal"> Full Transaction History </button>
                                     <button class="btn btn-xs green-haze" type="submit" data-target="#edit1" data-toggle="modal"> Patient Payments </button>
                                     <button class="btn btn-xs green-haze" type="submit" data-target="#edit1" data-toggle="modal"> Print Balance Report </button>
-                                </div>
-                                <div class="hr">
+                                </div>-->
+                                <!--<div class="hr">
                                     <h4 class="text-info">Last Patient Statements</h4>
                                     <div class="table-scrollable tbl-brdr-radus">
                                         <table class="table table-hover table-light">
@@ -1135,7 +1134,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="hr text-center">
                                 <button data-repeater-create="" class="btn yellow"
