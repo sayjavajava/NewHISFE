@@ -8,7 +8,7 @@ export class AppConstants {
     public static ACCESS_TOKEN = 'access_token';
     public static EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     public static USER_BY_ROLE = '/user/role';
-    public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';
+    public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';///only active departments
     public static DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     public static SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
     public static SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
@@ -31,8 +31,8 @@ export class AppConstants {
     ////////////////////// Patients Invoices ///////////////////////////////
     public static SAVE_INVOICE = '/invoice/saveInvoice';
     public static GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
-    public static INVOICE_CHECK_IN= '/invoice/generateInvoiceOnCheckIn/';
-
+    public static INVOICE_CHECK_IN = '/invoice/generateInvoiceOnCheckIn/';
+    public static PATIENT_ALLINVOICE_BALANCE = '/invoice/getPatientInvBal/';
 
     ////////////////////// Cashier Desk ///////////////////////////////
     public static GET_All_INVOICES = '/cashier/getAllInvoices';
@@ -79,7 +79,7 @@ export class AppConstants {
     public static EMAIL_TEMPLATE_SEARCH_URL = '/setting/emailTemplate/search/';
 
     ////////////////////// Medical Service URLs ///////////////////////////////
-    public static FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
+    public static FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';//all only active or if by /1 or 0 or some number then paging method call
     public static SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
     public static UPDATE_MEDICAL_SERVICES_URL = '/setting/medicalService/update';
     public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
@@ -87,6 +87,8 @@ export class AppConstants {
     public static MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
     public static FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/';
     public static FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/';
+
+    public static FETCH_DEPT_MEDICAL_SERVICES_URL = '/setting/medicalService/getDeptMedicalService/';
 
     ////////////////////// Organization URLs ///////////////////////////////
     public static ORGANIZATION_CREATE_URL = '/setting/organization/create';
@@ -139,8 +141,6 @@ export class AppConstants {
     public static DOCUMENT_DELETE_URI = '/patient/document/delete/';
 
 
-
-
     ////////////////////// Appointments URLs ///////////////////////////////
     public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     public static CREATE_APPOINTMENT_URL = '/appointment/create';
@@ -158,13 +158,13 @@ export class AppConstants {
     ////////////////////// Patient History ///////////////////////////////
     public static FETCH_ALL_LABORDER_URL = '/patient/laborder/';
     public static FETCH_LABORDER_BY_ID = '/patient/laborder/get/';
-    public static LAB_ORDER_UPDATE ='/patient/laborder/update/';
+    public static LAB_ORDER_UPDATE = '/patient/laborder/update/';
     public static LAB_ORDER_DELETE = '/patient/laborder/delete/';
     public static FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
     ///////////////////Family History//////////
-    public static FAMILY_HISTORY_CREATE ='/patient/family/create';
+    public static FAMILY_HISTORY_CREATE = '/patient/family/create';
     public static FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
-    public static LAB_ORDER_CREATE ='/patient/laborder/create';
+    public static LAB_ORDER_CREATE = '/patient/laborder/create';
     public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
     public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';

@@ -4,8 +4,8 @@ import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {ServiceTax} from '../../../model/service-tax';
-import {NgForm} from "@angular/forms";
-import {Router} from "@angular/router";
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'service-tax-component',
@@ -21,7 +21,7 @@ export class ServiceTaxComponent implements OnInit {
     dataTaxes: ServiceTax[] = [];
     isUpdateServiceTax: boolean = false;
     isSearchedTax: boolean = false;
-    searchTax: string = "";
+    searchTax: string = '';
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -65,7 +65,13 @@ export class ServiceTaxComponent implements OnInit {
 
     saveServiceTax(form: NgForm) {
         if (form.valid) {
-            if (this.serviceTax.rate<0 || this.serviceTax.rate>100) {
+            if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
+                this.notificationService.warn('FROM DATE must be less than or equal to TO DATE.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
+
+            if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
                 this.notificationService.error('Please enter valid tax', 'Tax');
                 return
             }
@@ -91,13 +97,40 @@ export class ServiceTaxComponent implements OnInit {
                 this.router.navigate(['/login']);
             }
         } else {
+            if (this.serviceTax.name === '') {
+                this.notificationService.warn('Please enter Name.');
+                document.getElementById('name').focus();
+                return;
+            }
+            if (this.serviceTax.fromDate === '') {
+                this.notificationService.warn('Please enter from date.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
+            if (this.serviceTax.toDate === '') {
+                this.notificationService.warn('Please enter to date.');
+                document.getElementById('toDate').focus();
+                return;
+            }
+
+            if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
+                this.notificationService.warn('FROM DATE must be less than or equal to TO DATE.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
+
+
+            if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
+                this.notificationService.error('Please enter valid tax', 'Tax');
+                return
+            }
             this.notificationService.error('Required Fields are missing', 'Tax Service');
         }
     }
 
     deleteServiceTax(taxId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are you soure?")) return;
+            if (!confirm('Are you soure?')) return;
             this.requestsService.deleteRequest(
                 AppConstants.SERVICE_TAX_DELETE_URL + taxId)
                 .subscribe(
@@ -126,7 +159,14 @@ export class ServiceTaxComponent implements OnInit {
 
     updateServiceTax(updateServiceTaxForm: NgForm) {
         if (updateServiceTaxForm.valid) {
-            if (this.serviceTax.rate<0 || this.serviceTax.rate>100) {
+
+            if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
+                this.notificationService.warn('FROM DATE must be less than or equal to TO DATE.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
+
+            if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
                 this.notificationService.error('Please enter valid tax', 'Tax');
                 return
             }
@@ -152,6 +192,27 @@ export class ServiceTaxComponent implements OnInit {
                 this.router.navigate(['/login']);
             }
         } else {
+            if (this.serviceTax.name === '') {
+                this.notificationService.warn('Please enter Name.');
+                document.getElementById('name').focus();
+                return;
+            }
+            if (this.serviceTax.fromDate === '') {
+                this.notificationService.warn('Please enter from date.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
+            if (this.serviceTax.toDate === '') {
+                this.notificationService.warn('Please enter to date.');
+                document.getElementById('toDate').focus();
+                return;
+            }
+
+
+            if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
+                this.notificationService.error('Please enter valid tax', 'Tax');
+                return
+            }
             this.notificationService.error('Required Fields are missing', 'Tax');
         }
     }

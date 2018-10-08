@@ -27,7 +27,7 @@ var ServiceTaxComponent = (function () {
         this.dataTaxes = [];
         this.isUpdateServiceTax = false;
         this.isSearchedTax = false;
-        this.searchTax = "";
+        this.searchTax = '';
     }
     ServiceTaxComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Service Tax';
@@ -60,6 +60,11 @@ var ServiceTaxComponent = (function () {
     ServiceTaxComponent.prototype.saveServiceTax = function (form) {
         var _this = this;
         if (form.valid) {
+            if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
+                this.notificationService.warn('FROM DATE must be less than or equal to TO DATE.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
             if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
                 this.notificationService.error('Please enter valid tax', 'Tax');
                 return;
@@ -83,13 +88,37 @@ var ServiceTaxComponent = (function () {
             }
         }
         else {
+            if (this.serviceTax.name === '') {
+                this.notificationService.warn('Please enter Name.');
+                document.getElementById('name').focus();
+                return;
+            }
+            if (this.serviceTax.fromDate === '') {
+                this.notificationService.warn('Please enter from date.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
+            if (this.serviceTax.toDate === '') {
+                this.notificationService.warn('Please enter to date.');
+                document.getElementById('toDate').focus();
+                return;
+            }
+            if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
+                this.notificationService.warn('FROM DATE must be less than or equal to TO DATE.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
+            if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
+                this.notificationService.error('Please enter valid tax', 'Tax');
+                return;
+            }
             this.notificationService.error('Required Fields are missing', 'Tax Service');
         }
     };
     ServiceTaxComponent.prototype.deleteServiceTax = function (taxId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are you soure?"))
+            if (!confirm('Are you soure?'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.SERVICE_TAX_DELETE_URL + taxId)
                 .subscribe(function (response) {
@@ -116,6 +145,11 @@ var ServiceTaxComponent = (function () {
     ServiceTaxComponent.prototype.updateServiceTax = function (updateServiceTaxForm) {
         var _this = this;
         if (updateServiceTaxForm.valid) {
+            if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
+                this.notificationService.warn('FROM DATE must be less than or equal to TO DATE.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
             if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
                 this.notificationService.error('Please enter valid tax', 'Tax');
                 return;
@@ -140,6 +174,25 @@ var ServiceTaxComponent = (function () {
             }
         }
         else {
+            if (this.serviceTax.name === '') {
+                this.notificationService.warn('Please enter Name.');
+                document.getElementById('name').focus();
+                return;
+            }
+            if (this.serviceTax.fromDate === '') {
+                this.notificationService.warn('Please enter from date.');
+                document.getElementById('fromDate').focus();
+                return;
+            }
+            if (this.serviceTax.toDate === '') {
+                this.notificationService.warn('Please enter to date.');
+                document.getElementById('toDate').focus();
+                return;
+            }
+            if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
+                this.notificationService.error('Please enter valid tax', 'Tax');
+                return;
+            }
             this.notificationService.error('Required Fields are missing', 'Tax');
         }
     };

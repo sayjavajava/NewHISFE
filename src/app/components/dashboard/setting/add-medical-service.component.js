@@ -24,12 +24,12 @@ var AddMedicalServiceComponent = (function () {
         this.router = router;
         this.ms = new medical_service_1.MedicalService();
         this.taxes = [];
-    }
-    AddMedicalServiceComponent.prototype.ngOnInit = function () {
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
         this.getTaxesFromServer();
+    }
+    AddMedicalServiceComponent.prototype.ngOnInit = function () {
     };
     AddMedicalServiceComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
@@ -67,6 +67,35 @@ var AddMedicalServiceComponent = (function () {
     AddMedicalServiceComponent.prototype.saveMedicalServices = function (msForm) {
         var _this = this;
         if (msForm.valid) {
+            var foundBranch = 0;
+            for (var _i = 0, _a = this.ms.branches; _i < _a.length; _i++) {
+                var branch = _a[_i];
+                if (branch.checkedBranch) {
+                    foundBranch++;
+                }
+            }
+            if (foundBranch <= 0) {
+                this.notificationService.warn('Please select at least one branch.');
+                document.getElementById('branchId').focus();
+                return;
+            }
+            var foundDepartment = 0;
+            for (var _b = 0, _c = this.ms.departments; _b < _c.length; _b++) {
+                var department = _c[_b];
+                if (department.checkedDepartment) {
+                    foundDepartment++;
+                }
+            }
+            if (foundDepartment <= 0) {
+                this.notificationService.warn('Please select at least one Department.');
+                document.getElementById('departmentId').focus();
+                return;
+            }
+            if (this.ms.tax.id <= 0) {
+                this.notificationService.warn('Please select tax.');
+                document.getElementById('taxId').focus();
+                return;
+            }
             this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_MEDICAL_SERVICES_URL, this.ms)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -81,6 +110,16 @@ var AddMedicalServiceComponent = (function () {
             });
         }
         else {
+            if (this.ms.name === '') {
+                this.notificationService.warn('Please enter name.');
+                document.getElementById('msTitle').focus();
+                return;
+            }
+            if (this.ms.code === '') {
+                this.notificationService.warn('Please enter code.');
+                document.getElementById('code').focus();
+                return;
+            }
             this.notificationService.error('Please provide required field data', 'Medical Service');
         }
     };

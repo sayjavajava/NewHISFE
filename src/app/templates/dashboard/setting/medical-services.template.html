@@ -144,14 +144,16 @@
                                     class="mt-action-dot"></span></td>
                             <td>
 
-                                <button class="btn mt-sweetalert btn green-meadow"
+                                <button class="btn btn-default btn-outline btn-sm"
                                         routerLink="/dashboard/setting/medicalServices/edit/{{item.id}}">
                                     <i class="fa fa-pencil"></i>
                                 </button>
-                                <button class="btn btn-default btn-outline btn-sm"
-                                        (click)="deleteMedicalServices(item)">
-                                    <i class="fa fa-remove"></i>
-                                </button>
+                                <span [hidden]="item.hasChild">
+                                     <button class="btn btn-default btn-outline btn-sm"
+                                             (click)="deleteMedicalServices(item)">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </span>
                             </td>
                         </tr>
                         </thead>
@@ -218,10 +220,10 @@
                                                 <ul>
                                                     <li *ngFor="let branch of checkedBranches">
                                                         <i class=" icon-home"></i>
-                                                <label class="">
-                                                    {{branch.branchName}}
-                                                    <span></span>
-                                                </label>
+                                                        <label class="">
+                                                            {{branch.branchName}}
+                                                            <span></span>
+                                                        </label>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -260,14 +262,14 @@
                                 <div class="col-md-12">
                                     <div class="select2-bootstrap-prepend">
                                         <div class="checkbox-box hr cod-higt" id="branchDiv">
-                                            <div class="col-md-12 branches-list" >
+                                            <div class="col-md-12 branches-list">
                                                 <ul>
                                                     <li *ngFor="let department of checkedDepartments">
                                                         <i class=" icon-home"></i>
-                                                <label>
-                                                    {{department.name}}
-                                                    <span></span>
-                                                </label>
+                                                        <label>
+                                                            {{department.name}}
+                                                            <span></span>
+                                                        </label>
                                                     </li>
                                                 </ul>
                                             </div>

@@ -22,8 +22,14 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     }
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService,
                 private hisUtilService: HISUtilService ,private fb: FormBuilder, private notificationService: NotificationService) {
-        this.allBranches();
-        this.allDoctors();
+        //this.allBranches();
+        //this.allDoctors();
+        this.createUserForm();
+        this.sub = this.route.params.subscribe(params => {
+            this.id = params['id'];
+        });
+        this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
+        this.patchData();
     }
     private sub: any;
     id: number;
@@ -40,12 +46,12 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     private subscription :Subscription;
     userId:number;
     ngOnInit() {
-        this.createUserForm();
+        /*this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
         });
         this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
-        this.patchData();
+        this.patchData();*/
     }
     allDoctors() {
         this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
@@ -69,9 +75,9 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
                      //  this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
-                     if(this.branchesList.length >1 ){
+                     /*if(this.branchesList.length >1 ){
                       this.removeBranch();
-                     }
+                     }*/
                     }
                 },
                 (error: any) => {
@@ -136,15 +142,28 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         primaryBranch: receptionist.primaryBranchId,
                     });
                     this.staffBranches = receptionist.staffBranches;
-                    for(let key in this.branchesList){
-                        for(let k in this.staffBranches){
-                            if(this.staffBranches[k].id == this.branchesList[key].id){
-                                this.branchesList[key].checked = true;
-                                this.selectedVisitBranches.push(this.staffBranches[k].id);
-                                break;
-                            }
-                        }
-                    }
+
+                    this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+                        .subscribe(
+                            (response: Response) => {
+                                if (response['responseCode'] === 'BR_SUC_01') {
+                                    this.branchesList = response['responseData'];
+                                    for(let key in this.branchesList){
+                                        for(let k in this.staffBranches){
+                                            if(this.staffBranches[k].id == this.branchesList[key].id){
+                                                this.branchesList[key].checked = true;
+                                                this.selectedVisitBranches.push(this.staffBranches[k].id);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            (error: any) => {
+                                this.error = error.error.error;
+                            })
+
+
                 }, (error: any) => {
                     this.error = error.error.error_description;
                 });

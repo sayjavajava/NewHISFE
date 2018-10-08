@@ -73,7 +73,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 ,private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
            this.allBranches();
-           this.allServices();
+           //this.allServices();
            this.allDepartments();
            this.allDoctors();
     }
@@ -225,6 +225,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         //  secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
                         vacation: user.vacation,
                     });
+                    let docDeptId = user.docDepartmentId;
+                    //this.servicesList = this.getDeptServices(docDeptId);
+
                     if (user.expiryDate != null) {
                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                     }
@@ -251,7 +254,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                             this.userForm.controls['shift2'].setValue(true);
                         }
                     }
-                    let docDeptId = user.docDepartmentId;
+
                     for(let k in this.departmentList){
                         if(this.departmentList[k].id == docDeptId){
                             this.departmentList[k].selected = true;
@@ -270,7 +273,31 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         }
                     }
                     this.doctorServices = user.doctorMedicalSrvcList;
-                    for(let key in this.servicesList){
+
+                    this.requestService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+docDeptId)
+                        .subscribe(
+                            (response: Response) => {
+                                if (response['responseCode'] === 'MED_SER_SUC_01') {
+                                    this.servicesList = response['responseData'];
+                                    for(let key in this.servicesList){
+                                        for(let k in this.doctorServices){
+                                            if(this.doctorServices[k].id == this.servicesList[key].id){
+                                                this.servicesList[key].checked = true;
+                                                this.selectedServices.push(this.doctorServices[k].id);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    this.servicesList = [];
+                                }
+                            },
+                            (error: any) => {
+                                this.servicesList = [];
+                                this.error = error.error.error;
+                            })
+
+                    /*for(let key in this.servicesList){
                         for(let k in this.doctorServices){
                             if(this.doctorServices[k].id == this.servicesList[key].id){
                                 this.servicesList[key].checked = true;
@@ -278,7 +305,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                                 break;
                             }
                         }
-                    }
+                    }*/
                      if(user.vacation){
                      this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
                      this.userForm.controls['dateTo'].setValue(new Date(user.vacationTo));}
@@ -302,6 +329,24 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
 
                 });
         }
+
+    }
+
+    getDeptServices(deptId: any) {
+        this.requestService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+deptId)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'MED_SER_SUC_01') {
+                        this.servicesList = response['responseData'];
+                        //console.log(this.servicesList);
+                    }else{
+                        this.servicesList = [];
+                    }
+                },
+                (error: any) => {
+                    this.servicesList = [];
+                    this.error = error.error.error;
+                })
 
     }
 

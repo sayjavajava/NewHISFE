@@ -1,10 +1,8 @@
 import {Patient} from './patient';
 import {Appointment} from './Appointment'
 
-export class Invoice 
-{
+export class Invoice {
     id: number;
-    
     code: string;
     serviceName: string;
     description: string;
@@ -13,10 +11,14 @@ export class Invoice
     taxRate : number;
     discountRate : number;
     invoiceId : number;
-
     patientId : string;
     appointmentId : string;
 
+    //patient all invoice balance attributes
+    balance: number;
+    totalBill: number;
+    totalPaid: number;
+    advanceBalance: number;
     constructor() {
     }
 }

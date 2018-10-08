@@ -58,10 +58,11 @@ var AddStaffComponent = (function () {
         this.confirmPasswordError = 'Password must be equal';
         this.primaryBranchError = 'Select Primary Branch';
         this.restrictBranchError = 'Select Allow Branch';
-        this.departmentError = 'Select one or more Departments';
+        this.departmentError = 'Select atleast one Department';
         this.serviceError = 'Select one or more Services';
         this.dutyTimmingShiftError = 'Select Duty Time';
         this.userRoleError = 'Select atleast one role';
+        this.changeUserError = 'Select atleast one role';
         this.allStaffTypes = [
             { name: 'NURSE' },
             { name: 'DOCTOR' },
@@ -72,7 +73,7 @@ var AddStaffComponent = (function () {
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
-        this.allServices();
+        //this.allServices();
     }
     AddStaffComponent.prototype.ngOnInit = function () {
         this.createUserForm();
@@ -127,28 +128,30 @@ var AddStaffComponent = (function () {
             _this.error = error.error.error;
         });
     };
-    AddStaffComponent.prototype.allServices = function () {
+    AddStaffComponent.prototype.getDeptServices = function (deptId) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + deptId)
             .subscribe(function (response) {
-            //console.log('i am branch call');
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
                 //console.log(this.servicesList);
             }
+            else {
+                _this.servicesList = [];
+            }
         }, function (error) {
+            _this.servicesList = [];
             _this.error = error.error.error;
         });
     };
     AddStaffComponent.prototype.createUserForm = function () {
-        //console.log('P.B:'+this.branchesList.length);
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
             'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
             'password': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(6)])],
             'confirmPassword': [null, forms_1.Validators.compose([forms_1.Validators.required])],
-            'userRole': [null, forms_1.Validators.required],
+            //'userRole': [null, Validators.required],
             'homePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'cellPhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'primaryBranch': [null, forms_1.Validators.required],
@@ -168,11 +171,11 @@ var AddStaffComponent = (function () {
             'dateTo': [null],
             'managePatientInvoices': '',
             'managePatientRecords': '',
-            'departmentControl': [null],
+            'departmentControl': [null, forms_1.Validators.required],
             'servicesControl': [null],
             'shift1': [null],
             'nurseDutyWithDoctor': [null],
-            'changeUser': [this.allStaffTypes[2].name],
+            'changeUser': [this.allStaffTypes[2].name, forms_1.Validators.required],
         }, {
             validator: PasswordValidation_1.CustomValidators.Match('password', 'confirmPassword')
         });
@@ -204,7 +207,6 @@ var AddStaffComponent = (function () {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     userType: this.selectedUser,
-                    selectedRoles: this.selectedRoles
                 });
                 this.makeService(cashier);
             }
@@ -227,7 +229,7 @@ var AddStaffComponent = (function () {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     selectedDoctors: this.selectedDoctors,
-                    selectedRoles: this.selectedRoles,
+                    //selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(receptionist);
@@ -254,7 +256,7 @@ var AddStaffComponent = (function () {
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
                     dutyWithDoctors: this.dutyWithDoctors,
-                    selectedRoles: this.selectedRoles,
+                    //selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(nurse);
@@ -290,7 +292,7 @@ var AddStaffComponent = (function () {
                     dateTo: data.dateTo,
                     dateFrom: data.dateFrom,
                     selectedWorkingDays: this.selectedWorkingDays,
-                    selectedRoles: this.selectedRoles,
+                    //selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(doctor);
@@ -410,7 +412,7 @@ var AddStaffComponent = (function () {
         this.requestsService.postRequest('/user/add', user).subscribe(function (response) {
             if (response['responseCode'] === 'USER_ADD_SUCCESS_01') {
                 _this.responseUser = response['responseData'];
-                _this.notificationService.success(_this.responseUser['username'] + '' + 'has been Created Successfully');
+                _this.notificationService.success(_this.responseUser['username'] + ' has been Created Successfully');
                 _this.router.navigate(['/dashboard/setting/staff']);
             }
         }, function (error) {
@@ -482,9 +484,13 @@ var AddStaffComponent = (function () {
             this.selectedDepartment.splice(index, 1);
         }
     };
-    AddStaffComponent.prototype.selectDoctorDepartment = function (itemId) {
-        if (itemId) {
-            this.selectedDepartment[0] = itemId;
+    AddStaffComponent.prototype.selectDoctorDepartment = function (deptId) {
+        if (deptId) {
+            this.selectedDepartment[0] = deptId;
+            this.getDeptServices(deptId);
+        }
+        else {
+            this.servicesList = [];
         }
     };
     AddStaffComponent.prototype.selectWorkingDays = function (event, item) {
@@ -565,7 +571,7 @@ var AddStaffComponent = (function () {
             this.setValidate(value);
             if (value === 'DOCTOR' || value === 'NURSE') {
                 this.allDepartments();
-                this.allServices();
+                //this.allServices();
             }
         }
         else {

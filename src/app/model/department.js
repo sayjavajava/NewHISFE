@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Department = (function () {
     function Department() {
-        this.name = "";
+        this.name = '';
+        this.active = true;
+        this.hasChild = false;
     }
     return Department;
 }());

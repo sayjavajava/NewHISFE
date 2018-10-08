@@ -61,10 +61,13 @@
 
                                         </button>
                                     </a>
-                                    <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="deleteDepartment(item.id)">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
+                                    <span [hidden]="item.hasChild">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="deleteDepartment(item.id)">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </span>
+
                                 </td>
                             </tr>
                             </thead>
