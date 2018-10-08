@@ -30,6 +30,7 @@ var PatientLabOrdersComponent = (function () {
         this.pages = [];
         this.labTest = [];
         this.dateTest = new Date();
+        this.orderNotFound = false;
         this.allOrders = [];
         this.filteredLabTest = [];
         this.patient = new patient_1.Patient();
@@ -53,21 +54,27 @@ var PatientLabOrdersComponent = (function () {
         if (page > 0) {
             page = page;
         }
-        this.requestService.getRequestWithParam(app_constants_1.AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL + page, this.id)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'LAB_ORDER_SUC_02') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.allOrders = response['responseData']['data'];
-            }
-            if (response['responseCode'] == 'LAB_ORDER_ERR_02') {
-                _this.notificationService.warn("Info " + response['responseMessage']);
-            }
-        }, function (error) {
-            _this.error = error.error.error;
-        });
+        if (this.id == null || this.id == 0 || this.id == undefined) {
+            this.orderNotFound = true;
+            this.notificationService.error('Please Select Patient Again From Dashboard');
+        }
+        else {
+            this.requestService.getRequestWithParam(app_constants_1.AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL + page, this.id)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'LAB_ORDER_SUC_02') {
+                    _this.nextPage = response['responseData']['nextPage'];
+                    _this.prePage = response['responseData']['prePage'];
+                    _this.currPage = response['responseData']['currPage'];
+                    _this.pages = response['responseData']['pages'];
+                    _this.allOrders = response['responseData']['data'];
+                }
+                if (response['responseCode'] == 'LAB_ORDER_ERR_02') {
+                    _this.notificationService.warn("Info " + response['responseMessage']);
+                }
+            }, function (error) {
+                _this.error = error.error.error;
+            });
+        }
     };
     PatientLabOrdersComponent.prototype.loadRecord = function () {
         var _this = this;
@@ -77,7 +84,8 @@ var PatientLabOrdersComponent = (function () {
                 //this.patient.races = JSON.parse(response['responseData'].racesString);
             }
             else {
-                _this.notificationService.error(response['responseMessage'], 'Patient');
+                //  this.notificationService.error(response['responseMessage'], 'Patient');
+                //this.
                 // this.router.navigate(['404-not-found'])
             }
         }, function (error) {
@@ -113,6 +121,7 @@ var PatientLabOrdersComponent = (function () {
         this.labForm.controls['orderStatus'].setValue(value);
     };
     PatientLabOrdersComponent.prototype.deleteTest = function (index) {
+        console.log('indexsss:' + index);
         this.labTest = this.labForm.get('labTest');
         this.labTest.removeAt(index);
     };

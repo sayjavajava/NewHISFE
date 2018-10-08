@@ -27,10 +27,6 @@ var CodeComponent = (function () {
         this.searchCode = '';
         this.searched = false;
         this.isCodeUpdate = false;
-        /**
-         * we decided if code has child record then we should not update status
-         * */
-        this.statusReadonly = false;
     }
     CodeComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code';
@@ -165,12 +161,10 @@ var CodeComponent = (function () {
     CodeComponent.prototype.editICDCode = function (iCDCode) {
         this.isCodeUpdate = true;
         this.iCDModel = iCDCode;
-        this.statusReadonly = iCDCode.hasChild; // means it has child and we should not update its status
     };
     CodeComponent.prototype.onAddICDCodePopupLoad = function () {
         this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
-        this.statusReadonly = false;
     };
     CodeComponent.prototype.searchByCode = function (pageNo) {
         var _this = this;

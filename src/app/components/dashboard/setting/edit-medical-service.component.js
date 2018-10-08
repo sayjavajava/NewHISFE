@@ -25,6 +25,7 @@ var EditMedicalServiceComponent = (function () {
         this.activatedRoute = activatedRoute;
         this.selectedMS = new medical_service_1.MedicalService();
         this.taxes = [];
+        this.isUnderprocess = false;
     }
     EditMedicalServiceComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -56,7 +57,52 @@ var EditMedicalServiceComponent = (function () {
     };
     EditMedicalServiceComponent.prototype.updateMedicalServices = function (form) {
         var _this = this;
-        if (form.valid) {
+        if (!this.isUnderprocess) {
+            this.isUnderprocess = true;
+            if (this.selectedMS.name === '') {
+                this.notificationService.warn('Please enter name.');
+                document.getElementById('msTitle').focus();
+                this.isUnderprocess = false;
+                return;
+            }
+            if (this.selectedMS.code === '') {
+                this.notificationService.warn('Please enter code.');
+                document.getElementById('code').focus();
+                this.isUnderprocess = false;
+                return;
+            }
+            var foundBranch = 0;
+            for (var _i = 0, _a = this.selectedMS.branches; _i < _a.length; _i++) {
+                var branch = _a[_i];
+                if (branch.checkedBranch) {
+                    foundBranch++;
+                }
+            }
+            if (foundBranch <= 0) {
+                this.notificationService.warn('Please select at least one branch.');
+                document.getElementById('branchId').focus();
+                this.isUnderprocess = false;
+                return;
+            }
+            var foundDepartment = 0;
+            for (var _b = 0, _c = this.selectedMS.departments; _b < _c.length; _b++) {
+                var department = _c[_b];
+                if (department.checkedDepartment) {
+                    foundDepartment++;
+                }
+            }
+            if (foundDepartment <= 0) {
+                this.notificationService.warn('Please select at least one Department.');
+                document.getElementById('departmentId').focus();
+                this.isUnderprocess = false;
+                return;
+            }
+            if (this.selectedMS.tax.id <= 0) {
+                this.notificationService.warn('Please select tax.');
+                document.getElementById('taxId').focus();
+                this.isUnderprocess = false;
+                return;
+            }
             this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.selectedMS)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -66,12 +112,14 @@ var EditMedicalServiceComponent = (function () {
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Medical Service');
                 }
+                _this.isUnderprocess = false;
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
+                _this.isUnderprocess = false;
             });
         }
         else {
-            this.notificationService.error("Please provide required values.", "Medical Service");
+            this.notificationService.warn('Your first request is under process. Please wait..');
         }
     };
     EditMedicalServiceComponent = __decorate([

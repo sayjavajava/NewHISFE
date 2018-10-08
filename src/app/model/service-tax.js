@@ -10,9 +10,6 @@ var ServiceTax = (function () {
         this.toDate = '';
         this.active = true;
         this.deleted = false;
-        /**
-         * we decided if child record found then we should not update status
-         * */
         this.hasChild = false;
     }
     return ServiceTax;

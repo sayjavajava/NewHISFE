@@ -14,8 +14,8 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input class="form-control" type="text" required
-                                               [(ngModel)]="selectedMS.name"
+                                        <input class="form-control" type="text"
+                                               [(ngModel)]="selectedMS.name" id="msTitle" minlength="1"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                name="msTitle" #msTitle="ngModel"/>
                                     </div>
@@ -31,9 +31,9 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input class="form-control" type="text" required
+                                        <input class="form-control" type="text"
                                                [(ngModel)]="selectedMS.code" minlength="1"
-                                               required
+                                               required id="code"
                                                name="code" #code="ngModel"/>
                                     </div>
                                     <span *ngIf="code.invalid && code.touched"
@@ -129,8 +129,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <select class="form-control"
-                                                required
-                                                name="dptDrp"
+                                                name="taxId" id="taxId"
                                                 [ngModelOptions]="{standalone:true}"
                                                 [(ngModel)]="selectedMS.tax.id">
                                             <option value="-1">-- Select --</option>

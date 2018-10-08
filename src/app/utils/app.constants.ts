@@ -8,7 +8,7 @@ export class AppConstants {
     public static ACCESS_TOKEN = 'access_token';
     public static EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     public static USER_BY_ROLE = '/user/role';
-    public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';
+    public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';///only active departments
     public static DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     public static SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
     public static SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
@@ -32,7 +32,7 @@ export class AppConstants {
     public static SAVE_INVOICE = '/invoice/saveInvoice';
     public static GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
     public static INVOICE_CHECK_IN = '/invoice/generateInvoiceOnCheckIn/';
-
+    public static PATIENT_ALLINVOICE_BALANCE = '/invoice/getPatientInvBal/';
 
     ////////////////////// Cashier Desk ///////////////////////////////
     public static GET_All_INVOICES = '/cashier/getAllInvoices';
@@ -79,7 +79,7 @@ export class AppConstants {
     public static EMAIL_TEMPLATE_SEARCH_URL = '/setting/emailTemplate/search/';
 
     ////////////////////// Medical Service URLs ///////////////////////////////
-    public static FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';
+    public static FETCH_ALL_MEDICAL_SERVICES_URL = '/setting/medicalService/';//all only active or if by /1 or 0 or some number then paging method call
     public static SAVE_MEDICAL_SERVICES_URL = '/setting/medicalService/save';
     public static UPDATE_MEDICAL_SERVICES_URL = '/setting/medicalService/update';
     public static DELETE_MEDICAL_SERVICES_URL = '/setting/medicalService/delete?';
@@ -87,6 +87,8 @@ export class AppConstants {
     public static MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
     public static FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/';
     public static FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/';
+
+    public static FETCH_DEPT_MEDICAL_SERVICES_URL = '/setting/medicalService/getDeptMedicalService/';
 
     ////////////////////// Organization URLs ///////////////////////////////
     public static ORGANIZATION_CREATE_URL = '/setting/organization/create';
@@ -147,6 +149,7 @@ export class AppConstants {
     public static UPDATE_APPOINTMENT = '/appointment/update/';
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
     public static FETCH_APPOINTMENTS_URL = '/appointment/';
+    public static FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
 
     ////////////////////// Dashboard URLs ///////////////////////////////
     public static FETCH_DASHBOARD_URL = '/dashboard/';
