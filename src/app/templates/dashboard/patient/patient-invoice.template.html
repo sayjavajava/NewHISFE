@@ -22,10 +22,10 @@
                                 <span>Appointment Date:</span>
                                 <span>{{scheduleDateAndTime}}</span>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <span>Time In:</span>
                                 <span>{{appointmentStartedOn}}</span>   
-                            </li>    
+                            </li>  -->   
                             <li>
                                 <span>Doctor Name:</span>
                                 <span>{{docFirstName}}  {{docLastName}} </span>
@@ -52,7 +52,7 @@
                             <div class="form-group">
                                     <label class="col-md-4 control-label txt-size-detail pdng-lr-5">Services:</label>
 
-                                    <select class="col-md-8 select pdng-lr-5"  (change)="selectServices($event.target.value)">
+                                    <select class="col-md-8 select pdng-lr-5"  (change)="selectServices($event.target.value)" [disabled]="showEditButton">
                                         <option value="-1">-- Please select service --</option>
                                         <option *ngFor="let service of unSelectedServicesList ; let indx= index" value={{indx}} >
                                                 {{service.name}}
@@ -104,14 +104,14 @@
                                                 
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="discountAmount" [(ngModel)]="discountAmount" class="form-control" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  [step]="0.01">
+                                                <input type="number" class="text-align-right" name="discountAmount" (change)="invoiceBillCalculationOnAmount($event)" [(ngModel)]="discountAmount" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  [step]="0.01">
                                             </td>
 
                                             <td rowspan="1" colspan="1" class="custom-td-size">
                                                 <input type="number" class="text-align-right" name="taxRate" [min]="0" (change)="invoiceBillCalculation($event)" [(ngModel)]="taxRate" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" [step]="0.01">
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="taxAmount" [(ngModel)]="taxAmount" class="form-control" disabled [step]="0.01">
+                                                <input type="number" class="text-align-right" name="taxAmount" (change)="invoiceBillCalculationOnAmount($event)" [(ngModel)]="taxAmount" class="form-control" [step]="0.01">
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
                                                 <input type="number" class="text-align-right" name="totalAmount" [(ngModel)]="invoiceAmount" class="form-control" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
@@ -120,6 +120,7 @@
                                     </thead>
                                 </table>
                                 <div class="pull-right">
+                                    <button  class="btn btn-default btn-outline btn-sm" (click)="cancel()"> Cancel </button>
                                     <button *ngIf="!showEditButton" class="btn btn-default btn-outline btn-sm" (click)="addInvoice()"> Add Line </button>
                                     <button *ngIf="showEditButton" class="btn btn-default btn-outline btn-sm" (click)="updateInovice()"> Edit Line </button>
                                 </div>

@@ -43,22 +43,26 @@ export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
         this.getFamilyHistoryFromServer(0);
 
     }
-    loadRecord(){
-        this.requestsService.getRequest(
-            AppConstants.PATIENT_FETCH_URL + this.patientId
-        ).subscribe(
-            response => {
-                if (response['responseCode'] === 'USER_SUC_01') {
-                    this.patient = response['responseData'];
-                    //this.patient.races = JSON.parse(response['responseData'].racesString);
-                } else {
-                    this.notificationService.error(response['responseMessage'], 'Patient');
-                    // this.router.navigate(['404-not-found'])
-                }
-            },
-            (error: any) => {
+    loadRecord() {
+        if (this.patientId == null || this.patientId == 0 || this.patientId == undefined) {
+            this.notificationService.error('Please Select Patient Again From Dashboard')
+        } else {
+            this.requestsService.getRequest(
+                AppConstants.PATIENT_FETCH_URL + this.patientId
+            ).subscribe(
+                response => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.patient = response['responseData'];
+                        //this.patient.races = JSON.parse(response['responseData'].racesString);
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Patient');
+                        // this.router.navigate(['404-not-found'])
+                    }
+                },
+                (error: any) => {
 
-            });
+                });
+        }
     }
 
     getFamilyHistoryFromServer(page: number) {
@@ -78,9 +82,9 @@ export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
                         this.data= response['responseData']['data'];
 
                     }
-                    if(response['responseCode'] =='FAM_HISTORY_ERR_02'){
+                   /* if(response['responseCode'] =='FAM_HISTORY_ERR_02'){
                         this.notificationService.error(`Error ${response['responseMessage']}`)
-                    }
+                    }*/
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -93,9 +97,12 @@ export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
     }
 
     saveFamilyHistory(data: NgForm) {
+
         if (data.valid) {
             this.selectedFamily.patientId = this.patientId;
-            console.log('test id' + this.patientId);
+            if(this.patientId == null || this.patientId ==0 || this.patientId==undefined){
+                this.notificationService.error('Please Select Patient Again From Dashboard')
+            }else {
             this.requestsService.postRequest(
                 AppConstants.FAMILY_HISTORY_CREATE,
                 this.selectedFamily)
@@ -113,7 +120,7 @@ export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
                         //console.log(error.json())
                         this.hISUtilService.tokenExpired(error.error.error);
                     }
-                );
+                );}
         } else {
             this.notificationService.error('Form Invalid', '');
         }

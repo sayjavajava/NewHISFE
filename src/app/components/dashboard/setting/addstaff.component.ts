@@ -72,10 +72,11 @@ export class AddStaffComponent implements OnInit {
     confirmPasswordError: string = 'Password must be equal';
     primaryBranchError: string = 'Select Primary Branch';
     restrictBranchError: string = 'Select Allow Branch';
-    departmentError: string = 'Select one or more Departments';
+    departmentError: string = 'Select atleast one Department';
     serviceError: string = 'Select one or more Services';
     dutyTimmingShiftError: string = 'Select Duty Time';
     userRoleError: string = 'Select atleast one role';
+    changeUserError: string = 'Select atleast one role';
     allStaffTypes = [
         {name: 'NURSE'},
         {name: 'DOCTOR'},
@@ -90,7 +91,7 @@ export class AddStaffComponent implements OnInit {
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
-        this.allServices();
+        //this.allServices();
 
 
     }
@@ -165,31 +166,32 @@ export class AddStaffComponent implements OnInit {
 
     }
 
-    allServices() {
-        this.requestsService.getRequest(AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+    getDeptServices(deptId: any) {
+        this.requestsService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+deptId)
             .subscribe(
                 (response: Response) => {
-                    //console.log('i am branch call');
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
                         //console.log(this.servicesList);
+                    }else{
+                        this.servicesList = [];
                     }
                 },
                 (error: any) => {
+                    this.servicesList = [];
                     this.error = error.error.error;
                 })
 
     }
 
     createUserForm() {
-        //console.log('P.B:'+this.branchesList.length);
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
                 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
                 'password': [null, Validators.compose([Validators.required, Validators.minLength(6)])],
                 'confirmPassword': [null, Validators.compose([Validators.required])],
-                'userRole': [null, Validators.required],
+                //'userRole': [null, Validators.required],
                 'homePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'cellPhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'primaryBranch': [null, Validators.required],
@@ -209,11 +211,11 @@ export class AddStaffComponent implements OnInit {
                 'dateTo': [null],
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
-                'departmentControl': [null],
+                'departmentControl': [null,Validators.required],
                 'servicesControl': [null],
                 'shift1': [null],
                 'nurseDutyWithDoctor': [null],
-                'changeUser': [this.allStaffTypes[2].name],
+                'changeUser': [this.allStaffTypes[2].name, Validators.required],
 
             },
             {
@@ -251,7 +253,7 @@ export class AddStaffComponent implements OnInit {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     userType: this.selectedUser,
-                    selectedRoles : this.selectedRoles
+                    //selectedRoles : this.selectedRoles
                 });
 
                 this.makeService(cashier);
@@ -278,7 +280,7 @@ export class AddStaffComponent implements OnInit {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     selectedDoctors: this.selectedDoctors,
-                    selectedRoles : this.selectedRoles,
+                    //selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
 
@@ -308,7 +310,7 @@ export class AddStaffComponent implements OnInit {
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
                     dutyWithDoctors: this.dutyWithDoctors,
-                    selectedRoles : this.selectedRoles,
+                    //selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(nurse);
@@ -346,7 +348,7 @@ export class AddStaffComponent implements OnInit {
                     dateTo: data.dateTo,
                     dateFrom: data.dateFrom,
                     selectedWorkingDays: this.selectedWorkingDays,
-                    selectedRoles : this.selectedRoles,
+                    //selectedRoles : this.selectedRoles,
                     userType: this.selectedUser
                 });
                 this.makeService(doctor);
@@ -390,8 +392,6 @@ export class AddStaffComponent implements OnInit {
             //console.log('i am nurse');
             nurseDutyWithDoctorControl.setValidators(Validators.required);
             departmentControl.setValidators(Validators.required);
-
-
             firstNameControl.markAsUntouched();
             userNameControl.markAsUntouched();
             emailControl.markAsUntouched();
@@ -404,12 +404,10 @@ export class AddStaffComponent implements OnInit {
         }
         else if (userAssigned === 'doctor') {
             //console.log('i am doctor' + departmentControl);
-
             departmentControl.setValidators(Validators.required);
             servicesControl.setValidators(Validators.required);
             shift1Control.setValidators(Validators.required);
             checkUpIntervalControl.setValidators(Validators.required);
-
             firstNameControl.markAsUntouched();
             userNameControl.markAsUntouched();
             emailControl.markAsUntouched();
@@ -421,8 +419,6 @@ export class AddStaffComponent implements OnInit {
             servicesControl.markAsUntouched();
             checkUpIntervalControl.markAsUntouched();
             shift1Control.markAsUntouched();
-
-
         }
         else {
             //console.log('i am in else ');
@@ -433,14 +429,12 @@ export class AddStaffComponent implements OnInit {
             confirmPasswordControl.markAsUntouched();
             restrictBranchControl.markAsUntouched();
             primaryBranchControl.markAsUntouched();
-
             departmentControl.clearValidators();
             servicesControl.clearValidators();
             servicesControl.clearValidators();
             shift1Control.clearValidators();
             checkUpIntervalControl.clearValidators();
             nurseDutyWithDoctorControl.clearValidators();
-
         }
         // console.log('i am normal ');
         firstNameControl.updateValueAndValidity();
@@ -451,15 +445,12 @@ export class AddStaffComponent implements OnInit {
         passwordControl.updateValueAndValidity();
         confirmPasswordControl.updateValueAndValidity();
         shift1Control.updateValueAndValidity();
-
         departmentControl.updateValueAndValidity();
         servicesControl.updateValueAndValidity();
         servicesControl.updateValueAndValidity();
         shift1Control.updateValueAndValidity();
         checkUpIntervalControl.updateValueAndValidity();
         nurseDutyWithDoctorControl.updateValueAndValidity();
-
-
     }
 
     reset() {
@@ -483,7 +474,7 @@ export class AddStaffComponent implements OnInit {
             (response: Response) => {
                 if (response['responseCode'] === 'USER_ADD_SUCCESS_01') {
                     this.responseUser = response['responseData'];
-                    this.notificationService.success(this.responseUser['username'] + '' + 'has been Created Successfully');
+                    this.notificationService.success(this.responseUser['username'] + ' has been Created Successfully');
                     this.router.navigate(['/dashboard/setting/staff']);
                 }
             }
@@ -563,9 +554,12 @@ export class AddStaffComponent implements OnInit {
         }
     }
 
-    selectDoctorDepartment(itemId: any) {
-        if (itemId) {
-            this.selectedDepartment[0] = itemId;
+    selectDoctorDepartment(deptId: any) {
+        if (deptId) {
+            this.selectedDepartment[0] = deptId;
+            this.getDeptServices(deptId);
+        }else{
+            this.servicesList = [];
         }
     }
 
@@ -667,7 +661,7 @@ export class AddStaffComponent implements OnInit {
             this.setValidate(value);
             if(value==='DOCTOR' || value==='NURSE'){
                 this.allDepartments();
-                this.allServices();
+                //this.allServices();
             }
         }else{
             this.checkUpInterval = false;

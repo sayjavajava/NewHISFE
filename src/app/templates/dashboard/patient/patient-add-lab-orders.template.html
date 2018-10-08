@@ -147,12 +147,32 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                    <div class="table-responsive round-table" formArrayName="labTest" *ngFor="let item of labForm.get('labTest').controls; let i = index;">
+                        <div class="col-md-12 table-responsive round-table table table-striped table-hover table-checkable dataTable no-footer" >
+
+                            <div class="col-md-2">LOINC Code</div>
+                            <div class="col-md-2">Description</div>
+                            <div class="col-md-2">Result value</div>
+                            <div class="col-md-2">Units</div>
+                            <div class="col-md-2">Normal Range</div>
+                            <div class="col-md-2">Actions</div>
+                        </div>
+                        <div class="col-md-12" formArrayName="labTest" *ngFor="let item of labForm.get('labTest').controls; let i = index;">
+                            <div [formGroupName]="i">
+                            <div class="col-md-2"> <input type="text" formControlName="loincCode" class="form-control" value="23"> </div>
+                            <!-- <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>-->
+                            <div class="col-md-2"> <input type="text" formControlName="description" class="form-control" value="23"> </div>
+                            <div class="col-md-2"> <input type="text" formControlName="units" class="form-control" value="23"> </div>
+                            <div class="col-md-2"> <input type="text" formControlName="resultValue" class="form-control" value="45"> </div>
+                            <div class="col-md-2"> <input type="text" formControlName="normalRange" class="form-control" value="100"> </div>
+                            <!--  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>-->
+                            <div class="col-md-2"> <i (click)="deleteTest(i)" title="Remove" class="fa fa-close font-red"></i> </div>
+                        </div>
+                        </div>
+                   <!-- <div class="table-responsive round-table" formArrayName="labTest" *ngFor="let item of labForm.get('labTest').controls; let i = index;" >
                         <div class="" [formGroupName]="i">
                             <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
                                 <thead>
-                                <tr role="row" class=" hedng-bck-clr">
+                                <tr role="row" class=" hedng-bck-clr" *ngIf="i==0">
                                     <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> LOINC Code </th>
                                     <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th>
                                     <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result value </th>
@@ -160,19 +180,24 @@
                                     <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Normal Range </th>
                                     <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Actions </th>
                                 </tr>
-                                <tr role="row" class="filter pdng-lr-5">
+                                &lt;!&ndash;<div class="table-responsive round-table"  >
+                                    <div >&ndash;&gt;
+
+                                <tr role="row" class="filter pdng-lr-5" >
+
                                     <td rowspan="1" colspan="1"> <input type="text" formControlName="loincCode" class="form-control" value="23"> </td>
-                                    <!-- <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>-->
+                                    &lt;!&ndash; <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>&ndash;&gt;
                                     <td rowspan="1" colspan="1"> <input type="text" formControlName="description" class="form-control" value="23"> </td>
                                     <td rowspan="1" colspan="1"> <input type="text" formControlName="units" class="form-control" value="23"> </td>
                                     <td rowspan="1" colspan="1"> <input type="text" formControlName="resultValue" class="form-control" value="45"> </td>
                                     <td rowspan="1" colspan="1"> <input type="text" formControlName="normalRange" class="form-control" value="100"> </td>
-                                  <!--  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>-->
+                                  &lt;!&ndash;  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>&ndash;&gt;
                                 <td rowspan="1" colspan="1"> <i (click)="deleteTest(i)" title="Remove"
                                                                 class="fa fa-close font-red"></i> </td>
+
                                 </tr>
 
-                                <!--<div formArrayName="examRooms"
+                                &lt;!&ndash;<div formArrayName="examRooms"
                                      *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
                                     <div class="form-group" [formGroupName]="i">
                                         <label class="control-label col-md-4">Exam Rooms
@@ -194,14 +219,13 @@
                                         </div>
                                         &lt;!&ndash;<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>&ndash;&gt;
                                     </div>
-                                </div>-->
+                                </div>&ndash;&gt;
 
                                 </thead>
                             </table>
                         </div>
-                    </div>
+                    </div>-->
                         </div>
-                    </div>
                     <div class="pull-right">
                         <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons" data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success" (click)="addMoreTest()"><i class="fa fa-plus"></i> Add another </button>
                     </div>

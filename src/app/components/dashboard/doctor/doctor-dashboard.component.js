@@ -46,7 +46,7 @@ var DoctorDashboardComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                 var dashboardListTemp = response['responseData'];
-                _this.dashboardList = dashboardListTemp.filter(function (x) { return x.status == "COMPLETE" || x.status == "IN_SESSION"; });
+                _this.dashboardList = dashboardListTemp.filter(function (x) { return x.status == "COMPLETE" || x.status == "IN_SESSION" || x.status == "CHECK_IN"; });
                 _this.dashboardListModified = _this.dashboardList;
             }
         }, function (error) {
@@ -108,32 +108,25 @@ var DoctorDashboardComponent = (function () {
     DoctorDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId, pmID) {
         var _this = this;
         var that = this;
-        this.confirmationDialogService
-            .confirm('Update Status', 'Are you sure you want to do this?')
-            .subscribe(function (res) {
-            if (res == true) {
-                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
-                    .subscribe(function (res) {
-                    if (res['responseCode'] === "STATUS_SUC_01") {
-                        _this.snackBar.open('Status Updated', "Status has been Changed to " + statusValue + " Successfully", { duration: 3000 });
-                    }
-                }, function (error) {
-                    _this.error = error.error.error;
-                });
-            }
-        });
-        if (statusValue === 'CHECK_IN') {
-            this.requestService.getRequest(app_constants_1.AppConstants.INVOICE_CHECK_IN + pmID)
+        if (statusValue === 'IN_SESSION' || statusValue === 'COMPLETE') {
+            this.confirmationDialogService
+                .confirm('Update Status', 'Are you sure you want to do this?')
                 .subscribe(function (res) {
-                if (res['responseCode'] === "INVOICE_ERR_01") {
-                    _this.snackBar.open('Error', "Invoices Not Generated", { duration: 3000 });
+                if (res == true) {
+                    _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                        .subscribe(function (res) {
+                        if (res['responseCode'] === "STATUS_SUC_01") {
+                            _this.snackBar.open('Status Updated', "Status has been Changed to " + statusValue + " Successfully", { duration: 3000 });
+                        }
+                    }, function (error) {
+                        _this.error = error.error.error;
+                    });
                 }
-            }, function (error) {
-                _this.error = error.error.error;
             });
         }
     };
     DoctorDashboardComponent.prototype.patientHistory = function (id) {
+        console.log('patient history' + id);
         this.dataService.getPatientId(id);
         this.router.navigate(['/dashboard/patient/', id, 'history']);
     };

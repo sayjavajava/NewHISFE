@@ -88,6 +88,8 @@ export class AppConstants {
     public static FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/';
     public static FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/';
 
+    public static FETCH_DEPT_MEDICAL_SERVICES_URL = '/setting/medicalService/getDeptMedicalService/';
+
     ////////////////////// Organization URLs ///////////////////////////////
     public static ORGANIZATION_CREATE_URL = '/setting/organization/create';
     public static TIMEZONE_FETCH_URL = '/setting/organization/timezone';
@@ -147,6 +149,7 @@ export class AppConstants {
     public static UPDATE_APPOINTMENT = '/appointment/update/';
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
     public static FETCH_APPOINTMENTS_URL = '/appointment/';
+    public static FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
 
     ////////////////////// Dashboard URLs ///////////////////////////////
     public static FETCH_DASHBOARD_URL = '/dashboard/';
