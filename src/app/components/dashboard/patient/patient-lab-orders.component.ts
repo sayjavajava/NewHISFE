@@ -26,6 +26,8 @@ export class PatientLabOrdersComponent implements OnInit {
     id : number;
     orderId:number;
     error:any;
+    orderNotFound:boolean=false;
+
     allOrders:any=[];
     filteredLabTest :any[] =[];
     patient:Patient =new Patient();
@@ -52,6 +54,10 @@ export class PatientLabOrdersComponent implements OnInit {
             page = page;
 
         }
+        if(this.id == null || this.id ==0 || this.id==undefined){
+            this.orderNotFound =true;
+            this.notificationService.error('Please Select Patient Again From Dashboard')
+        }else {
         this.requestService.getRequestWithParam(
             AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL + page,this.id)
             .subscribe(
@@ -72,6 +78,7 @@ export class PatientLabOrdersComponent implements OnInit {
                     this.error = error.error.error;
                 }
             );
+        }
     }
     loadRecord(){
         this.requestService.getRequest(
@@ -82,7 +89,8 @@ export class PatientLabOrdersComponent implements OnInit {
                     this.patient = response['responseData'];
                     //this.patient.races = JSON.parse(response['responseData'].racesString);
                 } else {
-                    this.notificationService.error(response['responseMessage'], 'Patient');
+                  //  this.notificationService.error(response['responseMessage'], 'Patient');
+                    //this.
                     // this.router.navigate(['404-not-found'])
                 }
             },
@@ -121,6 +129,7 @@ export class PatientLabOrdersComponent implements OnInit {
         this.labForm.controls['orderStatus'].setValue(value);
     }
     deleteTest(index : number){
+        console.log('indexsss:'+ index);
         this.labTest = this.labForm.get('labTest') as FormArray;
         this.labTest.removeAt(index);
 

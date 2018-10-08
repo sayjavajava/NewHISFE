@@ -112,8 +112,10 @@ export class PatientDemographicComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'PATIENT_SUC_08') {
                             this.patient = new Patient();
+                            this.loadRecord();
                             this.notificationService.success(response['responseMessage'], 'Patient');
-                            this.router.navigate(['/dashboard/patient/demographic/', this.id]);
+                          //  this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
+
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Patient');
                         }

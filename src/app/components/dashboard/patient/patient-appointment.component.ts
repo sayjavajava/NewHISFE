@@ -29,21 +29,25 @@ export class PatientAppointmentComponent implements OnInit {
     goToUserDashBoard(){
         this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
     }
-    loadRecord(){
-        this.requestService.getRequest(
-            AppConstants.PATIENT_FETCH_URL + this.id
-        ).subscribe(
-            response => {
-                if (response['responseCode'] === 'USER_SUC_01') {
-                    this.patient = response['responseData'];
-                    //this.patient.races = JSON.parse(response['responseData'].racesString);
-                } else {
-                    this.notificationService.error(response['responseMessage'], 'Patient');
-                    // this.router.navigate(['404-not-found'])
-                }
-            },
-            (error: any) => {
-                this.HISUTilService.tokenExpired(error.error.error);
-            });
+    loadRecord() {
+        if (this.id == null || this.id == 0 || this.id == undefined) {
+            this.notificationService.error('Please Select Patient Again From Dashboard')
+        } else {
+            this.requestService.getRequest(
+                AppConstants.PATIENT_FETCH_URL + this.id
+            ).subscribe(
+                response => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.patient = response['responseData'];
+                        //this.patient.races = JSON.parse(response['responseData'].racesString);
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Patient');
+                        // this.router.navigate(['404-not-found'])
+                    }
+                },
+                (error: any) => {
+                    this.HISUTilService.tokenExpired(error.error.error);
+                });
+        }
     }
 }

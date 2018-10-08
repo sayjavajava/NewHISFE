@@ -149,6 +149,7 @@ export class AppConstants {
     public static UPDATE_APPOINTMENT = '/appointment/update/';
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
     public static FETCH_APPOINTMENTS_URL = '/appointment/';
+    public static FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
 
     ////////////////////// Dashboard URLs ///////////////////////////////
     public static FETCH_DASHBOARD_URL = '/dashboard/';

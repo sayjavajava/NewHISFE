@@ -39,18 +39,23 @@ var PatientAppointmentComponent = (function () {
     };
     PatientAppointmentComponent.prototype.loadRecord = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
-            if (response['responseCode'] === 'USER_SUC_01') {
-                _this.patient = response['responseData'];
-                //this.patient.races = JSON.parse(response['responseData'].racesString);
-            }
-            else {
-                _this.notificationService.error(response['responseMessage'], 'Patient');
-                // this.router.navigate(['404-not-found'])
-            }
-        }, function (error) {
-            _this.HISUTilService.tokenExpired(error.error.error);
-        });
+        if (this.id == null || this.id == 0 || this.id == undefined) {
+            this.notificationService.error('Please Select Patient Again From Dashboard');
+        }
+        else {
+            this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    _this.patient = response['responseData'];
+                    //this.patient.races = JSON.parse(response['responseData'].racesString);
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Patient');
+                    // this.router.navigate(['404-not-found'])
+                }
+            }, function (error) {
+                _this.HISUTilService.tokenExpired(error.error.error);
+            });
+        }
     };
     PatientAppointmentComponent = __decorate([
         core_1.Component({

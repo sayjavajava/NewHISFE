@@ -133,7 +133,6 @@ var PatientHistoryComponent = (function () {
     PatientHistoryComponent.prototype.patientHistory = function () {
         // this.dataService.getPatientId(id);//
         var url = '/dashboard/patient/' + this.selectedPatientId + '/history';
-        console.log("url" + url);
         this.router.navigate([url]);
     };
     PatientHistoryComponent = __decorate([

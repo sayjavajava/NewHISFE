@@ -135,6 +135,7 @@ var AppConstants = (function () {
     AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
     AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
     AppConstants.FETCH_APPOINTMENTS_URL = '/appointment/';
+    AppConstants.FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
     ////////////////////// Dashboard URLs ///////////////////////////////
     AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
     AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';

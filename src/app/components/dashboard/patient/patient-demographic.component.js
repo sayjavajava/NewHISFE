@@ -114,8 +114,9 @@ var PatientDemographicComponent = (function () {
                 this.requestService.putRequest(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient).subscribe(function (response) {
                     if (response['responseCode'] === 'PATIENT_SUC_08') {
                         _this.patient = new patient_1.Patient();
+                        _this.loadRecord();
                         _this.notificationService.success(response['responseMessage'], 'Patient');
-                        _this.router.navigate(['/dashboard/patient/demographic/', _this.id]);
+                        //  this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Patient');

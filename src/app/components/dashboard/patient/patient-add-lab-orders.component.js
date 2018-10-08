@@ -50,20 +50,25 @@ var PatientAddLabOrdersComponent = (function () {
     };
     PatientAddLabOrdersComponent.prototype.loadRecord = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
-            if (response['responseCode'] === 'USER_SUC_01') {
-                _this.patient = response['responseData'];
-                var apptId = response['responseData']['pastAppointments'];
-                _this.appointmentId = apptId[0].id;
-                console.log('test appoint id :' + _this.appointmentId);
-            }
-            else {
-                _this.notificationService.error(response['responseMessage'], 'Patient');
-                // this.router.navigate(['404-not-found'])
-            }
-        }, function (error) {
-            _this.hISUtilService.tokenExpired(error.error.error);
-        });
+        if (this.id == null || this.id == 0 || this.id == undefined) {
+            this.notificationService.error('Please Select Patient Again From Dashboard');
+        }
+        else {
+            this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    _this.patient = response['responseData'];
+                    var apptId = response['responseData']['pastAppointments'];
+                    _this.appointmentId = apptId[0].id;
+                    console.log('test appoint id :' + _this.appointmentId);
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Patient');
+                    // this.router.navigate(['404-not-found'])
+                }
+            }, function (error) {
+                _this.hISUtilService.tokenExpired(error.error.error);
+            });
+        }
     };
     PatientAddLabOrdersComponent.prototype.createLabOrderForm = function () {
         this.labForm = this.fb.group({

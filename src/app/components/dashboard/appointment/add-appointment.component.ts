@@ -27,6 +27,7 @@ import {Router} from '@angular/router';
 import {Appointment} from '../../../model/Appointment';
 import {UserTypeEnum} from '../../../enums/user-type-enum';
 import {isNullOrUndefined} from "util";
+import {BranchDoctors} from "../../../model/branchdoctors";
 
 
 declare var $: any;
@@ -41,8 +42,9 @@ export class AddAppointmentComponent implements OnInit {
                 private notificationService: NotificationService, private router: Router, private requestsService: RequestsService) {
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
-        this.getPatientFromServer();
         this.allServices();
+        this.getPatientFromServer();
+        this.allServicesWithDoctors();
         this.getBranchesAndDoctorFromServer();
     }
 
@@ -58,12 +60,17 @@ export class AddAppointmentComponent implements OnInit {
     startDate = new Date(2018,1,1);
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
     @ViewChild('divClick') divClick: ElementRef;
+    @ViewChild('create-responsive') addModal: TemplateRef<any>;
+
     view: string = 'month';
     newPatient: boolean = false;
 
     viewDate: Date = new Date();
     data: any = [];
     branches: any[];
+    branchDoctor : BranchDoctors[];
+    filteredDoctor : BranchDoctors[];
+    filteredServices:any;
     doctorsList: any[];
     patients: any=[];
     selectedType: any = [];
@@ -76,10 +83,9 @@ export class AddAppointmentComponent implements OnInit {
     searchedDoctor: number;
     searchedBranch: number;
     servicesList: any = [];
+    servicesListWithDoctors:any=[]
     error:string;
-
-
-
+    disbaleDoctor:boolean=false;
     modalData: {
         action: string;
         event: CalendarEvent;
@@ -113,7 +119,6 @@ export class AddAppointmentComponent implements OnInit {
     ];
 
     ngOnInit() {
-
         var startTime =new Date('August 8 2018 08:20');
         var endTime =new Date('August 8 2018 08:25');
         this.requestsService.getRequest(
@@ -124,15 +129,10 @@ export class AddAppointmentComponent implements OnInit {
                         for (let apt of response['responseData']) {
                             this.events.push({
                                 id: apt.id,
-                               /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
-                                title : apt.patient  +'<br/>'+ " " + apt.scheduleDate +'<br/>' +" "+ apt.branchName,
+                                /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
+                                title : apt.patient  +'<br/>'+ " " + apt.scheduleDateAndTime +'<br/>' +" "+ apt.branchName,
                                 start : addMinutes(startOfDay(new Date(apt.scheduleDate)),apt.appointmentConvertedTime),
                                 end :  addMinutes(startOfDay(new Date(apt.scheduleDate)),apt.appointmentEndedConvertedTime),
-                                // start: addHours(startOfDay(new Date(apt.scheduleDate)),126),
-                                //end : new Date(apt.scheduleDate).getMinutes()+34),
-                                //  end:addHours(startOfDay(new Date(apt.scheduleDate)),apt.appointmentEndedOn),
-                                // start: startOfDay(new Date(apt.scheduleDate)),
-                                // end: endOfDay(new Date((apt.scheduleDate),apt.appointmentEndedOn)),
                                 color: {
                                     primary: apt.color,
                                     secondary: apt.color
@@ -200,13 +200,13 @@ export class AddAppointmentComponent implements OnInit {
 
     }
     closeAddModal(index:any){
-       this.eventsRequest.splice(index,1);
-       this.refresh.next();
-       let htmlelement =document.getElementById("divClick")as HTMLElement;
+        // this.eventsRequest.splice(index,1);
+        this.eventsRequest.length=0;
+        this.refresh.next();
+        let htmlelement =document.getElementById("divClick")as HTMLElement;
         htmlelement.click();
 
     }
-    testClose() {console.log('i am called');}
 
     selectType(form:NgForm) {
         this.selectedType.length = 0;
@@ -252,6 +252,7 @@ export class AddAppointmentComponent implements OnInit {
             label: '<i class="fa fa-fw fa-pencil"></i>',
             onClick: ({event}: { event: CalendarEvent }): void => {
                 this.handleEvent('Edited', event);
+
             }
         },
         {
@@ -299,13 +300,29 @@ export class AddAppointmentComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
-                        this.branches = response['responseData'];
+                        this.branchDoctor = response['responseData'];
                     }
                 },
                 (error: any) => {
 
                 }
             );
+    }
+
+    allServicesWithDoctors() {
+        this.requestsService.getRequest(AppConstants.FETCH_MEDICALSERVICES_WITH_DOCTORS)
+            .subscribe(
+                (response: Response) => {
+                    //console.log('i am branch call');
+                    if (response['responseCode'] === 'MED_SER_SUC_01') {
+                        this.servicesListWithDoctors = response['responseData'];
+                        //console.log(this.servicesList);
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+
     }
 
     getPatientFromServer() {
@@ -350,14 +367,13 @@ export class AddAppointmentComponent implements OnInit {
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = {event, action};
-        console.log('testing day ' +event);
+        this.filteredDoctor =[...this.branchDoctor];
+        this.filteredServices =[...this.servicesListWithDoctors];
+        this.disbaleDoctor=true;
         this.Type.filter(e => event.appointmentType.includes(e.name)).map(e => e.checked = true);
         this.selectedType = event.appointmentType;
         var filteredData2 = this.branches.filter(x => x.id == event.branchId);
         this.examRooms = filteredData2[0].examRooms;
-        // this.modal.open(this.modalContent, {size: 'lg'});
-        //  document.getElementById("exampleModalCenter2").click();
-        // this.refresh.next();
         $('#exampleModalCenter2').modal('show');
 
     }
@@ -369,6 +385,8 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     addEvent(date: any): void {
+        this.disbaleDoctor =true;
+        this.eventsRequest.length=0;
         $('#create-responsive').modal('show');
         this.eventsRequest.push({
             title: 'Name',
@@ -397,7 +415,7 @@ export class AddAppointmentComponent implements OnInit {
             lastAppointment: new Date(),
             recurringAppointment: false,
             branch: 'select',
-          //  doctorId: 0,
+            //  doctorId: 0,
             examRoom: 'select',
             resizable: {
                 beforeStart: true,
@@ -464,7 +482,7 @@ export class AddAppointmentComponent implements OnInit {
                                 branchId: apt.branchId,
                                 roomId: apt.roomId,
                                 doctorId: apt.doctorId
- //service id
+                                //service id
                             });
                             this.refresh.next();
                         }
@@ -499,24 +517,36 @@ export class AddAppointmentComponent implements OnInit {
     }
 
     getExamRoom(event: any) {
-        console.log('getExam');
         let roomId: number;
+        this.disbaleDoctor=false;
+
         var sp = event.split(': ');
         if (sp.length > 1)
             roomId = sp[1];
         else
             roomId = sp[0];
-        var filteredData2 = this.branches.filter(x => x.id == roomId);
+        let filteredData2 = this.branchDoctor.filter(x => x.id == roomId);
+        let filterDoctor = this.branchDoctor.filter(x=>x.id==roomId);
         this.examRooms = filteredData2[0].examRooms;
+        filterDoctor.forEach( x=>{x.doctorId;console.log('doctors',x.doctorId+ x.lastName)})
+
+        this.filteredDoctor = [...filterDoctor];
+
+    }
+    selectServices(item:any){
+        let list = this.servicesListWithDoctors.filter((x:any) =>x.doctorId == item);
+        console.log('services..'+ list.length);
+        this.filteredServices = [...list];
 
     }
 
     saveAppointment(event: any,form :NgForm) {
+
         var self = this;
         this.Type.map(x => x.checked = false);
         if(form.valid) {
             if(this.newPatient ==false && event.patientId == null){ this.eventsRequest.length = 0;self.notificationService.error('Patient is required','Invalid Form');}
-            if( this.newPatient ==true && event.newPatient == undefined ){ this.eventsRequest.length = 0; this.newPatient =false;self.notificationService.error('Patient Name and Cell Phone are mandatory','Invalid Form');}
+            if(this.newPatient ==true && event.newPatient == undefined ){ this.eventsRequest.length = 0; this.newPatient =false;self.notificationService.error('Patient Name and Cell Phone are mandatory','Invalid Form');}
             if (this.eventsRequest.length != 0) {
                 let obj = new Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
                     event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
@@ -529,9 +559,12 @@ export class AddAppointmentComponent implements OnInit {
                                 self.notificationService.success('created successfully', 'Appointment');
                                 self.router.navigate(['/dashboard/appointment/manage']);
                                 this.eventsRequest.length = 0;
-                              /*  $('#exampleModalCenter2').modal('close');*/
+                                /*  $('#exampleModalCenter2').modal('close');*/
                             }
-                           else if(response['responseCode'] === 'APPT_ERR_06'){
+                            else if(response['responseCode'] === 'APPT_ERR_06'){
+                                $('#create-responsive').on('hidden.bs.modal', function() {
+                                    this.modal('show');
+                                });
                                 this.eventsRequest.length =0;
                                 self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
                             }
@@ -548,9 +581,9 @@ export class AddAppointmentComponent implements OnInit {
             }
         }else{
             this.eventsRequest.length = 0;
-         //   $('#exampleModalCenter2').modal('close');
-         //   this.validateAllFormFields(form);
-           self.notificationService.error('Error','Invalid Form');
+            //   $('#exampleModalCenter2').modal('close');
+            //   this.validateAllFormFields(form);
+            self.notificationService.error('Error','Invalid Form');
         }
     }
 
@@ -574,15 +607,15 @@ export class AddAppointmentComponent implements OnInit {
             });
     }
 
-  /*  validateAllFormFields(formGroup: NgForm) {
-        Object.keys(formGroup.controls).forEach(field => {
-            const control = formGroup.get(field);
-            if (control instanceof FormControl) {
-                control.markAsTouched({onlySelf: true});
-            } else if (control instanceof FormGroup) {
-                this.validateAllFormFields(control);
-            }
-        });
-    }*/
+    /*  validateAllFormFields(formGroup: NgForm) {
+          Object.keys(formGroup.controls).forEach(field => {
+              const control = formGroup.get(field);
+              if (control instanceof FormControl) {
+                  control.markAsTouched({onlySelf: true});
+              } else if (control instanceof FormGroup) {
+                  this.validateAllFormFields(control);
+              }
+          });
+      }*/
 
 }

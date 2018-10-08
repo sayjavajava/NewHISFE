@@ -173,7 +173,6 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     patientHistory() {
         // this.dataService.getPatientId(id);//
         var url = '/dashboard/patient/' + this.selectedPatientId + '/history';
-        console.log("url" + url);
         this.router.navigate([url]);
     }
 
