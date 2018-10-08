@@ -247,7 +247,7 @@ export class PatientInvoiceComponent implements OnInit {
         this.showEditButton = false;
 
         if(this.selectedServiceIndex != -1){
-            this.unSelectedServicesList.splice(this.selectedServiceIndex,1);
+        //    this.unSelectedServicesList.splice(this.selectedServiceIndex,1);
             this.selectedServiceIndex = -1;
         }
         this.getTotalOfAllInviceItems();
