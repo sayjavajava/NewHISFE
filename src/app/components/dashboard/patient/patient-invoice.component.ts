@@ -56,17 +56,23 @@ export class PatientInvoiceComponent implements OnInit {
 
     constructor(private router: Router,private route: ActivatedRoute, private requestsService: RequestsService) {
 
+        this.route.params.subscribe(params => {
+            this.appointmentId = params['id'];
+            console.log("ngOnInit --> Appointment Id :"+this.appointmentId);
+        });
         this.allServices();
+        this.servicesList;
     }
     ngOnInit(): void {
       
-        this.route.params.subscribe(params => {
+    /*     this.route.params.subscribe(params => {
             this.appointmentId = params['id'];
             console.log("ngOnInit --> Appointment Id :"+this.appointmentId);
         });
 
         this.getAppointmentDataById();
         this.getInvoiceItemsById();
+         */
     }
     goToUserDashBoard(){
         this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
@@ -84,7 +90,6 @@ export class PatientInvoiceComponent implements OnInit {
                 this.docFirstName= this.appointment.docFirstName;
                 this.docLastName= this.appointment.docLastName;
                 console.log("Appointment Data : " + this.appointment.patient );
-                
                  },
                 (error: any) => {
                     this.error = error;
@@ -100,19 +105,7 @@ export class PatientInvoiceComponent implements OnInit {
             .subscribe((res :any) =>{
                 this.invoiceList = res.responseData ;
                 console.log("get Invoice Items By Id Data : " + this.invoiceList );
-
-                var i = 0, len = this.invoiceList.length;
-                for(;i<len; i++){
-                    let arr:MedicalService[] = this.servicesList.filter((x:any) => x.code != this.invoiceList[i].code);
-                    if(this.unSelectedServicesList.length > 0 && !this.unSelectedServicesList.filter((x:any) =>  x.code == arr[0].code)) {
-                        console.log("un Selected Services List By Code Data : " + arr[0].name );
-                        this.unSelectedServicesList.push(arr[0]);
-                    }
-                    else if(this.unSelectedServicesList.length ==0){
-                        this.unSelectedServicesList.push(arr[0]);
-                    }
-                }
-
+                this.unSelectedServiceList();
                 this.getTotalOfAllInviceItems();
                  },
                 (error: any) => {
@@ -120,7 +113,6 @@ export class PatientInvoiceComponent implements OnInit {
                 })
         }
     }
-
 
     allServices() {
         this.requestsService.getRequest(AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
@@ -130,6 +122,9 @@ export class PatientInvoiceComponent implements OnInit {
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];                       
                         console.log(this.servicesList);
+
+                        this.getAppointmentDataById();
+                        this.getInvoiceItemsById();
                     }
                 },
                 (error: any) => {
@@ -137,34 +132,15 @@ export class PatientInvoiceComponent implements OnInit {
                 })
     }
 
-    selectServices(service: any) {      
-        if(service !="-1"){
-             
-            if (service) {
-                 this.show = true;
-           //      this.selectedService = this.servicesList[service];
-                 this.selectedService = this.unSelectedServicesList[service];
-                 this.serviceName = this.unSelectedServicesList[service].name;
-                 this.taxRate = this.unSelectedServicesList[service].tax.rate;
-                 this.selectedServiceIndex = service;
-            }else{
-                this.show = false;
-            }
-            
-   //        let arr:MedicalService[] = this.servicesList.filter((x:any) => x.id == service);
-            // console.log('tax rate:'+ arr[0].tax.rate);  
-            
-            // if (service) {
-            //     this.show = true;
-            //     this.selectedService = arr[0];
-            //     this.serviceName = arr[0].name;
-            //     this.taxRate = arr[0].tax.rate;
-            //     this.selectedServiceIndex = service;
-                
-            // }else{
-            //     this.show = false;
-            // }
-        }else{
+    selectServices(service: any) {
+        if (service != "-1") {
+            this.show = true;
+            //      this.selectedService = this.servicesList[service];
+            this.selectedService = this.unSelectedServicesList[service];
+            this.serviceName = this.unSelectedServicesList[service].name;
+            this.taxRate = this.unSelectedServicesList[service].tax.rate;
+            this.selectedServiceIndex = service;
+        } else {
             this.show = false;
         }
     }
@@ -188,8 +164,18 @@ export class PatientInvoiceComponent implements OnInit {
         console.log(' total  :'+this.invoiceAmount);
     //    console.log(' selectedService :'+ (this.selectedService.tax.rate= 20));  
     }
-    
 
+    // this method will called when discount / tax amount will be changed
+    invoiceBillCalculationOnAmount(event : any)
+    {
+        var Amt = (this.quantity * this.unitFee);
+        this.discountRate = (this.discountAmount / (this.quantity * this.unitFee)) * 100 ;
+        this.taxRate = (this.taxAmount / (this.quantity * this.unitFee)) * 100 ;
+
+        var totalAMt = Amt + this.taxAmount - this.discountAmount;
+        this.invoiceAmount=totalAMt;
+    }
+    
     getTotalOfAllInviceItems(){
         console.log(this.selectedService);
         
@@ -260,15 +246,29 @@ export class PatientInvoiceComponent implements OnInit {
         this.show = false;
         this.showEditButton = false;
 
+        if(this.selectedServiceIndex != -1){
+            this.unSelectedServicesList.splice(this.selectedServiceIndex,1);
+            this.selectedServiceIndex = -1;
+        }
         this.getTotalOfAllInviceItems();
     }
 
+    cancel(){
+        this.show = false;
+        this.showEditButton = false;
+        this.selectedServiceIndex = -1;
+    }
 
-    removeInvoic(value : any){
-        
-        let arr:MedicalService[] = this.servicesList.filter((x:any) => x.code == this.invoiceList[value].code);
-        this.unSelectedServicesList.push(arr[0]);
-        this.invoiceList.splice(value,1);
+
+    removeInvoic(value : any)
+    {
+        this.servicesList;
+        let arr:MedicalService[] = this.servicesList.filter(x => x.code === this.invoiceList[value].code);
+        if(arr.length > 0)
+        {
+            this.unSelectedServicesList.push(arr[0]);
+            this.invoiceList.splice(value,1);
+        }
         this.getTotalOfAllInviceItems();
     }
 
@@ -286,6 +286,26 @@ export class PatientInvoiceComponent implements OnInit {
         this.invoiceBillCalculation(this);
         this.show = true;
         this.showEditButton = true;
+    }
+
+    // Show unselected services list in dropdown
+    unSelectedServiceList() 
+    {
+        if(this.servicesList)
+        {
+        //    let list = this.servicesList;
+            let list = Object.assign([], this.servicesList);
+            var i = 0, len = this.invoiceList.length;
+            for (; i < len; i++) {
+
+                const index = list.findIndex(list => list.code === this.invoiceList[i].code);
+                if(index != -1){
+                    list.splice(index, 1);
+                }
+            }
+            this.unSelectedServicesList = list;
+            console.log("un sel final list:"+this.unSelectedServicesList);
+        }
     }
 
     saveInvoice(){
