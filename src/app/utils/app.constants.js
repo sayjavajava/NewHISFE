@@ -34,6 +34,7 @@ var AppConstants = (function () {
     AppConstants.SAVE_INVOICE = '/invoice/saveInvoice';
     AppConstants.GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
     AppConstants.INVOICE_CHECK_IN = '/invoice/generateInvoiceOnCheckIn/';
+    AppConstants.PATIENT_ALLINVOICE_BALANCE = '/invoice/getPatientInvBal/';
     ////////////////////// Cashier Desk ///////////////////////////////
     AppConstants.GET_All_INVOICES = '/cashier/getAllInvoices';
     AppConstants.FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';

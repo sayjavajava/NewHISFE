@@ -43,11 +43,11 @@ export class Patient {
         {id: 5, nameRace: 'White', selected: false},
         {id: 6, nameRace: 'Other Race', selected: false}
     ];
-    country: string = "SAUDI ARABIA";
+    country: string = "SAUDI ARAB";
     streetAddress: string = "";
     zipCode: string = "";
     city: string = "";
-    state: string = "SAUDI ARABIA";
+    state: string = "SAUDI ARAB";
     formattedAddress: string = "";
     marital: string = "SINGLE";
     emergencyContactName: string = "";
