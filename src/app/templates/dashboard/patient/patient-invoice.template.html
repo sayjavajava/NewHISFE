@@ -52,7 +52,7 @@
                             <div class="form-group">
                                     <label class="col-md-4 control-label txt-size-detail pdng-lr-5">Services:</label>
 
-                                    <select class="col-md-8 select pdng-lr-5"  (change)="selectServices($event.target.value)">
+                                    <select class="col-md-8 select pdng-lr-5"  (change)="selectServices($event.target.value)" [disabled]="showEditButton">
                                         <option value="-1">-- Please select service --</option>
                                         <option *ngFor="let service of unSelectedServicesList ; let indx= index" value={{indx}} >
                                                 {{service.name}}
