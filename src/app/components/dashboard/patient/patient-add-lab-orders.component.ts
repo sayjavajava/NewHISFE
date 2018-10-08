@@ -45,6 +45,9 @@ export class PatientAddLabOrdersComponent implements OnInit {
     }
 
     loadRecord(){
+        if(this.id == null || this.id ==0 || this.id==undefined){
+            this.notificationService.error('Please Select Patient Again From Dashboard')
+        }else {
         this.requestService.getRequest(
             AppConstants.PATIENT_FETCH_URL + this.id
         ).subscribe(
@@ -62,6 +65,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
             (error: any) => {
                 this.hISUtilService.tokenExpired(error.error.error);
             });
+    }
     }
     createLabOrderForm() {
         this.labForm = this.fb.group({

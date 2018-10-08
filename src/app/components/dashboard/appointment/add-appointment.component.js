@@ -51,6 +51,8 @@ var AddAppointmentComponent = (function () {
         this.examRooms = [];
         this.test = 'lahore';
         this.servicesList = [];
+        this.servicesListWithDoctors = [];
+        this.disbaleDoctor = false;
         this.status = [
             { id: 1, name: 'CONFIRMED' },
             { id: 2, name: 'CHECK_IN' },
@@ -101,8 +103,9 @@ var AddAppointmentComponent = (function () {
         ];
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
-        this.getPatientFromServer();
         this.allServices();
+        this.getPatientFromServer();
+        this.allServicesWithDoctors();
         this.getBranchesAndDoctorFromServer();
     }
     AddAppointmentComponent.prototype.ngOnInit = function () {
@@ -117,14 +120,9 @@ var AddAppointmentComponent = (function () {
                     _this.events.push({
                         id: apt.id,
                         /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
-                        title: apt.patient + '<br/>' + " " + apt.scheduleDate + '<br/>' + " " + apt.branchName,
+                        title: apt.patient + '<br/>' + " " + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,
                         start: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                         end: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
-                        // start: addHours(startOfDay(new Date(apt.scheduleDate)),126),
-                        //end : new Date(apt.scheduleDate).getMinutes()+34),
-                        //  end:addHours(startOfDay(new Date(apt.scheduleDate)),apt.appointmentEndedOn),
-                        // start: startOfDay(new Date(apt.scheduleDate)),
-                        // end: endOfDay(new Date((apt.scheduleDate),apt.appointmentEndedOn)),
                         color: {
                             primary: apt.color,
                             secondary: apt.color
@@ -188,12 +186,12 @@ var AddAppointmentComponent = (function () {
         });
     };
     AddAppointmentComponent.prototype.closeAddModal = function (index) {
-        this.eventsRequest.splice(index, 1);
+        // this.eventsRequest.splice(index,1);
+        this.eventsRequest.length = 0;
         this.refresh.next();
         var htmlelement = document.getElementById("divClick");
         htmlelement.click();
     };
-    AddAppointmentComponent.prototype.testClose = function () { console.log('i am called'); };
     AddAppointmentComponent.prototype.selectType = function (form) {
         this.selectedType.length = 0;
         if (this.selectedOptions.indexOf('NewPatient') > -1) {
@@ -245,9 +243,22 @@ var AddAppointmentComponent = (function () {
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTOR_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
-                _this.branches = response['responseData'];
+                _this.branchDoctor = response['responseData'];
             }
         }, function (error) {
+        });
+    };
+    AddAppointmentComponent.prototype.allServicesWithDoctors = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_MEDICALSERVICES_WITH_DOCTORS)
+            .subscribe(function (response) {
+            //console.log('i am branch call');
+            if (response['responseCode'] === 'MED_SER_SUC_01') {
+                _this.servicesListWithDoctors = response['responseData'];
+                //console.log(this.servicesList);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
         });
     };
     AddAppointmentComponent.prototype.getPatientFromServer = function () {
@@ -284,14 +295,13 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.handleEvent = function (action, event) {
         this.modalData = { event: event, action: action };
-        console.log('testing day ' + event);
+        this.filteredDoctor = this.branchDoctor.slice();
+        this.filteredServices = this.servicesListWithDoctors.slice();
+        this.disbaleDoctor = true;
         this.Type.filter(function (e) { return event.appointmentType.includes(e.name); }).map(function (e) { return e.checked = true; });
         this.selectedType = event.appointmentType;
         var filteredData2 = this.branches.filter(function (x) { return x.id == event.branchId; });
         this.examRooms = filteredData2[0].examRooms;
-        // this.modal.open(this.modalContent, {size: 'lg'});
-        //  document.getElementById("exampleModalCenter2").click();
-        // this.refresh.next();
         $('#exampleModalCenter2').modal('show');
     };
     AddAppointmentComponent.prototype.deleteEvent = function (action, event) {
@@ -299,6 +309,8 @@ var AddAppointmentComponent = (function () {
         //this.refresh.next();
     };
     AddAppointmentComponent.prototype.addEvent = function (date) {
+        this.disbaleDoctor = true;
+        this.eventsRequest.length = 0;
         $('#create-responsive').modal('show');
         this.eventsRequest.push({
             title: 'Name',
@@ -416,15 +428,23 @@ var AddAppointmentComponent = (function () {
         return type.name === this;
     };
     AddAppointmentComponent.prototype.getExamRoom = function (event) {
-        console.log('getExam');
         var roomId;
+        this.disbaleDoctor = false;
         var sp = event.split(': ');
         if (sp.length > 1)
             roomId = sp[1];
         else
             roomId = sp[0];
-        var filteredData2 = this.branches.filter(function (x) { return x.id == roomId; });
+        var filteredData2 = this.branchDoctor.filter(function (x) { return x.id == roomId; });
+        var filterDoctor = this.branchDoctor.filter(function (x) { return x.id == roomId; });
         this.examRooms = filteredData2[0].examRooms;
+        filterDoctor.forEach(function (x) { x.doctorId; console.log('doctors', x.doctorId + x.lastName); });
+        this.filteredDoctor = filterDoctor.slice();
+    };
+    AddAppointmentComponent.prototype.selectServices = function (item) {
+        var list = this.servicesListWithDoctors.filter(function (x) { return x.doctorId == item; });
+        console.log('services..' + list.length);
+        this.filteredServices = list.slice();
     };
     AddAppointmentComponent.prototype.saveAppointment = function (event, form) {
         var _this = this;
@@ -451,6 +471,9 @@ var AddAppointmentComponent = (function () {
                         /*  $('#exampleModalCenter2').modal('close');*/
                     }
                     else if (response['responseCode'] === 'APPT_ERR_06') {
+                        $('#create-responsive').on('hidden.bs.modal', function () {
+                            this.modal('show');
+                        });
                         _this.eventsRequest.length = 0;
                         self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
                     }
@@ -492,6 +515,10 @@ var AddAppointmentComponent = (function () {
         core_2.ViewChild('divClick'),
         __metadata("design:type", core_1.ElementRef)
     ], AddAppointmentComponent.prototype, "divClick", void 0);
+    __decorate([
+        core_2.ViewChild('create-responsive'),
+        __metadata("design:type", core_2.TemplateRef)
+    ], AddAppointmentComponent.prototype, "addModal", void 0);
     AddAppointmentComponent = __decorate([
         core_1.Component({
             selector: 'add-appointment-component',

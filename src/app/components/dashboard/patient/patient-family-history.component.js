@@ -44,17 +44,22 @@ var PatientFamilyHistoryComponent = (function () {
     };
     PatientFamilyHistoryComponent.prototype.loadRecord = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.patientId).subscribe(function (response) {
-            if (response['responseCode'] === 'USER_SUC_01') {
-                _this.patient = response['responseData'];
-                //this.patient.races = JSON.parse(response['responseData'].racesString);
-            }
-            else {
-                _this.notificationService.error(response['responseMessage'], 'Patient');
-                // this.router.navigate(['404-not-found'])
-            }
-        }, function (error) {
-        });
+        if (this.patientId == null || this.patientId == 0 || this.patientId == undefined) {
+            this.notificationService.error('Please Select Patient Again From Dashboard');
+        }
+        else {
+            this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.patientId).subscribe(function (response) {
+                if (response['responseCode'] === 'USER_SUC_01') {
+                    _this.patient = response['responseData'];
+                    //this.patient.races = JSON.parse(response['responseData'].racesString);
+                }
+                else {
+                    _this.notificationService.error(response['responseMessage'], 'Patient');
+                    // this.router.navigate(['404-not-found'])
+                }
+            }, function (error) {
+            });
+        }
     };
     PatientFamilyHistoryComponent.prototype.getFamilyHistoryFromServer = function (page) {
         var _this = this;
@@ -70,9 +75,9 @@ var PatientFamilyHistoryComponent = (function () {
                 _this.pages = response['responseData']['pages'];
                 _this.data = response['responseData']['data'];
             }
-            if (response['responseCode'] == 'FAM_HISTORY_ERR_02') {
-                _this.notificationService.error("Error " + response['responseMessage']);
-            }
+            /* if(response['responseCode'] =='FAM_HISTORY_ERR_02'){
+                 this.notificationService.error(`Error ${response['responseMessage']}`)
+             }*/
         }, function (error) {
             _this.error = error.error.error;
         });
@@ -84,21 +89,25 @@ var PatientFamilyHistoryComponent = (function () {
         var _this = this;
         if (data.valid) {
             this.selectedFamily.patientId = this.patientId;
-            console.log('test id' + this.patientId);
-            this.requestsService.postRequest(app_constants_1.AppConstants.FAMILY_HISTORY_CREATE, this.selectedFamily)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'FAM_HISTORY_SUC_01') {
-                    _this.notificationService.success(response['responseMessage'], 'Family History');
-                    _this.getFamilyHistoryFromServer(0);
-                    _this.hISUtilService.hidePopupWithCloseButtonId('closeButton');
-                }
-                else {
-                    _this.notificationService.error(response['responseMessage'], 'Family History');
-                }
-            }, function (error) {
-                //console.log(error.json())
-                _this.hISUtilService.tokenExpired(error.error.error);
-            });
+            if (this.patientId == null || this.patientId == 0 || this.patientId == undefined) {
+                this.notificationService.error('Please Select Patient Again From Dashboard');
+            }
+            else {
+                this.requestsService.postRequest(app_constants_1.AppConstants.FAMILY_HISTORY_CREATE, this.selectedFamily)
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'FAM_HISTORY_SUC_01') {
+                        _this.notificationService.success(response['responseMessage'], 'Family History');
+                        _this.getFamilyHistoryFromServer(0);
+                        _this.hISUtilService.hidePopupWithCloseButtonId('closeButton');
+                    }
+                    else {
+                        _this.notificationService.error(response['responseMessage'], 'Family History');
+                    }
+                }, function (error) {
+                    //console.log(error.json())
+                    _this.hISUtilService.tokenExpired(error.error.error);
+                });
+            }
         }
         else {
             this.notificationService.error('Form Invalid', '');

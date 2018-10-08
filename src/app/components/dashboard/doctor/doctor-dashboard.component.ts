@@ -52,7 +52,7 @@ export class DoctorDashboardComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                         let dashboardListTemp = response['responseData'];
-                        this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" );
+                        this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" || x.status=="CHECK_IN" );
                         this.dashboardListModified = this.dashboardList;
                     }
                 },
@@ -127,7 +127,8 @@ export class DoctorDashboardComponent {
 
     getUpdatedStatus(statusValue: string, apptId: any, pmID:number) {
         var that = this;
-        this.confirmationDialogService
+        if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){
+            this.confirmationDialogService
             .confirm('Update Status', 'Are you sure you want to do this?')
             .subscribe(res => {
                 if (res == true) {
@@ -141,19 +142,13 @@ export class DoctorDashboardComponent {
                         });
                 }
             });
-        if(statusValue === 'CHECK_IN'){
-            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
-                .subscribe((res: Response) => {
-                    if (res['responseCode'] === "INVOICE_ERR_01") {
-                        this.snackBar.open('Error', `Invoices Not Generated`, {duration: 3000});
-                    }
-                }, (error: any) => {
-                    this.error = error.error.error;
-                });
         }
+
+
     }
 
     patientHistory(id:any){
+        console.log('patient history'+ id);
         this.dataService.getPatientId(id);
         this.router.navigate(['/dashboard/patient/',id,'history']);
     }
