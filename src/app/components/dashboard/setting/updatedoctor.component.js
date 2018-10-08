@@ -52,7 +52,7 @@ var UpdatedoctorComponent = (function () {
         ];
         this.date = new forms_1.FormControl(new Date());
         this.allBranches();
-        this.allServices();
+        //this.allServices();
         this.allDepartments();
         this.allDoctors();
     }
@@ -191,6 +191,8 @@ var UpdatedoctorComponent = (function () {
                     //  secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
                     vacation: user.vacation,
                 });
+                var docDeptId = user.docDepartmentId;
+                //this.servicesList = this.getDeptServices(docDeptId);
                 if (user.expiryDate != null) {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                 }
@@ -217,7 +219,6 @@ var UpdatedoctorComponent = (function () {
                         _this.userForm.controls['shift2'].setValue(true);
                     }
                 }
-                var docDeptId = user.docDepartmentId;
                 for (var k in _this.departmentList) {
                     if (_this.departmentList[k].id == docDeptId) {
                         _this.departmentList[k].selected = true;
@@ -236,15 +237,36 @@ var UpdatedoctorComponent = (function () {
                     }
                 }
                 _this.doctorServices = user.doctorMedicalSrvcList;
-                for (var key in _this.servicesList) {
-                    for (var k in _this.doctorServices) {
-                        if (_this.doctorServices[k].id == _this.servicesList[key].id) {
-                            _this.servicesList[key].checked = true;
-                            _this.selectedServices.push(_this.doctorServices[k].id);
+                _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + docDeptId)
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'MED_SER_SUC_01') {
+                        _this.servicesList = response['responseData'];
+                        for (var key in _this.servicesList) {
+                            for (var k in _this.doctorServices) {
+                                if (_this.doctorServices[k].id == _this.servicesList[key].id) {
+                                    _this.servicesList[key].checked = true;
+                                    _this.selectedServices.push(_this.doctorServices[k].id);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        _this.servicesList = [];
+                    }
+                }, function (error) {
+                    _this.servicesList = [];
+                    _this.error = error.error.error;
+                });
+                /*for(let key in this.servicesList){
+                    for(let k in this.doctorServices){
+                        if(this.doctorServices[k].id == this.servicesList[key].id){
+                            this.servicesList[key].checked = true;
+                            this.selectedServices.push(this.doctorServices[k].id);
                             break;
                         }
                     }
-                }
+                }*/
                 if (user.vacation) {
                     _this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
                     _this.userForm.controls['dateTo'].setValue(new Date(user.vacationTo));
@@ -267,6 +289,22 @@ var UpdatedoctorComponent = (function () {
                 _this.error = error.error.error_description;
             });
         }
+    };
+    UpdatedoctorComponent.prototype.getDeptServices = function (deptId) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + deptId)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'MED_SER_SUC_01') {
+                _this.servicesList = response['responseData'];
+                //console.log(this.servicesList);
+            }
+            else {
+                _this.servicesList = [];
+            }
+        }, function (error) {
+            _this.servicesList = [];
+            _this.error = error.error.error;
+        });
     };
     UpdatedoctorComponent.prototype.getShiftFromTime = function (time) {
         var timeArray = time.split(':');

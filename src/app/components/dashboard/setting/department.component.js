@@ -48,10 +48,12 @@ var DepartmentComponent = (function () {
     };
     DepartmentComponent.prototype.refreshPage = function () {
         this.searched = false;
+        this.searchDepart = '';
         this.getPageWiseDepartmentFromServer(0);
     };
     DepartmentComponent.prototype.getPageWiseDepartmentFromServer = function (page) {
         var _this = this;
+        this.searchDepart = '';
         if (page > 0) {
             page = page;
         }
@@ -72,7 +74,7 @@ var DepartmentComponent = (function () {
     DepartmentComponent.prototype.deleteDepartment = function (dptId) {
         var _this = this;
         if (window.localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(function (response) {

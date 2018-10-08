@@ -1,10 +1,12 @@
 export class Department {
     id: number;
-    name: string = "";
+    name: string = '';
     description: string;
-    active: boolean;
+    active: boolean = true;
     deleted: boolean;
     checkedDepartment: boolean;
+
+    hasChild: boolean = false;
 
     constructor() {
     }

@@ -21,10 +21,6 @@ export class VersionComponent implements OnInit {
     searchVersion: string = '';
     private searched: boolean;
     private isVersionUpdate: boolean;
-    /**
-     * we decided if version has child record then we should not update status
-     * */
-    statusReadonly: boolean = false;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -80,7 +76,6 @@ export class VersionComponent implements OnInit {
     editICDVersion(iCDVersion: any) {
         this.isVersionUpdate = true;
         this.iCDVersionModel = iCDVersion;
-        this.statusReadonly = iCDVersion.hasChild;
     }
 
     updateICDVersion(versionForm: NgForm) {
@@ -115,7 +110,6 @@ export class VersionComponent implements OnInit {
     onAddICDVersionPopupLoad() {
         this.isVersionUpdate = false;
         this.iCDVersionModel = new ICDVersionModel();
-        this.statusReadonly = false;
     }
 
     searchByVersion(page: number) {

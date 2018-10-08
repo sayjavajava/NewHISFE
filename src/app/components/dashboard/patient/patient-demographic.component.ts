@@ -10,18 +10,21 @@ import {NgForm} from "@angular/forms";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {PatientSmokeStatus} from "../../../model/PatientSmokeStatus";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
+import {Invoice} from "../../../model/Invoice";
 
 @Component({
     selector: 'patient-history',
     templateUrl: '../../../templates/dashboard/patient/patient-demographic.template.html',
 })
 export class PatientDemographicComponent implements OnInit {
+    date = new Date();
     id:Number;
     patient: Patient = new Patient();
     file: File;
     doctors: any = [];
     smokeStatus: PatientSmokeStatus = new PatientSmokeStatus();
     smokeStatusList: any = [];
+    patientInvBal: Invoice = new Invoice();
     constructor(private router: Router,private route: ActivatedRoute,private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService,private  requestService: RequestsService,
                 private notificationService :NotificationService) {
@@ -30,8 +33,12 @@ export class PatientDemographicComponent implements OnInit {
         //throw new Error("Method not implemented.");
         this.route.params.subscribe(params => {
             this.id = params['id'];
+            if (this.id <= 0) {
+                this.notificationService.warn('Please select patient from dashboard again ');
+                return;
+            }
+            this.loadRecord();
         });
-        this.loadRecord();
     }
 
     loadRecord(){
@@ -58,7 +65,6 @@ export class PatientDemographicComponent implements OnInit {
             (error: any) => {
                 this.HISUTilService.tokenExpired(error.error.error);
             });
-
         this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
             .subscribe(
                 (response: Response) => {
@@ -69,6 +75,15 @@ export class PatientDemographicComponent implements OnInit {
                 (error: any) => {
                     this.HISUTilService.tokenExpired(error.error.error);
                 });
+        this.requestService.getRequest(AppConstants.PATIENT_ALLINVOICE_BALANCE+this.id).subscribe(
+            (response: Response)=>{
+                if(response['responseStatus'] === 'SUCCESS'){
+                    this.patientInvBal = response['responseData'];
+                    console.log("Patient Invoices Bal:"+this.patientInvBal.advanceBalance);
+                }
+
+            }
+        );
     }
 
     updatePatient(insuranceForm: NgForm, demographicForm: NgForm, patientForm: NgForm) {
@@ -112,10 +127,9 @@ export class PatientDemographicComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'PATIENT_SUC_08') {
                             this.patient = new Patient();
-                            this.loadRecord();
                             this.notificationService.success(response['responseMessage'], 'Patient');
-                          //  this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
-
+                            //this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
+                            this.loadRecord();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Patient');
                         }
@@ -132,6 +146,7 @@ export class PatientDemographicComponent implements OnInit {
     }
 
     addUpdateSmokeStatus(smokeStatusId: Number){
+        //console.log("Event Data Id:"+event.data.id);
         this.smokeStatus.patientId = this.id;
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestService.postRequest(
@@ -142,7 +157,8 @@ export class PatientDemographicComponent implements OnInit {
                     if (response['responseCode'] === 'SMOKE_STATUS_SUC_04') {
                         this.patient = new Patient();
                         this.notificationService.success(response['responseMessage'], 'Smoke Status');
-                        this.router.navigate(['/dashboard/patient/demographic/', this.id]);
+                        //this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
+                        this.loadRecord();
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Smoke Status');
                     }
@@ -170,7 +186,8 @@ export class PatientDemographicComponent implements OnInit {
                             if (response['responseCode'] === 'SMOKE_STATUS_SUC_06') {
                                 this.patient = new Patient();
                                 this.notificationService.success(response['responseMessage'], 'Smoke Status');
-                                this.router.navigate(['/dashboard/patient/demographic/', this.id]);
+                                //this.router.navigate(['/dashboard/patient/demographic/', that.id]);
+                                this.loadRecord();
                             } else {
                                 this.notificationService.error(response['responseMessage'], 'Smoke Status');
                             }

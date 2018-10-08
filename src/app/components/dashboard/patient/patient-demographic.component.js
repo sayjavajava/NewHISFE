@@ -19,6 +19,7 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
 var PatientSmokeStatus_1 = require("../../../model/PatientSmokeStatus");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
+var Invoice_1 = require("../../../model/Invoice");
 var PatientDemographicComponent = (function () {
     function PatientDemographicComponent(router, route, HISUTilService, confirmationDialogService, requestService, notificationService) {
         this.router = router;
@@ -27,18 +28,24 @@ var PatientDemographicComponent = (function () {
         this.confirmationDialogService = confirmationDialogService;
         this.requestService = requestService;
         this.notificationService = notificationService;
+        this.date = new Date();
         this.patient = new patient_1.Patient();
         this.doctors = [];
         this.smokeStatus = new PatientSmokeStatus_1.PatientSmokeStatus();
         this.smokeStatusList = [];
+        this.patientInvBal = new Invoice_1.Invoice();
     }
     PatientDemographicComponent.prototype.ngOnInit = function () {
         var _this = this;
         //throw new Error("Method not implemented.");
         this.route.params.subscribe(function (params) {
             _this.id = params['id'];
+            if (_this.id <= 0) {
+                _this.notificationService.warn('Please select patient from dashboard again ');
+                return;
+            }
+            _this.loadRecord();
         });
-        this.loadRecord();
     };
     PatientDemographicComponent.prototype.loadRecord = function () {
         var _this = this;
@@ -69,6 +76,12 @@ var PatientDemographicComponent = (function () {
             }
         }, function (error) {
             _this.HISUTilService.tokenExpired(error.error.error);
+        });
+        this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_ALLINVOICE_BALANCE + this.id).subscribe(function (response) {
+            if (response['responseStatus'] === 'SUCCESS') {
+                _this.patientInvBal = response['responseData'];
+                console.log("Patient Invoices Bal:" + _this.patientInvBal.advanceBalance);
+            }
         });
     };
     PatientDemographicComponent.prototype.updatePatient = function (insuranceForm, demographicForm, patientForm) {
@@ -114,9 +127,9 @@ var PatientDemographicComponent = (function () {
                 this.requestService.putRequest(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient).subscribe(function (response) {
                     if (response['responseCode'] === 'PATIENT_SUC_08') {
                         _this.patient = new patient_1.Patient();
-                        _this.loadRecord();
                         _this.notificationService.success(response['responseMessage'], 'Patient');
-                        //  this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
+                        //this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
+                        _this.loadRecord();
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Patient');
@@ -133,13 +146,15 @@ var PatientDemographicComponent = (function () {
     };
     PatientDemographicComponent.prototype.addUpdateSmokeStatus = function (smokeStatusId) {
         var _this = this;
+        //console.log("Event Data Id:"+event.data.id);
         this.smokeStatus.patientId = this.id;
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestService.postRequest(app_constants_1.AppConstants.SMOKE_STATUS_URL, this.smokeStatus).subscribe(function (response) {
                 if (response['responseCode'] === 'SMOKE_STATUS_SUC_04') {
                     _this.patient = new patient_1.Patient();
                     _this.notificationService.success(response['responseMessage'], 'Smoke Status');
-                    _this.router.navigate(['/dashboard/patient/demographic/', _this.id]);
+                    //this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
+                    _this.loadRecord();
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Smoke Status');
@@ -164,7 +179,8 @@ var PatientDemographicComponent = (function () {
                     if (response['responseCode'] === 'SMOKE_STATUS_SUC_06') {
                         _this.patient = new patient_1.Patient();
                         _this.notificationService.success(response['responseMessage'], 'Smoke Status');
-                        _this.router.navigate(['/dashboard/patient/demographic/', _this.id]);
+                        //this.router.navigate(['/dashboard/patient/demographic/', that.id]);
+                        _this.loadRecord();
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Smoke Status');

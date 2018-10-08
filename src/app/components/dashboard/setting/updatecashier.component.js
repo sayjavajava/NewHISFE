@@ -31,8 +31,8 @@ var UpdateCashierComponent = (function () {
         this.defaultBranch = 'primaryBranch';
         this.userSelected = 'doctor';
         this.selectedVisitBranches = [];
-        this.allBranches();
-        this.allDoctors();
+        //this.allBranches();
+        //this.allDoctors();
     }
     UpdateCashierComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
@@ -126,16 +126,24 @@ var UpdateCashierComponent = (function () {
                     primaryBranch: cashier.primaryBranchId,
                 });
                 _this.staffBranches = cashier.staffBranches;
-                _this.selectedDoctors = cashier.dutyWithDoctors;
-                for (var key in _this.branchesList) {
-                    for (var k in _this.staffBranches) {
-                        if (_this.staffBranches[k].id == _this.branchesList[key].id) {
-                            _this.branchesList[key].checked = true;
-                            _this.selectedVisitBranches.push(_this.staffBranches[k].id);
-                            break;
+                //this.selectedDoctors = cashier.dutyWithDoctors;
+                _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+                    .subscribe(function (response) {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        _this.branchesList = response['responseData'];
+                        for (var key in _this.branchesList) {
+                            for (var k in _this.staffBranches) {
+                                if (_this.staffBranches[k].id == _this.branchesList[key].id) {
+                                    _this.branchesList[key].checked = true;
+                                    _this.selectedVisitBranches.push(_this.staffBranches[k].id);
+                                    break;
+                                }
+                            }
                         }
                     }
-                }
+                }, function (error) {
+                    _this.error = error.error.error;
+                });
             }, function (error) {
                 _this.error = error.error.error_description;
             });

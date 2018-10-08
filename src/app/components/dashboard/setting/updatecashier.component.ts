@@ -22,8 +22,8 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
     }
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService: DataService,
                 private fb: FormBuilder, private notificationService: NotificationService) {
-                this.allBranches();
-                this.allDoctors();
+                //this.allBranches();
+                //this.allDoctors();
     }
     private sub: any;
     id: number;
@@ -137,16 +137,27 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
                         primaryBranch: cashier.primaryBranchId,
                     });
                     this.staffBranches = cashier.staffBranches;
-                    this.selectedDoctors = cashier.dutyWithDoctors;
-                    for(let key in this.branchesList){
-                        for(let k in this.staffBranches){
-                            if(this.staffBranches[k].id == this.branchesList[key].id){
-                                this.branchesList[key].checked = true;
-                                this.selectedVisitBranches.push(this.staffBranches[k].id);
-                                break;
-                            }
-                        }
-                    }
+                    //this.selectedDoctors = cashier.dutyWithDoctors;
+
+                    this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+                        .subscribe(
+                            (response: Response) => {
+                                if (response['responseCode'] === 'BR_SUC_01') {
+                                    this.branchesList = response['responseData'];
+                                    for(let key in this.branchesList){
+                                        for(let k in this.staffBranches){
+                                            if(this.staffBranches[k].id == this.branchesList[key].id){
+                                                this.branchesList[key].checked = true;
+                                                this.selectedVisitBranches.push(this.staffBranches[k].id);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            (error: any) => {
+                                this.error = error.error.error;
+                            });
                 }, (error: any) => {
                     this.error = error.error.error_description;
 

@@ -5,7 +5,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var Tax = (function () {
     function Tax() {
+        this.id = -1;
         this.rate = 0.0;
+        this.hasChild = false;
     }
     return Tax;
 }());

@@ -22,10 +22,10 @@
                                 <span>Appointment Date:</span>
                                 <span>{{scheduleDateAndTime}}</span>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <span>Time In:</span>
                                 <span>{{appointmentStartedOn}}</span>   
-                            </li>    
+                            </li>  -->   
                             <li>
                                 <span>Doctor Name:</span>
                                 <span>{{docFirstName}}  {{docLastName}} </span>
@@ -53,8 +53,8 @@
                                     <label class="col-md-4 control-label txt-size-detail pdng-lr-5">Services:</label>
 
                                     <select class="col-md-8 select pdng-lr-5"  (change)="selectServices($event.target.value)">
-                                        <!--<option value="-1">-&#45;&#45; Please select service -&#45;&#45;</option>-->
-                                        <option *ngFor="let service of servicesList" value={{service.id}}>
+                                        <option value="-1">-- Please select service --</option>
+                                        <option *ngFor="let service of unSelectedServicesList ; let indx= index" value={{indx}} >
                                                 {{service.name}}
                                         </option>
                                     </select>
@@ -63,6 +63,7 @@
                 </div>
                 <div class="row">
                         <div class="col-md-12"  *ngIf="show">
+                            <form name="invoiceForm">
                             <div class="hr padding round-bck table-responsive">
                                 <table class="table table-striped table-hover table-checkable dataTable no-footer" id="" aria-describedby="datatable_ajax_info"
                                     role="grid">
@@ -92,36 +93,39 @@
                                                 <textarea type="text" name="description" value="{{selectedService.description}}" rows="1"></textarea>
                                             </td> -->
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" (change)="invoiceBillCalculation($event)" name="qty" [(ngModel)]="quantity">
+                                                <input type="number" class="text-align-right" (change)="invoiceBillCalculation($event)" name="qty" [min]="1" [(ngModel)]="quantity">
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="unitFee" (change)="invoiceBillCalculation($event)" [(ngModel)]="unitFee">
-                                            </td>
-
-                                            <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="discountRate" (change)="invoiceBillCalculation($event)" [(ngModel)]="discountRate">
-                                            </td>
-                                            <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="discountAmount" [(ngModel)]="discountAmount" class="form-control" disabled>
+                                                <input type="number" class="text-align-right" name="unitFee" (change)="invoiceBillCalculation($event)" [min]="0" [(ngModel)]="unitFee">
                                             </td>
 
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="taxRate" (change)="invoiceBillCalculation($event)" [(ngModel)]="taxRate">
+                                                <input type="number" class="text-align-right" name="discountRate" [min]="0" (change)="invoiceBillCalculation($event)" [(ngModel)]="discountRate" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" [step]="0.01">
+                                                
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="taxAmount" [(ngModel)]="taxAmount" class="form-control" disabled>
+                                                <input type="number" class="text-align-right" name="discountAmount" (change)="invoiceBillCalculationOnAmount($event)" [(ngModel)]="discountAmount" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  [step]="0.01">
+                                            </td>
+
+                                            <td rowspan="1" colspan="1" class="custom-td-size">
+                                                <input type="number" class="text-align-right" name="taxRate" [min]="0" (change)="invoiceBillCalculation($event)" [(ngModel)]="taxRate" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" [step]="0.01">
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="totalAmount" [(ngModel)]="invoiceAmount" class="form-control" disabled>
+                                                <input type="number" class="text-align-right" name="taxAmount" (change)="invoiceBillCalculationOnAmount($event)" [(ngModel)]="taxAmount" class="form-control" [step]="0.01">
+                                            </td>
+                                            <td rowspan="1" colspan="1" class="custom-td-size">
+                                                <input type="number" class="text-align-right" name="totalAmount" [(ngModel)]="invoiceAmount" class="form-control" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
                                             </td>
                                         </tr>
                                     </thead>
                                 </table>
                                 <div class="pull-right">
-                                    <button *ngIf="!showEditButton" class="btn btn-default btn-outline btn-sm" (click)="addInvoice()"> Add Line</button>
-                                    <button *ngIf="showEditButton" class="btn btn-default btn-outline btn-sm" (click)="updateInovice()"> Edit Line</button>
+                                    <button  class="btn btn-default btn-outline btn-sm" (click)="cancel()"> Cancel </button>
+                                    <button *ngIf="!showEditButton" class="btn btn-default btn-outline btn-sm" (click)="addInvoice()"> Add Line </button>
+                                    <button *ngIf="showEditButton" class="btn btn-default btn-outline btn-sm" (click)="updateInovice()"> Edit Line </button>
                                 </div>
                             </div>
+                        </form>
                         </div>
             <div class="col-md-12">
                 <div class="">
@@ -149,12 +153,12 @@
                                 <td rowspan="1" colspan="1">{{invc.code}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
                                 <td rowspan="1" colspan="1">{{invc.quantity | number}}</td>
-                                <td rowspan="1" colspan="1">{{invc.unitFee | number}}</td>
-                                <td rowspan="1" colspan="1">{{invc.discountRate}}</td>
-                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number}}</td>
-                                <td rowspan="1" colspan="1">{{invc.taxRate}}</td>
-                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number}}</td>
-                                <td rowspan="1" colspan="1">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number}}</td>
+                                <td rowspan="1" colspan="1">{{invc.unitFee | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1">{{invc.discountRate| number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1">{{invc.taxRate | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'1.2-2'}}</td>
                                 <td rowspan="1" colspan="1">
                                         <button (click)="editInvoic(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
                                         <button (click)="removeInvoic(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>

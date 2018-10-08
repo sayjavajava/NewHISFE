@@ -24,7 +24,6 @@ export class DepartmentComponent implements OnInit {
     searched: boolean = false;
     selectedDepartment: Department = new Department();
 
-
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private userSharedService: UserSharedService,
@@ -51,10 +50,12 @@ export class DepartmentComponent implements OnInit {
 
     refreshPage() {
         this.searched = false;
+        this.searchDepart = '';
         this.getPageWiseDepartmentFromServer(0);
     }
 
     getPageWiseDepartmentFromServer(page: number) {
+        this.searchDepart = '';
         if (page > 0) {
             page = page;
         }
@@ -79,7 +80,7 @@ export class DepartmentComponent implements OnInit {
 
     deleteDepartment(dptId: number) {
         if (window.localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI + dptId)
                 .subscribe(
