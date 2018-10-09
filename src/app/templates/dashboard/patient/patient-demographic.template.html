@@ -77,16 +77,19 @@
                 <div class="hr">
                     <div class="portlet-body">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#important" data-toggle="tab"
+                            <li class="active"><a href="#important" data-toggle="tab" (click)="updateBtnShow(true)"
                                                   aria-expanded="false">Important</a></li>
-                            <li class=""><a href="#demographics" data-toggle="tab"
+                            <li class=""><a href="#demographics" data-toggle="tab" (click)="updateBtnShow(true)"
                                             aria-expanded="false">Demographics</a></li>
-                            <li class=""><a href="#insurances" data-toggle="tab" aria-expanded="false">Insurances</a>
+                            <li class=""><a href="#insurances" data-toggle="tab" (click)="updateBtnShow(true)"
+                                            aria-expanded="false">Insurances</a>
                             </li>
                             <!--<li class=""><a href="#authorizations" data-toggle="tab" aria-expanded="false">Authorizations</a></li>-->
-                            <li class=""><a href="#smoking" data-toggle="tab" aria-expanded="false">Smoking Status</a>
+                            <li class=""><a href="#smoking" data-toggle="tab" (click)="updateBtnShow(false)"
+                                            aria-expanded="false">Smoking Status</a>
                             </li>
-                            <li class=""><a href="#balance" data-toggle="tab" aria-expanded="false">Balance</a></li>
+                            <li class=""><a href="#balance" data-toggle="tab" (click)="updateBtnShow(true)"
+                                            aria-expanded="false">Balance</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="important">
@@ -1113,7 +1116,9 @@
                                 <!-- /.modal -->
                                 <div class="hr bdr-btm padding-b-10">
                                     <div class=" pull-right">
-                                        <button class="btn btn-xs green-haze" type="button" data-target="#edit1"
+                                        <button class="btn btn-xs green-haze"
+                                                (click)="addSmokingStatusPopup()"
+                                                type="button" data-target="#edit1"
                                                 data-toggle="modal"><i class="fa fa-plus"></i> Add Smoking Status
                                         </button>
                                     </div>
@@ -1183,11 +1188,13 @@
                                     </div>
                                 </div>-->
                             </div>
-                            <div class="hr text-center">
-                                <button data-repeater-create="" class="btn yellow"
-                                        (click)="updatePatient(insuranceForm,demographicForm,patientForm)">Update
-                                </button>
-                            </div>
+                            <span *ngIf="updateBtn">
+                                <div class="hr text-center">
+                                    <button data-repeater-create="" class="btn yellow"
+                                            (click)="updatePatient(insuranceForm,demographicForm,patientForm)">Update
+                                    </button>
+                                </div>
+                            </span>
                             <div class="clearfix"></div>
                         </div>
                     </div>

@@ -1,16 +1,16 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AppConstants} from "../../../utils/app.constants";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AppConstants} from '../../../utils/app.constants';
 import {RequestsService} from '../../../services/requests.service';
-import {Patient} from "../../../model/patient";
+import {Patient} from '../../../model/patient';
 import {NotificationService} from '../../../services/notification.service';
 import {HISUtilService} from '../../../services/his-util.service';
-import {Race} from "../../../model/race-model";
-import {NgForm} from "@angular/forms";
-import {UserTypeEnum} from "../../../enums/user-type-enum";
-import {PatientSmokeStatus} from "../../../model/PatientSmokeStatus";
-import {ConformationDialogService} from "../../../services/ConformationDialogService";
-import {Invoice} from "../../../model/Invoice";
+import {Race} from '../../../model/race-model';
+import {NgForm} from '@angular/forms';
+import {UserTypeEnum} from '../../../enums/user-type-enum';
+import {PatientSmokeStatus} from '../../../model/PatientSmokeStatus';
+import {ConformationDialogService} from '../../../services/ConformationDialogService';
+import {Invoice} from '../../../model/Invoice';
 
 @Component({
     selector: 'patient-history',
@@ -18,17 +18,20 @@ import {Invoice} from "../../../model/Invoice";
 })
 export class PatientDemographicComponent implements OnInit {
     date = new Date();
-    id:Number;
+    id: Number;
     patient: Patient = new Patient();
     file: File;
     doctors: any = [];
     smokeStatus: PatientSmokeStatus = new PatientSmokeStatus();
     smokeStatusList: any = [];
     patientInvBal: Invoice = new Invoice();
-    constructor(private router: Router,private route: ActivatedRoute,private HISUTilService: HISUtilService,
-                private confirmationDialogService: ConformationDialogService,private  requestService: RequestsService,
-                private notificationService :NotificationService) {
+    updateBtn: boolean = true;
+
+    constructor(private router: Router, private route: ActivatedRoute, private HISUTilService: HISUtilService,
+                private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
+                private notificationService: NotificationService) {
     }
+
     ngOnInit(): void {
         //throw new Error("Method not implemented.");
         this.route.params.subscribe(params => {
@@ -41,7 +44,20 @@ export class PatientDemographicComponent implements OnInit {
         });
     }
 
-    loadRecord(){
+    isValidPatientId() {
+        if (this.id <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
+    }
+
+    loadRecord() {
+
+        if (this.id <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
+
         this.requestService.getRequest(
             AppConstants.PATIENT_FETCH_URL + this.id
         ).subscribe(
@@ -52,8 +68,8 @@ export class PatientDemographicComponent implements OnInit {
                     let savedRace = response['responseData'].races;
                     this.patient.races = new Patient().races;
                     this.patient.races.forEach(function (race) {
-                        savedRace.forEach(function (dbRaces:Race) {
-                            if(race.nameRace === dbRaces.nameRace){
+                        savedRace.forEach(function (dbRaces: Race) {
+                            if (race.nameRace === dbRaces.nameRace) {
                                 race.selected = true;
                             }
                         })
@@ -75,11 +91,11 @@ export class PatientDemographicComponent implements OnInit {
                 (error: any) => {
                     this.HISUTilService.tokenExpired(error.error.error);
                 });
-        this.requestService.getRequest(AppConstants.PATIENT_ALLINVOICE_BALANCE+this.id).subscribe(
-            (response: Response)=>{
-                if(response['responseStatus'] === 'SUCCESS'){
+        this.requestService.getRequest(AppConstants.PATIENT_ALLINVOICE_BALANCE + this.id).subscribe(
+            (response: Response) => {
+                if (response['responseStatus'] === 'SUCCESS') {
                     this.patientInvBal = response['responseData'];
-                    console.log("Patient Invoices Bal:"+this.patientInvBal.advanceBalance);
+                    console.log('Patient Invoices Bal:' + this.patientInvBal.advanceBalance);
                 }
 
             }
@@ -90,23 +106,23 @@ export class PatientDemographicComponent implements OnInit {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid) {
             if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
-                document.getElementById("selectedDoctor").focus();
+                document.getElementById('selectedDoctor').focus();
                 return;
-            } else if (this.patient.titlePrefix === "-1") {
+            } else if (this.patient.titlePrefix === '-1') {
                 this.notificationService.error('Please select title', 'Patient');
-                document.getElementById("titlePrefix").focus();
+                document.getElementById('titlePrefix').focus();
                 return;
             } else if (this.patient.cellPhone.length <= 0) {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
-                document.getElementById("cellPhone").focus();
+                document.getElementById('cellPhone').focus();
                 return;
             } else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
-                document.getElementById("email").focus();
+                document.getElementById('email').focus();
                 return;
             } else if (this.patient.userName.length <= 0) {
                 this.notificationService.error('Please provide user name', 'Patient');
-                document.getElementById("userName").focus();
+                document.getElementById('userName').focus();
                 return;
             }
             /*else if (this.patient.dob.length<=0) {
@@ -135,7 +151,7 @@ export class PatientDemographicComponent implements OnInit {
                         }
                     },
                     (error: any) => {
-                        this.notificationService.error("Error", 'Patient');
+                        this.notificationService.error('Error', 'Patient');
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );
@@ -145,8 +161,23 @@ export class PatientDemographicComponent implements OnInit {
         }
     }
 
-    addUpdateSmokeStatus(smokeStatusId: Number){
+    addSmokingStatusPopup() {
+        this.smokeStatus = new PatientSmokeStatus();
+    }
+
+
+    updateBtnShow(flag: boolean) {
+        this.updateBtn = flag;
+    }
+
+    addUpdateSmokeStatus(smokeStatusId: Number) {
         //console.log("Event Data Id:"+event.data.id);
+
+        if (this.id <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
+
         this.smokeStatus.patientId = this.id;
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestService.postRequest(
@@ -164,7 +195,7 @@ export class PatientDemographicComponent implements OnInit {
                     }
                 },
                 (error: any) => {
-                    this.notificationService.error("Error", 'Smoke Status');
+                    this.notificationService.error('Error', 'Smoke Status');
                     this.HISUTilService.tokenExpired(error.error.error);
                 }
             );
@@ -173,14 +204,18 @@ export class PatientDemographicComponent implements OnInit {
         }
     }
 
-    deleteSmokeStatus(smokingId: any){
+    deleteSmokeStatus(smokingId: any) {
+        if (this.id <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
         var that = this;
         this.confirmationDialogService
             .confirm('Delete', 'Are you sure you want to do this?')
             .subscribe(res => {
                 if (res == true) {
                     this.requestService.deleteRequest(
-                        AppConstants.SMOKE_STATUS_DEL_URL+smokingId
+                        AppConstants.SMOKE_STATUS_DEL_URL + smokingId
                     ).subscribe(
                         (response: Response) => {
                             if (response['responseCode'] === 'SMOKE_STATUS_SUC_06') {
@@ -193,7 +228,7 @@ export class PatientDemographicComponent implements OnInit {
                             }
                         },
                         (error: any) => {
-                            this.notificationService.error("Error", 'Smoke Status');
+                            this.notificationService.error('Error', 'Smoke Status');
                             this.HISUTilService.tokenExpired(error.error.error);
                         }
                     );
@@ -277,7 +312,7 @@ export class PatientDemographicComponent implements OnInit {
         }
     }
 
-    goToUserDashBoard(){
-        this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
+    goToUserDashBoard() {
+        this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     }
 }

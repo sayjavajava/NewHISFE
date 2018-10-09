@@ -1,4 +1,4 @@
-import {Race} from "./race-model";
+import {Race} from './race-model';
 import {Appointment} from './Appointment';
 /**
  * Created by jamal on 6/7/2018.
@@ -6,11 +6,11 @@ import {Appointment} from './Appointment';
 export class PatientSmokeStatus {
     patientId: Number;
     smokingId: Number;
-    smokingStatus: string = "";
-    startDate: string = "";
-    endDate: string = "";
-    recordedDate: string = "";
+    smokingStatus: string = '';
+    startDate: string = '';
+    endDate: string = '';
+    recordedDate: string = '';
 
-    constructor(){
+    constructor() {
     }
 }
