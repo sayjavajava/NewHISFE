@@ -6,12 +6,14 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg" class="img-responsive"/></div>
+                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg"
+                                                              class="img-responsive"/></div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
                                 <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob  | date: 'MM-dd-yyyy' }})</small>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date: 'MM-dd-yyyy' }})
+                                </small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
@@ -56,7 +58,10 @@
                     <div class="hr no-margin">
                         <div class="hr">
                             <div class="portlet-title">
-                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primery Doctor:</span> <span
+                                        class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span>
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="hr no-margin">
@@ -72,16 +77,20 @@
                 <div class="hr">
                     <div class="portlet-body">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#important" data-toggle="tab" aria-expanded="false">Important</a></li>
-                            <li class=""><a href="#demographics" data-toggle="tab" aria-expanded="false">Demographics</a></li>
-                            <li class=""><a href="#insurances" data-toggle="tab" aria-expanded="false">Insurances</a></li>
+                            <li class="active"><a href="#important" data-toggle="tab"
+                                                  aria-expanded="false">Important</a></li>
+                            <li class=""><a href="#demographics" data-toggle="tab"
+                                            aria-expanded="false">Demographics</a></li>
+                            <li class=""><a href="#insurances" data-toggle="tab" aria-expanded="false">Insurances</a>
+                            </li>
                             <!--<li class=""><a href="#authorizations" data-toggle="tab" aria-expanded="false">Authorizations</a></li>-->
-                            <li class=""><a href="#smoking" data-toggle="tab" aria-expanded="false">Smoking Status</a></li>
+                            <li class=""><a href="#smoking" data-toggle="tab" aria-expanded="false">Smoking Status</a>
+                            </li>
                             <li class=""><a href="#balance" data-toggle="tab" aria-expanded="false">Balance</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="important">
-                                <div class="hr"> <h4 class="text-info">Important Information</h4> </div>
+                                <div class="hr"><h4 class="text-info">Important Information</h4></div>
                                 <form id="patientForm" class="form-horizontal" #patientForm="ngForm">
                                     <div class="hr bdr-btm padding-b-10">
                                         <div class="col-md-6">
@@ -166,12 +175,15 @@
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label txt-size">Patient Photo</label>
                                                 <div class="col-md-8 select">
-                                                    <img class="img-responsive" style="width: 120px; height: 140px;" src="/public/images/patient-photo.jpg"
+                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                         src="/public/images/patient-photo.jpg"
                                                          *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
-                                                    <img class="" style="width: 120px; height: 140px;" src="{{patient.profileImgURL}}"
+                                                    <img class="" style="width: 120px; height: 140px;"
+                                                         src="{{patient.profileImgURL}}"
                                                          *ngIf="patient.profileImgURL != null">
                                                     <div class="">
-                                                        <input class="file" type="file" id="profileImgURL" name="profileImgURL"
+                                                        <input class="file" type="file" id="profileImgURL"
+                                                               name="profileImgURL"
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
                                                     <div class="">
@@ -395,7 +407,8 @@
                                                 <label class="control-label col-md-4">Patient Date of Birth
                                                 </label>
                                                 <div class="col-md-8 select ">
-                                                    <input type="date" class="form-control form-control-inline input-medium"
+                                                    <input type="date"
+                                                           class="form-control form-control-inline input-medium"
                                                            [(ngModel)]="patient.dob"
                                                            (ngModelChange)="patient.dob = $event"
                                                            name="dob" #dob="ngModel">
@@ -428,7 +441,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label txt-size">Preferred Language</label>
+                                                <label class="col-md-4 control-label txt-size">Preferred
+                                                    Language</label>
                                                 <div class="col-md-8 frm-stng">
                                                     <select class="form-control">
                                                         <option>English</option>
@@ -518,7 +532,8 @@
                                                            [(ngModel)]="patient.city"
                                                            name="city"
                                                            #city="ngModel">
-                                                    <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+                                                    <div *ngIf="city.invalid && (city.dirty || city.touched)"
+                                                         class="alert alert-danger">
                                                         please provide city
                                                     </div>
                                                 </div>
@@ -544,7 +559,8 @@
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control"
                                                            #formattedAddress="ngModel"
-                                                           name="formattedAddress" [(ngModel)]="patient.formattedAddress">
+                                                           name="formattedAddress"
+                                                           [(ngModel)]="patient.formattedAddress">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -613,7 +629,9 @@
                             </div>
                             <div class="tab-pane" id="insurances">
                                 <div class="hr">
-                                    <h4 class="font-blue">Insurances <small class="text-info">Patient Insurance History</small> </h4>
+                                    <h4 class="font-blue">Insurances
+                                        <small class="text-info">Patient Insurance History</small>
+                                    </h4>
                                 </div>
                                 <form id="insuranceForm" class="form-horizontal" #insuranceForm="ngForm">
                                     <div class="col-md-6">
@@ -643,7 +661,7 @@
                                                        [(ngModel)]="patient.cardIssuedDate" name="cardIssuedDate">
                                             </div>
                                             <span *ngIf="cardIssuedDate.invalid && cardIssuedDate.touched"
-                                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                  class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter valid from Date.
                                             </span>
                                         </div>
@@ -662,9 +680,11 @@
                                     </span>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label txt-size">Primary Insurance Notes</label>
+                                            <label class="col-md-4 control-label txt-size">Primary Insurance
+                                                Notes</label>
                                             <div class="col-md-8 frm-stng">
-                                                <textarea class="form-control" rows="1" title="" placeholder=""></textarea>
+                                                <textarea class="form-control" rows="1" title=""
+                                                          placeholder=""></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -673,12 +693,15 @@
                                             <div class="col-md-8">
                                                 <!--<input type="file" [(ngModel)]="patient.photoFrontURL" name="photoFrontURL">-->
                                                 <div class="pull-left mrgn-top24">
-                                                    <img class="img-responsive" style="width: 120px; height: 140px;" src="/public/images/patient-photo.jpg"
+                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                         src="/public/images/patient-photo.jpg"
                                                          *ngIf="patient.photoFrontURL === null || patient.photoFrontURL === ''"/>
-                                                    <img class="" style="width: 120px; height: 140px;" src="{{patient.photoFrontURL}}"
+                                                    <img class="" style="width: 120px; height: 140px;"
+                                                         src="{{patient.photoFrontURL}}"
                                                          *ngIf="patient.photoFrontURL != null">
                                                     <div class="">
-                                                        <input class="file" type="file" id="photoFrontURL" name="photoFrontURL"
+                                                        <input class="file" type="file" id="photoFrontURL"
+                                                               name="photoFrontURL"
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
                                                     <div class="">
@@ -740,12 +763,15 @@
                                                 <!--<input type="file" [(ngModel)]="patient.photoBackURL" name="photoBackURL">-->
 
                                                 <div class="pull-left mrgn-top24">
-                                                    <img class="img-responsive" style="width: 120px; height: 140px;" src="/public/images/patient-photo.jpg"
+                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                         src="/public/images/patient-photo.jpg"
                                                          *ngIf="patient.photoBackURL === null || patient.photoBackURL === ''"/>
-                                                    <img class="" style="width: 120px; height: 140px;" src="{{patient.photoBackURL}}"
+                                                    <img class="" style="width: 120px; height: 140px;"
+                                                         src="{{patient.photoBackURL}}"
                                                          *ngIf="patient.photoBackURL != null">
                                                     <div class="">
-                                                        <input class="file" type="file" id="photoBackURL" name="photoBackURL"
+                                                        <input class="file" type="file" id="photoBackURL"
+                                                               name="photoBackURL"
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
                                                     <div class="">
@@ -976,11 +1002,11 @@
                                     <table class="table table-hover table-light">
                                         <thead>
                                         <tr class="hedng-bck-clr tbl-pdng">
-                                            <th> Smoking Status </th>
-                                            <th> Start Date </th>
-                                            <th> End Date </th>
-                                            <th> Recorded Date </th>
-                                            <th> Action </th>
+                                            <th> Smoking Status</th>
+                                            <th> Start Date</th>
+                                            <th> End Date</th>
+                                            <th> Recorded Date</th>
+                                            <th> Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -990,25 +1016,32 @@
                                             <td>{{ss.endDate | date: 'dd-MM-yyyy'}}</td>
                                             <td>{{ss.recordedDate | date: 'dd-MM-yyyy'}}</td>
                                             <td>
-                                                <button class="btn btn-default btn-outline btn-sm" (click)="deleteSmokeStatus(ss.id)"> <i class="fa fa-remove"></i></button>
+                                                <button class="btn btn-default btn-outline btn-sm"
+                                                        (click)="deleteSmokeStatus(ss.id)"><i class="fa fa-remove"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div id="edit1" class="modal fade in" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+                                <div id="edit1" class="modal fade in" aria-hidden="true" aria-labelledby="myModalLabel"
+                                     role="dialog" tabindex="-1">
                                     <div class="modal-dialog modal-md">
                                         <div class="modal-content">
                                             <div class="modal-header padding-btm-0">
-                                                <button class="close" aria-label="Close" data-dismiss="modal" type="button"> <span aria-hidden="true">×</span> </button>
-                                                <h4 id="myModalLabel" class="modal-title text-info">New Smoking Status</h4>
+                                                <button class="close" aria-label="Close" data-dismiss="modal"
+                                                        type="button"><span aria-hidden="true">×</span></button>
+                                                <h4 id="myModalLabel" class="modal-title text-info">New Smoking
+                                                    Status</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="hr margin-0">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Smoking Status *</label>
+                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Smoking
+                                                        Status *</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-6">
                                                         <input type="text" class="form-control"
-                                                               [(ngModel)]="smokeStatus.smokingStatus" required="required"
+                                                               [(ngModel)]="smokeStatus.smokingStatus"
+                                                               required="required"
                                                                placeholder="Enter Smoking Status" name="smokingStatus"
                                                                pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                                #smokingStatus="ngModel">
@@ -1022,10 +1055,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="hr no-padding">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Start Date *</label>
+                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Start Date
+                                                        *</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-6">
                                                         <div class="input-group date form_datetime form_datetime bs-datetime">
-                                                            <input type="date" required="required" size="16" [(ngModel)]="smokeStatus.startDate"
+                                                            <input type="date" required="required" size="16"
+                                                                   [(ngModel)]="smokeStatus.startDate"
                                                                    class="form-control" name="startStatus">
                                                             <!--<span class="input-group-addon">
                                                                 <button class="btn default date-set" type="button"> <i class="fa fa-calendar"></i> </button>
@@ -1035,10 +1070,12 @@
                                                 </div>
 
                                                 <div class="hr no-padding">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">End Date</label>
+                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">End
+                                                        Date</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-6">
                                                         <div class="input-group date form_datetime form_datetime bs-datetime">
-                                                            <input type="date" size="16" [(ngModel)]="smokeStatus.endDate"
+                                                            <input type="date" size="16"
+                                                                   [(ngModel)]="smokeStatus.endDate"
                                                                    class="form-control" name="endData">
                                                             <!--<span class="input-group-addon">
                                                                 <button class="btn default date-set" type="button"> <i class="fa fa-calendar"></i> </button>
@@ -1048,10 +1085,12 @@
                                                 </div>
 
                                                 <div class="hr no-padding">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Recorded Date *</label>
+                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Recorded
+                                                        Date *</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-6">
                                                         <div class="input-group date form_datetime form_datetime bs-datetime">
-                                                            <input type="date" required="required" size="16" [(ngModel)]="smokeStatus.recordedDate"
+                                                            <input type="date" required="required" size="16"
+                                                                   [(ngModel)]="smokeStatus.recordedDate"
                                                                    class="form-control" name="recordedDate">
                                                             <!--<span class="input-group-addon">
                                                                 <button class="btn default date-set" type="button"> <i class="fa fa-calendar"></i> </button>
@@ -1062,7 +1101,11 @@
                                             </div>
                                             <div class="clearfix"></div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-default btn-sm padding-top-5" data-dismiss="modal" type="button" (click)="addUpdateSmokeStatus(smokeStatus.smokingId);">Add/Update</button>
+                                                <button class="btn btn-default btn-sm padding-top-5"
+                                                        data-dismiss="modal" type="button"
+                                                        (click)="addUpdateSmokeStatus(smokeStatus.smokingId);">
+                                                    Add/Update
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -1070,7 +1113,9 @@
                                 <!-- /.modal -->
                                 <div class="hr bdr-btm padding-b-10">
                                     <div class=" pull-right">
-                                        <button class="btn btn-xs green-haze" type="button" data-target="#edit1" data-toggle="modal"> <i class="fa fa-plus"></i> Add Smoking Status </button>
+                                        <button class="btn btn-xs green-haze" type="button" data-target="#edit1"
+                                                data-toggle="modal"><i class="fa fa-plus"></i> Add Smoking Status
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1081,19 +1126,21 @@
                                         <tbody>
                                         <tr class="">
                                             <td>Total Billed</td>
-                                            <td>{{patientInvBal.totalBill}}</td>
+                                            <td>{{patientInvBal.totalBill | number :'.2-2'}}</td>
                                         </tr>
                                         <tr class="off-wite-bg">
                                             <td>Total Patient Paid</td>
-                                            <td>{{patientInvBal.totalPaid+patientInvBal.advanceBalance}}</td>
+                                            <td>{{patientInvBal.totalPaid+patientInvBal.advanceBalance| number
+                                                :'.2-2'}}
+                                            </td>
                                         </tr>
                                         <tr class="">
                                             <td>Total Patient Balance</td>
-                                            <td>{{patientInvBal.balance}}</td>
+                                            <td>{{patientInvBal.balance | number :'.2-2'}}</td>
                                         </tr>
                                         <tr class="">
-                                            <td>Total Patient Balance</td>
-                                            <td>{{patientInvBal.advanceBalance}}</td>
+                                            <td>Total Patient Advance Balance</td>
+                                            <td>{{patientInvBal.advanceBalance | number :'.2-2'}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
