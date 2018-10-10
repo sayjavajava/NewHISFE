@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
-import {RequestsService} from "../../../services/requests.service";
-import {HISUtilService} from "../../../services/his-util.service";
-import {Router} from "@angular/router";
-import {ICDVersionModel} from "../../../model/ICDVersionModel";
-import {ICDCodeVersionModel} from "../../../model/ICDCodeVersionModel";
-import {ICDCodeModel} from "../../../model/ICDCodeModel";
-import {AppConstants} from "../../../utils/app.constants";
+import {RequestsService} from '../../../services/requests.service';
+import {HISUtilService} from '../../../services/his-util.service';
+import {Router} from '@angular/router';
+import {ICDVersionModel} from '../../../model/ICDVersionModel';
+import {ICDCodeVersionModel} from '../../../model/ICDCodeVersionModel';
+import {ICDCodeModel} from '../../../model/ICDCodeModel';
+import {AppConstants} from '../../../utils/app.constants';
 
 @Component({
     selector: 'manage-icd-component',
@@ -21,8 +21,8 @@ export class CodeVersionComponent implements OnInit {
     currPage: any;
     pages: number[] = [];
     data: ICDCodeVersionModel[] = [];
-    searchCodeVersion: string = "";
-    searchCodeVersionCode: string = "";
+    searchCodeVersion: string = '';
+    searchCodeVersionCode: string = '';
     searched: boolean;
 
     constructor(private notificationService: NotificationService,
@@ -96,7 +96,7 @@ export class CodeVersionComponent implements OnInit {
 
     refreshCodeVersionTable() {
         this.searched = false;
-        this.searchCodeVersion = "";
+        this.searchCodeVersion = '';
         this.getCodeVersionsFromServer(0);
     }
 
@@ -106,7 +106,7 @@ export class CodeVersionComponent implements OnInit {
 
     deleteCodeVersion(associateICDCVId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId)
                 .subscribe(
@@ -156,6 +156,18 @@ export class CodeVersionComponent implements OnInit {
             return;
         }
 
+        let isCodeFound = false;// one code is required , this implementation is suggested by ammara and tahir
+        for (let cv of this.iCDCodes) {
+            if (cv.checkedCode) {
+                isCodeFound = true;
+            }
+        }
+
+        if (!isCodeFound) {
+            this.notificationService.warn('Please select at least one code.');
+            return;
+        }
+
         this.iCDCVM.iCDCodes = this.iCDCodes;
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.postRequest(
@@ -187,7 +199,7 @@ export class CodeVersionComponent implements OnInit {
             this.requestsService.getRequest(
                 AppConstants.ICD_CODE_VERSION_SEARCH + page +
                 '?versionName=' + this.searchCodeVersion +
-            '&searchCodeVersionCode=' + this.searchCodeVersionCode)
+                '&searchCodeVersionCode=' + this.searchCodeVersionCode)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_02') {
@@ -226,7 +238,7 @@ export class CodeVersionComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                             this.iCDCVM.selectedICDCodes = [];
-                            this.iCDCodes  = response['responseData'].code;
+                            this.iCDCodes = response['responseData'].code;
                             this.iCDCVM.description = response['responseData'].des;
                         } else {
                             for (let obj of this.iCDCodes) obj.checkedCode = false;
