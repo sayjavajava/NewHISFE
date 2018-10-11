@@ -1,15 +1,15 @@
-import {Component, OnInit} from "@angular/core";
-import {Title} from "@angular/platform-browser";
-import {RequestsService} from "../../../services/requests.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AppConstants} from "../../../utils/app.constants";
-import {HISUtilService} from "../../../services/his-util.service";
-import {Patient} from "../../../model/patient";
-import {NotificationService} from "../../../services/notification.service";
-import {NgForm} from "@angular/forms";
-import {UserTypeEnum} from "../../../enums/user-type-enum";
-import {ImageModel} from "../../../model/image-model";
-import {Race} from "../../../model/race-model";
+import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {RequestsService} from '../../../services/requests.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AppConstants} from '../../../utils/app.constants';
+import {HISUtilService} from '../../../services/his-util.service';
+import {Patient} from '../../../model/patient';
+import {NotificationService} from '../../../services/notification.service';
+import {NgForm} from '@angular/forms';
+import {UserTypeEnum} from '../../../enums/user-type-enum';
+import {ImageModel} from '../../../model/image-model';
+import {Race} from '../../../model/race-model';
 
 @Component({
     selector: 'add-patient',
@@ -52,8 +52,8 @@ export class EditPatientComponent implements OnInit {
                             let savedRace = response['responseData'].races;
                             this.patient.races = new Patient().races;
                             this.patient.races.forEach(function (race) {
-                                savedRace.forEach(function (dbRaces:Race) {
-                                    if(race.nameRace === dbRaces.nameRace){
+                                savedRace.forEach(function (dbRaces: Race) {
+                                    if (race.nameRace === dbRaces.nameRace) {
                                         race.selected = true;
                                     }
                                 })
@@ -78,23 +78,23 @@ export class EditPatientComponent implements OnInit {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid || contactForm.invalid) {
             if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
-                document.getElementById("selectedDoctor").focus();
+                document.getElementById('selectedDoctor').focus();
                 return;
-            } else if (this.patient.titlePrefix === "-1") {
+            } else if (this.patient.titlePrefix === '-1') {
                 this.notificationService.error('Please select title', 'Patient');
-                document.getElementById("titlePrefix").focus();
+                document.getElementById('titlePrefix').focus();
                 return;
             } else if (this.patient.cellPhone.length <= 0) {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
-                document.getElementById("cellPhone").focus();
+                document.getElementById('cellPhone').focus();
                 return;
             } else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
-                document.getElementById("email").focus();
+                document.getElementById('email').focus();
                 return;
             } else if (this.patient.userName.length <= 0) {
                 this.notificationService.error('Please provide user name', 'Patient');
-                document.getElementById("userName").focus();
+                document.getElementById('userName').focus();
                 return;
             }
             /*else if (this.patient.dob.length<=0) {
@@ -108,6 +108,18 @@ export class EditPatientComponent implements OnInit {
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
+
+
+                /***
+                 * going to check , if any one value available of insurance then company name must be presented
+                 * **/
+                if (this.patient.insuranceId > 0 && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+
                 this.requestsService.putRequest(
                     AppConstants.PATIENT_UPDATE_URL,
                     this.patient
@@ -122,7 +134,7 @@ export class EditPatientComponent implements OnInit {
                         }
                     },
                     (error: any) => {
-                        this.notificationService.error("Error", 'Patient');
+                        this.notificationService.error('Error', 'Patient');
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );
