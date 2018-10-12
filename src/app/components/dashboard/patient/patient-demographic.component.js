@@ -34,6 +34,7 @@ var PatientDemographicComponent = (function () {
         this.smokeStatus = new PatientSmokeStatus_1.PatientSmokeStatus();
         this.smokeStatusList = [];
         this.patientInvBal = new Invoice_1.Invoice();
+        this.updateBtn = true;
     }
     PatientDemographicComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -47,8 +48,18 @@ var PatientDemographicComponent = (function () {
             _this.loadRecord();
         });
     };
+    PatientDemographicComponent.prototype.isValidPatientId = function () {
+        if (this.id <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
+    };
     PatientDemographicComponent.prototype.loadRecord = function () {
         var _this = this;
+        if (this.id <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
         this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.patient = response['responseData'];
@@ -80,7 +91,7 @@ var PatientDemographicComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_ALLINVOICE_BALANCE + this.id).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 _this.patientInvBal = response['responseData'];
-                console.log("Patient Invoices Bal:" + _this.patientInvBal.advanceBalance);
+                console.log('Patient Invoices Bal:' + _this.patientInvBal.advanceBalance);
             }
         });
     };
@@ -89,27 +100,27 @@ var PatientDemographicComponent = (function () {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid) {
             if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
-                document.getElementById("selectedDoctor").focus();
+                document.getElementById('selectedDoctor').focus();
                 return;
             }
-            else if (this.patient.titlePrefix === "-1") {
+            else if (this.patient.titlePrefix === '-1') {
                 this.notificationService.error('Please select title', 'Patient');
-                document.getElementById("titlePrefix").focus();
+                document.getElementById('titlePrefix').focus();
                 return;
             }
             else if (this.patient.cellPhone.length <= 0) {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
-                document.getElementById("cellPhone").focus();
+                document.getElementById('cellPhone').focus();
                 return;
             }
             else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
-                document.getElementById("email").focus();
+                document.getElementById('email').focus();
                 return;
             }
             else if (this.patient.userName.length <= 0) {
                 this.notificationService.error('Please provide user name', 'Patient');
-                document.getElementById("userName").focus();
+                document.getElementById('userName').focus();
                 return;
             }
             /*else if (this.patient.dob.length<=0) {
@@ -135,7 +146,7 @@ var PatientDemographicComponent = (function () {
                         _this.notificationService.error(response['responseMessage'], 'Patient');
                     }
                 }, function (error) {
-                    _this.notificationService.error("Error", 'Patient');
+                    _this.notificationService.error('Error', 'Patient');
                     _this.HISUTilService.tokenExpired(error.error.error);
                 });
             }
@@ -144,9 +155,19 @@ var PatientDemographicComponent = (function () {
             }
         }
     };
+    PatientDemographicComponent.prototype.addSmokingStatusPopup = function () {
+        this.smokeStatus = new PatientSmokeStatus_1.PatientSmokeStatus();
+    };
+    PatientDemographicComponent.prototype.updateBtnShow = function (flag) {
+        this.updateBtn = flag;
+    };
     PatientDemographicComponent.prototype.addUpdateSmokeStatus = function (smokeStatusId) {
-        var _this = this;
         //console.log("Event Data Id:"+event.data.id);
+        var _this = this;
+        if (this.id <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
         this.smokeStatus.patientId = this.id;
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestService.postRequest(app_constants_1.AppConstants.SMOKE_STATUS_URL, this.smokeStatus).subscribe(function (response) {
@@ -160,7 +181,7 @@ var PatientDemographicComponent = (function () {
                     _this.notificationService.error(response['responseMessage'], 'Smoke Status');
                 }
             }, function (error) {
-                _this.notificationService.error("Error", 'Smoke Status');
+                _this.notificationService.error('Error', 'Smoke Status');
                 _this.HISUTilService.tokenExpired(error.error.error);
             });
         }
@@ -170,6 +191,10 @@ var PatientDemographicComponent = (function () {
     };
     PatientDemographicComponent.prototype.deleteSmokeStatus = function (smokingId) {
         var _this = this;
+        if (this.id <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
         var that = this;
         this.confirmationDialogService
             .confirm('Delete', 'Are you sure you want to do this?')
@@ -186,7 +211,7 @@ var PatientDemographicComponent = (function () {
                         _this.notificationService.error(response['responseMessage'], 'Smoke Status');
                     }
                 }, function (error) {
-                    _this.notificationService.error("Error", 'Smoke Status');
+                    _this.notificationService.error('Error', 'Smoke Status');
                     _this.HISUTilService.tokenExpired(error.error.error);
                 });
             }
