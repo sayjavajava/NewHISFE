@@ -16,6 +16,7 @@ var Invoice_1 = require("../../../model/Invoice");
 var router_1 = require("@angular/router");
 var PatientInvoiceComponent = (function () {
     function PatientInvoiceComponent(router, route, requestsService) {
+        var _this = this;
         this.router = router;
         this.route = route;
         this.requestsService = requestsService;
@@ -35,16 +36,22 @@ var PatientInvoiceComponent = (function () {
         this.grandTotalDiscount = 0.00;
         this.grandTotalTax = 0.00;
         this.grandTotalWithTax = 0.00;
-        this.allServices();
-    }
-    PatientInvoiceComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.route.params.subscribe(function (params) {
             _this.appointmentId = params['id'];
             console.log("ngOnInit --> Appointment Id :" + _this.appointmentId);
         });
-        this.getAppointmentDataById();
-        this.getInvoiceItemsById();
+        this.allServices();
+        this.servicesList;
+    }
+    PatientInvoiceComponent.prototype.ngOnInit = function () {
+        /*     this.route.params.subscribe(params => {
+                this.appointmentId = params['id'];
+                console.log("ngOnInit --> Appointment Id :"+this.appointmentId);
+            });
+    
+            this.getAppointmentDataById();
+            this.getInvoiceItemsById();
+             */
     };
     PatientInvoiceComponent.prototype.goToUserDashBoard = function () {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
@@ -73,20 +80,7 @@ var PatientInvoiceComponent = (function () {
                 .subscribe(function (res) {
                 _this.invoiceList = res.responseData;
                 console.log("get Invoice Items By Id Data : " + _this.invoiceList);
-                var i = 0, len = _this.invoiceList.length;
-                var _loop_1 = function () {
-                    var arr = _this.servicesList.filter(function (x) { return x.code != _this.invoiceList[i].code; });
-                    if (_this.unSelectedServicesList.length > 0 && !_this.unSelectedServicesList.filter(function (x) { return x.code == arr[0].code; })) {
-                        console.log("un Selected Services List By Code Data : " + arr[0].name);
-                        _this.unSelectedServicesList.push(arr[0]);
-                    }
-                    else if (_this.unSelectedServicesList.length == 0) {
-                        _this.unSelectedServicesList.push(arr[0]);
-                    }
-                };
-                for (; i < len; i++) {
-                    _loop_1();
-                }
+                _this.unSelectedServiceList();
                 _this.getTotalOfAllInviceItems();
             }, function (error) {
                 _this.error = error;
@@ -101,6 +95,8 @@ var PatientInvoiceComponent = (function () {
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
                 console.log(_this.servicesList);
+                _this.getAppointmentDataById();
+                _this.getInvoiceItemsById();
             }
         }, function (error) {
             _this.error = error;
@@ -108,28 +104,12 @@ var PatientInvoiceComponent = (function () {
     };
     PatientInvoiceComponent.prototype.selectServices = function (service) {
         if (service != "-1") {
-            if (service) {
-                this.show = true;
-                //      this.selectedService = this.servicesList[service];
-                this.selectedService = this.unSelectedServicesList[service];
-                this.serviceName = this.unSelectedServicesList[service].name;
-                this.taxRate = this.unSelectedServicesList[service].tax.rate;
-                this.selectedServiceIndex = service;
-            }
-            else {
-                this.show = false;
-            }
-            //        let arr:MedicalService[] = this.servicesList.filter((x:any) => x.id == service);
-            // console.log('tax rate:'+ arr[0].tax.rate);  
-            // if (service) {
-            //     this.show = true;
-            //     this.selectedService = arr[0];
-            //     this.serviceName = arr[0].name;
-            //     this.taxRate = arr[0].tax.rate;
-            //     this.selectedServiceIndex = service;
-            // }else{
-            //     this.show = false;
-            // }
+            this.show = true;
+            //      this.selectedService = this.servicesList[service];
+            this.selectedService = this.unSelectedServicesList[service];
+            this.serviceName = this.unSelectedServicesList[service].name;
+            this.taxRate = this.unSelectedServicesList[service].tax.rate;
+            this.selectedServiceIndex = service;
         }
         else {
             this.show = false;
@@ -149,6 +129,14 @@ var PatientInvoiceComponent = (function () {
         console.log(' tax amount :' + this.taxAmount);
         console.log(' total  :' + this.invoiceAmount);
         //    console.log(' selectedService :'+ (this.selectedService.tax.rate= 20));  
+    };
+    // this method will called when discount / tax amount will be changed
+    PatientInvoiceComponent.prototype.invoiceBillCalculationOnAmount = function (event) {
+        var Amt = (this.quantity * this.unitFee);
+        this.discountRate = (this.discountAmount / (this.quantity * this.unitFee)) * 100;
+        this.taxRate = (this.taxAmount / (this.quantity * this.unitFee)) * 100;
+        var totalAMt = Amt + this.taxAmount - this.discountAmount;
+        this.invoiceAmount = totalAMt;
     };
     PatientInvoiceComponent.prototype.getTotalOfAllInviceItems = function () {
         console.log(this.selectedService);
@@ -206,13 +194,25 @@ var PatientInvoiceComponent = (function () {
         this.invoiceList[this.editIndex] = this.selectedInvoice;
         this.show = false;
         this.showEditButton = false;
+        if (this.selectedServiceIndex != -1) {
+            //    this.unSelectedServicesList.splice(this.selectedServiceIndex,1);
+            this.selectedServiceIndex = -1;
+        }
         this.getTotalOfAllInviceItems();
+    };
+    PatientInvoiceComponent.prototype.cancel = function () {
+        this.show = false;
+        this.showEditButton = false;
+        this.selectedServiceIndex = -1;
     };
     PatientInvoiceComponent.prototype.removeInvoic = function (value) {
         var _this = this;
-        var arr = this.servicesList.filter(function (x) { return x.code == _this.invoiceList[value].code; });
-        this.unSelectedServicesList.push(arr[0]);
-        this.invoiceList.splice(value, 1);
+        this.servicesList;
+        var arr = this.servicesList.filter(function (x) { return x.code === _this.invoiceList[value].code; });
+        if (arr.length > 0) {
+            this.unSelectedServicesList.push(arr[0]);
+            this.invoiceList.splice(value, 1);
+        }
         this.getTotalOfAllInviceItems();
     };
     PatientInvoiceComponent.prototype.editInvoic = function (value) {
@@ -228,6 +228,23 @@ var PatientInvoiceComponent = (function () {
         this.invoiceBillCalculation(this);
         this.show = true;
         this.showEditButton = true;
+    };
+    // Show unselected services list in dropdown
+    PatientInvoiceComponent.prototype.unSelectedServiceList = function () {
+        var _this = this;
+        if (this.servicesList) {
+            //    let list = this.servicesList;
+            var list = Object.assign([], this.servicesList);
+            var i = 0, len = this.invoiceList.length;
+            for (; i < len; i++) {
+                var index = list.findIndex(function (list) { return list.code === _this.invoiceList[i].code; });
+                if (index != -1) {
+                    list.splice(index, 1);
+                }
+            }
+            this.unSelectedServicesList = list;
+            console.log("un sel final list:" + this.unSelectedServicesList);
+        }
     };
     PatientInvoiceComponent.prototype.saveInvoice = function () {
         var _this = this;

@@ -83,6 +83,7 @@ var AppConstants = (function () {
     AppConstants.MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
     AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/';
     AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/';
+    AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL = '/setting/medicalService/getDeptMedicalService/';
     ////////////////////// Organization URLs ///////////////////////////////
     AppConstants.ORGANIZATION_CREATE_URL = '/setting/organization/create';
     AppConstants.TIMEZONE_FETCH_URL = '/setting/organization/timezone';
@@ -100,8 +101,8 @@ var AppConstants = (function () {
     AppConstants.SEARCH_ALL_PATIENT_URL = '/patient/search';
     AppConstants.GET_ALL_PATIENT_URL = '/patient/';
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
-    AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
-    AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
+    AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadInsuranceFrontImg/'; //'/patient/uploadImageFront/insurance/';
+    AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadInsuranceBackImg/'; //'/patient/uploadImageBack/insurance/';
     AppConstants.PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
     AppConstants.PATIENT_PROBLEM_FETCH_STATUS_URL = '/patient/history/problem/status/';
     AppConstants.PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
@@ -136,6 +137,7 @@ var AppConstants = (function () {
     AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
     AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
     AppConstants.FETCH_APPOINTMENTS_URL = '/appointment/';
+    AppConstants.FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
     ////////////////////// Dashboard URLs ///////////////////////////////
     AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
     AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';

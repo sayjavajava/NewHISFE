@@ -21,6 +21,10 @@ export class EditPatientComponent implements OnInit {
     selectedPatientId: any;
     doctors: any = [];
     file: File;
+    profileImg: File = null;
+    photoFront: File = null;
+    photoBack: File = null;
+    show: boolean = false;
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -28,7 +32,11 @@ export class EditPatientComponent implements OnInit {
                 private HISUTilService: HISUtilService,
                 private notificationService: NotificationService,
                 private activatedRoute: ActivatedRoute) {
+        this.populatePatient();
 
+    };
+
+    populatePatient(){
         this.requestsService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
             .subscribe(
                 (response: Response) => {
@@ -68,7 +76,7 @@ export class EditPatientComponent implements OnInit {
                         this.HISUTilService.tokenExpired(error.error.error);
                     });
             });
-    };
+    }
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Update Patient');
@@ -88,11 +96,13 @@ export class EditPatientComponent implements OnInit {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
                 document.getElementById("cellPhone").focus();
                 return;
-            } else if (this.patient.email.length <= 0) {
+            }
+            /*else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
                 document.getElementById("email").focus();
                 return;
-            } else if (this.patient.userName.length <= 0) {
+            } */
+            else if (this.patient.userName.length <= 0) {
                 this.notificationService.error('Please provide user name', 'Patient');
                 document.getElementById("userName").focus();
                 return;
@@ -108,9 +118,9 @@ export class EditPatientComponent implements OnInit {
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
-                this.requestsService.putRequest(
+                this.requestsService.postRequestMultipartFormAndData(
                     AppConstants.PATIENT_UPDATE_URL,
-                    this.patient
+                    this.patient, this.profileImg,this.photoFront,this.photoBack
                 ).subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'PATIENT_SUC_08') {
@@ -133,76 +143,107 @@ export class EditPatientComponent implements OnInit {
     }
 
     uploadImgOnChange(event: any) {
-        let fileList: FileList = event.target.files;
+        /*let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             this.file = fileList[0];
+        }
+*/
+        let fileList: FileList = event.target.files;
+
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgURL") {
+                this.profileImg = fileList[0];
+            } else if (event.target.name === "photoFrontURL") {
+                this.photoFront = fileList[0];
+            } else if (event.target.name === "photoBackURL") {
+                this.photoBack = fileList[0];
+            }
         }
     }
 
     uploadProfileImg() {
-        if (this.file.size <= 1048000) {
+        if (this.profileImg && this.profileImg.size <= 1048000) {
+            this.show = true;
             this.requestsService.postRequestMultipartFormData(
                 AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.id
-                , this.file)
+                , this.profileImg)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_02') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
-                            this.file = null;
+                            this.profileImg = null;
+                            this.show = false;
+                            this.populatePatient();
+                        }else{
+                            this.show = false;
+                            this.notificationService.error('Profile Image uploading failed', 'Update Patient');
                         }
                     },
                     (error: any) => {
+                        this.show = false;
                         this.notificationService.error('Profile Image uploading failed', 'Update Patient');
-                        this.HISUTilService.tokenExpired(error.error.error);
+                        //this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );
         } else {
+            this.show = false;
             this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
         }
     }
 
     uploadFrontImg() {
-        if (this.file.size <= 1048000) {
+        this.show = true;
+        if (this.photoFront && this.photoFront.size <= 1048000) {
             this.requestsService.postRequestMultipartFormData(
-                AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.id, this.file)
+                AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.id +"/" +this.patient.insuranceId, this.photoFront)
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'USR_SUC_03') {
+                        if (response['responseCode'] === 'INS_IMG_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
-                            this.file = null;
+                            this.photoFront = null;
+                            this.show = false;
+                            this.populatePatient();
                         } else {
+                            this.show = false;
                             this.notificationService.error(response['responseMessage'], 'Update Patient');
                         }
                     },
                     (error: any) => {
+                        this.show = false;
                         this.notificationService.error('Profile Image uploading failed', 'Update Patient');
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );
         } else {
+            this.show = false;
             this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
         }
     }
 
     uploadBackImg() {
-        if (this.file.size <= 1048000) {
+        this.show = true;
+        if (this.photoBack && this.photoBack.size <= 1048000) {
             this.requestsService.postRequestMultipartFormData(
-                AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.id, this.file)
+                AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.id +"/" +this.patient.insuranceId, this.photoBack)
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'USR_SUC_03') {
+                        if (response['responseCode'] === 'INS_IMG_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
                             this.file = null;
+                            this.populatePatient();
+                            this.show = false;
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Update Patient');
                         }
                     },
                     (error: any) => {
+                        this.show = false;
                         this.notificationService.error('Profile Image uploading failed', 'Update Patient');
-                        this.HISUTilService.tokenExpired(error.error.error);
+                        //this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );
         } else {
+            this.show = false;
             this.notificationService.error('File size must be less then 1 kb.', 'Update Patient');
         }
     }

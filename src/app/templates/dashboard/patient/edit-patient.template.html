@@ -116,15 +116,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="pull-left mrgn-top24">
+                                <!--<cl-image>-->
                                 <img class="img-responsive" style="width: 120px; height: 140px;" src="/public/images/patient-photo.jpg"
                                      *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
-                                <img class="" style="width: 190px; height: 190px;" src="{{patient.profileImgURL}}"
-                                     *ngIf="patient.profileImgURL != null">
+                                <img class="" style="width: 190px; height: 190px;" [src]="patient.profileImgURL"
+                                         *ngIf="patient.profileImgURL != null">
+                                <!--</cl-image>-->
                                 <div class="">
                                     <input class="file" type="file" id="profileImgURL" name="profileImgURL"
                                            (change)="uploadImgOnChange($event)">
                                 </div>
-                                <div class="">
+                                <div class="imgUploadTopMargin">
                                     <button class="btn btn-default btn-outline"
                                             (click)="uploadProfileImg()">
                                         <i class=" icon-arrow-up"></i>
@@ -208,10 +210,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Email
-                                        <span class="required" aria-required="true"> * </span>
+                                        <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="email" name="email" required readonly
+                                        <input type="email" name="email" readonly
                                                [(ngModel)]="patient.email" #email="ngModel"
                                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                                                class="form-control">
@@ -264,10 +266,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mrgn-top14">
-                                        <h3 class="green-txt hr">status User</h3>
+                                        <!--<h3 class="green-txt hr">status User</h3>-->
                                         <div class="form-group">
-                                            <label class="control-label col-md-4">status User
-                                            </label>
+                                            <label class="control-label col-md-4">Status</label>
                                             <div class="col-md-8 col-xs-6">
                                                 <label class="mt-checkbox mt-checkbox-outline chckbox">
                                                     <input type="checkbox"
@@ -527,7 +528,7 @@
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" name="insuranceIdNumber"
                                                #insuranceIdNumber="ngModel"
-                                               [(ngModel)]="patient.insuranceId"></div>
+                                               [(ngModel)]="patient.insuranceIdNumber"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Insurance Group Number
@@ -626,7 +627,7 @@
                                                 <input class="file" type="file" id="photoFrontURL" name="photoFrontURL"
                                                        (change)="uploadImgOnChange($event)">
                                             </div>
-                                            <div class="">
+                                            <div class="imgUploadTopMargin" *ngIf="patient.insuranceId != null">
                                                 <button class="btn btn-default btn-outline"
                                                         (click)="uploadFrontImg()">
                                                     <i class=" icon-arrow-up"></i>
@@ -652,7 +653,7 @@
                                                 <input class="file" type="file" id="photoBackURL" name="photoBackURL"
                                                        (change)="uploadImgOnChange($event)">
                                             </div>
-                                            <div class="">
+                                            <div class="imgUploadTopMargin" *ngIf="patient.insuranceId != null">
                                                 <button class="btn btn-default btn-outline"
                                                         (click)="uploadBackImg()">
                                                     <i class=" icon-arrow-up"></i>
@@ -682,5 +683,6 @@
             </div>
         </div>
         <div class="clearfix"></div>
+        <div *ngIf="show" class="loader">wait image loading</div>
     </div>
 </div>

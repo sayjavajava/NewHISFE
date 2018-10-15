@@ -106,7 +106,8 @@ export class ManagePatientComponent implements OnInit {
                         this.data = response['responseData']['data'];
                         this.notificationService.success(response['responseMessage'], 'Patient');
                     }else {
-                        this.notificationService.success(response['responseMessage'], 'Patient');
+                        this.data = null;
+                        this.notificationService.warn(response['responseMessage']);
                     }
                 },
                 (error: any) => {

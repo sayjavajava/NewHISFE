@@ -108,8 +108,8 @@ export class AppConstants {
     public static SEARCH_ALL_PATIENT_URL = '/patient/search';
     public static GET_ALL_PATIENT_URL = '/patient/';
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
-    public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
-    public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
+    public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadInsuranceFrontImg/';//'/patient/uploadImageFront/insurance/';
+    public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadInsuranceBackImg/';//'/patient/uploadImageBack/insurance/';
     public static PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
     public static PATIENT_PROBLEM_FETCH_STATUS_URL = '/patient/history/problem/status/';
     public static PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
