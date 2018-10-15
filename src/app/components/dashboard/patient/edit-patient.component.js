@@ -72,27 +72,27 @@ var EditPatientComponent = (function () {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid || contactForm.invalid) {
             if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
-                document.getElementById("selectedDoctor").focus();
+                document.getElementById('selectedDoctor').focus();
                 return;
             }
-            else if (this.patient.titlePrefix === "-1") {
+            else if (this.patient.titlePrefix === '-1') {
                 this.notificationService.error('Please select title', 'Patient');
-                document.getElementById("titlePrefix").focus();
+                document.getElementById('titlePrefix').focus();
                 return;
             }
             else if (this.patient.cellPhone.length <= 0) {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
-                document.getElementById("cellPhone").focus();
+                document.getElementById('cellPhone').focus();
                 return;
             }
             else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
-                document.getElementById("email").focus();
+                document.getElementById('email').focus();
                 return;
             }
             else if (this.patient.userName.length <= 0) {
                 this.notificationService.error('Please provide user name', 'Patient');
-                document.getElementById("userName").focus();
+                document.getElementById('userName').focus();
                 return;
             }
             /*else if (this.patient.dob.length<=0) {
@@ -107,6 +107,14 @@ var EditPatientComponent = (function () {
         else {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
+                /***
+                 * going to check , if any one value available of insurance then company name must be presented
+                 * **/
+                if (this.patient.insuranceId > 0 && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
                 this.requestsService.putRequest(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient).subscribe(function (response) {
                     if (response['responseCode'] === 'PATIENT_SUC_08') {
                         _this.patient = new patient_1.Patient();
@@ -117,7 +125,7 @@ var EditPatientComponent = (function () {
                         _this.notificationService.error(response['responseMessage'], 'Patient');
                     }
                 }, function (error) {
-                    _this.notificationService.error("Error", 'Patient');
+                    _this.notificationService.error('Error', 'Patient');
                     _this.HISUTilService.tokenExpired(error.error.error);
                 });
             }

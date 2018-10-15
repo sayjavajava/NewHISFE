@@ -36,11 +36,11 @@ var Patient = (function () {
             { id: 5, nameRace: 'White', selected: false },
             { id: 6, nameRace: 'Other Race', selected: false }
         ];
-        this.country = "SAUDI ARABIA";
+        this.country = "SAUDI ARAB";
         this.streetAddress = "";
         this.zipCode = "";
         this.city = "";
-        this.state = "SAUDI ARABIA";
+        this.state = "SAUDI ARAB";
         this.formattedAddress = "";
         this.marital = "SINGLE";
         this.emergencyContactName = "";
