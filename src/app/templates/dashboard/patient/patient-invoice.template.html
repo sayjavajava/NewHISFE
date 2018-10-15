@@ -12,15 +12,21 @@
                         <ul>
                             <li>
                                 <span>File Number:</span>
-                                <span>10002</span>
+                                <span class="text-align-left">10002</span>
                             </li>
+
+                            <li>
+                                <span>Invoice Id:</span>
+                                <span class="text-align-left">{{invoicePrefix}}</span>
+                            </li>
+
                             <li>
                                 <span>Patient Name:</span>
-                                <span> {{patientName}} </span>
+                                <span class="text-align-left"> {{patientName}} </span>
                             </li>
                             <li>
                                 <span>Appointment Date:</span>
-                                <span>{{scheduleDateAndTime}}</span>
+                                <span class="text-align-left">{{scheduleDateAndTime}}</span>
                             </li>
                             <!-- <li>
                                 <span>Time In:</span>
@@ -28,11 +34,11 @@
                             </li>  -->   
                             <li>
                                 <span>Doctor Name:</span>
-                                <span>{{docFirstName}}  {{docLastName}} </span>
+                                <span class="text-align-left">{{docFirstName}}  {{docLastName}} </span>
                             </li>
                             <li>
                                 <span>Cashier Name:</span>
-                                <span>Administrator</span>
+                                <span class="text-align-left">Administrator</span>
                             </li>
                         </ul>
                     </div>
@@ -40,14 +46,14 @@
                 <div class="col-md-6"></div>
             </div>
         </div>
-            <div class="row">
+            <div class="row" *ngIf="!completed">
                 <div class="col-md-12">
                     <div class="off-wite-bg">
                         <h4 class="bold padding-10">Services</h4>
                     </div>
                 </div>
             </div>
-            <div class="row mrgn-top14">
+            <div class="row mrgn-top14" *ngIf="!completed">
                     <div class="col-md-4 mrgn-btm10">
                             <div class="form-group">
                                     <label class="col-md-4 control-label txt-size-detail pdng-lr-5">Services:</label>
@@ -160,8 +166,8 @@
                                 <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'1.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'1.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">
-                                        <button (click)="editInvoic(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                        <button (click)="removeInvoic(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
+                                        <button *ngIf="!completed" (click)="editInvoic(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
+                                        <button *ngIf="!completed" (click)="removeInvoic(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
                                 </td>
                             </tr>
                             
@@ -258,8 +264,9 @@
                             </a>
                         </div> -->
                 <div class="pull-right">
+                    <button *ngIf="!completed" class="btn btn-default btn-outline btn-sm" (click)="completeInvoice()"> Complete </button>
                     <button class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel </button>
-                    <span>
+                    <span  *ngIf="!completed">
                         <!-- <button class="btn btn-default btn-outline btn-sm"> Print </button>  -->
                         <button class="btn btn-default btn-outline btn-sm" (click)="saveInvoice()"> Save </button>
                     </span>

@@ -7,6 +7,7 @@ import {Invoice} from "../../../model/Invoice";
 
 import {ActivatedRoute, Router} from '@angular/router';
 import { Appointment } from "../../../model/Appointment";
+import {GenerateInvoiceRequestModel} from "../../../model/GenerateInvoiceRequestModel";
 
 @Component({
     selector: 'patient-invoice',
@@ -16,6 +17,8 @@ export class PatientInvoiceComponent implements OnInit {
 
     invoiceForm:FormGroup;
     appointment : any;
+    invoicePrefix : string;
+    completed : boolean = false;
     patientName : string;
     scheduleDateAndTime : any;
     appointmentStartedOn: any;
@@ -43,6 +46,7 @@ export class PatientInvoiceComponent implements OnInit {
     showEditButton:boolean = false;
     selectedInvoice: Invoice ;
     invoiceList : any = [];
+    invoiceCompletedRequest : GenerateInvoiceRequestModel ;
 
     appointmentForm: FormGroup;
     editIndex : number;
@@ -84,6 +88,8 @@ export class PatientInvoiceComponent implements OnInit {
             this.requestsService.getRequest(AppConstants.FETCH_APPOINTMENTS_BY_ID + this.appointmentId)
             .subscribe((res :any) =>{
                 this.appointment = res.responseData;
+                this.invoicePrefix = res.responseData.invoicePrefix;
+                this.completed = res.responseData.completed;
                 this.patientName = res.responseData.patient;
                 this.scheduleDateAndTime = this.appointment.scheduleDateAndTime;
                 this.appointmentStartedOn= this.appointment.appointmentStartedOn;
@@ -310,7 +316,12 @@ export class PatientInvoiceComponent implements OnInit {
 
     saveInvoice(){
         console.log("save invoice data : " + this.invoiceList);
-        this.requestsService.postRequest(AppConstants.SAVE_INVOICE, this.invoiceList)
+        this.invoiceCompletedRequest = new GenerateInvoiceRequestModel();
+        this.invoiceCompletedRequest.invoicePrefix = "0001";
+        this.invoiceCompletedRequest.completed = false;
+        this.invoiceCompletedRequest.invoiceRequestWrapper = this.invoiceList;
+
+        this.requestsService.postRequest(AppConstants.SAVE_INVOICE, this.invoiceCompletedRequest)
         .subscribe(
         (response: Response) => {
             console.log(" Added : " + response);
@@ -322,6 +333,29 @@ export class PatientInvoiceComponent implements OnInit {
         }, function (error) {
         //    this.error('ERROR', 'Branch is not Created');
         });
+    }
+
+
+    completeInvoice(){
+        console.log("save invoice data : " + this.invoiceList)
+
+        this.invoiceCompletedRequest = new GenerateInvoiceRequestModel();
+        this.invoiceCompletedRequest.invoicePrefix = "0001";
+        this.invoiceCompletedRequest.completed = true;
+        this.invoiceCompletedRequest.invoiceRequestWrapper =this.invoiceList;
+
+        this.requestsService.postRequest(AppConstants.SAVE_INVOICE, this.invoiceCompletedRequest)
+            .subscribe(
+                (response: Response) => {
+                    console.log(" Added : " + response);
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.router.navigate(['/dashboard/doctor']);
+                        /*  this.notificationService.success('Branch is Created Successfully');
+                         this.router.navigate(['/dashboard/setting/branch']) */
+                    }
+                }, function (error) {
+                    //    this.error('ERROR', 'Branch is not Created');
+                });
     }
 
     backPage(){

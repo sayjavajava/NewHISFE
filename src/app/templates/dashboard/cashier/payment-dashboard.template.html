@@ -10,13 +10,15 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="sub-total">
                         <ul>
-                            <li> <span>Patient Name:</span>    <span> {{patientName}} </span> </li>
+                            <li> <span>Invoice Id:</span>    <span  class="text-align-left"> {{invoicePrefix}} </span> </li>
+
+                            <li> <span>Patient Name:</span>    <span  class="text-align-left"> {{patientName}} </span> </li>
                             
-                            <li> <span>Appointment Date:</span> <span>{{scheduleDateAndTime}}</span> </li>
+                            <li> <span>Appointment Date:</span> <span  class="text-align-left">{{scheduleDateAndTime}}</span> </li>
                             
-                            <li> <span>Doctor Name:</span>      <span>{{docFirstName}} {{docLastName}} </span> </li>
+                            <li> <span>Doctor Name:</span>      <span  class="text-align-left">{{docFirstName}} {{docLastName}} </span> </li>
                             
-                            <li> <span>Cashier Name:</span>     <span>Administrator</span>    </li>
+                            <li> <span>Cashier Name:</span>     <span  class="text-align-left">Administrator</span>    </li>
                         </ul>
                     </div>
                 </div>
@@ -120,7 +122,7 @@
                 <div class="hedng-bck-clr padding-10 sub-total">
                     <ul>
                         <li>
-                            <span>Total Amount:</span> <span>{{grandTotal | number}}</span>
+                            <span>Total Invoice Amount:</span> <span>{{grandTotal | number}}</span>
                         </li>
                         <li>
                             <span>Total Discount:</span> <span class="amount-border-botom">{{grandTotalDiscount | number}}</span>
