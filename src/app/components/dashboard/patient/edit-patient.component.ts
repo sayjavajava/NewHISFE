@@ -129,8 +129,6 @@ export class EditPatientComponent implements OnInit {
                     return;
                 }
 
-
-                this.requestsService.putRequest(
                 this.requestsService.postRequestMultipartFormAndData(
                     AppConstants.PATIENT_UPDATE_URL,
                     this.patient, this.profileImg,this.photoFront,this.photoBack

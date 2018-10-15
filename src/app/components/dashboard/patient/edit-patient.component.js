@@ -71,6 +71,7 @@ var EditPatientComponent = (function () {
             });
         });
     };
+    ;
     EditPatientComponent.prototype.ngOnInit = function () {
         this.titleService.setTitle('HIS | Update Patient');
     };
@@ -79,7 +80,7 @@ var EditPatientComponent = (function () {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid || contactForm.invalid) {
             if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
-                document.getElementById("selectedDoctor").focus();
+                document.getElementById('selectedDoctor').focus();
                 return;
             }
             else if (this.patient.titlePrefix === "-1") {
@@ -109,6 +110,14 @@ var EditPatientComponent = (function () {
         else {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
+                /***
+                 * going to check , if any one value available of insurance then company name must be presented
+                 * **/
+                if (this.patient.insuranceId > 0 && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
                 this.requestsService.postRequestMultipartFormAndData(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient, this.profileImg, this.photoFront, this.photoBack).subscribe(function (response) {
                     if (response['responseCode'] === 'PATIENT_SUC_08') {
                         _this.patient = new patient_1.Patient();
