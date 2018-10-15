@@ -16,6 +16,7 @@ export class PaymentComponent implements OnInit {
     invoiceId : string;
     appointmentId : number;
     appointment : any;
+    invoicePrefix : string;
     patientName : string;
     scheduleDateAndTime : any;
     appointmentStartedOn: any;
@@ -59,6 +60,7 @@ export class PaymentComponent implements OnInit {
             .subscribe((res :any) =>{
                 this.appointment = res.responseData;
                 this.patientAdvanceDeposit = res.responseData.patientAdvanceDeposit;
+                this.invoicePrefix = res.responseData.invoicePrefix;
                 this.patientName = res.responseData.patient;
                 this.scheduleDateAndTime = this.appointment.scheduleDateAndTime;
                 this.appointmentStartedOn= this.appointment.appointmentStartedOn;

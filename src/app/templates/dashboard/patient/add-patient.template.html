@@ -529,7 +529,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
-                                               #company="ngModel"
+                                               #company="ngModel"  id="company"
                                                name="company" [(ngModel)]="patient.company">
                                     </div>
                                 </div>
@@ -581,7 +581,6 @@
                                     </label>
                                     <div class="col-md-8 select ">
                                         <input type="date" class="form-control form-control-inline input-medium"
-                                               (ngModelChange)="patient.cardIssuedDate = $event"
                                                #cardIssuedDate="ngModel"
                                                [(ngModel)]="patient.cardIssuedDate" name="cardIssuedDate">
                                     </div>
@@ -596,7 +595,6 @@
                                     </label>
                                     <div class="col-md-8 select ">
                                         <input type="date" class="form-control form-control-inline input-medium"
-                                               (ngModelChange)="patient.cardExpiryDate = $event"
                                                #cardExpiryDate="ngModel"
                                                [(ngModel)]="patient.cardExpiryDate" name="cardExpiryDate">
                                     </div>
@@ -620,7 +618,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         <textarea class="form-control" rows="3" placeholder=""
-                                                  name="primaryInsuranceNotes"
+                                                  name="primaryInsuranceNotes" id="primaryInsuranceNotes"
                                                   #primaryInsuranceNotes="ngModel"
                                                   [(ngModel)]="patient.primaryInsuranceNotes"></textarea>
                                     </div>

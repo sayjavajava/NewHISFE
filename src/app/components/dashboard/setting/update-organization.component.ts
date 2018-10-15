@@ -54,7 +54,7 @@ export class UpdateOrganizationComponent implements OnInit {
 
     createProfileForm() {
         this.proForm = this.fb.group({
-                'companyEmail': [null],
+                'companyEmail': [null, Validators.compose([Validators.required, Validators.email])],
                 'companyName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'officePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'specialty': [null],

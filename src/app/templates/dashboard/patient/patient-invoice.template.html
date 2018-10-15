@@ -12,15 +12,21 @@
                         <ul>
                             <li>
                                 <span>File Number:</span>
-                                <span>10002</span>
+                                <span class="text-align-left">10002</span>
                             </li>
+
+                            <li>
+                                <span>Invoice Id:</span>
+                                <span class="text-align-left">{{invoicePrefix}}</span>
+                            </li>
+
                             <li>
                                 <span>Patient Name:</span>
-                                <span> {{patientName}} </span>
+                                <span class="text-align-left"> {{patientName}} </span>
                             </li>
                             <li>
                                 <span>Appointment Date:</span>
-                                <span>{{scheduleDateAndTime}}</span>
+                                <span class="text-align-left">{{scheduleDateAndTime}}</span>
                             </li>
                             <!-- <li>
                                 <span>Time In:</span>
@@ -28,11 +34,11 @@
                             </li>  -->   
                             <li>
                                 <span>Doctor Name:</span>
-                                <span>{{docFirstName}}  {{docLastName}} </span>
+                                <span class="text-align-left">{{docFirstName}}  {{docLastName}} </span>
                             </li>
                             <li>
                                 <span>Cashier Name:</span>
-                                <span>Administrator</span>
+                                <span class="text-align-left">Administrator</span>
                             </li>
                         </ul>
                     </div>
@@ -40,14 +46,14 @@
                 <div class="col-md-6"></div>
             </div>
         </div>
-            <div class="row">
+            <div class="row" *ngIf="!completed">
                 <div class="col-md-12">
                     <div class="off-wite-bg">
                         <h4 class="bold padding-10">Services</h4>
                     </div>
                 </div>
             </div>
-            <div class="row mrgn-top14">
+            <div class="row mrgn-top14" *ngIf="!completed">
                     <div class="col-md-4 mrgn-btm10">
                             <div class="form-group">
                                     <label class="col-md-4 control-label txt-size-detail pdng-lr-5">Services:</label>
@@ -104,17 +110,17 @@
                                                 
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="discountAmount" (change)="invoiceBillCalculationOnAmount($event)" [(ngModel)]="discountAmount" class="form-control" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  [step]="0.01">
+                                                <input type="number" class="form-control text-align-right" name="discountAmount" (change)="invoiceBillCalculationOnAmount($event)" [(ngModel)]="discountAmount" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  [step]="0.01">
                                             </td>
 
                                             <td rowspan="1" colspan="1" class="custom-td-size">
                                                 <input type="number" class="text-align-right" name="taxRate" [min]="0" (change)="invoiceBillCalculation($event)" [(ngModel)]="taxRate" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" [step]="0.01">
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="taxAmount" (change)="invoiceBillCalculationOnAmount($event)" [(ngModel)]="taxAmount" class="form-control" [step]="0.01">
+                                                <input type="number" class="form-control text-align-right" name="taxAmount" (change)="invoiceBillCalculationOnAmount($event)" [(ngModel)]="taxAmount" [step]="0.01">
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
-                                                <input type="number" class="text-align-right" name="totalAmount" [(ngModel)]="invoiceAmount" class="form-control" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+                                                <input type="number" class="form-control text-align-right" name="totalAmount" [(ngModel)]="invoiceAmount" disabled ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
                                             </td>
                                         </tr>
                                     </thead>
@@ -136,32 +142,32 @@
                         role="grid">
                         <thead>
                             <tr role="row" class="">
-                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Code </th>
-                                <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Services </th>
-                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Qty </th>
-                                <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Charges </th>
-                                <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Discount (%) </th>
-                                <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Discount (Amount) </th>
+                                <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Code </th>
+                                <th width="12%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Services </th>
+                                <th width="4%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Qty </th>
+                                <th width="9%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Charges </th>
+                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Discount (%) </th>
+                                <th width="8%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Discount (Amount) </th>
                                 <!-- <th width="6%" class="sorting_disabled" rowspan="1" colspan="1">I.C Pay</th> -->
                                 <!-- <th width="6%" class="sorting_disabled" rowspan="1" colspan="1">Patient Pay</th> -->
-                                <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Tax (%) </th>
-                                <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Tax (Amount) </th>
-                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Total </th>
-                                <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Action </th>
+                                <th width="5%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Tax (%) </th>
+                                <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Tax (Amount) </th>
+                                <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Total </th>
+                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Action </th>
                             </tr>
                             <tr role="row" class="filter" *ngFor="let invc of invoiceList;  let idx = index">
                                 <td rowspan="1" colspan="1">{{invc.code}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
-                                <td rowspan="1" colspan="1">{{invc.quantity | number}}</td>
-                                <td rowspan="1" colspan="1">{{invc.unitFee | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1">{{invc.discountRate| number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1">{{invc.taxRate | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1">
-                                        <button (click)="editInvoic(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                        <button (click)="removeInvoic(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.quantity | number}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.unitFee | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.discountRate| number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.taxRate | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">
+                                        <button *ngIf="!completed" (click)="editInvoic(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
+                                        <button *ngIf="!completed" (click)="removeInvoic(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
                                 </td>
                             </tr>
                             
@@ -258,8 +264,9 @@
                             </a>
                         </div> -->
                 <div class="pull-right">
+                    <button *ngIf="!completed" class="btn btn-default btn-outline btn-sm" (click)="completeInvoice()"> Complete </button>
                     <button class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel </button>
-                    <span>
+                    <span  *ngIf="!completed">
                         <!-- <button class="btn btn-default btn-outline btn-sm"> Print </button>  -->
                         <button class="btn btn-default btn-outline btn-sm" (click)="saveInvoice()"> Save </button>
                     </span>

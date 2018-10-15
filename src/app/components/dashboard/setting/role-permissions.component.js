@@ -49,6 +49,7 @@ var RolePermissionsComponent = (function () {
     };
     RolePermissionsComponent.prototype.addRole = function (formdata) {
         var _this = this;
+        formdata.active = true;
         var obj = new roleandpermission_1.RoleAndPermission(formdata.name, formdata.description, formdata.active, 'Role');
         this.showForm = false;
         setTimeout(function () {

@@ -46,7 +46,7 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.createProfileForm = function () {
         this.proForm = this.fb.group({
-            'companyEmail': [null],
+            'companyEmail': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.email])],
             'companyName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'officePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'specialty': [null],
