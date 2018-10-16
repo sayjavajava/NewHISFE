@@ -73,6 +73,8 @@ export class Patient {
     ////////////Smoking Status
     smokingStatus: any [];
 
+    hasChild: boolean = false;
+
     constructor() {
         /*this.races = [
          {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},

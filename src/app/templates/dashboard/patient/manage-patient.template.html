@@ -66,10 +66,12 @@
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </a>
-                                    <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="deletePatient(patient.id)">
+                                    <span [hidden]="patient.hasChild">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="deletePatient(patient.id)">
                                         <i class="fa fa-remove"></i>
                                     </button>
+                                    </span>
                                 </td>
                             </tr>
                             </thead>
