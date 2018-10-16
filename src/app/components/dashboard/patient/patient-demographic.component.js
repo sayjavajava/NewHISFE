@@ -30,6 +30,9 @@ var PatientDemographicComponent = (function () {
         this.notificationService = notificationService;
         this.date = new Date();
         this.patient = new patient_1.Patient();
+        this.profileImg = null;
+        this.photoFront = null;
+        this.photoBack = null;
         this.doctors = [];
         this.smokeStatus = new PatientSmokeStatus_1.PatientSmokeStatus();
         this.smokeStatusList = [];
@@ -135,11 +138,10 @@ var PatientDemographicComponent = (function () {
         else {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
-                this.requestService.putRequest(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient).subscribe(function (response) {
+                this.requestService.postRequestMultipartFormAndData(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient, this.profileImg, this.photoFront, this.photoBack).subscribe(function (response) {
                     if (response['responseCode'] === 'PATIENT_SUC_08') {
                         _this.patient = new patient_1.Patient();
                         _this.notificationService.success(response['responseMessage'], 'Patient');
-                        //this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
                         _this.loadRecord();
                     }
                     else {
@@ -174,7 +176,6 @@ var PatientDemographicComponent = (function () {
                 if (response['responseCode'] === 'SMOKE_STATUS_SUC_04') {
                     _this.patient = new patient_1.Patient();
                     _this.notificationService.success(response['responseMessage'], 'Smoke Status');
-                    //this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
                     _this.loadRecord();
                 }
                 else {
@@ -218,19 +219,31 @@ var PatientDemographicComponent = (function () {
         });
     };
     PatientDemographicComponent.prototype.uploadImgOnChange = function (event) {
-        var fileList = event.target.files;
+        /*let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             this.file = fileList[0];
+        }*/
+        var fileList = event.target.files;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgURL") {
+                this.profileImg = fileList[0];
+            }
+            else if (event.target.name === "photoFrontURL") {
+                this.photoFront = fileList[0];
+            }
+            else if (event.target.name === "photoBackURL") {
+                this.photoBack = fileList[0];
+            }
         }
     };
     PatientDemographicComponent.prototype.uploadProfileImg = function () {
         var _this = this;
-        if (this.file.size <= 1048000) {
-            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.id, this.file)
+        if (this.profileImg && this.profileImg.size <= 1048000) {
+            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.id, this.profileImg)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'USR_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Update Patient');
-                    _this.file = null;
+                    _this.profileImg = null;
                 }
             }, function (error) {
                 _this.notificationService.error('Profile Image uploading failed', 'Update Patient');
@@ -243,18 +256,18 @@ var PatientDemographicComponent = (function () {
     };
     PatientDemographicComponent.prototype.uploadFrontImg = function () {
         var _this = this;
-        if (this.file.size <= 1048000) {
-            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.id, this.file)
+        if (this.photoFront && this.photoFront.size <= 1048000) {
+            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.id, this.photoFront)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'USR_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'Update Patient');
-                    _this.file = null;
+                    _this.photoFront = null;
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Update Patient');
                 }
             }, function (error) {
-                _this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                _this.notificationService.error('Patient insurance front photo uploading failed', 'Update Patient');
                 _this.HISUTilService.tokenExpired(error.error.error);
             });
         }
@@ -264,18 +277,18 @@ var PatientDemographicComponent = (function () {
     };
     PatientDemographicComponent.prototype.uploadBackImg = function () {
         var _this = this;
-        if (this.file.size <= 1048000) {
-            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.id, this.file)
+        if (this.photoBack && this.photoBack.size <= 1048000) {
+            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.id, this.photoBack)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'USR_SUC_03') {
                     _this.notificationService.success(response['responseMessage'], 'Update Patient');
-                    _this.file = null;
+                    _this.photoBack = null;
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Update Patient');
                 }
             }, function (error) {
-                _this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                _this.notificationService.error('Patient insurance back photo uploading failed', 'Update Patient');
                 _this.HISUTilService.tokenExpired(error.error.error);
             });
         }

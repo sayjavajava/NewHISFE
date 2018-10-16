@@ -21,6 +21,9 @@ export class PatientDemographicComponent implements OnInit {
     id: Number;
     patient: Patient = new Patient();
     file: File;
+    profileImg: File = null;
+    photoFront: File = null;
+    photoBack: File = null;
     doctors: any = [];
     smokeStatus: PatientSmokeStatus = new PatientSmokeStatus();
     smokeStatusList: any = [];
@@ -52,12 +55,10 @@ export class PatientDemographicComponent implements OnInit {
     }
 
     loadRecord() {
-
         if (this.id <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
-
         this.requestService.getRequest(
             AppConstants.PATIENT_FETCH_URL + this.id
         ).subscribe(
@@ -136,15 +137,14 @@ export class PatientDemographicComponent implements OnInit {
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
-                this.requestService.putRequest(
+                this.requestService.postRequestMultipartFormAndData(
                     AppConstants.PATIENT_UPDATE_URL,
-                    this.patient
+                    this.patient, this.profileImg,this.photoFront,this.photoBack
                 ).subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'PATIENT_SUC_08') {
                             this.patient = new Patient();
                             this.notificationService.success(response['responseMessage'], 'Patient');
-                            //this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
                             this.loadRecord();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Patient');
@@ -188,7 +188,6 @@ export class PatientDemographicComponent implements OnInit {
                     if (response['responseCode'] === 'SMOKE_STATUS_SUC_04') {
                         this.patient = new Patient();
                         this.notificationService.success(response['responseMessage'], 'Smoke Status');
-                        //this.router.navigate(['/dashboard/patient/demographic/'+this.id]);
                         this.loadRecord();
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Smoke Status');
@@ -238,22 +237,33 @@ export class PatientDemographicComponent implements OnInit {
     }
 
     uploadImgOnChange(event: any) {
-        let fileList: FileList = event.target.files;
+        /*let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             this.file = fileList[0];
+        }*/
+        let fileList: FileList = event.target.files;
+
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgURL") {
+                this.profileImg = fileList[0];
+            } else if (event.target.name === "photoFrontURL") {
+                this.photoFront = fileList[0];
+            } else if (event.target.name === "photoBackURL") {
+                this.photoBack = fileList[0];
+            }
         }
     }
 
     uploadProfileImg() {
-        if (this.file.size <= 1048000) {
+        if (this.profileImg && this.profileImg.size <= 1048000) {
             this.requestService.postRequestMultipartFormData(
                 AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.id
-                , this.file,)
+                , this.profileImg)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_02') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
-                            this.file = null;
+                            this.profileImg = null;
                         }
                     },
                     (error: any) => {
@@ -267,20 +277,20 @@ export class PatientDemographicComponent implements OnInit {
     }
 
     uploadFrontImg() {
-        if (this.file.size <= 1048000) {
+        if (this.photoFront && this.photoFront.size <= 1048000) {
             this.requestService.postRequestMultipartFormData(
-                AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.id, this.file)
+                AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL + this.patient.id, this.photoFront)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
-                            this.file = null;
+                            this.photoFront = null;
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Update Patient');
                         }
                     },
                     (error: any) => {
-                        this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                        this.notificationService.error('Patient insurance front photo uploading failed', 'Update Patient');
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );
@@ -290,20 +300,20 @@ export class PatientDemographicComponent implements OnInit {
     }
 
     uploadBackImg() {
-        if (this.file.size <= 1048000) {
+        if (this.photoBack && this.photoBack.size <= 1048000) {
             this.requestService.postRequestMultipartFormData(
-                AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.id, this.file)
+                AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL + this.patient.id, this.photoBack)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
-                            this.file = null;
+                            this.photoBack = null;
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Update Patient');
                         }
                     },
                     (error: any) => {
-                        this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                        this.notificationService.error('Patient insurance back photo uploading failed', 'Update Patient');
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );

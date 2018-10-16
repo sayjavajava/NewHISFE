@@ -6,8 +6,7 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg"
-                                                              class="img-responsive"/></div>
+                            <div class="profile-userpic"><img src="{{patient.profileImgURL}}" alt="/public/images/patient-photo.jpg" class="img-responsive"/></div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
@@ -145,6 +144,21 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class="control-label col-md-4">Middle Name
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control"
+                                                           [(ngModel)]="patient.middleName"
+                                                           placeholder="Enter  middle Name" name="middleName"
+                                                           pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                                           #middleName="ngModel">
+                                                    <div *ngIf="middleName.invalid && (middleName.dirty || middleName.touched)"
+                                                         class="alert alert-danger">
+                                                        middle name required,min 1 , max 60 characters long
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="control-label col-md-4">Last Name
                                                 </label>
                                                 <div class="col-md-8">
@@ -156,6 +170,21 @@
                                                     <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
                                                          class="alert alert-danger">
                                                         last name required,min 1 , max 60 characters long
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Foreign Name
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control"
+                                                           [(ngModel)]="patient.foreignName"
+                                                           placeholder="Enter foreign Name" name="foreignName"
+                                                           pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                                           #foreignName="ngModel">
+                                                    <div *ngIf="foreignName.invalid && (foreignName.dirty || foreignName.touched)"
+                                                         class="alert alert-danger">
+                                                        foreign name required,min 1 , max 60 characters long
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,7 +218,7 @@
                                                                name="profileImgURL"
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
-                                                    <div class="">
+                                                    <div class="imgUploadTopMargin">
                                                         <button class="btn btn-default btn-outline"
                                                                 (click)="uploadProfileImg()">
                                                             <i class=" icon-arrow-up"></i>upload
@@ -208,7 +237,7 @@
                                     </div>
                                     <div class="hr bdr-btm">
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <!--<div class="form-group">
                                                 <label class="control-label col-md-4">Middle Name
                                                 </label>
                                                 <div class="col-md-8">
@@ -237,7 +266,7 @@
                                                         foreign name required,min 1 , max 60 characters long
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Home Phone
                                                 </label>
@@ -293,8 +322,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        <!--</div>
+                                        <div class="col-md-6">-->
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Cell Phone
                                                     <span class="required" aria-required="true"> * </span>
@@ -354,11 +383,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="hr bdr-btm">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Status User
-                                                </label>
+                                                <label class="control-label col-md-4">Status</label>
                                                 <div class="col-md-8 col-xs-6">
                                                     <label class="mt-checkbox mt-checkbox-outline chckbox">
                                                         <input type="checkbox"
@@ -384,7 +411,7 @@
                                                 </div>
                                             </div>
                                         </div>-->
-                                    </div>
+                                    <!--</div>-->
                                 </form>
                             </div>
                             <div class="tab-pane" id="demographics">
@@ -707,7 +734,7 @@
                                                                name="photoFrontURL"
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
-                                                    <div class="">
+                                                    <div class="imgUploadTopMargin">
                                                         <button class="btn btn-default btn-outline"
                                                                 (click)="uploadFrontImg()">
                                                             <i class=" icon-arrow-up"></i>
@@ -777,7 +804,7 @@
                                                                name="photoBackURL"
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
-                                                    <div class="">
+                                                    <div class="imgUploadTopMargin">
                                                         <button class="btn btn-default btn-outline"
                                                                 (click)="uploadBackImg()">
                                                             <i class=" icon-arrow-up"></i>
