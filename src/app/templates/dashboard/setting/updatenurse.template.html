@@ -118,12 +118,16 @@
                                             </label>
                                             </address>
                                         </div>
+                                        <span class="text-danger"
+                                              *ngIf="departmentFlag">
+                                            {{departmentError}}
+                                        </span>
                                         <span class="text-danger" *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-top10">
                                     <label class="control-label col-md-4">Duty with Doctor
-                                        <span class="required" aria-required="true"> * </span>
+
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box cod-higt" id="not-due">
@@ -134,7 +138,8 @@
                                                            value="{{item.id}}"
                                                            [checked] = "item.checked"
                                                            (change)="dutyWithDoctor($event,item)">
-                                                    {{item.firstName}}{{item.lastName}}
+                                                    <!--{{item.firstName}}-->
+                                                    {{item.lastName}}
                                                     <span></span></div>
                                             </label>
                                             </address>

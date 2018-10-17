@@ -32,6 +32,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     managepatientrecord: boolean;
     managepatientinvoices: boolean;
     userForm: FormGroup;
+    departmentFlag : boolean =false;
     selectedDepartment: any = [];
 
     staffDepartment: any = [];
@@ -61,6 +62,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     user: UserEditModel;
     private subscription :Subscription;
     userId:number;
+    departmentError: string = 'Select atleast one Department';
 
     filterBranches: any [];
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
@@ -154,7 +156,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
                 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
-                'homePhone': [null, Validators.required],
+                'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'email': [null, Validators.compose([Validators.required, Validators.email])],
@@ -194,6 +196,10 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                         primaryBranch:user.primaryBranchId,
 
                     });
+
+                    if (user.expiryDate != null) {
+                        this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
+                    }
                     this.staffBranches = user.staffBranches;
                     this.selectedDoctors = user.dutyWithDoctors;
                     for(let key in this.branchesList){
@@ -234,33 +240,39 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     }
 
     addUser(data: any) {
-        console.log('i am  in');
         if (this.userForm.valid) {
-            let nurse = new User({
-                userType: 'nurse',
-                firstName: data.firstName,
-                lastName: data.lastName,
-                userName: data.userName,
-                password: data.password,
-                homePhone: data.homePhone,
-                cellPhone: data.cellPhone,
-                sendBillingReport: data.sendBillingReport,
-                useReceptDashboard: data.useReceptDashboard,
-                otherDashboard: data.otherDashboard,
-                accountExpiry: data.accountExpiry,
-                primaryBranch: data.primaryBranch,
-                email: data.email,
-                selectedVisitBranches: this.selectedVisitBranches,
-                otherDoctorDashBoard: data.otherDoctorDashBoard,
-                active: data.active,
-                managePatientRecords: data.managePatientRecords,
-                managePatientInvoices: data.managePatientInvoices,
-                dutyWithDoctors: this.dutyWithDoctors,
-                selectedDepartment: this.selectedDepartment,
-            });
-            this.makeService(nurse);
+            if (this.selectedDepartment.length != 0) {
+                console.log('fine')
+                let nurse = new User({
+                    userType: 'nurse',
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    userName: data.userName,
+                    password: data.password,
+                    homePhone: data.homePhone,
+                    cellPhone: data.cellPhone,
+                    sendBillingReport: data.sendBillingReport,
+                    useReceptDashboard: data.useReceptDashboard,
+                    otherDashboard: data.otherDashboard,
+                    accountExpiry: data.accountExpiry,
+                    primaryBranch: data.primaryBranch,
+                    email: data.email,
+                    selectedVisitBranches: this.selectedVisitBranches,
+                    otherDoctorDashBoard: data.otherDoctorDashBoard,
+                    active: data.active,
+                    managePatientRecords: data.managePatientRecords,
+                    managePatientInvoices: data.managePatientInvoices,
+                    dutyWithDoctors: this.dutyWithDoctors,
+                    selectedDepartment: this.selectedDepartment,
+                });
+                this.makeService(nurse);
 
-        } else {
+            } else { this.departmentFlag =true;
+             console.log('select deprat err')
+                this.userForm.setErrors({notValid:true});
+            }
+        }        else {
+            console.log('err')
             this.validateAllFormFields(this.userForm);
         }
     }
@@ -314,6 +326,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     }
 
     selectDepartment(event: any, item: any) {
+        this.departmentFlag = false;
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }
