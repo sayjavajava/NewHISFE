@@ -116,6 +116,7 @@ import {DemoUtilsModule} from "../demo-utils/module";
 import {EditAppointmentComponent} from "./components/dashboard/appointment/edit-appointment.component";
 import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
 import {DataService} from "./services/DataService";
+import {EmailConfigurationComponent} from "./components/dashboard/setting/email-configuration.component";
 
 
 @NgModule({
@@ -228,6 +229,7 @@ import {DataService} from "./services/DataService";
         AddStaffComponent,
         ServiceTaxComponent,
         EmailTemplateComponent,
+        EmailConfigurationComponent,
         AddEmailTemplateComponent,
         EditEmailTemplateComponent,
         NotFound404SettingComponent,

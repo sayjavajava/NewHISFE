@@ -27,6 +27,7 @@ import {UpdateNurseComponent} from '../components/dashboard/setting/updatenurse.
 import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedoctor.component';
 import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
 import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
+import {EmailConfigurationComponent} from "../components/dashboard/setting/email-configuration.component";
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -58,6 +59,7 @@ export const SettingRoutes: Routes = [
     {path: '404-not-found', component: NotFound404SettingComponent},
     {path: 'branch/edit/:id',component: UpdateBranchComponent},
     {path: 'email-template', component: EmailTemplateComponent},
+    {path: 'email-configuration', component: EmailConfigurationComponent},
     {path: 'email-template/add', component: AddEmailTemplateComponent},
     {path: 'email-template/edit/:id', component: EditEmailTemplateComponent},
     {path: '**', redirectTo: '404'}

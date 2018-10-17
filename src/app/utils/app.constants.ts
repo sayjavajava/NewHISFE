@@ -171,4 +171,10 @@ export class AppConstants {
     ///////////////////////Smoke Status URLs//////////////////////////////
     public static SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
     public static SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
+
+
+    ////////////////////// Email Configuration URLs ///////////////////////////////
+    public static FETCH_EMAIL_CONFIGURATIONS = '/emailConfiguration/getAll';
+    public static EMAIL_CONFIGURATION_SMTPS_SAVE = '/emailConfiguration/saveSMTP';
+    public static EMAIL_CONFIGURATION_SES_SAVE = '/emailConfiguration/saveSES';
 }
