@@ -3,9 +3,9 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {EmailTemplateModel} from "../../../model/EmailTemplateModel";
-import {ActivatedRoute, Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
+import {EmailTemplateModel} from '../../../model/EmailTemplateModel';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 
 @Component({
@@ -53,6 +53,13 @@ export class EditEmailTemplateComponent implements OnInit {
 
     updateEmailTemplate(form: NgForm) {
         if (form.valid) {
+
+            if (this.emailTempModel.type == '-1') {
+                this.notificationService.warn('Please select type.');
+                document.getElementById('type').focus();
+                return;
+            }
+
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(
                     AppConstants.EMAIL_TEMPLATE_UPDATE_URL,
@@ -75,7 +82,26 @@ export class EditEmailTemplateComponent implements OnInit {
                 this.router.navigate(['/login']);
             }
         } else {
-            this.notificationService.error('Required Fields are missing', 'Email Template');
+            if (this.emailTempModel.title == '') {
+                this.notificationService.warn('Please enter title.');
+                document.getElementById('title').focus();
+                return;
+            }
+            if (this.emailTempModel.subject == '') {
+                this.notificationService.warn('Please enter subject.');
+                document.getElementById('subject').focus();
+                return;
+            }
+            if (this.emailTempModel.type == '-1') {
+                this.notificationService.warn('Please select type.');
+                document.getElementById('type').focus();
+                return;
+            }
+            if (this.emailTempModel.emailTemplate == '') {
+                this.notificationService.warn('Please enter some data in emailTemplate.');
+                document.getElementById('emailTemplate').focus();
+                return;
+            }
         }
     }
 
