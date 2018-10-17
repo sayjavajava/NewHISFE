@@ -16,10 +16,9 @@
                                     <div class="col-md-9">
                                         <input type="text" name="title"
                                                class="form-control"
-                                               required
+                                               required id="title"
                                                placeholder="Enter Title"
                                                [(ngModel)]="emailTempModel.title"
-                                               pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                #title="ngModel">
                                     </div>
                                     <span *ngIf="title.invalid && title.touched"
@@ -32,12 +31,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input type="text"
+                                        <input type="text" required
                                                class="form-control"
-                                               name="subject"
+                                               name="subject" id="subject"
                                                placeholder="Enter Subject"
                                                [(ngModel)]="emailTempModel.subject"
-                                               pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                #subject="ngModel">
 
                                     </div>
@@ -47,41 +45,34 @@
                                     </span>
                                 </div>
                                 <div class="form-group hr">
-                                    <label class="control-label col-md-3 col-xs-6">Active
-                                    </label>
-                                    <div class="col-md-9em col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" name="status" [(ngModel)]="emailTempModel.active"><span></span></label>
-                                    </div>
-                                </div>
-
-                                <!--<div class="form-group hr">
                                     <label class="control-label col-md-3">Email Type:
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="select" [(ngModel)]="emailTempModel.type">
-                                            <option value="Email Type A"> Email Type A</option>
-                                            <option value="Email Type B"> Email Type B</option>
-                                            <option value="Email Type C"> Email Type C</option>
-                                            <option value="Email Type D"> Email Type D</option>
+                                        <select name="select" [(ngModel)]="emailTempModel.type">
+                                            <option value="-1">----- Select -----</option>
+                                            <option value="APPOINTMENT">Appointment</option>
+                                            <option value="CONFIRM_APPOINTMENT">Confirm Appointment</option>
+                                            <option value="APPOINTMENT_REMINDER">Appointment Reminder</option>
                                         </select>
                                     </div>
-                                </div>-->
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <textarea name="markdown" data-provide="markdown" rows="10" data-error-container="#editor_error"
-                                                  required name="emailTemplate"
+                                        <textarea data-provide="markdown" rows="10" cols="100"
+                                                  maxlength="3999" minlength="1"
+                                                  required name="emailTemplate" id="emailTemplate"
                                                   [(ngModel)]="emailTempModel.emailTemplate"
                                                   #emailTemplate="ngModel"></textarea>
-                                        <span *ngIf="emailTemplate.invalid && emailTemplate.touched">
+                                        <span class="col-md-9 select pdng-lr-5 text-danger"
+                                              *ngIf="emailTemplate.invalid && emailTemplate.touched">
                                         Please enter some data in email template
-                                    </span>
-                                        <div id="editor_error"> </div>
+                                        </span>
+                                        <div id="editor_error"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -103,6 +94,25 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <div class="form-group hr">
+                                        <label class="control-label col-md-3">Active:
+                                        </label>
+                                        <div class="col-md-1">
+                                            <input type="checkbox" class="form-control"
+                                                   name="active" id="active"
+                                                   [(ngModel)]="emailTempModel.active">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="hr">
                             <div class="col-md-12 text-center">
                                 <a routerLink="/dashboard/setting/email-template" class="nav-link">
