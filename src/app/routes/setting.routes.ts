@@ -28,6 +28,8 @@ import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedocto
 import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
 import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
 import {EmailConfigurationComponent} from "../components/dashboard/setting/email-configuration.component";
+import {SmsTemplateComponent} from "../components/dashboard/setting/sms-template.component";
+import {AddEditSmsTemplateComponent} from "../components/dashboard/setting/add-edit-sms-template.component";
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -62,5 +64,11 @@ export const SettingRoutes: Routes = [
     {path: 'email-configuration', component: EmailConfigurationComponent},
     {path: 'email-template/add', component: AddEmailTemplateComponent},
     {path: 'email-template/edit/:id', component: EditEmailTemplateComponent},
+
+    {path: 'sms-template', component: SmsTemplateComponent},
+    {path: 'sms-template/add', component: AddEditSmsTemplateComponent},
+    {path: 'sms-template/edit/:id', component: AddEditSmsTemplateComponent},
+
+
     {path: '**', redirectTo: '404'}
 ];

@@ -117,6 +117,8 @@ import {EditAppointmentComponent} from "./components/dashboard/appointment/edit-
 import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
 import {DataService} from "./services/DataService";
 import {EmailConfigurationComponent} from "./components/dashboard/setting/email-configuration.component";
+import {SmsTemplateComponent} from "./components/dashboard/setting/sms-template.component";
+import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-edit-sms-template.component";
 
 
 @NgModule({
@@ -230,6 +232,9 @@ import {EmailConfigurationComponent} from "./components/dashboard/setting/email-
         ServiceTaxComponent,
         EmailTemplateComponent,
         EmailConfigurationComponent,
+        SmsTemplateComponent,
+        AddEditSmsTemplateComponent,
+
         AddEmailTemplateComponent,
         EditEmailTemplateComponent,
         NotFound404SettingComponent,

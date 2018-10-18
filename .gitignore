@@ -15,6 +15,7 @@ target/
 *.iml
 *.ipr
 *.js.map
+*.js
 
 ### NodeJS ###
 /node_modules

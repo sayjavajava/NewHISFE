@@ -1,0 +1,104 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Create SMS Template</h4>
+                </div>
+                <form id="emailTemplateForm" #form="ngForm">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-2">SMS Subject:
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input type="text"
+                                               class="form-control" required
+                                               name="subject" id="subject"
+                                               placeholder="Enter Subject"
+                                               [(ngModel)]="smsTemplate.subject"
+                                               #subject="ngModel"><!--pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+
+                                    </div>
+                                    <span *ngIf="subject.invalid && subject.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter valid subject.
+                                    </span>
+                                </div>
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-2">SMS Type:
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" name="select" [(ngModel)]="smsTemplate.type">
+                                            <option value="-1">----- Select -----</option>
+                                            <option value="APPOINTMENT">Appointment</option>
+                                            <option value="CONFIRM_APPOINTMENT">Confirm Appointment</option>
+                                            <option value="APPOINTMENT_REMINDER">Appointment Reminder</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-2">Active: </label>
+                                    <div class="col-md-10" style="padding-top: 10px !important;">
+                                        <div class="col-md-1">
+                                            <input type="checkbox" class="mt-checkbox mt-checkbox-outline"
+                                                   name="active" id="active"
+                                                   [(ngModel)]="smsTemplate.active">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <textarea data-provide="markdown" rows="10" cols="90"
+                                              required name="emailTemplate" maxlength="3999" minlength="1"
+                                              [(ngModel)]="smsTemplate.smsTemplate"
+                                              #emailTemplate="ngModel">
+                                    </textarea>
+                                    <span *ngIf="emailTemplate.invalid && emailTemplate.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter some data in email template
+                                    </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bordered pdng-all">
+                                        <h3 class="block">Tags</h3>
+                                        <div class="tag-txt">
+                                            <p>-@first_name@</p>
+                                            <p>-@last_name@</p>
+                                            <p>-@email@</p>
+                                            <p>-@mobile@</p>
+                                            <p>-@link@</p>
+                                        </div>
+                                        <div class="mrgn-top14 tag-txt">
+                                            <strong>Note</strong>
+                                            <p>Must insert the ‘@’ sign while using such label mentioned above</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hr">
+                            <div class="col-md-12 text-center">
+                                <a routerLink="/dashboard/setting/sms-template" class="nav-link">
+                                    <button type="button" class="btn  btn-default"> Cancel</button>
+                                </a>
+                                <button type="button" class="btn blue" (click)="saveSMSTemplate(form)"> Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

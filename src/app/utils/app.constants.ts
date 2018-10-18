@@ -177,4 +177,11 @@ export class AppConstants {
     public static FETCH_EMAIL_CONFIGURATIONS = '/emailConfiguration/getAll';
     public static EMAIL_CONFIGURATION_SMTPS_SAVE = '/emailConfiguration/saveSMTP';
     public static EMAIL_CONFIGURATION_SES_SAVE = '/emailConfiguration/saveSES';
+
+
+    ////////////////////// SMS Template Configuration URLs ///////////////////////////////
+    public static FETCH_SMS_CONFIGURATIONS = '/smsConfiguration/getAll';
+    public static FETCH_SMS_CONFIG_BY_ID = '/smsConfiguration/getSmsById?id=';
+    public static SMS_CONFIGURATION_SAVE = '/smsConfiguration/saveSmsConfiguration';
+    public static SMS_CONFIGURATION_DELETE_SAVE = '/smsConfiguration/deleteSmsConfig?id=';
 }
