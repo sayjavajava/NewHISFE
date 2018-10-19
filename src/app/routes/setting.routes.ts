@@ -30,6 +30,7 @@ import {UpdateOrganizationComponent} from '../components/dashboard/setting/updat
 import {EmailConfigurationComponent} from "../components/dashboard/setting/email-configuration.component";
 import {SmsTemplateComponent} from "../components/dashboard/setting/sms-template.component";
 import {AddEditSmsTemplateComponent} from "../components/dashboard/setting/add-edit-sms-template.component";
+import {PrefixTemplateComponent} from "../components/dashboard/setting/prefix-template.component";
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -68,6 +69,7 @@ export const SettingRoutes: Routes = [
     {path: 'sms-template', component: SmsTemplateComponent},
     {path: 'sms-template/add', component: AddEditSmsTemplateComponent},
     {path: 'sms-template/edit/:id', component: AddEditSmsTemplateComponent},
+    {path: 'prefix-template', component: PrefixTemplateComponent},
 
 
     {path: '**', redirectTo: '404'}
