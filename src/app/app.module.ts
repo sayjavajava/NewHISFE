@@ -116,6 +116,8 @@ import {DemoUtilsModule} from "../demo-utils/module";
 import {EditAppointmentComponent} from "./components/dashboard/appointment/edit-appointment.component";
 import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
 import {DataService} from "./services/DataService";
+import {DropdownModule} from 'primeng/dropdown';
+import {MultiSelectModule} from 'primeng/multiselect';
 import {EmailConfigurationComponent} from "./components/dashboard/setting/email-configuration.component";
 import {SmsTemplateComponent} from "./components/dashboard/setting/sms-template.component";
 import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-edit-sms-template.component";
@@ -154,7 +156,9 @@ import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-ed
         ColorPickerModule,
         NgbModalModule.forRoot(),
         CalendarModule.forRoot(),
-        DemoUtilsModule
+        DemoUtilsModule,
+        DropdownModule,
+        MultiSelectModule
     ],
     declarations: [
         // App Components

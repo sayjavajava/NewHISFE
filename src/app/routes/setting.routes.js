@@ -28,6 +28,9 @@ var updatenurse_component_1 = require("../components/dashboard/setting/updatenur
 var updatedoctor_component_1 = require("../components/dashboard/setting/updatedoctor.component");
 var updatecashier_component_1 = require("../components/dashboard/setting/updatecashier.component");
 var update_organization_component_1 = require("../components/dashboard/setting/update-organization.component");
+var email_configuration_component_1 = require("../components/dashboard/setting/email-configuration.component");
+var sms_template_component_1 = require("../components/dashboard/setting/sms-template.component");
+var add_edit_sms_template_component_1 = require("../components/dashboard/setting/add-edit-sms-template.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -58,8 +61,12 @@ exports.SettingRoutes = [
     { path: '404-not-found', component: not_found_404_setting_component_1.NotFound404SettingComponent },
     { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
     { path: 'email-template', component: email_template_component_1.EmailTemplateComponent },
+    { path: 'email-configuration', component: email_configuration_component_1.EmailConfigurationComponent },
     { path: 'email-template/add', component: add_email_template_component_1.AddEmailTemplateComponent },
     { path: 'email-template/edit/:id', component: edit_email_template_component_1.EditEmailTemplateComponent },
+    { path: 'sms-template', component: sms_template_component_1.SmsTemplateComponent },
+    { path: 'sms-template/add', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
+    { path: 'sms-template/edit/:id', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

@@ -5,6 +5,7 @@ var ICDVersionModel = (function () {
         this.name = '';
         this.status = true;
         this.hasChild = false;
+        this.selectedVersion = false;
     }
     return ICDVersionModel;
 }());
