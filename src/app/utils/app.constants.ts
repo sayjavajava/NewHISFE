@@ -186,4 +186,9 @@ export class AppConstants {
     public static FETCH_SMS_CONFIG_BY_ID = '/smsConfiguration/getSmsById?id=';
     public static SMS_CONFIGURATION_SAVE = '/smsConfiguration/saveSmsConfiguration';
     public static SMS_CONFIGURATION_DELETE_SAVE = '/smsConfiguration/deleteSmsConfig?id=';
+
+
+    ////////////////////// Prefix Configuration URLs ///////////////////////////////
+    public static FETCH_PREFIX_CONFIGURATIONS = '/prefixConfiguration/getAll';
+    public static PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
 }

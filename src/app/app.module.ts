@@ -121,6 +121,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {EmailConfigurationComponent} from "./components/dashboard/setting/email-configuration.component";
 import {SmsTemplateComponent} from "./components/dashboard/setting/sms-template.component";
 import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-edit-sms-template.component";
+import {PrefixTemplateComponent} from "./components/dashboard/setting/prefix-template.component";
 
 
 @NgModule({
@@ -238,6 +239,7 @@ import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-ed
         EmailConfigurationComponent,
         SmsTemplateComponent,
         AddEditSmsTemplateComponent,
+        PrefixTemplateComponent,
 
         AddEmailTemplateComponent,
         EditEmailTemplateComponent,

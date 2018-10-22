@@ -1,0 +1,101 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">SKU Prefix and Range </h4>
+                </div>
+
+                <div class="table-scrollable">
+                    <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax">
+                        <thead>
+                        <tr role="row" class="off-wite-bg">
+                            <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Module</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Prefix</th>
+                            <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Start Value</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Current Value</th>
+                            <th width="10%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Action</th>
+                        </tr>
+                        <tr role="row" *ngFor="let item of prefixTemplateList; let ind=index">
+                            <td rowspan="1" colspan="1" class="col-txt-left">{{item.module}}</td>
+                            <td rowspan="1" colspan="1">{{item.name}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.startValue}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.currentValue}}</td>
+
+                            <td rowspan="1" colspan="1" class="text-align-center">
+                                <a href="#prefixModule" data-toggle="modal">
+                                    <button class="btn btn-default btn-outline btn-sm" (click)="edit(item)"> <i class="fa fa-pencil"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div id="prefixModule" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="prefixModuleForm" #form="ngForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" >Update Module Prefix</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Module</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" disabled
+                                           [(ngModel)]="prefixTemplate.module"
+                                           required name="nameName" id="nameNameId" class="form-control" placeholder="Enter Name" #nameName="ngModel">
+                                </div>
+                            </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Prefix</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" [(ngModel)]="prefixTemplate.name"
+                                           name="title" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter text" #title="ngModel">
+                                </div>
+                                <span *ngIf="title.invalid && title.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid prefix.
+                                </span>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Start From</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" disabled
+                                           [(ngModel)]="prefixTemplate.startValue"
+                                           name="startValue" class="form-control" placeholder="Enter text" #startValue="ngModel">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Current Value</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" disabled
+                                           [(ngModel)]="prefixTemplate.currentValue"
+                                           name="currentValue" class="form-control" placeholder="Enter text" #currentValue="ngModel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <span >
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                </span>
+                <span >
+                    <button type="button" class="btn blue" id="save-btn-update" (click)="editPrefixModule(ngForm)" >Update </button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
