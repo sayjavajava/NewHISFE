@@ -189,4 +189,14 @@ export class AppConstants {
     ////////////////////// Prefix Configuration URLs ///////////////////////////////
     public static FETCH_PREFIX_CONFIGURATIONS = '/prefixConfiguration/getAll';
     public static PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
+
+
+    ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
+    public static FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    public static ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
+
+
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
+    public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
 }

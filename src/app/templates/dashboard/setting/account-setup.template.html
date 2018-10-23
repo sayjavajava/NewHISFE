@@ -1,0 +1,237 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info"> Account Setup</h4>
+                </div>
+                <div class="portlet-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Basic </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab_1_1">
+                            <form id="smtpsForm" class="form-horizontal" #smtpsForm="ngForm">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Revenue Account </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    <!--    <select class="form-control" name="select" [(ngModel)]="smsTemplate.type">
+                                            <option value="-1">-&#45;&#45;&#45;&#45; Select -&#45;&#45;&#45;&#45;</option>
+                                            <option value="APPOINTMENT">Appointment</option>
+                                            <option value="CONFIRM_APPOINTMENT">Confirm Appointment</option>
+                                            <option value="APPOINTMENT_REMINDER">Appointment Reminder</option>
+                                        </select>-->
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Deferred Revenue </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Sale Tax Payable Account </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Customer Account </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Discount Account </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Discount Received </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Other Misc. Charges </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Cash </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Cheque </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Credit Card </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Transfer </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option value="Assets">Asset</option>
+                                            <option value="Liability">Liability</option>
+                                            <option value="Revenue">Revenue</option>
+                                            <option value="Expense">Expense</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-xs-6"> STC </label>
+                                    <div class="col-md-8 col-xs-6">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Credit Card Charges </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option value="Assets">Asset</option>
+                                            <option value="Liability">Liability</option>
+                                            <option value="Revenue">Revenue</option>
+                                            <option value="Expense">Expense</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Scrap Inventory </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option value="Assets">Asset</option>
+                                            <option value="Liability">Liability</option>
+                                            <option value="Revenue">Revenue</option>
+                                            <option value="Expense">Expense</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Profit On Scrap </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option value="Assets">Asset</option>
+                                            <option value="Liability">Liability</option>
+                                            <option value="Revenue">Revenue</option>
+                                            <option value="Expense">Expense</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> Loss On Scrap </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
+                                            <option value="">Select Account Type</option>
+                                            <option value="Assets">Asset</option>
+                                            <option value="Liability">Liability</option>
+                                            <option value="Revenue">Revenue</option>
+                                            <option value="Expense">Expense</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="hr mrgn-top14">
+                                        <button data-repeater-create="" class="btn blue"
+                                                (click)="saveSMTPSConfiguration(sesForm)"> Save
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
