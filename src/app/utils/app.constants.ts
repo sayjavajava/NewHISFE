@@ -41,6 +41,7 @@ export class AppConstants {
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
+    public static ICD_CODE_GET = '/setting/icd/code/get?codeId=';
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     public static ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     public static ICD_CODES = '/setting/icd/codes/';
@@ -50,6 +51,7 @@ export class AppConstants {
     public static ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     public static ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     public static ICD_VERSIONS = '/setting/icd/versions/';
+    public static ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     public static ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     public static ICD_VERSION_SEARCH = '/setting/icd/version/search/';
     public static ICD_CODE_VERSION_SAVE_URL = '/setting/icd/codeVersion/save';

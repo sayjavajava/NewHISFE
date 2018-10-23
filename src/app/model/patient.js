@@ -55,6 +55,7 @@ var Patient = (function () {
         this.cardIssuedDate = "";
         this.cardExpiryDate = "";
         this.primaryInsuranceNotes = "";
+        this.hasChild = false;
         /*this.races = [
          {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
          {id: 2, nameRace: 'Asian', selected: false},

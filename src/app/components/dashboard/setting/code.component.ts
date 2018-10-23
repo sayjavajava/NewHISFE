@@ -6,6 +6,8 @@ import {HISUtilService} from '../../../services/his-util.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AppConstants} from '../../../utils/app.constants';
+import {ICDVersionModel} from '../../../model/ICDVersionModel';
+import any = jasmine.any;
 
 @Component({
     selector: 'icd-code-component',
@@ -22,6 +24,10 @@ export class CodeComponent implements OnInit {
     searchCode: string = '';
     searched: boolean = false;
     isCodeUpdate: boolean = false;
+    icdVersions: ICDVersionModel [] = [];
+    checkedVersions: ICDVersionModel [] = [];
+    selectAll: boolean = false;
+
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -32,8 +38,9 @@ export class CodeComponent implements OnInit {
     ngOnInit() {
         document.title = 'HIS | ICD Code';
         if (localStorage.getItem(btoa('access_token'))) {
-            this.getICDsFromServer(0);
+            this.getICDCodesFromServer(0);
         }
+        this.getCheckedVersionsByCodeId(null);
     }
 
     getPageWiseICDs(page: number) {
@@ -41,18 +48,18 @@ export class CodeComponent implements OnInit {
         if (this.searched) {
             this.searchByCode(page);
         } else {
-            this.getICDsFromServer(page);
+            this.getICDCodesFromServer(page);
         }
     }
 
     refreshCodesTable() {
         this.searched = false;
         this.searchCode = '';
-        this.getICDsFromServer(0);
+        this.getICDCodesFromServer(0);
     }
 
     refreshICDsTable(page: number) {
-        this.getICDsFromServer(page)
+        this.getICDCodesFromServer(page)
     }
 
     deleteICD(codeId: any) {
@@ -64,9 +71,9 @@ export class CodeComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_SUC_03') {
                             this.notificationService.success('ICD Code', response['responseMessage']);
-                            this.getICDsFromServer(0);
+                            this.getICDCodesFromServer(0);
                         } else {
-                            this.getICDsFromServer(0);
+                            this.getICDCodesFromServer(0);
                             this.notificationService.error(response['responseMessage'], 'ICD Code');
                         }
                     },
@@ -79,7 +86,7 @@ export class CodeComponent implements OnInit {
         }
     }
 
-    getICDsFromServer(page: number) {
+    getICDCodesFromServer(page: number) {
         if (page > 0) {
             page = page;
         }
@@ -104,6 +111,20 @@ export class CodeComponent implements OnInit {
     saveICDCode(form: NgForm) {
         if (form.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
+                let versionFound = 0;
+                for (let version of this.icdVersions) {
+                    if (version.selectedVersion) {
+                        versionFound++;
+                        break;
+                    }
+                }
+
+                if (versionFound == 0) {
+                    this.notificationService.warn('Please select at least one version.');
+                    return;
+                }
+
+                this.iCDModel.selectedVersions = this.icdVersions;
                 this.requestsService.postRequest(
                     AppConstants.ICD_CODE_SAVE_URL,
                     JSON.parse(JSON.stringify(this.iCDModel))
@@ -140,6 +161,23 @@ export class CodeComponent implements OnInit {
     updateICDCode(updateCodeForm: NgForm) {
         if (updateCodeForm.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
+
+
+                let versionFound = 0;
+                for (let version of this.icdVersions) {
+                    if (version.selectedVersion) {
+                        versionFound++;
+                        break;
+                    }
+                }
+
+                if (versionFound == 0) {
+                    this.notificationService.warn('Please select at least one version.');
+                    return;
+                }
+
+
+                this.iCDModel.selectedVersions = this.icdVersions;
                 this.requestsService.putRequest(
                     AppConstants.ICD_CODE_UPDATE_URL,
                     JSON.parse(JSON.stringify(this.iCDModel))
@@ -175,12 +213,40 @@ export class CodeComponent implements OnInit {
 
     editICDCode(iCDCode: any) {
         this.isCodeUpdate = true;
-        this.iCDModel = iCDCode;
+        // this.iCDModel = iCDCode;
+        this.selectAll = false;
+
+        this.requestsService.getRequest(AppConstants.ICD_CODE_GET + iCDCode.id)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ICD_SUC_02') {
+                        this.iCDModel = response['responseData'];
+                        this.icdVersions = [];
+                        this.icdVersions = this.iCDModel.selectedVersions;
+
+                        for (let version of this.icdVersions) {
+                            if (version.selectedVersion) {
+                                this.selectAll = true;
+                                break;
+                            }
+                        }
+
+                    } else {
+                        this.notificationService.error('ICD Code', response['responseMessage']);
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.warn(error.error.error);
+                }
+            )
+
     }
 
     onAddICDCodePopupLoad() {
         this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel();
+        this.selectAll = false;
+        this.getICDVersionsFromServer();
     }
 
     searchByCode(pageNo: number) {
@@ -211,4 +277,74 @@ export class CodeComponent implements OnInit {
                 );
         }
     }
+
+    private getICDVersionsFromServer() {
+
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(
+                AppConstants.ICD_VERSIONS)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
+                            this.icdVersions = [];
+                            this.icdVersions = response['responseData'];
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
+        }
+    }
+
+    getCheckedVersionsByCodeId(id: number) {
+        if (id > 0) {
+            this.requestsService.getRequest(
+                AppConstants.ICD_VERSIONS_BY_CODE_URL + id)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ICD_VERSIONS_SUC_14') {
+                            this.checkedVersions = response['responseData'];
+                        } else {
+                            this.checkedVersions = [];
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error(error.error.error);
+                    }
+                );
+        }
+    }
+
+    checkedAllVersion() {
+        for (let version of this.icdVersions) {
+            version.selectedVersion = this.selectAll;
+        }
+    }
+
+    /***
+     * if one , version found true then true otherwise false
+     * */
+    checkedVersion() {
+        let checkedFound = false;
+
+        for (let version of this.icdVersions) {
+            if (version.selectedVersion) {
+                checkedFound = true;
+                break;
+            }
+        }
+
+        if (checkedFound) {
+            this.selectAll = true;
+            console.log(this.selectAll);
+        } else {
+            this.selectAll = false;
+            console.log(this.selectAll);
+        }
+
+    }
+
 }

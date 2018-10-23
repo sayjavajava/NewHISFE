@@ -108,6 +108,11 @@ var module_1 = require("../demo-utils/module");
 var edit_appointment_component_1 = require("./components/dashboard/appointment/edit-appointment.component");
 var patient_add_lab_orders_component_1 = require("./components/dashboard/patient/patient-add-lab-orders.component");
 var DataService_1 = require("./services/DataService");
+var dropdown_1 = require("primeng/dropdown");
+var multiselect_1 = require("primeng/multiselect");
+var email_configuration_component_1 = require("./components/dashboard/setting/email-configuration.component");
+var sms_template_component_1 = require("./components/dashboard/setting/sms-template.component");
+var add_edit_sms_template_component_1 = require("./components/dashboard/setting/add-edit-sms-template.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -147,7 +152,9 @@ var AppModule = (function () {
                 ngx_color_picker_1.ColorPickerModule,
                 ng_bootstrap_1.NgbModalModule.forRoot(),
                 angular_calendar_1.CalendarModule.forRoot(),
-                module_1.DemoUtilsModule
+                module_1.DemoUtilsModule,
+                dropdown_1.DropdownModule,
+                multiselect_1.MultiSelectModule
             ],
             declarations: [
                 // App Components
@@ -221,6 +228,9 @@ var AppModule = (function () {
                 addstaff_component_1.AddStaffComponent,
                 service_tax_component_1.ServiceTaxComponent,
                 email_template_component_1.EmailTemplateComponent,
+                email_configuration_component_1.EmailConfigurationComponent,
+                sms_template_component_1.SmsTemplateComponent,
+                add_edit_sms_template_component_1.AddEditSmsTemplateComponent,
                 add_email_template_component_1.AddEmailTemplateComponent,
                 edit_email_template_component_1.EditEmailTemplateComponent,
                 not_found_404_setting_component_1.NotFound404SettingComponent,

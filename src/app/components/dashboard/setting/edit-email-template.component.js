@@ -52,6 +52,11 @@ var EditEmailTemplateComponent = (function () {
     EditEmailTemplateComponent.prototype.updateEmailTemplate = function (form) {
         var _this = this;
         if (form.valid) {
+            if (this.emailTempModel.type == '-1') {
+                this.notificationService.warn('Please select type.');
+                document.getElementById('type').focus();
+                return;
+            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(app_constants_1.AppConstants.EMAIL_TEMPLATE_UPDATE_URL, this.emailTempModel).subscribe(function (response) {
                     if (response['responseCode'] === 'EMAIL_TEMP_SUC_08') {
@@ -71,7 +76,26 @@ var EditEmailTemplateComponent = (function () {
             }
         }
         else {
-            this.notificationService.error('Required Fields are missing', 'Email Template');
+            if (this.emailTempModel.title == '') {
+                this.notificationService.warn('Please enter title.');
+                document.getElementById('title').focus();
+                return;
+            }
+            if (this.emailTempModel.subject == '') {
+                this.notificationService.warn('Please enter subject.');
+                document.getElementById('subject').focus();
+                return;
+            }
+            if (this.emailTempModel.type == '-1') {
+                this.notificationService.warn('Please select type.');
+                document.getElementById('type').focus();
+                return;
+            }
+            if (this.emailTempModel.emailTemplate == '') {
+                this.notificationService.warn('Please enter some data in emailTemplate.');
+                document.getElementById('emailTemplate').focus();
+                return;
+            }
         }
     };
     EditEmailTemplateComponent = __decorate([
