@@ -201,4 +201,9 @@ export class AppConstants {
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+
+
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    public static FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
+    public static LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
 }

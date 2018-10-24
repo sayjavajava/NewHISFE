@@ -34,6 +34,7 @@ import {PrefixTemplateComponent} from "../components/dashboard/setting/prefix-te
 import {ChartOfAccountComponent} from "../components/dashboard/setting/chart-of-account.component";
 import {VitalSetupComponent} from "../components/dashboard/setting/vital-setup.component";
 import {AccountSetupComponent} from "../components/dashboard/setting/account-setup.component";
+import {LabTestComponent} from "../components/dashboard/setting/lab-test.component";
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -76,6 +77,7 @@ export const SettingRoutes: Routes = [
     {path: 'chart-of-account-template', component: ChartOfAccountComponent},
     {path: 'vital-setup-template', component: VitalSetupComponent},
     {path: 'account-setup-template', component: AccountSetupComponent},
+    {path: 'lab-test-template', component: LabTestComponent},
 
 
     {path: '**', redirectTo: '404'}

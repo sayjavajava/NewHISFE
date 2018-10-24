@@ -125,6 +125,7 @@ import {PrefixTemplateComponent} from "./components/dashboard/setting/prefix-tem
 import {ChartOfAccountComponent} from "./components/dashboard/setting/chart-of-account.component";
 import {VitalSetupComponent} from "./components/dashboard/setting/vital-setup.component";
 import {AccountSetupComponent} from "./components/dashboard/setting/account-setup.component";
+import {LabTestComponent} from "./components/dashboard/setting/lab-test.component";
 
 
 @NgModule({
@@ -246,6 +247,7 @@ import {AccountSetupComponent} from "./components/dashboard/setting/account-setu
         ChartOfAccountComponent,
         VitalSetupComponent,
         AccountSetupComponent,
+        LabTestComponent,
 
         AddEmailTemplateComponent,
         EditEmailTemplateComponent,

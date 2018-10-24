@@ -63,12 +63,13 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Parent Type</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)" [(ngModel)]="chartOfAccount.parentType">
+                                    <select class="form-control" style="width: 250px !important" name="parentType"  (change)="parentTypeSelected($event.target.value)">
                                         <option value="">Select Account Type</option>
-                                        <option value="Assets">Asset</option>
-                                        <option value="Liability">Liability</option>
+                                        <option value="Assets">Assets</option>
+                                        <option value="Liabilities">Liabilities</option>
                                         <option value="Revenue">Revenue</option>
-                                        <option value="Expense">Expense</option>
+                                        <option value="Cost of Goods Sold">Cost of Goods Sold</option>
+                                        <option value="Expense">Expenses</option>
                                     </select>
                                 </div>
                             </div>
@@ -76,22 +77,23 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Account Type</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <select class="form-control" style="width: 250px !important" (change)="accountTypeSelected($event.target.value)">
+                                    <select class="form-control" style="width: 250px !important" name="accountType" (change)="accountTypeSelected($event.target.value)">
                                         <option value="">Select Account Type</option>
-                                        <option value="Bank">Bank</option>
-                                        <option value="Inventory Asset">Inventory Asset</option>
-                                        <option value="Other Current Asset">Other Current Asset</option>
-                                        <option value="Fixed Asset">Fixed Asset</option>
-                                        <option value="Fixed Asset">Account Payable</option>
-                                        <option value="Fixed Asset">Account Receivable</option>
-                                        <option value="Fixed Asset">Other Current Liability</option>
-                                        <option value="Fixed Asset">Long Term Liability</option>
-                                        <option value="Fixed Asset">Equity</option>
-                                        <option value="Fixed Asset">Income</option>
-                                        <option value="Fixed Asset">Cost of Good Sold</option>
-                                        <option value="Fixed Asset">Expense</option>
-                                        <option value="Fixed Asset">Other Income</option>
-                                        <option value="Fixed Asset">Other Expense</option>
+
+                                        <option value="Fixed Assets" *ngIf="chartOfAccount.parentType==='Assets'">Fixed Assets</option>
+                                        <option value="Current Assets" *ngIf="chartOfAccount.parentType==='Assets'">Current Assets</option>
+
+                                        <option value="Current Liabilities" *ngIf="chartOfAccount.parentType==='Liabilities'">Current Liabilities</option>
+                                        <option value="Long Term Liabilities" *ngIf="chartOfAccount.parentType==='Liabilities'">Long Term Liabilities</option>
+
+                                        <option value="Revenue" *ngIf="chartOfAccount.parentType==='Revenue'">Revenue</option>
+                                        <option value="Other Income" *ngIf="chartOfAccount.parentType==='Revenue'">Other Income</option>
+
+                                        <option value="Cost of Goods Sold" *ngIf="chartOfAccount.parentType==='Cost of Goods Sold'">Cost of Goods Sold</option>
+
+                                        <option value="Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'">Operational Expense</option>
+                                        <option value="Non Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'">Non Operational Expense</option>
+
                                     </select>
                                 </div>
                             </div>
