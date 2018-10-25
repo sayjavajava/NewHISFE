@@ -22,7 +22,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     }
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService,
                 private hisUtilService: HISUtilService ,private fb: FormBuilder, private notificationService: NotificationService) {
-        //this.allBranches();
+        this.allBranches();
         //this.allDoctors();
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
@@ -35,6 +35,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     id: number;
     responseUser: any[];
     branchesList:any=[];
+    visitingBranches: any [];
     primaryDoctor:any=[];
     error: any;
     defaultBranch:string='primaryBranch';
@@ -74,6 +75,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                        this.visitingBranches = response['responseData'];
                      //  this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
                      /*if(this.branchesList.length >1 ){
                       this.removeBranch();
@@ -93,7 +95,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
                 'password': [null],
                 'confirmPassword': [null],
-                'homePhone': [null, Validators.required],
+                'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'interval': [null],
@@ -148,10 +150,13 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                             (response: Response) => {
                                 if (response['responseCode'] === 'BR_SUC_01') {
                                     this.branchesList = response['responseData'];
-                                    for(let key in this.branchesList){
+                                    this.visitingBranches = response['responseData'];
+                                    this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
+                                    this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
+                                    for(let key in this.visitingBranches){
                                         for(let k in this.staffBranches){
-                                            if(this.staffBranches[k].id == this.branchesList[key].id){
-                                                this.branchesList[key].checked = true;
+                                            if(this.staffBranches[k].id == this.visitingBranches[key].id){
+                                                this.visitingBranches[key].checked = true;
                                                 this.selectedVisitBranches.push(this.staffBranches[k].id);
                                                 break;
                                             }
@@ -272,13 +277,12 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     cancel(){
         this.router.navigate(['/dashboard/setting/staff']);
     }
-    getSelectedBranch(value: any) {
-        console.log(value);
-        if (value === undefined) {
-            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+    getSelectedBranch(event: any) {
+        if (event && event.target.value) {
+            this.userForm.controls['primaryBranch'].setValue(event.target.value);
         }
-        else {
-            this.userForm.controls['primaryBranch'].setValue(value);}
+        this.visitingBranches = this.branchesList;
+        this.visitingBranches = this.visitingBranches.filter(br=> br.id != event.target.value);
 
     }
 

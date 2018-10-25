@@ -671,8 +671,7 @@
                     <div class="col-md-12">
                         <div class="hr mrgn-top14">
                             <button data-repeater-create="" class="btn blue"
-                                    (click)="updatePatient(insuranceForm,demographicForm,patientForm,contactForm)">
-                                Update
+                                    (click)="updatePatient(insuranceForm,demographicForm,patientForm,contactForm)">Update
                             </button>
                             <a routerLink="/dashboard/patient/manage" class="nav-link">
                                 <button type="button" class="btn  btn-default"> Cancel</button>
@@ -683,6 +682,9 @@
             </div>
         </div>
         <div class="clearfix"></div>
-        <div *ngIf="show" class="loader">wait image loading</div>
+        <div *ngIf="show" class="loader">
+            Uploading ...
+            <img src="/public/images/processing.gif" width="80px" height="90px"/>
+        </div>
     </div>
 </div>

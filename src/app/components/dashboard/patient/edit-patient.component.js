@@ -163,6 +163,7 @@ var EditPatientComponent = (function () {
             this.requestsService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PATIENT_IMAGE_URL + this.patient.id, this.profileImg)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'USR_SUC_02') {
+                    _this.patient.profileImgURL = "/public/images/processing.gif";
                     _this.notificationService.success(response['responseMessage'], 'Update Patient');
                     _this.profileImg = null;
                     _this.show = false;
