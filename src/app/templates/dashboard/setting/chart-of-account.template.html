@@ -1,0 +1,140 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Chart of Accounts
+                        <div class="pull-right">
+                            <a href="#chartOfAccount" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow" (click)="edit()"> <i class="fa fa-plus"></i>
+                                    Chart of Account
+                                </button>
+                            </a>
+                        </div>
+                    </h4>
+                </div>
+
+                <div class="table-scrollable">
+                    <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax">
+                        <thead>
+                        <tr role="row" class="off-wite-bg">
+                            <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1">Account Code</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1">Account Name</th>
+                            <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1">Parent Type</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Balance </th>
+                            <th width="10%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Action</th>
+                        </tr>
+                        <tr role="row" *ngFor="let item of chartOfAccountList">
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.code}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.name}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.parentType}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.description}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.balance}}</td>
+
+                            <td rowspan="1" colspan="1" class="text-align-center">
+                                <a href="#chartOfAccount" data-toggle="modal">
+                                    <button class="btn btn-default btn-outline btn-sm" (click)="edit(item)"> <i class="fa fa-pencil"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<div id="chartOfAccount" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="chartOfAccountForm" #form="ngForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" >Account Configuration</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Parent Type</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <select class="form-control" style="width: 250px !important" name="parentType"  (change)="parentTypeSelected($event.target.value)">
+                                        <option value="">Select Account Type</option>
+                                        <option value="Assets">Assets</option>
+                                        <option value="Liabilities">Liabilities</option>
+                                        <option value="Revenue">Revenue</option>
+                                        <option value="Cost of Goods Sold">Cost of Goods Sold</option>
+                                        <option value="Expense">Expenses</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Account Type</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <select class="form-control" style="width: 250px !important" name="accountType" (change)="accountTypeSelected($event.target.value)">
+                                        <option value="">Select Account Type</option>
+
+                                        <option value="Fixed Assets" *ngIf="chartOfAccount.parentType==='Assets'">Fixed Assets</option>
+                                        <option value="Current Assets" *ngIf="chartOfAccount.parentType==='Assets'">Current Assets</option>
+
+                                        <option value="Current Liabilities" *ngIf="chartOfAccount.parentType==='Liabilities'">Current Liabilities</option>
+                                        <option value="Long Term Liabilities" *ngIf="chartOfAccount.parentType==='Liabilities'">Long Term Liabilities</option>
+
+                                        <option value="Revenue" *ngIf="chartOfAccount.parentType==='Revenue'">Revenue</option>
+                                        <option value="Other Income" *ngIf="chartOfAccount.parentType==='Revenue'">Other Income</option>
+
+                                        <option value="Cost of Goods Sold" *ngIf="chartOfAccount.parentType==='Cost of Goods Sold'">Cost of Goods Sold</option>
+
+                                        <option value="Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'">Operational Expense</option>
+                                        <option value="Non Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'">Non Operational Expense</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Account Code</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text"  required name="nameName" id="nameNameId" class="form-control" placeholder="Enter Name"
+                                           [(ngModel)]="chartOfAccount.code" #nameName="ngModel">
+                                </div>
+                            </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Account Name</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" name="title" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter text"
+                                           [(ngModel)]="chartOfAccount.name" #title="ngModel">
+                                </div>
+                                <span *ngIf="title.invalid && title.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid prefix.
+                                </span>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text"  name="currentValue" class="form-control" placeholder="Enter text"
+                                           [(ngModel)]="chartOfAccount.description" #currentValue="ngModel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <span >
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                </span>
+                    <span >
+                    <button type="button" class="btn blue" id="save-btn-update" (click)="editAccountSetUp(ngForm)" >Update </button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

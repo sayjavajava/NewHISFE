@@ -51,8 +51,9 @@ export class AddStaffComponent implements OnInit {
     defaultBranch: string = 'primaryBranch';
 
     branchesList: any = [];
+    visitingBranches: any [];
     departmentList: any = [];
-    primaryDoctor: any = []
+    primaryDoctor: any = [];
     servicesList: any = [];
     doctorsList :any =[];
     workingDays = [
@@ -84,6 +85,7 @@ export class AddStaffComponent implements OnInit {
         {name: 'CASHIER'}
 
     ];
+    dutyShift1: boolean = false;
 
     constructor(private router: Router, private  fb: FormBuilder, private requestsService: RequestsService, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
@@ -113,6 +115,7 @@ export class AddStaffComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+                        this.visitingBranches = response['responseData'];
                     }
                    // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
                 },
@@ -213,7 +216,7 @@ export class AddStaffComponent implements OnInit {
                 'managePatientRecords': '',
                 'departmentControl': [null,Validators.required],
                 'servicesControl': [null],
-                'shift1': [null],
+                'shift1': [null, Validators.required],
                 'nurseDutyWithDoctor': [null],
                 'changeUser': [this.allStaffTypes[2].name, Validators.required],
 
@@ -228,13 +231,8 @@ export class AddStaffComponent implements OnInit {
     }
 
     addData(data: any) {
-        //console.log('i am submit' + data);
-        console.log("P.B:"+this.userForm.get('primaryBranch'));
         if (this.userForm.valid) {
-            //console.log('i am valid' + this.selectedUser);
-
             if (this.selectedUser === 'CASHIER') {
-
                 let cashier = new User({
                     firstName: data.firstName,
                     lastName: data.lastName,
@@ -317,7 +315,11 @@ export class AddStaffComponent implements OnInit {
             }
 
             if (this.selectedUser === 'DOCTOR') {
-
+                if( !this.firstShiftFromTime || !this.firstShiftToTime ){
+                    this.dutyShift1 = true;
+                    data.shift = true;
+                    return;
+                }
                 let doctor = new User({
                     firstName: data.firstName,
                     lastName: data.lastName,
@@ -417,8 +419,8 @@ export class AddStaffComponent implements OnInit {
             primaryBranchControl.markAsUntouched();
             departmentControl.markAsUntouched();
             servicesControl.markAsUntouched();
-            checkUpIntervalControl.markAsUntouched();
-            shift1Control.markAsUntouched();
+            checkUpIntervalControl.setValidators(Validators.required);//markAsUntouched();
+            shift1Control.setValidators(Validators.required);//markAsUntouched();
         }
         else {
             //console.log('i am in else ');
@@ -774,10 +776,13 @@ export class AddStaffComponent implements OnInit {
         this.router.navigate(['/dashboard/setting/staff']);
     }
 
-    getSelectedBranch(value: any) {
-        if (value) {
-            this.userForm.controls['primaryBranch'].setValue(value);}
-            }
+    getSelectedBranch(event: any) {
+        if (event && event.target.value) {
+            this.userForm.controls['primaryBranch'].setValue(event.target.value);
+        }
+        this.visitingBranches = this.branchesList;
+        this.visitingBranches = this.visitingBranches.filter(br=> br.id != event.target.value);
+    }
 
     getSelectedDashboard(value: any) {
         if (value) {

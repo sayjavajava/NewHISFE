@@ -9,13 +9,15 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg"
-                                                              class="img-responsive"/></div>
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
                                 <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob}})</small>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date: 'MM-dd-yyyy'}})</small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">

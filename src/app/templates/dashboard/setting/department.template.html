@@ -131,8 +131,8 @@
                                         <div class="col-md-9 select pdng-lr-5">
                                             <input class="form-control" type="text" required
                                                    [(ngModel)]="selectedDepartment.name"
-                                                   required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                    name="dptName" #dptName="ngModel"/>
+                                            <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
                                         </div>
                                         <span *ngIf="dptName.invalid && dptName.touched"
                                               class="col-md-9 select pdng-lr-5 text-danger">

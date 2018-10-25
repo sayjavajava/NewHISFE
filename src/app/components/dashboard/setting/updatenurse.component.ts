@@ -32,6 +32,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     managepatientrecord: boolean;
     managepatientinvoices: boolean;
     userForm: FormGroup;
+    departmentFlag : boolean =false;
     selectedDepartment: any = [];
 
     staffDepartment: any = [];
@@ -61,11 +62,12 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     user: UserEditModel;
     private subscription :Subscription;
     userId:number;
-
+    departmentError: string = 'Select atleast one Department';
+    visitingBranches: any [];
     filterBranches: any [];
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,private dataService: DataService,
-        private amazingTimePickerService?: AmazingTimePickerService) {
+                private amazingTimePickerService?: AmazingTimePickerService) {
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
@@ -76,7 +78,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
         });
-       this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
+        this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();
     }
     allBranches() {
@@ -85,11 +87,11 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-                        this.filterBranches = response['responseData'];
-                     //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
-                    /*if(this.branchesList.length > 1){
-                        this.removeBranch();
-                     }*/
+                        this.visitingBranches = response['responseData'];
+                        //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                        /*if(this.branchesList.length > 1){
+                            this.removeBranch();
+                         }*/
                     }
 
                 },
@@ -154,7 +156,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
                 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
-                'homePhone': [null, Validators.required],
+                'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'email': [null, Validators.compose([Validators.required, Validators.email])],
@@ -194,17 +196,23 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                         primaryBranch:user.primaryBranchId,
 
                     });
+
+                    if (user.expiryDate != null) {
+                        this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
+                    }
                     this.staffBranches = user.staffBranches;
-                    this.selectedDoctors = user.dutyWithDoctors;
-                    for(let key in this.branchesList){
+                    this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
+                    this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
+                    for(let key in this.visitingBranches){
                         for(let k in this.staffBranches){
-                            if(this.staffBranches[k].id == this.branchesList[key].id){
-                                this.branchesList[key].checked = true;
+                            if(this.staffBranches[k].id == this.visitingBranches[key].id){
+                                this.visitingBranches[key].checked = true;
                                 this.selectedVisitBranches.push(this.staffBranches[k].id);
                                 break;
                             }
                         }
                     }
+                    this.selectedDoctors = user.dutyWithDoctors;
                     for(let key in this.doctorsList){
                         for(let k in this.selectedDoctors){
                             if(this.selectedDoctors[k].id == this.doctorsList[key].id){
@@ -234,40 +242,43 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     }
 
     addUser(data: any) {
-        console.log('i am  in');
         if (this.userForm.valid) {
-            let nurse = new User({
-                userType: 'nurse',
-                firstName: data.firstName,
-                lastName: data.lastName,
-                userName: data.userName,
-                password: data.password,
-                homePhone: data.homePhone,
-                cellPhone: data.cellPhone,
-                sendBillingReport: data.sendBillingReport,
-                useReceptDashboard: data.useReceptDashboard,
-                otherDashboard: data.otherDashboard,
-                accountExpiry: data.accountExpiry,
-                primaryBranch: data.primaryBranch,
-                email: data.email,
-                selectedVisitBranches: this.selectedVisitBranches,
-                otherDoctorDashBoard: data.otherDoctorDashBoard,
-                active: data.active,
-                managePatientRecords: data.managePatientRecords,
-                managePatientInvoices: data.managePatientInvoices,
-                dutyWithDoctors: this.dutyWithDoctors,
-                selectedDepartment: this.selectedDepartment,
-            });
-            this.makeService(nurse);
+            if (this.selectedDepartment.length != 0) {
+                console.log('fine')
+                let nurse = new User({
+                    userType: 'nurse',
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    userName: data.userName,
+                    password: data.password,
+                    homePhone: data.homePhone,
+                    cellPhone: data.cellPhone,
+                    sendBillingReport: data.sendBillingReport,
+                    useReceptDashboard: data.useReceptDashboard,
+                    otherDashboard: data.otherDashboard,
+                    accountExpiry: data.accountExpiry,
+                    primaryBranch: data.primaryBranch,
+                    email: data.email,
+                    selectedVisitBranches: this.selectedVisitBranches,
+                    otherDoctorDashBoard: data.otherDoctorDashBoard,
+                    active: data.active,
+                    managePatientRecords: data.managePatientRecords,
+                    managePatientInvoices: data.managePatientInvoices,
+                    dutyWithDoctors: this.dutyWithDoctors,
+                    selectedDepartment: this.selectedDepartment,
+                });
+                this.makeService(nurse);
 
+            } else {
+                this.departmentFlag =true;
+                this.userForm.setErrors({notValid:true});
+            }
         } else {
             this.validateAllFormFields(this.userForm);
         }
     }
 
-
     makeService(user: any) {
-
         this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
@@ -280,7 +291,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
             , (error: any) => {
                 //console.log(error.json());
                 this.error = error.error.error_description;
-                this.notificationService.error('ERROR', 'User is not Updated');
+                this.notificationService.error('ERROR', 'User not updated');
             });
     }
 
@@ -314,6 +325,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     }
 
     selectDepartment(event: any, item: any) {
+        this.departmentFlag = false;
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }
@@ -322,11 +334,9 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
             let index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
-        console.log(this.selectedDepartment);
     }
 
     selectVisitBranches(event: any, item: any) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }
@@ -343,12 +353,9 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         }
         else {
             let updateItem = this.dutyWithDoctors.find(this.findIndexToUpdate, item.id);
-
             let index = this.dutyWithDoctors.indexOf(updateItem);
-
             this.dutyWithDoctors.splice(index, 1);
         }
-        console.log(this.dutyWithDoctors);
     }
 
 
@@ -363,19 +370,12 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
 
         }
     }
-    getSelectedBranch(value: any) {
-        console.log(value);
-        //this.filterBranches = this.branchesList;
-        /*this.filterBranches =this.branchesList.filter(function (val:any) {
-                                 return val.id != value;
-                             });
-        this.selectedVisitBranches.splice(this.selectedVisitBranches.indexOf(value), 1);*/
-        console.log("done:" + this.filterBranches);
-        if (value === undefined) {
-            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+    getSelectedBranch(event: any) {
+        if (event && event.target.value) {
+            this.userForm.controls['primaryBranch'].setValue(event.target.value);
         }
-        else {
-            this.userForm.controls['primaryBranch'].setValue(value);}
+        this.visitingBranches = this.branchesList;
+        this.visitingBranches = this.visitingBranches.filter(br=> br.id != event.target.value);
 
     }
 

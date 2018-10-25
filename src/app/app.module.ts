@@ -122,6 +122,10 @@ import {EmailConfigurationComponent} from "./components/dashboard/setting/email-
 import {SmsTemplateComponent} from "./components/dashboard/setting/sms-template.component";
 import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-edit-sms-template.component";
 import {PrefixTemplateComponent} from "./components/dashboard/setting/prefix-template.component";
+import {ChartOfAccountComponent} from "./components/dashboard/setting/chart-of-account.component";
+import {VitalSetupComponent} from "./components/dashboard/setting/vital-setup.component";
+import {AccountSetupComponent} from "./components/dashboard/setting/account-setup.component";
+import {LabTestComponent} from "./components/dashboard/setting/lab-test.component";
 import {PatientGroupComponent} from './components/dashboard/patient/patient-group.component';
 import {DrugComponent} from './components/dashboard/setting/drug.component';
 
@@ -242,6 +246,10 @@ import {DrugComponent} from './components/dashboard/setting/drug.component';
         SmsTemplateComponent,
         AddEditSmsTemplateComponent,
         PrefixTemplateComponent,
+        ChartOfAccountComponent,
+        VitalSetupComponent,
+        AccountSetupComponent,
+        LabTestComponent,
 
         AddEmailTemplateComponent,
         EditEmailTemplateComponent,
