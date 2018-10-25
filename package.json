@@ -36,6 +36,8 @@
     "core-js": "^2.4.1",
     "ng2-toastr": "^4.1.2",
     "ngx-color-picker": "^6.3.3",
+    "primeicons": "^1.0.0",
+    "primeng": "^6.1.5",
     "rxjs": "^5.5.0",
     "systemjs": "0.19.39",
     "ts-loader": "^3.1.1",

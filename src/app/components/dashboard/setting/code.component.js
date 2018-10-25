@@ -27,12 +27,16 @@ var CodeComponent = (function () {
         this.searchCode = '';
         this.searched = false;
         this.isCodeUpdate = false;
+        this.icdVersions = [];
+        this.checkedVersions = [];
+        this.selectAll = false;
     }
     CodeComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code';
         if (localStorage.getItem(btoa('access_token'))) {
-            this.getICDsFromServer(0);
+            this.getICDCodesFromServer(0);
         }
+        this.getCheckedVersionsByCodeId(null);
     };
     CodeComponent.prototype.getPageWiseICDs = function (page) {
         this.data = [];
@@ -40,16 +44,16 @@ var CodeComponent = (function () {
             this.searchByCode(page);
         }
         else {
-            this.getICDsFromServer(page);
+            this.getICDCodesFromServer(page);
         }
     };
     CodeComponent.prototype.refreshCodesTable = function () {
         this.searched = false;
         this.searchCode = '';
-        this.getICDsFromServer(0);
+        this.getICDCodesFromServer(0);
     };
     CodeComponent.prototype.refreshICDsTable = function (page) {
-        this.getICDsFromServer(page);
+        this.getICDCodesFromServer(page);
     };
     CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
@@ -60,10 +64,10 @@ var CodeComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success('ICD Code', response['responseMessage']);
-                    _this.getICDsFromServer(0);
+                    _this.getICDCodesFromServer(0);
                 }
                 else {
-                    _this.getICDsFromServer(0);
+                    _this.getICDCodesFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'ICD Code');
                 }
             }, function (error) {
@@ -74,7 +78,7 @@ var CodeComponent = (function () {
             this.router.navigate(['/login']);
         }
     };
-    CodeComponent.prototype.getICDsFromServer = function (page) {
+    CodeComponent.prototype.getICDCodesFromServer = function (page) {
         var _this = this;
         if (page > 0) {
             page = page;
@@ -96,6 +100,19 @@ var CodeComponent = (function () {
         var _this = this;
         if (form.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
+                var versionFound = 0;
+                for (var _i = 0, _a = this.icdVersions; _i < _a.length; _i++) {
+                    var version = _a[_i];
+                    if (version.selectedVersion) {
+                        versionFound++;
+                        break;
+                    }
+                }
+                if (versionFound == 0) {
+                    this.notificationService.warn('Please select at least one version.');
+                    return;
+                }
+                this.iCDModel.selectedVersions = this.icdVersions;
                 this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE_SAVE_URL, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_SAVE_SUC_01') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
@@ -129,6 +146,19 @@ var CodeComponent = (function () {
         var _this = this;
         if (updateCodeForm.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
+                var versionFound = 0;
+                for (var _i = 0, _a = this.icdVersions; _i < _a.length; _i++) {
+                    var version = _a[_i];
+                    if (version.selectedVersion) {
+                        versionFound++;
+                        break;
+                    }
+                }
+                if (versionFound == 0) {
+                    this.notificationService.warn('Please select at least one version.');
+                    return;
+                }
+                this.iCDModel.selectedVersions = this.icdVersions;
                 this.requestsService.putRequest(app_constants_1.AppConstants.ICD_CODE_UPDATE_URL, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
                     if (response['responseCode'] === 'ICD_CODE_UPDATE_SUC_07') {
                         _this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
@@ -159,12 +189,36 @@ var CodeComponent = (function () {
         }
     };
     CodeComponent.prototype.editICDCode = function (iCDCode) {
+        var _this = this;
         this.isCodeUpdate = true;
-        this.iCDModel = iCDCode;
+        // this.iCDModel = iCDCode;
+        this.selectAll = false;
+        this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_GET + iCDCode.id)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'ICD_SUC_02') {
+                _this.iCDModel = response['responseData'];
+                _this.icdVersions = [];
+                _this.icdVersions = _this.iCDModel.selectedVersions;
+                for (var _i = 0, _a = _this.icdVersions; _i < _a.length; _i++) {
+                    var version = _a[_i];
+                    if (version.selectedVersion) {
+                        _this.selectAll = true;
+                        break;
+                    }
+                }
+            }
+            else {
+                _this.notificationService.error('ICD Code', response['responseMessage']);
+            }
+        }, function (error) {
+            _this.notificationService.warn(error.error.error);
+        });
     };
     CodeComponent.prototype.onAddICDCodePopupLoad = function () {
         this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
+        this.selectAll = false;
+        this.getICDVersionsFromServer();
     };
     CodeComponent.prototype.searchByCode = function (pageNo) {
         var _this = this;
@@ -190,6 +244,66 @@ var CodeComponent = (function () {
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
+        }
+    };
+    CodeComponent.prototype.getICDVersionsFromServer = function () {
+        var _this = this;
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSIONS)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
+                    _this.icdVersions = [];
+                    _this.icdVersions = response['responseData'];
+                }
+            }, function (error) {
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
+    };
+    CodeComponent.prototype.getCheckedVersionsByCodeId = function (id) {
+        var _this = this;
+        if (id > 0) {
+            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSIONS_BY_CODE_URL + id)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'ICD_VERSIONS_SUC_14') {
+                    _this.checkedVersions = response['responseData'];
+                }
+                else {
+                    _this.checkedVersions = [];
+                }
+            }, function (error) {
+                _this.notificationService.error(error.error.error);
+            });
+        }
+    };
+    CodeComponent.prototype.checkedAllVersion = function () {
+        for (var _i = 0, _a = this.icdVersions; _i < _a.length; _i++) {
+            var version = _a[_i];
+            version.selectedVersion = this.selectAll;
+        }
+    };
+    /***
+     * if one , version found true then true otherwise false
+     * */
+    CodeComponent.prototype.checkedVersion = function () {
+        var checkedFound = false;
+        for (var _i = 0, _a = this.icdVersions; _i < _a.length; _i++) {
+            var version = _a[_i];
+            if (version.selectedVersion) {
+                checkedFound = true;
+                break;
+            }
+        }
+        if (checkedFound) {
+            this.selectAll = true;
+            console.log(this.selectAll);
+        }
+        else {
+            this.selectAll = false;
+            console.log(this.selectAll);
         }
     };
     CodeComponent = __decorate([

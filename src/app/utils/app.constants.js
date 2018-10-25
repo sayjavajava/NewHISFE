@@ -41,6 +41,7 @@ var AppConstants = (function () {
     AppConstants.SAVE_PAYMENT = '/cashier/savePayment';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
+    AppConstants.ICD_CODE_GET = '/setting/icd/code/get?codeId=';
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     AppConstants.ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     AppConstants.ICD_CODES = '/setting/icd/codes/';
@@ -50,6 +51,7 @@ var AppConstants = (function () {
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     AppConstants.ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     AppConstants.ICD_VERSIONS = '/setting/icd/versions/';
+    AppConstants.ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     AppConstants.ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     AppConstants.ICD_VERSION_SEARCH = '/setting/icd/version/search/';
     AppConstants.ICD_CODE_VERSION_SAVE_URL = '/setting/icd/codeVersion/save';
@@ -157,6 +159,15 @@ var AppConstants = (function () {
     ///////////////////////Smoke Status URLs//////////////////////////////
     AppConstants.SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
     AppConstants.SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
+    ////////////////////// Email Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_EMAIL_CONFIGURATIONS = '/emailConfiguration/getAll';
+    AppConstants.EMAIL_CONFIGURATION_SMTPS_SAVE = '/emailConfiguration/saveSMTP';
+    AppConstants.EMAIL_CONFIGURATION_SES_SAVE = '/emailConfiguration/saveSES';
+    ////////////////////// SMS Template Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_SMS_CONFIGURATIONS = '/smsConfiguration/getAll';
+    AppConstants.FETCH_SMS_CONFIG_BY_ID = '/smsConfiguration/getSmsById?id=';
+    AppConstants.SMS_CONFIGURATION_SAVE = '/smsConfiguration/saveSmsConfiguration';
+    AppConstants.SMS_CONFIGURATION_DELETE_SAVE = '/smsConfiguration/deleteSmsConfig?id=';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

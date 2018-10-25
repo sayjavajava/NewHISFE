@@ -5,6 +5,9 @@ var ICDCodeModel = (function () {
         this.code = '';
         this.status = true;
         this.hasChild = false;
+        this.selectedVersions = [];
+        this.checkedVersionCount = '';
+        this.versionCountUnique = true; /// unique mean it has one version,if code has one version then we show its name if code has more thane one version then show total count
     }
     return ICDCodeModel;
 }());

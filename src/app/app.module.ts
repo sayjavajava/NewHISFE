@@ -116,6 +116,16 @@ import {DemoUtilsModule} from "../demo-utils/module";
 import {EditAppointmentComponent} from "./components/dashboard/appointment/edit-appointment.component";
 import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
 import {DataService} from "./services/DataService";
+import {DropdownModule} from 'primeng/dropdown';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {EmailConfigurationComponent} from "./components/dashboard/setting/email-configuration.component";
+import {SmsTemplateComponent} from "./components/dashboard/setting/sms-template.component";
+import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-edit-sms-template.component";
+import {PrefixTemplateComponent} from "./components/dashboard/setting/prefix-template.component";
+import {ChartOfAccountComponent} from "./components/dashboard/setting/chart-of-account.component";
+import {VitalSetupComponent} from "./components/dashboard/setting/vital-setup.component";
+import {AccountSetupComponent} from "./components/dashboard/setting/account-setup.component";
+import {LabTestComponent} from "./components/dashboard/setting/lab-test.component";
 
 
 @NgModule({
@@ -151,7 +161,9 @@ import {DataService} from "./services/DataService";
         ColorPickerModule,
         NgbModalModule.forRoot(),
         CalendarModule.forRoot(),
-        DemoUtilsModule
+        DemoUtilsModule,
+        DropdownModule,
+        MultiSelectModule
     ],
     declarations: [
         // App Components
@@ -228,6 +240,15 @@ import {DataService} from "./services/DataService";
         AddStaffComponent,
         ServiceTaxComponent,
         EmailTemplateComponent,
+        EmailConfigurationComponent,
+        SmsTemplateComponent,
+        AddEditSmsTemplateComponent,
+        PrefixTemplateComponent,
+        ChartOfAccountComponent,
+        VitalSetupComponent,
+        AccountSetupComponent,
+        LabTestComponent,
+
         AddEmailTemplateComponent,
         EditEmailTemplateComponent,
         NotFound404SettingComponent,

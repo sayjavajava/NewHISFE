@@ -41,6 +41,7 @@ export class AppConstants {
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
+    public static ICD_CODE_GET = '/setting/icd/code/get?codeId=';
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     public static ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     public static ICD_CODES = '/setting/icd/codes/';
@@ -50,6 +51,7 @@ export class AppConstants {
     public static ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     public static ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     public static ICD_VERSIONS = '/setting/icd/versions/';
+    public static ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     public static ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     public static ICD_VERSION_SEARCH = '/setting/icd/version/search/';
     public static ICD_CODE_VERSION_SAVE_URL = '/setting/icd/codeVersion/save';
@@ -171,4 +173,37 @@ export class AppConstants {
     ///////////////////////Smoke Status URLs//////////////////////////////
     public static SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
     public static SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
+
+
+    ////////////////////// Email Configuration URLs ///////////////////////////////
+    public static FETCH_EMAIL_CONFIGURATIONS = '/emailConfiguration/getAll';
+    public static EMAIL_CONFIGURATION_SMTPS_SAVE = '/emailConfiguration/saveSMTP';
+    public static EMAIL_CONFIGURATION_SES_SAVE = '/emailConfiguration/saveSES';
+
+
+    ////////////////////// SMS Template Configuration URLs ///////////////////////////////
+    public static FETCH_SMS_CONFIGURATIONS = '/smsConfiguration/getAll';
+    public static FETCH_SMS_CONFIG_BY_ID = '/smsConfiguration/getSmsById?id=';
+    public static SMS_CONFIGURATION_SAVE = '/smsConfiguration/saveSmsConfiguration';
+    public static SMS_CONFIGURATION_DELETE_SAVE = '/smsConfiguration/deleteSmsConfig?id=';
+
+
+    ////////////////////// Prefix Configuration URLs ///////////////////////////////
+    public static FETCH_PREFIX_CONFIGURATIONS = '/prefixConfiguration/getAll';
+    public static PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
+
+
+    ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
+    public static FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    public static ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
+
+
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
+    public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+
+
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    public static FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
+    public static LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
 }

@@ -44,15 +44,29 @@
                         <thead>
                         <tr role="row" class="off-wite-bg">
                             <th width="10%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Code</th>
-                            <th width="25%" class="sorting_disabled" rowspan="1" colspan="1"> Title</th>
-                            <th width="25%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
-                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
-                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
+                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Problem</th>
+                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Version</th>
+                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
+                            <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
+                            <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
                         <tr role="row" *ngFor="let item of data; let i = index;" class="filter">
                             <td rowspan="1" colspan="1" class="font-green-dark col-txt-left">
                                 <strong>{{item.code}}</strong></td>
-                            <td rowspan="1" colspan="1">{{item.title}}</td>
+                            <td rowspan="1" colspan="1">{{item.problem}}</td>
+                            <td rowspan="1" colspan="1" [hidden]="!versionCountUnique">
+                                {{item.checkedVersionCount}}
+                            </td>
+                            <td rowspan="1" colspan="1" [hidden]="versionCountUnique">
+                                <a href="#popupVersion" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow"
+                                            title="Click to view details"
+                                            (click)="getCheckedVersionsByCodeId(item.id)"
+                                            data-confirm-button-class="btn-success">
+                                        <i class="fa fa"></i>{{item.checkedVersionCount}}
+                                    </button>
+                                </a>
+                            </td>
                             <td rowspan="1" colspan="1">{{item.description}}</td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.status === true ? 'Active' : 'In-Active'}}
@@ -130,7 +144,45 @@
                     <h4 class="modal-title" [hidden]="!(this.isCodeUpdate)">Update Code</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:250px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:320px" data-always-visible="1" data-rail-visible1="1">
+
+
+                        <div class="form-group hr">
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">All</label>
+                            <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox"
+                                           (change)="checkedAllVersion()"
+                                           [(ngModel)]="selectAll" name="selectAll">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Multi select by ng-->
+                        <div class="row mrgn-btm10">
+                            <div class="form-group hr">
+                                <label class="control-label col-md-3 pdng-lr-5 txt-size">Versions</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <div class="checkbox-box cod-higt" id="not-due">
+                                        <address class="row">
+                                            <div class="col-md-6" *ngFor="let code of icdVersions">
+                                                <label class="mt-checkbox mt-checkbox-outline">
+                                                    <input type="checkbox"
+                                                           id="chk-{{code.id}}"
+                                                           name="chk-{{code.id}}"
+                                                           (change)="checkedVersion()"
+                                                           [(ngModel)]="code.selectedVersion">
+                                                    {{code.name}}
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Multi select by ng-->
                         <div class="row">
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Code
@@ -149,17 +201,16 @@
                             </span>
                             </div>
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Title</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Problem</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" [(ngModel)]="iCDModel.title" class="form-control"
-                                           placeholder="Enter Title" name="titleName"
-                                           pattern="^[a-zA-Z 0-9_-]{0,60}$"
-                                           #titleName="ngModel">
+                                    <input type="text" [(ngModel)]="iCDModel.problem" class="form-control"
+                                           placeholder="Enter Problem" name="problem" id="problem"
+                                           #problem="ngModel">    <!--pattern="^[a-zA-Z 0-9_-]{0,60}$"-->
                                 </div>
 
-                                <span *ngIf="titleName.invalid && titleName.touched"
+                                <span *ngIf="problem.invalid && problem.touched"
                                       class="col-md-9 select pdng-lr-5 text-danger">
-                                    Please enter valid Title.
+                                    Please enter valid problem.
                             </span>
 
                             </div>
@@ -204,5 +255,52 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+<div id="popupVersion" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Branches</h4>
+            </div>
+            <div class="modal-body">
+                <p class="font-red" *ngIf="checkedVersions.length <= 0">Code has no version</p>
+                <div class="scroller" style="height:150px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <address>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="select2-bootstrap-prepend">
+                                        <div class="checkbox-box cod-higt" id="branchNameDiv">
+                                            <div class="col-md-6 branches-list">
+                                                <ul>
+                                                    <li *ngFor="let version of checkedVersions">
+                                                        <i class=" icon-home"></i>
+                                                        <label class="">
+                                                            {{version.name}}
+                                                            <span></span>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal"
+                        id="close-btn-branch"
+                        name="close-btn-branch"
+                        class="btn btn-default btn-outline"
+                        (click)="clearList($event)">Close
+                </button>
+            </div>
+        </div>
     </div>
 </div>

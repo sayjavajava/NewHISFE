@@ -7,5 +7,6 @@ export class ICDVersionModel {
     updatedOn: number;
     createdOn: number;
     hasChild: boolean = false;
+    selectedVersion: boolean = false;
 
 }

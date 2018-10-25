@@ -27,6 +27,14 @@ import {UpdateNurseComponent} from '../components/dashboard/setting/updatenurse.
 import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedoctor.component';
 import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
 import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
+import {EmailConfigurationComponent} from "../components/dashboard/setting/email-configuration.component";
+import {SmsTemplateComponent} from "../components/dashboard/setting/sms-template.component";
+import {AddEditSmsTemplateComponent} from "../components/dashboard/setting/add-edit-sms-template.component";
+import {PrefixTemplateComponent} from "../components/dashboard/setting/prefix-template.component";
+import {ChartOfAccountComponent} from "../components/dashboard/setting/chart-of-account.component";
+import {VitalSetupComponent} from "../components/dashboard/setting/vital-setup.component";
+import {AccountSetupComponent} from "../components/dashboard/setting/account-setup.component";
+import {LabTestComponent} from "../components/dashboard/setting/lab-test.component";
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -58,7 +66,19 @@ export const SettingRoutes: Routes = [
     {path: '404-not-found', component: NotFound404SettingComponent},
     {path: 'branch/edit/:id',component: UpdateBranchComponent},
     {path: 'email-template', component: EmailTemplateComponent},
+    {path: 'email-configuration', component: EmailConfigurationComponent},
     {path: 'email-template/add', component: AddEmailTemplateComponent},
     {path: 'email-template/edit/:id', component: EditEmailTemplateComponent},
+
+    {path: 'sms-template', component: SmsTemplateComponent},
+    {path: 'sms-template/add', component: AddEditSmsTemplateComponent},
+    {path: 'sms-template/edit/:id', component: AddEditSmsTemplateComponent},
+    {path: 'prefix-template', component: PrefixTemplateComponent},
+    {path: 'chart-of-account-template', component: ChartOfAccountComponent},
+    {path: 'vital-setup-template', component: VitalSetupComponent},
+    {path: 'account-setup-template', component: AccountSetupComponent},
+    {path: 'lab-test-template', component: LabTestComponent},
+
+
     {path: '**', redirectTo: '404'}
 ];
