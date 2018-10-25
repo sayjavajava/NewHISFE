@@ -31,6 +31,9 @@ var update_organization_component_1 = require("../components/dashboard/setting/u
 var email_configuration_component_1 = require("../components/dashboard/setting/email-configuration.component");
 var sms_template_component_1 = require("../components/dashboard/setting/sms-template.component");
 var add_edit_sms_template_component_1 = require("../components/dashboard/setting/add-edit-sms-template.component");
+var prefix_template_component_1 = require("../components/dashboard/setting/prefix-template.component");
+var patient_group_component_1 = require("../components/dashboard/patient/patient-group.component");
+var drug_component_1 = require("../components/dashboard/setting/drug.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -67,6 +70,9 @@ exports.SettingRoutes = [
     { path: 'sms-template', component: sms_template_component_1.SmsTemplateComponent },
     { path: 'sms-template/add', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
     { path: 'sms-template/edit/:id', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
+    { path: 'prefix-template', component: prefix_template_component_1.PrefixTemplateComponent },
+    { path: 'patient-group', component: patient_group_component_1.PatientGroupComponent },
+    { path: 'drug', component: drug_component_1.DrugComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

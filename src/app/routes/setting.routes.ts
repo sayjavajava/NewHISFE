@@ -31,6 +31,9 @@ import {EmailConfigurationComponent} from "../components/dashboard/setting/email
 import {SmsTemplateComponent} from "../components/dashboard/setting/sms-template.component";
 import {AddEditSmsTemplateComponent} from "../components/dashboard/setting/add-edit-sms-template.component";
 import {PrefixTemplateComponent} from "../components/dashboard/setting/prefix-template.component";
+import {PatientGroupComponent} from '../components/dashboard/patient/patient-group.component';
+import {DrugModel} from '../model/drug.model';
+import {DrugComponent} from '../components/dashboard/setting/drug.component';
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -70,6 +73,8 @@ export const SettingRoutes: Routes = [
     {path: 'sms-template/add', component: AddEditSmsTemplateComponent},
     {path: 'sms-template/edit/:id', component: AddEditSmsTemplateComponent},
     {path: 'prefix-template', component: PrefixTemplateComponent},
+    {path: 'patient-group', component: PatientGroupComponent},
+    {path: 'drug', component: DrugComponent},
 
 
     {path: '**', redirectTo: '404'}

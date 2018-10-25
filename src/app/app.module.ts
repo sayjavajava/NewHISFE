@@ -122,6 +122,8 @@ import {EmailConfigurationComponent} from "./components/dashboard/setting/email-
 import {SmsTemplateComponent} from "./components/dashboard/setting/sms-template.component";
 import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-edit-sms-template.component";
 import {PrefixTemplateComponent} from "./components/dashboard/setting/prefix-template.component";
+import {PatientGroupComponent} from './components/dashboard/patient/patient-group.component';
+import {DrugComponent} from './components/dashboard/setting/drug.component';
 
 
 @NgModule({
@@ -249,7 +251,9 @@ import {PrefixTemplateComponent} from "./components/dashboard/setting/prefix-tem
         ConfirmationdialogComponent,
         UpdateOrganizationComponent,
         EditAppointmentComponent,
-        MenuComponent
+        MenuComponent,
+        PatientGroupComponent,
+        DrugComponent
     ],
     bootstrap: [AppComponent]
 })
