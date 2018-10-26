@@ -181,6 +181,7 @@ export class EditPatientComponent implements OnInit {
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'USR_SUC_02') {
+                            this.patient.profileImgURL = "/public/images/processing.gif";
                             this.notificationService.success(response['responseMessage'], 'Update Patient');
                             this.profileImg = null;
                             this.show = false;

@@ -15,8 +15,8 @@
                                     data-confirm-button-class="btn-success"
                                     (click)="refreshPatient()"> Refresh
                             </button>
-                            <span><button class="btn btn-default btn-outline"> <i
-                                    class=" icon-clock"></i> Print </button></span>
+                            <!--<span><button class="btn btn-default btn-outline"> <i
+                                    class=" icon-clock"></i> Print </button></span>-->
                         </div>
                     </h4>
                 </div>
@@ -26,7 +26,7 @@
                         <div class="col-md-4">
                             <div class="form-group font-siz11">
                                 <input type="text" class="form-control"
-                                       placeholder="Patient User Name"
+                                       placeholder="Patient Name"
                                        [(ngModel)]="searchString"
                                        (keydown.enter)="searchPatient(0)">
                             </div>
@@ -50,6 +50,7 @@
                                 <th width="15%">Email</th>
                                 <th width="8%">Gender</th>
                                 <th width="8%">Cell No.</th>
+                                <th width="16%"> Status</th>
                                 <th width="16%"> Action</th>
                             </tr>
                             <tr role="row" *ngFor="let patient of data; let i = index;" class="filter">

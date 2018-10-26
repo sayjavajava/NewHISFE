@@ -28,6 +28,7 @@ var UpdateNurseComponent = (function () {
         this.notificationService = notificationService;
         this.dataService = dataService;
         this.amazingTimePickerService = amazingTimePickerService;
+        this.departmentFlag = false;
         this.selectedDepartment = [];
         this.staffDepartment = [];
         this.selectedServices = [];
@@ -40,6 +41,7 @@ var UpdateNurseComponent = (function () {
         this.departmentList = [];
         this.defaultBranch = 'primaryBranch';
         this.userSelected = 'doctor';
+        this.departmentError = 'Select atleast one Department';
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
@@ -62,7 +64,7 @@ var UpdateNurseComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
-                _this.filterBranches = response['responseData'];
+                _this.visitingBranches = response['responseData'];
                 //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
                 /*if(this.branchesList.length > 1){
                     this.removeBranch();
@@ -120,7 +122,7 @@ var UpdateNurseComponent = (function () {
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
             'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
-            'homePhone': [null, forms_1.Validators.required],
+            'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.email])],
@@ -156,17 +158,22 @@ var UpdateNurseComponent = (function () {
                     managePatientInvoices: user.managePatientInvoices,
                     primaryBranch: user.primaryBranchId,
                 });
+                if (user.expiryDate != null) {
+                    _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
+                }
                 _this.staffBranches = user.staffBranches;
-                _this.selectedDoctors = user.dutyWithDoctors;
-                for (var key in _this.branchesList) {
+                _this.staffBranches = _this.staffBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
+                _this.visitingBranches = _this.visitingBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
+                for (var key in _this.visitingBranches) {
                     for (var k in _this.staffBranches) {
-                        if (_this.staffBranches[k].id == _this.branchesList[key].id) {
-                            _this.branchesList[key].checked = true;
+                        if (_this.staffBranches[k].id == _this.visitingBranches[key].id) {
+                            _this.visitingBranches[key].checked = true;
                             _this.selectedVisitBranches.push(_this.staffBranches[k].id);
                             break;
                         }
                     }
                 }
+                _this.selectedDoctors = user.dutyWithDoctors;
                 for (var key in _this.doctorsList) {
                     for (var k in _this.selectedDoctors) {
                         if (_this.selectedDoctors[k].id == _this.doctorsList[key].id) {
@@ -193,31 +200,37 @@ var UpdateNurseComponent = (function () {
         }
     };
     UpdateNurseComponent.prototype.addUser = function (data) {
-        console.log('i am  in');
         if (this.userForm.valid) {
-            var nurse = new User_1.User({
-                userType: 'nurse',
-                firstName: data.firstName,
-                lastName: data.lastName,
-                userName: data.userName,
-                password: data.password,
-                homePhone: data.homePhone,
-                cellPhone: data.cellPhone,
-                sendBillingReport: data.sendBillingReport,
-                useReceptDashboard: data.useReceptDashboard,
-                otherDashboard: data.otherDashboard,
-                accountExpiry: data.accountExpiry,
-                primaryBranch: data.primaryBranch,
-                email: data.email,
-                selectedVisitBranches: this.selectedVisitBranches,
-                otherDoctorDashBoard: data.otherDoctorDashBoard,
-                active: data.active,
-                managePatientRecords: data.managePatientRecords,
-                managePatientInvoices: data.managePatientInvoices,
-                dutyWithDoctors: this.dutyWithDoctors,
-                selectedDepartment: this.selectedDepartment,
-            });
-            this.makeService(nurse);
+            if (this.selectedDepartment.length != 0) {
+                console.log('fine');
+                var nurse = new User_1.User({
+                    userType: 'nurse',
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    userName: data.userName,
+                    password: data.password,
+                    homePhone: data.homePhone,
+                    cellPhone: data.cellPhone,
+                    sendBillingReport: data.sendBillingReport,
+                    useReceptDashboard: data.useReceptDashboard,
+                    otherDashboard: data.otherDashboard,
+                    accountExpiry: data.accountExpiry,
+                    primaryBranch: data.primaryBranch,
+                    email: data.email,
+                    selectedVisitBranches: this.selectedVisitBranches,
+                    otherDoctorDashBoard: data.otherDoctorDashBoard,
+                    active: data.active,
+                    managePatientRecords: data.managePatientRecords,
+                    managePatientInvoices: data.managePatientInvoices,
+                    dutyWithDoctors: this.dutyWithDoctors,
+                    selectedDepartment: this.selectedDepartment,
+                });
+                this.makeService(nurse);
+            }
+            else {
+                this.departmentFlag = true;
+                this.userForm.setErrors({ notValid: true });
+            }
         }
         else {
             this.validateAllFormFields(this.userForm);
@@ -235,7 +248,7 @@ var UpdateNurseComponent = (function () {
         }, function (error) {
             //console.log(error.json());
             _this.error = error.error.error_description;
-            _this.notificationService.error('ERROR', 'User is not Updated');
+            _this.notificationService.error('ERROR', 'User not updated');
         });
     };
     UpdateNurseComponent.prototype.isFieldValid = function (field) {
@@ -266,6 +279,7 @@ var UpdateNurseComponent = (function () {
         });
     };
     UpdateNurseComponent.prototype.selectDepartment = function (event, item) {
+        this.departmentFlag = false;
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }
@@ -274,10 +288,8 @@ var UpdateNurseComponent = (function () {
             var index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
-        console.log(this.selectedDepartment);
     };
     UpdateNurseComponent.prototype.selectVisitBranches = function (event, item) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }
@@ -296,7 +308,6 @@ var UpdateNurseComponent = (function () {
             var index = this.dutyWithDoctors.indexOf(updateItem);
             this.dutyWithDoctors.splice(index, 1);
         }
-        console.log(this.dutyWithDoctors);
     };
     UpdateNurseComponent.prototype.findIndexToUpdate = function (type) {
         return type.name === this;
@@ -306,20 +317,12 @@ var UpdateNurseComponent = (function () {
             this.userForm.controls['otherDashboard'].setValue(value);
         }
     };
-    UpdateNurseComponent.prototype.getSelectedBranch = function (value) {
-        console.log(value);
-        //this.filterBranches = this.branchesList;
-        /*this.filterBranches =this.branchesList.filter(function (val:any) {
-                                 return val.id != value;
-                             });
-        this.selectedVisitBranches.splice(this.selectedVisitBranches.indexOf(value), 1);*/
-        console.log("done:" + this.filterBranches);
-        if (value === undefined) {
-            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+    UpdateNurseComponent.prototype.getSelectedBranch = function (event) {
+        if (event && event.target.value) {
+            this.userForm.controls['primaryBranch'].setValue(event.target.value);
         }
-        else {
-            this.userForm.controls['primaryBranch'].setValue(value);
-        }
+        this.visitingBranches = this.branchesList;
+        this.visitingBranches = this.visitingBranches.filter(function (br) { return br.id != event.target.value; });
     };
     UpdateNurseComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);

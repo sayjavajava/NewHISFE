@@ -22,7 +22,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         this.subscription.unsubscribe();
     }
 
-
+    dutyShift1: boolean = false;
     department: boolean;
     dutytimmingshift1: boolean;
     dutytimmingshift2: boolean;
@@ -55,6 +55,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     defaultBranch:string ='primaryBranch';
     matches: any = [];
     branchesList:any=[];
+    visitingBranches: any [];
     servicesList:any=[];
     primaryDoctor:any=[];
     staffBranches: any [];
@@ -95,9 +96,10 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-                        if(this.branchesList.length >1){
+                        this.visitingBranches = response['responseData'];
+                        /*if(this.branchesList.length >1){
                             this.removeBranch();
-                        }
+                        }*/
                     }
                 },
                 (error: any) => {
@@ -135,6 +137,23 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     }
                 },
                 (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+
+    getDeptServices(deptId: any) {
+        this.requestService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+deptId)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'MED_SER_SUC_01') {
+                        this.servicesList = response['responseData'];
+                        //console.log(this.servicesList);
+                    }else{
+                        this.servicesList = [];
+                    }
+                },
+                (error: any) => {
+                    this.servicesList = [];
                     this.error = error.error.error;
                 })
 
@@ -263,10 +282,12 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         }
                     }
                     this.staffBranches = user.staffBranches;
-                    for(let key in this.branchesList){
+                    this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
+                    this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
+                    for(let key in this.visitingBranches){
                         for(let k in this.staffBranches){
-                            if(this.staffBranches[k].id == this.branchesList[key].id){
-                                this.branchesList[key].checked = true;
+                            if(this.staffBranches[k].id == this.visitingBranches[key].id){
+                                this.visitingBranches[key].checked = true;
                                 this.selectedVisitBranches.push(this.staffBranches[k].id);
                                 break;
                             }
@@ -332,24 +353,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
 
     }
 
-    getDeptServices(deptId: any) {
-        this.requestService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+deptId)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'MED_SER_SUC_01') {
-                        this.servicesList = response['responseData'];
-                        //console.log(this.servicesList);
-                    }else{
-                        this.servicesList = [];
-                    }
-                },
-                (error: any) => {
-                    this.servicesList = [];
-                    this.error = error.error.error;
-                })
-
-    }
-
     getShiftFromTime(time: string){
         var timeArray = time.split(':');
         var shift = Number(timeArray[0]) <=12 ? 'first':'second';
@@ -375,6 +378,13 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         daysOfDoctor.push({key: 'friday', value: days.get('friday').value});
         daysOfDoctor.push({key: 'saturday', value: days.get('saturday').value});
         if (this.userForm.valid) {
+
+            if( !this.firstShiftFromTime || !this.firstShiftToTime ){
+                this.dutyShift1 = true;
+                data.shift = true;
+                return;
+            }
+
             var result = daysOfDoctor.filter(function (obj) {
                 return obj.value == true;
             });
@@ -421,10 +431,17 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         }
     }
 
-    selectDoctorDepartment(itemId: any) {
-        console.log("Doc Dept:"+itemId);
+    selectDoctorDepartment(deptId: any) {
+        /*console.log("Doc Dept:"+itemId);
         if (itemId) {
             this.selectedDepartment[0] = itemId;
+        }
+*/
+        if (deptId) {
+            this.selectedDepartment[0] = deptId;
+            this.getDeptServices(deptId);
+        }else{
+            this.servicesList = [];
         }
     }
 
@@ -523,7 +540,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
             this.userForm.controls['interval'].setValue(value);
         }
     }
-
     /*selectDepartment(event: any, item: any) {
         if (event.target.checked) {
 
@@ -561,7 +577,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         }
     }
 
-
     findIndexToUpdate(type: any) {
         return type.name === this;
     }
@@ -583,31 +598,32 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
             this.userForm.controls['otherDashboard'].setValue(value);
         }
     }
-    getSelectedBranch(value: any) {
-        console.log(value);
-        if (value === undefined) {
+    getSelectedBranch(event: any) {
+        if (event && event.target.value) {
+            this.userForm.controls['primaryBranch'].setValue(event.target.value);
+        }
+        this.visitingBranches = this.branchesList;
+        this.visitingBranches = this.visitingBranches.filter(br=> br.id != event.target.value);
+
+        /*if (value === undefined) {
             console.log('i am esss');
             this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
         else {
             console.log('i am too' + value);
-            this.userForm.controls['primaryBranch'].setValue(value);}
+            this.userForm.controls['primaryBranch'].setValue(value);
+        }*/
 
     }
     selectVisitBranches(event: any, item: any) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }
         else {
             let updateItem = this.selectedVisitBranches.find(this.findIndexToUpdate, item.id);
-
             let index = this.selectedVisitBranches.indexOf(updateItem);
-
             this.selectedVisitBranches.splice(index, 1);
         }
-        console.log(this.selectedVisitBranches);
-
     }
 
     cancel() {

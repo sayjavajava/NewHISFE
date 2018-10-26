@@ -213,4 +213,22 @@ export class AppConstants {
     ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
     public static FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     public static LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
+
+    ///////////////////// Patient Group URLs ////////////////////////////////////////
+    public static PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/';///all by paginated , zero means first page , 1 means second page
+    public static PATIENT_GROUP_DELETE_URI = '/patient/group/delete?patientGroupId=';
+    public static PATIENT_GROUP_SEARCH_URL = '/patient/group/search/';
+    public static PATIENT_GROUP_SAVE_URL = '/patient/group/save';
+    public static PATIENT_GROUP_UPDATE_URL = '/patient/group/update';
+    public static PATIENT_GROUP_GET_URL = '/patient/group/get?patientGroupId=';
+
+    ///////////////////// Drug URLs ////////////////////////////////////////
+    public static DRUG_FETCH_ALL_PAGINATED_URI = '/setting/drug/';///all by paginated
+    public static DRUG_DELETE_URI = '/setting/drug/delete?drugId=';
+    public static DRUG_SEARCH_URL = '/setting/drug/search/';
+    public static DRUG_SAVE_URL = '/setting/drug/save';
+    public static DRUG_UPDATE_URL = '/setting/drug/update';
+    public static DRUG_GET_URL = '/setting/drug/get?drugId=';
+
+
 }

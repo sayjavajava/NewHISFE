@@ -35,6 +35,9 @@ import {ChartOfAccountComponent} from "../components/dashboard/setting/chart-of-
 import {VitalSetupComponent} from "../components/dashboard/setting/vital-setup.component";
 import {AccountSetupComponent} from "../components/dashboard/setting/account-setup.component";
 import {LabTestComponent} from "../components/dashboard/setting/lab-test.component";
+import {PatientGroupComponent} from '../components/dashboard/patient/patient-group.component';
+import {DrugModel} from '../model/drug.model';
+import {DrugComponent} from '../components/dashboard/setting/drug.component';
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -78,6 +81,8 @@ export const SettingRoutes: Routes = [
     {path: 'vital-setup-template', component: VitalSetupComponent},
     {path: 'account-setup-template', component: AccountSetupComponent},
     {path: 'lab-test-template', component: LabTestComponent},
+    {path: 'patient-group', component: PatientGroupComponent},
+    {path: 'drug', component: DrugComponent},
 
 
     {path: '**', redirectTo: '404'}

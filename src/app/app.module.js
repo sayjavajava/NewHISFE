@@ -113,6 +113,9 @@ var multiselect_1 = require("primeng/multiselect");
 var email_configuration_component_1 = require("./components/dashboard/setting/email-configuration.component");
 var sms_template_component_1 = require("./components/dashboard/setting/sms-template.component");
 var add_edit_sms_template_component_1 = require("./components/dashboard/setting/add-edit-sms-template.component");
+var prefix_template_component_1 = require("./components/dashboard/setting/prefix-template.component");
+var patient_group_component_1 = require("./components/dashboard/patient/patient-group.component");
+var drug_component_1 = require("./components/dashboard/setting/drug.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -231,6 +234,7 @@ var AppModule = (function () {
                 email_configuration_component_1.EmailConfigurationComponent,
                 sms_template_component_1.SmsTemplateComponent,
                 add_edit_sms_template_component_1.AddEditSmsTemplateComponent,
+                prefix_template_component_1.PrefixTemplateComponent,
                 add_email_template_component_1.AddEmailTemplateComponent,
                 edit_email_template_component_1.EditEmailTemplateComponent,
                 not_found_404_setting_component_1.NotFound404SettingComponent,
@@ -239,7 +243,9 @@ var AppModule = (function () {
                 confirmationdialog_component_1.ConfirmationdialogComponent,
                 update_organization_component_1.UpdateOrganizationComponent,
                 edit_appointment_component_1.EditAppointmentComponent,
-                menu_component_1.MenuComponent
+                menu_component_1.MenuComponent,
+                patient_group_component_1.PatientGroupComponent,
+                drug_component_1.DrugComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

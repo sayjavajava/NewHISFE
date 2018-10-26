@@ -126,6 +126,8 @@ import {ChartOfAccountComponent} from "./components/dashboard/setting/chart-of-a
 import {VitalSetupComponent} from "./components/dashboard/setting/vital-setup.component";
 import {AccountSetupComponent} from "./components/dashboard/setting/account-setup.component";
 import {LabTestComponent} from "./components/dashboard/setting/lab-test.component";
+import {PatientGroupComponent} from './components/dashboard/patient/patient-group.component';
+import {DrugComponent} from './components/dashboard/setting/drug.component';
 
 
 @NgModule({
@@ -257,7 +259,9 @@ import {LabTestComponent} from "./components/dashboard/setting/lab-test.componen
         ConfirmationdialogComponent,
         UpdateOrganizationComponent,
         EditAppointmentComponent,
-        MenuComponent
+        MenuComponent,
+        PatientGroupComponent,
+        DrugComponent
     ],
     bootstrap: [AppComponent]
 })

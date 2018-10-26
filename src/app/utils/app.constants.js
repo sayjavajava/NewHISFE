@@ -168,6 +168,23 @@ var AppConstants = (function () {
     AppConstants.FETCH_SMS_CONFIG_BY_ID = '/smsConfiguration/getSmsById?id=';
     AppConstants.SMS_CONFIGURATION_SAVE = '/smsConfiguration/saveSmsConfiguration';
     AppConstants.SMS_CONFIGURATION_DELETE_SAVE = '/smsConfiguration/deleteSmsConfig?id=';
+    ////////////////////// Prefix Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_PREFIX_CONFIGURATIONS = '/prefixConfiguration/getAll';
+    AppConstants.PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
+    ///////////////////// Patient Group URLs ////////////////////////////////////////
+    AppConstants.PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/'; ///all by paginated , zero means first page , 1 means second page
+    AppConstants.PATIENT_GROUP_DELETE_URI = '/patient/group/delete?patientGroupId=';
+    AppConstants.PATIENT_GROUP_SEARCH_URL = '/patient/group/search/';
+    AppConstants.PATIENT_GROUP_SAVE_URL = '/patient/group/save';
+    AppConstants.PATIENT_GROUP_UPDATE_URL = '/patient/group/update';
+    AppConstants.PATIENT_GROUP_GET_URL = '/patient/group/get?patientGroupId=';
+    ///////////////////// Drug URLs ////////////////////////////////////////
+    AppConstants.DRUG_FETCH_ALL_PAGINATED_URI = '/setting/drug/'; ///all by paginated
+    AppConstants.DRUG_DELETE_URI = '/setting/drug/delete?drugId=';
+    AppConstants.DRUG_SEARCH_URL = '/setting/drug/search/';
+    AppConstants.DRUG_SAVE_URL = '/setting/drug/save';
+    AppConstants.DRUG_UPDATE_URL = '/setting/drug/update';
+    AppConstants.DRUG_GET_URL = '/setting/drug/get?drugId=';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
