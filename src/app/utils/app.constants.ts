@@ -197,13 +197,20 @@ export class AppConstants {
     public static FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
     public static ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
 
+    public static ASSETS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateAssetsConfig';
+    public static LIABILTY_CONFIG_SAVE = '/chartOfAccountConfigurations/updateLiabilityConfig';
+    public static REVENUE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateRevenueConfig';
+    public static COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
+    public static EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
+
+
 
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
 
 
-    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
     public static FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     public static LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
 }

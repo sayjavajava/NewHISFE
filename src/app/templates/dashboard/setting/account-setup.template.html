@@ -8,18 +8,30 @@
                 <div class="portlet-body">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Basic </a>
+                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Assets </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> Liabilities </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Revenue </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_1_4" data-toggle="tab" aria-expanded="false"> COGS </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_1_5" data-toggle="tab" aria-expanded="false"> Expenses </a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_1_1">
-                            <form id="smtpsForm" class="form-horizontal" #smtpsForm="ngForm">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Revenue Account </label>
+                            <!--<form id="assetsForm" class="form-horizontal" >-->
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Cash </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.cash">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
                                                 {{item.name}}
                                             </option>
                                         </select>
@@ -29,204 +41,208 @@
                                             <option value="CONFIRM_APPOINTMENT">Confirm Appointment</option>
                                             <option value="APPOINTMENT_REMINDER">Appointment Reminder</option>
                                         </select>-->
-
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Deferred Revenue </label>
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Bank </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.bank">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
                                                 {{item.name}}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Sale Tax Payable Account </label>
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Inventory </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.inventory">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
                                                 {{item.name}}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Customer Account </label>
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Account Receivable </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accountReceivable">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
                                                 {{item.name}}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Discount Account </label>
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Plant & Equipment </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.palntEquipment">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
                                                 {{item.name}}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Discount Received </label>
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Furniture & Fixture </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.furnitureFixture">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
                                                 {{item.name}}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">Other Misc. Charges </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Cash </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Cheque </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Credit Card </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Transfer </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option value="Assets">Asset</option>
-                                            <option value="Liability">Liability</option>
-                                            <option value="Revenue">Revenue</option>
-                                            <option value="Expense">Expense</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-xs-6"> STC </label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Credit Card Charges </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option value="Assets">Asset</option>
-                                            <option value="Liability">Liability</option>
-                                            <option value="Revenue">Revenue</option>
-                                            <option value="Expense">Expense</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Scrap Inventory </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option value="Assets">Asset</option>
-                                            <option value="Liability">Liability</option>
-                                            <option value="Revenue">Revenue</option>
-                                            <option value="Expense">Expense</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Profit On Scrap </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option value="Assets">Asset</option>
-                                            <option value="Liability">Liability</option>
-                                            <option value="Revenue">Revenue</option>
-                                            <option value="Expense">Expense</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"> Loss On Scrap </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" (change)="parentTypeSelected($event.target.value)">
-                                            <option value="">Select Account Type</option>
-                                            <option value="Assets">Asset</option>
-                                            <option value="Liability">Liability</option>
-                                            <option value="Revenue">Revenue</option>
-                                            <option value="Expense">Expense</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-5">
                                     <div class="hr mrgn-top14">
-                                        <button data-repeater-create="" class="btn blue"
-                                                (click)="saveSMTPSConfiguration(sesForm)"> Save
-                                        </button>
+                                        <button data-repeater-create="" class="btn blue pull-right" (click)="updateAssetsConfig()"> Save </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--</form>-->
+                        </div>
+
+                        <div class="tab-pane" id="tab_1_2">
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Account Payable </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accountPayable">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
+                                                {{item.name}}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
 
-                            </form>
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Tax Payable </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.taxPayable">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Accured Salary </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accuredSalary">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Loan </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.loan">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Other Payable </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.otherPayable">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <div class="row mrgn-top14">
+                                <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateLiabilityConfig()"> Save  </button>
+                                </div></div>
+
+                        </div>
+
+                        <div class="tab-pane" id="tab_1_3">
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Income </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.income">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Other Income </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.otherIncome">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <div class="row mrgn-top14">
+                                <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateRevenueConfig()"> Save  </button>
+                                </div></div>
+
+                        </div>
+
+                        <div class="tab-pane" id="tab_1_4">
+                                <div class="row">
+                                    <label class="control-label col-md-2"> Cost of Sale </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.costOfSale">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <div class="row mrgn-top14">
+                                <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateCOSConfig()"> Save </button>
+                                </div></div>
+
+                        </div>
+
+                        <div class="tab-pane" id="tab_1_5">
+                                <div class="row">
+                                    <label class="control-label col-md-2"> General Expenses </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.generalExpense">
+                                            <option value=-1>Select Account Type</option>
+                                            <option *ngFor="let item of chartOfAccountList; " value={{item.id}} >
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <div class="row mrgn-top14">
+                                <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateExpenseConfig()"> Save </button>
+                                </div></div>
+
                         </div>
                     </div>
                 </div>
