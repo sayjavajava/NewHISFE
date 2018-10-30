@@ -18,6 +18,15 @@ var notification_service_1 = require("../../../services/notification.service");
 var patient_1 = require("../../../model/patient");
 var his_util_service_1 = require("../../../services/his-util.service");
 var PatientAddLabOrdersComponent = (function () {
+    /*
+    *  constructor(private notificationService: NotificationService,
+                private requestsService: RequestsService,
+                private HISUtilService: HISUtilService,
+                private route: ActivatedRoute,
+                private router: Router) {
+    }
+    *
+    * */
     function PatientAddLabOrdersComponent(router, route, fb, requestService, notificationService, hISUtilService) {
         this.router = router;
         this.route = route;
@@ -26,10 +35,25 @@ var PatientAddLabOrdersComponent = (function () {
         this.notificationService = notificationService;
         this.hISUtilService = hISUtilService;
         this.labTest = [];
-        this.dateTest = new Date();
+        this.dateTest = Date; //new Date();
         this.orderId = 0;
         this.patient = new patient_1.Patient();
     }
+    PatientAddLabOrdersComponent.prototype.filterLabTestSingle = function (event) {
+        var query = event.query;
+        this.filteredTestSingle = this.filterLabTest(query, this.labTestSpecimanList);
+    };
+    PatientAddLabOrdersComponent.prototype.filterLabTest = function (query, labTests) {
+        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+        var filtered = [];
+        for (var i = 0; i < labTests.length; i++) {
+            var test = labTests[i];
+            if ((test.testCode.toLocaleLowerCase().indexOf(query.toLowerCase()) >= 0) || (test.testName.toLocaleLowerCase().indexOf(query.toLowerCase()) >= 0)) {
+                filtered.push(test);
+            }
+        }
+        return filtered;
+    };
     PatientAddLabOrdersComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
@@ -41,8 +65,19 @@ var PatientAddLabOrdersComponent = (function () {
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
-        if (this.orderId != null)
+        if (this.orderId != null) {
             this.patchOrderData();
+        }
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS).subscribe(function (response) {
+            if (response['responseCode'] === 'SUCCESS') {
+                _this.labTestSpecimanList = response['responseData'];
+            }
+            else {
+                _this.notificationService.error(response['responseMessage'], 'Lab Test Speciman Configurations');
+            }
+        }, function (error) {
+            _this.notificationService.error(Response['responseMessage'], 'Lab Test Speciman Configurations');
+        });
         //  this.addMoreTest();
     };
     PatientAddLabOrdersComponent.prototype.goToUserDashBoard = function () {

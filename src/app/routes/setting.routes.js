@@ -31,6 +31,12 @@ var update_organization_component_1 = require("../components/dashboard/setting/u
 var email_configuration_component_1 = require("../components/dashboard/setting/email-configuration.component");
 var sms_template_component_1 = require("../components/dashboard/setting/sms-template.component");
 var add_edit_sms_template_component_1 = require("../components/dashboard/setting/add-edit-sms-template.component");
+var prefix_template_component_1 = require("../components/dashboard/setting/prefix-template.component");
+var chart_of_account_component_1 = require("../components/dashboard/setting/chart-of-account.component");
+var vital_setup_component_1 = require("../components/dashboard/setting/vital-setup.component");
+var account_setup_component_1 = require("../components/dashboard/setting/account-setup.component");
+var lab_test_component_1 = require("../components/dashboard/setting/lab-test.component");
+var user_permissions_component_1 = require("../components/dashboard/setting/user-permissions.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -57,6 +63,7 @@ exports.SettingRoutes = [
     { path: 'medicalServices/add', component: add_medical_service_component_1.AddMedicalServiceComponent },
     { path: 'medicalServices/edit/:id', component: edit_medical_service_component_1.EditMedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
+    { path: 'user-permissions', component: user_permissions_component_1.UserPermissionsComponent },
     { path: 'service-tax', component: service_tax_component_1.ServiceTaxComponent },
     { path: '404-not-found', component: not_found_404_setting_component_1.NotFound404SettingComponent },
     { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
@@ -67,6 +74,11 @@ exports.SettingRoutes = [
     { path: 'sms-template', component: sms_template_component_1.SmsTemplateComponent },
     { path: 'sms-template/add', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
     { path: 'sms-template/edit/:id', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
+    { path: 'prefix-template', component: prefix_template_component_1.PrefixTemplateComponent },
+    { path: 'chart-of-account-template', component: chart_of_account_component_1.ChartOfAccountComponent },
+    { path: 'vital-setup-template', component: vital_setup_component_1.VitalSetupComponent },
+    { path: 'account-setup-template', component: account_setup_component_1.AccountSetupComponent },
+    { path: 'lab-test-template', component: lab_test_component_1.LabTestComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

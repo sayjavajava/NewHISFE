@@ -59,6 +59,7 @@ var updatedoctor_component_1 = require("./components/dashboard/setting/updatedoc
 var updatenurse_component_1 = require("./components/dashboard/setting/updatenurse.component");
 var update_receptionist_component_1 = require("./components/dashboard/setting/update-receptionist.component");
 var addbranch_component_1 = require("./components/dashboard/setting/addbranch.component");
+var user_permissions_component_1 = require("./components/dashboard/setting/user-permissions.component");
 var material_1 = require("@angular/material");
 var notification_service_1 = require("./services/notification.service");
 var organization_component_1 = require("./components/dashboard/setting/organization.component");
@@ -113,6 +114,12 @@ var multiselect_1 = require("primeng/multiselect");
 var email_configuration_component_1 = require("./components/dashboard/setting/email-configuration.component");
 var sms_template_component_1 = require("./components/dashboard/setting/sms-template.component");
 var add_edit_sms_template_component_1 = require("./components/dashboard/setting/add-edit-sms-template.component");
+var prefix_template_component_1 = require("./components/dashboard/setting/prefix-template.component");
+var chart_of_account_component_1 = require("./components/dashboard/setting/chart-of-account.component");
+var vital_setup_component_1 = require("./components/dashboard/setting/vital-setup.component");
+var account_setup_component_1 = require("./components/dashboard/setting/account-setup.component");
+var lab_test_component_1 = require("./components/dashboard/setting/lab-test.component");
+var autocomplete_1 = require("primeng/autocomplete");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -154,7 +161,8 @@ var AppModule = (function () {
                 angular_calendar_1.CalendarModule.forRoot(),
                 module_1.DemoUtilsModule,
                 dropdown_1.DropdownModule,
-                multiselect_1.MultiSelectModule
+                multiselect_1.MultiSelectModule,
+                autocomplete_1.AutoCompleteModule
             ],
             declarations: [
                 // App Components
@@ -216,6 +224,7 @@ var AppModule = (function () {
                 branch_component_1.BranchComponent,
                 updatecashier_component_1.UpdateCashierComponent,
                 role_permissions_component_1.RolePermissionsComponent,
+                user_permissions_component_1.UserPermissionsComponent,
                 updatedoctor_component_1.UpdatedoctorComponent,
                 updatenurse_component_1.UpdateNurseComponent,
                 update_receptionist_component_1.UpdateReceptionistComponent,
@@ -231,6 +240,11 @@ var AppModule = (function () {
                 email_configuration_component_1.EmailConfigurationComponent,
                 sms_template_component_1.SmsTemplateComponent,
                 add_edit_sms_template_component_1.AddEditSmsTemplateComponent,
+                prefix_template_component_1.PrefixTemplateComponent,
+                chart_of_account_component_1.ChartOfAccountComponent,
+                vital_setup_component_1.VitalSetupComponent,
+                account_setup_component_1.AccountSetupComponent,
+                lab_test_component_1.LabTestComponent,
                 add_email_template_component_1.AddEmailTemplateComponent,
                 edit_email_template_component_1.EditEmailTemplateComponent,
                 not_found_404_setting_component_1.NotFound404SettingComponent,

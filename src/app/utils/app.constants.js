@@ -63,6 +63,9 @@ var AppConstants = (function () {
     AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
     AppConstants.PERMISSION_BY_ROLE = '/user/auth/permission';
     AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
+    AppConstants.USER_ALL_PERMISSIONS = '/user/auth/userDBPermissions'; //dashboard related user's all permissions
+    AppConstants.PERMISSION_BY_USER = '/user/auth/userPermissions/';
+    AppConstants.ASSIGN_PERMISSIONS_TO_USERS = '/user/auth/assignUserPermissions';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';
@@ -168,6 +171,18 @@ var AppConstants = (function () {
     AppConstants.FETCH_SMS_CONFIG_BY_ID = '/smsConfiguration/getSmsById?id=';
     AppConstants.SMS_CONFIGURATION_SAVE = '/smsConfiguration/saveSmsConfiguration';
     AppConstants.SMS_CONFIGURATION_DELETE_SAVE = '/smsConfiguration/deleteSmsConfig?id=';
+    ////////////////////// Prefix Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_PREFIX_CONFIGURATIONS = '/prefixConfiguration/getAll';
+    AppConstants.PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
+    ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    AppConstants.ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
+    AppConstants.VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
+    AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

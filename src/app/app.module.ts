@@ -54,6 +54,7 @@ import {UpdatedoctorComponent} from "./components/dashboard/setting/updatedoctor
 import {UpdateNurseComponent} from "./components/dashboard/setting/updatenurse.component";
 import {UpdateReceptionistComponent} from "./components/dashboard/setting/update-receptionist.component";
 import {AddBranchComponent} from "./components/dashboard/setting/addbranch.component";
+import {UserPermissionsComponent} from "./components/dashboard/setting/user-permissions.component";
 import {
     MatButtonModule,
     MatDialogModule,
@@ -127,6 +128,7 @@ import {VitalSetupComponent} from "./components/dashboard/setting/vital-setup.co
 import {AccountSetupComponent} from "./components/dashboard/setting/account-setup.component";
 import {LabTestComponent} from "./components/dashboard/setting/lab-test.component";
 
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
     providers: [
@@ -163,7 +165,8 @@ import {LabTestComponent} from "./components/dashboard/setting/lab-test.componen
         CalendarModule.forRoot(),
         DemoUtilsModule,
         DropdownModule,
-        MultiSelectModule
+        MultiSelectModule,
+        AutoCompleteModule
     ],
     declarations: [
         // App Components
@@ -228,6 +231,7 @@ import {LabTestComponent} from "./components/dashboard/setting/lab-test.componen
         BranchComponent,
         UpdateCashierComponent,
         RolePermissionsComponent,
+        UserPermissionsComponent,
         UpdatedoctorComponent,
         UpdateNurseComponent,
         UpdateReceptionistComponent,

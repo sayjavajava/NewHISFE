@@ -35,6 +35,7 @@ import {ChartOfAccountComponent} from "../components/dashboard/setting/chart-of-
 import {VitalSetupComponent} from "../components/dashboard/setting/vital-setup.component";
 import {AccountSetupComponent} from "../components/dashboard/setting/account-setup.component";
 import {LabTestComponent} from "../components/dashboard/setting/lab-test.component";
+import {UserPermissionsComponent} from "../components/dashboard/setting/user-permissions.component";
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -62,6 +63,9 @@ export const SettingRoutes: Routes = [
     {path: 'medicalServices/add', component: AddMedicalServiceComponent},
     {path: 'medicalServices/edit/:id', component: EditMedicalServiceComponent},
     {path: 'role-permissions', component: RolePermissionsComponent},
+
+    {path: 'user-permissions', component: UserPermissionsComponent},
+
     {path: 'service-tax', component: ServiceTaxComponent},
     {path: '404-not-found', component: NotFound404SettingComponent},
     {path: 'branch/edit/:id',component: UpdateBranchComponent},
