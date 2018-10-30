@@ -1,6 +1,6 @@
 export  class  GeneralLedgerModel{
 
-    id: number;
+    id: any;
     parentType: string = '';
     accountType: string = '-1';
     name: string = '';
