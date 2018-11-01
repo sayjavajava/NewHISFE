@@ -65,6 +65,10 @@ export class AppConstants {
     public static PERMISSION_BY_ROLE = '/user/auth/permission';
     public static ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
 
+    public static USER_ALL_PERMISSIONS = '/user/auth/userDBPermissions';//dashboard related user's all permissions
+    public static PERMISSION_BY_USER = '/user/auth/userPermissions/';
+    public static ASSIGN_PERMISSIONS_TO_USERS = '/user/auth/assignUserPermissions';
+
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_TAX_URL = '/setting/tax/';
     public static SERVICE_TAX_SAVE_URL = '/setting/tax/save';
@@ -197,13 +201,20 @@ export class AppConstants {
     public static FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
     public static ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
 
+    public static ASSETS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateAssetsConfig';
+    public static LIABILTY_CONFIG_SAVE = '/chartOfAccountConfigurations/updateLiabilityConfig';
+    public static REVENUE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateRevenueConfig';
+    public static COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
+    public static EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
+
+
 
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
 
 
-    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
     public static FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     public static LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
 

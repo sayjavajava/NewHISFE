@@ -116,7 +116,7 @@ var RolePermissionsComponent = (function () {
             'selectedRole': this.selectedRole
         })
             .subscribe(function (response) {
-            if (response['responseCode'] === 'ROL_PER_SUC_03') {
+            if (response['responseCode'] === 'ROL_PER_SUC_02') {
                 _this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
             }
             else {

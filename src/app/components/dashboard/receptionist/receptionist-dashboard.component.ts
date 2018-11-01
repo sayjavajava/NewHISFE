@@ -121,7 +121,7 @@ export class ReceptionistDashboardComponent {
     getUpdatedStatus(statusValue: string, apptId: any, pmID:number) {
         var that = this;
         this.confirmationDialogService
-            .confirm(`Upadte Status to ${statusValue}`, 'Are you sure ?')
+            .confirm(`Update Status to ${statusValue}`, 'Are you sure ?')
             .subscribe(res => {
                 if (res == true) {
                     this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
@@ -142,7 +142,7 @@ export class ReceptionistDashboardComponent {
             this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
                 .subscribe((res: Response) => {
                     if (res['responseCode'] === "INVOICE_ERR_01") {
-                        this.snackBar.open('Error', `Invoices Not Generated`, {duration: 3000});
+                        this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
                     }
                 }, (error: any) => {
                     this.error = error.error.error;
@@ -154,7 +154,6 @@ export class ReceptionistDashboardComponent {
         this.router.navigate(['/dashboard/patient/',id,'history']);
     }
     updateAppointmentData(id: any) {
-        console.log("From doctor-dashboard.component---> Appointment id : " + id);
         this.router.navigate(['/dashboard/patient/invoice', id]);
 
     }

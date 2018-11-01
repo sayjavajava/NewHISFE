@@ -4,8 +4,8 @@ import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {ActivatedRoute, Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
 import {GeneralLedgerModel} from "../../../model/GeneralLedgerModel";
+import {AccountConfigModel} from "../../../model/AccountConfigModel";
 
 
 @Component({
@@ -16,6 +16,8 @@ export class AccountSetupComponent{
 
     chartOfAccountList: GeneralLedgerModel[];
     chartOfAccount: GeneralLedgerModel = new GeneralLedgerModel();
+    accountConfig: AccountConfigModel = new AccountConfigModel();
+
     id: number;
 
     constructor(private notificationService: NotificationService,
@@ -26,7 +28,7 @@ export class AccountSetupComponent{
     }
 
     ngOnInit() {
-        document.title = 'HIS | Chart Of Account Template';
+        document.title = 'HIS |Account Setup Template';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getAllAccountsList();
         }
@@ -40,11 +42,11 @@ export class AccountSetupComponent{
                     if (response['responseCode'] === 'SUCCESS') {
                         this.chartOfAccountList = response['responseData'];
                     } else {
-                        this.notificationService.error(response['responseMessage'], 'Chart of Accounts Configurations');
+                        this.notificationService.error(response['responseMessage'], 'Account Setup');
                     }
                 },
                 (error: any) => {
-                    this.notificationService.error(Response['responseMessage'], 'Chart of Accounts Configurations');
+                    this.notificationService.error(Response['responseMessage'], 'Account Setup');
                 }
             );
         } else {
@@ -53,17 +55,15 @@ export class AccountSetupComponent{
     }
 
 
-    editAccountSetUp(formData: NgForm) {
+    updateAssetsConfig() {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.postRequest(AppConstants.ACCOUNTS_CONFIGURATION_SAVE , this.chartOfAccount)
+            this.requestsService.postRequest(AppConstants.ASSETS_CONFIG_SAVE , this.accountConfig)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
-                            this.chartOfAccountList = response['responseData'];
-                            document.getElementById('close-btn-Prefix').click();
-                            this.notificationService.success(response['responseMessage'], 'Chart of Account');
+                            this.notificationService.success(response['responseMessage'], 'Asset Account Setup');
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Chart of Accounts');
+                            this.notificationService.error(response['responseMessage'], 'Asset Account Setup');
                         }
                     },
                     (error: any) => {
@@ -76,20 +76,88 @@ export class AccountSetupComponent{
     }
 
 
-    edit(editConfiguration: any){
-        if(editConfiguration){
-            this.chartOfAccount = editConfiguration;
-        }else{
-            this.chartOfAccount = new GeneralLedgerModel();
+    updateLiabilityConfig() {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.postRequest(AppConstants.LIABILTY_CONFIG_SAVE , this.accountConfig)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success(response['responseMessage'], 'Liability Account Setup');
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Liability Account Setup');
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
         }
     }
 
-    parentTypeSelected(parentType : any){
-        this.chartOfAccount.parentType = parentType;
+
+    updateRevenueConfig() {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.postRequest(AppConstants.REVENUE_CONFIG_SAVE , this.accountConfig)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success(response['responseMessage'], 'Revenue Account Setup');
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Revenue Account Setup');
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 
-    accountTypeSelected(accountType : any){
-        this.chartOfAccount.accountType = accountType;
+
+    updateCOSConfig() {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.postRequest(AppConstants.COS_CONFIG_SAVE , this.accountConfig)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success(response['responseMessage'], 'COGS Account Setup');
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'COGS Account Setup');
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
+
+
+    updateExpenseConfig() {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.postRequest(AppConstants.EXPENSE_CONFIG_SAVE , this.accountConfig)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success(response['responseMessage'], 'Expense Account Setup');
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Expense Account Setup');
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
+        }
+    }
+
 
 }

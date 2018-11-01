@@ -6,7 +6,7 @@ import {RequestsService} from "../../../services/requests.service";
 import {NotificationService} from "../../../services/notification.service";
 import {Patient} from "../../../model/patient";
 import {HISUtilService} from "../../../services/his-util.service";
-
+import {LabTestSpecimanModel} from "../../../model/LabTestSpecimanModel";
 
 @Component({
     selector: 'patient-lab-orders',
@@ -17,12 +17,41 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
     labForm:FormGroup;
     labTest: any = [];
-    dateTest =new Date();
+    dateTest = Date;//new Date();
     error:any;
     id:number;
     appointmentId : number;
     orderId:number=0;
     patient:Patient =new Patient();
+    filteredTestSingle: any[];
+    labTestSpecimanList: LabTestSpecimanModel[];
+
+    filterLabTestSingle(event:any) {
+        let query = event.query;
+        this.filteredTestSingle = this.filterLabTest(query, this.labTestSpecimanList);
+    }
+
+    filterLabTest(query:any, labTests: any[]):any[] {
+        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+        let filtered : any[] = [];
+        for(let i = 0; i < labTests.length; i++) {
+            let test = labTests[i];
+            if( ( test.testCode.toLocaleLowerCase().indexOf(query.toLowerCase())  >= 0 ) || ( test.testName.toLocaleLowerCase().indexOf(query.toLowerCase()) >= 0 ) ) {//country.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                filtered.push(test);
+            }
+        }
+        return filtered;
+    }
+    /*
+    *  constructor(private notificationService: NotificationService,
+                private requestsService: RequestsService,
+                private HISUtilService: HISUtilService,
+                private route: ActivatedRoute,
+                private router: Router) {
+    }
+    *
+    * */
+
     constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,private notificationService:NotificationService,private hISUtilService: HISUtilService) {
     }
     ngOnInit(): void {
@@ -35,9 +64,22 @@ export class PatientAddLabOrdersComponent implements OnInit {
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
-        if(this.orderId !=null)
+        if(this.orderId !=null) {
             this.patchOrderData();
-
+        }
+        this.requestService.getRequest(AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS
+        ).subscribe(
+            (response: Response) => {
+                if (response['responseCode'] === 'SUCCESS') {
+                    this.labTestSpecimanList = response['responseData'];
+                } else {
+                    this.notificationService.error(response['responseMessage'], 'Lab Test Speciman Configurations');
+                }
+            },
+            (error: any) => {
+                this.notificationService.error(Response['responseMessage'], 'Lab Test Speciman Configurations');
+            }
+        );
       //  this.addMoreTest();
     }
     goToUserDashBoard(){

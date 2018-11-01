@@ -140,7 +140,7 @@ export class RolePermissionsComponent implements OnInit {
             })
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'ROL_PER_SUC_03') {
+                    if (response['responseCode'] === 'ROL_PER_SUC_02') {
                         this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Roles & Permissions');

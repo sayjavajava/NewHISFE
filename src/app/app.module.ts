@@ -54,6 +54,7 @@ import {UpdatedoctorComponent} from "./components/dashboard/setting/updatedoctor
 import {UpdateNurseComponent} from "./components/dashboard/setting/updatenurse.component";
 import {UpdateReceptionistComponent} from "./components/dashboard/setting/update-receptionist.component";
 import {AddBranchComponent} from "./components/dashboard/setting/addbranch.component";
+import {UserPermissionsComponent} from "./components/dashboard/setting/user-permissions.component";
 import {
     MatButtonModule,
     MatDialogModule,
@@ -130,6 +131,7 @@ import {PatientGroupComponent} from './components/dashboard/patient/patient-grou
 import {DrugComponent} from './components/dashboard/setting/drug.component';
 import {CurrencyComponent} from './components/dashboard/setting/currency.component';
 
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
     providers: [
@@ -166,7 +168,8 @@ import {CurrencyComponent} from './components/dashboard/setting/currency.compone
         CalendarModule.forRoot(),
         DemoUtilsModule,
         DropdownModule,
-        MultiSelectModule
+        MultiSelectModule,
+        AutoCompleteModule
     ],
     declarations: [
         // App Components
@@ -231,6 +234,7 @@ import {CurrencyComponent} from './components/dashboard/setting/currency.compone
         BranchComponent,
         UpdateCashierComponent,
         RolePermissionsComponent,
+        UserPermissionsComponent,
         UpdatedoctorComponent,
         UpdateNurseComponent,
         UpdateReceptionistComponent,
