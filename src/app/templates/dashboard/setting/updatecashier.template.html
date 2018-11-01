@@ -52,14 +52,20 @@
                                     </label>
                                     <div class="col-md-8">
 
-                                        <select class="form-control"
+                                        <!--<select class="form-control"
                                                 (change)="getSelectedBranch($event.target.value)"
                                                 formControlName="primaryBranch" placeholder="Select Branch">
                                             <option *ngFor="let br of branchesList" [value]="br.id">
                                                 {{br.name}}
                                             </option>
 
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown placeholder="Select Branch" [autoWidth]="false"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                    [(ngModel)]="pBranch" [options]="branchesList"
+                                                    formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
+                                                    [filter]="true">
+                                        </p-dropdown>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">{{primaryBranchError}}</span>
                                     </div>
@@ -82,7 +88,7 @@
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
-                                        <div class="checkbox-box cod-higt" id="not-due">
+                                        <!--<div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label class="mt-checkbox mt-checkbox-outline">
                                                 <div *ngFor="let item of branchesList" class="col-md-6">
                                                     <input type="checkbox" formControlName="restrictBranch"
@@ -95,7 +101,16 @@
                                                 </div>
                                             </label>
                                             </address>
-                                        </div>
+                                        </div>-->
+                                        <p-multiSelect placeholder="select branches"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       formControlName="restrictBranch"
+                                                       [options]="branchesList" [(ngModel)]="selectedVisitBranches"
+                                                       name="visitBranches" [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-br pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
+                                            </ng-template>
+                                        </p-multiSelect>
                                         <span class="text-danger" *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
 
                                     </div>
@@ -144,8 +159,13 @@
                                     <label class="control-label col-md-4 col-xs-6">Active
                                     </label>
                                     <div class="col-md-8 col-xs-6">
-                                        <label class="mrgn-top12 mt-checkbox-outline chckbox">
-                                            <input type="checkbox" formControlName="active"><span></span></label>
+                                        <!--<label class="mrgn-top12 mt-checkbox-outline chckbox">
+                                            <input type="checkbox" formControlName="active"><span></span></label>-->
+                                        <label class="mt-checkbox-outline">
+                                            <mat-checkbox formControlName="active"
+                                                          color="primary"></mat-checkbox>
+                                            <span></span>
+                                        </label>
                                     </div>
                                 </div>
 

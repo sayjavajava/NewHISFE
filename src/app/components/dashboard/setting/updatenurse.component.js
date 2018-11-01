@@ -28,6 +28,7 @@ var UpdateNurseComponent = (function () {
         this.notificationService = notificationService;
         this.dataService = dataService;
         this.amazingTimePickerService = amazingTimePickerService;
+        this.departmentFlag = false;
         this.selectedDepartment = [];
         this.staffDepartment = [];
         this.selectedServices = [];
@@ -40,6 +41,7 @@ var UpdateNurseComponent = (function () {
         this.departmentList = [];
         this.defaultBranch = 'primaryBranch';
         this.userSelected = 'doctor';
+        this.departmentError = 'Select atleast one Department';
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
@@ -120,7 +122,7 @@ var UpdateNurseComponent = (function () {
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
             'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
-            'homePhone': [null, forms_1.Validators.required],
+            'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.email])],
@@ -156,6 +158,9 @@ var UpdateNurseComponent = (function () {
                     managePatientInvoices: user.managePatientInvoices,
                     primaryBranch: user.primaryBranchId,
                 });
+                if (user.expiryDate != null) {
+                    _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
+                }
                 _this.staffBranches = user.staffBranches;
                 _this.selectedDoctors = user.dutyWithDoctors;
                 for (var key in _this.branchesList) {
@@ -193,33 +198,41 @@ var UpdateNurseComponent = (function () {
         }
     };
     UpdateNurseComponent.prototype.addUser = function (data) {
-        console.log('i am  in');
         if (this.userForm.valid) {
-            var nurse = new User_1.User({
-                userType: 'nurse',
-                firstName: data.firstName,
-                lastName: data.lastName,
-                userName: data.userName,
-                password: data.password,
-                homePhone: data.homePhone,
-                cellPhone: data.cellPhone,
-                sendBillingReport: data.sendBillingReport,
-                useReceptDashboard: data.useReceptDashboard,
-                otherDashboard: data.otherDashboard,
-                accountExpiry: data.accountExpiry,
-                primaryBranch: data.primaryBranch,
-                email: data.email,
-                selectedVisitBranches: this.selectedVisitBranches,
-                otherDoctorDashBoard: data.otherDoctorDashBoard,
-                active: data.active,
-                managePatientRecords: data.managePatientRecords,
-                managePatientInvoices: data.managePatientInvoices,
-                dutyWithDoctors: this.dutyWithDoctors,
-                selectedDepartment: this.selectedDepartment,
-            });
-            this.makeService(nurse);
+            if (this.selectedDepartment.length != 0) {
+                console.log('fine');
+                var nurse = new User_1.User({
+                    userType: 'nurse',
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    userName: data.userName,
+                    password: data.password,
+                    homePhone: data.homePhone,
+                    cellPhone: data.cellPhone,
+                    sendBillingReport: data.sendBillingReport,
+                    useReceptDashboard: data.useReceptDashboard,
+                    otherDashboard: data.otherDashboard,
+                    accountExpiry: data.accountExpiry,
+                    primaryBranch: data.primaryBranch,
+                    email: data.email,
+                    selectedVisitBranches: this.selectedVisitBranches,
+                    otherDoctorDashBoard: data.otherDoctorDashBoard,
+                    active: data.active,
+                    managePatientRecords: data.managePatientRecords,
+                    managePatientInvoices: data.managePatientInvoices,
+                    dutyWithDoctors: this.dutyWithDoctors,
+                    selectedDepartment: this.selectedDepartment,
+                });
+                this.makeService(nurse);
+            }
+            else {
+                this.departmentFlag = true;
+                console.log('select deprat err');
+                this.userForm.setErrors({ notValid: true });
+            }
         }
         else {
+            console.log('err');
             this.validateAllFormFields(this.userForm);
         }
     };
@@ -266,6 +279,7 @@ var UpdateNurseComponent = (function () {
         });
     };
     UpdateNurseComponent.prototype.selectDepartment = function (event, item) {
+        this.departmentFlag = false;
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }
@@ -274,10 +288,8 @@ var UpdateNurseComponent = (function () {
             var index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
-        console.log(this.selectedDepartment);
     };
     UpdateNurseComponent.prototype.selectVisitBranches = function (event, item) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }

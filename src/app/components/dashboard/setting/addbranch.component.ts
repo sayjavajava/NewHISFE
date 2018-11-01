@@ -7,6 +7,7 @@ import {Branch} from '../../../model/branch';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {AppConstants} from '../../../utils/app.constants';
 import {ExamRooms} from '../../../model/ExamRooms';
+import {Organization} from "../../../model/organization";
 
 @Component({
     selector: 'addbranch-component',
@@ -18,41 +19,81 @@ export class AddBranchComponent implements OnInit {
     error: any;
     branchForm: FormGroup;
     examRooms: any = [];
-    officeHoursStart: string;
-    officeHoursEnd: string;
+    officeHoursStart: string = '07:00';
+    officeHoursEnd: string = '17:00';
     userSelected: string = 'doctor';
-    pDoctor: any = [];
+    organization: Organization  = new Organization();
     branchesList: any = [];
-   // defaultDoctor:string='primarydoctor';
-    defaultBranch:string='primaryBranch';
+    // defaultDoctor:string='primarydoctor';
+    defaultBranch: string = 'primaryBranch';
     billingForm: FormGroup;
     scheduleForm: FormGroup;
-    noOfRoom:number=1;
+    noOfRoom: number = 1;
+    cities: any = [];
+    noOfRoomsList:any;
+    countryList: Array<any> = [
+        {name: 'Germany', label:'Germany',value:'Germany', cities: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn']},
+        {name: 'Pakistan',label:'Pakistan',value:'Pakistan', cities: ['Punjab', 'Sindh', 'Balochistan', 'KPK']},
+        {name: 'USA',label:'USA',value:'USA', cities: ['California', 'Florida', 'Texas', 'New York', 'Hawai', 'Pennsylvania']},
+        {name: 'Canada',label:'Caanda',value:'Canada', cities: ['Alberta', 'Ontario']},
+        {name: 'Saudi Arab',label:'Saudi Arab',value:'Saudi Arab', cities: ['Riyadh', 'Jeddah', 'Dammam']},
+        {name: 'China',label:'China',value:'China', cities: ['Hainan', 'Sichuan', 'Hunan', 'Henan']},
+    ];
+    flowList:any;
+    flow:any;
+
 
     constructor(private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
-                this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
-               .subscribe(
+        this.requestService.getRequest(AppConstants.BRANCH_ORGANIZATION)
+            .subscribe(
                 (response: Response) => {
                     if (response['responseStatus'] === 'SUCCESS') {
-                        this.pDoctor = response['responseData'];
+                        this.organization = response['responseData'];
 
                     }
                 },
                 (error: any) => {
                     this.error = error.error.error;
                 });
-                this.allBranches();
-        }
+        this.allBranches();
+    }
 
     ngOnInit() {
         this.createBranchMendatoryForm();
         this.createBranchForm();
         this.createScheduleForm();
+        this.branchForm.controls['companyName'].disable();
+        this.noOfRoomsList = [
+            { label: '1', value: 1 },
+            { label: '2', value: 2 },
+            { label: '3', value: 3 },
+            { label: '4', value: 4 },
+            { label: '5', value: 5 },
+            { label: '6', value: 6 },
+            { label: '7', value: 7 },
+            { label: '8', value: 8 },
+            { label: '9', value: 9 },
+            { label: '10', value: 10 },
+            { label: '15', value: 15 },
+            { label: '20', value: 20 },
+            { label: '25', value: 25 },
+            { label: '30', value: 30 },
+            { label: '35', value: 35 },
+            { label: '40', value: 40 },
+        ];
+        this.flowList = [
+            { label: 'RCND', value: 'RCND' },
+            { label: '2', value: 2 },
+            { label: '3', value: 3 },
+            { label: '4', value: 4 },
 
-        }
-     createBranchForm() {
+        ];
+
+    }
+
+    createBranchForm() {
         this.billingForm = this.fb.group({
             'billingBranch': [null],
             'billingName': [null],
@@ -69,6 +110,8 @@ export class AddBranchComponent implements OnInit {
 
     createBranchMendatoryForm() {
         this.branchForm = this.fb.group({
+            'companyName' : [null],
+            'flow':[null],
             'branchName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
             'country': [null],
             'state': [null],
@@ -81,19 +124,26 @@ export class AddBranchComponent implements OnInit {
             'formattedAddress': [null],
             'officeHoursStart': [null, Validators.required],
             'officeHoursEnd': [null, Validators.required],
-            'noOfExamRooms': [null,Validators.required],
+            'noOfExamRooms': [null, Validators.required],
             'examRooms': this.fb.array([this.createExamRoom()]),
         })
         this.examRooms.push(this.createExamRoom());
     }
-/*    removeDoctor(){
-        this.pDoctor.forEach( (item: any, index :any) => {
-            if(item.userName === this.defaultDoctor) this.pDoctor.splice(index,1);
-        });
-    }*/
-    removeBranch(){
-        this.branchesList.forEach( (item: any, index :any) => {
-            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+
+    /*    removeDoctor(){
+            this.pDoctor.forEach( (item: any, index :any) => {
+                if(item.userName === this.defaultDoctor) this.pDoctor.splice(index,1);
+            });
+        }*/
+    getSelectedStates(countryObj: any) {
+        const  country = countryObj.value;
+        this.cities = this.countryList.find((x: any) => x.name == country).cities;
+        this.branchForm.controls['country'].setValue(country);
+    }
+
+    removeBranch() {
+        this.branchesList.forEach((item: any, index: any) => {
+            if (item === this.defaultBranch) this.branchesList.splice(index, 1);
         });
     }
 
@@ -138,7 +188,7 @@ export class AddBranchComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BRANCH_SUC_01') {
                         this.branchesList = response['responseData'];
-                        if(this.branchesList.length > 1 ){
+                        if (this.branchesList.length > 1) {
                             this.removeBranch();
                         }
 
@@ -151,9 +201,9 @@ export class AddBranchComponent implements OnInit {
 
     addBranch(data: FormData) {
         if (this.branchForm.valid) {
-           // let branchObject = this.prepareSaveBranch();
-                this.requestService.postRequest(AppConstants.ADD_BRANCH, data)
-                    .subscribe(
+            // let branchObject = this.prepareSaveBranch();
+            this.requestService.postRequest(AppConstants.ADD_BRANCH, data)
+                .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'BRANCH_ADD_SUCCESS_01') {
                             this.notificationService.success('Branch is Created Successfully');
@@ -161,7 +211,7 @@ export class AddBranchComponent implements OnInit {
                         }
                         if (response['responseCode'] === 'BR_ALREADY_EXISTS_01') {
                             this.notificationService.warn('Branch already Exists');
-                          //  this.router.navigate(['/dashboard/setting/branch'])
+                            //  this.router.navigate(['/dashboard/setting/branch'])
                         }
                     }, function (error) {
                         this.notificationService.error('ERROR', 'Branch is not Created');
@@ -170,7 +220,7 @@ export class AddBranchComponent implements OnInit {
 
         } else {
             this.validateAllFormFields(this.branchForm);
-            if(this.examRooms.length != 0){
+            if (this.examRooms.length != 0) {
                 /*let examRoomLen = this.examRooms.length;
                 for (var i = 0; i < examRoomLen; i++) {
                    console.log(this.examRooms.controls(i).controls['roomName'].value);
@@ -193,7 +243,7 @@ export class AddBranchComponent implements OnInit {
 
     createExamRoom(): FormGroup {
         return this.fb.group({
-            'roomName': [null,Validators.required],
+            'roomName': [null, Validators.required],
             'allowOnlineScheduling': '',
         });
     }
@@ -206,7 +256,7 @@ export class AddBranchComponent implements OnInit {
         }
     }
 
-    removeAllFields(){
+    removeAllFields() {
         this.examRooms = this.branchForm.get('examRooms') as FormArray;
         let examRoomLen = this.examRooms.length;
         for (var i = 0; i < examRoomLen; i++) {
@@ -216,7 +266,7 @@ export class AddBranchComponent implements OnInit {
 
     deleteField(index: number) {
         this.examRooms = this.branchForm.get('examRooms') as FormArray;
-        this.noOfRoom=this.noOfRoom-1;
+        this.noOfRoom = this.noOfRoom - 1;
         this.examRooms.removeAt(index);
     }
 
@@ -225,7 +275,7 @@ export class AddBranchComponent implements OnInit {
         amazingTimePicker.afterClose().subscribe(time => {
             this.officeHoursStart = time;
             this.branchForm.controls['officeHoursStart'].setValue(time);
-            })
+        })
     }
 
     getOfficeHoursEnd() {
@@ -243,26 +293,23 @@ export class AddBranchComponent implements OnInit {
         }
     }
 
-    getCountry(value: any) {
-        if (value) {
-            this.branchForm.controls['country'].setValue(value);
-        }
-    }
 
     getState(value: any) {
         if (value) {
             this.branchForm.controls['state'].setValue(value);
         }
     }
+
     getZipCode(value: any) {
         if (value) {
             this.branchForm.controls['zipCode'].setValue(value);
         }
     }
 
-    getNoOfExamRooms(value: any) {
+    getNoOfExamRooms(room: any) {
+        const value = room.value;
         if (value) {
-            this.noOfRoom=value;
+            this.noOfRoom = value;
             this.branchForm.controls['noOfExamRooms'].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);

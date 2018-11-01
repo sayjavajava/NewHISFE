@@ -29,6 +29,13 @@ export class StaffComponent implements OnInit {
     allDBRoles: any[];
 
     responseUser: any[];
+    allStaffTypes = [
+        {name: 'NURSE',label : 'NURSE' ,value :'NURSE'},
+        {name: 'DOCTOR',label : 'DOCTOR',value :'DOCTOR'},
+        {name: 'RECEPTIONIST',label : 'RECEPTIONIST',value : 'RECEPTIONIST'},
+        {name: 'CASHIER',label : 'CASHIER',value : 'CASHIER'}
+
+    ];
 
 
     constructor(private requestService: RequestsService, private router: Router,
@@ -142,7 +149,8 @@ export class StaffComponent implements OnInit {
 
     }
 
-    roleSelected(type: any) {
+    roleSelected(typeObj: any) {
+        const type = typeObj.value;
         this.searchForm.controls['userType'].setValue(type);
         this.selectedType = type;
     }

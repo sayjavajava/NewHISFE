@@ -19,6 +19,9 @@ export class AddMedicalServiceComponent implements OnInit {
 
     ms: MedicalService = new MedicalService();
     taxes: Tax[] = [];
+    branchId :number;
+    serviceTax:any;
+
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,

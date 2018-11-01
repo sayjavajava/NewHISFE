@@ -20,13 +20,14 @@ export class AppConstants {
     ////////////////////// Branch URLs ///////////////////////////////
     public static ADD_BRANCH = '/setting/branch/create';
     public static UPDATE_BRANCH = '/setting/branch/update/';
-    public static DELETE_BRANCH_URI = '/setting/branch/delete/';
+    public static DELETE_BRANCH_URI = '/setting/branch/delete/';   
     public static BRANCHES_NAME = '/setting/branch/name';
     public static BRANCH_SEARCH = '/setting/branch/search/';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     public static FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
     public static FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
+    public static FETCH_ALL_BRANCHES_WITH_DOCTORS= '/setting/branch/doctorsInBranch/';
 
     ////////////////////// Patients Invoices ///////////////////////////////
     public static SAVE_INVOICE = '/invoice/saveInvoice';
@@ -145,6 +146,7 @@ export class AppConstants {
     public static FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     public static CREATE_APPOINTMENT_URL = '/appointment/create';
     public static SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    public static SEARCH_APPOINTMENTS_BY_PATIENT = '/appointment/patient/appointments/'
     public static FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
     public static UPDATE_APPOINTMENT = '/appointment/update/';
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
@@ -171,4 +173,11 @@ export class AppConstants {
     ///////////////////////Smoke Status URLs//////////////////////////////
     public static SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
     public static SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
+    ///////////////////Family History//////////
+    public static STATUS_CREATE = '/setting/status/create';
+    public static FETCH_ALL_PAGINATED_STATUS= '/setting/status/';
+    public static STATUS_DELETE = '/setting/status/delete/';
+    public static UPDATE_STATUS_URL = '/setting/status/update/';
+    public static STATUS_SEARCH = '/setting/status/search/';
+    public static BRANCH_ORGANIZATION = '/setting/branch/organization';
 }

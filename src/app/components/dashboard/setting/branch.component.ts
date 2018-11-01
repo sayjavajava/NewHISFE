@@ -8,6 +8,7 @@ import {ConformationDialogService} from '../../../services/ConformationDialogSer
 import {AppConstants} from '../../../utils/app.constants';
 import {SearchBranch} from '../../../model/searchBranch';
 import {Observable} from "rxjs/Observable";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'branch-component',
@@ -28,12 +29,14 @@ export class BranchComponent implements OnInit {
     searchForm: FormGroup;
     responseUser: any[];
     defaultSelectedBranch :any;
+    doctorsInBranch:any=[];
 
 
     constructor(private requestService: RequestsService, private router: Router,
                 private notificationService: NotificationService, private fb: FormBuilder,
                 private matDialog: MatDialog, private confirmationDialogService: ConformationDialogService) {
         this.allBranches();
+     //   this.getbranchesWithDoctors(2);
         this.allDepartments();
 
     }
@@ -62,6 +65,22 @@ export class BranchComponent implements OnInit {
                 })
     }
 
+    getbranchesWithDoctors(id:number) {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTORS + id)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        this.doctorsInBranch = response['responseData'];
+                        console.log('doctor:'+ this.doctorsInBranch);
+                        //    this.defaultSelectedBranch= this.branchesList[0].id;
+                    }
+                    //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+
     allDepartments() {
         this.requestService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
             .subscribe(
@@ -81,7 +100,7 @@ export class BranchComponent implements OnInit {
      //   if (this.searchForm.valid) {
             let searchUserObj = new SearchBranch(data.branch, data.department, data.description);
          //   this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
-        this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch )
+           this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch )
                 .subscribe(
                     (response: Response) => {
 
@@ -175,6 +194,7 @@ export class BranchComponent implements OnInit {
                     });
                 }
             });
+
     }
 
     updateBranch(id: any) {

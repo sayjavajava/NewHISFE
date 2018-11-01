@@ -69,9 +69,6 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
                     let apptId = response['responseData']['pastAppointments'];
-                } else {
-                    this.notificationService.error(response['responseMessage'], 'Patient');
-                    // this.router.navigate(['404-not-found'])
                 }
             },
             (error: any) => {

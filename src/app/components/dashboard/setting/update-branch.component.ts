@@ -51,6 +51,17 @@ export class UpdateBranchComponent implements OnInit {
     defaultBranch: string = 'primary';
     noOfRoom:number=1;
     disable:boolean =true;
+    flowList:any;
+    cities: any = [];
+    state:any;
+    countryList: Array<any> = [
+        {name: 'Germany', label:'Germany',value:'Germany', cities: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn']},
+        {name: 'Pakistan',label:'Pakistan',value:'Pakistan', cities: ['Punjab', 'Sindh', 'Balochistan', 'KPK']},
+        {name: 'USA',label:'USA',value:'USA', cities: ['California', 'Florida', 'Texas', 'New York', 'Hawai', 'Pennsylvania']},
+        {name: 'Canada',label:'Caanda',value:'Canada', cities: ['Alberta', 'Ontario']},
+        {name: 'Saudi Arab',label:'Saudi Arab',value:'Saudi Arab', cities: ['Riyadh', 'Jeddah', 'Dammam']},
+        {name: 'China',label:'China',value:'China', cities: ['Hainan', 'Sichuan', 'Hunan', 'Henan']},
+    ];
 
     ngOnInit() {
         this.createBranchForm();
@@ -61,6 +72,13 @@ export class UpdateBranchComponent implements OnInit {
         this.createBillingForm();
         this.createScheduleForm();
         this.patchData();
+        this.flowList = [
+            { label: 'RCND', value: 'RCND' },
+            { label: '2', value: 2 },
+            { label: '3', value: 3 },
+            { label: '4', value: 4 },
+
+        ];
     }
 
     createBranchForm() {
@@ -69,6 +87,7 @@ export class UpdateBranchComponent implements OnInit {
             'branchName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
             'country': [null],
             'state': [null],
+            'flow':[null],
             'city': [null],
             'primaryDoctor': [null],
             'zipCode': [null],
@@ -125,12 +144,13 @@ export class UpdateBranchComponent implements OnInit {
             this.requestService.findById(AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(
                 branch => {
                     //  this.id = user.id;
+                    this.cities = this.countryList.find((x: any) => x.name == branch.country).cities;
                     this.branchForm.patchValue({
                         branchName: branch.branchName,
                         officeHoursStart: branch.officeHoursStart,
                         officeHoursEnd: branch.officeHoursEnd,
                         noOfExamRooms: branch.rooms,
-                        state: branch.state,
+                        state:branch.state,
                         city: branch.city,
                         // primaryDoctor: branch.user.id,
                         fax: branch.fax,
@@ -138,21 +158,25 @@ export class UpdateBranchComponent implements OnInit {
                         address: branch.address,
                         zipCode: branch.zipCode,
                         officePhone: branch.officePhone,
+                        flow : branch.flow,
 
                     });
 
-                    /*     this.billingForm.patchValue({
-                             billingBranch: branch.billingBranch,
-                             billingName: branch.billingName,
-                             billingTaxID: branch.billingTaxID
+                   // this.state = branch.state,
 
-                         });
 
-                         this.scheduleForm.patchValue({
-                                 showBranchOnline: branch.showBranchOnline,
-                                 allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
-                             }
-                         );*/
+                        /*     this.billingForm.patchValue({
+                                 billingBranch: branch.billingBranch,
+                                 billingName: branch.billingName,
+                                 billingTaxID: branch.billingTaxID
+
+                             });
+
+                             this.scheduleForm.patchValue({
+                                     showBranchOnline: branch.showBranchOnline,
+                                     allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
+                                 }
+                             );*/
                     this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
                     this.addFields(branch.rooms);
                     this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
@@ -302,15 +326,17 @@ export class UpdateBranchComponent implements OnInit {
         }
     }
 
-    getCountry(value: any) {
-        if (value) {
-            this.branchForm.controls['country'].setValue(value);
+    getSelectedStates(countryObj: any) {
+        const country = countryObj.value;
+        if (country) {
+            this.cities = this.countryList.find((x: any) => x.name == country).cities;
+            this.branchForm.controls['country'].setValue(country);
         }
     }
 
     getState(value: any) {
         if (value) {
-            this.branchForm.controls['country'].setValue(value);
+            this.branchForm.controls['state'].setValue(value);
         }
     }
 

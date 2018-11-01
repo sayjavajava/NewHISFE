@@ -24,6 +24,11 @@ export class AddPatientComponent implements OnInit {
     photoFront: File = null;
     photoBack: File = null;
     doctors: any = [];
+    titleList:any;
+    rLanguage:any;
+    pCommunication :any;
+    selectedRaces:any;
+
    /* title: string[] = ['mr','mrs','ms','miss','sir','dr'];
     model: any;*/
 
@@ -54,6 +59,25 @@ export class AddPatientComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Add Patient');
+        this.titleList = [
+            {label: 'Mr', value: 'Mr'},
+            {label: 'Mrs', value: 'Mrs'},
+            {label: 'Ms', value: 'Ms'},
+            {label: 'Dr', value: 'dr'},
+        ];
+        this.rLanguage = [
+            {label: 'ENGLISH', value: 'ENGLISH'},
+            {label: 'URDU', value: 'URDU'},
+            {label: 'ARABIC', value: 'ARABIC'},
+            {label: 'CHINESE', value: 'CHINESE'},
+        ];
+        this.pCommunication =[
+            {label: 'ENGLISH', value: 'ENGLISH'},
+            {label: 'URDU', value: 'URDU'},
+            {label: 'ARABIC', value: 'ARABIC'},
+            {label: 'CHINESE', value: 'CHINESE'},
+        ];
+
     }
 
     uploadImgOnChange(event: any) {

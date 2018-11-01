@@ -54,7 +54,7 @@
                         <!-- <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
                     </div>
                     <div class="hr no-margin">
-                        <div class="hr">
+                        <div *ngIf="patient.primaryDoctorFirstName"  class="hr">
                             <div class="portlet-title">
                                 <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
                             </div>
@@ -565,7 +565,7 @@
                                                 <label class="control-label col-md-4">Patient Marital Status
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <select class="form-control" name="maritalStatus"
+                                                    <!--<select class="form-control" name="maritalStatus"
                                                             #state="ngModel"
                                                             [(ngModel)]="patient.marital">
                                                         <option value="SINGLE">Single</option>
@@ -573,7 +573,10 @@
                                                         <option value="WIDOWED">Widowed</option>
                                                         <option value="DIVORCED">Divorced</option>
                                                         <option value="SEPERATED">Seperated</option>
-                                                    </select>
+                                                    </select>-->
+
+                                                    <p-dropdown  placeholder="Select Status" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="patient.marital" [options]="martialStatus"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
                                                 </div>
                                             </div>
                                             <div class="form-group">

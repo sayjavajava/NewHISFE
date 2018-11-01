@@ -56,7 +56,7 @@
                     <div class="hr no-margin">
                         <div class="hr">
                             <div class="portlet-title">
-                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
+                                <div *ngIf="patient.primaryDoctorFirstName"  class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
                             </div>
                         </div>
                         <!-- <div class="hr no-margin">
@@ -107,7 +107,7 @@
                                 <button class="btn mt-sweetalert btn green-meadow"
                                         (click)="getLabTest(item.id)"
                                         data-confirm-button-class="btn-success">
-                                    <i class="fa fa"></i> Show
+                                    <i class="fa fa"></i> Show Test
                                 </button>
                             </a>
                             <td rowspan="1" colspan="1">
@@ -190,7 +190,7 @@
                                             <div class="col-md-6 branches-list">
                                                 <ul>
                                                     <li *ngFor="let test of filteredLabTest">
-                                                        <i class=" icon-home"></i>
+                                                        <i class="fa fa-flask"></i>
                                                         <label class="">
                                                             {{test.loincCode +' ' + test.resultValue }}
                                                             <span></span>

@@ -138,6 +138,7 @@ var PatientAddLabOrdersComponent = (function () {
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
                         _this.notificationService.success('LabOrder is Updated Successfully');
+                        _this.router.navigate(['/dashboard/patient/lab-orders/', _this.id, 'history']);
                     }
                 }, function (error) {
                     this.notificationService.error('ERROR', 'LabOrder is not Updated');
@@ -148,6 +149,7 @@ var PatientAddLabOrdersComponent = (function () {
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
                         _this.notificationService.success('LabOrder is Created Successfully');
+                        _this.router.navigate(['/dashboard/patient/lab-orders/', _this.id, 'history']);
                     }
                 }, function (error) {
                     this.notificationService.error('ERROR', 'LabOrder is not Created');

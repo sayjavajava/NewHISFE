@@ -64,23 +64,25 @@ export class ManageAppointmentComponent implements OnInit {
     searchAppointment(page: any) {
         this.searchFlag = true;
         this.requestsService.getRequest(
-            AppConstants.SEARCH_APPOINTMENT_URL + page + '?name=' + this.searchData)
+            AppConstants.SEARCH_APPOINTMENTS_BY_PATIENT + page + '?patientName=' + this.searchData)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'APPT_SUC_01') {
-                        this.nextPage = response['responseData']['nextPage'];
-                        this.prePage  = response['responseData']['prePage'];
-                        this.currPage = response['responseData']['currPage'];
-                        this.pages    = response['responseData']['pages'];
-                        this.data     = response['responseData']['data'];
-                    } else {
-                        this.nextPage = 0;
-                        this.prePage = 0;
-                        this.currPage = 0;
-                        this.pages = [];
-                        this.data = null;
+                        /*     this.nextPage = response['responseData']['nextPage'];
+                             this.prePage  = response['responseData']['prePage'];
+                             this.currPage = response['responseData']['currPage'];
+                             this.pages    = response['responseData']['pages'];
+                             this.data     = response['responseData']['data'];
+                         } else {
+                             this.nextPage = 0;
+                             this.prePage = 0;
+                             this.currPage = 0;
+                             this.pages = [];
+                             this.data = null;
+                         }*/
+                        this.data = response['responseData'];
                     }
-                },
+                    },
                 (error: any) => {
                 }
             );

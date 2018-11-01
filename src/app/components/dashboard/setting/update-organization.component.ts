@@ -18,7 +18,6 @@ export class UpdateOrganizationComponent implements OnInit {
         this.allTimezone();
         this.allBranches();
         this.getOrganizationAccount();
-
     }
 
     private sub: any;
@@ -35,6 +34,7 @@ export class UpdateOrganizationComponent implements OnInit {
     organizationACCOUNT :any =[];
     organization : Organization = new Organization();
     defaultBranch: string = 'primaryBranch';
+    specialtyList :any;
 
     ngOnInit() {
         this.createProfileForm();
@@ -46,15 +46,21 @@ export class UpdateOrganizationComponent implements OnInit {
 
         });
         this.patchData();
-
-        this.proForm.controls['companyName'].disable();
         this.accountForm.controls['userName'].disable();
+
+        this.specialtyList = [
+            {label: 'Anesthesiologists ', value: 'Anesthesiologists '},
+            {label: 'Cardiologists ', value: 'Cardiologists '},
+            {label: 'Dermatologists ', value: 'Dermatologists '},
+            {label: 'Endocrinologists  ', value: 'Endocrinologists  '},
+            {label: 'Gastroenterologists  ', value: 'Gastroenterologists  '}
+        ];
 
     }
 
     createProfileForm() {
         this.proForm = this.fb.group({
-                'companyEmail': [null],
+                'companyEmail':  [null,Validators.compose([ Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'companyName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'officePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'specialty': [null],
@@ -86,7 +92,7 @@ export class UpdateOrganizationComponent implements OnInit {
             'userId':[null],
             'lastName': [null],
             'userName': [null],
-            'userEmail': [null],
+            'userEmail': [null,Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'cellPhone': [null],
             'userAddress': [null],
             'formName': ['ACCOUNT'],
@@ -227,6 +233,7 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 */
     saveProfile(data: FormData) {
+        if(this.proForm.valid) {
         var self = this;
         this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
             .subscribe(function (response) {
@@ -237,37 +244,45 @@ export class UpdateOrganizationComponent implements OnInit {
                 self.notificationService.error('ERROR', 'Organization is not Updated');
 
             });
+        }else {
+            this.validateAllFormFields(this.proForm);
+        }
     }
 
     saveGeneralSettings(data: FormData) {
-        var self = this;
-        this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
-            .subscribe(function (response) {
-                if (response['responseCode'] === 'ORG_SUC_03') {
-                    self.notificationService.success('Organization has been Update Successfully');
-                }
-            }, function (error) {
-                self.notificationService.error('ERROR', 'Organization is not Updated');
 
-            });
+            var self = this;
+            this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
+                .subscribe(function (response) {
+                    if (response['responseCode'] === 'ORG_SUC_03') {
+                        self.notificationService.success('Organization has been Update Successfully');
+                    }
+                }, function (error) {
+                    self.notificationService.error('ERROR', 'Organization is not Updated');
+
+                });
 
     }
 
     saveAccount(data: FormData) {
         var self = this;
-        //account url can be change
-        this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
-            .subscribe(function (response) {
-                if (response['responseCode'] === 'ORG_SUC_03') {
-                    self.notificationService.success('Organization has been Update Successfully');
-                }
-            }, function (error) {
-                self.notificationService.error('ERROR', 'Organization is not Updated');
+        if(this.accountForm.valid) {
+            //account url can be change
+            this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
+                .subscribe(function (response) {
+                    if (response['responseCode'] === 'ORG_SUC_03') {
+                        self.notificationService.success('Organization has been Update Successfully');
+                    }
+                }, function (error) {
+                    self.notificationService.error('ERROR', 'Organization is not Updated');
 
-            });
-
+                });
+        }else {
+            this.validateAllFormFields(this.accountForm);
+        }
 
     }
+
 
     getSelectedTimezone(value: any) {
         if (value) {
@@ -289,8 +304,8 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
     validateAllFormFields(formGroup: FormGroup) {
-        Object.keys(formGroup.controls).forEach(field => {
             //console.log(field);
+            Object.keys(formGroup.controls).forEach(field => {
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
                 control.markAsTouched({onlySelf: true});
@@ -301,7 +316,6 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
     cancel() {
-
         this.router.navigate(['/dashboard/setting/organization']);
     }
 

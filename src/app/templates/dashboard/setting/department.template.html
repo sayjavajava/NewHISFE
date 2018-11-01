@@ -47,7 +47,7 @@
                             <tr role="row" class="off-wite-bg">
                                 <th width="20%" class="c-text-left padding"> Name</th>
                                 <th width="50%"> Description</th>
-                                <th width="8%"> Status</th>
+                                <th width="8%">  Status</th>
                                 <th width="16%"> Action</th>
                             </tr>
                             <tr *ngFor="let item of data; let i = index;" class="filter">
@@ -131,14 +131,33 @@
                                         <div class="col-md-9 select pdng-lr-5">
                                             <input class="form-control" type="text" required
                                                    [(ngModel)]="selectedDepartment.name"
-                                                   required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                    name="dptName" #dptName="ngModel"/>
+                                            <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
                                         </div>
                                         <span *ngIf="dptName.invalid && dptName.touched"
                                               class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter valid name.
                                         </span>
                                     </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Branch <span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <!--<input class="form-control" type="text" required
+                                                   [(ngModel)]="selectedDepartment.name"
+                                                   name="dptName" #dptName="ngModel"/>-->
+                                            <p-dropdown  placeholder="Select Branch" required #brName="ngModel" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="brName" [(ngModel)]="selectedDepartment.branchId" [options]="branchesList"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                            </p-dropdown>
+                                            <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+
+                                        </div>
+                                        <span *ngIf="brName.invalid && brName.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please Select Branch
+                                        </span>
+                                    </div>
+
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
                                         <div class="col-md-9 select pdng-lr-5">

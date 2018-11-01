@@ -28,6 +28,8 @@ var updatenurse_component_1 = require("../components/dashboard/setting/updatenur
 var updatedoctor_component_1 = require("../components/dashboard/setting/updatedoctor.component");
 var updatecashier_component_1 = require("../components/dashboard/setting/updatecashier.component");
 var update_organization_component_1 = require("../components/dashboard/setting/update-organization.component");
+var statuses_component_1 = require("../components/dashboard/setting/statuses.component");
+var admin_profile_component_1 = require("../components/dashboard/setting/admin-profile.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -35,6 +37,7 @@ exports.SettingRoutes = [
     { path: 'organization/add', component: add_organization_component_1.AddOrganizationComponent },
     { path: 'organization/edit/:id', component: update_organization_component_1.UpdateOrganizationComponent },
     { path: 'branch', component: branch_component_1.BranchComponent },
+    { path: 'admin/profile', component: admin_profile_component_1.AdminProfileComponent },
     { path: 'branch/add', component: addbranch_component_1.AddBranchComponent },
     { path: 'staff', component: staff_component_1.StaffComponent },
     { path: 'staff/add', component: addstaff_component_1.AddStaffComponent },
@@ -55,6 +58,7 @@ exports.SettingRoutes = [
     { path: 'medicalServices/edit/:id', component: edit_medical_service_component_1.EditMedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
     { path: 'service-tax', component: service_tax_component_1.ServiceTaxComponent },
+    { path: 'status', component: statuses_component_1.StatusesComponent },
     { path: '404-not-found', component: not_found_404_setting_component_1.NotFound404SettingComponent },
     { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
     { path: 'email-template', component: email_template_component_1.EmailTemplateComponent },

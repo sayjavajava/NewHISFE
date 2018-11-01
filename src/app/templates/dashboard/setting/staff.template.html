@@ -11,6 +11,12 @@
                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
                                 </button>
                             </a>
+                            <button class="btn mt-sweetalert btn blue"
+                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                    data-type="success" data-allow-outside-click="true"
+                                    (click)="getUserFromServer(0)"
+                                    data-confirm-button-class="btn-success"> Refresh
+                            </button>
                             <!--<span><button class="btn btn-default btn-outline"> <i class=" icon-clock"></i> Print </button></span>-->
                         </div>
                     </h4>
@@ -28,24 +34,14 @@
                             <div class="col-md-3">
                                 <div class="form-group font-siz11">
                                     <label>User Type</label>
-                                   <!-- <select class="form-control" (change)="roleSelected($event.target.value)">
-                                        &lt;!&ndash;[ngModelOptions]="{standalone:true}"&ndash;&gt;
-                                        &lt;!&ndash;[(ngModel)]="event.branch"&ndash;&gt;
-                                        <option value="0">&#45;&#45; Select &#45;&#45;</option>
-                                        <option *ngFor="let item of allDBRoles; let i = index;" value={{item.id}}>
-                                            {{item.name}}
-                                        </option>
-                                    </select>-->
-                                    <select (change)="roleSelected($event.target.value)" class="form-control" formControlName="userType" style="width: 250px !important">
+                                    <!--<select (change)="roleSelected($event.target.value)" class="form-control" formControlName="userType" style="width: 250px !important">
                                         <option value="">Select User Type</option>
                                         <option *ngFor="let item of userTypes;" value={{item}}>
                                             {{item}}
                                         </option>
-                                        <!--<option value="receptionist">Receptionist</option>
-                                        <option value="doctor">Doctor</option>
-                                        <option value="nurse">Nurse</option>
-                                        <option value="cashier">Cashier</option>-->
-                                    </select>
+                                    </select>-->
+                                    <p-dropdown  placeholder="select"  [autoWidth]="false" [style]="{'text-align': 'left'}"   [options]="allStaffTypes" (onChange)="roleSelected($event)" formControlName="userType" [style]="{'width':'150px'}" filter="true">
+                                    </p-dropdown>
                                 </div>
                             </div>
                             <!--<div class="col-md-3">

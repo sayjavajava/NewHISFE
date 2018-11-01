@@ -23,6 +23,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
     appointmentId : number;
     orderId:number=0;
     patient:Patient =new Patient();
+
     constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,private notificationService:NotificationService,private hISUtilService: HISUtilService) {
     }
     ngOnInit(): void {
@@ -40,6 +41,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
       //  this.addMoreTest();
     }
+
     goToUserDashBoard(){
         this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
     }
@@ -148,6 +150,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
                         (response: Response) => {
                             if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
                                 this.notificationService.success('LabOrder is Updated Successfully');
+                                this.router.navigate(['/dashboard/patient/lab-orders/',this.id,'history']);
                             }
                         }, function (error) {
                             this.notificationService.error('ERROR', 'LabOrder is not Updated');
@@ -158,6 +161,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
                             this.notificationService.success('LabOrder is Created Successfully');
+                            this.router.navigate(['/dashboard/patient/lab-orders/',this.id,'history']);
                         }
                     }, function (error) {
                         this.notificationService.error('ERROR', 'LabOrder is not Created');

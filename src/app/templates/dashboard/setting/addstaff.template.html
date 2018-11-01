@@ -11,12 +11,28 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Role <span class="required" aria-required="true"> * </span></label>
+                                    <label class="control-label col-md-4">Role <span class="required"
+                                                                                     aria-required="true"> * </span></label>
                                     <div class="col-md-8">
-                                        <select class="form-control" (change)="goTo($event.target.value)" formControlName="changeUser">
+                                        <!--<select class="form-control" (change)="goTo($event.target.value)" formControlName="changeUser">
                                             <option *ngFor="let r of allStaffTypes" value="{{r.name}}">{{ r.name }}</option>
                                         </select>
-                                        <span class="text-danger" *ngIf="!userForm.controls['changeUser'].valid && userForm.controls['changeUser'].touched">{{changeUserError}}</span>
+                                        <span class="text-danger" *ngIf="!userForm.controls['changeUser'].valid && userForm.controls['changeUser'].touched">{{changeUserError}}</span>-->
+
+                                        <p-dropdown placeholder="Select Staff Type" [autoWidth]="false"
+                                                    [style]="{'text-align': 'left'}" [options]="allStaffTypes"
+                                                    (onChange)="goTo($event)" formControlName="changeUser"
+                                                    [style]="{'width':'150px'}" filter="true">
+                                            <!--  <ng-template let-item pTemplate="selectedItem">
+                                             <span>{{item.label}}</span>
+                                         </ng-template>
+                                         <ng-template let-car pTemplate="item">
+                                             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                                                 <div style="font-size:14px;float:left;margin-top:4px">{{car.label}}</div>
+                                             </div>
+                                         </ng-template>-->
+                                        </p-dropdown>
+
                                     </div>
                                 </div>
                                 <!--<div class="form-group">
@@ -65,22 +81,22 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Primary Branch
-                                        <span class="required" aria-required="true"> * </span>
+                                <div class="form-group" ngClass="displayFieldCss">
+                                    <label class="control-label col-md-4">Primary Branch <span class="required"
+                                                                                               aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control"
-                                                (change)="getSelectedBranch($event.target.value)"
-                                                formControlName="primaryBranch" placeholder="Select Branch">
-                                            <option  [value]="null">Select Primary Branch</option>
-                                            <option *ngFor="let br of branchesList; let i = index" [value]="br.id">
-                                                {{br.name}}
-                                            </option>
-
-                                        </select>
+                                    <div class="col-md-8" id="not-due">
+                                        <p-dropdown placeholder="Select Branch" [autoWidth]="false"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                    [(ngModel)]="pBranch" [options]="branchesList"
+                                                    formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
+                                                    [filter]="true">
+                                        </p-dropdown>
                                         <span class="text-danger"
-                                              *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">{{primaryBranchError}}</span>
+                                              *ngIf="!userForm.controls['primaryBranch'].valid && userForm.controls['primaryBranch'].touched">
+                                                  <span *ngIf="userForm.controls['primaryBranch'].errors.required">Primary Branch is required </span>
+
+                                        </span>
                                     </div>
                                 </div>
 
@@ -104,9 +120,9 @@
                                     </label>
                                     <!--<div class="">-->
                                     <div class="col-md-8" id="not-due">
-                                        <div class="checkbox-box hr cod-higt">
+                                        <!--<div class="checkbox-box hr cod-higt">
                                             <address class="row">
-                                                <div *ngFor="let item of branchesList" class="col-md-6">
+                                                &lt;!&ndash;<div *ngFor="let item of branchesList" class="col-md-6">
                                                     <label class="mt-checkbox-outline">
                                                         <input type="checkbox" formControlName="restrictBranch" class="mt-checkbox mt-checkbox-outline"
                                                                name={{item}} value="{{item}}"
@@ -114,11 +130,32 @@
                                                         {{item.name}}
                                                         <span></span>
                                                     </label>
-                                                </div>
+                                                </div>&ndash;&gt;
+
                                             </address>
-                                        </div>
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
+                                        </div>-->
+                                        <!-- <p-multiSelect [options]="branchesList" [(ngModel)]="selectedCars2" [ngModelOptions]="{standalone:true}" [panelStyle]="{minWidth:'12em'}">
+                                             &lt;!&ndash;<ng-template let-branchesList pTemplate="selectedItems">
+                                                &lt;!&ndash; <span *ngFor="let selectedCar of branchesList">{{selectedCar.id}}</span>&ndash;&gt;
+                                             </ng-template>&ndash;&gt;
+                                             <ng-template let-car let-i="index" pTemplate="item">
+                                                 {{car.id}}
+                                                 <div style="font-size:14px;float:right;margin-top:4px">{{car.name}}</div>
+                                             </ng-template>
+                                         </p-multiSelect>
+                                         <p>Selected Cars: {{selectedCars2}}</p>-->
+
+                                        <p-multiSelect placeholder="select branches"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="branchesList" [(ngModel)]="selectedVisitBranches"
+                                                       [ngModelOptions]="{standalone:true}"
+                                                       [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-br pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
+                                            </ng-template>
+                                        </p-multiSelect>
+
+                                        <!-- <p-multiSelect [options]="branchesList" formControlName="restrictBranch"  [panelStyle]="{minWidth:'12em'}">   </p-multiSelect>-->
                                     </div>
                                 </div>
 
@@ -127,21 +164,37 @@
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
-                                        <div class="checkbox-box cod-higt" id="not-due">
-                                            <address class="row">
-                                                <label class="col-md-6" *ngFor="let item of departmentList">
-                                                    <input type="checkbox" formControlName="departmentControl"
-                                                           name={{item.name}}
-                                                           value="{{item.id}}"
-                                                           (change)="selectDepartment($event,item)">{{item.name}}
-                                                    <span></span>
-                                                </label>
-                                            </address>
-                                        </div>
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">{{departmentError}}</span>
+                                    <div class="col-md-8" id="not-due">
+                                        <!-- <address class="row">
+                                             <label class="col-md-6" *ngFor="let item of departmentList">
+                                                 <input type="checkbox" formControlName="departmentControl"
+                                                        name={{item.name}}
+                                                        value="{{item.id}}"
+                                                        (change)="selectDepartment($event,item)">{{item.name}}
+                                                 <span></span>
+                                             </label>
+                                         </address>-->
+                                        <p-multiSelect placeholder="select Departments"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="departmentList" [(ngModel)]="selectedDepartment"
+                                                       [ngModelOptions]="{standalone:true}"
+                                                       [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-dpt pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{dpt.name}}
+                                                </div>
+                                            </ng-template>
+                                        </p-multiSelect>
                                     </div>
+                                    <span class="text-danger"
+                                          *ngIf="departmentFlag">
+                                            {{departmentError}}
+                                        </span>
+                                    <span class="text-danger"
+                                          *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">
+                                                  <span *ngIf="userForm.controls['departmentControl'].errors.required">Department is required </span>
+
+                                            </span>
+
                                 </div>
 
                                 <!--doctor department container-->
@@ -150,12 +203,19 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" (change)="selectDoctorDepartment($event.target.value)" formControlName="departmentControl">
+                                        <!--<select class="form-control" (change)="selectDoctorDepartment($event.target.value)" formControlName="departmentControl">
                                             <option value="" selected="selected">Select Department</option>
                                             <option *ngFor="let item of departmentList" value="{{item.id}}">{{item.name}}</option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown [autoWidth]="false" (onChange)="selectDoctorDepartment($event)"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+
+                                                    [options]="departmentList" formControlName="departmentControl"
+                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">{{departmentError}}</span>
+
                                     </div>
                                 </div>
 
@@ -164,8 +224,8 @@
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
-                                        <div class="checkbox-box cod-higt" id="not-due">
-                                            <address class="row">
+                                        <div class="checkbox-box" id="not-due">
+                                            <!--<address class="row">
                                                 <label class="mt-checkbox mt-checkbox-outline">
                                                     <div *ngFor="let item of servicesList" class="col-md-6">
                                                         <input type="checkbox" formControlName="servicesControl" class="mt-checkbox mt-checkbox-outline"
@@ -175,7 +235,18 @@
                                                         {{item.name}}
                                                     </div>
                                                 </label>
-                                            </address>
+                                            </address>-->
+
+                                            <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                           [options]="servicesList" [(ngModel)]="selectedServices"
+                                                           [ngModelOptions]="{standalone:true}"
+                                                           [panelStyle]="{minWidth:'12em'}">
+                                                <ng-template let-ser pTemplate="item">
+                                                    <div style="font-size:14px;float:right;margin-top:4px">
+                                                        {{ser.label}}
+                                                    </div>
+                                                </ng-template>
+                                            </p-multiSelect>
                                         </div>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
@@ -191,10 +262,9 @@
                                                                 </div>-->
                                 <div *ngIf="dutywithdoctor" class="form-group">
                                     <label class="control-label col-md-4">Duty with Doctor
-                                        <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <div class="checkbox-box" id="not-due">
+                                        <!--<div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
                                                 <div *ngFor="let item of doctorsList">
                                                     <input type="checkbox" formControlName="nurseDutyWithDoctor"
@@ -206,24 +276,49 @@
                                                     <span></span></div>
                                             </label>
                                             </address>
-                                        </div>
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['nurseDutyWithDoctor'].valid && userForm.controls['nurseDutyWithDoctor'].touched">please select Doctor </span>
+                                        </div>-->
+
+                                        <p-multiSelect placeholder="select Doctor"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="doctorsList" [(ngModel)]="dutyWithDoctors"
+                                                       [ngModelOptions]="{standalone:true}"
+                                                       [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-dpt pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{dpt.label}}
+                                                </div>
+                                            </ng-template>
+                                        </p-multiSelect>
                                     </div>
                                 </div>
                                 <div *ngIf="managepatientrecord" class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Manage Patients Records</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox-outline chckbox mrgn-top12">
+                                    <div class="col-md-8">
+                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top12">
                                             <input type="checkbox" formControlName="managePatientRecords"
-                                                   class=""><span></span></label>
+                                                   class=""><span></span></label>-->
+                                        <label class="mt-checkbox-outline">
+
+                                            <mat-checkbox formControlName="managePatientRecords"
+                                                          color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
+                                            <span></span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div *ngIf="managepatientinvoices" class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Manage Patients Invoices</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox-outline chckbox mrgn-top12">
-                                            <input type="checkbox" formControlName="managePatientInvoices"><span></span></label>
+                                    <div class="col-md-8">
+                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top12">
+                                            <input type="checkbox" formControlName="managePatientInvoices"><span></span></label>-->
+
+                                        <label class="mt-checkbox-outline">
+                                            <mat-checkbox formControlName="managePatientInvoices"
+                                                          color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
+                                            <span></span>
+                                        </label>
                                     </div>
                                 </div>
                                 <!--<div *ngIf="dutytimmingshift2" class="form-group">
@@ -253,29 +348,29 @@
                                 </div>-->
                             </div>
                             <div class="col-md-6">
-                               <!-- nurse department container
-                               <div *ngIf="nurseDepartment" class="form-group mrgn-btm10">
-                                    <label class="control-label col-md-4">Department
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                    <div class="col-md-8">
-                                        <div class="checkbox-box cod-higt" id="not-due">
-                                            <address class="row">
-                                                <label class="col-md-6" *ngFor="let item of departmentList">
-                                                    <input type="checkbox" formControlName="departmentControl"
-                                                           name={{item.name}}
-                                                           value="{{item.id}}"
-                                                           (change)="selectDepartment($event,item)">
-                                                    {{item.name}}
+                                <!-- nurse department container
+                                <div *ngIf="nurseDepartment" class="form-group mrgn-btm10">
+                                     <label class="control-label col-md-4">Department
+                                         <span class="required" aria-required="true"> * </span>
+                                     </label>
+                                     <div class="col-md-8">
+                                         <div class="checkbox-box cod-higt" id="not-due">
+                                             <address class="row">
+                                                 <label class="col-md-6" *ngFor="let item of departmentList">
+                                                     <input type="checkbox" formControlName="departmentControl"
+                                                            name={{item.name}}
+                                                            value="{{item.id}}"
+                                                            (change)="selectDepartment($event,item)">
+                                                     {{item.name}}
 
-                                                    <span></span>
-                                                </label>
-                                            </address>
-                                        </div>
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
-                                    </div>
-                                </div>-->
+                                                     <span></span>
+                                                 </label>
+                                             </address>
+                                         </div>
+                                         <span class="text-danger"
+                                               *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
+                                     </div>
+                                 </div>-->
 
                                 <!--doctor department container-->
                                 <!--<div *ngIf="doctorDepartment" class="form-group mrgn-btm10">
@@ -364,9 +459,19 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
                                     <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox-outline chckbox mrgn-top10">
-                                            <input type="checkbox" formControlName="sendBillingReport"
-                                                   class=""><span></span></label>
+                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
+                                        <!--<input type="checkbox" formControlName="sendBillingReport"
+                                               class="">-->
+                                        <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                        <span></span>-->
+                                        <label class="mt-checkbox-outline">
+                                            <mat-checkbox formControlName="sendBillingReport"
+                                                          color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
+                                            <span></span>
+                                        </label>
+                                        <!--</label>-->
                                     </div>
                                 </div>
 
@@ -401,28 +506,29 @@
                                     </label>
                                     <div class="col-md-8 col-xs-6">
                                         <mat-form-field class="mrgn-lft8">
-                                            <input matInput [matDatepicker]="from" placeholder="Expiry Date"
+                                            <input [style]="{'text-align': 'left' ,'width':'100%'}" matInput
+                                                   [matDatepicker]="from" placeholder="Expiry Date"
                                                    formControlName="accountExpiry">
                                             <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
                                             <mat-datepicker #from></mat-datepicker>
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Active
-                                    </label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox-outline chckbox mrgn-top10">
-                                            <input type="checkbox" formControlName="active"><span></span></label>
-                                    </div>
-                                </div>
+                                <!--   <div class="form-group">
+                                       <label class="control-label col-md-4 col-xs-6">Active
+                                       </label>
+                                       <div class="col-md-8 col-xs-6">
+                                           <label class="mt-checkbox-outline chckbox mrgn-top10">
+                                               <input type="checkbox" formControlName="active"><span></span></label>
+                                       </div>
+                                   </div>-->
 
 
                                 <div *ngIf="checkUpInterval" class="form-group">
                                     <label class="control-label col-md-4">Checkup Interval:
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <!--<div class="col-md-8">
                                         <select class="form-control"
                                                 (change)="checkupIntervalMethod($event.target.value)"
                                                 formControlName="interval">
@@ -435,9 +541,15 @@
                                             <option value="60">60</option>
 
                                         </select>
-                                       <!-- <span class="text-danger"
+                                       &lt;!&ndash; <span class="text-danger"
                                               *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
-                                        <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>-->
+                                        <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>&ndash;&gt;
+                                    </div>-->
+                                    <div class="col-md-8" id="not-due">
+                                        <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                    [options]="intervalList" formControlName="interval"
+                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
                                 </div>
 
@@ -452,10 +564,19 @@
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-8 col-xs-12">
-                                    <div class="width6 pull-left no-padding"><label
-                                            class="mrgn-top8 mt-checkbox-outline chckbox">
-                                        <input type="checkbox" formControlName="shift1"
-                                               class=""><span></span></label>
+                                    <div class="width6 pull-left no-padding mrgn-top20">
+                                        <!-- <label
+                                             class="mrgn-top8 mt-checkbox-outline chckbox">
+                                         <input type="checkbox" formControlName="shift1"
+                                                class="">
+                                         <span></span></label>-->
+                                        <label>
+
+                                            <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
+                                            <span></span>
+                                        </label>
                                     </div>
                                     <div class="mrgn-top8">
                                         <!-- <span class="col-md-2 width12"><button type="button"
@@ -488,10 +609,17 @@
                                 <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
                                 </label>
                                 <div class="col-md-8  col-xs-12">
-                                    <div class="width6 col-md-1 pull-left no-padding">
-                                        <label class="mrgn-top10 mt-checkbox-outline chckbox">
+                                    <div class="width6 col-md-1 pull-left no-padding mrgn-top20">
+                                        <!--<label class="mrgn-top10 mt-checkbox-outline chckbox">
                                             <input type="checkbox" class=""
-                                                   formControlName="shift2"><span></span></label>
+                                                   formControlName="shift2"><span></span></label>-->
+                                        <label class="mt-checkbox-outline">
+
+                                            <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
+                                            <span></span>
+                                        </label>
                                     </div>
                                     <div class="mrgn-top8">
                                         <div class="col-md-2">
@@ -515,14 +643,17 @@
                                 <label class="control-label col-md-4 col-xs-12 mrgn-top14"> Vacation:
                                 </label>
                                 <div class="col-md-8 col-xs-12">
-                                    <div class="width6 pull-left no-padding mrgn-top24">
+                                    <!--<div class="width6 pull-left no-padding mrgn-top24">
                                         <label class="mt-checkbox-outline chckbox">
                                             <input type="checkbox" formControlName="vacation"
                                                    class=""><span></span></label>
-                                    </div>
-                                    <!--<div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
-                                        From
                                     </div>-->
+                                    <div class="width6 pull-left no-padding mrgn-top20">
+                                        <label>
+                                            <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
+                                        </label>
+                                    </div>
+
                                     <div class=" col-md-6 col-xs-5 pull-left">
                                         <mat-form-field class="mrgn-lft8">
                                             <input matInput [matDatepicker]="from" placeholder="From"
@@ -544,7 +675,7 @@
                             <div *ngIf="vacationweek" class="form-group">
                                 <label class="control-label col-md-4 col-xs-12"> Working Days:
                                 </label>
-                                <div class="col-md-8 col-xs-12 text-center">
+                                <!--<div class="col-md-8 col-xs-12 text-center">
                                     <div *ngFor="let item of workingDays" class="">
                                         <div class=" col-md-1 col-width25 col-xs-3">
                                             <input type="checkbox" class="spinner"
@@ -553,7 +684,24 @@
                                             {{item.name}}
                                         </div>
                                     </div>
+                                </div>-->
+                                <div class="col-md-8">
+                                    <p-multiSelect placeholder="select days"
+                                                   [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                   [options]="workingDays" [(ngModel)]="selectedWorkingDays"
+                                                   [ngModelOptions]="{standalone:true}"
+                                                   [panelStyle]="{minWidth:'12em'}">
+                                        <ng-template let-dy pTemplate="item">
+                                            <div style="font-size:14px;float:right;margin-top:4px">{{dy.label}}</div>
+                                        </ng-template>
+                                    </p-multiSelect>
                                 </div>
+
+                            </div>
+
+                            <div class="col-md-8">
+                                <angular2-date-picker style="width: 140px" [(ngModel)]="date" [ngModelOptions]="{standalone:true}" [settings]="settings"></angular2-date-picker>
+
                             </div>
 
 
@@ -569,6 +717,7 @@
 
                         </div>
                     </div>
+
 
                 </form>
             </div>

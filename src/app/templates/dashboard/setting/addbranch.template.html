@@ -24,6 +24,15 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label class="control-label col-md-4">Company Name
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text"   formControlName="companyName" [(ngModel)]="organization.companyName" name="cname"
+                                                           class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="control-label col-md-4">Branch Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
@@ -58,14 +67,16 @@
                                                 </label>
                                                 <div class="col-md-8">
 
-                                                    <select class="form-control" formControlName="country"
-                                                            (change)="getCountry($event.target.value)">
+<!--                                                    <select class="form-control" formControlName="country"
+                                                            (change)="getSelectedStates($event.target.value)">
                                                         <option value="-1">Select...</option>
-                                                        <option value="Pakistan">Pakistan</option>
-                                                        <option value="Saudi Arabia">Saudi Arabia</option>
-                                                        <option value="USA">USA</option>
-                                                        <option value="Germany">Germany</option>
-                                                    </select>
+
+                                                        <option *ngFor ="let count of countryList">{{count.name}} </option>
+                                                        </select>-->
+                                                    <p-dropdown  placeholder="Select Country" [autoWidth]="false" formControlName="country"   [style]="{'text-align': 'left' ,'width':'100%'}"  (onChange)="getSelectedStates($event)" [options]="countryList"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+
+
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -75,11 +86,7 @@
                                                     <select class="form-control"
                                                             (change)="getState($event.target.value)">
                                                         <option value="">Select...</option>
-                                                        <option value="Riyadh">Riyadh</option>
-                                                        <option value="Jeddah">Jeddah</option>
-                                                        <option value="Punjab">Punjab</option>
-                                                        <option value="California">California</option>
-                                                        <option value="Texas">Texas</option>
+                                                        <option *ngFor ="let city of cities">{{city}} </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -124,6 +131,7 @@
                                                     <input type="text" formControlName="fax" data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
+
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Address
                                                 </label>
@@ -132,7 +140,21 @@
                                                            data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
-                                        </div>
+
+                                            <div class="form-group">
+                                                <div style="margin-left: 33%" class="col-md-8">
+                                                <mat-radio-group formControlName="flow">
+                                                    <mat-radio-button value="RCND" color="primary">Receptionist &#8680; Cashier &#8680; Nurses &#8680; Doctor</mat-radio-button>
+                                                    <mat-radio-button value="RCD" color="primary">Receptionist &#8680; Cashier &#8680; Doctor</mat-radio-button>
+                                                    <mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
+                                                    <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>
+
+                                                </mat-radio-group>
+                                                </div>
+
+                                            </div>
+
+                                           </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Office Start Time
@@ -169,13 +191,15 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom"
+                                                    <p-dropdown  placeholder="Select No of Rooms" [autoWidth]="false" [(ngModel)]="noOfRoom"  name="noOfRooms" [style]="{'text-align': 'left' ,'width':'100%'}"  (onChange)="getNoOfExamRooms($event)" [options]="noOfRoomsList" formControlName="noOfExamRooms"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+                                                    <!--<select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
                                                         <option value="4">4</option>
-                                                    </select>
+                                                    </select>-->
                                                 </div>
                                             </div>
                                             <span class="text-danger"
@@ -195,20 +219,21 @@
 
                                                     <div class="col-md-5 pdng-lr-5 mrgn-top4">
                                                         <label class="mt-checkbox-outline">
-                                                            <input type="checkbox"
-                                                                   formControlName="allowOnlineScheduling"> Allow Online
-                                                            Scheduling
+
+                                                            <mat-checkbox formControlName="allowOnlineScheduling" color="primary" > Online Scheduling</mat-checkbox>
+                                                           <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
                                                             <span></span>
                                                         </label>
                                                         <i (click)="deleteField(i)" title="Remove"
                                                            class="fa fa-close font-red"></i>
                                                     </div>
-                                                    <!--{{ branchForm.controls.examRooms.controls[i].controls.roomName.value }}-->
-                                                    <span class="text-danger"
+                                                   <!--{{ branchForm.controls.examRooms.controls[i].controls.allowOnlineScheduling.value }}-->
+                                                    <span  style="text-align: center" class="text-danger"
                                                           *ngIf="!branchForm.controls.examRooms.controls[i].controls.roomName.valid && branchForm.controls.examRooms.controls[i].controls.roomName.touched">
-                                                    <span *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
+                                                    <span style="text-align: center" *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
                                                 </span>
-                                                  <!--  <span *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>-->
+                                                    <!--  <span *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>-->
                                                     <!--<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>-->
                                                 </div>
                                             </div>

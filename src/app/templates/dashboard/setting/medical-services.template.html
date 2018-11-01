@@ -53,31 +53,35 @@
                     <div class="col-md-2">
                         <div class="form-group font-siz11">
                             <label>Branch</label>
-                            <select class="form-control" name="branchDrp"
+                            <!--<select class="form-control" name="branchDrp"
                                     [ngModelOptions]="{standalone:true}"
                                     [(ngModel)]="searchMSModel.searchBranchId"
                                     (keydown.enter)="searchByMedicalServiceParams(0)">
-                                <option value="0">-- Select --</option>
+                                <option value="0">&#45;&#45; Select &#45;&#45;</option>
                                 <option *ngFor="let branch of branches"
                                         value={{branch.id}}>
                                     {{branch.name}}
                                 </option>
-                            </select>
+                            </select>-->
+                            <p-dropdown  placeholder="Select Branch" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="searchMSModel.searchBranchId" [options]="branches"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                            </p-dropdown>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group font-siz11">
                             <label>Department:</label>
-                            <select class="form-control" name="dptDrp"
+                            <!--<select class="form-control" name="dptDrp"
                                     [ngModelOptions]="{standalone:true}"
                                     [(ngModel)]="searchMSModel.departmentId"
                                     (keydown.enter)="searchByMedicalServiceParams(0)">
-                                <option value="0">-- Select --</option>
+                                <option value="0">&#45;&#45; Select &#45;&#45;</option>
                                 <option *ngFor="let department of departments"
                                         value={{department.id}}>
                                     {{department.name}}
                                 </option>
-                            </select>
+                            </select>-->
+                            <p-dropdown  placeholder="Select Department" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="searchMSModel.departmentId" [options]="departments"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                            </p-dropdown>
                         </div>
                     </div>
                     <div class="col-md-2">

@@ -97,7 +97,6 @@ export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
     }
 
     saveFamilyHistory(data: NgForm) {
-
         if (data.valid) {
             this.selectedFamily.patientId = this.patientId;
             if(this.patientId == null || this.patientId ==0 || this.patientId==undefined){

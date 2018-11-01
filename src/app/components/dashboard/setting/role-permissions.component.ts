@@ -141,6 +141,8 @@ export class RolePermissionsComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'ROL_PER_SUC_03') {
                         this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
+                    }else if (response['responseCode'] === 'ROL_PER_SUC_02') {
+                        this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Roles & Permissions');
                     }

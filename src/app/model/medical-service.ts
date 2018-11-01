@@ -16,6 +16,8 @@ export class MedicalService {
     checkedDepartmentCount: number;
     checkedBranchCount: number;
     tax: Tax = new Tax();
+    selectedBranches:Branch[] = [];
+    selectedDepartments : Department[] =[];
 
     duration: number = 0;
     description: string;

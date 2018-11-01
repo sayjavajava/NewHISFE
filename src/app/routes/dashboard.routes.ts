@@ -13,6 +13,7 @@ import {ReceptionistDashboardComponent} from "../components/dashboard/receptioni
 
 import { CashierComponent } from "../components/dashboard/cashier/cashier.component";
 import { PaymentComponent } from "../components/dashboard/cashier/payment.component";
+import {PrimeSchedularComponent} from "../components/dashboard/primeschedular/prime-schedular.component";
 
 
 export const DashboardRoutes: Routes = [      

@@ -11,11 +11,12 @@
                                     <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
-                            <!--<button class="btn mt-sweetalert btn blue"
+                            <button class="btn mt-sweetalert btn blue"
                                     data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                     data-type="success" data-allow-outside-click="true"
+                                    (click)="getAllPaginatedAppointmentsFromServer(0)"
                                     data-confirm-button-class="btn-success"> Refresh
-                            </button>-->
+                            </button>
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
                         </div>
@@ -48,26 +49,26 @@
                                 <th width="5%" class="c-text-left padding"> ID</th>
                                 <th width="15%"> Patient</th>
                                 <th width="15%"> Exam Room</th>
-                                <th width="15%"> Branch</th>
+                                <th width="10%"> Branch</th>
                                 <th width="10%"> Type</th>
-                                <th width="10%"> Started On</th>
+                                <th width="15%"> Started On</th>
                                 <th width="10%"> Ended On</th>
                                 <th width="10%"> Status</th>
                                 <th width="10%"> Action</th>
                             </tr>
-                            <tr role="row" *ngFor="let app of data; let i = index;" class="filter">
+                            <tr role="row" *ngFor="let app of data;" class="filter">
                                 <td class="c-text-left padding font-green-dark"><strong>{{app.id}}</strong></td>
                                 <td class="sorting_disabled">{{app.patient}} </td>
                                 <td class="c-text-left">{{app.examName}}</td>
                                 <td class="c-text-left">{{app.branchName}}</td>
-                                <td class="c-text-left">{{app.type}}</td>
-                                <td class="c-text-left">{{app.firstAppointmentOn | date:'dd/MM/yyyy'}}</td>
-                                <td class="c-text-left">{{app.lastAppointmentOn | date:'dd/MM/yyyy'}}</td>
+                                <td class="c-text-left">{{app.appointmentType}}</td>
+                                <td class="c-text-left">{{app.scheduleDateAndTime |  date:'dd/MM/yyyy:h:mm a'}}</td>
+                                <td class="c-text-left">{{app.appointmentEndedOn}}</td>
                                 <td class="c-text-left">{{app.status}}</td>
                                 <td rowspan="1" colspan="1">
 
-                                    <button (click)="updateAppointment(app.id)" class="btn btn-default btn-outline btn-sm"><i
-                                            class="fa fa-pencil"></i></button>
+                                    <!--<button (click)="updateAppointment(app.id)" class="btn btn-default btn-outline btn-sm"><i
+                                            class="fa fa-pencil"></i></button>-->
                                     <button (click)="deleteAppointment(app.id)" class="btn btn-default btn-outline btn-sm"><i
                                             class="fa fa-remove"></i></button>
                                 </td>

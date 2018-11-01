@@ -140,6 +140,11 @@ var RequestsService = (function () {
         }
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };
+    RequestsService.prototype.getEvents = function () {
+        return this.http.get('showcase/resources/data/scheduleevents.json')
+            .toPromise()
+            .then(function (data) { return data; });
+    };
     RequestsService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient,

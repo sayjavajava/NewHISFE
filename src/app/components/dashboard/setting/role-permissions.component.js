@@ -118,6 +118,9 @@ var RolePermissionsComponent = (function () {
             if (response['responseCode'] === 'ROL_PER_SUC_03') {
                 _this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
             }
+            else if (response['responseCode'] === 'ROL_PER_SUC_02') {
+                _this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
+            }
             else {
                 _this.notificationService.error(response['responseMessage'], 'Roles & Permissions');
             }

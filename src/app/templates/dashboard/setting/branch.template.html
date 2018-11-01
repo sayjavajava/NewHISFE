@@ -71,7 +71,8 @@
                         <thead>
                         <tr role="row" class="off-wite-bg">
                             <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Name</th>
-                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Primary Doctor</th>
+                            <!--<th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Primary Doctor</th>-->
+                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Doctors</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Country</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> City</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Number of Exam Rooms</th>
@@ -80,11 +81,19 @@
 
                         <tr role="row" class="filter" *ngFor="let item of data  ">
 
+
                             <td rowspan="1" colspan="1" class="font-green-dark"><strong>{{item.name}}</strong></td>
 
-                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                            <!--<td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.firstName}}
-                            </td>
+                            </td>-->
+                            <a href="#popupTest" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow"
+                                        (click)="getbranchesWithDoctors(item.id)"
+                                        data-confirm-button-class="btn-success">
+                                    <i class="fa fa"></i>Doctors
+                                </button>
+                            </a>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.country}}
                             </td>
@@ -140,5 +149,54 @@
             </div>
         </div>
         <div class="clearfix"></div>
+    </div>
+</div>
+
+<!--show doctors modal-->
+
+<div id="popupTest" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Doctors</h4>
+            </div>
+            <div class="modal-body">
+                <p class="font-red" *ngIf="doctorsInBranch.length <= 0">This Branch has no Doctor</p>
+                <div class="scroller" style="height:150px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <address>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="select2-bootstrap-prepend">
+                                        <div class="checkbox-box cod-higt" id="branchNameDiv">
+                                            <div class="col-md-6 branches-list">
+                                                <ul>
+                                                    <li *ngFor="let dr of doctorsInBranch">
+                                                        <i class=" fa fa-user-md"></i>
+                                                        <label class="">
+                                                            {{dr.firstName }}
+                                                            <span></span>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal"
+                        id="close-btn-branch"
+                        name="close-btn-branch"
+                        class="btn btn-default btn-outline"
+                >Close
+                </button>
+            </div>
+        </div>
     </div>
 </div>

@@ -30,6 +30,7 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
     AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
     AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
+    AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTORS = '/setting/branch/doctorsInBranch/';
     ////////////////////// Patients Invoices ///////////////////////////////
     AppConstants.SAVE_INVOICE = '/invoice/saveInvoice';
     AppConstants.GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
@@ -83,6 +84,7 @@ var AppConstants = (function () {
     AppConstants.MEDICAL_SERVICE_SEARCH = '/setting/medicalService/search/';
     AppConstants.FETCH_DEPARTMENTS_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/departments/';
     AppConstants.FETCH_BRANCHES_BY_MEDICAL_SERVICE_ID_URL = '/setting/medicalService/branches/';
+    AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL = '/setting/medicalService/getDeptMedicalService/';
     ////////////////////// Organization URLs ///////////////////////////////
     AppConstants.ORGANIZATION_CREATE_URL = '/setting/organization/create';
     AppConstants.TIMEZONE_FETCH_URL = '/setting/organization/timezone';
@@ -132,10 +134,12 @@ var AppConstants = (function () {
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
     AppConstants.SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    AppConstants.SEARCH_APPOINTMENTS_BY_PATIENT = '/appointment/patient/appointments/';
     AppConstants.FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
     AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
     AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
     AppConstants.FETCH_APPOINTMENTS_URL = '/appointment/';
+    AppConstants.FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
     ////////////////////// Dashboard URLs ///////////////////////////////
     AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
     AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';
@@ -155,6 +159,13 @@ var AppConstants = (function () {
     ///////////////////////Smoke Status URLs//////////////////////////////
     AppConstants.SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
     AppConstants.SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
+    ///////////////////Family History//////////
+    AppConstants.STATUS_CREATE = '/setting/status/create';
+    AppConstants.FETCH_ALL_PAGINATED_STATUS = '/setting/status/';
+    AppConstants.STATUS_DELETE = '/setting/status/delete/';
+    AppConstants.UPDATE_STATUS_URL = '/setting/status/update/';
+    AppConstants.STATUS_SEARCH = '/setting/status/search/';
+    AppConstants.BRANCH_ORGANIZATION = '/setting/branch/organization';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

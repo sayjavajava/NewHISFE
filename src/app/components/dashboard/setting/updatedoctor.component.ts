@@ -58,17 +58,20 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     servicesList:any=[];
     primaryDoctor:any=[];
     staffBranches: any [];
+    pBranch :string;
     workingDays = [
-        {id: 1, name: 'Monday'},
-        {id: 2, name: 'Tuesday'},
-        {id: 3, name: 'Wednesday'},
-        {id: 4, name: 'Thursday'},
-        {id: 5, name: 'Friday'},
-        {id: 6, name: 'Saturday'},
-        {id: 7, name: 'Sunday'},
+        {label: 'Monday',value:'Monday'},
+        {label: 'Tuesday',value:'Tuesday'},
+        {label: 'Wednesday',value:'Wednesday'},
+        {label: 'Thursday',value:'Thursday'},
+        {label: 'Friday',value:'Friday'},
+        {label: 'Saturday',value:'Saturday'},
+        {label: 'Sunday',value:'Sunday'},
+
     ];
     private subscription :Subscription;
     userId:number;
+    intervalList:any;
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService
                 ,private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
@@ -86,6 +89,18 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         });
         this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();
+        this.intervalList = [
+            {label: '5', value: 5},
+            {label: '10', value: 10},
+            {label: '15', value: 15},
+            {label: '20', value: 20},
+            {label: '25', value: 25},
+            {label: '30', value: 30},
+            {label: '35', value: 35},
+            {label: '40', value: 40},
+            {label: '45', value: 45},
+            {label: '50', value: 50},
+        ];
 
         }
 

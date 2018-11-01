@@ -23,7 +23,7 @@
                                     </div>
                                     <span *ngIf="msTitle.invalid && msTitle.touched"
                                           class="col-md-6 select pdng-lr-5 text-danger">
-                                                Please enter valid name.
+                                                Please enter valid name
                                     </span>
                                 </div>
 
@@ -54,9 +54,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <div class="input-group select2-bootstrap-prepend" style="width: 100%;">
-                                            <div class="checkbox-box hr cod-higt" id="branchDiv">
-                                                <div class="col-md-6" *ngFor="let branch of ms.branches">
+<!--                                         <div class="col-md-6" *ngFor="let branch of ms.branches">
                                                     <address>
                                                         <label class="mt-checkbox-outline">
                                                             <input type="checkbox"
@@ -67,9 +65,14 @@
                                                             <span></span>
                                                         </label>
                                                     </address>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                </div>-->
+                                        <p-multiSelect placeholder="select branches"  [style]="{'text-align': 'left' ,'width':'100%'}"  [options]="ms.branches" [(ngModel)]="ms.selectedBranches" name="brList" [panelStyle]="{minWidth:'12em'}">
+                                                    <ng-template let-br pTemplate="item">
+                                                        <div style="font-size:14px;float:right;margin-top:4px">{{br.label}}</div>
+                                                    </ng-template>
+                                                </p-multiSelect>
+
+
 
                                     </div>
                                 </div>
@@ -78,7 +81,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <div class="checkbox-box  cod-higt" id="departmentDiv">
+                                        <!--<div class="checkbox-box  cod-higt" id="departmentDiv">
                                             <div class="col-md-6" *ngFor="let department of ms.departments">
                                                 <address>
                                                     <label class="mt-checkbox-outline">
@@ -91,7 +94,12 @@
                                                     </label>
                                                 </address>
                                             </div>
-                                        </div>
+                                        </div>-->
+                                        <p-multiSelect placeholder="select department"  [style]="{'text-align': 'left' ,'width':'100%'}"  [options]="ms.departments" [(ngModel)]="ms.selectedDepartments" name="dptList" [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-dpt pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{dpt.name}}</div>
+                                            </ng-template>
+                                        </p-multiSelect>
 
                                     </div>
                                 </div>
@@ -132,16 +140,18 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <select class="form-control"
+                                        <!--<select class="form-control"
                                                 name="taxId" id="taxId"
                                                 [ngModelOptions]="{standalone:true}"
                                                 [(ngModel)]="ms.tax.id">
-                                            <option value="-1">-- Select --</option>
+                                            <option value="-1">&#45;&#45; Select &#45;&#45;</option>
                                             <option *ngFor="let item of taxes; let i = index;"
                                                     value={{item.id}}>
                                                 {{item.name}}
                                             </option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown  placeholder="Select Tax" [autoWidth]="false"  name="dpt" [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="ms.tax.id" [options]="taxes"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -62,6 +62,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     user: UserEditModel;
     private subscription :Subscription;
     userId:number;
+    pBranch :string;
     departmentError: string = 'Select atleast one Department';
 
     filterBranches: any [];
@@ -335,11 +336,10 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
             let index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
-        console.log(this.selectedDepartment);
+
     }
 
     selectVisitBranches(event: any, item: any) {
-        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }

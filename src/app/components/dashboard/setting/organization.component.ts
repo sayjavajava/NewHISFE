@@ -111,7 +111,7 @@ export class OrganizationComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.data = response['responseData']['data'];
-                        console.log(this.data);
+
                         }
                 },
                 (error: any) => {

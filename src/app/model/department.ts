@@ -5,7 +5,9 @@ export class Department {
     active: boolean = true;
     deleted: boolean;
     checkedDepartment: boolean;
-
+    branch :string;
+    branchId :number;
+    branchDepartmentId:number;
     hasChild: boolean = false;
 
     constructor() {

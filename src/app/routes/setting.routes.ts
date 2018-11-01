@@ -27,6 +27,8 @@ import {UpdateNurseComponent} from '../components/dashboard/setting/updatenurse.
 import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedoctor.component';
 import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
 import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
+import {StatusesComponent} from "../components/dashboard/setting/statuses.component";
+import {AdminProfileComponent} from "../components/dashboard/setting/admin-profile.component";
 
 export const SettingRoutes: Routes = [
     // Setting Pages
@@ -35,6 +37,7 @@ export const SettingRoutes: Routes = [
     {path: 'organization/add', component: AddOrganizationComponent},
     {path:'organization/edit/:id',component: UpdateOrganizationComponent},
     {path: 'branch', component: BranchComponent},
+    {path: 'admin/profile', component: AdminProfileComponent},
     {path: 'branch/add', component: AddBranchComponent},
     {path: 'staff', component: StaffComponent},
     {path: 'staff/add', component: AddStaffComponent},
@@ -55,6 +58,7 @@ export const SettingRoutes: Routes = [
     {path: 'medicalServices/edit/:id', component: EditMedicalServiceComponent},
     {path: 'role-permissions', component: RolePermissionsComponent},
     {path: 'service-tax', component: ServiceTaxComponent},
+    {path: 'status', component: StatusesComponent},
     {path: '404-not-found', component: NotFound404SettingComponent},
     {path: 'branch/edit/:id',component: UpdateBranchComponent},
     {path: 'email-template', component: EmailTemplateComponent},

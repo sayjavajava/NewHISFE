@@ -34,6 +34,13 @@ var PatientDemographicComponent = (function () {
         this.smokeStatus = new PatientSmokeStatus_1.PatientSmokeStatus();
         this.smokeStatusList = [];
         this.patientInvBal = new Invoice_1.Invoice();
+        this.martialStatus = [
+            { label: 'SINGLE', value: 'SINGLE', selected: false },
+            { label: 'MARRIED', value: 'MARRIED', selected: false },
+            { label: 'WIDOWED', value: 'WIDOWED', selected: false },
+            { label: 'DIVORCED', value: 'DIVORCED', selected: false },
+            { label: 'SEPARATED', value: 'SEPARATED', selected: false },
+        ];
     }
     PatientDemographicComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -46,6 +53,11 @@ var PatientDemographicComponent = (function () {
             }
             _this.loadRecord();
         });
+        /* <option value="SINGLE">Single</option>
+             <option value="MARRIED">Married</option>
+             <option value="WIDOWED">Widowed</option>
+             <option value="DIVORCED">Divorced</option>
+             <option value="SEPERATED">Seperated</option>*/
     };
     PatientDemographicComponent.prototype.loadRecord = function () {
         var _this = this;
@@ -57,7 +69,8 @@ var PatientDemographicComponent = (function () {
                 _this.patient.races = new patient_1.Patient().races;
                 _this.patient.races.forEach(function (race) {
                     savedRace_1.forEach(function (dbRaces) {
-                        if (race.nameRace === dbRaces.nameRace) {
+                        if (race.value === dbRaces.nameRace) {
+                            //        if(race.nameRace === dbRaces.nameRace){
                             race.selected = true;
                         }
                     });

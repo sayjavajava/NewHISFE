@@ -108,6 +108,15 @@ var module_1 = require("../demo-utils/module");
 var edit_appointment_component_1 = require("./components/dashboard/appointment/edit-appointment.component");
 var patient_add_lab_orders_component_1 = require("./components/dashboard/patient/patient-add-lab-orders.component");
 var DataService_1 = require("./services/DataService");
+var ngx_bootstrap_1 = require("ngx-bootstrap");
+var statuses_component_1 = require("./components/dashboard/setting/statuses.component");
+var primeng_1 = require("primeng/primeng");
+var togglebutton_1 = require("primeng/togglebutton");
+var CustomEventTitleFormatter_1 = require("./components/dashboard/appointment/CustomEventTitleFormatter");
+var admin_profile_component_1 = require("./components/dashboard/setting/admin-profile.component");
+var prime_schedular_component_1 = require("./components/dashboard/primeschedular/prime-schedular.component");
+var inputswitch_1 = require("primeng/inputswitch");
+var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -144,10 +153,21 @@ var AppModule = (function () {
                 material_1.MatNativeDateModule,
                 material_1.MatInputModule,
                 material_1.MatIconModule,
+                material_1.MatButtonToggleModule,
                 ngx_color_picker_1.ColorPickerModule,
                 ng_bootstrap_1.NgbModalModule.forRoot(),
                 angular_calendar_1.CalendarModule.forRoot(),
-                module_1.DemoUtilsModule
+                module_1.DemoUtilsModule,
+                [ngx_bootstrap_1.ModalModule.forRoot()],
+                primeng_1.DropdownModule,
+                primeng_1.MultiSelectModule,
+                togglebutton_1.ToggleButtonModule,
+                primeng_1.CheckboxModule,
+                primeng_1.ScheduleModule,
+                material_1.MatCheckboxModule,
+                material_1.MatRadioModule,
+                inputswitch_1.InputSwitchModule,
+                angular2_datetimepicker_1.AngularDateTimePickerModule
             ],
             declarations: [
                 // App Components
@@ -229,7 +249,11 @@ var AppModule = (function () {
                 confirmationdialog_component_1.ConfirmationdialogComponent,
                 update_organization_component_1.UpdateOrganizationComponent,
                 edit_appointment_component_1.EditAppointmentComponent,
-                menu_component_1.MenuComponent
+                menu_component_1.MenuComponent,
+                statuses_component_1.StatusesComponent,
+                CustomEventTitleFormatter_1.CustomEventTitleFormatter,
+                admin_profile_component_1.AdminProfileComponent,
+                prime_schedular_component_1.PrimeSchedularComponent,
             ],
             bootstrap: [app_component_1.AppComponent]
         })

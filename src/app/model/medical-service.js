@@ -14,6 +14,8 @@ var MedicalService = (function () {
         this.departments = [];
         this.checkedDepartments = [];
         this.tax = new Tax_1.Tax();
+        this.selectedBranches = [];
+        this.selectedDepartments = [];
         this.duration = 0;
         this.hasChild = false;
     }

@@ -53,7 +53,9 @@ export const DATE_TIME_PICKER_CONTROL_VALUE_ACCESSOR: any = {
     `
     .form-group {
       width: 100%;
+      color: #0c91e5;  
     }
+        
   `
   ],
   providers: [DATE_TIME_PICKER_CONTROL_VALUE_ACCESSOR]

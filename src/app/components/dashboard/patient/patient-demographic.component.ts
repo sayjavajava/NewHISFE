@@ -25,6 +25,14 @@ export class PatientDemographicComponent implements OnInit {
     smokeStatus: PatientSmokeStatus = new PatientSmokeStatus();
     smokeStatusList: any = [];
     patientInvBal: Invoice = new Invoice();
+    martialStatus = [
+        {label: 'SINGLE', value: 'SINGLE',selected:false},
+        {label: 'MARRIED', value: 'MARRIED',selected:false},
+        {label: 'WIDOWED', value: 'WIDOWED',selected:false},
+        {label: 'DIVORCED', value: 'DIVORCED',selected:false},
+        {label: 'SEPARATED', value: 'SEPARATED',selected:false},
+
+    ];
     constructor(private router: Router,private route: ActivatedRoute,private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService,private  requestService: RequestsService,
                 private notificationService :NotificationService) {
@@ -39,6 +47,11 @@ export class PatientDemographicComponent implements OnInit {
             }
             this.loadRecord();
         });
+       /* <option value="SINGLE">Single</option>
+            <option value="MARRIED">Married</option>
+            <option value="WIDOWED">Widowed</option>
+            <option value="DIVORCED">Divorced</option>
+            <option value="SEPERATED">Seperated</option>*/
     }
 
     loadRecord(){
@@ -53,7 +66,8 @@ export class PatientDemographicComponent implements OnInit {
                     this.patient.races = new Patient().races;
                     this.patient.races.forEach(function (race) {
                         savedRace.forEach(function (dbRaces:Race) {
-                            if(race.nameRace === dbRaces.nameRace){
+                            if(race.value === dbRaces.nameRace){
+                    //        if(race.nameRace === dbRaces.nameRace){
                                 race.selected = true;
                             }
                         })

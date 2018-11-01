@@ -55,12 +55,12 @@ import {UpdateNurseComponent} from "./components/dashboard/setting/updatenurse.c
 import {UpdateReceptionistComponent} from "./components/dashboard/setting/update-receptionist.component";
 import {AddBranchComponent} from "./components/dashboard/setting/addbranch.component";
 import {
-    MatButtonModule,
+    MatButtonModule, MatButtonToggle, MatButtonToggleModule, MatCheckbox, MatCheckboxModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatNativeDateModule,
+    MatNativeDateModule, MatRadioModule,
     MatSnackBarModule
 } from "@angular/material";
 import {NotificationService} from "./services/notification.service";
@@ -116,7 +116,16 @@ import {DemoUtilsModule} from "../demo-utils/module";
 import {EditAppointmentComponent} from "./components/dashboard/appointment/edit-appointment.component";
 import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
 import {DataService} from "./services/DataService";
+import {ModalModule} from "ngx-bootstrap";
+import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
+import {CheckboxModule, DropdownModule, MultiSelectModule, ScheduleModule} from "primeng/primeng";
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {CustomEventTitleFormatter} from "./components/dashboard/appointment/CustomEventTitleFormatter";
+import {AdminProfileComponent} from "./components/dashboard/setting/admin-profile.component";
 
+import {PrimeSchedularComponent} from "./components/dashboard/primeschedular/prime-schedular.component";
+import {InputSwitchModule} from 'primeng/inputswitch';
+import {AngularDateTimePickerModule} from "angular2-datetimepicker";
 
 @NgModule({
     providers: [
@@ -128,7 +137,7 @@ import {DataService} from "./services/DataService";
         PermissionsService,DataService,
         {provide: ToastOptions, useClass: CustomOption},
         UserSharedService, ConformationDialogService
-    ], entryComponents: [ConfirmationdialogComponent],
+    ],  entryComponents: [ConfirmationdialogComponent],
     imports: [
         // Modules
         BrowserModule,
@@ -148,10 +157,22 @@ import {DataService} from "./services/DataService";
         MatNativeDateModule,
         MatInputModule,
         MatIconModule,
+        MatButtonToggleModule,
         ColorPickerModule,
         NgbModalModule.forRoot(),
         CalendarModule.forRoot(),
-        DemoUtilsModule
+        DemoUtilsModule,
+        [ModalModule.forRoot()],
+        DropdownModule,
+        MultiSelectModule,
+        ToggleButtonModule,
+        CheckboxModule,
+        ScheduleModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        InputSwitchModule,
+        AngularDateTimePickerModule
+
     ],
     declarations: [
         // App Components
@@ -236,7 +257,13 @@ import {DataService} from "./services/DataService";
         ConfirmationdialogComponent,
         UpdateOrganizationComponent,
         EditAppointmentComponent,
-        MenuComponent
+        MenuComponent,
+        StatusesComponent,
+        CustomEventTitleFormatter,
+        AdminProfileComponent,
+        PrimeSchedularComponent,
+
+
     ],
     bootstrap: [AppComponent]
 })

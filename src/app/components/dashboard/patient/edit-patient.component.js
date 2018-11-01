@@ -48,7 +48,8 @@ var EditPatientComponent = (function () {
                     _this.patient.races = new patient_1.Patient().races;
                     _this.patient.races.forEach(function (race) {
                         savedRace_1.forEach(function (dbRaces) {
-                            if (race.nameRace === dbRaces.nameRace) {
+                            //if(race.nameRace === dbRaces.nameRace){
+                            if (race.value === dbRaces.nameRace) {
                                 race.selected = true;
                             }
                         });

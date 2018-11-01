@@ -88,10 +88,6 @@ export class PatientLabOrdersComponent implements OnInit {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
                     //this.patient.races = JSON.parse(response['responseData'].racesString);
-                } else {
-                  //  this.notificationService.error(response['responseMessage'], 'Patient');
-                    //this.
-                    // this.router.navigate(['404-not-found'])
                 }
             },
             (error: any) => {

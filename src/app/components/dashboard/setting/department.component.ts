@@ -22,6 +22,8 @@ export class DepartmentComponent implements OnInit {
     data: any;
     searchDepart: string;
     searched: boolean = false;
+    branchesList: any = [];
+    error:any;
     selectedDepartment: Department = new Department();
 
     constructor(private requestsService: RequestsService,
@@ -29,6 +31,7 @@ export class DepartmentComponent implements OnInit {
                 private userSharedService: UserSharedService,
                 private HISUtilService: HISUtilService,
                 private notificationService: NotificationService) {
+        this.allBranches();
     }
 
     ngOnInit() {
@@ -52,6 +55,19 @@ export class DepartmentComponent implements OnInit {
         this.searched = false;
         this.searchDepart = '';
         this.getPageWiseDepartmentFromServer(0);
+    }
+    allBranches() {
+        this.requestsService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        this.branchesList = response['responseData'];
+                    }
+                    // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
     }
 
     getPageWiseDepartmentFromServer(page: number) {
@@ -159,7 +175,6 @@ export class DepartmentComponent implements OnInit {
         _.each(form.form.controls, function (control) {
             control['_touched'] = true
         });
-
         if (form.valid) {
             this.requestsService.putRequest(
                 AppConstants.UPDATE_CLINICAL_DEPARTMENT_URL,

@@ -57,7 +57,7 @@
                         <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
                     </div>
                     <div class="hr no-margin">
-                        <div class="hr">
+                        <div *ngIf="patient.primaryDoctorFirstName"  class="hr">
                             <div class="portlet-title">
                                 <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
                                         class="caption-subject text-info bold">Primery Doctor:</span> <span

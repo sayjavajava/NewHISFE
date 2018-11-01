@@ -53,7 +53,8 @@ export class EditPatientComponent implements OnInit {
                             this.patient.races = new Patient().races;
                             this.patient.races.forEach(function (race) {
                                 savedRace.forEach(function (dbRaces:Race) {
-                                    if(race.nameRace === dbRaces.nameRace){
+                                    //if(race.nameRace === dbRaces.nameRace){
+                                        if(race.value === dbRaces.nameRace){
                                         race.selected = true;
                                     }
                                 })

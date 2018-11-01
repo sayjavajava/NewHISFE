@@ -24,15 +24,17 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <select id="selectedDoctor" [(ngModel)]="patient.selectedDoctor"
+                                        <!--<select id="selectedDoctor" [(ngModel)]="patient.selectedDoctor"
                                                 #selectedDoctor="ngModel" name="selectedDoctor"
                                                 required
                                                 class="form-control">
-                                            <option [ngValue]="-1" selected>---Select---</option>
+                                            <option [ngValue]="-1" selected>-&#45;&#45;Select-&#45;&#45;</option>
                                             <option *ngFor="let doc of doctors" [value]="doc.id">
                                                 {{doc.firstName}} {{doc.lastName}}
                                             </option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown  placeholder="Select Doctor" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="pdoctor" [(ngModel)]="patient.selectedDoctor" [options]="doctors"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -40,19 +42,21 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <select class="form-control"
+                                        <!--<select class="form-control"
                                                 id="titlePrefix"
                                                 name="titlePrefix"
                                                 #titlePrefix="ngModel"
                                                 [(ngModel)]="patient.titlePrefix">
-                                            <option value="-1" selected>---Select---</option>
+                                            <option value="-1" selected>-&#45;&#45;Select-&#45;&#45;</option>
                                             <option value="Mr">Mr</option>
                                             <option value="Mrs">Mrs</option>
                                             <option value="Miss">Miss</option>
                                             <option value="Ms">Ms</option>
                                             <option value="Sir">Sir</option>
                                             <option value="Dr">Dr</option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown  placeholder="Select Title" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="pTitle" [(ngModel)]="patient.titlePrefix" [options]="titleList"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -176,12 +180,17 @@
                                             Disable all SMS/Txt Messages for this user
                                         </label>
                                         -->
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                      <!--  <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <input type="checkbox"
                                                    class="form-control"
                                                    #disableSMSTxt="ngModel"
                                                    name="disableSMSTxt"
-                                                   [(ngModel)]="patient.disableSMSTxt"><span></span></label>
+                                                   [(ngModel)]="patient.disableSMSTxt"><span></span></label>-->
+                                        <label class="mt-checkbox-outline">
+
+                                            <mat-checkbox name="disable" [(ngModel)]="patient.disableSMSTxt" color="primary"> </mat-checkbox>
+                                            <span></span>
+                                        </label>
 
                                     </div>
                                 </div>
@@ -249,28 +258,32 @@
                                     <label class="control-label col-md-4">Preferred Communication
                                     </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" name="preferredCommunication"
+                                        <!--<select class="form-control" name="preferredCommunication"
                                                 #preferredCommunication="ngModel"
                                                 [(ngModel)]="patient.preferredCommunication">
                                             <option value="ENGLISH" selected>English</option>
                                             <option value="ARABIC">Arabic</option>
                                             <option value="URDU">Urdu</option>
                                             <option value="CHINESE">Chinese</option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown  placeholder="Select Language" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="pLanguage" [(ngModel)]="patient.preferredCommunication" [options]="rLanguage"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Reminder Language
                                     </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" name="reminderLanguage"
+                                       <!-- <select class="form-control" name="reminderLanguage"
                                                 #reminderLanguage="ngModel"
                                                 [(ngModel)]="patient.reminderLanguage">
                                             <option value="ENGLISH" selected>English</option>
                                             <option value="ARABIC">Arabic</option>
                                             <option value="URDU">Urdu</option>
                                             <option value="CHINESE">Chinese</option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown  placeholder="Select Language" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="rLanguage" [(ngModel)]="patient.reminderLanguage" [options]="rLanguage"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -280,12 +293,18 @@
                                             <label class="control-label col-md-4 col-xs-6">Status User
                                             </label>
                                             <div class="col-md-8 col-xs-6">
-                                                <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                                    <input type="checkbox"
+
+                                                   <!-- <input type="checkbox"
                                                            class="form-control"
                                                            #statusUser="ngModel"
                                                            name="statusUser"
-                                                           [(ngModel)]="patient.statusUser"><span></span></label>
+                                                           [(ngModel)]="patient.statusUser">-->
+                                                    <label class="mt-checkbox-outline">
+
+                                                        <mat-checkbox name="statusUser" [(ngModel)]="patient.statusUser" color="primary"> </mat-checkbox>
+                                                        <span></span>
+                                                    </label>
+
                                             </div>
                                         </div>
                                     </div>
@@ -359,10 +378,10 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Race
                                     </label>
-                                    <div class="col-md-8">
-                                        <div class="input-group select2-bootstrap-prepend col-md-12">
-                                            <div class="checkbox-box hr cod-higt" id="codesDiv">
-                                                <div class="" *ngFor="let race of patient.races">
+                                    <div class="col-md-8" id="not-due">
+                                        <!--<div class="input-group select2-bootstrap-prepend col-md-12">
+                                            <div class="checkbox-box hr cod-higt" id="codesDiv">-->
+                                                <!--<div class="" *ngFor="let race of patient.races">
                                                     <address>
                                                         <label class="mt-checkbox mt-checkbox-outline">
                                                             <input type="checkbox"
@@ -373,9 +392,15 @@
                                                             <span></span>
                                                         </label>
                                                     </address>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                </div>-->
+
+                                                <p-multiSelect placeholder="select races"  [style]="{'text-align': 'left' ,'width':'100%'}"  [options]="patient.races" [(ngModel)]="selectedRaces" [ngModelOptions]="{standalone:true}"  [panelStyle]="{minWidth:'12em'}">
+                                                    <ng-template let-race pTemplate="item">
+                                                        <div style="font-size:14px;float:right;margin-top:4px">{{race.label}}</div>
+                                                    </ng-template>
+                                                </p-multiSelect>
+                                           <!-- </div>
+                                        </div>-->
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -504,12 +529,16 @@
                                 <label class="control-label col-md-4 col-xs-6">Signature On File
                                 </label>
                                 <div class="col-md-8 col-xs-6">
-                                    <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                    <!--<label class="mt-checkbox mt-checkbox-outline chckbox">
                                         <input type="checkbox"
                                                class="form-control"
                                                #signatureOnFile="ngModel"
                                                name="signatureOnFile"
-                                               [(ngModel)]="patient.signatureOnFile"><span></span></label>
+                                               [(ngModel)]="patient.signatureOnFile"><span></span></label>-->
+                                    <label class="mt-checkbox-outline">
+                                        <mat-checkbox name="disable" [(ngModel)]="patient.signatureOnFile" color="primary"> </mat-checkbox>
+                                        <span></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>

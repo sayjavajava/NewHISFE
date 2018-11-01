@@ -153,6 +153,12 @@ export class RequestsService {
         }
         return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
     }
+    getEvents() {
+        return this.http.get('showcase/resources/data/scheduleevents.json')
+            .toPromise()
+        //    .then(res => <any[]> res.data)
+            .then(data => { return data; });
+    }
 
 
 }

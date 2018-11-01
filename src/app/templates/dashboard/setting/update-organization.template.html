@@ -13,9 +13,9 @@
                         <li class="">
                             <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> General Settings </a>
                         </li>
-                        <li class="">
+                       <!-- <li class="">
                             <a href="#tab_1_5" data-toggle="tab" aria-expanded="false"> Account </a>
-                        </li>
+                        </li>-->
                         <li class="">
                             <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Usage </a>
                         </li>
@@ -27,21 +27,77 @@
                                     <div class="row">
                                         <div class="col-md-7">
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Company Email
-                                                    <span class="required" aria-required="true"> </span>
+                                                <label class="control-label col-md-4">Company Name
+                                                    <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
+                                                    <input type="text" formControlName="companyName"
+                                                           class="form-control"></div>
+                                                <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
+                                                <span *ngIf="proForm.controls['companyName'].errors.minlength"> minimum 4 charachters</span>
+                                                <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Specialty
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <!--<select class="form-control"
+                                                            formControlName="specialty">
+                                                        <option value="">Select...</option>
+                                                        <option value="cardiology">cardiology</option>
+                                                        <option value="cancer">cancer</option>
+                                                        <option value="emergency">Emergency</option>
+                                                    </select>-->
+                                                    <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.specialty" [options]="specialtyList" formControlName="specialty"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Website
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" formControlName="website" class="form-control">
+                                                </div>
+                                                <span class="text-danger" *ngIf="!proForm.controls['website'].valid && proForm.controls['website'].touched">
+                                                    <span *ngIf="proForm.controls['website'].errors.pattern">Web Url is not valid</span>
+                                        </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Practice Business Logo
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input type="file" id="exampleInputFile">
+                                                    <p class="help-block"> Will be attached to emails & offical
+                                                        forms </p>
+                                                </div>
+                                            </div>
+
+                                            <br/>
+                                            <h4 class="hr" style="margin-left: 26%;"> Contact</h4>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-6">Email
+                                                    <span class="required" aria-required="true"> </span>
+                                                </label>
+                                                <div class="col-md-6">
                                                     <input type="email" formControlName="companyEmail"
                                                            class="form-control">
 
+                                                    <span class="text-danger"
+                                                          *ngIf="!proForm.controls['companyEmail'].valid && proForm.controls['companyEmail'].touched">
+                                                   <span *ngIf="proForm.controls['companyEmail'].errors.required">Email is required </span>
+                                                   <span *ngIf="proForm.controls['companyEmail'].errors.pattern">Email is not valid</span>
+                                                   </span>
                                                 </div>
                                                 <input  formControlName="formName" value="PROFILE" type="hidden" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Fax   <span class="required" aria-required="true"> </span>
+                                                <label class="control-label col-md-6">Fax   <span class="required" aria-required="true"> </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-6">
                                                     <input type="text" formControlName="fax"
                                                            class="form-control">
 
@@ -49,9 +105,9 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Address                                                    <span class="required" aria-required="true"> </span>
+                                                <label class="control-label col-md-6">Address                                                    <span class="required" aria-required="true"> </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-6">
                                                     <input type="text" formControlName="address"
                                                            class="form-control">
 
@@ -79,45 +135,11 @@
                                                      <span class="text-danger" *ngIf="!orgForm.controls['confirmPassword'].valid && orgForm.controls['confirmPassword'].touched">pass must be match</span>
                                                  </div>
                                              </div>-->
+
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Company Name
-                                                    <span class="required" aria-required="true"> * </span>
+                                                <label class="control-label col-md-6">Office Phone
                                                 </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" formControlName="companyName"
-                                                           class="form-control"></div>
-                                                <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
-                                                <span *ngIf="proForm.controls['companyName'].errors.minlength"> minimum 4 charachters</span>
-                                                <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
-                                                </span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Specialty
-                                                </label>
-                                                 <div class="col-md-8">
-                                                    <select class="form-control"
-                                                            formControlName="specialty">
-                                                        <option value="">Select...</option>
-                                                        <option value="cardiology">cardiology</option>
-                                                        <option value="cancer">cancer</option>
-                                                        <option value="emergency">Emergency</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Website
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" formControlName="website" class="form-control">
-                                                </div>
-                                                <span class="text-danger" *ngIf="!proForm.controls['website'].valid && proForm.controls['website'].touched">
-                                                    <span *ngIf="proForm.controls['website'].errors.pattern">Web Url is not valid</span>
-                                        </span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Office Phone
-                                                </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-6">
                                                     <input  type="text" formControlName="officePhone"
                                                             class="form-control">
                                                     <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
@@ -125,15 +147,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Practice Business Logo
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input type="file" id="exampleInputFile">
-                                                    <p class="help-block"> Will be attached to emails & offical
-                                                        forms </p>
-                                                </div>
-                                            </div>
+
 
                                         </div>
                                     </div>
@@ -164,17 +178,25 @@
 
                                                 </select>-->
 
-                                                <select class="form-control"  (change)="getSelectedBranch($event.target.value)"
+                                                <!--<select class="form-control"  (change)="getSelectedBranch($event.target.value)"
                                                         [(ngModel)]="organization.branchId"
                                                         formControlName="defaultBranch" >
-                                                    <!--[ngModelOptions]="{standalone:true}"-->
-                                                    <!--[(ngModel)]="event.branch"-->
-                                                    <option value="0">-- Select --</option>
+                                                    &lt;!&ndash;[ngModelOptions]="{standalone:true}"&ndash;&gt;
+                                                    &lt;!&ndash;[(ngModel)]="event.branch"&ndash;&gt;
+                                                    <option value="0">&#45;&#45; Select &#45;&#45;</option>
                                                     <option *ngFor="let item of branchesList; let i = index;"
                                                             value={{item.id}} (keyup)="refresh.next()">
                                                         {{item.name}}
                                                     </option>
-                                                </select>
+                                                </select>-->
+
+                                                <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.branchId" [options]="branchesList" formControlName="defaultBranch"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+                                                <span class="text-danger"
+                                                      *ngIf="!generalForm.controls['defaultBranch'].valid && generalForm.controls['defaultBranch'].touched">
+                                                  <span *ngIf="generalForm.controls['defaultBranch'].errors.required">Default Branch is required </span>
+
+                                        </span>
                                             </div>
                                             <div class="col-md-4">Default Branch on Calendar</div>
                                         </div>
@@ -196,7 +218,7 @@
                                             </div>
                                             <div class="col-md-4">Default duration of an exam in minutes</div>
                                         </div>
-                                        <div class="form-group">
+                                        <!--<div class="form-group">
                                             <label class="control-label col-md-3">Duration of Follow-up
                                             </label>
                                             <div class="col-md-5">
@@ -206,7 +228,7 @@
                                             </div>
 
                                             <div class="col-md-4">Default duration of a free folow-up exam in days</div>
-                                        </div>
+                                        </div>-->
 
                                         <!--<div class="form-group">
                                             <label class="control-label col-md-3">Prefix Serial Patient
@@ -311,7 +333,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="tab_1_5">
+                        <!--<div class="tab-pane fade" id="tab_1_5">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form [formGroup]="accountForm"  class="form-horizontal">
@@ -339,12 +361,18 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Email
+                                                <label class="control-label col-md-4">Email <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" formControlName="userEmail"
+                                                    <input type="text" formControlName="userEmail" name="email"
                                                            [(ngModel)]="organization.email"
-                                                           class="form-control"></div>
+                                                           class="form-control">
+                                                    <span class="text-danger"
+                                                          *ngIf="!accountForm.controls['userEmail'].valid && accountForm.controls['userEmail'].touched">
+                                                  <span *ngIf="accountForm.controls['userEmail'].errors.required">Email is required </span>
+                                                <span *ngIf="accountForm.controls['userEmail'].errors.pattern">Email is not valid</span>
+                                            </span>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Username
@@ -391,7 +419,7 @@
                                     <button type="button" class="btn blue" (click)="saveAccount(accountForm.value)"> Save</button>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="tab-pane fade" id="tab_1_3">
                             <div class="row">
                                 <div class="col-md-12">

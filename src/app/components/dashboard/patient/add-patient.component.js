@@ -51,6 +51,24 @@ var AddPatientComponent = (function () {
         );*/
     AddPatientComponent.prototype.ngOnInit = function () {
         this.titleService.setTitle('HIS | Add Patient');
+        this.titleList = [
+            { label: 'Mr', value: 'Mr' },
+            { label: 'Mrs', value: 'Mrs' },
+            { label: 'Ms', value: 'Ms' },
+            { label: 'Dr', value: 'dr' },
+        ];
+        this.rLanguage = [
+            { label: 'ENGLISH', value: 'ENGLISH' },
+            { label: 'URDU', value: 'URDU' },
+            { label: 'ARABIC', value: 'ARABIC' },
+            { label: 'CHINESE', value: 'CHINESE' },
+        ];
+        this.pCommunication = [
+            { label: 'ENGLISH', value: 'ENGLISH' },
+            { label: 'URDU', value: 'URDU' },
+            { label: 'ARABIC', value: 'ARABIC' },
+            { label: 'CHINESE', value: 'CHINESE' },
+        ];
     };
     AddPatientComponent.prototype.uploadImgOnChange = function (event) {
         var fileList = event.target.files;

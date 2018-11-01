@@ -1,12 +1,9 @@
-export class Department {
+export class Status {
     id: number;
     name: string = '';
-    description: string;
+    abbreviation: string;
     active: boolean = true;
-    deleted: boolean;
-    checkedDepartment: boolean;
-
-    hasChild: boolean = false;
+    colorHash: string;
 
     constructor() {
     }

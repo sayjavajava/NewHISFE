@@ -57,14 +57,16 @@
                                                 <label class="control-label col-md-4">Country
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <select class="form-control" formControlName="country"
+                                                    <p-dropdown  placeholder="Select Country" [autoWidth]="false" formControlName="country"   [style]="{'text-align': 'left' ,'width':'100%'}"  (onChange)="getSelectedStates($event)" [options]="countryList"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+                                                   <!-- <select class="form-control" formControlName="country"
                                                             (change)="getCountry($event.target.value)">
                                                         <option value="">Select...</option>
                                                         <option value="Pakistan">Pakistan</option>
                                                         <option value="Saudi Arabia">Saudi Arabia</option>
                                                         <option value="USA">USA</option>
                                                         <option value="Germany">Germany</option>
-                                                    </select>
+                                                    </select>-->
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -74,11 +76,7 @@
                                                     <select class="form-control" formControlName="state"
                                                             (change)="getState($event.target.value)">
                                                         <option value="">Select...</option>
-                                                        <option value="Riyadh">Riyadh</option>
-                                                        <option value="Jeddah">Jeddah</option>
-                                                        <option value="Punjab">Punjab</option>
-                                                        <option value="California">California</option>
-                                                        <option value="Texas">Texas</option>
+                                                        <option *ngFor ="let city of cities">{{city}} </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -138,6 +136,18 @@
                                                            data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>-->
+                                            <div class="form-group">
+                                                <div style="margin-left: 33%" class="col-md-8">
+                                                    <mat-radio-group formControlName="flow">
+                                                        <mat-radio-button value="RCND" color="primary">Receptionist &#8680; Cashier &#8680; Nurses &#8680; Doctor</mat-radio-button>
+                                                        <mat-radio-button value="RCD" color="primary">Receptionist &#8680; Cashier &#8680; Doctor</mat-radio-button>
+                                                        <mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
+                                                        <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>
+
+                                                    </mat-radio-group>
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
 
