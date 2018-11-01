@@ -48,7 +48,7 @@
                                 <th width="10%" class="c-text-left padding"> IOS</th>
                                 <th width="10%">Symbol</th>
                                 <th width="50%"> Description</th>
-                                <th width="8%"> System Default</th>
+                                <!--<th width="8%"> System Default</th>-->
                                 <th width="8%"> Status</th>
                                 <th width="16%"> Action</th>
                             </tr>
@@ -56,7 +56,7 @@
                                 <td class="c-text-left padding font-green-dark"><strong>{{item.ios}}</strong></td>
                                 <td class="c-text-left">{{item.symbol}}</td>
                                 <td class="c-text-left">{{item.description}}</td>
-                                <td>{{item.systemDefault === true ? 'Yes' : 'No'}}</td>
+                                <!--<td>{{item.systemDefault === true ? 'Yes' : 'No'}}</td>-->
                                 <td>{{item.status === true ? 'Active' : 'In-Active'}}</td>
                                 <td class="sorting_disabled">
                                     <a href="#popupCurrency" data-toggle="modal">
@@ -65,7 +65,7 @@
 
                                         </button>
                                     </a>
-                                    <span [hidden]="item.hasChild || item.systemDefault">
+                                    <span [hidden]="item.hasChild">
                                         <button class="btn btn-default btn-outline btn-sm"
                                                 title="Click To Delete"
                                                 (click)="deleteCurrency(item.id)">
@@ -162,7 +162,7 @@
                                             </textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group hr">
+                                    <!--<div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">System Default</label>
                                         <div class="col-md-3 select pdng-lr-5">
                                             <label class="mt-checkbox mt-checkbox-outline chckbox">
@@ -171,11 +171,11 @@
                                                        [(ngModel)]="currency.systemDefault"
                                                        name="systemDefault" id="systemDefault"
                                                        #systemDefault="ngModel">
-                                                <!--[disabled]="currency.systemDefault"-->
+                                                &lt;!&ndash;[disabled]="currency.systemDefault"&ndash;&gt;
                                                 <span></span>
                                             </label>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Status</label>
                                         <div class="col-md-3 select pdng-lr-5">
