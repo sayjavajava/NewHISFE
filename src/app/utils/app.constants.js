@@ -171,6 +171,15 @@ var AppConstants = (function () {
     ////////////////////// Prefix Configuration URLs ///////////////////////////////
     AppConstants.FETCH_PREFIX_CONFIGURATIONS = '/prefixConfiguration/getAll';
     AppConstants.PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
+    ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    AppConstants.ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
+    AppConstants.VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
+    AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
     ///////////////////// Patient Group URLs ////////////////////////////////////////
     AppConstants.PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/'; ///all by paginated , zero means first page , 1 means second page
     AppConstants.PATIENT_GROUP_DELETE_URI = '/patient/group/delete?patientGroupId=';
@@ -185,6 +194,13 @@ var AppConstants = (function () {
     AppConstants.DRUG_SAVE_URL = '/setting/drug/save';
     AppConstants.DRUG_UPDATE_URL = '/setting/drug/update';
     AppConstants.DRUG_GET_URL = '/setting/drug/get?drugId=';
+    ///////////////////// Currency URLs ////////////////////////////////////////
+    AppConstants.CURRENCY_FETCH_ALL_PAGINATED_URI = '/setting/currency/'; ///all by paginated , zero means first page , 1 means second page
+    AppConstants.CURRENCY_DELETE_URI = '/setting/currency/delete?currencyId=';
+    AppConstants.CURRENCY_SEARCH_URL = '/setting/currency/search/';
+    AppConstants.CURRENCY_SAVE_URL = '/setting/currency/save';
+    AppConstants.CURRENCY_UPDATE_URL = '/setting/currency/update';
+    AppConstants.CURRENCY_GET_URL = '/setting/currency/get?currencyId=';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

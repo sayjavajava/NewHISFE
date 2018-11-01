@@ -32,8 +32,13 @@ var email_configuration_component_1 = require("../components/dashboard/setting/e
 var sms_template_component_1 = require("../components/dashboard/setting/sms-template.component");
 var add_edit_sms_template_component_1 = require("../components/dashboard/setting/add-edit-sms-template.component");
 var prefix_template_component_1 = require("../components/dashboard/setting/prefix-template.component");
+var chart_of_account_component_1 = require("../components/dashboard/setting/chart-of-account.component");
+var vital_setup_component_1 = require("../components/dashboard/setting/vital-setup.component");
+var account_setup_component_1 = require("../components/dashboard/setting/account-setup.component");
+var lab_test_component_1 = require("../components/dashboard/setting/lab-test.component");
 var patient_group_component_1 = require("../components/dashboard/patient/patient-group.component");
 var drug_component_1 = require("../components/dashboard/setting/drug.component");
+var currency_component_1 = require("../components/dashboard/setting/currency.component");
 exports.SettingRoutes = [
     // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -71,8 +76,13 @@ exports.SettingRoutes = [
     { path: 'sms-template/add', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
     { path: 'sms-template/edit/:id', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
     { path: 'prefix-template', component: prefix_template_component_1.PrefixTemplateComponent },
+    { path: 'chart-of-account-template', component: chart_of_account_component_1.ChartOfAccountComponent },
+    { path: 'vital-setup-template', component: vital_setup_component_1.VitalSetupComponent },
+    { path: 'account-setup-template', component: account_setup_component_1.AccountSetupComponent },
+    { path: 'lab-test-template', component: lab_test_component_1.LabTestComponent },
     { path: 'patient-group', component: patient_group_component_1.PatientGroupComponent },
     { path: 'drug', component: drug_component_1.DrugComponent },
+    { path: 'currency', component: currency_component_1.CurrencyComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

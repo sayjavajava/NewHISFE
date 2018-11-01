@@ -114,8 +114,13 @@ var email_configuration_component_1 = require("./components/dashboard/setting/em
 var sms_template_component_1 = require("./components/dashboard/setting/sms-template.component");
 var add_edit_sms_template_component_1 = require("./components/dashboard/setting/add-edit-sms-template.component");
 var prefix_template_component_1 = require("./components/dashboard/setting/prefix-template.component");
+var chart_of_account_component_1 = require("./components/dashboard/setting/chart-of-account.component");
+var vital_setup_component_1 = require("./components/dashboard/setting/vital-setup.component");
+var account_setup_component_1 = require("./components/dashboard/setting/account-setup.component");
+var lab_test_component_1 = require("./components/dashboard/setting/lab-test.component");
 var patient_group_component_1 = require("./components/dashboard/patient/patient-group.component");
 var drug_component_1 = require("./components/dashboard/setting/drug.component");
+var currency_component_1 = require("./components/dashboard/setting/currency.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -235,6 +240,10 @@ var AppModule = (function () {
                 sms_template_component_1.SmsTemplateComponent,
                 add_edit_sms_template_component_1.AddEditSmsTemplateComponent,
                 prefix_template_component_1.PrefixTemplateComponent,
+                chart_of_account_component_1.ChartOfAccountComponent,
+                vital_setup_component_1.VitalSetupComponent,
+                account_setup_component_1.AccountSetupComponent,
+                lab_test_component_1.LabTestComponent,
                 add_email_template_component_1.AddEmailTemplateComponent,
                 edit_email_template_component_1.EditEmailTemplateComponent,
                 not_found_404_setting_component_1.NotFound404SettingComponent,
@@ -245,7 +254,8 @@ var AppModule = (function () {
                 edit_appointment_component_1.EditAppointmentComponent,
                 menu_component_1.MenuComponent,
                 patient_group_component_1.PatientGroupComponent,
-                drug_component_1.DrugComponent
+                drug_component_1.DrugComponent,
+                currency_component_1.CurrencyComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

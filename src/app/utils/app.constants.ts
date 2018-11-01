@@ -223,5 +223,13 @@ export class AppConstants {
     public static DRUG_UPDATE_URL = '/setting/drug/update';
     public static DRUG_GET_URL = '/setting/drug/get?drugId=';
 
+    ///////////////////// Currency URLs ////////////////////////////////////////
+    public static CURRENCY_FETCH_ALL_PAGINATED_URI = '/setting/currency/';///all by paginated , zero means first page , 1 means second page
+    public static CURRENCY_DELETE_URI = '/setting/currency/delete?currencyId=';
+    public static CURRENCY_SEARCH_URL = '/setting/currency/search/';
+    public static CURRENCY_SAVE_URL = '/setting/currency/save';
+    public static CURRENCY_UPDATE_URL = '/setting/currency/update';
+    public static CURRENCY_GET_URL = '/setting/currency/get?currencyId=';
+
 
 }

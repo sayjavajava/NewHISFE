@@ -128,6 +128,7 @@ import {AccountSetupComponent} from "./components/dashboard/setting/account-setu
 import {LabTestComponent} from "./components/dashboard/setting/lab-test.component";
 import {PatientGroupComponent} from './components/dashboard/patient/patient-group.component';
 import {DrugComponent} from './components/dashboard/setting/drug.component';
+import {CurrencyComponent} from './components/dashboard/setting/currency.component';
 
 
 @NgModule({
@@ -261,7 +262,8 @@ import {DrugComponent} from './components/dashboard/setting/drug.component';
         EditAppointmentComponent,
         MenuComponent,
         PatientGroupComponent,
-        DrugComponent
+        DrugComponent,
+        CurrencyComponent
     ],
     bootstrap: [AppComponent]
 })
