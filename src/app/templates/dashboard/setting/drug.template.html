@@ -45,16 +45,24 @@
                                id="datatable_ajax" role="grid">
                             <thead>
                             <tr role="row" class="off-wite-bg">
-                                <th width="20%" class="c-text-left padding"> Name</th>
-                                <th width="50%"> notes</th>
-                                <th width="8%"> URL</th>
-                                <th width="8%"> Status</th>
-                                <th width="16%"> Action</th>
+                                <th width="10%" class="c-text-left padding"> Drug Name</th>
+                                <th width="10%" class="c-text-left padding"> Company Name</th>
+                                <th width="10%"> Generic Name</th>
+                                <th width="10%"> Route</th>
+                                <th width="10%"> Strength</th>
+                                <th width="10%"> UoM</th>
+                                <th width="10%"> Origin</th>
+                                <th width="10%"> Status</th>
+                                <th width="10%"> Action</th>
                             </tr>
                             <tr *ngFor="let item of data; let i = index;" class="filter">
-                                <td class="c-text-left padding font-green-dark"><strong>{{item.name}}</strong></td>
-                                <td class="c-text-left">{{item.notes}}</td>
-                                <td class="c-text-left">{{item.url}}</td>
+                                <td class="c-text-left padding font-green-dark"><strong>{{item.drugName}}</strong></td>
+                                <td class="c-text-left">{{item.companyName}}</td>
+                                <td class="c-text-left">{{item.genericName}}</td>
+                                <td class="c-text-left">{{item.route}}</td>
+                                <td class="c-text-left">{{item.strength}}</td>
+                                <td class="c-text-left">{{item.uOM}}</td>
+                                <td class="c-text-left">{{item.origin}}</td>
                                 <td>{{item.active === true ? 'Active' : 'In-Active'}}</td>
                                 <td class="sorting_disabled">
                                     <a href="#popupDrug" data-toggle="modal">
@@ -117,122 +125,127 @@
     <div id="popupDrug" class="modal fade" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <form id="loginForm" class="login-form" #form="ngForm">
-                <div class="modal-content" style="width: 80%">
+                <div class="modal-content" style="width: 90%">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Add Drug</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" >
                         <div class="slimScrollDiv"
                              style="position: relative; overflow: hidden; width: auto;">
                             <div class="scroller" style="overflow: hidden; width: auto;">
                                 <div class="row">
                                     <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Drug ID:<span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control" type="text" required
-                                                   [(ngModel)]="drug.name"
-                                                   required id="drugName"
-                                                   name="drugName" #drugName="ngModel"/>
-                                            <!--pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+                                            <input class="form-control" type="text"
+                                                   [(ngModel)]="drug.drugNaturalId" size="30"
+                                                   required id="drugNaturalId" pInputText
+                                                   name="drugNaturalId" disabled
+                                                   #drugNaturalId="ngModel"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Drug Name<span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control" type="text"
+                                                   [(ngModel)]="drug.drugName" size="30"
+                                                   required id="drugName" pInputText
+                                                   name="drugName"
+                                                   #drugName="ngModel"/>
                                         </div>
                                         <span *ngIf="drugName.invalid && drugName.touched"
                                               class="col-md-9 select pdng-lr-5 text-danger">
-                                                Please enter name.
+                                                Please enter.
                                         </span>
                                     </div>
+
                                     <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Note</label>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Generic Name<span
+                                                class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <textarea class="form-control" rows="3" id="desc" maxlength="3999"
-                                                      type="textarea" [(ngModel)]="drug.notes" id="notes"
-                                                      name="notes" #notes="ngModel">
-                                            </textarea>
+                                            <input class="form-control" type="text"
+                                                   [(ngModel)]="drug.genericName" size="30"
+                                                   required id="genericName" pInputText
+                                                   name="genericName"
+                                                   #genericName="ngModel"/>
                                         </div>
+                                        <span *ngIf="genericName.invalid && genericName.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter.
+                                        </span>
                                     </div>
 
                                     <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">
-                                            URL <span class="required" aria-required="true"> * </span>
-                                        </label>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Company Name<span
+                                                class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control"
-                                                   id="drugUrl" maxlength="3999"
-                                                   type="text" [(ngModel)]="drug.url"
-                                                   name="drugUrl" #drugUrl="ngModel"/>
+                                            <input class="form-control" type="text"
+                                                   [(ngModel)]="drug.companyName" size="30"
+                                                   required id="companyName" pInputText
+                                                   name="companyName"
+                                                   #companyName="ngModel"/>
                                         </div>
+                                        <span *ngIf="companyName.invalid && companyName.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter.
+                                        </span>
                                     </div>
 
                                     <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Strength Min</label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control"
-                                                   id="strengthMin" min="0"
-                                                   type="number" [(ngModel)]="drug.strengthMin"
-                                                   name="strengthMin" #strengthMin="ngModel"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Strength Max</label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control"
-                                                   id="strengthMax" min="0"
-                                                   type="number" [(ngModel)]="drug.strengthMax"
-                                                   name="strengthMax" #strengthMax="ngModel"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Oral</label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control"
-                                                   id="oral"
-                                                   type="text" [(ngModel)]="drug.oral"
-                                                   name="oral" #oral="ngModel"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">frequency</label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control"
-                                                   id="frequency" title="provide value like xx-zz-yy"
-                                                   placeholder="11-22-33"
-                                                   type="text" [(ngModel)]="drug.frequency"
-                                                   name="frequency" #frequency="ngModel"/>
-                                        </div>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Dozage/Route<span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <p-dropdown [(ngModel)]="drug.route" size="30"
+                                                    required id="route"
+                                                    name="route" [options]="drug.routes"
+                                                    #route="ngModel">
+                                        </p-dropdown>
                                     </div>
 
                                     <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Refill</label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control"
-                                                   id="refill"
-                                                   type="text" [(ngModel)]="drug.refill"
-                                                   name="refill" #refill="ngModel"/>
-                                        </div>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Strength<span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <p-chips min="0" max="3"
+                                                 [(ngModel)]="drug.strengths"
+                                                 required id="strengths"
+                                                 name="strengths"
+                                                 #strengths="ngModel">
+                                        </p-chips>
+                                        <span *ngIf="strengths.invalid && strengths.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter.
+                                        </span>
                                     </div>
 
                                     <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Days</label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control"
-                                                   id="days" min="0"
-                                                   type="number" [(ngModel)]="drug.days"
-                                                   name="days" #days="ngModel"/>
-                                        </div>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">UoM<span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <p-dropdown [options]="drug.UOMs" [(ngModel)]="drug.uOM"
+                                                    size="30" id="uOM" name="uOM"
+                                                    #uOM="ngModel">
+                                        </p-dropdown>
+                                        <span *ngIf="uOM.invalid && uOM.touched"
+                                              class="col-md-12 select pdng-lr-5 text-danger">
+                                            Please enter.
+                                        </span>
                                     </div>
 
                                     <div class="form-group hr">
-                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Sig</label>
-                                        <div class="col-md-3 select pdng-lr-5">
-                                            <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                                <input type="checkbox"
-                                                       class="form-control"
-                                                       [(ngModel)]="drug.sig"
-                                                       name="sig"
-                                                       #sig="ngModel">
-                                            </label>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">origin<span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control" type="text"
+                                                   [(ngModel)]="drug.origin"
+                                                   size="30" id="origin"
+                                                   name="origin"
+                                                   #origin="ngModel"/>
                                         </div>
+                                        <span *ngIf="origin.invalid && origin.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter.
+                                        </span>
                                     </div>
 
                                     <div class="form-group hr">
@@ -247,6 +260,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="slimScrollBar"
                                  style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 190px;"></div>

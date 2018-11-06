@@ -30,7 +30,7 @@ export class PaymentTypeComponent implements OnInit {
     copyListPayment: PaymentType[];
     totalRecords: number;
     chartOfAccountList: GeneralLedgerModel[];
-    accountList: any = [];
+    accountList:GeneralLedgerModel= new GeneralLedgerModel();
 
     allTypePAYMENT = [
         {name: 'Cash'},
@@ -68,8 +68,7 @@ export class PaymentTypeComponent implements OnInit {
 
                     this.paymentlst= response['responseData'];
                     debugger;
-                    //    this.totalRecords = this.paymentlst.length;
-                    //    this.copyListPayment=response['responseData'];
+
                 }
             },
             (error: any) => {
@@ -101,13 +100,15 @@ export class PaymentTypeComponent implements OnInit {
                 this.serviceChargesDiv = true;
                 this.newPaymentType.paymentMode="Card";
                 this.newPaymentType.bankGlCharges=this.newPaymentType.paymentGlAccount;
-            }else{
-                debugger;
-                this.bankGlDiv = true;
-                this.maxCardChargesDiv = true;
-                this.payCreditDiv = true;
-                this.serviceChargesDiv = true;
-                this.newPaymentType.paymentMode="Card";
+            }else if(value==="Others"){
+
+                this.bankGlDiv = false;
+                this.maxCardChargesDiv = false;
+                this.payCreditDiv = false;
+                this.serviceChargesDiv = false;
+                this.newPaymentType.payCredit=true;
+
+                this.newPaymentType.paymentMode="Others";
             }
     }
 
@@ -166,31 +167,44 @@ export class PaymentTypeComponent implements OnInit {
         this.newPaymentType = new PaymentType();
         this.newPaymentType.paymentMode="Cash";
         debugger;
-        this.newPaymentType.paymentGlAccount=this.chartOfAccountList[0];
-        this.newPaymentType.bankGlCharges=this.chartOfAccountList[0];
+       this.newPaymentType.paymentGlAccount=this.chartOfAccountList[0];
+       this.newPaymentType.bankGlCharges=this.chartOfAccountList[0];
 
     }
 
     onUpdatePopupLoad(objPaymentType: PaymentType) {
         debugger;
         console.log(objPaymentType);
-        if(objPaymentType.paymentMode==="Card"){
+        this.newPaymentType = new PaymentType();
 
+        if(objPaymentType.paymentMode==="Card"){
+            debugger;
             this.bankGlDiv = true;
             this.maxCardChargesDiv = true;
             this.payCreditDiv = true;
             this.serviceChargesDiv = true;
             this.newPaymentType.paymentMode="Card";
-            this.newPaymentType.paymentGlAccount=objPaymentType.paymentGlAccount;
-        }else{
+
+        }else if(objPaymentType.paymentMode==="Cash"){
+            debugger;
             this.bankGlDiv = false;
             this.maxCardChargesDiv = false;
             this.payCreditDiv = false;
             this.serviceChargesDiv = false;
             this.newPaymentType.payCredit=true;
             this.newPaymentType.paymentMode="Cash";
-            this.newPaymentType.paymentGlAccount=objPaymentType.paymentGlAccount;
+
+        }else if(objPaymentType.paymentMode==="Others"){
+            debugger;
+            this.bankGlDiv = false;
+            this.maxCardChargesDiv = false;
+            this.payCreditDiv = false;
+            this.serviceChargesDiv = false;
+            this.newPaymentType.payCredit=true;
+            this.newPaymentType.paymentMode="Others";
+
         }
+
         this.newPaymentType = objPaymentType;
     }
 
@@ -229,23 +243,13 @@ export class PaymentTypeComponent implements OnInit {
 
     loadLazy(event: LazyLoadEvent) {
         this.loading = true;
-        const paymentTitleFilter: any = event.filters['transactionCategory.categoryName'];
-       // const categoriesToFilter: string[] = categoryNameFilter ? categoryNameFilter.value : null;
-       /* this.service.get(event.first,event.rows).subscribe(res=>this.persons=res,
-            error => {
-                this.loading = false;
-                console.log(`Error - getPersonList method: ${error}`);
-            },
-            () => {
-                this.loading = false;
-                console.log(`Info - getPersonList method succeeded. Results: ${JSON.stringify(this.persons)}`);
-            })
-*/
+
+
         setTimeout(() => {
             if (this.copyListPayment) {
-                alert(this.copyListPayment.length);
+
                 this.paymentlst = this.copyListPayment.slice(event.first, (event.first + event.rows));
-                alert(this.paymentlst.length);
+
 
                 console.log(this.paymentlst);
                 this.loading = false;
@@ -283,6 +287,8 @@ export class PaymentTypeComponent implements OnInit {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.chartOfAccountList = response['responseData'];
                         this.accountList=response['responseData'];
+                        debugger;
+
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Chart of Accounts Configurations');
                     }
