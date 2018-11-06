@@ -35,6 +35,9 @@ var PatientMedicationListComponent = (function () {
         this.patient = new patient_1.Patient();
         this.futureAppointments = [];
         this.pastAppointments = [];
+        this.text = '';
+        this.drugs = [];
+        this.searchedDrugNames = [];
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.selectedPatientId = id;
         });
@@ -71,35 +74,36 @@ var PatientMedicationListComponent = (function () {
         this.isUpdate = false;
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
+        this.getAllDrugsFromServer();
     };
     PatientMedicationListComponent.prototype.saveMedication = function (mdForm) {
         var _this = this;
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select patient from dashboard again ");
+            this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
         if (this.medicationModel.appointmentId <= 0) {
-            this.notificationService.warn("Please select appoint.");
+            this.notificationService.warn('Please select appoint.');
             document.getElementById('appointmentId').focus();
             return;
         }
-        if (this.medicationModel.drugName === "") {
-            this.notificationService.warn("Please provide drug name.");
+        if (this.medicationModel.drugName === '') {
+            this.notificationService.warn('Please provide drug name.');
             document.getElementById('drugNameId').focus();
             return;
         }
-        if (this.medicationModel.datePrescribedString === "") {
-            this.notificationService.warn("Please provide proper prescribed date and time.");
+        if (this.medicationModel.datePrescribedString === '') {
+            this.notificationService.warn('Please provide proper prescribed date and time.');
             document.getElementById('datePrescribedId').focus();
             return;
         }
-        if (this.medicationModel.dateStartedTakingString === "") {
-            this.notificationService.warn("Please provide proper start taking date and time.");
+        if (this.medicationModel.dateStartedTakingString === '') {
+            this.notificationService.warn('Please provide proper start taking date and time.');
             document.getElementById('dateStartedTakingId').focus();
             return;
         }
-        if (this.medicationModel.dateStoppedTakingString === "") {
-            this.notificationService.warn("Please provide proper stoop taking date and time.");
+        if (this.medicationModel.dateStoppedTakingString === '') {
+            this.notificationService.warn('Please provide proper stoop taking date and time.');
             document.getElementById('dateStoppedTakingId').focus();
             return;
         }
@@ -117,8 +121,8 @@ var PatientMedicationListComponent = (function () {
                     _this.getPaginatedMedicationFromServer(0);
                 }
             }, function (error) {
-                if (error.error.responseMessage === "Patient not found" ||
-                    error.error.responseMessage === "Appoint not found") {
+                if (error.error.responseMessage === 'Patient not found' ||
+                    error.error.responseMessage === 'Appoint not found') {
                     _this.notificationService.error(error.error.responseMessage, 'Medication');
                 }
                 else {
@@ -129,7 +133,7 @@ var PatientMedicationListComponent = (function () {
     };
     PatientMedicationListComponent.prototype.getPaginatedMedicationFromServer = function (page) {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.MEDICATION_PAGINATED_URL + page + "?selectedPatientId=" + this.selectedPatientId)
+        this.requestsService.getRequest(app_constants_1.AppConstants.MEDICATION_PAGINATED_URL + page + '?selectedPatientId=' + this.selectedPatientId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'MEDICATION_SUC_32') {
                 _this.nextPage = response['responseData']['nextPage'];
@@ -151,7 +155,7 @@ var PatientMedicationListComponent = (function () {
     PatientMedicationListComponent.prototype.deleteMedication = function (medicationId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.MEDICATION_DELETE_URI + medicationId)
                 .subscribe(function (response) {
@@ -175,6 +179,7 @@ var PatientMedicationListComponent = (function () {
         var _this = this;
         this.isUpdate = true;
         this.medicationModel = new medication_model_1.MedicationModel();
+        this.getAllDrugsFromServer();
         if (medicationId > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.getRequest(app_constants_1.AppConstants.MEDICATION_GET_URL + 'medicationId=' + medicationId)
@@ -201,31 +206,31 @@ var PatientMedicationListComponent = (function () {
     PatientMedicationListComponent.prototype.updateMedication = function (mdForm) {
         var _this = this;
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select patient from dashboard again ");
+            this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
         if (this.medicationModel.appointmentId <= 0) {
-            this.notificationService.warn("Please select appoint.");
+            this.notificationService.warn('Please select appoint.');
             document.getElementById('appointmentId').focus();
             return;
         }
-        if (this.medicationModel.drugName === "") {
-            this.notificationService.warn("Please provide drug name.");
+        if (this.medicationModel.drugName === '') {
+            this.notificationService.warn('Please provide drug name.');
             document.getElementById('drugNameId').focus();
             return;
         }
-        if (this.medicationModel.datePrescribedString === "") {
-            this.notificationService.warn("Please provide proper prescribed date and time.");
+        if (this.medicationModel.datePrescribedString === '') {
+            this.notificationService.warn('Please provide proper prescribed date and time.');
             document.getElementById('datePrescribedId').focus();
             return;
         }
-        if (this.medicationModel.dateStartedTakingString === "") {
-            this.notificationService.warn("Please provide proper start taking date and time.");
+        if (this.medicationModel.dateStartedTakingString === '') {
+            this.notificationService.warn('Please provide proper start taking date and time.');
             document.getElementById('dateStartedTakingId').focus();
             return;
         }
-        if (this.medicationModel.dateStoppedTakingString === "") {
-            this.notificationService.warn("Please provide proper stoop taking date and time.");
+        if (this.medicationModel.dateStoppedTakingString === '') {
+            this.notificationService.warn('Please provide proper stoop taking date and time.');
             document.getElementById('dateStoppedTakingId').focus();
             return;
         }
@@ -263,6 +268,36 @@ var PatientMedicationListComponent = (function () {
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
+    };
+    PatientMedicationListComponent.prototype.search = function (event) {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.DRUG_SEARCH_BY_NAME_URL + this.text)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'DRUG_SUC_10') {
+                _this.searchedDrugNames = response['responseData'];
+            }
+            else {
+                _this.notificationService.error(response['responseMessage']);
+            }
+        }),
+            function (error) {
+                _this.notificationService.error(error.error.error);
+            };
+    };
+    PatientMedicationListComponent.prototype.getAllDrugsFromServer = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.DRUG_GET_ALL_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'DRUG_SUC_10') {
+                _this.drugs = response['responseData'];
+            }
+            else {
+                _this.notificationService.error(response['responseMessage']);
+            }
+        }),
+            function (error) {
+                _this.notificationService.error(error.error.error);
+            };
     };
     __decorate([
         core_1.ViewChild('closeBtnMedication'),

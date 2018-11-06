@@ -59,6 +59,7 @@ var updatedoctor_component_1 = require("./components/dashboard/setting/updatedoc
 var updatenurse_component_1 = require("./components/dashboard/setting/updatenurse.component");
 var update_receptionist_component_1 = require("./components/dashboard/setting/update-receptionist.component");
 var addbranch_component_1 = require("./components/dashboard/setting/addbranch.component");
+var user_permissions_component_1 = require("./components/dashboard/setting/user-permissions.component");
 var material_1 = require("@angular/material");
 var notification_service_1 = require("./services/notification.service");
 var organization_component_1 = require("./components/dashboard/setting/organization.component");
@@ -121,6 +122,9 @@ var lab_test_component_1 = require("./components/dashboard/setting/lab-test.comp
 var patient_group_component_1 = require("./components/dashboard/patient/patient-group.component");
 var drug_component_1 = require("./components/dashboard/setting/drug.component");
 var currency_component_1 = require("./components/dashboard/setting/currency.component");
+var inputtext_1 = require("primeng/inputtext");
+var autocomplete_1 = require("primeng/autocomplete");
+var chips_1 = require("primeng/chips");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -162,7 +166,10 @@ var AppModule = (function () {
                 angular_calendar_1.CalendarModule.forRoot(),
                 module_1.DemoUtilsModule,
                 dropdown_1.DropdownModule,
-                multiselect_1.MultiSelectModule
+                multiselect_1.MultiSelectModule,
+                autocomplete_1.AutoCompleteModule,
+                inputtext_1.InputTextModule,
+                chips_1.ChipsModule
             ],
             declarations: [
                 // App Components
@@ -224,6 +231,7 @@ var AppModule = (function () {
                 branch_component_1.BranchComponent,
                 updatecashier_component_1.UpdateCashierComponent,
                 role_permissions_component_1.RolePermissionsComponent,
+                user_permissions_component_1.UserPermissionsComponent,
                 updatedoctor_component_1.UpdatedoctorComponent,
                 updatenurse_component_1.UpdateNurseComponent,
                 update_receptionist_component_1.UpdateReceptionistComponent,

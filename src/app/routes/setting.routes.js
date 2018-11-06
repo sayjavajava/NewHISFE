@@ -38,6 +38,7 @@ var account_setup_component_1 = require("../components/dashboard/setting/account
 var lab_test_component_1 = require("../components/dashboard/setting/lab-test.component");
 var patient_group_component_1 = require("../components/dashboard/patient/patient-group.component");
 var drug_component_1 = require("../components/dashboard/setting/drug.component");
+var user_permissions_component_1 = require("../components/dashboard/setting/user-permissions.component");
 var currency_component_1 = require("../components/dashboard/setting/currency.component");
 exports.SettingRoutes = [
     // Setting Pages
@@ -65,6 +66,7 @@ exports.SettingRoutes = [
     { path: 'medicalServices/add', component: add_medical_service_component_1.AddMedicalServiceComponent },
     { path: 'medicalServices/edit/:id', component: edit_medical_service_component_1.EditMedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
+    { path: 'user-permissions', component: user_permissions_component_1.UserPermissionsComponent },
     { path: 'service-tax', component: service_tax_component_1.ServiceTaxComponent },
     { path: '404-not-found', component: not_found_404_setting_component_1.NotFound404SettingComponent },
     { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
