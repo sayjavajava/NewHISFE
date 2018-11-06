@@ -243,4 +243,9 @@ export class AppConstants {
     public static CURRENCY_GET_URL = '/setting/currency/get?currencyId=';
 
 
+    //////////////Payment Type ///////////////////////////////////
+    public static GET_ALL_PAYMENTTYPE='/PaymentType/';
+    public static SAVE_PAYMENTTYPE = '/PaymentType/save';
+    public static DELETE_PAYMENTTYPE = '/PaymentType/delete/';
+    public static UPDATE_PAYMENTTYPE= '/PaymentType/update';
 }

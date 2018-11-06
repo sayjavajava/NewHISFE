@@ -63,6 +63,9 @@ var AppConstants = (function () {
     AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
     AppConstants.PERMISSION_BY_ROLE = '/user/auth/permission';
     AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
+    AppConstants.USER_ALL_PERMISSIONS = '/user/auth/userDBPermissions'; //dashboard related user's all permissions
+    AppConstants.PERMISSION_BY_USER = '/user/auth/userPermissions/';
+    AppConstants.ASSIGN_PERMISSIONS_TO_USERS = '/user/auth/assignUserPermissions';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';
@@ -174,10 +177,15 @@ var AppConstants = (function () {
     ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
     AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
     AppConstants.ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
+    AppConstants.ASSETS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateAssetsConfig';
+    AppConstants.LIABILTY_CONFIG_SAVE = '/chartOfAccountConfigurations/updateLiabilityConfig';
+    AppConstants.REVENUE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateRevenueConfig';
+    AppConstants.COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
+    AppConstants.EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     AppConstants.FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     AppConstants.VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
-    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
     AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
     ///////////////////// Patient Group URLs ////////////////////////////////////////
@@ -201,6 +209,11 @@ var AppConstants = (function () {
     AppConstants.CURRENCY_SAVE_URL = '/setting/currency/save';
     AppConstants.CURRENCY_UPDATE_URL = '/setting/currency/update';
     AppConstants.CURRENCY_GET_URL = '/setting/currency/get?currencyId=';
+    //////////////Payment Type ///////////////////////////////////
+    AppConstants.GET_ALL_PAYMENTTYPE = '/PaymentType/';
+    AppConstants.SAVE_PAYMENTTYPE = '/PaymentType/save';
+    AppConstants.DELETE_PAYMENTTYPE = '/PaymentType/delete/';
+    AppConstants.UPDATE_PAYMENTTYPE = '/PaymentType/update';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

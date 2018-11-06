@@ -132,7 +132,12 @@ import {DrugComponent} from './components/dashboard/setting/drug.component';
 import {CurrencyComponent} from './components/dashboard/setting/currency.component';
 
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {PaymentTypeComponent} from "./components/dashboard/setting/PaymentType.component";
 
+import { TableModule } from 'primeng/components/table/table';
+
+
+///////////////
 @NgModule({
     providers: [
         // Services
@@ -169,7 +174,12 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         DemoUtilsModule,
         DropdownModule,
         MultiSelectModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        MultiSelectModule,
+        TableModule // Added DataTableModule,
+
+      //  SliderModule
+
     ],
     declarations: [
         // App Components
@@ -266,6 +276,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         EditAppointmentComponent,
         MenuComponent,
         PatientGroupComponent,
+        DrugComponent,
+        MenuComponent,
+        PaymentTypeComponent,
         DrugComponent,
         CurrencyComponent
     ],
