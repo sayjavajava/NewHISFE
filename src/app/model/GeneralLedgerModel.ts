@@ -1,3 +1,5 @@
+import {BankAccountModel} from "./BankAccountModel";
+
 export  class  GeneralLedgerModel{
 
     id: any;
@@ -8,6 +10,8 @@ export  class  GeneralLedgerModel{
     description: string = '';
 
     balance: number = 0.00;
+
+    bankAccount: BankAccountModel;
 
     constructor() {
     }
