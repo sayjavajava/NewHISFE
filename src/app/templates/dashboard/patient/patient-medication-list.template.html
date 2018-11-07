@@ -10,14 +10,17 @@
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
                             <div class="profile-userpic">
-                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
-                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive"
+                                     *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive"
+                                     *ngIf="patient.profileImgURL != null "/>
                             </div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
                                 <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date:"MM-dd-yyyy"}})</small>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date:"MM-dd-yyyy"}})
+                                </small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
@@ -233,11 +236,13 @@
                                     Drug name:<span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-7 select pdng-lr-5">
-                                    <input type="text" class="form-control"
-                                           aria-autocomplete="list"
-                                           id="drugNameId"
-                                           name="drugName"
-                                           [(ngModel)]="medicationModel.drugName">
+                                    <p-autoComplete
+                                            id="drugName" name="drugName"
+                                            [suggestions]="searchedDrugNames"
+                                            (completeMethod)="search($event)"
+                                            [(ngModel)]="text" [dropdown]="true" [size]="30"
+                                            [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
+                                    </p-autoComplete>
                                 </div>
                             </div>
 
