@@ -5,4 +5,6 @@ export class Family{
     ethnicGroup:string;
     status:string;
     patientId:number;
+    label:string;
+    value:string;
 }

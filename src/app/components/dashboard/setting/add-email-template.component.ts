@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
-import {EmailTemplateModel} from "../../../model/EmailTemplateModel";
-import {Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
-import {AppConstants} from "../../../utils/app.constants";
+import {EmailTemplateModel} from '../../../model/EmailTemplateModel';
+import {Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {AppConstants} from '../../../utils/app.constants';
 
 
 @Component({
@@ -15,6 +15,7 @@ import {AppConstants} from "../../../utils/app.constants";
 })
 export class AddEmailTemplateComponent implements OnInit {
     emailTempModel: EmailTemplateModel = new EmailTemplateModel();
+    emailType:any =[];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -25,10 +26,22 @@ export class AddEmailTemplateComponent implements OnInit {
 
     ngOnInit() {
         document.title = 'HIS | Email Template';
+        this.emailType = [
+            {label: 'APPOINTMENT', value: 'APPOINTMENT'},
+            {label: 'CONFIRM_APPOINTMENT', value: 'CONFIRM_APPOINTMENT'},
+            {label: 'APPOINTMENT_REMINDER', value: 'APPOINTMENT_REMINDER'}
+        ];
     }
 
     saveEmailTemplate(form: NgForm) {
         if (form.valid) {
+
+            if (this.emailTempModel.type == '-1') {
+                this.notificationService.warn('Please select type.');
+                document.getElementById('type').focus();
+                return;
+            }
+
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
                     AppConstants.EMAIL_TEMPLATE_SAVE_URL,
@@ -51,7 +64,27 @@ export class AddEmailTemplateComponent implements OnInit {
                 this.router.navigate(['/login']);
             }
         } else {
-            this.notificationService.error('Required Fields are missing', 'Email Template');
+            if (this.emailTempModel.title == '') {
+                this.notificationService.warn('Please enter title.');
+                document.getElementById('title').focus();
+                return;
+            }
+            if (this.emailTempModel.subject == '') {
+                this.notificationService.warn('Please enter subject.');
+                document.getElementById('subject').focus();
+                return;
+            }
+            if (this.emailTempModel.type == '-1') {
+                this.notificationService.warn('Please select type.');
+                document.getElementById('type').focus();
+                return;
+            }
+            if (this.emailTempModel.emailTemplate == '') {
+                this.notificationService.warn('Please enter some data in emailTemplate.');
+                document.getElementById('emailTemplate').focus();
+                return;
+            }
+            // this.notificationService.error('Required Fields are missing', 'Email Template');
         }
     }
 

@@ -1,4 +1,4 @@
-import {Component, OnChanges} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {RequestsService} from '../../../services/requests.service';
 import {Title} from '@angular/platform-browser';
@@ -6,11 +6,10 @@ import {AppConstants} from '../../../utils/app.constants';
 import {UserTypeEnum} from '../../../enums/user-type-enum';
 import {Dashboard} from '../../../model/Dashboard';
 import {NotificationService} from "../../../services/notification.service";
-import {error} from "util";
 import {MatSnackBar} from "@angular/material";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {DataService} from "../../../services/DataService";
-import {Observable} from "rxjs/Observable";
+
 
 @Component({
     selector: 'doctor-dashboard-component',
@@ -27,6 +26,7 @@ export class DoctorDashboardComponent {
     branches: any = [];
     doctorsList: any = [];
     dashboardListModified: any[] = [];
+    public loading = false;
 
     constructor(private requestService: RequestsService,
                 private router: Router,
@@ -47,6 +47,7 @@ export class DoctorDashboardComponent {
     }
 
     showDashboard() {
+        this.loading =true;
         this.requestService.getRequest(AppConstants.FETCH_DASHBOARD_URL)
             .subscribe(
                 (response: Response) => {
@@ -54,10 +55,12 @@ export class DoctorDashboardComponent {
                         let dashboardListTemp = response['responseData'];
                         this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" || x.status=="CHECK_IN" );
                         this.dashboardListModified = this.dashboardList;
+                        this.loading=false;
                     }
                 },
                 (error: any) => {
                     this.error = error.error.error;
+                    this.loading = false;
                 })
     }
 

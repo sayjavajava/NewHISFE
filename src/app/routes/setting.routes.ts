@@ -27,11 +27,26 @@ import {UpdateNurseComponent} from '../components/dashboard/setting/updatenurse.
 import {UpdatedoctorComponent} from '../components/dashboard/setting/updatedoctor.component';
 import {UpdateCashierComponent} from '../components/dashboard/setting/updatecashier.component';
 import {UpdateOrganizationComponent} from '../components/dashboard/setting/update-organization.component';
+
 import {StatusesComponent} from "../components/dashboard/setting/statuses.component";
 import {AdminProfileComponent} from "../components/dashboard/setting/admin-profile.component";
 
+import {EmailConfigurationComponent} from "../components/dashboard/setting/email-configuration.component";
+import {SmsTemplateComponent} from "../components/dashboard/setting/sms-template.component";
+import {AddEditSmsTemplateComponent} from "../components/dashboard/setting/add-edit-sms-template.component";
+import {PrefixTemplateComponent} from "../components/dashboard/setting/prefix-template.component";
+import {ChartOfAccountComponent} from "../components/dashboard/setting/chart-of-account.component";
+import {VitalSetupComponent} from "../components/dashboard/setting/vital-setup.component";
+import {AccountSetupComponent} from "../components/dashboard/setting/account-setup.component";
+import {LabTestComponent} from "../components/dashboard/setting/lab-test.component";
+import {PatientGroupComponent} from '../components/dashboard/patient/patient-group.component';
+import {DrugModel} from '../model/drug.model';
+import {DrugComponent} from '../components/dashboard/setting/drug.component';
+import {UserPermissionsComponent} from "../components/dashboard/setting/user-permissions.component";
+
+
 export const SettingRoutes: Routes = [
-    // Setting Pages
+    // Setting Pages dashboard/setting/chart-of-account-template
     {path: '', redirectTo: 'organization', pathMatch: 'full'},
     {path: 'organization', component: OrganizationComponent},
     {path: 'organization/add', component: AddOrganizationComponent},
@@ -57,12 +72,27 @@ export const SettingRoutes: Routes = [
     {path: 'medicalServices/add', component: AddMedicalServiceComponent},
     {path: 'medicalServices/edit/:id', component: EditMedicalServiceComponent},
     {path: 'role-permissions', component: RolePermissionsComponent},
+    {path: 'user-permissions', component: UserPermissionsComponent},
     {path: 'service-tax', component: ServiceTaxComponent},
     {path: 'status', component: StatusesComponent},
     {path: '404-not-found', component: NotFound404SettingComponent},
     {path: 'branch/edit/:id',component: UpdateBranchComponent},
     {path: 'email-template', component: EmailTemplateComponent},
+    {path: 'email-configuration', component: EmailConfigurationComponent},
     {path: 'email-template/add', component: AddEmailTemplateComponent},
     {path: 'email-template/edit/:id', component: EditEmailTemplateComponent},
+
+    {path: 'sms-template', component: SmsTemplateComponent},
+    {path: 'sms-template/add', component: AddEditSmsTemplateComponent},
+    {path: 'sms-template/edit/:id', component: AddEditSmsTemplateComponent},
+    {path: 'prefix-template', component: PrefixTemplateComponent},
+    {path: 'chart-of-account-template', component: ChartOfAccountComponent},
+    {path: 'vital-setup-template', component: VitalSetupComponent},
+    {path: 'account-setup-template', component: AccountSetupComponent},
+    {path: 'lab-test-template', component: LabTestComponent},
+    {path: 'patient-group', component: PatientGroupComponent},
+    {path: 'drug', component: DrugComponent},
+
+
     {path: '**', redirectTo: '404'}
 ];

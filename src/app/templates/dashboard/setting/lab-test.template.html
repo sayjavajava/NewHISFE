@@ -1,0 +1,134 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Lab Tests
+                        <div class="pull-right">
+                            <a href="#labTestSpeciman" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow" (click)="edit()"><i
+                                        class="fa fa-plus"></i>
+                                    Lab Test
+                                </button>
+                            </a>
+                        </div>
+                    </h4>
+                </div>
+
+                <div class="table-scrollable">
+                    <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                           id="datatable_ajax">
+                        <thead>
+                        <tr role="row" class="off-wite-bg">
+                            <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1">Test Code</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1">Test Name</th>
+                            <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1">Min Normal
+                                Range
+                            </th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Min Normal Range</th>
+                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
+                            <th width="10%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Action
+                            </th>
+                        </tr>
+                        <tr role="row" *ngFor="let item of labTestSpecimanList">
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.testCode}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.testName}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.minNormalRange}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.maxNormalRange}}</td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">{{item.description}}</td>
+
+                            <td rowspan="1" colspan="1" class="text-align-center">
+                                <a href="#labTestSpeciman" data-toggle="modal">
+                                    <button class="btn btn-default btn-outline btn-sm" (click)="edit(item)"><i
+                                            class="fa fa-pencil"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<div id="labTestSpeciman" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="labTestSpecimanForm" #form="ngForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Lab Test</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" required name="testCode" id="testCode" class="form-control"
+                                           placeholder="Enter Name"
+                                           [(ngModel)]="labTestSpeciman.testCode" #testCode="ngModel">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" required name="testName" id="testName" class="form-control"
+                                           placeholder="Enter Name"
+                                           [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Min Normal Range</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" required name="minNormalRange" id="minNormalRange"
+                                           class="form-control" placeholder="Enter Name"
+                                           [(ngModel)]="labTestSpeciman.minNormalRange" #minNormalRange="ngModel">
+                                </div>
+                            </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Max Normal Range</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" name="maxNormalRange" id="maxNormalRange" class="form-control"
+                                           placeholder="Enter text"
+                                           [(ngModel)]="labTestSpeciman.maxNormalRange" #maxNormalRange="ngModel">
+                                </div>
+                                <span *ngIf="maxNormalRange.invalid && maxNormalRange.touched"
+                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid value.
+                                </span>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" name="description" id="description" class="form-control"
+                                           placeholder="Enter text"
+                                           [(ngModel)]="labTestSpeciman.description" #description="ngModel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <span>
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix"
+                            class="btn btn-default btn-outline">Close </button>
+                </span>
+                    <span>
+                    <button type="button" class="btn blue" id="save-btn-update"
+                            (click)="editLabSpeciman(ngForm)">Add</button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -27,6 +27,7 @@ export class PatientDocumentsComponent implements OnInit {
     private uploadedImage: File = null;
     private isRequestUnderProcess: boolean = false;
     private subscription: Subscription;
+    reportType:any;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -46,6 +47,13 @@ export class PatientDocumentsComponent implements OnInit {
 
 
     ngOnInit(): void {
+        this.reportType = [
+            {label: 'Insurance',value:'Insurance'},
+            {label: 'HEALTH_CERTIFICATE',value:'HEALTH_CERTIFICATE'},
+            {label: 'REPORT',value:'REPORT'},
+            {label: 'TEST',value:'TEST'},
+
+        ];
     }
 
     uploadImgOnChange(event: any) {

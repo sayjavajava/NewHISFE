@@ -28,11 +28,13 @@ export class PatientAllergyListComponent implements OnInit {
     appointments: Appointment [] = [];
     isUpdate: boolean = false;
     patient: Patient = new Patient();
-    futureAppointments: Appointment [] = [];
-    pastAppointments: Appointment [] = [];
+    /*futureAppointments: Appointment [] = [];
+    pastAppointments: Appointment [] = [];*/
     @ViewChild('closeBtnAllergy') closeBtnAllergy: ElementRef;
     private selectedPatientId: number;
     subscription: Subscription;
+    allergyType :any;
+    statusType:any;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -49,6 +51,19 @@ export class PatientAllergyListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.allergyType = [
+            {label: 'specificdrug',value:'specificdrug'},
+            {label: 'drugclass',value:'drugclass'},
+            {label: 'nondrug',value:'nondrug'},
+            {label: 'No Known Drug Allergies (NKDA)',value:'nkda'},
+
+        ];
+        this.statusType = [
+            {label: 'ACTIVE',value:'ACTIVE'},
+            {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
+            {label: 'RESOLVED',value:'RESOLVED'}
+
+        ];
     }
 
     getPaginatedAllergyFromServer(p: number) {
@@ -84,10 +99,10 @@ export class PatientAllergyListComponent implements OnInit {
                 response => {
                     if (response['responseCode'] === 'USER_SUC_01') {
                         this.patient = response['responseData'];
-                        this.futureAppointments = [];
+                      /*  this.futureAppointments = [];
                         this.futureAppointments = response['responseData'].futureAppointments;
                         this.pastAppointments = [];
-                        this.pastAppointments = response['responseData'].pastAppointments;
+                        this.pastAppointments = response['responseData'].pastAppointments;*/
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Patient');
                     }

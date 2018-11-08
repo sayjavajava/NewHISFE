@@ -67,7 +67,6 @@ var RequestsService = (function () {
             .map(function (data) {
             return data.responseData;
         });
-        ;
         //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
     };
     RequestsService.prototype.findByIdAndType = function (url, type) {

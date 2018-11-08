@@ -42,6 +42,7 @@ export class AppConstants {
 
     ////////////////////// ICD URLs ///////////////////////////////
     public static ICD_CODE = '/setting/icd/code';
+    public static ICD_CODE_GET = '/setting/icd/code/get?codeId=';
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     public static ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     public static ICD_CODES = '/setting/icd/codes/';
@@ -51,6 +52,7 @@ export class AppConstants {
     public static ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     public static ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     public static ICD_VERSIONS = '/setting/icd/versions/';
+    public static ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     public static ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     public static ICD_VERSION_SEARCH = '/setting/icd/version/search/';
     public static ICD_CODE_VERSION_SAVE_URL = '/setting/icd/codeVersion/save';
@@ -63,6 +65,10 @@ export class AppConstants {
     public static PERMISSION_ENDPOINT = '/user/auth/authorities';
     public static PERMISSION_BY_ROLE = '/user/auth/permission';
     public static ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
+
+    public static USER_ALL_PERMISSIONS = '/user/auth/userDBPermissions';//dashboard related user's all permissions
+    public static PERMISSION_BY_USER = '/user/auth/userPermissions/';
+    public static ASSIGN_PERMISSIONS_TO_USERS = '/user/auth/assignUserPermissions';
 
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_TAX_URL = '/setting/tax/';
@@ -109,8 +115,8 @@ export class AppConstants {
     public static SEARCH_ALL_PATIENT_URL = '/patient/search';
     public static GET_ALL_PATIENT_URL = '/patient/';
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
-    public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
-    public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
+    public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadInsuranceFrontImg/';//'/patient/uploadImageFront/insurance/';
+    public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadInsuranceBackImg/';//'/patient/uploadImageBack/insurance/';
     public static PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
     public static PATIENT_PROBLEM_FETCH_STATUS_URL = '/patient/history/problem/status/';
     public static PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
@@ -169,10 +175,11 @@ export class AppConstants {
     public static LAB_ORDER_CREATE = '/patient/laborder/create';
     public static UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     public static FAMILY_HISTORY_DELETE = '/patient/family/delete/';
-    public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
+    public static FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/all';
     ///////////////////////Smoke Status URLs//////////////////////////////
     public static SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
     public static SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
+
     ///////////////////Family History//////////
     public static STATUS_CREATE = '/setting/status/create';
     public static FETCH_ALL_PAGINATED_STATUS= '/setting/status/';
@@ -180,4 +187,63 @@ export class AppConstants {
     public static UPDATE_STATUS_URL = '/setting/status/update/';
     public static STATUS_SEARCH = '/setting/status/search/';
     public static BRANCH_ORGANIZATION = '/setting/branch/organization';
+
+
+
+    ////////////////////// Email Configuration URLs ///////////////////////////////
+    public static FETCH_EMAIL_CONFIGURATIONS = '/emailConfiguration/getAll';
+    public static EMAIL_CONFIGURATION_SMTPS_SAVE = '/emailConfiguration/saveSMTP';
+    public static EMAIL_CONFIGURATION_SES_SAVE = '/emailConfiguration/saveSES';
+
+
+    ////////////////////// SMS Template Configuration URLs ///////////////////////////////
+    public static FETCH_SMS_CONFIGURATIONS = '/smsConfiguration/getAll';
+    public static FETCH_SMS_CONFIG_BY_ID = '/smsConfiguration/getSmsById?id=';
+    public static SMS_CONFIGURATION_SAVE = '/smsConfiguration/saveSmsConfiguration';
+    public static SMS_CONFIGURATION_DELETE_SAVE = '/smsConfiguration/deleteSmsConfig?id=';
+
+
+    ////////////////////// Prefix Configuration URLs ///////////////////////////////
+    public static FETCH_PREFIX_CONFIGURATIONS = '/prefixConfiguration/getAll';
+    public static PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
+
+
+    ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
+    public static FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    public static ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
+
+    public static ASSETS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateAssetsConfig';
+    public static LIABILTY_CONFIG_SAVE = '/chartOfAccountConfigurations/updateLiabilityConfig';
+    public static REVENUE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateRevenueConfig';
+    public static COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
+    public static EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
+
+
+
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
+    public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+
+
+    ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
+    public static FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
+    public static LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
+
+    ///////////////////// Patient Group URLs ////////////////////////////////////////
+    public static PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/';///all by paginated , zero means first page , 1 means second page
+    public static PATIENT_GROUP_DELETE_URI = '/patient/group/delete?patientGroupId=';
+    public static PATIENT_GROUP_SEARCH_URL = '/patient/group/search/';
+    public static PATIENT_GROUP_SAVE_URL = '/patient/group/save';
+    public static PATIENT_GROUP_UPDATE_URL = '/patient/group/update';
+    public static PATIENT_GROUP_GET_URL = '/patient/group/get?patientGroupId=';
+
+    ///////////////////// Drug URLs ////////////////////////////////////////
+    public static DRUG_FETCH_ALL_PAGINATED_URI = '/setting/drug/';///all by paginated
+    public static DRUG_DELETE_URI = '/setting/drug/delete?drugId=';
+    public static DRUG_SEARCH_URL = '/setting/drug/search/';
+    public static DRUG_SAVE_URL = '/setting/drug/save';
+    public static DRUG_UPDATE_URL = '/setting/drug/update';
+    public static DRUG_GET_URL = '/setting/drug/get?drugId=';
+
+
 }

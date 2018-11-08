@@ -34,6 +34,8 @@ export class PatientMedicationListComponent implements OnInit {
     private selectedPatientId: number;
     @ViewChild('closeBtnMedication') closeBtnMedication: ElementRef;
     private subscription: Subscription;
+    statusType:any;
+    orderStatusList:any;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -50,7 +52,21 @@ export class PatientMedicationListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.selectedPatientId);
+        this.statusType = [
+            {label: 'ACTIVE',value:'ACTIVE'},
+            {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
+        ];
+        this.orderStatusList = [
+            {label: 'administered during visit',value:'administered during visit'},
+            {label: 'Electronic eRx Sent',value:'Electronic eRx Sent'},
+            {label: 'Phoned into Pharmacy"',value:'Phoned into Pharmacy"'},
+            {label: 'Faxed to Pharmacy',value:'Faxed to Pharmacy'},
+            {label: 'Paper Rx',value:'Paper Rx'},
+            {label: 'Prescription Printed',value:'Prescription Printed'},
+            {label: 'Discontinued',value:'Discontinued'},
+            {label: 'Prescribed by other Dr',value:'Prescribed by other Dr'},
+            {label: 'Over the Counter',value:'Over the Counter'},
+        ];
     }
 
     appointmentsByPatientFromServer(selectedPatientId: number) {

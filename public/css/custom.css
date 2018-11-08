@@ -420,7 +420,7 @@ p, h3, h4{margin:0; padding:0;}
 .col-txt-left{
     text-align: left !important;
     padding-left: 10px !important;
-   /* color:#f55 !important;*/
+    /* color:#f55 !important;*/
 }
 .modal-scheduler {
     width: 1040px !important;
@@ -604,7 +604,11 @@ textarea {
 .ui-dropdown    {
     width:100% !important;
 }
-
+.ui-dropdown label.ui-dropdown-label {
+    cursor: pointer;
+    height: 25px !important;
+    padding: 2px 12px !important;
+}
 .ui-multiSelect  {
     width:100% !important;
 }
@@ -628,6 +632,17 @@ textarea {
 .ui-dropdown-panel {
     max-width: 100%;
     width: 100%;
+}
+.ui-multiselect-label{
+    padding: 0px !important;
+    font-size: 12px;
+    margin-top: 6px;
+    margin-left: 10px;
+}
+.ui-multiselect:hover{
+    border: 1px solid #9da8b8
+    !important;
+
 }
 
 /*
@@ -749,8 +764,6 @@ default css for mat check box
     margin-top: -14px;
 }
 .wc-date-container {
-    width: 303px !important;
-}
-.wc-date-popover{
-    width:303px !important;
+    width: 308px !important;
+    margin-left: 14px;
 }

@@ -1,13 +1,13 @@
-import {Component, OnInit} from "@angular/core";
-import {Title} from "@angular/platform-browser";
-import {RequestsService} from "../../../services/requests.service";
-import {Router} from "@angular/router";
-import {AppConstants} from "../../../utils/app.constants";
-import {HISUtilService} from "../../../services/his-util.service";
-import {Patient} from "../../../model/patient";
-import {NotificationService} from "../../../services/notification.service";
-import {NgForm} from "@angular/forms";
-import {UserTypeEnum} from "../../../enums/user-type-enum";
+import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {RequestsService} from '../../../services/requests.service';
+import {Router} from '@angular/router';
+import {AppConstants} from '../../../utils/app.constants';
+import {HISUtilService} from '../../../services/his-util.service';
+import {Patient} from '../../../model/patient';
+import {NotificationService} from '../../../services/notification.service';
+import {NgForm} from '@angular/forms';
+import {UserTypeEnum} from '../../../enums/user-type-enum';
 
 //import {NgbTypeaheadConfig} from "@ng-bootstrap/ng-bootstrap";
 import {Observable} from 'rxjs';
@@ -29,8 +29,6 @@ export class AddPatientComponent implements OnInit {
     pCommunication :any;
     selectedRaces:any;
 
-   /* title: string[] = ['mr','mrs','ms','miss','sir','dr'];
-    model: any;*/
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -50,12 +48,12 @@ export class AddPatientComponent implements OnInit {
     }
 
     /*search = (text$: Observable<string>) =>
-        text$.pipe(
-            debounceTime(200),
-            distinctUntilChanged(),
-            map(term => term.length < 2 ? []
-                : this.title.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-        );*/
+     text$.pipe(
+     debounceTime(200),
+     distinctUntilChanged(),
+     map(term => term.length < 2 ? []
+     : this.title.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+     );*/
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Add Patient');
@@ -84,11 +82,11 @@ export class AddPatientComponent implements OnInit {
         let fileList: FileList = event.target.files;
 
         if (fileList != null && fileList.length > 0) {
-            if (event.target.name === "profileImg") {
+            if (event.target.name === 'profileImg') {
                 this.profileImg = fileList[0];
-            } else if (event.target.name === "photoFront") {
+            } else if (event.target.name === 'photoFront') {
                 this.photoFront = fileList[0];
-            } else if (event.target.name === "photoBack") {
+            } else if (event.target.name === 'photoBack') {
                 this.photoBack = fileList[0];
             }
         }
@@ -98,34 +96,92 @@ export class AddPatientComponent implements OnInit {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid || contactForm.invalid) {
             if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
-                document.getElementById("selectedDoctor").focus();
+                document.getElementById('selectedDoctor').focus();
                 return;
-            } else if (this.patient.titlePrefix === "-1") {
+            } else if (this.patient.titlePrefix === '-1') {
                 this.notificationService.error('Please select title', 'Patient');
-                document.getElementById("titlePrefix").focus();
+                document.getElementById('titlePrefix').focus();
                 return;
             } else if (this.patient.cellPhone.length <= 0) {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
-                document.getElementById("cellPhone").focus();
+                document.getElementById('cellPhone').focus();
                 return;
             }
             /*else if (this.patient.email.length <= 0) {
-                this.notificationService.error('Please provide email', 'Patient');
-                document.getElementById("email").focus();
-                return;
-            } else if (this.patient.userName.length <= 0) {
-                this.notificationService.error('Please provide user name', 'Patient');
-                document.getElementById("userName").focus();
-                return;
-            }*/
+             this.notificationService.error('Please provide email', 'Patient');
+             document.getElementById("email").focus();
+             return;
+             } else if (this.patient.userName.length <= 0) {
+             this.notificationService.error('Please provide user name', 'Patient');
+             document.getElementById("userName").focus();
+             return;
+             }*/
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
+
+                /***
+                 * going to check , if any one value available of insurance then company name must be presented
+                 * **/
+                if (this.patient.insuranceIdNumber != '' && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+                if (this.patient.groupNumber != '' && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+                if (this.patient.planName != '' && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+                if (this.patient.planType != '' && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+                if (this.patient.cardIssuedDate != '' && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+                if (this.patient.cardExpiryDate != '' && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+                if (this.patient.primaryInsuranceNotes != '' && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+                if (this.photoFront != null && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
+                if (this.photoBack != null && this.patient.company === '') {
+                    this.notificationService.warn('Please enter insurance company name.');
+                    document.getElementById('company').focus();
+                    return;
+                }
+
                 this.requestsService.postRequestMultipartFormAndData(
                     AppConstants.PATIENT_SAVE_URL,
-                    this.patient, this.profileImg,this.photoFront,this.photoBack
+                    this.patient, this.profileImg, this.photoFront, this.photoBack
                 ).subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'PATIENT_SUC_04') {

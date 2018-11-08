@@ -42,7 +42,21 @@ var PatientMedicationListComponent = (function () {
         this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
     PatientMedicationListComponent.prototype.ngOnInit = function () {
-        console.log(this.selectedPatientId);
+        this.statusType = [
+            { label: 'ACTIVE', value: 'ACTIVE' },
+            { label: 'IN-ACTIVE', value: 'IN-ACTIVE' },
+        ];
+        this.orderStatusList = [
+            { label: 'administered during visit', value: 'administered during visit' },
+            { label: 'Electronic eRx Sent', value: 'Electronic eRx Sent' },
+            { label: 'Phoned into Pharmacy"', value: 'Phoned into Pharmacy"' },
+            { label: 'Faxed to Pharmacy', value: 'Faxed to Pharmacy' },
+            { label: 'Paper Rx', value: 'Paper Rx' },
+            { label: 'Prescription Printed', value: 'Prescription Printed' },
+            { label: 'Discontinued', value: 'Discontinued' },
+            { label: 'Prescribed by other Dr', value: 'Prescribed by other Dr' },
+            { label: 'Over the Counter', value: 'Over the Counter' },
+        ];
     };
     PatientMedicationListComponent.prototype.appointmentsByPatientFromServer = function (selectedPatientId) {
         var _this = this;

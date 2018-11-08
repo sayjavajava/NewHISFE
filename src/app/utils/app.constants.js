@@ -42,6 +42,7 @@ var AppConstants = (function () {
     AppConstants.SAVE_PAYMENT = '/cashier/savePayment';
     ////////////////////// ICD URLs ///////////////////////////////
     AppConstants.ICD_CODE = '/setting/icd/code';
+    AppConstants.ICD_CODE_GET = '/setting/icd/code/get?codeId=';
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     AppConstants.ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     AppConstants.ICD_CODES = '/setting/icd/codes/';
@@ -51,6 +52,7 @@ var AppConstants = (function () {
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     AppConstants.ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     AppConstants.ICD_VERSIONS = '/setting/icd/versions/';
+    AppConstants.ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     AppConstants.ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     AppConstants.ICD_VERSION_SEARCH = '/setting/icd/version/search/';
     AppConstants.ICD_CODE_VERSION_SAVE_URL = '/setting/icd/codeVersion/save';
@@ -62,6 +64,9 @@ var AppConstants = (function () {
     AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
     AppConstants.PERMISSION_BY_ROLE = '/user/auth/permission';
     AppConstants.ASSIGN_PERMISSIONS_TO_ROLES = '/user/auth/assignAuthorities';
+    AppConstants.USER_ALL_PERMISSIONS = '/user/auth/userDBPermissions'; //dashboard related user's all permissions
+    AppConstants.PERMISSION_BY_USER = '/user/auth/userPermissions/';
+    AppConstants.ASSIGN_PERMISSIONS_TO_USERS = '/user/auth/assignUserPermissions';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';
@@ -102,8 +107,8 @@ var AppConstants = (function () {
     AppConstants.SEARCH_ALL_PATIENT_URL = '/patient/search';
     AppConstants.GET_ALL_PATIENT_URL = '/patient/';
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
-    AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadImageFront/insurance/';
-    AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadImageBack/insurance/';
+    AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadInsuranceFrontImg/'; //'/patient/uploadImageFront/insurance/';
+    AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadInsuranceBackImg/'; //'/patient/uploadImageBack/insurance/';
     AppConstants.PATIENT_PROBLEM_FETCH_URL = '/patient/history/problem/';
     AppConstants.PATIENT_PROBLEM_FETCH_STATUS_URL = '/patient/history/problem/status/';
     AppConstants.PATIENT_PROBLEM_SAVE_URL = '/patient/history/problem/save';
@@ -155,7 +160,7 @@ var AppConstants = (function () {
     AppConstants.LAB_ORDER_CREATE = '/patient/laborder/create';
     AppConstants.UPDATE_FAMILY_HISTORY_URL = '/patient/family/update/';
     AppConstants.FAMILY_HISTORY_DELETE = '/patient/family/delete/';
-    AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/history/';
+    AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL = '/patient/family/all';
     ///////////////////////Smoke Status URLs//////////////////////////////
     AppConstants.SMOKE_STATUS_URL = '/patient/smokeStatus/addUpdate';
     AppConstants.SMOKE_STATUS_DEL_URL = '/patient/smokeStatus/delete/';
@@ -166,6 +171,46 @@ var AppConstants = (function () {
     AppConstants.UPDATE_STATUS_URL = '/setting/status/update/';
     AppConstants.STATUS_SEARCH = '/setting/status/search/';
     AppConstants.BRANCH_ORGANIZATION = '/setting/branch/organization';
+    ////////////////////// Email Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_EMAIL_CONFIGURATIONS = '/emailConfiguration/getAll';
+    AppConstants.EMAIL_CONFIGURATION_SMTPS_SAVE = '/emailConfiguration/saveSMTP';
+    AppConstants.EMAIL_CONFIGURATION_SES_SAVE = '/emailConfiguration/saveSES';
+    ////////////////////// SMS Template Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_SMS_CONFIGURATIONS = '/smsConfiguration/getAll';
+    AppConstants.FETCH_SMS_CONFIG_BY_ID = '/smsConfiguration/getSmsById?id=';
+    AppConstants.SMS_CONFIGURATION_SAVE = '/smsConfiguration/saveSmsConfiguration';
+    AppConstants.SMS_CONFIGURATION_DELETE_SAVE = '/smsConfiguration/deleteSmsConfig?id=';
+    ////////////////////// Prefix Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_PREFIX_CONFIGURATIONS = '/prefixConfiguration/getAll';
+    AppConstants.PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
+    ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    AppConstants.ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
+    AppConstants.ASSETS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateAssetsConfig';
+    AppConstants.LIABILTY_CONFIG_SAVE = '/chartOfAccountConfigurations/updateLiabilityConfig';
+    AppConstants.REVENUE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateRevenueConfig';
+    AppConstants.COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
+    AppConstants.EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
+    ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
+    AppConstants.VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+    ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
+    AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
+    AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
+    ///////////////////// Patient Group URLs ////////////////////////////////////////
+    AppConstants.PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/'; ///all by paginated , zero means first page , 1 means second page
+    AppConstants.PATIENT_GROUP_DELETE_URI = '/patient/group/delete?patientGroupId=';
+    AppConstants.PATIENT_GROUP_SEARCH_URL = '/patient/group/search/';
+    AppConstants.PATIENT_GROUP_SAVE_URL = '/patient/group/save';
+    AppConstants.PATIENT_GROUP_UPDATE_URL = '/patient/group/update';
+    AppConstants.PATIENT_GROUP_GET_URL = '/patient/group/get?patientGroupId=';
+    ///////////////////// Drug URLs ////////////////////////////////////////
+    AppConstants.DRUG_FETCH_ALL_PAGINATED_URI = '/setting/drug/'; ///all by paginated
+    AppConstants.DRUG_DELETE_URI = '/setting/drug/delete?drugId=';
+    AppConstants.DRUG_SEARCH_URL = '/setting/drug/search/';
+    AppConstants.DRUG_SAVE_URL = '/setting/drug/save';
+    AppConstants.DRUG_UPDATE_URL = '/setting/drug/update';
+    AppConstants.DRUG_GET_URL = '/setting/drug/get?drugId=';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

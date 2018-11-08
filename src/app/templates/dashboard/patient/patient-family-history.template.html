@@ -6,12 +6,15 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg" class="img-responsive"/></div>
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
                                 <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob}})</small>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date:"MM-dd-yyyy"}})</small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
@@ -55,10 +58,11 @@
                     </div>
                     <div class="hr no-margin">
                         <div class="hr">
+
                             <div *ngIf="patient.primaryDoctorFirstName"  class="portlet-title">
                                 <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
+
                             </div>
-                        </div>
                         <!-- <div class="hr no-margin">
                              <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
                              <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
@@ -67,9 +71,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-                <div class="hr">
+            <div class="col-md-12">
+                <div class="hr mrgn-top8">
                     <h4 class="text-info">Family History<div class="pull-right">
                         <a href="#responsive" data-toggle="modal">
                             <button class="btn mt-sweetalert btn green-meadow" (click)="onAddPopupLoad()">
@@ -79,7 +82,9 @@
 
                     </div></h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <!--<div class="table-scrollable tbl-brdr-radus">
                     <table class="table table-hover table-light">
                         <thead>
                         <tr class="hedng-bck-clr tbl-pdng">
@@ -119,11 +124,87 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>
+                </div>-->
+
+                <ngx-loading [show]="loading"></ngx-loading>
+                <p-table #dt [columns]="cols" [value]="data" [paginator]="true"  [rows]="5">
+                    <ng-template pTemplate="caption">
+                        <div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                           <!-- <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>-->
+                            <th>Name</th>
+                            <th>Relation</th>
+                            <th>Ethnic Group</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                        <tr>
+
+                            <th *ngFor="let col of cols" [ngSwitch]="col.field">
+                                <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">
+                                <!--<div *ngSwitchCase="'year'">
+                                    Value < {{yearFilter}}
+                                    <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+                                    <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider>
+                                </div>-->
+                                <p-dropdown *ngSwitchCase="'relation'" [options]="relationsList2" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                                <!--<input *ngSwitchCase="'relation'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">-->
+                                <input *ngSwitchCase="'status'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">
+                                <!--<p-multiSelect *ngSwitchCase="'status'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>-->
+                            </th>
+
+                        </tr>
+                    </ng-template>
+                    <!--<ng-template pTemplate="body" let-rowData>
+                        <tr [pSelectableRow]="rowData">
+                            <td *ngFor="let rowData of data">
+                               &lt;!&ndash; {{rowData[col.brand]}}&ndash;&gt;
+                                {{rowData.name}}
+                                {{rowData.relation}}
+                                {{rowData.ethnicGroup}}
+                                {{rowData.status}}
+
+                            </td>
+                        </tr>
+                    </ng-template>-->
+                    <ng-template pTemplate="body" let-item let-columns="columns">
+                        <tr>
+
+                                <!--{{car[col.field]}}-->
+                            <td> {{item.name}}</td>
+                            <td>  {{item.relation}}</td>
+                            <td>  {{item.ethnicGroup}}</td>
+                            <td>  {{item.status}}</td>
+                            <td>
+                                <a href="#responsive" data-toggle="modal">
+                                    <button class="btn btn-default btn-outline btn-sm"
+                                            (click)="onUpdatePopupLoad(item)"><i class="fa fa-pencil"></i>
+
+                                    </button>
+                                </a>
+                                <button class="btn btn-default btn-outline btn-sm"
+                                        (click)="deletePatientFamilyHistory(item.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    </ng-template>
+
+                </p-table>
             </div>
-        </div>
         <div class="clearfix"></div>
     </div>
+</div>
 </div>
 
 <!--pagination -->
@@ -198,7 +279,7 @@
                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Relation
                                         </label>
                                     <div class="col-md-9 select pdng-lr-5">
-                                        <select class="form-control" name="statusDrp"
+                                       <!-- <select class="form-control" name="statusDrp"
                                                 [ngModelOptions]="{standalone:true}"
                                                 [(ngModel)]="selectedFamily.relation" >
                                             <option value="Husband"> Husband</option>
@@ -206,7 +287,11 @@
                                             <option value="Father">Father</option>
                                             <option value="Sister">Sister</option>
                                             <option value="Brother">Brother</option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown  placeholder="select relation" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="relDrp"
+                                                     [options]="relationType"
+                                                     [(ngModel)]="selectedFamily.relation"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
 
                                 </div>
@@ -215,14 +300,18 @@
                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Ethnic Group
                                       </label>
                                     <div class="col-md-9 select pdng-lr-5">
-                                        <select class="form-control" name="statusDrp"
+                                        <!--<select class="form-control" name="statusDrp"
                                                 [ngModelOptions]="{standalone:true}"
                                                 [(ngModel)]="selectedFamily.ethnicGroup" >
                                             <option value="Sindhis"> Sindhis</option>
                                             <option value="Muhajir">Muhajir</option>
                                             <option value="Kalash">Kalash</option>
                                             <option value="Sariki">Sariki</option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown  placeholder="select group" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="ethDrp"
+                                                     [options]="ethnicGroup"
+                                                     [(ngModel)]="selectedFamily.ethnicGroup"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
 
                                 </div>
@@ -232,12 +321,16 @@
                                     </label>
                                     <div class="col-md-9 select pdng-lr-5">
 
-                                            <select class="form-control" name="statusDrp"
+                                           <!-- <select class="form-control" name="statusDrp"
                                                     [ngModelOptions]="{standalone:true}"
                                                     [(ngModel)]="selectedFamily.status" >
                                                 <option value="SINGLE"> SINGLE</option>
                                                 <option value="MARRIED">MARRIED</option>
-                                            </select>
+                                            </select>-->
+                                        <p-dropdown  placeholder="select status" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="statusDrp"
+                                                     [options]="statusType"
+                                                     [(ngModel)]="selectedFamily.status"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
 
 
                                     </div>
@@ -266,3 +359,27 @@
         </form>
     </div>
 </div>
+
+
+
+
+
+
+<!--sample for server side pagination -->
+
+<!--
+<div class="table-responsive">
+    <p-dataTable sortField="FileNo" [sortOrder]="1" [value]="paitientListing" [lazy]="true" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20]" [totalRecords]="totalRecords" (onLazyLoad)="loadPatientListing($event)">
+        <p-column field="PatientID" header="File No" [sortable]="true" [style]="{'width':'94px'}"></p-column>
+        <p-column field="LastName" [sortable]="true" [style]="{'width':'121px'}" header="Last Name"></p-column>
+        <p-column field="FirstName" [sortable]="true" [style]="{'width':'122px'}" header="First Name"></p-column>
+        <p-column styleClass="col-button" [style]="{'width':'90px'}">
+            <ng-template pTemplate="header">
+                Action
+            </ng-template>
+            <ng-template let-paitientListing="rowData" pTemplate="body">
+                <button type="button" pButton (click)="editPatient(paitientListing.PatientID)" icon="fa-pencil-square-o"></button>
+                <button type="button" pButton (click)="deletePatient(paitientListing.PatientID)" icon="fa-trash-o" class="ui-button-danger"></button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>-->

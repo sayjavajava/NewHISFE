@@ -8,6 +8,7 @@ import {Receptionist} from '../model/Receptionist';
 import {Observable} from "rxjs/Observable";
 import {RequestOptions} from "@angular/http";
 import {HttpParamsOptions} from '@angular/common/http/src/params';
+import {delay} from "q";
 
 @Injectable()
 export class RequestsService {
@@ -70,7 +71,6 @@ export class RequestsService {
             .map((data: any) => {
                 return data.responseData as Object;
             });
-        ;
         //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
     }
 

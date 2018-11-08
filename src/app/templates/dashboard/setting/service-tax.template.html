@@ -218,9 +218,16 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
                                 <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
-                                    <label class="mt-checkbox mt-checkbox-outline">
+                                    <!--<label class="mt-checkbox mt-checkbox-outline">
                                         <input type="checkbox" [(ngModel)]="serviceTax.active" name="active">
                                         <span></span>
+                                    </label>-->
+                                    <label class="mt-checkbox-outline">
+                                                      <mat-checkbox #status="ngModel"
+                                                      name="active"
+                                                      [(ngModel)]="serviceTax.active"
+                                                      color="primary"></mat-checkbox>
+
                                     </label>
                                 </div>
                             </div>

@@ -201,7 +201,8 @@ export class BranchComponent implements OnInit {
         this.router.navigate(['/dashboard/setting/branch/edit/', id]);
 }
 
-    getSelectedBranch(value: any) {
+    getSelectedBranch(valueObj: any) {
+        let value = valueObj.value;
         if (value) {
             this.searchForm.controls['branch'].setValue(value);
         }

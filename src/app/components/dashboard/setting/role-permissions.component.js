@@ -49,6 +49,7 @@ var RolePermissionsComponent = (function () {
     };
     RolePermissionsComponent.prototype.addRole = function (formdata) {
         var _this = this;
+        formdata.active = true;
         var obj = new roleandpermission_1.RoleAndPermission(formdata.name, formdata.description, formdata.active, 'Role');
         this.showForm = false;
         setTimeout(function () {
@@ -115,7 +116,7 @@ var RolePermissionsComponent = (function () {
             'selectedRole': this.selectedRole
         })
             .subscribe(function (response) {
-            if (response['responseCode'] === 'ROL_PER_SUC_03') {
+            if (response['responseCode'] === 'ROL_PER_SUC_02') {
                 _this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
             }
             else if (response['responseCode'] === 'ROL_PER_SUC_02') {

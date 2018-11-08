@@ -33,8 +33,6 @@ var PatientAllergyListComponent = (function () {
         this.appointments = [];
         this.isUpdate = false;
         this.patient = new patient_1.Patient();
-        this.futureAppointments = [];
-        this.pastAppointments = [];
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.selectedPatientId = id;
         });
@@ -42,6 +40,17 @@ var PatientAllergyListComponent = (function () {
         this.appointmentsByPatientFromServer(this.selectedPatientId);
     }
     PatientAllergyListComponent.prototype.ngOnInit = function () {
+        this.allergyType = [
+            { label: 'specificdrug', value: 'specificdrug' },
+            { label: 'drugclass', value: 'drugclass' },
+            { label: 'nondrug', value: 'nondrug' },
+            { label: 'No Known Drug Allergies (NKDA)', value: 'nkda' },
+        ];
+        this.statusType = [
+            { label: 'ACTIVE', value: 'ACTIVE' },
+            { label: 'IN-ACTIVE', value: 'IN-ACTIVE' },
+            { label: 'RESOLVED', value: 'RESOLVED' }
+        ];
     };
     PatientAllergyListComponent.prototype.getPaginatedAllergyFromServer = function (p) {
         var _this = this;
@@ -70,10 +79,10 @@ var PatientAllergyListComponent = (function () {
             this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + selectedPatientId).subscribe(function (response) {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     _this.patient = response['responseData'];
-                    _this.futureAppointments = [];
-                    _this.futureAppointments = response['responseData'].futureAppointments;
-                    _this.pastAppointments = [];
-                    _this.pastAppointments = response['responseData'].pastAppointments;
+                    /*  this.futureAppointments = [];
+                      this.futureAppointments = response['responseData'].futureAppointments;
+                      this.pastAppointments = [];
+                      this.pastAppointments = response['responseData'].pastAppointments;*/
                 }
                 else {
                     _this.notificationService.error(response['responseMessage'], 'Patient');

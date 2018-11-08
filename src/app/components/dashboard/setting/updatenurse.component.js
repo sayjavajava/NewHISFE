@@ -288,8 +288,10 @@ var UpdateNurseComponent = (function () {
             var index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
+        console.log(this.selectedDepartment);
     };
     UpdateNurseComponent.prototype.selectVisitBranches = function (event, item) {
+        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }

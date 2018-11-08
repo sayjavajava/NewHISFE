@@ -54,6 +54,7 @@ import {UpdatedoctorComponent} from "./components/dashboard/setting/updatedoctor
 import {UpdateNurseComponent} from "./components/dashboard/setting/updatenurse.component";
 import {UpdateReceptionistComponent} from "./components/dashboard/setting/update-receptionist.component";
 import {AddBranchComponent} from "./components/dashboard/setting/addbranch.component";
+import {UserPermissionsComponent} from "./components/dashboard/setting/user-permissions.component";
 import {
     MatButtonModule, MatButtonToggle, MatButtonToggleModule, MatCheckbox, MatCheckboxModule,
     MatDialogModule,
@@ -116,16 +117,35 @@ import {DemoUtilsModule} from "../demo-utils/module";
 import {EditAppointmentComponent} from "./components/dashboard/appointment/edit-appointment.component";
 import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patient-add-lab-orders.component";
 import {DataService} from "./services/DataService";
+
 import {ModalModule} from "ngx-bootstrap";
 import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
-import {CheckboxModule, DropdownModule, MultiSelectModule, ScheduleModule} from "primeng/primeng";
+import {CheckboxModule, DataTableModule, PaginatorModule, ScheduleModule} from "primeng/primeng";
 import {ToggleButtonModule} from 'primeng/togglebutton';
-import {CustomEventTitleFormatter} from "./components/dashboard/appointment/CustomEventTitleFormatter";
 import {AdminProfileComponent} from "./components/dashboard/setting/admin-profile.component";
 
 import {PrimeSchedularComponent} from "./components/dashboard/primeschedular/prime-schedular.component";
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {AngularDateTimePickerModule} from "angular2-datetimepicker";
+
+import {DropdownModule} from 'primeng/dropdown';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {EmailConfigurationComponent} from "./components/dashboard/setting/email-configuration.component";
+import {SmsTemplateComponent} from "./components/dashboard/setting/sms-template.component";
+import {AddEditSmsTemplateComponent} from "./components/dashboard/setting/add-edit-sms-template.component";
+import {PrefixTemplateComponent} from "./components/dashboard/setting/prefix-template.component";
+import {ChartOfAccountComponent} from "./components/dashboard/setting/chart-of-account.component";
+import {VitalSetupComponent} from "./components/dashboard/setting/vital-setup.component";
+import {AccountSetupComponent} from "./components/dashboard/setting/account-setup.component";
+import {LabTestComponent} from "./components/dashboard/setting/lab-test.component";
+import {PatientGroupComponent} from './components/dashboard/patient/patient-group.component';
+import {DrugComponent} from './components/dashboard/setting/drug.component';
+
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {SharedModule} from "primeng/shared";
+import {TableModule} from "primeng/table";
+import {SliderModule} from "primeng/slider";
+import {ngxLoadingAnimationTypes, NgxLoadingModule} from "ngx-loading";
 
 @NgModule({
     providers: [
@@ -161,7 +181,16 @@ import {AngularDateTimePickerModule} from "angular2-datetimepicker";
         ColorPickerModule,
         NgbModalModule.forRoot(),
         CalendarModule.forRoot(),
+        NgxLoadingModule.forRoot({
+            animationType: ngxLoadingAnimationTypes.wanderingCubes,
+            backdropBackgroundColour: 'rgba(0,0,0,0.1)',
+            backdropBorderRadius: '4px',
+            primaryColour: '#ff0000',
+            secondaryColour: '#008000',
+            tertiaryColour: '#008000'
+        }),
         DemoUtilsModule,
+
         [ModalModule.forRoot()],
         DropdownModule,
         MultiSelectModule,
@@ -171,7 +200,14 @@ import {AngularDateTimePickerModule} from "angular2-datetimepicker";
         MatCheckboxModule,
         MatRadioModule,
         InputSwitchModule,
-        AngularDateTimePickerModule
+        AngularDateTimePickerModule,
+        MultiSelectModule,
+        AutoCompleteModule,
+        DataTableModule,
+        PaginatorModule,
+        SharedModule,
+        TableModule,
+        SliderModule
 
     ],
     declarations: [
@@ -237,6 +273,7 @@ import {AngularDateTimePickerModule} from "angular2-datetimepicker";
         BranchComponent,
         UpdateCashierComponent,
         RolePermissionsComponent,
+        UserPermissionsComponent,
         UpdatedoctorComponent,
         UpdateNurseComponent,
         UpdateReceptionistComponent,
@@ -249,6 +286,15 @@ import {AngularDateTimePickerModule} from "angular2-datetimepicker";
         AddStaffComponent,
         ServiceTaxComponent,
         EmailTemplateComponent,
+        EmailConfigurationComponent,
+        SmsTemplateComponent,
+        AddEditSmsTemplateComponent,
+        PrefixTemplateComponent,
+        ChartOfAccountComponent,
+        VitalSetupComponent,
+        AccountSetupComponent,
+        LabTestComponent,
+
         AddEmailTemplateComponent,
         EditEmailTemplateComponent,
         NotFound404SettingComponent,
@@ -259,10 +305,10 @@ import {AngularDateTimePickerModule} from "angular2-datetimepicker";
         EditAppointmentComponent,
         MenuComponent,
         StatusesComponent,
-        CustomEventTitleFormatter,
         AdminProfileComponent,
         PrimeSchedularComponent,
-
+        PatientGroupComponent,
+        DrugComponent
 
     ],
     bootstrap: [AppComponent]

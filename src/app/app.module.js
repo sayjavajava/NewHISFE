@@ -59,6 +59,7 @@ var updatedoctor_component_1 = require("./components/dashboard/setting/updatedoc
 var updatenurse_component_1 = require("./components/dashboard/setting/updatenurse.component");
 var update_receptionist_component_1 = require("./components/dashboard/setting/update-receptionist.component");
 var addbranch_component_1 = require("./components/dashboard/setting/addbranch.component");
+var user_permissions_component_1 = require("./components/dashboard/setting/user-permissions.component");
 var material_1 = require("@angular/material");
 var notification_service_1 = require("./services/notification.service");
 var organization_component_1 = require("./components/dashboard/setting/organization.component");
@@ -112,11 +113,27 @@ var ngx_bootstrap_1 = require("ngx-bootstrap");
 var statuses_component_1 = require("./components/dashboard/setting/statuses.component");
 var primeng_1 = require("primeng/primeng");
 var togglebutton_1 = require("primeng/togglebutton");
-var CustomEventTitleFormatter_1 = require("./components/dashboard/appointment/CustomEventTitleFormatter");
 var admin_profile_component_1 = require("./components/dashboard/setting/admin-profile.component");
 var prime_schedular_component_1 = require("./components/dashboard/primeschedular/prime-schedular.component");
 var inputswitch_1 = require("primeng/inputswitch");
 var angular2_datetimepicker_1 = require("angular2-datetimepicker");
+var dropdown_1 = require("primeng/dropdown");
+var multiselect_1 = require("primeng/multiselect");
+var email_configuration_component_1 = require("./components/dashboard/setting/email-configuration.component");
+var sms_template_component_1 = require("./components/dashboard/setting/sms-template.component");
+var add_edit_sms_template_component_1 = require("./components/dashboard/setting/add-edit-sms-template.component");
+var prefix_template_component_1 = require("./components/dashboard/setting/prefix-template.component");
+var chart_of_account_component_1 = require("./components/dashboard/setting/chart-of-account.component");
+var vital_setup_component_1 = require("./components/dashboard/setting/vital-setup.component");
+var account_setup_component_1 = require("./components/dashboard/setting/account-setup.component");
+var lab_test_component_1 = require("./components/dashboard/setting/lab-test.component");
+var patient_group_component_1 = require("./components/dashboard/patient/patient-group.component");
+var drug_component_1 = require("./components/dashboard/setting/drug.component");
+var autocomplete_1 = require("primeng/autocomplete");
+var shared_1 = require("primeng/shared");
+var table_1 = require("primeng/table");
+var slider_1 = require("primeng/slider");
+var ngx_loading_1 = require("ngx-loading");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -157,17 +174,32 @@ var AppModule = (function () {
                 ngx_color_picker_1.ColorPickerModule,
                 ng_bootstrap_1.NgbModalModule.forRoot(),
                 angular_calendar_1.CalendarModule.forRoot(),
+                ngx_loading_1.NgxLoadingModule.forRoot({
+                    animationType: ngx_loading_1.ngxLoadingAnimationTypes.wanderingCubes,
+                    backdropBackgroundColour: 'rgba(0,0,0,0.1)',
+                    backdropBorderRadius: '4px',
+                    primaryColour: '#ff0000',
+                    secondaryColour: '#008000',
+                    tertiaryColour: '#008000'
+                }),
                 module_1.DemoUtilsModule,
                 [ngx_bootstrap_1.ModalModule.forRoot()],
-                primeng_1.DropdownModule,
-                primeng_1.MultiSelectModule,
+                dropdown_1.DropdownModule,
+                multiselect_1.MultiSelectModule,
                 togglebutton_1.ToggleButtonModule,
                 primeng_1.CheckboxModule,
                 primeng_1.ScheduleModule,
                 material_1.MatCheckboxModule,
                 material_1.MatRadioModule,
                 inputswitch_1.InputSwitchModule,
-                angular2_datetimepicker_1.AngularDateTimePickerModule
+                angular2_datetimepicker_1.AngularDateTimePickerModule,
+                multiselect_1.MultiSelectModule,
+                autocomplete_1.AutoCompleteModule,
+                primeng_1.DataTableModule,
+                primeng_1.PaginatorModule,
+                shared_1.SharedModule,
+                table_1.TableModule,
+                slider_1.SliderModule
             ],
             declarations: [
                 // App Components
@@ -229,6 +261,7 @@ var AppModule = (function () {
                 branch_component_1.BranchComponent,
                 updatecashier_component_1.UpdateCashierComponent,
                 role_permissions_component_1.RolePermissionsComponent,
+                user_permissions_component_1.UserPermissionsComponent,
                 updatedoctor_component_1.UpdatedoctorComponent,
                 updatenurse_component_1.UpdateNurseComponent,
                 update_receptionist_component_1.UpdateReceptionistComponent,
@@ -241,6 +274,14 @@ var AppModule = (function () {
                 addstaff_component_1.AddStaffComponent,
                 service_tax_component_1.ServiceTaxComponent,
                 email_template_component_1.EmailTemplateComponent,
+                email_configuration_component_1.EmailConfigurationComponent,
+                sms_template_component_1.SmsTemplateComponent,
+                add_edit_sms_template_component_1.AddEditSmsTemplateComponent,
+                prefix_template_component_1.PrefixTemplateComponent,
+                chart_of_account_component_1.ChartOfAccountComponent,
+                vital_setup_component_1.VitalSetupComponent,
+                account_setup_component_1.AccountSetupComponent,
+                lab_test_component_1.LabTestComponent,
                 add_email_template_component_1.AddEmailTemplateComponent,
                 edit_email_template_component_1.EditEmailTemplateComponent,
                 not_found_404_setting_component_1.NotFound404SettingComponent,
@@ -251,9 +292,10 @@ var AppModule = (function () {
                 edit_appointment_component_1.EditAppointmentComponent,
                 menu_component_1.MenuComponent,
                 statuses_component_1.StatusesComponent,
-                CustomEventTitleFormatter_1.CustomEventTitleFormatter,
                 admin_profile_component_1.AdminProfileComponent,
                 prime_schedular_component_1.PrimeSchedularComponent,
+                patient_group_component_1.PatientGroupComponent,
+                drug_component_1.DrugComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

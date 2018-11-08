@@ -9,13 +9,15 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg"
-                                                              class="img-responsive"/></div>
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
                                 <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob}})</small>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date: 'MM-dd-yyyy'}})</small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
@@ -105,14 +107,16 @@
                                 <div class="form-group">
                                     <label class="col-md-3 pdng-lr-5 control-label txt-size">Type</label>
                                     <div class="col-md-9 select pdng-lr-5">
-                                        <select class="form-control" [ngModelOptions]="{standalone:true}"
+                                       <!-- <select class="form-control" [ngModelOptions]="{standalone:true}"
                                                 id="typeId" name="type"
                                                 [(ngModel)]="dm.type">
                                             <option value="INSURANCE">Insurance</option>
                                             <option value="HEALTH_CERTIFICATE">Health Certificate</option>
                                             <option value="REPORT">Report</option>
                                             <option value="TEST">Test</option>
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown  placeholder="Select Type" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="dm.type" name="pType" [options]="reportType"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
                                     </div>
                                 </div>
                             </div>

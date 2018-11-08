@@ -8,13 +8,15 @@
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
-                            <div class="profile-userpic"><img src="/public/images/patient.jpg" alt="patient.jpg"
-                                                              class="img-responsive"/></div>
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
                                 <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob}})</small>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date:"MM-dd-yyyy"}})</small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
@@ -60,7 +62,7 @@
                         <div class="hr">
                             <div *ngIf="patient.primaryDoctorFirstName"  class="portlet-title">
                                 <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
-                                        class="caption-subject text-info bold">Primery Doctor:</span> <span
+                                        class="caption-subject text-info bold">Primary Doctor:</span> <span
                                         class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span>
                                 </div>
                             </div>
@@ -195,18 +197,22 @@
                             </label>
                             <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-                                    <select
+                                    <!--<select
                                             name="appointment" id="appointmentId"
                                             [(ngModel)]="pam.appointmentId"
                                             class="form-control">
-                                        <option value="-1">--- Select Appointment ---</option>
+                                        <option value="-1">-&#45;&#45; Select Appointment -&#45;&#45;</option>
                                         <option
                                                 *ngFor="let pastApp of pastAppointments"
                                                 [value]="pastApp.id">
                                             {{pastApp.appointmentId}},
                                             {{"Schedule Date:"+pastApp.scheduleDate}}
                                         </option>
-                                    </select>
+                                    </select>-->
+                                    <p-dropdown  placeholder="select appointment" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="apt"
+                                                 [options]="patient.pastAppointments"
+                                                 [(ngModel)]="pam.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
                                 </div>
                             </div>
                         </div>
@@ -215,16 +221,20 @@
                                 Allergy type:<span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <select class="form-control"
+                                <!--<select class="form-control"
                                         id="allergyTypeId"
                                         name="allergyType"
                                         [(ngModel)]="pam.allergyType">
-                                    <option value="-1">---------</option>
+                                    <option value="-1">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
                                     <option value="specificdrug">Specific Drug allergy</option>
                                     <option value="drugclass">Drug Class allergy</option>
                                     <option value="nondrug">Non-Drug allergy</option>
                                     <option value="nkda">No Known Drug Allergies (NKDA)</option>
-                                </select>
+                                </select>-->
+                                <p-dropdown  placeholder="select allergy type" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="allergyType"
+                                             [options]="allergyType"
+                                             [(ngModel)]="pam.allergyType"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                </p-dropdown>
                             </div>
                         </div>
                         <div class="form-group hr">
@@ -252,11 +262,15 @@
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <select class="form-control" [(ngModel)]="pam.status">
+                                <!--<select class="form-control" [(ngModel)]="pam.status">
                                     <option value="ACTIVE">Active</option>
                                     <option value="IN_ACTIVE">In_Active</option>
                                     <option value="RESOLVED">Resolved</option>
-                                </select>
+                                </select>-->
+                                <p-dropdown  placeholder="select status" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="statusType"
+                                             [options]="statusType"
+                                             [(ngModel)]="pam.status"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                </p-dropdown>
                             </div>
                         </div>
                         <div class="form-group hr">

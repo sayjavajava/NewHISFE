@@ -29,7 +29,7 @@
                             <div class="col-md-4">
                                 <div class="form-group font-siz11">
                                     <label>Branch</label>
-                                    <select class="form-control"
+                                    <!--<select class="form-control"
                                             (change)="getSelectedBranch($event.target.value)"
                                             formControlName="branch">
 
@@ -37,7 +37,13 @@
                                             {{br.branchName}}
                                         </option>
 
-                                    </select>
+                                    </select>-->
+                                    <p-dropdown placeholder="Select Branch" [autoWidth]="false" name="bType"
+                                                [style]="{'text-align': 'left' ,'width':'100%'}" formControlName="branch"
+                                                [options]="branchesList" (onChange)="getSelectedBranch($event)"
+                                                [panelStyle]="{minWidth:'12em'}"
+                                                [filter]="true">
+                                    </p-dropdown>
                                 </div>
                             </div>
                             <!--<div class="col-md-4">

@@ -196,12 +196,19 @@
                                     <label class="control-label col-md-3">Status
                                     </label>
                                     <div class="col-md-9">
-                                        <label class="mrgn-top12 mt-checkbox-outline chckbox">
+                                       <!-- <label class="mrgn-top12 mt-checkbox-outline chckbox">
                                             <input type="checkbox"
                                                    [(ngModel)]="ms.status"
                                                    name="status"
                                                    #status="ngModel"/>
-                                            <span></span></label>
+                                            <span></span></label>-->
+                                        <label class="mt-checkbox-outline">
+                                                          <mat-checkbox #status="ngModel"
+                                                          name="status"
+                                                          [(ngModel)]="ms.status"
+                                                          color="primary"></mat-checkbox>
+
+                                        </label>
                                     </div>
                                 </div>
                             </div>

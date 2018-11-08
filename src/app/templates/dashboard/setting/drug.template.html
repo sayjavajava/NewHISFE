@@ -1,0 +1,273 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Drug
+                        <div class="pull-right">
+                            <a href="#popupDrug" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow" (click)="onAddDrug()">
+                                    <i class="fa fa-plus"></i> Add
+                                </button>
+                            </a>
+                            <button class="btn mt-sweetalert btn blue"
+                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                    data-type="success" data-allow-outside-click="true"
+                                    (click)="getPageWiseDrugFromServer(0)"
+                                    data-confirm-button-class="btn-success"> Refresh
+                            </button>
+                            <span><button class="btn btn-default btn-outline"> <i
+                                    class=" icon-clock"></i> Print </button></span>
+                        </div>
+                    </h4>
+                </div>
+                <div class="">
+
+                    <!--<div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                        <div class="col-md-4">
+                            <div class="form-group font-siz11">
+                                <input type="text" class="form-control"
+                                       placeholder="Department Name"
+                                       [(ngModel)]="searchDepart"
+                                       (keydown.enter)="searchClinicalDepartment(0)">
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <button type="button" (click)="searchClinicalDepartment(0)" class="btn blue">Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <div class="table-scrollable">
+                        <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                               id="datatable_ajax" role="grid">
+                            <thead>
+                            <tr role="row" class="off-wite-bg">
+                                <th width="20%" class="c-text-left padding"> Name</th>
+                                <th width="50%"> notes</th>
+                                <th width="8%"> URL</th>
+                                <th width="8%"> Status</th>
+                                <th width="16%"> Action</th>
+                            </tr>
+                            <tr *ngFor="let item of data; let i = index;" class="filter">
+                                <td class="c-text-left padding font-green-dark"><strong>{{item.name}}</strong></td>
+                                <td class="c-text-left">{{item.notes}}</td>
+                                <td class="c-text-left">{{item.url}}</td>
+                                <td>{{item.active === true ? 'Active' : 'In-Active'}}</td>
+                                <td class="sorting_disabled">
+                                    <a href="#popupDrug" data-toggle="modal">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="onUpdatePopupDrug(item.id)"><i class="fa fa-pencil"></i>
+
+                                        </button>
+                                    </a>
+                                    <span [hidden]="item.hasChild">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="deleteDrug(item.id)">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </span>
+
+                                </td>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
+                            <a (click)="getPageWiseDrugFromServer(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="prePage">
+                            <a (click)="getPageWiseDrugFromServer(currPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWiseDrugFromServer(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getPageWiseDrugFromServer(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getPageWiseDrugFromServer(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="popupDrug" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="loginForm" class="login-form" #form="ngForm">
+                <div class="modal-content" style="width: 80%">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Add Drug</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="slimScrollDiv"
+                             style="position: relative; overflow: hidden; width: auto;">
+                            <div class="scroller" style="overflow: hidden; width: auto;">
+                                <div class="row">
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control" type="text" required
+                                                   [(ngModel)]="drug.name"
+                                                   required id="drugName"
+                                                   name="drugName" #drugName="ngModel"/>
+                                            <!--pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+                                        </div>
+                                        <span *ngIf="drugName.invalid && drugName.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter name.
+                                        </span>
+                                    </div>
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Note</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <textarea class="form-control" rows="3" id="desc" maxlength="3999"
+                                                      type="textarea" [(ngModel)]="drug.notes" id="notes"
+                                                      name="notes" #notes="ngModel">
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">
+                                            URL <span class="required" aria-required="true"> * </span>
+                                        </label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control"
+                                                   id="drugUrl" maxlength="3999"
+                                                   type="text" [(ngModel)]="drug.url"
+                                                   name="drugUrl" #drugUrl="ngModel"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Strength Min</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control"
+                                                   id="strengthMin" min="0"
+                                                   type="number" [(ngModel)]="drug.strengthMin"
+                                                   name="strengthMin" #strengthMin="ngModel"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Strength Max</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control"
+                                                   id="strengthMax" min="0"
+                                                   type="number" [(ngModel)]="drug.strengthMax"
+                                                   name="strengthMax" #strengthMax="ngModel"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Oral</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control"
+                                                   id="oral"
+                                                   type="text" [(ngModel)]="drug.oral"
+                                                   name="oral" #oral="ngModel"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">frequency</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control"
+                                                   id="frequency" title="provide value like xx-zz-yy"
+                                                   placeholder="11-22-33"
+                                                   type="text" [(ngModel)]="drug.frequency"
+                                                   name="frequency" #frequency="ngModel"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Refill</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control"
+                                                   id="refill"
+                                                   type="text" [(ngModel)]="drug.refill"
+                                                   name="refill" #refill="ngModel"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Days</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input class="form-control"
+                                                   id="days" min="0"
+                                                   type="number" [(ngModel)]="drug.days"
+                                                   name="days" #days="ngModel"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Sig</label>
+                                        <div class="col-md-3 select pdng-lr-5">
+                                            <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                                <input type="checkbox"
+                                                       class="form-control"
+                                                       [(ngModel)]="drug.sig"
+                                                       name="sig"
+                                                       #sig="ngModel">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 pdng-lr-5 control-label txt-size">Status</label>
+                                        <div class="col-md-3 select pdng-lr-5">
+                                            <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                                <input type="checkbox"
+                                                       class="form-control"
+                                                       [(ngModel)]="drug.active"
+                                                       name="status"
+                                                       #status="ngModel"><span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slimScrollBar"
+                                 style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 190px;"></div>
+                            <div class="slimScrollRail"
+                                 style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">
+                            Close
+                        </button>
+                        <button type="button" class="btn blue"
+                                *ngIf="drug.id <= 0 || drug.id == null"
+                                (click)="saveDrug()">Save
+                        </button>
+                        <button type="button" class="btn blue" *ngIf="drug.id > 0"
+                                (click)="updateDrug()">Update
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

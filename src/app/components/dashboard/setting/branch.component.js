@@ -167,7 +167,8 @@ var BranchComponent = (function () {
     BranchComponent.prototype.updateBranch = function (id) {
         this.router.navigate(['/dashboard/setting/branch/edit/', id]);
     };
-    BranchComponent.prototype.getSelectedBranch = function (value) {
+    BranchComponent.prototype.getSelectedBranch = function (valueObj) {
+        var value = valueObj.value;
         if (value) {
             this.searchForm.controls['branch'].setValue(value);
         }

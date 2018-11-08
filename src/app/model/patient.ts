@@ -66,7 +66,7 @@ export class Patient {
     signatureOnFile: boolean = false;
 
     ///////////////// INSURANCE
-    insuranceId: number;
+    insuranceId: number;// PK
     company: string = "";
     insuranceIdNumber: string = "";
     groupNumber: string = "";
@@ -82,6 +82,8 @@ export class Patient {
 
     ////////////Smoking Status
     smokingStatus: any [];
+
+    hasChild: boolean = false;
 
     constructor() {
         

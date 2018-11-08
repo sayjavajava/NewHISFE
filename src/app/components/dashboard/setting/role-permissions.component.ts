@@ -61,6 +61,7 @@ export class RolePermissionsComponent implements OnInit {
     }
 
     addRole(formdata: any) {
+        formdata.active = true;
         let obj: RoleAndPermission = new RoleAndPermission(formdata.name, formdata.description, formdata.active, 'Role');
         this.showForm = false;
         setTimeout(() => {
@@ -139,7 +140,7 @@ export class RolePermissionsComponent implements OnInit {
             })
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'ROL_PER_SUC_03') {
+                    if (response['responseCode'] === 'ROL_PER_SUC_02') {
                         this.notificationService.success(response['responseMessage'], 'Roles & Permissions');
                     }else if (response['responseCode'] === 'ROL_PER_SUC_02') {
                         this.notificationService.success(response['responseMessage'], 'Roles & Permissions');

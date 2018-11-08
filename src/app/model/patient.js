@@ -63,6 +63,7 @@ var Patient = (function () {
         this.cardIssuedDate = "";
         this.cardExpiryDate = "";
         this.primaryInsuranceNotes = "";
+        this.hasChild = false;
     }
     return Patient;
 }());

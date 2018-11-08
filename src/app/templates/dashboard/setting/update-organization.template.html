@@ -91,6 +91,10 @@
                                                    <span *ngIf="proForm.controls['companyEmail'].errors.pattern">Email is not valid</span>
                                                    </span>
                                                 </div>
+                                                <span class="text-danger"
+                                                      *ngIf="proForm.controls['companyEmail'].invalid && proForm.controls['companyEmail'].touched">
+                                                    <span *ngIf="proForm.controls['companyEmail'].errors">Please enter valid Email.</span>
+                                                 </span>
                                                 <input  formControlName="formName" value="PROFILE" type="hidden" />
                                             </div>
 

@@ -62,13 +62,12 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     user: UserEditModel;
     private subscription :Subscription;
     userId:number;
-    pBranch :string;
     departmentError: string = 'Select atleast one Department';
 
     filterBranches: any [];
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,private dataService: DataService,
-        private amazingTimePickerService?: AmazingTimePickerService) {
+                private amazingTimePickerService?: AmazingTimePickerService) {
         this.allBranches();
         this.allDepartments();
         this.allDoctors();
@@ -79,7 +78,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
         });
-       this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
+        this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();
     }
     allBranches() {
@@ -89,10 +88,10 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
                         this.filterBranches = response['responseData'];
-                     //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
-                    /*if(this.branchesList.length > 1){
-                        this.removeBranch();
-                     }*/
+                        //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                        /*if(this.branchesList.length > 1){
+                            this.removeBranch();
+                         }*/
                     }
 
                 },
@@ -269,7 +268,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                 this.makeService(nurse);
 
             } else { this.departmentFlag =true;
-             console.log('select deprat err')
+                console.log('select deprat err')
                 this.userForm.setErrors({notValid:true});
             }
         }        else {
@@ -336,10 +335,11 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
             let index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
         }
-
+        console.log(this.selectedDepartment);
     }
 
     selectVisitBranches(event: any, item: any) {
+        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }

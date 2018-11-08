@@ -80,14 +80,17 @@
                                 <label class="control-label col-md-3"> Status <span
                                         class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-5">
-                                    <select class="form-control" formControlName="orderStatus" (change)="goToStatus($event.target.value)">
+                                    <!--<select class="form-control" formControlName="orderStatus" (change)="goToStatus($event.target.value)">
                                         <option value="">Select...</option>
                                         <option value="COMPLETED">COMPLETED</option>
                                         <option value="IN_PROGRESS"> IN PROGRESS</option>
                                         <option value="CANCELLED">CANCELLED</option>
                                         <option value="REVIEW">REVIEW</option>
 
-                                    </select>
+                                    </select>-->
+                                    <p-dropdown  placeholder="Select Status" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="goToStatus($event)" name="pStatus"
+                                                 formControlName="orderStatus" [options]="statusType"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
                                 </div>
                                 <span class="text-danger"
                                       *ngIf="!labForm.controls['orderStatus'].valid && labForm.controls['orderStatus'].touched">
@@ -103,11 +106,11 @@
                                 <label class="control-label col-md-3">Test Date </label>
                                 <div class="col-md-5">
                                     <div class="pdng-l-r-15">
-                                    <mwl-demo-utils-date-time-picker
-                                            [(ngModel)] ="dateTest"
-                                            formControlName="orderTestDate"
-                                            placeholder="Not set">
-                                    </mwl-demo-utils-date-time-picker>
+                                        <mwl-demo-utils-date-time-picker
+                                                [(ngModel)] ="dateTest"
+                                                formControlName="orderTestDate"
+                                                placeholder="Not set">
+                                        </mwl-demo-utils-date-time-picker>
                                     </div>
                                 </div>
                             </div>
@@ -123,15 +126,18 @@
                                 <label class="control-label col-md-3">Appointments <span
                                         class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-5">
-                                    <select class="form-control" (change)="selectedAppointment($event.target.value)" formControlName="appointmentId" [(ngModel)]="appointmentId">
-                                    <!--[ngModelOptions]="{standalone:true}"-->
-                                    <!--[(ngModel)]="event.branch"-->
-                                    <option value="0">-- Select --</option>
+                                    <!--<select class="form-control" (change)="selectedAppointment($event.target.value)" formControlName="appointmentId" [(ngModel)]="appointmentId">
+                                    &lt;!&ndash;[ngModelOptions]="{standalone:true}"&ndash;&gt;
+                                    &lt;!&ndash;[(ngModel)]="event.branch"&ndash;&gt;
+                                    <option value="0">&#45;&#45; Select &#45;&#45;</option>
                                     <option  *ngFor="let item of patient.pastAppointments; let i = index;"
                                              value={{item.id}}>
                                         {{item.scheduleDate}}
                                     </option>
-                                </select>
+                                </select>-->
+                                    <p-dropdown  placeholder="Select Appointment" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="apt"
+                                                  (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
                                     <span class="text-danger"
                                           *ngIf="!labForm.controls['appointmentId'].valid && labForm.controls['appointmentId'].touched">
                                                     <span *ngIf="labForm.controls['appointmentId'].errors.required"> Please Select Appointment </span>
@@ -158,7 +164,10 @@
                         </div>
                         <div class="col-md-12" formArrayName="labTest" *ngFor="let item of labForm.get('labTest').controls; let i = index;">
                             <div [formGroupName]="i">
-                            <div class="col-md-2"> <input type="text" formControlName="loincCode" class="form-control" value="23"> </div>
+                            <div class="col-md-3">
+                                <!--<input type="text" formControlName="loincCode" class="form-control" value="23">-->
+                                <p-autoComplete formControlName="loincCode" [suggestions]="filteredTestSingle" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true"></p-autoComplete>
+                            </div>
                             <!-- <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>-->
                             <div class="col-md-2"> <input type="text" formControlName="description" class="form-control" value="23"> </div>
                             <div class="col-md-2"> <input type="text" formControlName="units" class="form-control" value="23"> </div>

@@ -33,6 +33,7 @@ export class PatientProblemListComponent implements OnInit {
     pastAppointments: Appointment [] = [];
     private selectedPatientId: number;
     subscription: Subscription;
+    statusType:any;
     private isRequestUnderProcess: boolean = false;
 
 
@@ -52,6 +53,10 @@ export class PatientProblemListComponent implements OnInit {
     ngOnInit() {
         document.title = 'HIS | Problem list';
         this.getPaginatedProblemsFromServer(0);
+        this.statusType = [
+            {label: 'ACTIVE',value:'ACTIVE'},
+            {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
+        ];
     }
 
     appointmentsByServer() {
@@ -109,7 +114,6 @@ export class PatientProblemListComponent implements OnInit {
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
-                            this.iCDVersions = [];
                             this.iCDVersions = response['responseData'];
                         }
                     },

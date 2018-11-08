@@ -40,6 +40,12 @@ var PatientDocumentsComponent = (function () {
         this.getPatientByIdFromServer(this.selectedPatientId);
     }
     PatientDocumentsComponent.prototype.ngOnInit = function () {
+        this.reportType = [
+            { label: 'Insurance', value: 'Insurance' },
+            { label: 'HEALTH_CERTIFICATE', value: 'HEALTH_CERTIFICATE' },
+            { label: 'REPORT', value: 'REPORT' },
+            { label: 'TEST', value: 'TEST' },
+        ];
     };
     PatientDocumentsComponent.prototype.uploadImgOnChange = function (event) {
         var fileList = event.target.files;
