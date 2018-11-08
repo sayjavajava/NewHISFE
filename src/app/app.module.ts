@@ -212,7 +212,8 @@ import {StatusesComponent} from "./components/dashboard/setting/statuses.compone
         PaginatorModule,
         SharedModule,
         TableModule,
-        SliderModule
+        SliderModule,
+        ChipsModule
 
     ],
     declarations: [

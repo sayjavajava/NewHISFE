@@ -134,6 +134,7 @@ var shared_1 = require("primeng/shared");
 var table_1 = require("primeng/table");
 var slider_1 = require("primeng/slider");
 var ngx_loading_1 = require("ngx-loading");
+var chips_1 = require("primeng/chips");
 var PaymentType_component_1 = require("./components/dashboard/setting/PaymentType.component");
 var statuses_component_1 = require("./components/dashboard/setting/statuses.component");
 var AppModule = (function () {
@@ -201,7 +202,8 @@ var AppModule = (function () {
                 primeng_1.PaginatorModule,
                 shared_1.SharedModule,
                 table_1.TableModule,
-                slider_1.SliderModule
+                slider_1.SliderModule,
+                chips_1.ChipsModule
             ],
             declarations: [
                 // App Components
