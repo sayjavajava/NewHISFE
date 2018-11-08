@@ -50,6 +50,10 @@ var PatientHistoryComponent = (function () {
                 _this.patient = response['responseData'];
                 var apptId = response['responseData']['pastAppointments'];
             }
+            else {
+                _this.notificationService.error(response['responseMessage'], 'Patient');
+                // this.router.navigate(['404-not-found'])
+            }
         }, function (error) {
             _this.HISUTilService.tokenExpired(error.error.error);
         });

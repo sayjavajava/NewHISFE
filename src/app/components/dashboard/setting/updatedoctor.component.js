@@ -27,7 +27,6 @@ var UpdatedoctorComponent = (function () {
         this.fb = fb;
         this.notificationService = notificationService;
         this.amazingTimePickerService = amazingTimePickerService;
-        this.dutyShift1 = false;
         this.selectedDepartment = [];
         this.selectedServices = [];
         this.doctorServices = [];
@@ -43,13 +42,13 @@ var UpdatedoctorComponent = (function () {
         this.servicesList = [];
         this.primaryDoctor = [];
         this.workingDays = [
-            { label: 'Monday', value: 'Monday' },
-            { label: 'Tuesday', value: 'Tuesday' },
-            { label: 'Wednesday', value: 'Wednesday' },
-            { label: 'Thursday', value: 'Thursday' },
-            { label: 'Friday', value: 'Friday' },
-            { label: 'Saturday', value: 'Saturday' },
-            { label: 'Sunday', value: 'Sunday' },
+            { id: 1, name: 'Monday' },
+            { id: 2, name: 'Tuesday' },
+            { id: 3, name: 'Wednesday' },
+            { id: 4, name: 'Thursday' },
+            { id: 5, name: 'Friday' },
+            { id: 6, name: 'Saturday' },
+            { id: 7, name: 'Sunday' },
         ];
         this.date = new forms_1.FormControl(new Date());
         this.allBranches();
@@ -68,18 +67,6 @@ var UpdatedoctorComponent = (function () {
         });
         this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
         this.patchData();
-        this.intervalList = [
-            { label: '5', value: 5 },
-            { label: '10', value: 10 },
-            { label: '15', value: 15 },
-            { label: '20', value: 20 },
-            { label: '25', value: 25 },
-            { label: '30', value: 30 },
-            { label: '35', value: 35 },
-            { label: '40', value: 40 },
-            { label: '45', value: 45 },
-            { label: '50', value: 50 },
-        ];
     };
     UpdatedoctorComponent.prototype.allBranches = function () {
         var _this = this;
@@ -87,10 +74,9 @@ var UpdatedoctorComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
-                _this.visitingBranches = response['responseData'];
-                /*if(this.branchesList.length >1){
-                    this.removeBranch();
-                }*/
+                if (_this.branchesList.length > 1) {
+                    _this.removeBranch();
+                }
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -122,22 +108,6 @@ var UpdatedoctorComponent = (function () {
                 _this.departmentList = response['responseData'];
             }
         }, function (error) {
-            _this.error = error.error.error;
-        });
-    };
-    UpdatedoctorComponent.prototype.getDeptServices = function (deptId) {
-        var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + deptId)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'MED_SER_SUC_01') {
-                _this.servicesList = response['responseData'];
-                //console.log(this.servicesList);
-            }
-            else {
-                _this.servicesList = [];
-            }
-        }, function (error) {
-            _this.servicesList = [];
             _this.error = error.error.error;
         });
     };
@@ -257,12 +227,10 @@ var UpdatedoctorComponent = (function () {
                     }
                 }
                 _this.staffBranches = user.staffBranches;
-                _this.staffBranches = _this.staffBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
-                _this.visitingBranches = _this.visitingBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
-                for (var key in _this.visitingBranches) {
+                for (var key in _this.branchesList) {
                     for (var k in _this.staffBranches) {
-                        if (_this.staffBranches[k].id == _this.visitingBranches[key].id) {
-                            _this.visitingBranches[key].checked = true;
+                        if (_this.staffBranches[k].id == _this.branchesList[key].id) {
+                            _this.branchesList[key].checked = true;
                             _this.selectedVisitBranches.push(_this.staffBranches[k].id);
                             break;
                         }
@@ -322,6 +290,22 @@ var UpdatedoctorComponent = (function () {
             });
         }
     };
+    UpdatedoctorComponent.prototype.getDeptServices = function (deptId) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + deptId)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'MED_SER_SUC_01') {
+                _this.servicesList = response['responseData'];
+                //console.log(this.servicesList);
+            }
+            else {
+                _this.servicesList = [];
+            }
+        }, function (error) {
+            _this.servicesList = [];
+            _this.error = error.error.error;
+        });
+    };
     UpdatedoctorComponent.prototype.getShiftFromTime = function (time) {
         var timeArray = time.split(':');
         var shift = Number(timeArray[0]) <= 12 ? 'first' : 'second';
@@ -343,11 +327,6 @@ var UpdatedoctorComponent = (function () {
         daysOfDoctor.push({ key: 'friday', value: days.get('friday').value });
         daysOfDoctor.push({ key: 'saturday', value: days.get('saturday').value });
         if (this.userForm.valid) {
-            if (!this.firstShiftFromTime || !this.firstShiftToTime) {
-                this.dutyShift1 = true;
-                data.shift = true;
-                return;
-            }
             var result = daysOfDoctor.filter(function (obj) {
                 return obj.value == true;
             });
@@ -393,18 +372,10 @@ var UpdatedoctorComponent = (function () {
             this.validateAllFormFields(this.userForm);
         }
     };
-    UpdatedoctorComponent.prototype.selectDoctorDepartment = function (deptId) {
-        /*console.log("Doc Dept:"+itemId);
+    UpdatedoctorComponent.prototype.selectDoctorDepartment = function (itemId) {
+        console.log("Doc Dept:" + itemId);
         if (itemId) {
             this.selectedDepartment[0] = itemId;
-        }
-*/
-        if (deptId) {
-            this.selectedDepartment[0] = deptId;
-            this.getDeptServices(deptId);
-        }
-        else {
-            this.servicesList = [];
         }
     };
     UpdatedoctorComponent.prototype.makeService = function (user) {
@@ -547,22 +518,19 @@ var UpdatedoctorComponent = (function () {
             this.userForm.controls['otherDashboard'].setValue(value);
         }
     };
-    UpdatedoctorComponent.prototype.getSelectedBranch = function (event) {
-        if (event && event.target.value) {
-            this.userForm.controls['primaryBranch'].setValue(event.target.value);
-        }
-        this.visitingBranches = this.branchesList;
-        this.visitingBranches = this.visitingBranches.filter(function (br) { return br.id != event.target.value; });
-        /*if (value === undefined) {
+    UpdatedoctorComponent.prototype.getSelectedBranch = function (value) {
+        console.log(value);
+        if (value === undefined) {
             console.log('i am esss');
             this.userForm.controls['primaryBranch'].setValue('primaryBranch');
         }
         else {
             console.log('i am too' + value);
             this.userForm.controls['primaryBranch'].setValue(value);
-        }*/
+        }
     };
     UpdatedoctorComponent.prototype.selectVisitBranches = function (event, item) {
+        console.log(item);
         if (event.target.checked) {
             this.selectedVisitBranches.push(item.id);
         }
@@ -571,6 +539,7 @@ var UpdatedoctorComponent = (function () {
             var index = this.selectedVisitBranches.indexOf(updateItem);
             this.selectedVisitBranches.splice(index, 1);
         }
+        console.log(this.selectedVisitBranches);
     };
     UpdatedoctorComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);

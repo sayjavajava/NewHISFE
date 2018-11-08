@@ -59,7 +59,7 @@ var DateTimePickerComponent = (function () {
             selector: 'mwl-demo-utils-date-time-picker',
             template: "\n    <form class=\"form-inline\">\n      <div class=\"form-group\">\n        <div class=\"input-group hr\">\n          <input\n            readonly\n            class=\"form-control\"\n            [placeholder]=\"placeholder\"\n            name=\"date\"\n            [(ngModel)]=\"dateStruct\"\n            (ngModelChange)=\"updateDate()\"\n            ngbDatepicker\n            #datePicker=\"ngbDatepicker\">\n            <div class=\"input-group-append\" (click)=\"datePicker.toggle()\" >\n              <span class=\"input-group-text calendr-iconalign\"><i class=\"fa fa-calendar\"></i></span>\n            </div>\n        </div>\n      </div>\n    </form>\n    <ngb-timepicker\n      [(ngModel)]=\"timeStruct\"\n      (ngModelChange)=\"updateTime()\"\n      [meridian]=\"true\">\n    </ngb-timepicker>\n  ",
             styles: [
-                "\n    .form-group {\n      width: 100%;\n      color: #0c91e5;  \n    }\n        \n  "
+                "\n    .form-group {\n      width: 100%;\n    }\n  "
             ],
             providers: [exports.DATE_TIME_PICKER_CONTROL_VALUE_ACCESSOR]
         }),

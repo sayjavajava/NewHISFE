@@ -98,6 +98,7 @@ var OrganizationComponent = (function () {
                 _this.currPage = response['responseData']['currPage'];
                 _this.pages = response['responseData']['pages'];
                 _this.data = response['responseData']['data'];
+                console.log(_this.data);
             }
         }, function (error) {
         });

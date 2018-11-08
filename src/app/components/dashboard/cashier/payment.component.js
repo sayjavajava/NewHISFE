@@ -45,7 +45,6 @@ var PaymentComponent = (function () {
                 .subscribe(function (res) {
                 _this.appointment = res.responseData;
                 _this.patientAdvanceDeposit = res.responseData.patientAdvanceDeposit;
-                _this.invoicePrefix = res.responseData.invoicePrefix;
                 _this.patientName = res.responseData.patient;
                 _this.scheduleDateAndTime = _this.appointment.scheduleDateAndTime;
                 _this.appointmentStartedOn = _this.appointment.appointmentStartedOn;

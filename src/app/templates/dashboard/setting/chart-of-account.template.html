@@ -101,10 +101,6 @@
                                         <option value="Non Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'">Non Operational Expense</option>
 
                                     </select>
-                                    <!--<p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                [options]="accountType" [(ngModel)]="selectedParentType" name="pType" (onChange)="parentTypeSelected($event)"
-                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                    </p-dropdown>-->
                                 </div>
                             </div>
 
@@ -133,6 +129,43 @@
                                            [(ngModel)]="chartOfAccount.description" #currentValue="ngModel">
                                 </div>
                             </div>
+
+                            <ng-container>
+                                <span *ngIf="showBankDetailsDiv == true">
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account Title</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input type="text"  required name="bankAc" id="bankAcId" class="form-control" placeholder="Enter Bank Account Title"
+                                                   [(ngModel)]="chartOfAccount.bankAccount.title" #bankAc="ngModel">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account #</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input type="text"  required name="bankAc" id="bankAcNumId" class="form-control" placeholder="Enter Bank Account Number"
+                                                   [(ngModel)]="chartOfAccount.bankAccount.accountNumber" #bankAc="ngModel">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">IBAN</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input type="text"  required name="bankAc" id="bankAcIbanId" class="form-control" placeholder="Enter IBAN"
+                                                   [(ngModel)]="chartOfAccount.bankAccount.iban" #bankAc="ngModel">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Branch</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <input type="text"  required name="bankAc" id="bankAcBrId" class="form-control" placeholder="Enter Bank Branch"
+                                                   [(ngModel)]="chartOfAccount.bankAccount.branch" #bankAc="ngModel">
+                                        </div>
+                                    </div>
+                                </span>
+                            </ng-container>
+
                         </div>
                     </div>
                 </div>

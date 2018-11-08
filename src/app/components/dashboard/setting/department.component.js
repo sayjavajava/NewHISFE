@@ -27,9 +27,7 @@ var DepartmentComponent = (function () {
         this.notificationService = notificationService;
         this.pages = [];
         this.searched = false;
-        this.branchesList = [];
         this.selectedDepartment = new department_1.Department();
-        this.allBranches();
     }
     DepartmentComponent.prototype.ngOnInit = function () {
         if (window.localStorage.getItem(btoa('access_token'))) {
@@ -52,18 +50,6 @@ var DepartmentComponent = (function () {
         this.searched = false;
         this.searchDepart = '';
         this.getPageWiseDepartmentFromServer(0);
-    };
-    DepartmentComponent.prototype.allBranches = function () {
-        var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'BR_SUC_01') {
-                _this.branchesList = response['responseData'];
-            }
-            // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
-        }, function (error) {
-            _this.error = error.error.error;
-        });
     };
     DepartmentComponent.prototype.getPageWiseDepartmentFromServer = function (page) {
         var _this = this;

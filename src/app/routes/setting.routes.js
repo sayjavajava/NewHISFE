@@ -28,27 +28,13 @@ var updatenurse_component_1 = require("../components/dashboard/setting/updatenur
 var updatedoctor_component_1 = require("../components/dashboard/setting/updatedoctor.component");
 var updatecashier_component_1 = require("../components/dashboard/setting/updatecashier.component");
 var update_organization_component_1 = require("../components/dashboard/setting/update-organization.component");
-var statuses_component_1 = require("../components/dashboard/setting/statuses.component");
-var admin_profile_component_1 = require("../components/dashboard/setting/admin-profile.component");
-var email_configuration_component_1 = require("../components/dashboard/setting/email-configuration.component");
-var sms_template_component_1 = require("../components/dashboard/setting/sms-template.component");
-var add_edit_sms_template_component_1 = require("../components/dashboard/setting/add-edit-sms-template.component");
-var prefix_template_component_1 = require("../components/dashboard/setting/prefix-template.component");
-var chart_of_account_component_1 = require("../components/dashboard/setting/chart-of-account.component");
-var vital_setup_component_1 = require("../components/dashboard/setting/vital-setup.component");
-var account_setup_component_1 = require("../components/dashboard/setting/account-setup.component");
-var lab_test_component_1 = require("../components/dashboard/setting/lab-test.component");
-var patient_group_component_1 = require("../components/dashboard/patient/patient-group.component");
-var drug_component_1 = require("../components/dashboard/setting/drug.component");
-var user_permissions_component_1 = require("../components/dashboard/setting/user-permissions.component");
 exports.SettingRoutes = [
-    // Setting Pages dashboard/setting/chart-of-account-template
+    // Setting Pages
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
     { path: 'organization', component: organization_component_1.OrganizationComponent },
     { path: 'organization/add', component: add_organization_component_1.AddOrganizationComponent },
     { path: 'organization/edit/:id', component: update_organization_component_1.UpdateOrganizationComponent },
     { path: 'branch', component: branch_component_1.BranchComponent },
-    { path: 'admin/profile', component: admin_profile_component_1.AdminProfileComponent },
     { path: 'branch/add', component: addbranch_component_1.AddBranchComponent },
     { path: 'staff', component: staff_component_1.StaffComponent },
     { path: 'staff/add', component: addstaff_component_1.AddStaffComponent },
@@ -68,25 +54,12 @@ exports.SettingRoutes = [
     { path: 'medicalServices/add', component: add_medical_service_component_1.AddMedicalServiceComponent },
     { path: 'medicalServices/edit/:id', component: edit_medical_service_component_1.EditMedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
-    { path: 'user-permissions', component: user_permissions_component_1.UserPermissionsComponent },
     { path: 'service-tax', component: service_tax_component_1.ServiceTaxComponent },
-    { path: 'status', component: statuses_component_1.StatusesComponent },
     { path: '404-not-found', component: not_found_404_setting_component_1.NotFound404SettingComponent },
     { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
     { path: 'email-template', component: email_template_component_1.EmailTemplateComponent },
-    { path: 'email-configuration', component: email_configuration_component_1.EmailConfigurationComponent },
     { path: 'email-template/add', component: add_email_template_component_1.AddEmailTemplateComponent },
     { path: 'email-template/edit/:id', component: edit_email_template_component_1.EditEmailTemplateComponent },
-    { path: 'sms-template', component: sms_template_component_1.SmsTemplateComponent },
-    { path: 'sms-template/add', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
-    { path: 'sms-template/edit/:id', component: add_edit_sms_template_component_1.AddEditSmsTemplateComponent },
-    { path: 'prefix-template', component: prefix_template_component_1.PrefixTemplateComponent },
-    { path: 'chart-of-account-template', component: chart_of_account_component_1.ChartOfAccountComponent },
-    { path: 'vital-setup-template', component: vital_setup_component_1.VitalSetupComponent },
-    { path: 'account-setup-template', component: account_setup_component_1.AccountSetupComponent },
-    { path: 'lab-test-template', component: lab_test_component_1.LabTestComponent },
-    { path: 'patient-group', component: patient_group_component_1.PatientGroupComponent },
-    { path: 'drug', component: drug_component_1.DrugComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

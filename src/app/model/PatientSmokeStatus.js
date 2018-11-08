@@ -5,10 +5,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var PatientSmokeStatus = (function () {
     function PatientSmokeStatus() {
-        this.smokingStatus = '';
-        this.startDate = '';
-        this.endDate = '';
-        this.recordedDate = '';
+        this.smokingStatus = "";
+        this.startDate = "";
+        this.endDate = "";
+        this.recordedDate = "";
     }
     return PatientSmokeStatus;
 }());

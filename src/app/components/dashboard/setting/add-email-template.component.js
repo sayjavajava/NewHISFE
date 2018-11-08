@@ -23,24 +23,13 @@ var AddEmailTemplateComponent = (function () {
         this.HISUtilService = HISUtilService;
         this.router = router;
         this.emailTempModel = new EmailTemplateModel_1.EmailTemplateModel();
-        this.emailType = [];
     }
     AddEmailTemplateComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Email Template';
-        this.emailType = [
-            { label: 'APPOINTMENT', value: 'APPOINTMENT' },
-            { label: 'CONFIRM_APPOINTMENT', value: 'CONFIRM_APPOINTMENT' },
-            { label: 'APPOINTMENT_REMINDER', value: 'APPOINTMENT_REMINDER' }
-        ];
     };
     AddEmailTemplateComponent.prototype.saveEmailTemplate = function (form) {
         var _this = this;
         if (form.valid) {
-            if (this.emailTempModel.type == '-1') {
-                this.notificationService.warn('Please select type.');
-                document.getElementById('type').focus();
-                return;
-            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(app_constants_1.AppConstants.EMAIL_TEMPLATE_SAVE_URL, this.emailTempModel).subscribe(function (response) {
                     if (response['responseCode'] === 'EMAIL_TEMP_SUC_04') {
@@ -60,27 +49,7 @@ var AddEmailTemplateComponent = (function () {
             }
         }
         else {
-            if (this.emailTempModel.title == '') {
-                this.notificationService.warn('Please enter title.');
-                document.getElementById('title').focus();
-                return;
-            }
-            if (this.emailTempModel.subject == '') {
-                this.notificationService.warn('Please enter subject.');
-                document.getElementById('subject').focus();
-                return;
-            }
-            if (this.emailTempModel.type == '-1') {
-                this.notificationService.warn('Please select type.');
-                document.getElementById('type').focus();
-                return;
-            }
-            if (this.emailTempModel.emailTemplate == '') {
-                this.notificationService.warn('Please enter some data in emailTemplate.');
-                document.getElementById('emailTemplate').focus();
-                return;
-            }
-            // this.notificationService.error('Required Fields are missing', 'Email Template');
+            this.notificationService.error('Required Fields are missing', 'Email Template');
         }
     };
     AddEmailTemplateComponent = __decorate([

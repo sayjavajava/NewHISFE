@@ -32,12 +32,6 @@ var StaffComponent = (function () {
         this.default = '';
         this.pages = [];
         this.pageNo = 0;
-        this.allStaffTypes = [
-            { name: 'NURSE', label: 'NURSE', value: 'NURSE' },
-            { name: 'DOCTOR', label: 'DOCTOR', value: 'DOCTOR' },
-            { name: 'RECEPTIONIST', label: 'RECEPTIONIST', value: 'RECEPTIONIST' },
-            { name: 'CASHIER', label: 'CASHIER', value: 'CASHIER' }
-        ];
         this.userNameError = 'name is required';
     }
     StaffComponent.prototype.ngOnInit = function () {
@@ -128,8 +122,7 @@ var StaffComponent = (function () {
             this.router.navigate(['/dashboard/setting/receptionist/edit/', id]);
         }
     };
-    StaffComponent.prototype.roleSelected = function (typeObj) {
-        var type = typeObj.value;
+    StaffComponent.prototype.roleSelected = function (type) {
         this.searchForm.controls['userType'].setValue(type);
         this.selectedType = type;
     };

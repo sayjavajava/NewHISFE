@@ -237,6 +237,7 @@ export class AppConstants {
     public static PATIENT_GROUP_UPDATE_URL = '/patient/group/update';
     public static PATIENT_GROUP_GET_URL = '/patient/group/get?patientGroupId=';
 
+
     ///////////////////// Drug URLs ////////////////////////////////////////
     public static DRUG_FETCH_ALL_PAGINATED_URI = '/setting/drug/';///all by paginated
     public static DRUG_DELETE_URI = '/setting/drug/delete?drugId=';
@@ -244,6 +245,24 @@ export class AppConstants {
     public static DRUG_SAVE_URL = '/setting/drug/save';
     public static DRUG_UPDATE_URL = '/setting/drug/update';
     public static DRUG_GET_URL = '/setting/drug/get?drugId=';
+    public static DRUG_SEARCH_BY_NAME_URL = '/setting/drug/search?drugName=';
+    public static DRUG_GET_ALL_URL = '/setting/drug/all';
+
+    public static DRUG_GET_NATURAL_ID_URL = '/setting/drug/natural';// get natural id only
 
 
+    ///////////////////// Currency URLs ////////////////////////////////////////
+    public static CURRENCY_FETCH_ALL_PAGINATED_URI = '/setting/currency/';///all by paginated , zero means first page , 1 means second page
+    public static CURRENCY_DELETE_URI = '/setting/currency/delete?currencyId=';
+    public static CURRENCY_SEARCH_URL = '/setting/currency/search/';
+    public static CURRENCY_SAVE_URL = '/setting/currency/save';
+    public static CURRENCY_UPDATE_URL = '/setting/currency/update';
+    public static CURRENCY_GET_URL = '/setting/currency/get?currencyId=';
+
+
+    //////////////Payment Type ///////////////////////////////////
+    public static GET_ALL_PAYMENTTYPE='/PaymentType/';
+    public static SAVE_PAYMENTTYPE = '/PaymentType/save';
+    public static DELETE_PAYMENTTYPE = '/PaymentType/delete/';
+    public static UPDATE_PAYMENTTYPE= '/PaymentType/update';
 }

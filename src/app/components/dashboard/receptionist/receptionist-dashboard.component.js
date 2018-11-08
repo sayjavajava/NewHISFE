@@ -108,7 +108,7 @@ var ReceptionistDashboardComponent = (function () {
         var _this = this;
         var that = this;
         this.confirmationDialogService
-            .confirm("Update Status to " + statusValue, 'Are you sure ?')
+            .confirm("Upadte Status to " + statusValue, 'Are you sure ?')
             .subscribe(function (res) {
             if (res == true) {
                 _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
@@ -130,7 +130,7 @@ var ReceptionistDashboardComponent = (function () {
             this.requestService.getRequest(app_constants_1.AppConstants.INVOICE_CHECK_IN + pmID)
                 .subscribe(function (res) {
                 if (res['responseCode'] === "INVOICE_ERR_01") {
-                    _this.snackBar.open('Error', "Invoice Not Generated", { duration: 3000 });
+                    _this.snackBar.open('Error', "Invoices Not Generated", { duration: 3000 });
                 }
             }, function (error) {
                 _this.error = error.error.error;
@@ -142,6 +142,7 @@ var ReceptionistDashboardComponent = (function () {
         this.router.navigate(['/dashboard/patient/', id, 'history']);
     };
     ReceptionistDashboardComponent.prototype.updateAppointmentData = function (id) {
+        console.log("From doctor-dashboard.component---> Appointment id : " + id);
         this.router.navigate(['/dashboard/patient/invoice', id]);
     };
     ReceptionistDashboardComponent = __decorate([

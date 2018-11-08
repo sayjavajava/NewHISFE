@@ -110,7 +110,6 @@ var edit_appointment_component_1 = require("./components/dashboard/appointment/e
 var patient_add_lab_orders_component_1 = require("./components/dashboard/patient/patient-add-lab-orders.component");
 var DataService_1 = require("./services/DataService");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
-var statuses_component_1 = require("./components/dashboard/setting/statuses.component");
 var primeng_1 = require("primeng/primeng");
 var togglebutton_1 = require("primeng/togglebutton");
 var admin_profile_component_1 = require("./components/dashboard/setting/admin-profile.component");
@@ -129,11 +128,14 @@ var account_setup_component_1 = require("./components/dashboard/setting/account-
 var lab_test_component_1 = require("./components/dashboard/setting/lab-test.component");
 var patient_group_component_1 = require("./components/dashboard/patient/patient-group.component");
 var drug_component_1 = require("./components/dashboard/setting/drug.component");
+var currency_component_1 = require("./components/dashboard/setting/currency.component");
 var autocomplete_1 = require("primeng/autocomplete");
 var shared_1 = require("primeng/shared");
 var table_1 = require("primeng/table");
 var slider_1 = require("primeng/slider");
 var ngx_loading_1 = require("ngx-loading");
+var PaymentType_component_1 = require("./components/dashboard/setting/PaymentType.component");
+var statuses_component_1 = require("./components/dashboard/setting/statuses.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -295,7 +297,11 @@ var AppModule = (function () {
                 admin_profile_component_1.AdminProfileComponent,
                 prime_schedular_component_1.PrimeSchedularComponent,
                 patient_group_component_1.PatientGroupComponent,
-                drug_component_1.DrugComponent
+                drug_component_1.DrugComponent,
+                menu_component_1.MenuComponent,
+                PaymentType_component_1.PaymentTypeComponent,
+                drug_component_1.DrugComponent,
+                currency_component_1.CurrencyComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

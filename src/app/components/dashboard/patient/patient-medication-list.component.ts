@@ -1,16 +1,17 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MedicationModel} from "../../../model/medication.model";
-import {Appointment} from "../../../model/Appointment";
-import {NotificationService} from "../../../services/notification.service";
-import {RequestsService} from "../../../services/requests.service";
-import {HISUtilService} from "../../../services/his-util.service";
-import {AppConstants} from "../../../utils/app.constants";
-import {DataService} from "../../../services/DataService";
-import {Subscription} from "rxjs/Subscription";
-import {NgForm} from "@angular/forms";
-import {Patient} from "../../../model/patient";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MedicationModel} from '../../../model/medication.model';
+import {Appointment} from '../../../model/Appointment';
+import {NotificationService} from '../../../services/notification.service';
+import {RequestsService} from '../../../services/requests.service';
+import {HISUtilService} from '../../../services/his-util.service';
+import {AppConstants} from '../../../utils/app.constants';
+import {DataService} from '../../../services/DataService';
+import {Subscription} from 'rxjs/Subscription';
+import {NgForm} from '@angular/forms';
+import {Patient} from '../../../model/patient';
 import any = jasmine.any;
+import {DrugModel} from '../../../model/drug.model';
 
 
 @Component({
@@ -34,6 +35,10 @@ export class PatientMedicationListComponent implements OnInit {
     private selectedPatientId: number;
     @ViewChild('closeBtnMedication') closeBtnMedication: ElementRef;
     private subscription: Subscription;
+    text: any = '';
+    drugs: DrugModel[] = [];
+    searchedDrugNames: any[] = [];
+
     statusType:any;
     orderStatusList:any;
 
@@ -99,39 +104,40 @@ export class PatientMedicationListComponent implements OnInit {
         this.isUpdate = false;
         this.medicationModel = new MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
+        this.getAllDrugsFromServer()
     }
 
     saveMedication(mdForm: NgForm) {
 
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select patient from dashboard again ");
+            this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
 
         if (this.medicationModel.appointmentId <= 0) {
-            this.notificationService.warn("Please select appoint.");
+            this.notificationService.warn('Please select appoint.');
             document.getElementById('appointmentId').focus();
             return;
         }
 
-        if (this.medicationModel.drugName === "") {
-            this.notificationService.warn("Please provide drug name.");
+        if (this.medicationModel.drugName === '') {
+            this.notificationService.warn('Please provide drug name.');
             document.getElementById('drugNameId').focus();
             return;
         }
 
-        if (this.medicationModel.datePrescribedString === "") {
-            this.notificationService.warn("Please provide proper prescribed date and time.");
+        if (this.medicationModel.datePrescribedString === '') {
+            this.notificationService.warn('Please provide proper prescribed date and time.');
             document.getElementById('datePrescribedId').focus();
             return;
         }
-        if (this.medicationModel.dateStartedTakingString === "") {
-            this.notificationService.warn("Please provide proper start taking date and time.");
+        if (this.medicationModel.dateStartedTakingString === '') {
+            this.notificationService.warn('Please provide proper start taking date and time.');
             document.getElementById('dateStartedTakingId').focus();
             return;
         }
-        if (this.medicationModel.dateStoppedTakingString === "") {
-            this.notificationService.warn("Please provide proper stoop taking date and time.");
+        if (this.medicationModel.dateStoppedTakingString === '') {
+            this.notificationService.warn('Please provide proper stoop taking date and time.');
             document.getElementById('dateStoppedTakingId').focus();
             return;
         }
@@ -153,8 +159,8 @@ export class PatientMedicationListComponent implements OnInit {
                         }
                     },
                     (error: any) => {
-                        if (error.error.responseMessage === "Patient not found" ||
-                            error.error.responseMessage === "Appoint not found") {
+                        if (error.error.responseMessage === 'Patient not found' ||
+                            error.error.responseMessage === 'Appoint not found') {
                             this.notificationService.error(error.error.responseMessage, 'Medication');
                         } else {
                             this.HISUtilService.tokenExpired(error.error.error);
@@ -166,7 +172,7 @@ export class PatientMedicationListComponent implements OnInit {
 
     getPaginatedMedicationFromServer(page: number) {
         this.requestsService.getRequest(
-            AppConstants.MEDICATION_PAGINATED_URL + page + "?selectedPatientId=" + this.selectedPatientId)
+            AppConstants.MEDICATION_PAGINATED_URL + page + '?selectedPatientId=' + this.selectedPatientId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'MEDICATION_SUC_32') {
@@ -191,7 +197,7 @@ export class PatientMedicationListComponent implements OnInit {
 
     deleteMedication(medicationId: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm('Are Your Source You Want To Delete')) return;
             this.requestsService.deleteRequest(
                 AppConstants.MEDICATION_DELETE_URI + medicationId)
                 .subscribe(
@@ -216,6 +222,7 @@ export class PatientMedicationListComponent implements OnInit {
     editMedication(medicationId: number) {
         this.isUpdate = true;
         this.medicationModel = new MedicationModel();
+        this.getAllDrugsFromServer();
         if (medicationId > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.getRequest(AppConstants.MEDICATION_GET_URL + 'medicationId=' + medicationId)
@@ -242,34 +249,34 @@ export class PatientMedicationListComponent implements OnInit {
     updateMedication(mdForm: NgForm) {
 
         if (this.selectedPatientId <= 0) {
-            this.notificationService.warn("Please select patient from dashboard again ");
+            this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
 
         if (this.medicationModel.appointmentId <= 0) {
-            this.notificationService.warn("Please select appoint.");
+            this.notificationService.warn('Please select appoint.');
             document.getElementById('appointmentId').focus();
             return;
         }
 
-        if (this.medicationModel.drugName === "") {
-            this.notificationService.warn("Please provide drug name.");
+        if (this.medicationModel.drugName === '') {
+            this.notificationService.warn('Please provide drug name.');
             document.getElementById('drugNameId').focus();
             return;
         }
 
-        if (this.medicationModel.datePrescribedString === "") {
-            this.notificationService.warn("Please provide proper prescribed date and time.");
+        if (this.medicationModel.datePrescribedString === '') {
+            this.notificationService.warn('Please provide proper prescribed date and time.');
             document.getElementById('datePrescribedId').focus();
             return;
         }
-        if (this.medicationModel.dateStartedTakingString === "") {
-            this.notificationService.warn("Please provide proper start taking date and time.");
+        if (this.medicationModel.dateStartedTakingString === '') {
+            this.notificationService.warn('Please provide proper start taking date and time.');
             document.getElementById('dateStartedTakingId').focus();
             return;
         }
-        if (this.medicationModel.dateStoppedTakingString === "") {
-            this.notificationService.warn("Please provide proper stoop taking date and time.");
+        if (this.medicationModel.dateStoppedTakingString === '') {
+            this.notificationService.warn('Please provide proper stoop taking date and time.');
             document.getElementById('dateStoppedTakingId').focus();
             return;
         }
@@ -312,6 +319,39 @@ export class PatientMedicationListComponent implements OnInit {
                     this.HISUtilService.tokenExpired(error.error.error);
                 }
             );
+    }
+
+    search(event: any) {
+        this.requestsService.getRequest(AppConstants.DRUG_SEARCH_BY_NAME_URL + this.text)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'DRUG_SUC_10') {
+                        this.searchedDrugNames = response['responseData'];
+                    } else {
+                        this.notificationService.error(response['responseMessage']);
+                    }
+                }
+            ),
+            (error: any) => {
+                this.notificationService.error(error.error.error);
+            }
+    }
+
+    getAllDrugsFromServer() {
+        this.requestsService.getRequest(AppConstants.DRUG_GET_ALL_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'DRUG_SUC_10') {
+                        this.drugs = response['responseData'];
+                    } else {
+                        this.notificationService.error(response['responseMessage']);
+                    }
+                }
+            ),
+            (error: any) => {
+                this.notificationService.error(error.error.error);
+            }
+
     }
 
 

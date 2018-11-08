@@ -32,15 +32,6 @@ var UpdateBranchComponent = (function () {
         this.defaultBranch = 'primary';
         this.noOfRoom = 1;
         this.disable = true;
-        this.cities = [];
-        this.countryList = [
-            { name: 'Germany', label: 'Germany', value: 'Germany', cities: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn'] },
-            { name: 'Pakistan', label: 'Pakistan', value: 'Pakistan', cities: ['Punjab', 'Sindh', 'Balochistan', 'KPK'] },
-            { name: 'USA', label: 'USA', value: 'USA', cities: ['California', 'Florida', 'Texas', 'New York', 'Hawai', 'Pennsylvania'] },
-            { name: 'Canada', label: 'Caanda', value: 'Canada', cities: ['Alberta', 'Ontario'] },
-            { name: 'Saudi Arab', label: 'Saudi Arab', value: 'Saudi Arab', cities: ['Riyadh', 'Jeddah', 'Dammam'] },
-            { name: 'China', label: 'China', value: 'China', cities: ['Hainan', 'Sichuan', 'Hunan', 'Henan'] },
-        ];
         this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
             .subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
@@ -61,19 +52,12 @@ var UpdateBranchComponent = (function () {
         this.createBillingForm();
         this.createScheduleForm();
         this.patchData();
-        this.flowList = [
-            { label: 'RCND', value: 'RCND' },
-            { label: '2', value: 2 },
-            { label: '3', value: 3 },
-            { label: '4', value: 4 },
-        ];
     };
     UpdateBranchComponent.prototype.createBranchForm = function () {
         this.branchForm = this.fb.group({
             'branchName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'country': [null],
             'state': [null],
-            'flow': [null],
             'city': [null],
             'primaryDoctor': [null],
             'zipCode': [null],
@@ -122,7 +106,6 @@ var UpdateBranchComponent = (function () {
         if (this.id) {
             this.requestService.findById(app_constants_1.AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(function (branch) {
                 //  this.id = user.id;
-                _this.cities = _this.countryList.find(function (x) { return x.name == branch.country; }).cities;
                 _this.branchForm.patchValue({
                     branchName: branch.branchName,
                     officeHoursStart: branch.officeHoursStart,
@@ -136,9 +119,7 @@ var UpdateBranchComponent = (function () {
                     address: branch.address,
                     zipCode: branch.zipCode,
                     officePhone: branch.officePhone,
-                    flow: branch.flow,
                 });
-                // this.state = branch.state,
                 /*     this.billingForm.patchValue({
                          billingBranch: branch.billingBranch,
                          billingName: branch.billingName,
@@ -278,16 +259,14 @@ var UpdateBranchComponent = (function () {
             this.branchForm.controls['primaryDoctor'].setValue(value);
         }
     };
-    UpdateBranchComponent.prototype.getSelectedStates = function (countryObj) {
-        var country = countryObj.value;
-        if (country) {
-            this.cities = this.countryList.find(function (x) { return x.name == country; }).cities;
-            this.branchForm.controls['country'].setValue(country);
+    UpdateBranchComponent.prototype.getCountry = function (value) {
+        if (value) {
+            this.branchForm.controls['country'].setValue(value);
         }
     };
     UpdateBranchComponent.prototype.getState = function (value) {
         if (value) {
-            this.branchForm.controls['state'].setValue(value);
+            this.branchForm.controls['country'].setValue(value);
         }
     };
     UpdateBranchComponent.prototype.getBillingBranch = function (value) {

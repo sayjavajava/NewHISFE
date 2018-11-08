@@ -130,17 +130,39 @@ export class DrugComponent implements OnInit {
 
     saveDrug() {
 
-        if (this.drug.name == '') {
-            this.notificationService.error('Please enter name.', 'Drug');
+        if (this.drug.drugName == '') {
+            this.notificationService.error('Please enter Drug name.', 'Drug');
             document.getElementById('drugName').focus();
             return;
         }
-
-        if (this.drug.url == '') {
-            this.notificationService.error('Please enter url of drug, mean , find drug details from google and past url of that drug.', 'Drug');
-            document.getElementById('url').focus();
+        if (this.drug.genericName == '') {
+            this.notificationService.error('Please enter generic Name.', 'Drug');
+            document.getElementById('genericName').focus();
             return;
         }
+        if (this.drug.companyName == '') {
+            this.notificationService.error('Please enter company Name.', 'Drug');
+            document.getElementById('companyName').focus();
+            return;
+        }
+        if (this.drug.route == '') {
+            this.notificationService.error('Please enter  route name.', 'Drug');
+            document.getElementById('route').focus();
+            return;
+        }
+
+        if (this.drug.strengths.length == 0) {
+            this.notificationService.error('Please enter  strength.', 'Drug');
+            document.getElementById('strengths').focus();
+            return;
+        }
+
+        if (this.drug.origin == '') {
+            this.notificationService.error('Please enter origin.', 'Drug');
+            document.getElementById('origin').focus();
+            return;
+        }
+
 
         this.requestsService.postRequest(
             AppConstants.DRUG_SAVE_URL,
@@ -164,15 +186,36 @@ export class DrugComponent implements OnInit {
 
     updateDrug() {
 
-        if (this.drug.name == '') {
+        if (this.drug.drugName == '') {
+            this.notificationService.error('Please enter Drug name.', 'Drug');
+            document.getElementById('drugName').focus();
+            return;
+        }
+        if (this.drug.genericName == '') {
+            this.notificationService.error('Please enter generic Name.', 'Drug');
+            document.getElementById('genericName').focus();
+            return;
+        }
+        if (this.drug.companyName == '') {
+            this.notificationService.error('Please enter company Name.', 'Drug');
+            document.getElementById('companyName').focus();
+            return;
+        }
+        if (this.drug.route == '') {
             this.notificationService.error('Please enter name.', 'Drug');
             document.getElementById('drugName').focus();
             return;
         }
 
-        if (this.drug.url == '') {
-            this.notificationService.error('Please enter url of drug, mean , find drug details from google and past url of that drug.', 'Drug');
-            document.getElementById('url').focus();
+        if (this.drug.strengths.length == 0) {
+            this.notificationService.error('Please enter  strength.', 'Drug');
+            document.getElementById('strengths').focus();
+            return;
+        }
+
+        if (this.drug.origin == '') {
+            this.notificationService.error('Please enter origin.', 'Drug');
+            document.getElementById('origin').focus();
             return;
         }
 
@@ -203,6 +246,9 @@ export class DrugComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'DRUG_SUC_10') {
                         this.drug = response['responseData'];
+                        let drug = new DrugModel();
+                        this.drug.routes = drug.routes;
+                        this.drug.UOMs = drug.UOMs;
                     } else {
                         this.notificationService.error(response['responseMessage']);
                     }
@@ -215,5 +261,16 @@ export class DrugComponent implements OnInit {
 
     onAddDrug() {
         this.drug = new DrugModel();
+        this.requestsService.getRequest(AppConstants.DRUG_GET_NATURAL_ID_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] == 'DRUG_SUC_15') {
+                        this.drug.drugNaturalId = response['responseData'];
+                    }
+                }
+            ),
+            (error: any) => {
+                this.notificationService.error(error.error.error);
+            };
     }
 }

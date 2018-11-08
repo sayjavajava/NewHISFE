@@ -101,8 +101,7 @@ var ManagePatientComponent = (function () {
                 _this.notificationService.success(response['responseMessage'], 'Patient');
             }
             else {
-                _this.data = null;
-                _this.notificationService.warn(response['responseMessage']);
+                _this.notificationService.success(response['responseMessage'], 'Patient');
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);

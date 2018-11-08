@@ -119,7 +119,7 @@ import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patie
 import {DataService} from "./services/DataService";
 
 import {ModalModule} from "ngx-bootstrap";
-import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
+
 import {CheckboxModule, DataTableModule, PaginatorModule, ScheduleModule} from "primeng/primeng";
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {AdminProfileComponent} from "./components/dashboard/setting/admin-profile.component";
@@ -140,12 +140,17 @@ import {AccountSetupComponent} from "./components/dashboard/setting/account-setu
 import {LabTestComponent} from "./components/dashboard/setting/lab-test.component";
 import {PatientGroupComponent} from './components/dashboard/patient/patient-group.component';
 import {DrugComponent} from './components/dashboard/setting/drug.component';
-
+import {CurrencyComponent} from './components/dashboard/setting/currency.component';
+import {InputTextModule} from 'primeng/inputtext'
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {SharedModule} from "primeng/shared";
 import {TableModule} from "primeng/table";
 import {SliderModule} from "primeng/slider";
 import {ngxLoadingAnimationTypes, NgxLoadingModule} from "ngx-loading";
+import {ChipsModule} from 'primeng/chips';
+import {PaymentTypeComponent} from "./components/dashboard/setting/PaymentType.component";
+import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
+
 
 @NgModule({
     providers: [
@@ -157,7 +162,7 @@ import {ngxLoadingAnimationTypes, NgxLoadingModule} from "ngx-loading";
         PermissionsService,DataService,
         {provide: ToastOptions, useClass: CustomOption},
         UserSharedService, ConformationDialogService
-    ],  entryComponents: [ConfirmationdialogComponent],
+    ], entryComponents: [ConfirmationdialogComponent],
     imports: [
         // Modules
         BrowserModule,
@@ -308,8 +313,11 @@ import {ngxLoadingAnimationTypes, NgxLoadingModule} from "ngx-loading";
         AdminProfileComponent,
         PrimeSchedularComponent,
         PatientGroupComponent,
-        DrugComponent
-
+        DrugComponent,
+        MenuComponent,
+        PaymentTypeComponent,
+        DrugComponent,
+        CurrencyComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -43,6 +43,8 @@ import {PatientGroupComponent} from '../components/dashboard/patient/patient-gro
 import {DrugModel} from '../model/drug.model';
 import {DrugComponent} from '../components/dashboard/setting/drug.component';
 import {UserPermissionsComponent} from "../components/dashboard/setting/user-permissions.component";
+import {PaymentTypeComponent} from "../components/dashboard/setting/PaymentType.component";
+import {CurrencyComponent} from '../components/dashboard/setting/currency.component';
 
 
 export const SettingRoutes: Routes = [
@@ -58,6 +60,7 @@ export const SettingRoutes: Routes = [
     {path: 'staff/add', component: AddStaffComponent},
     {path: 'nurse', component: NurseComponent},
     {path: 'department', component: DepartmentComponent},
+    {path: 'Payment/type', component: PaymentTypeComponent},
     {path: 'cashier', component: CashierComponent},
     {path: 'receptionist', component: ReceptionistComponent},
     {path: 'nurse/edit/:id', component: UpdateNurseComponent},
@@ -92,6 +95,8 @@ export const SettingRoutes: Routes = [
     {path: 'lab-test-template', component: LabTestComponent},
     {path: 'patient-group', component: PatientGroupComponent},
     {path: 'drug', component: DrugComponent},
+// Add Payment Type
+    {path: 'currency', component: CurrencyComponent},
 
 
     {path: '**', redirectTo: '404'}
