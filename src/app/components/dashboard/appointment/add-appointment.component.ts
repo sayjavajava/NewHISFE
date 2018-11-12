@@ -105,7 +105,7 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 doctorId: apt.doctorId,
                                 serviceId: apt.serviceId,
                                 patientId: apt.patientId,
-                                appointmentId :apt.appointmentId
+                                // appointmentId :apt.appointmentId
 
 
                             });
