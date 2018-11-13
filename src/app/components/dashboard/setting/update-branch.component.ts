@@ -69,6 +69,7 @@ export class UpdateBranchComponent implements OnInit {
                     this.error = error.error.error;
                 })
     }
+    
     private sub: any;
 
     constructor(private route: ActivatedRoute,
