@@ -48,10 +48,6 @@ var PatientAppointmentComponent = (function () {
                     _this.patient = response['responseData'];
                     //this.patient.races = JSON.parse(response['responseData'].racesString);
                 }
-                else {
-                    _this.notificationService.error(response['responseMessage'], 'Patient');
-                    // this.router.navigate(['404-not-found'])
-                }
             }, function (error) {
                 _this.HISUTilService.tokenExpired(error.error.error);
             });

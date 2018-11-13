@@ -1,6 +1,6 @@
 <div class="page-content-wrapper">
     <div class="page-content">
-        <div class="row">
+      <!--  <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info"> Manage Staff
@@ -17,7 +17,7 @@
                                     (click)="getUserFromServer(0)"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
-                            <!--<span><button class="btn btn-default btn-outline"> <i class=" icon-clock"></i> Print </button></span>-->
+                            &lt;!&ndash;<span><button class="btn btn-default btn-outline"> <i class=" icon-clock"></i> Print </button></span>&ndash;&gt;
                         </div>
                     </h4>
                 </div>
@@ -34,22 +34,22 @@
                             <div class="col-md-3">
                                 <div class="form-group font-siz11">
                                     <label>User Type</label>
-                                    <!--<select (change)="roleSelected($event.target.value)" class="form-control" formControlName="userType" style="width: 250px !important">
+                                    &lt;!&ndash;<select (change)="roleSelected($event.target.value)" class="form-control" formControlName="userType" style="width: 250px !important">
                                         <option value="">Select User Type</option>
                                         <option *ngFor="let item of userTypes;" value={{item}}>
                                             {{item}}
                                         </option>
-                                    </select>-->
+                                    </select>&ndash;&gt;
                                     <p-dropdown  placeholder="select"  [autoWidth]="false" [style]="{'text-align': 'left'}"   [options]="allStaffTypes" (onChange)="roleSelected($event)" formControlName="userType" [style]="{'width':'150px'}" filter="true">
                                     </p-dropdown>
                                 </div>
                             </div>
-                            <!--<div class="col-md-3">
+                            &lt;!&ndash;<div class="col-md-3">
                                 <div class="form-group font-siz11">
                                     <label>Email:</label>
                                     <input type="text" class="form-control" formControlName="email" placeholder="Enter email" style="width: 250px !important">
                                 </div>
-                            </div>-->
+                            </div>&ndash;&gt;
                             <div class="col-md-2">
                                 <div class="form-group mrgn-top24">
                                     <button type="button" (click)="searchData(searchForm.value)" class="btn blue">Search</button>
@@ -73,7 +73,7 @@
 
                                 <td rowspan="1" colspan="1">{{item.firstName}} {{item.lastName}}</td>
 
-                                <!--<span style="display: none;" *ngFor="let br of item.branches"></span>-->
+                                &lt;!&ndash;<span style="display: none;" *ngFor="let br of item.branches"></span>&ndash;&gt;
                                 <td class="sorting_disabled" rowspan="1" colspan="1">
                                     {{item?.primaryBranch}}
                                 </td>
@@ -89,9 +89,9 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div>-->
 
-        <div class="row">
+      <!--  <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -125,8 +125,72 @@
                 </div>
                 <p></p>
             </div>
+        </div>-->
+        <div class="col-md-12">
+        <div class="pull-right mrgn-btm10">
+            <a routerLink="/dashboard/setting/staff/add">
+                <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
+                        data-message="Success Icon" data-type="success" data-allow-outside-click="true"
+                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
+                </button>
+            </a></div>
+        </div>
+        <div class="col-md-12 col-xs-12">
+
+            <!--<ngx-loading [show]="loading"></ngx-loading>-->
+            <p-table #dt [columns]="cols" [value]="data" [paginator]="true"  [rows]="5">
+
+                <ng-template sortable="true" pTemplate="header" let-columns>
+                    <ng-template pTemplate="caption">
+                        <div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        </div>
+                    </ng-template>
+
+                    <tr>
+                        <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                   <tr>
+                        <th *ngFor="let col of columns">
+                            <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+
+                        <!--{{car[col.field]}}-->
+                        <td> {{item.firstName }}</td>
+                        <td>  {{item.primaryBranch}}</td>
+                        <td>  {{item.username}}</td>
+                        <td>  {{item.email}}</td>
+                        <td>
+                            <a href="#responsive" data-toggle="modal">
+                                <button class="btn btn-default btn-outline btn-sm"
+                                        (click)="updateUser(item.userType,item.pId,item.uId)"><i class="fa fa-pencil"></i>
+
+                                </button>
+                            </a>
+                            <button class="btn btn-default btn-outline btn-sm"
+                                    (click)="deleteUser(item.uId)">
+                                <i class="fa fa-remove"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+                </ng-template>
+
+            </p-table>
         </div>
         <div class="clearfix"></div>
+
+
     </div>
 
 </div>

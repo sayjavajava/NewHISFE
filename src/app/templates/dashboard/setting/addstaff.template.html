@@ -160,7 +160,7 @@
                                 </div>
 
                                 <!--nurse department container-->
-                                <div *ngIf="nurseDepartment" class="form-group mrgn-btm10">
+                                <div *ngIf="nurseDepartment" class="form-group">
                                     <label class="control-label col-md-4 no-padding">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -198,7 +198,7 @@
                                 </div>
 
                                 <!--doctor department container-->
-                                <div *ngIf="doctorDepartment" class="form-group mrgn-btm10">
+                                <div *ngIf="doctorDepartment" class="form-group">
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -224,7 +224,7 @@
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
-                                        <div class="checkbox-box" id="not-due">
+
                                             <!--<address class="row">
                                                 <label class="mt-checkbox mt-checkbox-outline">
                                                     <div *ngFor="let item of servicesList" class="col-md-6">
@@ -247,7 +247,7 @@
                                                     </div>
                                                 </ng-template>
                                             </p-multiSelect>
-                                        </div>
+
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
                                     </div>
@@ -280,47 +280,18 @@
 
                                         <p-multiSelect placeholder="select Doctor"
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                       [options]="doctorsList" [(ngModel)]="dutyWithDoctors"
-                                                       [ngModelOptions]="{standalone:true}"
+                                                       [options]="doctorsList" [(ngModel)]="dutyWithDoctors" formControlName="nurseDutyWithDoctor"
+                                                        (change)="dutyWithDoctor($event)"
                                                        [panelStyle]="{minWidth:'12em'}">
                                             <ng-template let-dpt pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{dpt.label}}
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
-                                    </div>
-                                </div>
-                                <div *ngIf="managepatientrecord" class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Manage Patients Records</label>
-                                    <div class="col-md-8">
-                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top12">
-                                            <input type="checkbox" formControlName="managePatientRecords"
-                                                   class=""><span></span></label>-->
-                                        <label class="mt-checkbox-outline">
+                                      </div>
+                                     </div>
 
-                                            <mat-checkbox formControlName="managePatientRecords"
-                                                          color="primary"></mat-checkbox>
-                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
 
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div *ngIf="managepatientinvoices" class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Manage Patients Invoices</label>
-                                    <div class="col-md-8">
-                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top12">
-                                            <input type="checkbox" formControlName="managePatientInvoices"><span></span></label>-->
-
-                                        <label class="mt-checkbox-outline">
-                                            <mat-checkbox formControlName="managePatientInvoices"
-                                                          color="primary"></mat-checkbox>
-                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
-
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                </div>
                                 <!--<div *ngIf="dutytimmingshift2" class="form-group">
                                     <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
                                     </label>
@@ -456,24 +427,24 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                             <!--   <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
                                     <div class="col-md-8 col-xs-6">
-                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
-                                        <!--<input type="checkbox" formControlName="sendBillingReport"
-                                               class="">-->
-                                        <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
-                                        <span></span>-->
+                                        &lt;!&ndash;<label class="mt-checkbox-outline chckbox mrgn-top10">&ndash;&gt;
+                                        &lt;!&ndash;<input type="checkbox" formControlName="sendBillingReport"
+                                               class="">&ndash;&gt;
+                                        &lt;!&ndash;<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                        <span></span>&ndash;&gt;
                                         <label class="mt-checkbox-outline">
                                             <mat-checkbox formControlName="sendBillingReport"
                                                           color="primary"></mat-checkbox>
-                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+                                            &lt;!&ndash; <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>&ndash;&gt;
 
                                             <span></span>
                                         </label>
-                                        <!--</label>-->
+                                        &lt;!&ndash;</label>&ndash;&gt;
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <!--<div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Use Receipt Dashboard?</label>
@@ -501,7 +472,7 @@
                                     </div>
                                 </div>
 -->
-                                <div class="form-group">
+                              <!--  <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
                                     <div class="col-md-8 col-xs-6">
@@ -513,7 +484,7 @@
                                             <mat-datepicker #from></mat-datepicker>
                                         </mat-form-field>
                                     </div>
-                                </div>
+                                </div>-->
                                 <!--   <div class="form-group">
                                        <label class="control-label col-md-4 col-xs-6">Active
                                        </label>
@@ -524,11 +495,11 @@
                                    </div>-->
 
 
-                                <div *ngIf="checkUpInterval" class="form-group">
+                                <!--<div *ngIf="checkUpInterval" class="form-group">
                                     <label class="control-label col-md-4">Checkup Interval:
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <!--<div class="col-md-8">
+                                    &lt;!&ndash;<div class="col-md-8">
                                         <select class="form-control"
                                                 (change)="checkupIntervalMethod($event.target.value)"
                                                 formControlName="interval">
@@ -544,14 +515,14 @@
                                        &lt;!&ndash; <span class="text-danger"
                                               *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
                                         <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>&ndash;&gt;
-                                    </div>-->
+                                    </div>&ndash;&gt;
                                     <div class="col-md-8" id="not-due">
                                         <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     [options]="intervalList" formControlName="interval"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
                                     </div>
-                                </div>
+                                </div>-->
 
 
                             </div>
@@ -560,25 +531,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div *ngIf="dutytimmingshift1" class="form-group">
-                                <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
+                                <label class="control-label col-md-4 col-xs-12"> Duty (Shift 1):
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-8 col-xs-12">
-                                    <div class="width6 pull-left no-padding mrgn-top20">
-                                        <!-- <label
-                                             class="mrgn-top8 mt-checkbox-outline chckbox">
-                                         <input type="checkbox" formControlName="shift1"
-                                                class="">
-                                         <span></span></label>-->
-                                        <label>
 
-                                            <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
-                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+                                    <div class="mrgn-top8 row">
+                                        <div class="width6 pull-left col-md-1">
+                                            <!-- <label
+                                                 class="mrgn-top8 mt-checkbox-outline chckbox">
+                                             <input type="checkbox" formControlName="shift1"
+                                                    class="">
+                                             <span></span></label>-->
+                                            <label>
 
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                    <div class="mrgn-top8">
+                                                <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
+                                                <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
+                                                <span></span>
+                                            </label>
+                                        </div>
                                         <!-- <span class="col-md-2 width12"><button type="button"
                                                                                 (click)="firstShiftFrom()">From</button></span>
                                          <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
@@ -591,13 +563,13 @@
                                             <button type="button" (click)="firstShiftFrom()">From</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px">
-                                            <input type="time" style="width: 122px" value="{{firstShiftFromTime}}">
+                                            <input type="time" style="width: 75px" value="{{firstShiftFromTime}}">
                                         </div>
-                                        <div class="col-md-2" style="width: 68px;margin-left: 55px;">
+                                        <div class="col-md-2" style="width: 68px;margin-left: 26px;">
                                             <button type="button" (click)="firstShiftTo()">To</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px;margin-left: -37px;">
-                                            <input type="time" style="width: 122px" value="{{firstShiftToTime}}">
+                                            <input type="time" style="width: 75px" value="{{firstShiftToTime}}">
                                         </div>
                                     </div>
                                 </div>
@@ -606,33 +578,33 @@
                             </div>
 
                             <div *ngIf="dutytimmingshift2" class="form-group">
-                                <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
+                                <label class="control-label col-md-4 col-xs-12"> Duty (Shift 2):
                                 </label>
                                 <div class="col-md-8  col-xs-12">
-                                    <div class="width6 col-md-1 pull-left no-padding mrgn-top20">
-                                        <!--<label class="mrgn-top10 mt-checkbox-outline chckbox">
-                                            <input type="checkbox" class=""
-                                                   formControlName="shift2"><span></span></label>-->
-                                        <label class="mt-checkbox-outline">
+                                    <div class="mrgn-top8 row">
+                                        <div class="width6 col-md-1 pull-left col-md-1">
+                                            <!--<label class="mrgn-top10 mt-checkbox-outline chckbox">
+                                                <input type="checkbox" class=""
+                                                       formControlName="shift2"><span></span></label>-->
+                                            <label class="mt-checkbox-outline">
 
-                                            <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
-                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+                                                <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
+                                                <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
 
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                    <div class="mrgn-top8">
+                                                <span></span>
+                                            </label>
+                                        </div>
                                         <div class="col-md-2">
                                             <button type="button" (click)="secondShiftFrom()">From</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px">
-                                            <input type="time" style="width: 122px" value="{{secondShiftFromTime}}">
+                                            <input type="time" style="width: 75px" value="{{secondShiftFromTime}}">
                                         </div>
-                                        <div class="col-md-2" style="width: 68px;margin-left: 55px;">
+                                        <div class="col-md-2" style="width: 68px;margin-left: 26px;">
                                             <button type="button" (click)="secondShiftTo()">To</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px;margin-left: -37px;">
-                                            <input type="time" style="width: 122px" value="{{secondShiftToTime}}">
+                                            <input type="time" style="width: 75px" value="{{secondShiftToTime}}">
                                         </div>
                                     </div>
                                 </div>
@@ -648,7 +620,8 @@
                                             <input type="checkbox" formControlName="vacation"
                                                    class=""><span></span></label>
                                     </div>-->
-                                    <div class="width6 pull-left no-padding mrgn-top20">
+                                    <div class="row">
+                                    <div class="width6 pull-left col-md-1">
                                         <label>
                                             <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
                                         </label>
@@ -670,6 +643,7 @@
                                             <mat-datepicker #to></mat-datepicker>
                                         </mat-form-field>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                             <div *ngIf="vacationweek" class="form-group">
@@ -698,14 +672,15 @@
                                 </div>
 
                             </div>
-
+                        <div class="form-group">
+                            <div class="col-md-4"></div>
                             <div class="col-md-8">
                                 <!--<input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                                 <owl-date-time #dt1></owl-date-time>-->
                                 <angular2-date-picker [(ngModel)]="date" [ngModelOptions]="{standalone:true}" [settings]="settings"></angular2-date-picker>
 
                             </div>
-
+                        </div>
 
                         </div>
                     </div>

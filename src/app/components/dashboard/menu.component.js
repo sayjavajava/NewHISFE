@@ -13,12 +13,29 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var requests_service_1 = require("../../services/requests.service");
 var platform_browser_1 = require("@angular/platform-browser");
+var items_1 = require("../../model/items");
 var MenuComponent = (function () {
     function MenuComponent(requestsService, router, titleService) {
         this.requestsService = requestsService;
         this.router = router;
         this.titleService = titleService;
         this.showMenuBar = false;
+        this.items = [];
+        this.items2 = [{
+                label: 'File',
+                items: [
+                    { label: 'New', icon: 'fa fa-plus' },
+                    { label: 'Open', icon: 'fa fa-download' }
+                ]
+            },
+            {
+                label: 'Edit',
+                items: [
+                    { label: 'Undo', icon: 'fa fa-refresh' },
+                    { label: 'Redo', icon: 'fa fa-repeat' }
+                ]
+            }
+        ];
     }
     ;
     MenuComponent.prototype.ngOnInit = function () {
@@ -27,6 +44,33 @@ var MenuComponent = (function () {
         }
         else {
             this.userPermissions = JSON.parse(atob(window.localStorage.getItem(btoa('permissions'))));
+            var itemsList_1 = [];
+            var gList_1 = [];
+            var mList_1 = [];
+            var gInd_1;
+            var sInd_1;
+            var mInd_1;
+            this.userPermissions.forEach(function (x) {
+                if (x.indicatior == 'G') {
+                    var ob2 = new items_1.items(x.name, x.routeUrl);
+                    itemsList_1.push(ob2);
+                    gInd_1 = new items_1.items('Genaral', '/dashboard/setting/organization', itemsList_1);
+                }
+                if (x.indicatior == 'S') {
+                    var ob3 = new items_1.items(x.name, x.routeUrl);
+                    gList_1.push(ob3);
+                    sInd_1 = new items_1.items('Other', '/dashboard/setting/organization', gList_1);
+                }
+                if (x.indicatior == 'C') {
+                    var ob3 = new items_1.items(x.name, x.routeUrl);
+                    mList_1.push(ob3);
+                    mInd_1 = new items_1.items('Content', '/dashboard/setting/staff', mList_1);
+                }
+            });
+            this.items.push(gInd_1);
+            this.items.push(mInd_1);
+            this.items.push(sInd_1);
+            console.log('permissionss +:' + this.items.forEach(function (x) { console.log(x); }));
         }
         this.titleService.setTitle('HIS | Dashboard');
         var userType = atob(localStorage.getItem(btoa('user_type')));

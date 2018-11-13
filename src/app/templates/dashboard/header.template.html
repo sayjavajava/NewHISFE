@@ -8,95 +8,12 @@
         </div>
         <a href="javascript:;" class="menu-toggler responsive-toggler menua" data-toggle="collapse"
            data-target=".navbar-collapse"><span></span></a>
-        <div class="col-md-4">
-            <div class="hor-menu" *ngIf="showMenu">
-                <ul class="nav navbar-nav hedr-menu-top dropdown-nav hedr-menu-top">
-                    <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
-                        <a href="javascript:;"> Dashboard </a>
-                        <ul class="dropdown-menu pull-left hedr-menu-top dropdown-nav">
-                            <!--<li aria-haspopup="true" class="">
-                                <a href="#" class="nav-link">Today Appointment</a>
-                            </li>-->
-                            <li aria-haspopup="true" class=" "> <!--*ngIf="permissionService.hasPermission('MANAGE_DASHBOARD');"-->
-                                <a routerLink="/dashboard/doctor" class="nav-link">Doctor Dashboard</a>
-                            </li>
-
-
-                            <li aria-haspopup="true" class=" " > 
-                               <!--*ngIf="permissionService.hasPermission('MANAGE_DASHBOARD');"-->
-                               <a routerLink="/dashboard/cashier" class="nav-link">Cashier Desk</a>
-                            </li>
-
-                            <li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/nurse" class="nav-link">Nurses Station</a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/receptionist" class="nav-link">Receptionist Dashboard</a>
-                            </li>
-                            <!--<li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/cashier" class="nav-link">Cashier Dashboard</a>
-                            </li>-->
-                            <!--<li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Invoices</a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Refunds
-                                </a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link  ">Payments</a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Open / Close Day</a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a href="#" class="nav-link">Reports</a>
-                            </li>-->
-                        </ul>
-                    </li>
-                    <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
-                        <a href="javascript:;"> Scheduler
-                        </a>
-                        <ul class="dropdown-menu pull-left dropdown-nav">
-                            <li aria-haspopup="true" class="">
-                                <a routerLink="/dashboard/appointment/manage" class="nav-link">Manage Appointment</a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/appointment/add" class="nav-link">Create New Appointment</a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/appointment/schedule" class="nav-link">Schedule</a>
-                            </li>
-                            <!--<li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/appointment/manage" class="nav-link">Appointments</a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/appointment/reports" class="nav-link">Reports</a>
-                            </li>-->
-                        </ul>
-                    </li>
-                    <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
-                        <a routerLink="/dashboard/patient/manage"> Patients
-                        </a>
-                        <ul class="dropdown-menu pull-left dropdown-nav">
-                            <!--<li aria-haspopup="true" class="">
-                                <a routerLink="/dashboard/patient/dashboard" class="nav-link">Dashboard</a>
-                            </li>
-                            <li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/patient/add" class="nav-link">Create New Patient</a>
-                            </li>-->
-                            <li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/patient/manage" class="nav-link">Patient</a>
-                            </li>
-                            <!--<li aria-haspopup="true" class=" ">
-                                <a routerLink="/dashboard/patient/reports" class="nav-link">Reports</a>
-                            </li>-->
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+        <div class="col-md-8">
+            <!--<div >-->
+                <p-megaMenu *ngIf="showMenu" [model]="items"></p-megaMenu>
+            <!--</div>-->
         </div>
-        <div class="top-menu menu-pop col-md-4">
+        <div class="top-menu menu-pop col-md-3 cusm-col-3">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                     <!--<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"

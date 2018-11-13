@@ -1,6 +1,6 @@
 <div class="page-content-wrapper">
     <div class="page-content">
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Departments
@@ -76,8 +76,8 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-        </div>
-        <div class="row">
+        </div>-->
+       <!-- <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -109,7 +109,84 @@
                 </div>
                 <p></p>
             </div>
+        </div>-->
+        <div class="col-md-12">
+        <div class="pull-right">
+            <a href="#responsive" data-toggle="modal">
+                <button class="btn mt-sweetalert btn green-meadow" (click)="onAddPopupLoad()">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+            </a>
         </div>
+        </div>
+        <div class="col-md-12 col-xs-12">
+        <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    </th>
+                </tr>
+                <!--<tr>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <input *ngSwitchCase="'Name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                       &lt;!&ndash; <div *ngSwitchCase="'year'">
+                            Value < {{yearFilter}}
+                            <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+                            <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider>
+                        </div>&ndash;&gt;
+                      &lt;!&ndash;  <p-dropdown *ngSwitchCase="'Description'" [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>&ndash;&gt;
+                        &lt;!&ndash;<p-multiSelect *ngSwitchCase="'color'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>&ndash;&gt;
+                    </th>
+                </tr>-->
+            </ng-template>
+            <!--<ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>-->
+
+            <ng-template pTemplate="body" let-item let-columns="columns">
+                <tr>
+
+                    <!--{{car[col.field]}}-->
+                    <td> {{item.name}}</td>
+                    <td>  {{item.name}}</td>
+                    <td>  {{item.name}}</td>
+
+                    <td>
+                        <a href="#responsive" data-toggle="modal">
+                            <button class="btn btn-default btn-outline btn-sm"
+                                    (click)="onUpdatePopupLoad(item)"><i class="fa fa-pencil"></i>
+
+                            </button>
+                        </a>
+                        <button class="btn btn-default btn-outline btn-sm"
+                                (click)="deletePatientFamilyHistory(item.id)">
+                            <i class="fa fa-remove"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+        </div>
+
+
     </div>
 
     <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">

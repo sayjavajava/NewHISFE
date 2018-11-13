@@ -67,7 +67,6 @@ export class PaymentTypeComponent implements OnInit {
                     debugger;
 
                     this.paymentlst= response['responseData'];
-                    debugger;
 
                 }
             },

@@ -141,7 +141,7 @@
                                 </a>
                             </td>
                             <td>{{item.fee | number :'.2-2'}}</td>
-                            <td>{{item.tax.rate}}</td>
+                            <td>{{item.fee}}</td>
                             <td>{{item.cost | number :'.2-2'}}</td>
                             <td><span
                                     [ngClass]="{'bg-green-meadow': item.status === true, 'bg-red-meadow': item.status === false}"

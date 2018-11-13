@@ -161,7 +161,12 @@ var UpdateNurseComponent = (function () {
                 if (user.expiryDate != null) {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                 }
-                _this.staffBranches = user.staffBranches;
+                user.nurseDepartmentList.forEach(function (x) {
+                    console.log('xlog:' + x.id);
+                    _this.selectedDepartment.push(x.id);
+                }),
+                    //for selected
+                    _this.staffBranches = user.staffBranches;
                 _this.selectedDoctors = user.dutyWithDoctors;
                 for (var key in _this.branchesList) {
                     for (var k in _this.staffBranches) {
@@ -191,6 +196,7 @@ var UpdateNurseComponent = (function () {
                         }
                     }
                 }
+                ;
             }, function (error) {
                 //console.log(error.json());
                 _this.error = error.error.error_description;
@@ -278,8 +284,9 @@ var UpdateNurseComponent = (function () {
             }
         });
     };
-    UpdateNurseComponent.prototype.selectDepartment = function (event, item) {
+    UpdateNurseComponent.prototype.selectDepartment = function (eventObj, item) {
         this.departmentFlag = false;
+        var event = eventObj.value;
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }
@@ -301,16 +308,9 @@ var UpdateNurseComponent = (function () {
             this.selectedVisitBranches.splice(index, 1);
         }
     };
-    UpdateNurseComponent.prototype.dutyWithDoctor = function (event, item) {
-        if (event.target.checked) {
-            this.dutyWithDoctors.push(item.id);
-        }
-        else {
-            var updateItem = this.dutyWithDoctors.find(this.findIndexToUpdate, item.id);
-            var index = this.dutyWithDoctors.indexOf(updateItem);
-            this.dutyWithDoctors.splice(index, 1);
-        }
-        console.log(this.dutyWithDoctors);
+    UpdateNurseComponent.prototype.dutyWithDoctor = function (eventObj) {
+        var eventVal = eventObj.value;
+        this.selectedDoctors.push(eventVal);
     };
     UpdateNurseComponent.prototype.findIndexToUpdate = function (type) {
         return type.name === this;

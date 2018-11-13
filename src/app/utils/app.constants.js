@@ -19,6 +19,7 @@ var AppConstants = (function () {
     AppConstants.CREATE_USER_ENDPOINT = '/user/add';
     AppConstants.USER_SEARCH = '/user/search/';
     AppConstants.FETCH_ALL_USERS_URI = '/user/';
+    AppConstants.FETCH_ALL_USERS = '/user/all';
     AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
@@ -211,6 +212,21 @@ var AppConstants = (function () {
     AppConstants.DRUG_SAVE_URL = '/setting/drug/save';
     AppConstants.DRUG_UPDATE_URL = '/setting/drug/update';
     AppConstants.DRUG_GET_URL = '/setting/drug/get?drugId=';
+    AppConstants.DRUG_SEARCH_BY_NAME_URL = '/setting/drug/search?drugName=';
+    AppConstants.DRUG_GET_ALL_URL = '/setting/drug/all';
+    AppConstants.DRUG_GET_NATURAL_ID_URL = '/setting/drug/natural'; // get natural id only
+    ///////////////////// Currency URLs ////////////////////////////////////////
+    AppConstants.CURRENCY_FETCH_ALL_PAGINATED_URI = '/setting/currency/'; ///all by paginated , zero means first page , 1 means second page
+    AppConstants.CURRENCY_DELETE_URI = '/setting/currency/delete?currencyId=';
+    AppConstants.CURRENCY_SEARCH_URL = '/setting/currency/search/';
+    AppConstants.CURRENCY_SAVE_URL = '/setting/currency/save';
+    AppConstants.CURRENCY_UPDATE_URL = '/setting/currency/update';
+    AppConstants.CURRENCY_GET_URL = '/setting/currency/get?currencyId=';
+    //////////////Payment Type ///////////////////////////////////
+    AppConstants.GET_ALL_PAYMENTTYPE = '/PaymentType/';
+    AppConstants.SAVE_PAYMENTTYPE = '/PaymentType/save';
+    AppConstants.DELETE_PAYMENTTYPE = '/PaymentType/delete/';
+    AppConstants.UPDATE_PAYMENTTYPE = '/PaymentType/update';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

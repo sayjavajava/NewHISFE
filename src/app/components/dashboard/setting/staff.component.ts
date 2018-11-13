@@ -27,6 +27,7 @@ export class StaffComponent implements OnInit {
     branch: any;
     selectedType: string;
     allDBRoles: any[];
+    cols:any;
 
     responseUser: any[];
     allStaffTypes = [
@@ -53,7 +54,14 @@ export class StaffComponent implements OnInit {
             'name': [null]
         });
         this.searchForm.controls['userType'].setValue(this.default, {onlySelf: true});
-        this.getUserFromServer(0);
+        this.getUserFromServer();
+        this.cols = [
+            { field: 'firstName', header: 'Name' },
+            { field: 'primaryBranch', header: 'Primary Branch' },
+            { field: 'username', header: 'User Name' },
+            { field: 'email', header: 'Email' },
+            { field: 'Action', header: 'Action' }
+        ];
     }
 
     searchData(data: SearchUser) {
@@ -102,21 +110,22 @@ export class StaffComponent implements OnInit {
         };
     }
 
-    getUserFromServer(page: number) {
-        if (page > 0) {
+    getUserFromServer() {
+       /* if (page > 0) {
             page = page;
 
-        }
+        }*/
         this.requestService.getRequest(
-            AppConstants.FETCH_ALL_USERS_URI + page)
+        //    AppConstants.FETCH_ALL_USERS + page)
+                 AppConstants.FETCH_ALL_USERS)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'USER_SUC_01') {
-                        this.nextPage = response['responseData']['nextPage'];
+                       /* this.nextPage = response['responseData']['nextPage'];
                         this.prePage = response['responseData']['prePage'];
                         this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];
-                        this.data = response['responseData']['data'];
+                        this.pages = response['responseData']['pages'];*/
+                        this.data = response['responseData'];
                       //  let data = response['responseData']['data'];
 
 
@@ -130,7 +139,7 @@ export class StaffComponent implements OnInit {
     }
 
     updateUser(item: any, id: any,staffId:number) {
-          this.dataService.updateStaffId(staffId);
+        this.dataService.updateStaffId(staffId);
         if (item === 'DOCTOR') {
             console.log('iam doc');
             this.router.navigate(['/dashboard/setting/doctor/edit/', id]);
@@ -169,7 +178,7 @@ export class StaffComponent implements OnInit {
                     this.requestService.deleteRequest('/user/delete/' + id).subscribe((data: Response) => {
                         if (data['responseCode'] === 'USER_DEL_SUC_01') {
                             this.notificationService.success('User has been Deleted Successfully');
-                            this.getUserFromServer(0);
+                            this.getUserFromServer();
 
                         }
                     }, error => {
