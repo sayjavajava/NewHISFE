@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ServiceTax = (function () {
-    function ServiceTax() {
+var TaxService = (function () {
+    function TaxService() {
         this.id = 0;
         this.name = '';
         this.description = '';
@@ -12,7 +12,7 @@ var ServiceTax = (function () {
         this.deleted = false;
         this.hasChild = false;
     }
-    return ServiceTax;
+    return TaxService;
 }());
-exports.ServiceTax = ServiceTax;
+exports.TaxService = TaxService;
 //# sourceMappingURL=service-tax.js.map

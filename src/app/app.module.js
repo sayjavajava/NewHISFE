@@ -276,7 +276,7 @@ var AppModule = (function () {
                 confirmationdialog_component_1.ConfirmationdialogComponent,
                 update_branch_component_1.UpdateBranchComponent,
                 addstaff_component_1.AddStaffComponent,
-                service_tax_component_1.ServiceTaxComponent,
+                service_tax_component_1.taxComponent,
                 email_template_component_1.EmailTemplateComponent,
                 email_configuration_component_1.EmailConfigurationComponent,
                 sms_template_component_1.SmsTemplateComponent,

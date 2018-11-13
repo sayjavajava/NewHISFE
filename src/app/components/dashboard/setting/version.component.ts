@@ -21,6 +21,7 @@ export class VersionComponent implements OnInit {
     searchVersion: string = '';
     private searched: boolean;
     private isVersionUpdate: boolean;
+    cols: any;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -31,39 +32,31 @@ export class VersionComponent implements OnInit {
     ngOnInit() {
         document.title = 'HIS | Manage ICD';
         if (localStorage.getItem(btoa('access_token'))) {
-            this.getVersionsFromServer(0);
+            this.getAllVersionsFromServer();
         }
-    }
 
-    getPageWiseICDsVersion(page: number) {
-        this.data = [];
-        if (this.searched) {
-            this.searchByVersion(page);
-        } else {
-            this.getVersionsFromServer(page);
-        }
+        this.cols = [
+            {field: 'name', header: 'name'},
+            {field: 'status', header: 'status'},
+            {field: 'Action', header: 'Action'},
+
+        ];
     }
 
     refreshVersionsTable() {
         this.searchVersion = '';
         this.searched = false;
-        this.getVersionsFromServer(0);
+        this.getAllVersionsFromServer();
     }
 
-    getVersionsFromServer(page: number) {
-        if (page > 0) {
-            page = page;
-        }
+
+    getAllVersionsFromServer() {
         this.requestsService.getRequest(
-            AppConstants.ICD_VERSIONS + page)
+            AppConstants.ICD_VERSIONS_DATA_TABLE)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'ICD_SUC_02') {
-                        this.nextPage = response['responseData']['nextPage'];
-                        this.prePage = response['responseData']['prePage'];
-                        this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];
-                        this.data = response['responseData']['data'];
+                    if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
+                        this.data = response['responseData'];
                     }
                 },
                 (error: any) => {
@@ -71,7 +64,6 @@ export class VersionComponent implements OnInit {
                 }
             );
     }
-
 
     editICDVersion(iCDVersion: any) {
         this.isVersionUpdate = true;
@@ -90,7 +82,6 @@ export class VersionComponent implements OnInit {
                             this.iCDVersionModel = new ICDVersionModel();
                             this.notificationService.success(response['responseMessage'], 'ICD Version');
                             document.getElementById('close-btn-ICDVersion').click();
-                            this.getPageWiseICDsVersion(this.currPage);
                         } else {
                             this.notificationService.error(response['responseMessage'], 'ICD Version')
                         }
@@ -110,35 +101,6 @@ export class VersionComponent implements OnInit {
     onAddICDVersionPopupLoad() {
         this.isVersionUpdate = false;
         this.iCDVersionModel = new ICDVersionModel();
-    }
-
-    searchByVersion(page: number) {
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.searched = true;
-            this.requestsService.getRequest(
-                AppConstants.ICD_VERSION_SEARCH + page + '?searchVersion=' + this.searchVersion)
-                .subscribe(
-                    (response: Response) => {
-                        if (response['responseCode'] === 'ICD_VERSIONS_FOUND_SUC_13') {
-                            this.nextPage = response['responseData']['nextPage'];
-                            this.prePage = response['responseData']['prePage'];
-                            this.currPage = response['responseData']['currPage'];
-                            this.pages = response['responseData']['pages'];
-                            this.data = response['responseData']['data'];
-                        } else {
-                            this.nextPage = 0;
-                            this.prePage = 0;
-                            this.currPage = 0;
-                            this.pages = [];
-                            this.data = [];
-                            this.notificationService.warn('ICD not found');
-                        }
-                    },
-                    (error: any) => {
-                        this.HISUtilService.tokenExpired(error.error.error);
-                    }
-                );
-        }
     }
 
     saveICDVersion(form: NgForm) {
@@ -184,9 +146,9 @@ export class VersionComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_VERSION_DEL_SUC_11') {
                             this.notificationService.success(response['responseMessage'], 'ICD Version');
-                            this.getVersionsFromServer(0);
+                            this.getAllVersionsFromServer();
                         } else {
-                            this.getVersionsFromServer(0);
+                            this.getAllVersionsFromServer();
                             this.notificationService.error(response['responseMessage'], 'ICD Version');
                         }
                     },
@@ -200,7 +162,7 @@ export class VersionComponent implements OnInit {
     }
 
     refreshICDsVersionTable(page: number) {
-        this.getVersionsFromServer(page)
+        this.getAllVersionsFromServer();
     }
 
 }
