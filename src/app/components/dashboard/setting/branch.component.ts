@@ -56,7 +56,7 @@ export class BranchComponent implements OnInit {
             /* TODO: Uncomment
             {field: 'country', header: 'Country'},
             {field: 'city', header: 'City'},*/
-            {field: "rooms", header: "# of Exam Rooms"},
+            {field: "rooms", header: "Rooms"},
             {field: "id", header: "Action"}
         ];
     }
