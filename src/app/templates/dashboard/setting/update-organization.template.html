@@ -64,6 +64,73 @@
                                         </span>
                                             </div>
 
+
+                                           <!-- <select  #select class="form-control"  name="selectedLevel"  #selectedLevel="ngModel"   [ngModel]="newPaymentType.paymentGlAccount.id"
+                                                     (change)="getSelectedAccount(select.value)"
+                                                     placeholder="Select GL Account">
+                                                <option  [value]="null"    disabled>Select GL Account</option>
+                                                <option *ngFor="let ca of chartOfAccountList;" [ngValue]="ca.id">
+                                                    {{ca.name}}
+                                                </option>
+
+                                            </select>-->
+
+
+                                            <div class="form-group">
+                                                <label  class="control-label col-md-4">Country </label>
+                                                <div class="col-sm-7">
+
+
+                                                    <!--<select  #select class="form-control"  name="selectedLevel"  #selectedLevel="ngModel"   [ngModel]="selectedCountry" name="selectedCountry"
+                                                             (change)="getStatesByCountryId($event.value)"
+                                                             placeholder="Select Country">
+                                                        <option  [value]="null"    disabled>Select  Country</option>
+                                                        <option *ngFor="let ca of countryLst;" [ngValue]="ca.id">
+                                                            {{ca.name}}
+                                                        </option>
+
+                                                    </select>-->
+                                                    <!--countryLst ,countryListModified-->
+
+                                                   <p-dropdown  placeholder="Select Country" [autoWidth]="false" [(ngModel)]="selectedCountry"
+                                                                 formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                 (onChange)="getStatesByCountryId($event.value)"
+                                                                [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">State </label>
+                                                <div class="col-sm-7">
+                                                    <p-dropdown  placeholder="Select State" [autoWidth]="false"
+                                                                 formControlName="state" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                 (onChange)="getCitiesByStateId($event.value)"
+                                                                 [options]="stateLstModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label  class="control-label col-md-4">City </label>
+                                                <div class="col-sm-7">
+
+                                                    <p-dropdown  placeholder="Select City" [autoWidth]="false"
+                                                                 formControlName="city" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                [options]="cityLstModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+                                                   <!-- <p-dropdown  placeholder="Select City" [autoWidth]="false"
+                                                                 formControlName="City" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                 (onChange)="getSelectedCountry($event.value)"
+                                                                 [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>-->
+                                                  <!--  </select>-->
+                                                </div>
+                                            </div>
+
+
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Practice Business Logo
                                                 </label>
@@ -194,8 +261,17 @@
                                                     </option>
                                                 </select>-->
 
-                                                <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.branchId" [options]="branchesList" formControlName="defaultBranch"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                                </p-dropdown>
+                                               <!-- <select   [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.branchId" [options]="branchesList" formControlName="defaultBranch" >
+                                                </select>-->
+                                                <select class="form-control"
+                                                        (change)="getSelectedBranch($event.target.value)"
+                                                        formControlName="defaultBranch">
+                                                    <option *ngFor="let br of branchesList"
+                                                            value={{br.id}}>
+                                                        {{br.name}}
+                                                    </option>
+
+                                                </select>
                                                 <span class="text-danger"
                                                       *ngIf="!generalForm.controls['defaultBranch'].valid && generalForm.controls['defaultBranch'].touched">
                                                   <span *ngIf="generalForm.controls['defaultBranch'].errors.required">Default Branch is required </span>
@@ -325,6 +401,76 @@
                                                 </select>
                                             </div>
 
+                                        </div>-->
+                                        <div class="form-group">
+                                            <label  class="control-label col-md-3">Time Zone </label>
+                                            <div class="col-md-5">
+
+                                                <select class="form-control"
+                                                        (change)="getSelected($event.target.value)"
+                                                        formControlName="zoneFormat" placeholder="Select Timezone">
+                                                    <option *ngFor="let tz of timezoneList" [value]="tz.zoneId">
+                                                        {{tz.name + ' ' + tz.zoneTime}}
+
+                                                    </option>
+
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label  class="control-label col-md-3">Date Format </label>
+                                            <div class="col-md-5">
+
+                                                <p-dropdown   [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.dateFormat" [options]="dateType" formControlName="dateFormat"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+
+                                               <!-- <p-dropdown placeholder="Select Date Format" [autoWidth]="false"  class="form-control" formControlName="dateFormat"
+                                                             [panelStyle]="{minWidth:'10em'}"  [options]="dateFormatLst">
+
+
+                                                </p-dropdown>-->
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label  class="control-label col-md-3">Time  Format </label>
+                                            <div class="col-md-5">
+
+                                                <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.timeFormat" [options]="timeType" formControlName="timeFormat"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+
+                                            </div>
+                                        </div>
+
+                                       <!-- <div class="form-group">
+                                            <label  class="control-label col-md-3">Date Format </label>
+                                            <div class="col-sm-7">
+
+                                                <p-dropdown  placeholder="Select Country" [autoWidth]="false"
+                                                             formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                             (onChange)="getStatesByCountryId($event.value)"
+                                                             [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+
+                                            </div>
+                                        </div>-->
+
+                                        <!--<div class="form-group">
+                                            <label  class="control-label col-md-4">Time Format </label>
+                                            <div class="col-sm-7">
+
+                                                <p-dropdown  placeholder="Select Country" [autoWidth]="false"
+                                                             formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                             (onChange)="getStatesByCountryId($event.value)"
+                                                             [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+
+                                            </div>
                                         </div>-->
 
                                     </form>
