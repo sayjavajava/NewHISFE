@@ -137,6 +137,7 @@ var ngx_loading_1 = require("ngx-loading");
 var chips_1 = require("primeng/chips");
 var PaymentType_component_1 = require("./components/dashboard/setting/PaymentType.component");
 var statuses_component_1 = require("./components/dashboard/setting/statuses.component");
+var editor_1 = require("primeng/editor");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -200,10 +201,9 @@ var AppModule = (function () {
                 autocomplete_1.AutoCompleteModule,
                 primeng_1.DataTableModule,
                 primeng_1.PaginatorModule,
+                primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule,
                 shared_1.SharedModule,
-                table_1.TableModule,
-                slider_1.SliderModule,
-                chips_1.ChipsModule
+                editor_1.EditorModule
             ],
             declarations: [
                 // App Components
@@ -276,7 +276,7 @@ var AppModule = (function () {
                 confirmationdialog_component_1.ConfirmationdialogComponent,
                 update_branch_component_1.UpdateBranchComponent,
                 addstaff_component_1.AddStaffComponent,
-                service_tax_component_1.ServiceTaxComponent,
+                service_tax_component_1.taxComponent,
                 email_template_component_1.EmailTemplateComponent,
                 email_configuration_component_1.EmailConfigurationComponent,
                 sms_template_component_1.SmsTemplateComponent,

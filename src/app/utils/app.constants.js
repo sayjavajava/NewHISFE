@@ -19,6 +19,7 @@ var AppConstants = (function () {
     AppConstants.CREATE_USER_ENDPOINT = '/user/add';
     AppConstants.USER_SEARCH = '/user/search/';
     AppConstants.FETCH_ALL_USERS_URI = '/user/';
+    AppConstants.FETCH_ALL_USERS = '/user/all';
     AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
@@ -46,12 +47,14 @@ var AppConstants = (function () {
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     AppConstants.ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     AppConstants.ICD_CODES = '/setting/icd/codes/';
+    AppConstants.ICD_CODES_DATA_TABLE = '/setting/icd/codes/dataTable';
     AppConstants.ICD_CODES_ASSOCIATED_BY_VERSION_ID = '/setting/icd/codes/associated/?versionId=';
     AppConstants.ICD_CODE_DELETE_URL = '/setting/icd/code/delete?codeId=';
     AppConstants.ICD_CODE_SEARCH = '/setting/icd/code/search/';
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     AppConstants.ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     AppConstants.ICD_VERSIONS = '/setting/icd/versions/';
+    AppConstants.ICD_VERSIONS_DATA_TABLE = '/setting/icd/versions/dataTable';
     AppConstants.ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     AppConstants.ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     AppConstants.ICD_VERSION_SEARCH = '/setting/icd/version/search/';
@@ -69,6 +72,7 @@ var AppConstants = (function () {
     AppConstants.ASSIGN_PERMISSIONS_TO_USERS = '/user/auth/assignUserPermissions';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
+    AppConstants.FETCH_ALL_TAX_DATA_TABLE_URL = '/setting/tax/dataTable';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     AppConstants.SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     AppConstants.SERVICE_TAX_UPDATE_URL = '/setting/tax/update';
@@ -211,6 +215,21 @@ var AppConstants = (function () {
     AppConstants.DRUG_SAVE_URL = '/setting/drug/save';
     AppConstants.DRUG_UPDATE_URL = '/setting/drug/update';
     AppConstants.DRUG_GET_URL = '/setting/drug/get?drugId=';
+    AppConstants.DRUG_SEARCH_BY_NAME_URL = '/setting/drug/search?drugName=';
+    AppConstants.DRUG_GET_ALL_URL = '/setting/drug/all';
+    AppConstants.DRUG_GET_NATURAL_ID_URL = '/setting/drug/natural'; // get natural id only
+    ///////////////////// Currency URLs ////////////////////////////////////////
+    AppConstants.CURRENCY_FETCH_ALL_PAGINATED_URI = '/setting/currency/'; ///all by paginated , zero means first page , 1 means second page
+    AppConstants.CURRENCY_DELETE_URI = '/setting/currency/delete?currencyId=';
+    AppConstants.CURRENCY_SEARCH_URL = '/setting/currency/search/';
+    AppConstants.CURRENCY_SAVE_URL = '/setting/currency/save';
+    AppConstants.CURRENCY_UPDATE_URL = '/setting/currency/update';
+    AppConstants.CURRENCY_GET_URL = '/setting/currency/get?currencyId=';
+    //////////////Payment Type ///////////////////////////////////
+    AppConstants.GET_ALL_PAYMENTTYPE = '/PaymentType/';
+    AppConstants.SAVE_PAYMENTTYPE = '/PaymentType/save';
+    AppConstants.DELETE_PAYMENTTYPE = '/PaymentType/delete/';
+    AppConstants.UPDATE_PAYMENTTYPE = '/PaymentType/update';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

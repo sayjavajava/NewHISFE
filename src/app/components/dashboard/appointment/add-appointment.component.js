@@ -22,15 +22,21 @@ var notification_service_1 = require("../../../services/notification.service");
 var router_1 = require("@angular/router");
 var Appointment_1 = require("../../../model/Appointment");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
+var branch_1 = require("../../../model/branch");
+var his_util_service_1 = require("../../../services/his-util.service");
+var ngx_bootstrap_1 = require("ngx-bootstrap");
+var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var AddAppointmentComponent = (function () {
-    function AddAppointmentComponent(modal, dialog, fb, notificationService, router, requestsService) {
+    function AddAppointmentComponent(modal, dialog, fb, hisCoreUtilService, notificationService, router, requestsService, renderer) {
         var _this = this;
         this.modal = modal;
         this.dialog = dialog;
         this.fb = fb;
+        this.hisCoreUtilService = hisCoreUtilService;
         this.notificationService = notificationService;
         this.router = router;
         this.requestsService = requestsService;
+        this.renderer = renderer;
         this.refresh = new ReplaySubject_1.ReplaySubject(1);
         this.events = [];
         this.eventsRequest = [];
@@ -44,6 +50,7 @@ var AddAppointmentComponent = (function () {
         this.newPatient = false;
         this.viewDate = new Date();
         this.data = [];
+        this.brFiltered = [];
         this.patients = [];
         this.selectedType = [];
         this.updateSelectedType = [];
@@ -53,6 +60,10 @@ var AddAppointmentComponent = (function () {
         this.servicesList = [];
         this.servicesListWithDoctors = [];
         this.disbaleDoctor = false;
+        this.serviceDuration = 0;
+        this.maxNo = false;
+        this.amt = 0;
+        this.stateOfPatientBox = false;
         this.status = [
             { id: 1, name: 'CONFIRMED' },
             { id: 2, name: 'CHECK_IN' },
@@ -65,8 +76,8 @@ var AddAppointmentComponent = (function () {
         ];
         this.Type = [
             { id: 1, name: 'Regular', checked: false },
-            { id: 2, name: 'Walk-In', checked: false },
-            { id: 4, name: 'NewPatient', checked: false },
+            { id: 2, name: 'Walk-In', checked: false }
+            /* {id: 4, name: 'NewPatient', checked: false},*/
         ];
         this.Patient = [
             { id: 1, name: 'noumi' },
@@ -107,20 +118,37 @@ var AddAppointmentComponent = (function () {
         this.getPatientFromServer();
         this.allServicesWithDoctors();
         this.getBranchesAndDoctorFromServer();
+        angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker = true;
+            this.date = new Date();
+        };
     }
-    AddAppointmentComponent.prototype.ngOnInit = function () {
+    AddAppointmentComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        var startTime = new Date('August 8 2018 08:20');
-        var endTime = new Date('August 8 2018 08:25');
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_URL)
             .subscribe(function (response) {
+            console.log('making border...');
             if (response['responseCode'] === 'APPT_SUC_01') {
                 for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
                     var apt = _a[_i];
                     _this.events.push({
                         id: apt.id,
                         /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
-                        title: apt.patient + '<br/>' + " " + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,
+                        title: '<div  class="outr-div popup-hiden">\n' +
+                            '        <div class="headng-bck">\n' +
+                            '\n' +
+                            '            <div class="hadng-txt">\n' +
+                            '                <h2>Chrissy Bright</h2>\n' +
+                            '                <p>Female - 09/10/1971</p>\n' +
+                            '            </div>\n' +
+                            '        </div> ' +
+                            '</div>' +
+                            '<br/>' + '' + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,
+                        /*title:    ` ${apt.id} , ${apt.scheduleDate} <br/>,${apt.branchName}` ,*/
                         start: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                         end: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
                         color: {
@@ -154,14 +182,121 @@ var AddAppointmentComponent = (function () {
                         roomId: apt.roomId,
                         doctorId: apt.doctorId,
                         serviceId: apt.serviceId,
-                        patientId: apt.patientId
+                        patientId: apt.patientId,
+                        appointmentId: apt.appointmentId
                     });
                     _this.refresh.next();
                 }
             }
+            //  this.renderer.setText(this.nameInputRef,'kamiii')
         }, function (error) {
             //  this.hisUtilService.tokenExpired(error.error.error);
         });
+    };
+    AddAppointmentComponent.prototype.ngOnInit = function () {
+        var startTime = new Date('August 8 2018 08:20');
+        var endTime = new Date('August 8 2018 08:25');
+        this.renderer.setProperty(this.nameInputRef.nativeElement, 'innerHTML', 'waqas');
+        /*        this.requestsService.getRequest(
+                    AppConstants.FETCH_APPOINTMENTS_URL)
+                    .subscribe(
+                        (response: Response) => {
+                            console.log('making border...');
+                            if (response['responseCode'] === 'APPT_SUC_01') {
+                                for (let apt of response['responseData']) {
+                                    this.events.push({
+                                        id: apt.id,
+                                        /!* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*!/
+                                      /!*  title: apt.patient + '<br/>' + " " + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,*!/
+                                       title:`<div class="outr-div" style="margin-left: 0px !important;">
+            <div class="headng-bck">
+                <div class="hadng-img">
+                    <img src="patient.jpg" />
+                </div>
+                    <div class="hadng-txt">
+                        <h2>Chrissy Bright</h2>
+                        <p>Female - 09/10/1971</p>
+                    </div>
+            </div>
+            <div class="">
+                <table width="212" border="0">
+          <tr class="gry-bckgrnd inr-txt">
+            <td style="width:30%">Provider</td>
+            <td style="width:50%">Waqas Kamran</td>
+          </tr>
+          <tr class="whte-bckgrnd inr-txt">
+            <td style="width:30%">Patient's Provider</td>
+            <td style="width:50%">Waqas Kamran</td>
+          </tr>
+          <tr class="gry-bckgrnd inr-txt">
+            <td style="width:30%">Location</td>
+            <td style="width:50%">Exam 1</td>
+          </tr>
+          <tr class="whte-bckgrnd inr-txt">
+            <td style="width:30%">Time</td>
+            <td style="width:50%">09:00 AM for 30 minutes</td>
+          </tr>
+          <tr class="gry-bckgrnd inr-txt">
+            <td style="width:30%">Date</td>
+            <td style="width:50%">Thursday July 19</td>
+          </tr>
+          <tr class="whte-bckgrnd inr-txt">
+            <td style="width:30%">Created</td>
+            <td style="width:50%">4:57:23 PM, 7/10/2018</td>
+          </tr>
+        </table>
+        
+            </div>
+        </div>`,
+        
+                                        start: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
+                                        end: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
+                                        color: {
+                                            primary: apt.color,
+                                            secondary: apt.color
+                                        },
+                                        colorHash: apt.color,
+                                        draggable: true,
+                                        notes: apt.notes,
+                                        // patientId: apt.patientId,
+                                        reason: apt.reason,
+                                        status: apt.status,
+                                        duration: apt.duration,
+                                        age: apt.age,
+                                        type: apt.appointmentType,
+                                        //cellPhone:apt.patient.profile.cellPhone,
+                                        //selectWorkingDays:this.selectedRecurringDays,
+                                        appointmentType: apt.appointmentType,
+                                        followUpDate: new Date(apt.followUpDate),
+                                        followUpReason: apt.followUpReason,
+                                        recurseEvery: apt.recurseEvery,
+                                        neverEnds: false,
+                                        followUpReminder: apt.followUpReminder,
+                                        arrangeFollowUpReminder: false,
+                                        firstAppointment: apt.firstAppointmentOn,
+                                        lastAppointment: apt.lastAppointmentOn,
+                                        recurringAppointment: false,
+                                        branch: apt.branchName,
+                                        examRoom: apt.examName,
+                                        branchId: apt.branchId,
+                                        roomId: apt.roomId,
+                                        doctorId: apt.doctorId,
+                                        serviceId: apt.serviceId,
+                                        patientId: apt.patientId,
+                                        appointmentId :apt.appointmentId
+        
+        
+                                    });
+                                    this.refresh.next();
+                                }
+        
+                            }
+        
+                        },
+                        (error: any) => {
+                            //  this.hisUtilService.tokenExpired(error.error.error);
+                        }
+                    );*/
     };
     Object.defineProperty(AddAppointmentComponent.prototype, "selectedOptions", {
         get: function () {
@@ -179,34 +314,35 @@ var AddAppointmentComponent = (function () {
             //console.log('i am branch call');
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
-                //console.log(this.servicesList);
             }
         }, function (error) {
             _this.error = error.error.error;
         });
     };
-    AddAppointmentComponent.prototype.closeAddModal = function (index) {
-        // this.eventsRequest.splice(index,1);
+    AddAppointmentComponent.prototype.closeAddModal = function () {
         this.eventsRequest.length = 0;
         this.refresh.next();
-        var htmlelement = document.getElementById("divClick");
-        htmlelement.click();
+        this.addModal.hide();
     };
-    AddAppointmentComponent.prototype.selectType = function (form) {
+    AddAppointmentComponent.prototype.selectType = function (form, checked) {
         this.selectedType.length = 0;
-        if (this.selectedOptions.indexOf('NewPatient') > -1) {
+        if (checked)
+            this.amt++;
+        else
+            this.amt--;
+        this.amt === 2 ? this.maxNo = true : this.maxNo = false;
+        (_a = this.selectedType).push.apply(_a, this.selectedOptions);
+        var _a;
+    };
+    AddAppointmentComponent.prototype.createNewPatient = function () {
+        if (this.stateOfPatientBox) {
             this.patientChecked = true;
             this.newPatient = true;
-            /*Object.keys((<FormGroup>form.form.get('branchDrp')).controls).forEach(element => {
-                console.log('ele testing...'+element);
-            });*/
         }
         else {
             this.patientChecked = false;
             this.newPatient = false;
         }
-        (_a = this.selectedType).push.apply(_a, this.selectedOptions);
-        var _a;
     };
     AddAppointmentComponent.prototype.moveMouse = function (action, event) {
         this.modalData = { event: event, action: action };
@@ -244,6 +380,15 @@ var AddAppointmentComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchDoctor = response['responseData'];
+                var brObj_1;
+                var _brMap_1 = new Map();
+                _this.branchDoctor.forEach(function (element) {
+                    _brMap_1.set(element.id, element.branchName);
+                });
+                _brMap_1.forEach(function (key, value) {
+                    brObj_1 = new branch_1.Branch(value, key);
+                    _this.brFiltered.push(brObj_1);
+                });
             }
         }, function (error) {
         });
@@ -311,7 +456,12 @@ var AddAppointmentComponent = (function () {
     AddAppointmentComponent.prototype.addEvent = function (date) {
         this.disbaleDoctor = true;
         this.eventsRequest.length = 0;
-        $('#create-responsive').modal('show');
+        this.serviceDuration = 0;
+        this.addModal.show();
+        //  $('#create-responsive').modal('show');
+        /* $('#create-responsive').on('show', function() {
+             alert('hello i am jquery');
+         })*/
         this.eventsRequest.push({
             title: 'Name',
             start: date_fns_1.startOfDay(new Date(date)),
@@ -320,9 +470,9 @@ var AddAppointmentComponent = (function () {
             notes: '',
             email: '',
             patient: 0,
-            reason: 'malairia',
+            reason: '',
             status: 'CONFIRMED',
-            duration: 0,
+            duration: this.serviceDuration,
             age: 'age',
             type: '',
             gender: 'Gender',
@@ -349,11 +499,9 @@ var AddAppointmentComponent = (function () {
         this.refresh.next();
     };
     AddAppointmentComponent.prototype.getSearchedBranch = function (value) {
-        console.log('value' + value);
         this.searchedBranch = value;
     };
     AddAppointmentComponent.prototype.getSearchedDoctor = function (value) {
-        console.log('value' + value);
         this.searchedDoctor = value;
     };
     AddAppointmentComponent.prototype.searchAppointment = function () {
@@ -438,12 +586,14 @@ var AddAppointmentComponent = (function () {
         var filteredData2 = this.branchDoctor.filter(function (x) { return x.id == roomId; });
         var filterDoctor = this.branchDoctor.filter(function (x) { return x.id == roomId; });
         this.examRooms = filteredData2[0].examRooms;
-        filterDoctor.forEach(function (x) { x.doctorId; console.log('doctors', x.doctorId + x.lastName); });
+        filterDoctor.forEach(function (x) {
+            x.doctorId;
+            console.log('doctors', x.doctorId + x.lastName);
+        });
         this.filteredDoctor = filterDoctor.slice();
     };
     AddAppointmentComponent.prototype.selectServices = function (item) {
         var list = this.servicesListWithDoctors.filter(function (x) { return x.doctorId == item; });
-        console.log('services..' + list.length);
         this.filteredServices = list.slice();
     };
     AddAppointmentComponent.prototype.saveAppointment = function (event, form) {
@@ -451,6 +601,10 @@ var AddAppointmentComponent = (function () {
         var self = this;
         this.Type.map(function (x) { return x.checked = false; });
         if (form.valid) {
+            if (this.selectedType.length == 0) {
+                this.eventsRequest.length = 0;
+                self.notificationService.error('Select At leat One Type', 'Invalid Form');
+            }
             if (this.newPatient == false && event.patientId == null) {
                 this.eventsRequest.length = 0;
                 self.notificationService.error('Patient is required', 'Invalid Form');
@@ -461,20 +615,19 @@ var AddAppointmentComponent = (function () {
                 self.notificationService.error('Patient Name and Cell Phone are mandatory', 'Invalid Form');
             }
             if (this.eventsRequest.length != 0) {
-                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
+                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, this.serviceDuration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox);
                 this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'APPT_SUC_02') {
                         self.notificationService.success('created successfully', 'Appointment');
                         self.router.navigate(['/dashboard/appointment/manage']);
                         _this.eventsRequest.length = 0;
+                        _this.hisCoreUtilService.hidePopupWithCloseButtonId('closeAppt');
                         /*  $('#exampleModalCenter2').modal('close');*/
                     }
                     else if (response['responseCode'] === 'APPT_ERR_06') {
-                        $('#create-responsive').on('hidden.bs.modal', function () {
-                            this.modal('show');
-                        });
                         _this.eventsRequest.length = 0;
+                        _this.selectedType.length = 0;
                         self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
                     }
                     else {
@@ -502,30 +655,35 @@ var AddAppointmentComponent = (function () {
                 self.router.navigate(['/dashboard/appointment/manage']);
             }
             else {
-                self.notificationService.error('Appointment is not created', 'Appointment');
+                self.notificationService.warn("Warning, " + response['responseMessage']);
             }
         }, function (error) {
         });
+    };
+    AddAppointmentComponent.prototype.getSelectedService = function (item) {
+        var list = this.servicesListWithDoctors.filter(function (x) { return x.mServiceId == item; });
+        if (list[0].duration != null)
+            this.serviceDuration = list[0].duration;
     };
     __decorate([
         core_2.ViewChild('modalContent'),
         __metadata("design:type", core_2.TemplateRef)
     ], AddAppointmentComponent.prototype, "modalContent", void 0);
     __decorate([
-        core_2.ViewChild('divClick'),
-        __metadata("design:type", core_1.ElementRef)
-    ], AddAppointmentComponent.prototype, "divClick", void 0);
-    __decorate([
-        core_2.ViewChild('create-responsive'),
-        __metadata("design:type", core_2.TemplateRef)
+        core_2.ViewChild('addModal'),
+        __metadata("design:type", ngx_bootstrap_1.ModalDirective)
     ], AddAppointmentComponent.prototype, "addModal", void 0);
+    __decorate([
+        core_2.ViewChild('tit'),
+        __metadata("design:type", core_1.ElementRef)
+    ], AddAppointmentComponent.prototype, "nameInputRef", void 0);
     AddAppointmentComponent = __decorate([
         core_1.Component({
             selector: 'add-appointment-component',
             templateUrl: '../../../templates/dashboard/appointment/add-appointment-template.html',
         }),
-        __metadata("design:paramtypes", [ng_bootstrap_1.NgbModal, material_1.MatDialog, forms_1.FormBuilder,
-            notification_service_1.NotificationService, router_1.Router, requests_service_1.RequestsService])
+        __metadata("design:paramtypes", [ng_bootstrap_1.NgbModal, material_1.MatDialog, forms_1.FormBuilder, his_util_service_1.HISUtilService,
+            notification_service_1.NotificationService, router_1.Router, requests_service_1.RequestsService, core_1.Renderer2])
     ], AddAppointmentComponent);
     return AddAppointmentComponent;
 }());

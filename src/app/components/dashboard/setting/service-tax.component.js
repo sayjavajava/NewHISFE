@@ -16,48 +16,49 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var service_tax_1 = require("../../../model/service-tax");
 var router_1 = require("@angular/router");
-var ServiceTaxComponent = (function () {
-    function ServiceTaxComponent(notificationService, requestsService, HISUtilService, router) {
+var taxComponent = (function () {
+    function taxComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
-        this.serviceTax = new service_tax_1.ServiceTax();
-        this.pages = [];
+        this.serviceTax = new service_tax_1.TaxService();
         this.dataTaxes = [];
         this.isUpdateServiceTax = false;
         this.isSearchedTax = false;
         this.searchTax = '';
+        this.cols = [
+            { field: 'name', header: 'name' },
+            { field: 'rate', header: 'rate' },
+            { field: 'fromDate', header: 'fromDate' },
+            { field: 'toDate', header: 'toDate' },
+            { field: 'description', header: 'description' },
+            { field: 'status', header: 'status' },
+            { field: 'Action', header: 'Action' },
+        ];
     }
-    ServiceTaxComponent.prototype.ngOnInit = function () {
+    taxComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Service Tax';
         if (localStorage.getItem(btoa('access_token'))) {
-            this.getTaxesFromServer(0);
+            this.getAllTaxesForDataTable();
         }
     };
-    ServiceTaxComponent.prototype.getTaxesFromServer = function (page) {
+    taxComponent.prototype.getAllTaxesForDataTable = function () {
         var _this = this;
-        if (page > 0) {
-            page = page;
-        }
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_TAX_URL + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_TAX_DATA_TABLE_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'SER_TAX_SUC_01') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.dataTaxes = response['responseData']['data'];
+                _this.dataTaxes = response['responseData'];
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
-    ServiceTaxComponent.prototype.onTaxPopupLoad = function () {
+    taxComponent.prototype.onTaxPopupLoad = function () {
         this.isUpdateServiceTax = false;
-        this.serviceTax = new service_tax_1.ServiceTax();
+        this.serviceTax = new service_tax_1.TaxService();
     };
-    ServiceTaxComponent.prototype.saveServiceTax = function (form) {
+    taxComponent.prototype.saveServiceTax = function (form) {
         var _this = this;
         if (form.valid) {
             if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
@@ -73,7 +74,7 @@ var ServiceTaxComponent = (function () {
                 this.requestsService.postRequest(app_constants_1.AppConstants.SERVICE_TAX_SAVE_URL, this.serviceTax).subscribe(function (response) {
                     if (response['responseCode'] === 'SER_TAX_SUC_03') {
                         _this.notificationService.success(response['responseMessage'], 'Tax');
-                        _this.getPageWiseTax(_this.currPage);
+                        _this.getAllTaxesForDataTable();
                         document.getElementById('close-btn').click();
                     }
                     else {
@@ -115,7 +116,7 @@ var ServiceTaxComponent = (function () {
             this.notificationService.error('Required Fields are missing', 'Tax Service');
         }
     };
-    ServiceTaxComponent.prototype.deleteServiceTax = function (taxId) {
+    taxComponent.prototype.deleteServiceTax = function (taxId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
             if (!confirm('Are you soure?'))
@@ -124,10 +125,10 @@ var ServiceTaxComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'SER_TAX_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Tax');
-                    _this.getPageWiseTax(_this.currPage);
+                    _this.getAllTaxesForDataTable();
                 }
                 else {
-                    _this.getPageWiseTax(_this.currPage);
+                    _this.getAllTaxesForDataTable();
                     _this.notificationService.error(response['responseMessage'], 'Tax');
                 }
             }, function (error) {
@@ -138,11 +139,11 @@ var ServiceTaxComponent = (function () {
             this.router.navigate(['/login']);
         }
     };
-    ServiceTaxComponent.prototype.editServiceTax = function (serviceTax) {
+    taxComponent.prototype.editServiceTax = function (serviceTax) {
         this.isUpdateServiceTax = true;
         this.serviceTax = serviceTax;
     };
-    ServiceTaxComponent.prototype.updateServiceTax = function (updateServiceTaxForm) {
+    taxComponent.prototype.updateServiceTax = function (updateServiceTaxForm) {
         var _this = this;
         if (updateServiceTaxForm.valid) {
             if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
@@ -157,10 +158,10 @@ var ServiceTaxComponent = (function () {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(app_constants_1.AppConstants.SERVICE_TAX_UPDATE_URL, this.serviceTax).subscribe(function (response) {
                     if (response['responseCode'] === 'SER_TAX_SUC_06') {
-                        _this.serviceTax = new service_tax_1.ServiceTax();
+                        _this.serviceTax = new service_tax_1.TaxService();
                         _this.notificationService.success(response['responseMessage'], 'Tax');
                         document.getElementById('close-btn').click();
-                        _this.getPageWiseTax(_this.currPage);
+                        _this.getAllTaxesForDataTable();
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Tax');
@@ -196,58 +197,22 @@ var ServiceTaxComponent = (function () {
             this.notificationService.error('Required Fields are missing', 'Tax');
         }
     };
-    ServiceTaxComponent.prototype.getPageWiseTax = function (page) {
-        this.dataTaxes = [];
-        if (this.isSearchedTax) {
-            this.searchByTaxName();
-        }
-        else {
-            this.getTaxesFromServer(page);
-        }
-    };
-    ServiceTaxComponent.prototype.refreshTaxesTable = function () {
+    taxComponent.prototype.refreshTaxesTable = function () {
         this.isSearchedTax = false;
         this.searchTax = '';
-        this.getTaxesFromServer(0);
+        this.getAllTaxesForDataTable();
     };
-    ServiceTaxComponent.prototype.searchByTaxName = function () {
-        var _this = this;
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.isSearchedTax = true;
-            this.requestsService.getRequest(app_constants_1.AppConstants.SERVICE_TAX_SEARCH_URL + '0?searchTax=' + this.searchTax)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'SER_TAX_SUC_07') {
-                    _this.nextPage = response['responseData']['nextPage'];
-                    _this.prePage = response['responseData']['prePage'];
-                    _this.currPage = response['responseData']['currPage'];
-                    _this.pages = response['responseData']['pages'];
-                    _this.dataTaxes = response['responseData']['data'];
-                    _this.notificationService.success('Taxes found successfully');
-                }
-                else {
-                    _this.nextPage = 0;
-                    _this.prePage = 0;
-                    _this.currPage = 0;
-                    _this.pages = [];
-                    _this.dataTaxes = [];
-                    _this.notificationService.warn('Taxes not found');
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
-        }
-    };
-    ServiceTaxComponent = __decorate([
+    taxComponent = __decorate([
         core_1.Component({
             selector: 'service-tax-component',
-            templateUrl: '../../../templates/dashboard/setting/service-tax.template.html',
+            templateUrl: '../../../templates/dashboard/setting/tax.template.html',
         }),
         __metadata("design:paramtypes", [notification_service_1.NotificationService,
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router])
-    ], ServiceTaxComponent);
-    return ServiceTaxComponent;
+    ], taxComponent);
+    return taxComponent;
 }());
-exports.ServiceTaxComponent = ServiceTaxComponent;
+exports.taxComponent = taxComponent;
 //# sourceMappingURL=service-tax.component.js.map

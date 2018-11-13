@@ -25,6 +25,7 @@ export class DepartmentComponent implements OnInit {
     branchesList: any = [];
     error:any;
     selectedDepartment: Department = new Department();
+    cols:any;
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -39,7 +40,16 @@ export class DepartmentComponent implements OnInit {
             this.getPageWiseDepartmentFromServer(0);
         } else {
             this.router.navigate(['/login']);
-        }
+        };
+        this.cols = [
+            { field: 'name', header: 'Name' },
+            { field: 'description', header: 'Description' },
+            { field: 'status', header: 'Status' },
+            { field: 'Action', header: 'Action' },
+
+        ];
+
+
     }
 
     getPageWiseDepartment(page: number) {

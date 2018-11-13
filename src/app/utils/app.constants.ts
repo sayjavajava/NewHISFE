@@ -77,6 +77,7 @@ export class AppConstants {
 
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_TAX_URL = '/setting/tax/';
+    public static FETCH_ALL_TAX_DATA_TABLE_URL = '/setting/tax/dataTable';
     public static SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     public static SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     public static SERVICE_TAX_UPDATE_URL = '/setting/tax/update';
@@ -270,4 +271,14 @@ export class AppConstants {
     public static SAVE_PAYMENTTYPE = '/PaymentType/save';
     public static DELETE_PAYMENTTYPE = '/PaymentType/delete/';
     public static UPDATE_PAYMENTTYPE= '/PaymentType/update';
+
+
+    ////////////////Country/////////////////////////////
+    public static GET_ALL_COUNTRY='/CountryAPI/';
+    public static GET_STATE_BYCOUNTRYID='/StateAPI/get/';
+    public static GET_STATE_BYCITYID='/CityAPI/get/';
+    public static GET_ALL_DATEFORMAT='/common/';
+    public static ZONE_FETCH_URL = '/common/timezoneApi';
+    public  static GET_CITY_URL='/CityAPI/';
+    public static GET_STATE_URL='/StateAPI/';
 }

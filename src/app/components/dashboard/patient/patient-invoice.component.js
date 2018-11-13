@@ -14,12 +14,14 @@ var requests_service_1 = require("../../../services/requests.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var Invoice_1 = require("../../../model/Invoice");
 var router_1 = require("@angular/router");
+var GenerateInvoiceRequestModel_1 = require("../../../model/GenerateInvoiceRequestModel");
 var PatientInvoiceComponent = (function () {
     function PatientInvoiceComponent(router, route, requestsService) {
         var _this = this;
         this.router = router;
         this.route = route;
         this.requestsService = requestsService;
+        this.completed = false;
         this.unSelectedServicesList = []; // remove selected service from all services List
         this.selectedServiceIndex = -1;
         this.quantity = 1;
@@ -62,6 +64,8 @@ var PatientInvoiceComponent = (function () {
             this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_BY_ID + this.appointmentId)
                 .subscribe(function (res) {
                 _this.appointment = res.responseData;
+                _this.invoicePrefix = res.responseData.invoicePrefix;
+                _this.completed = res.responseData.completed;
                 _this.patientName = res.responseData.patient;
                 _this.scheduleDateAndTime = _this.appointment.scheduleDateAndTime;
                 _this.appointmentStartedOn = _this.appointment.appointmentStartedOn;
@@ -249,7 +253,30 @@ var PatientInvoiceComponent = (function () {
     PatientInvoiceComponent.prototype.saveInvoice = function () {
         var _this = this;
         console.log("save invoice data : " + this.invoiceList);
-        this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_INVOICE, this.invoiceList)
+        this.invoiceCompletedRequest = new GenerateInvoiceRequestModel_1.GenerateInvoiceRequestModel();
+        this.invoiceCompletedRequest.invoicePrefix = "0001";
+        this.invoiceCompletedRequest.completed = false;
+        this.invoiceCompletedRequest.invoiceRequestWrapper = this.invoiceList;
+        this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_INVOICE, this.invoiceCompletedRequest)
+            .subscribe(function (response) {
+            console.log(" Added : " + response);
+            if (response['responseCode'] === 'SUCCESS') {
+                _this.router.navigate(['/dashboard/doctor']);
+                /*  this.notificationService.success('Branch is Created Successfully');
+                 this.router.navigate(['/dashboard/setting/branch']) */
+            }
+        }, function (error) {
+            //    this.error('ERROR', 'Branch is not Created');
+        });
+    };
+    PatientInvoiceComponent.prototype.completeInvoice = function () {
+        var _this = this;
+        console.log("save invoice data : " + this.invoiceList);
+        this.invoiceCompletedRequest = new GenerateInvoiceRequestModel_1.GenerateInvoiceRequestModel();
+        this.invoiceCompletedRequest.invoicePrefix = "0001";
+        this.invoiceCompletedRequest.completed = true;
+        this.invoiceCompletedRequest.invoiceRequestWrapper = this.invoiceList;
+        this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_INVOICE, this.invoiceCompletedRequest)
             .subscribe(function (response) {
             console.log(" Added : " + response);
             if (response['responseCode'] === 'SUCCESS') {

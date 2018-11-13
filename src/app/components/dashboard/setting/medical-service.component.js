@@ -33,53 +33,32 @@ var MedicalServiceComponent = (function () {
         this.getDepartmentsFromServer();
         document.title = 'HIS | Medical Services';
         if (localStorage.getItem(btoa('access_token'))) {
-            this.getMedicalServicesFromServer(0);
+            this.getAllMedicalServicesFromServer();
         }
-    };
-    MedicalServiceComponent.prototype.refreshMedicalServices = function () {
-        this.searchMSModel = new MedicalServiceSearchModel_1.MedicalServiceSearchModel();
-        this.getMedicalServicesFromServer(0);
-    };
-    MedicalServiceComponent.prototype.getPageWiseMedicalServicesFromServer = function (page) {
-        this.dataMD = [];
-        if (this.searchMSModel.searched) {
-            this.searchByMedicalServiceParams(page);
-        }
-        else {
-            this.getMedicalServicesFromServer(page);
-        }
-    };
-    MedicalServiceComponent.prototype.getMedicalServicesFromServer = function (page) {
-        var _this = this;
-        if (page > 0) {
-            page = page;
-        }
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL + page)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'MED_SER_SUC_01') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.dataMD = response['responseData']['data'];
-            }
-        }, function (error) {
-            _this.HISUtilService.tokenExpired(error.error.error);
-        });
+        ;
+        this.cols = [
+            { field: 'name', header: 'name' },
+            { field: 'code', header: 'code' },
+            { field: 'branch', header: 'branch' },
+            { field: 'department', header: 'department' },
+            { field: 'fee', header: 'fee' },
+            { field: 'tax', header: 'tax' },
+            { field: 'cost', header: 'cost' },
+            { field: 'status', header: 'status' },
+            { field: 'Action', header: 'Action' }
+        ];
     };
     MedicalServiceComponent.prototype.deleteMedicalServices = function (ms) {
         var _this = this;
         if (ms.id > 0) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.DELETE_MEDICAL_SERVICES_URL + 'msId=' + ms.id)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Medical Service');
-                    _this.getMedicalServicesFromServer(0);
                 }
                 else {
-                    _this.getMedicalServicesFromServer(0);
                     _this.notificationService.error(response['responseMessage'], 'Medical Service');
                 }
             }, function (error) {
@@ -129,56 +108,6 @@ var MedicalServiceComponent = (function () {
             });
         }
     };
-    MedicalServiceComponent.prototype.searchByMedicalServiceParams = function (page) {
-        var _this = this;
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.searchMSModel.searchServiceName = this.searchMSModel.searchServiceName.length > 0 ? this.searchMSModel.searchServiceName : "";
-            this.searchMSModel.searchCode = this.searchMSModel.searchCode.length > 0 ? this.searchMSModel.searchCode : "";
-            this.searchMSModel.searchBranchId = this.searchMSModel.searchBranchId > 0 ? this.searchMSModel.searchBranchId : 0;
-            this.searchMSModel.departmentId = this.searchMSModel.departmentId > 0 ? this.searchMSModel.departmentId : 0;
-            this.searchMSModel.searchServiceFee = this.searchMSModel.searchServiceFee > 0 ? this.searchMSModel.searchServiceFee : 0;
-            this.searchMSModel.searched = true;
-            /**
-             * if all not selected then we are going to refresh the page, it means default condition
-             *
-             * **/
-            if (this.searchMSModel.searchServiceId === 0 &&
-                this.searchMSModel.searchServiceName.length === 0 &&
-                this.searchMSModel.searchCode.length === 0 &&
-                this.searchMSModel.searchBranchId === 0 &&
-                this.searchMSModel.departmentId === 0 &&
-                this.searchMSModel.searchServiceFee === 0) {
-                this.refreshMedicalServices();
-                return;
-            }
-            this.requestsService.getRequest(app_constants_1.AppConstants.MEDICAL_SERVICE_SEARCH + page
-                + '?serviceName=' + this.searchMSModel.searchServiceName
-                + '&searchCode=' + this.searchMSModel.searchCode
-                + '&branchId=' + this.searchMSModel.searchBranchId
-                + '&departmentId=' + this.searchMSModel.departmentId
-                + '&serviceFee=' + this.searchMSModel.searchServiceFee)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'MED_SER_SUC_05') {
-                    _this.nextPage = response['responseData']['nextPage'];
-                    _this.prePage = response['responseData']['prePage'];
-                    _this.currPage = response['responseData']['currPage'];
-                    _this.pages = response['responseData']['pages'];
-                    _this.dataMD = response['responseData']['data'];
-                    _this.notificationService.success(response['responseMessage'], 'Medical Services');
-                }
-                else {
-                    _this.nextPage = 0;
-                    _this.prePage = 0;
-                    _this.currPage = 0;
-                    _this.pages = [];
-                    _this.dataMD = [];
-                    _this.notificationService.error(response['responseMessage'], 'Medical Services');
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
-        }
-    };
     MedicalServiceComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_ALL_URL)
@@ -199,6 +128,18 @@ var MedicalServiceComponent = (function () {
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
+        });
+    };
+    MedicalServiceComponent.prototype.getAllMedicalServicesFromServer = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] == 'MED_SER_SUC_01') {
+                _this.dataMD = response['responseData'];
+            }
+            else {
+                _this.notificationService.error(response['responseMessage']);
+            }
         });
     };
     MedicalServiceComponent = __decorate([

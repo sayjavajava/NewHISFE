@@ -151,6 +151,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         });
     }
 
+
     createUserForm() {
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -181,6 +182,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         if (this.id) {
             this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'NURSE').subscribe(
                 user => {
+
                     //  this.id = user.id;
                     this.userForm.patchValue({
                         firstName: user.firstName,
@@ -200,8 +202,14 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                     if (user.expiryDate != null) {
                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                     }
+                   user.nurseDepartmentList.forEach((x:any)=>{
+                        console.log('xlog:'+ x.id);
+                            this.selectedDepartment.push(x.id);
+                        }),
+                    //for selected
                     this.staffBranches = user.staffBranches;
                     this.selectedDoctors = user.dutyWithDoctors;
+
                     for(let key in this.branchesList){
                         for(let k in this.staffBranches){
                             if(this.staffBranches[k].id == this.branchesList[key].id){
@@ -229,7 +237,9 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                                 break;
                             }
                         }
-                    }
+                    };
+
+
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -325,8 +335,9 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         });
     }
 
-    selectDepartment(event: any, item: any) {
+    selectDepartment(eventObj: any, item?: any) {
         this.departmentFlag = false;
+        let event = eventObj.value;
         if (event.target.checked) {
             this.selectedDepartment.push(item.id);
         }
@@ -337,6 +348,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         }
         console.log(this.selectedDepartment);
     }
+
 
     selectVisitBranches(event: any, item: any) {
         console.log(item);
@@ -350,18 +362,9 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         }
     }
 
-    dutyWithDoctor(event: any, item: any) {
-        if (event.target.checked) {
-            this.dutyWithDoctors.push(item.id);
-        }
-        else {
-            let updateItem = this.dutyWithDoctors.find(this.findIndexToUpdate, item.id);
-
-            let index = this.dutyWithDoctors.indexOf(updateItem);
-
-            this.dutyWithDoctors.splice(index, 1);
-        }
-        console.log(this.dutyWithDoctors);
+    dutyWithDoctor(eventObj: any) {
+        let eventVal = eventObj.value;
+        this.selectedDoctors.push(eventVal);
     }
 
 

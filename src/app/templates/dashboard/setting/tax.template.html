@@ -17,104 +17,70 @@
                         </div>
                     </h4>
                 </div>
-                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
-                    <div class="col-md-3">
-                        <div class="form-group font-siz11">
-                            <label>Name</label>
-                            <input type="text"
-                                   [(ngModel)]="searchTax"
-                                   (keydown.enter)="searchByTaxName()"
-                                   class="form-control"
-                                   placeholder="Enter Name">
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div class="form-group mrgn-top24">
-                            <button type="button"
-                                    (click)="searchByTaxName()"
-                                    class="btn blue">
-                                Search
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 <div class="table-scrollable">
-                    <table class="table table-striped table-hover table-checkable dataTable no-footer"
-                           id="datatable_ajax">
-                        <thead>
-                        <tr role="row" class="off-wite-bg">
-                            <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Name</th>
-                            <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> Rate (%)</th>
-                            <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> From</th>
-                            <th width="15%" class="sorting_disabled" rowspan="1" colspan="1"> To</th>
-                            <th width="20%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
-                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
-                            <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
-                        </tr>
-                        <tr role="row" *ngFor="let item of dataTaxes; let i = index;">
-                            <td rowspan="1" colspan="1" class="font-green-dark col-txt-left">
-                                <strong>{{item.name}}</strong></td>
-                            <td rowspan="1" colspan="1">{{item.rate}}</td>
-                            <td rowspan="1" colspan="1">{{item.fromDate}}</td>
-                            <td rowspan="1" colspan="1">{{item.toDate}}</td>
-                            <td rowspan="1" colspan="1">{{item.description}}</td>
-                            <td class="sorting_disabled" rowspan="1" colspan="1">
-                                {{item.active === true ? 'Active' : 'In-Active'}}
-                            </td>
-                            <td rowspan="1" colspan="1">
-                                <a href="#taxPopup" data-toggle="modal">
-                                    <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="editServiceTax(item)">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-                                </a>
-                                <span [hidden]="item.hasChild">
-                                    <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="deleteServiceTax(item.id)">
-                                        <i class="fa fa-remove">
-                                        </i>
-                                    </button>
-                                </span>
-                            </td>
-                        </tr>
-                        </thead>
-                    </table>
+                    <p-table #dt [rows]="5" [value]="dataTaxes" [paginator]="true" [columns]="cols">
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Global Filter"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                       style="width:auto">
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of cols" [ngSwitch]="col.field">
+                                    <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'rate'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                </th>
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td>{{item.name}}</td>
+                                <td>
+                                    {{item.rate | number :'.2-2'}}
+                                </td>
+                                <td>
+                                    {{item.fromDate}}
+                                </td>
+                                <td>
+                                    {{item.toDate}}
+                                </td>
+                                <td>{{item.description}}</td>
+                                <td class="sorting_disabled" rowspan="1" colspan="1">
+                                    {{item.active === true ? 'Active' : 'In-Active'}}
+                                </td>
+                                <td rowspan="1" colspan="1">
+                                    <a href="#taxPopup" data-toggle="modal">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="editServiceTax(item)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </a>
+                                    <span [hidden]="item.hasChild">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="deleteServiceTax(item.id)">
+                                            <i class="fa fa-remove">
+                                            </i>
+                                        </button>
+                                    </span>
+                                </td>
+
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
-                    <ul class="pagination" style="visibility: visible;">
-                        <li class="prev">
-                            <a title="First" *ngIf="pages.length >= 2 && currPage > 0"
-                               (click)="getPageWiseTax(0)">
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>
-                        </li>
-                        <li class="prev">
-                            <a title="Prev" *ngIf="prePage"
-                               (click)="getPageWiseTax(currPage - 1)">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li [ngClass]="{active: page === currPage}"
-                            *ngFor="let page of pages">
-                            <a (click)="getPageWiseTax(page)">{{page+1}}</a>
-                        </li>
-                        <li class="next" *ngIf="nextPage">
-                            <a (click)="getPageWiseTax(currPage + 1)" title="Next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
-                            <a (click)="getPageWiseTax(pages.length - 1)" title="Last">
-                                <i class="fa fa-angle-double-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <p></p>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -223,7 +189,7 @@
                                         <span></span>
                                     </label>-->
                                     <label class="mt-checkbox-outline">
-                                                      <mat-checkbox #status="ngModel"
+                                        <mat-checkbox #status="ngModel"
                                                       name="active"
                                                       [(ngModel)]="serviceTax.active"
                                                       color="primary"></mat-checkbox>

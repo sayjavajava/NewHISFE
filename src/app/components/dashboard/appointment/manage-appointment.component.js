@@ -59,21 +59,22 @@ var ManageAppointmentComponent = (function () {
     ManageAppointmentComponent.prototype.searchAppointment = function (page) {
         var _this = this;
         this.searchFlag = true;
-        this.requestsService.getRequest(app_constants_1.AppConstants.SEARCH_APPOINTMENT_URL + page + '?name=' + this.searchData)
+        this.requestsService.getRequest(app_constants_1.AppConstants.SEARCH_APPOINTMENTS_BY_PATIENT + page + '?patientName=' + this.searchData)
             .subscribe(function (response) {
             if (response['responseCode'] === 'APPT_SUC_01') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.data = response['responseData']['data'];
-            }
-            else {
-                _this.nextPage = 0;
-                _this.prePage = 0;
-                _this.currPage = 0;
-                _this.pages = [];
-                _this.data = null;
+                /*     this.nextPage = response['responseData']['nextPage'];
+                     this.prePage  = response['responseData']['prePage'];
+                     this.currPage = response['responseData']['currPage'];
+                     this.pages    = response['responseData']['pages'];
+                     this.data     = response['responseData']['data'];
+                 } else {
+                     this.nextPage = 0;
+                     this.prePage = 0;
+                     this.currPage = 0;
+                     this.pages = [];
+                     this.data = null;
+                 }*/
+                _this.data = response['responseData'];
             }
         }, function (error) {
         });

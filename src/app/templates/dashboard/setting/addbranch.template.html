@@ -179,7 +179,7 @@
 
                                                 <div class="col-md-8">
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
-                                                    <input class="col-md-4 time-form-control" type="time" formControlName="officeHoursStart" value="{{officeHoursStart}}">
+                                                    <input class="col-md-4 time-form-control pdng-lr-5 font-siz" type="time" formControlName="officeHoursStart" value="{{officeHoursStart}}">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
                                                     <!--<span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>-->
@@ -193,7 +193,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
-                                                    <input class="col-md-4 time-form-control" type="time"
+                                                    <input class="col-md-4 time-form-control pdng-lr-5 font-siz" type="time"
                                                            formControlName="officeHoursEnd"
                                                            value="{{officeHoursEnd}}">
                                                     <span class="text-danger"
@@ -233,16 +233,17 @@
                                                                formControlName="roomName">
                                                     </div>
 
-                                                    <div class="col-md-5 pdng-lr-5 mrgn-top4">
-                                                        <label class="mt-checkbox-outline">
+                                                    <div class="col-md-4 pdng-lr-5">
+                                                        <label class="mt-checkbox-outline pull-right fnt-sze10">
 
                                                             <mat-checkbox formControlName="allowOnlineScheduling" color="primary" > Online Scheduling</mat-checkbox>
                                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
 
                                                             <span></span>
+                                                            <i (click)="deleteField(i)" title="Remove"
+                                                               class="fa fa-close font-red"></i>
                                                         </label>
-                                                        <i (click)="deleteField(i)" title="Remove"
-                                                           class="fa fa-close font-red"></i>
+
                                                     </div>
                                                    <!--{{ branchForm.controls.examRooms.controls[i].controls.allowOnlineScheduling.value }}-->
                                                     <span  style="text-align: center" class="text-danger"

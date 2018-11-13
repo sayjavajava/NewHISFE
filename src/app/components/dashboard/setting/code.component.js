@@ -30,36 +30,28 @@ var CodeComponent = (function () {
         this.icdVersions = [];
         this.checkedVersions = [];
         this.selectAll = false;
-        //selectedVersion:ICDVersionModel[];
-        this.selectedVersion = [
-            { 'label': 'waqas', 'value': 'waqas' },
-            { 'label': 'kamran', 'value': 'kamran' }
+        this.clientCheckedVersions = [];
+        this.cols = [
+            { field: 'code', header: 'code' },
+            { field: 'version', header: 'version' },
+            { field: 'description', header: 'description' },
+            { field: 'status', header: 'status' },
+            { field: 'Action', header: 'Action' },
         ];
-        this.selectedScope = [];
     }
     CodeComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code';
         if (localStorage.getItem(btoa('access_token'))) {
-            this.getICDCodesFromServer(0);
-        }
-        this.getCheckedVersionsByCodeId(null);
-    };
-    CodeComponent.prototype.getPageWiseICDs = function (page) {
-        this.data = [];
-        if (this.searched) {
-            this.searchByCode(page);
-        }
-        else {
-            this.getICDCodesFromServer(page);
+            this.getAllCodesFromServer();
         }
     };
     CodeComponent.prototype.refreshCodesTable = function () {
         this.searched = false;
         this.searchCode = '';
-        this.getICDCodesFromServer(0);
+        this.getAllCodesFromServer();
     };
     CodeComponent.prototype.refreshICDsTable = function (page) {
-        this.getICDCodesFromServer(page);
+        this.getAllCodesFromServer();
     };
     CodeComponent.prototype.deleteICD = function (codeId) {
         var _this = this;
@@ -70,10 +62,10 @@ var CodeComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SUC_03') {
                     _this.notificationService.success('ICD Code', response['responseMessage']);
-                    _this.getICDCodesFromServer(0);
+                    _this.getAllCodesFromServer();
                 }
                 else {
-                    _this.getICDCodesFromServer(0);
+                    _this.getAllCodesFromServer();
                     _this.notificationService.error(response['responseMessage'], 'ICD Code');
                 }
             }, function (error) {
@@ -84,19 +76,12 @@ var CodeComponent = (function () {
             this.router.navigate(['/login']);
         }
     };
-    CodeComponent.prototype.getICDCodesFromServer = function (page) {
+    CodeComponent.prototype.getAllCodesFromServer = function () {
         var _this = this;
-        if (page > 0) {
-            page = page;
-        }
-        this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODES + page)
+        this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODES_DATA_TABLE)
             .subscribe(function (response) {
-            if (response['responseCode'] === 'ICD_SUC_02') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.data = response['responseData']['data'];
+            if (response['responseCode'] === 'ICD_SUC_16') {
+                _this.data = response['responseData'];
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
@@ -105,19 +90,29 @@ var CodeComponent = (function () {
     CodeComponent.prototype.saveICDCode = function (form) {
         var _this = this;
         if (form.valid) {
-            /*   if (localStorage.getItem(btoa('access_token'))) {
-                   let versionFound = 0;
-                   for (let version of this.icdVersions) {
-                       if (version.selectedVersion) {
-                           versionFound++;
-                           break;
-                       }
-                   }
-   
-                   if (versionFound == 0) {
-                       this.notificationService.warn('Please select at least one version.');
-                       return;
-                   }*/
+            // if (localStorage.getItem(btoa('access_token'))) {
+            var versionFound = 0;
+            for (var _i = 0, _a = this.clientCheckedVersions; _i < _a.length; _i++) {
+                var version = _a[_i];
+                if (version) {
+                    versionFound++;
+                    break;
+                }
+            }
+            if (versionFound == 0) {
+                this.notificationService.warn('Please select at least one version.');
+                return;
+            }
+            for (var _b = 0, _c = this.clientCheckedVersions; _b < _c.length; _b++) {
+                var checkedVer = _c[_b];
+                for (var _d = 0, _e = this.icdVersions; _d < _e.length; _d++) {
+                    var chckedVsn = _e[_d];
+                    if (checkedVer == chckedVsn.id) {
+                        chckedVsn.selectedVersion = true;
+                        break;
+                    }
+                }
+            }
             this.iCDModel.selectedVersions = this.icdVersions;
             this.requestsService.postRequest(app_constants_1.AppConstants.ICD_CODE_SAVE_URL, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_SAVE_SUC_01') {
@@ -134,16 +129,8 @@ var CodeComponent = (function () {
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
-        } /*else {
-            this.router.navigate(['/login']);
         }
-        }*/
         else {
-            /*if (this.iCDModel.code === '') {
-                this.notificationService.warn('Please enter Code value.');
-                document.getElementById('codeId').focus();
-                return;
-            }*/
             this.notificationService.error('ICD Code', 'Required Fields are missing');
         }
     };
@@ -152,9 +139,9 @@ var CodeComponent = (function () {
         if (updateCodeForm.valid) {
             if (localStorage.getItem(btoa('access_token'))) {
                 var versionFound = 0;
-                for (var _i = 0, _a = this.icdVersions; _i < _a.length; _i++) {
+                for (var _i = 0, _a = this.clientCheckedVersions; _i < _a.length; _i++) {
                     var version = _a[_i];
-                    if (version.selectedVersion) {
+                    if (version) {
                         versionFound++;
                         break;
                     }
@@ -162,6 +149,16 @@ var CodeComponent = (function () {
                 if (versionFound == 0) {
                     this.notificationService.warn('Please select at least one version.');
                     return;
+                }
+                for (var _b = 0, _c = this.clientCheckedVersions; _b < _c.length; _b++) {
+                    var checkedVer = _c[_b];
+                    for (var _d = 0, _e = this.icdVersions; _d < _e.length; _d++) {
+                        var chckedVsn = _e[_d];
+                        if (checkedVer == chckedVsn.id) {
+                            chckedVsn.selectedVersion = true;
+                            break;
+                        }
+                    }
                 }
                 this.iCDModel.selectedVersions = this.icdVersions;
                 this.requestsService.putRequest(app_constants_1.AppConstants.ICD_CODE_UPDATE_URL, JSON.parse(JSON.stringify(this.iCDModel))).subscribe(function (response) {
@@ -196,23 +193,20 @@ var CodeComponent = (function () {
     CodeComponent.prototype.editICDCode = function (iCDCode) {
         var _this = this;
         this.isCodeUpdate = true;
-        // this.iCDModel = iCDCode;
         this.selectAll = false;
         this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_GET + iCDCode.id)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ICD_SUC_02') {
-                _this.selectedScope.length = 0;
                 _this.iCDModel = response['responseData'];
                 _this.icdVersions = [];
                 _this.icdVersions = _this.iCDModel.selectedVersions;
-                _this.icdVersions.map(function (x) { _this.selectedScope.push(x.value); });
-                //    this.selectedVersion = this.iCDModel.selectedVersions;
-                /*for (let version of this.icdVersions) {
-                    if (version.selectedVersion) {
-                        this.selectAll = true;
-                        break;
+                _this.clientCheckedVersions = [];
+                for (var _i = 0, _a = _this.icdVersions; _i < _a.length; _i++) {
+                    var checked = _a[_i];
+                    if (checked.selectedVersion) {
+                        _this.clientCheckedVersions.push(checked.id);
                     }
-                }*/
+                }
             }
             else {
                 _this.notificationService.error('ICD Code', response['responseMessage']);
@@ -226,32 +220,6 @@ var CodeComponent = (function () {
         this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
         this.selectAll = false;
         this.getICDVersionsFromServer();
-    };
-    CodeComponent.prototype.searchByCode = function (pageNo) {
-        var _this = this;
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.searched = true;
-            this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODE_SEARCH + pageNo + '?code=' + this.searchCode)
-                .subscribe(function (response) {
-                if (response['responseCode'] === 'ICD_SUC_02') {
-                    _this.nextPage = response['responseData']['nextPage'];
-                    _this.prePage = response['responseData']['prePage'];
-                    _this.currPage = response['responseData']['currPage'];
-                    _this.pages = response['responseData']['pages'];
-                    _this.data = response['responseData']['data'];
-                }
-                else {
-                    _this.nextPage = 0;
-                    _this.prePage = 0;
-                    _this.currPage = 0;
-                    _this.pages = [];
-                    _this.data = [];
-                    _this.notificationService.warn('ICD Code not found');
-                }
-            }, function (error) {
-                _this.HISUtilService.tokenExpired(error.error.error);
-            });
-        }
     };
     CodeComponent.prototype.getICDVersionsFromServer = function () {
         var _this = this;
@@ -284,33 +252,6 @@ var CodeComponent = (function () {
             }, function (error) {
                 _this.notificationService.error(error.error.error);
             });
-        }
-    };
-    CodeComponent.prototype.checkedAllVersion = function () {
-        for (var _i = 0, _a = this.icdVersions; _i < _a.length; _i++) {
-            var version = _a[_i];
-            version.selectedVersion = this.selectAll;
-        }
-    };
-    /***
-     * if one , version found true then true otherwise false
-     * */
-    CodeComponent.prototype.checkedVersion = function () {
-        var checkedFound = false;
-        for (var _i = 0, _a = this.icdVersions; _i < _a.length; _i++) {
-            var version = _a[_i];
-            if (version.selectedVersion) {
-                checkedFound = true;
-                break;
-            }
-        }
-        if (checkedFound) {
-            this.selectAll = true;
-            console.log(this.selectAll);
-        }
-        else {
-            this.selectAll = false;
-            console.log(this.selectAll);
         }
     };
     CodeComponent = __decorate([

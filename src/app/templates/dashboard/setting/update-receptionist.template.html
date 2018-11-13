@@ -51,16 +51,16 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <select class="form-control"
+                                        <!--<select class="form-control"
                                                 (change)="getSelectedBranch($event)"
                                                 formControlName="primaryBranch" placeholder="Select Branch">
                                             <option *ngFor="let br of branchesList" [value]="br.id">
                                                 {{br.name}}
                                             </option>
-                                        </select>
+                                        </select>-->
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [(ngModel)]="pBranch" [options]="branchesList"
+                                                    [options]="branchesList"
                                                     formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
                                                     [filter]="true">
                                         </p-dropdown>

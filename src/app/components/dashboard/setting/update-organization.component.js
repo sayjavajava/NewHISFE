@@ -23,15 +23,29 @@ var UpdateOrganizationComponent = (function () {
         this.requestService = requestService;
         this.fb = fb;
         this.notificationService = notificationService;
+        // timezoneList: any = [];
         this.timezoneList = [];
         this.branchesList = [];
         this.organizationACCOUNT = [];
         this.organization = new organization_1.Organization();
         this.defaultBranch = 'primaryBranch';
+        this.countryLst = [];
+        this.countryListModified = [];
+        this.stateLst = [];
+        this.stateLstModified = [];
+        this.cityLst = [];
+        this.cityLstModified = [];
+        this.dateFormatLst = [];
         this.allTimezone();
         this.allBranches();
         this.getOrganizationAccount();
     }
+    //  ctry:any=[];
+    //  @ViewChild('ddEditor') ddEditor : FormControl;
+    /*static getNamesAndValues<T extends number>(e: any) {
+        return DateFormatENUM.getname(e).map(n => ({ name: n, value: e[n] as T }));
+    }*/
+    // dateFormatLstModified:any=[];
     UpdateOrganizationComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createProfileForm();
@@ -41,16 +55,47 @@ var UpdateOrganizationComponent = (function () {
             _this.id = params['id'];
         });
         this.patchData();
-        this.proForm.controls['companyName'].disable();
         this.accountForm.controls['userName'].disable();
+        /*this.ctry=this.selectedCountry;
+        this.cityLstModified=this.ctry;*/
+        //   alert(this.selectedCountry);
+        //  this.proForm.controls['country'].setValue(this.selectedCountry);
+        this.specialtyList = [
+            { label: 'Anesthesiologists ', value: 'Anesthesiologists ' },
+            { label: 'Cardiologists ', value: 'Cardiologists ' },
+            { label: 'Dermatologists ', value: 'Dermatologists ' },
+            { label: 'Endocrinologists  ', value: 'Endocrinologists  ' },
+            { label: 'Gastroenterologists  ', value: 'Gastroenterologists  ' }
+        ];
+        this.allCountries();
+        this.getDateFormatList();
+        this.dateType = [
+            { label: 'dd-MM-yyyy', value: 'dd-MM-yyyy' },
+            { label: 'yyyy-MM-dd', value: 'yyyy-MM-dd' },
+            { label: 'MM-dd', value: 'MM-dd' },
+            { label: 'yyyy/MM/dd', value: 'yyyy/MM/dd' },
+            { label: 'dd/MM/YYYY', value: 'dd/MM/YYYY' },
+            { label: 'MM/dd', value: 'MM/dd' }
+        ];
+        this.timeType = [
+            { label: 'HHmm', value: 'HH:mm' },
+            { label: 'HHmmss', value: 'HH:mm:ss' },
+            { label: 'mmss', value: 'mm:ss' }
+        ];
+        //  this.getAllStates();
+        //   this.getAllCities();
     };
     UpdateOrganizationComponent.prototype.createProfileForm = function () {
         this.proForm = this.fb.group({
-            'companyEmail': [null],
+            'companyEmail': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'companyName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'officePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'specialty': [null],
+            'country': [null],
+            'state': [null],
+            'city': [null],
             'fax': [null],
+            'currency': [null],
             'formName': ['PROFILE'],
             'address': [null],
             'website': [null, forms_1.Validators.pattern('^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$')],
@@ -67,6 +112,9 @@ var UpdateOrganizationComponent = (function () {
             'prefixSerialDepartment': [null],
             'prefixSerialAppointment': [null],
             'prefixSerialInvoices': [null],
+            'zoneFormat': [null],
+            'dateFormat': [null],
+            'timeFormat': [null],
         });
     };
     UpdateOrganizationComponent.prototype.createAccountForm = function () {
@@ -75,21 +123,14 @@ var UpdateOrganizationComponent = (function () {
             'userId': [null],
             'lastName': [null],
             'userName': [null],
-            'userEmail': [null],
+            'userEmail': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'cellPhone': [null],
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-        });
-    };
-    UpdateOrganizationComponent.prototype.allTimezone = function () {
-        var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.TIMEZONE_FETCH_URL)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'TZ_SUC_01') {
-                _this.timezoneList = response['responseData'];
-            }
-        }, function (error) {
+            'country': [null],
+            'state': [null],
+            'city': [null],
         });
     };
     UpdateOrganizationComponent.prototype.allBranches = function () {
@@ -102,12 +143,141 @@ var UpdateOrganizationComponent = (function () {
         }, function (error) {
         });
     };
+    UpdateOrganizationComponent.prototype.allCountries = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_ALL_COUNTRY)
+            .subscribe(function (response) {
+            debugger;
+            if (response['responseCode'] === 'COUNTRY_SUC_11') {
+                debugger;
+                _this.countryLst = response['responseData'];
+                debugger;
+                for (var _i = 0, _a = _this.countryLst; _i < _a.length; _i++) {
+                    var country = _a[_i];
+                    var pair = { label: country.name, value: country.id };
+                    _this.countryListModified.push(pair);
+                }
+                debugger;
+            }
+        }, function (error) {
+            _this.notificationService.error(error.error.error);
+        });
+    };
+    UpdateOrganizationComponent.prototype.getStatesByCountryId = function (id) {
+        var _this = this;
+        this.stateList = this.citiesList = this.cityLstModified = this.citiesList = [];
+        debugger;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_BYCOUNTRYID + id)
+            .subscribe(function (response) {
+            debugger;
+            if (response['responseCode'] === 'STATE_SUC_11') {
+                _this.stateLst = response['responseData'];
+                debugger;
+                for (var _i = 0, _a = _this.stateLst; _i < _a.length; _i++) {
+                    var state = _a[_i];
+                    var pair = { label: state.name, value: state.id };
+                    _this.stateLstModified.push(pair);
+                }
+            }
+        }, function (error) {
+            _this.notificationService.error(error.error.error);
+        });
+    };
+    UpdateOrganizationComponent.prototype.getCitiesByStateId = function (id) {
+        var _this = this;
+        this.citiesList = this.cityLstModified = [];
+        debugger;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_BYCITYID + id)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'CITY_SUC_11') {
+                debugger;
+                _this.cityLst = response['responseData'];
+                for (var _i = 0, _a = _this.cityLst; _i < _a.length; _i++) {
+                    var city = _a[_i];
+                    var pair = { label: city.name, value: city.id };
+                    _this.cityLstModified.push(pair);
+                }
+            }
+        }, function (error) {
+            _this.notificationService.error(error.error.error);
+        });
+    };
+    UpdateOrganizationComponent.prototype.getAllStates = function () {
+        var _this = this;
+        // this.stateList = this.citiesList = this.cityLstModified = this.citiesList = [];
+        debugger;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_URL)
+            .subscribe(function (response) {
+            debugger;
+            if (response['responseCode'] === 'STATE_SUC_11') {
+                _this.StateList = response['responseData'];
+                debugger;
+                for (var _i = 0, _a = _this.StateList; _i < _a.length; _i++) {
+                    var state = _a[_i];
+                    var pair = { label: state.name, value: state.id };
+                    _this.stateLstModified.push(pair);
+                }
+            }
+        }, function (error) {
+            _this.notificationService.error(error.error.error);
+        });
+    };
+    UpdateOrganizationComponent.prototype.getAllCities = function () {
+        var _this = this;
+        //    this.citiesList = this.cityLstModified = [];
+        debugger;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_CITY_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'CITY_SUC_11') {
+                debugger;
+                _this.cityList = response['responseData'];
+                for (var _i = 0, _a = _this.cityList; _i < _a.length; _i++) {
+                    var city = _a[_i];
+                    var pair = { label: city.name, value: city.id };
+                    _this.cityLstModified.push(pair);
+                }
+            }
+        }, function (error) {
+            _this.notificationService.error(error.error.error);
+        });
+    };
     UpdateOrganizationComponent.prototype.getOrganizationAccount = function () {
         var _this = this;
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ORG_ACCOUNT_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ORG_SUC_04') {
                 _this.organization = response['responseData'];
+            }
+        }, function (error) {
+        });
+    };
+    UpdateOrganizationComponent.prototype.getDateFormatList = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_ALL_DATEFORMAT)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'DATEFORMAT_SUC_11') {
+                debugger;
+                _this.dateFormat = response['responseData'];
+                for (var _i = 0, _a = _this.dateFormat; _i < _a.length; _i++) {
+                    var dateFormatLst = _a[_i];
+                    var pair = { label: dateFormatLst.toString(), value: dateFormatLst.toString() };
+                    _this.dateFormatLst.push(pair);
+                }
+            }
+        }, function (error) {
+        });
+    };
+    UpdateOrganizationComponent.prototype.allTimezone = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.ZONE_FETCH_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'TZ_SUC_01') {
+                debugger;
+                _this.timezoneList = response['responseData'];
+                debugger;
+                _this.zoneFormat = _this.timezoneList;
+                console.log(_this.zoneFormat);
+                debugger;
             }
         }, function (error) {
         });
@@ -127,14 +297,21 @@ var UpdateOrganizationComponent = (function () {
                     address: organization.address,
                     website: organization.website,
                     companyName: organization.companyName,
-                    specialty: organization.speciality
+                    specialty: organization.speciality,
+                    selectedCountry: organization.country,
+                    selectedCity: organization.city,
+                    selectedState: organization.state
                     //   specialty: organization.speciality,
                 });
                 _this.generalForm.patchValue({
                     defaultBranch: organization.defaultBranch,
                     durationOfExam: organization.durationOfExam,
-                    durationFollowUp: organization.durationFollowUp
+                    durationFollowUp: organization.durationFollowUp,
+                    dateFormat: organization.dateFormat,
+                    timeFormat: organization.timeFormat,
+                    zoneFormat: organization.zoneFormat
                 });
+                //  alert(this.selectedCountry);
             }, function (error) {
                 //console.log(error.json());
                 _this.error = error.error.error_description;
@@ -168,11 +345,11 @@ var UpdateOrganizationComponent = (function () {
              website: formModel.website,
              timeZone: formModel.timeZone,
              specialty: formModel.specialty,
- 
+
              defaultBranch: generalModel.defaultBranch,
              durationOfExam: generalModel.durationOfExam,
              followUpExam: generalModel.followUpExam,
- 
+
          };
          return saveBranchModel;
      }
@@ -200,15 +377,20 @@ var UpdateOrganizationComponent = (function () {
     }
 */
     UpdateOrganizationComponent.prototype.saveProfile = function (data) {
-        var self = this;
-        this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'ORG_SUC_03') {
-                self.notificationService.success('Organization has been Update Successfully');
-            }
-        }, function (error) {
-            self.notificationService.error('ERROR', 'Organization is not Updated');
-        });
+        if (this.proForm.valid) {
+            var self = this;
+            this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'ORG_SUC_03') {
+                    self.notificationService.success('Organization has been Update Successfully');
+                }
+            }, function (error) {
+                self.notificationService.error('ERROR', 'Organization is not Updated');
+            });
+        }
+        else {
+            this.validateAllFormFields(this.proForm);
+        }
     };
     UpdateOrganizationComponent.prototype.saveGeneralSettings = function (data) {
         var self = this;
@@ -223,19 +405,24 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.saveAccount = function (data) {
         var self = this;
-        //account url can be change
-        this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'ORG_SUC_03') {
-                self.notificationService.success('Organization has been Update Successfully');
-            }
-        }, function (error) {
-            self.notificationService.error('ERROR', 'Organization is not Updated');
-        });
+        if (this.accountForm.valid) {
+            //account url can be change
+            this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'ORG_SUC_03') {
+                    self.notificationService.success('Organization has been Update Successfully');
+                }
+            }, function (error) {
+                self.notificationService.error('ERROR', 'Organization is not Updated');
+            });
+        }
+        else {
+            this.validateAllFormFields(this.accountForm);
+        }
     };
-    UpdateOrganizationComponent.prototype.getSelectedTimezone = function (value) {
+    UpdateOrganizationComponent.prototype.getSelected = function (value) {
         if (value) {
-            this.proForm.controls['timeZone'].setValue(value);
+            this.organization.zoneId = value;
             console.log(value);
         }
     };
@@ -251,8 +438,8 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
+        //console.log(field);
         Object.keys(formGroup.controls).forEach(function (field) {
-            //console.log(field);
             var control = formGroup.get(field);
             if (control instanceof forms_1.FormControl) {
                 control.markAsTouched({ onlySelf: true });

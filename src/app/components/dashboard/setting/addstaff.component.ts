@@ -136,6 +136,7 @@ export class AddStaffComponent implements OnInit {
     }*/
 
     allBranches() {
+
         this.requestsService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
@@ -223,7 +224,7 @@ export class AddStaffComponent implements OnInit {
                 'homePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'cellPhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'primaryBranch': [null, Validators.required],
-                'interval': [null,Validators.required],
+                'interval': [null],
                 'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'restrictBranch': [null],
                 'allowDiscount': [null],
@@ -641,19 +642,9 @@ export class AddStaffComponent implements OnInit {
         }
 }
 
-    dutyWithDoctor(event: any, item: any) {
-       // console.log(item);
-        if (event.target.checked) {
-            this.dutyWithDoctors.push(item.id);
-        }
-        else {
-            let updateItem = this.dutyWithDoctors.find(this.findIndexToUpdate, item.id);
-
-            let index = this.dutyWithDoctors.indexOf(updateItem);
-
-            this.dutyWithDoctors.splice(index, 1);
-        }
-        //console.log(this.dutyWithDoctors);
+    dutyWithDoctor(eventObj: any, item?: any) {
+        let eventVal = eventObj.value;
+        this.selectedDoctors.push(eventVal);
     }
 
     findIndexToUpdate(type: any) {
