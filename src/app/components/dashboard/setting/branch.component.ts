@@ -1,18 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {RequestsService} from '../../../services/requests.service';
-import {Router} from '@angular/router';
-import {NotificationService} from '../../../services/notification.service';
-import {MatDialog} from '@angular/material';
-import {ConformationDialogService} from '../../../services/ConformationDialogService';
-import {AppConstants} from '../../../utils/app.constants';
-import {SearchBranch} from '../../../model/searchBranch';
-import {Observable} from "rxjs/Observable";
-import {MessageService} from "primeng/api";
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {RequestsService} from "../../../services/requests.service";
+import {Router} from "@angular/router";
+import {NotificationService} from "../../../services/notification.service";
+import {MatDialog} from "@angular/material";
+import {ConformationDialogService} from "../../../services/ConformationDialogService";
+import {AppConstants} from "../../../utils/app.constants";
+import {SearchBranch} from "../../../model/searchBranch";
 
 @Component({
-    selector: 'branch-component',
-    templateUrl: '../../../templates/dashboard/setting/branch.template.html',
+    selector: "branch-component",
+    templateUrl: "../../../templates/dashboard/setting/branch.template.html",
 })
 export class BranchComponent implements OnInit {
     nextPage: number;
@@ -24,54 +22,67 @@ export class BranchComponent implements OnInit {
     error: any;
     pageNo: number = 0;
     branch: any;
-    selectedRole: string = 'SUPER_ADMIN';
+    selectedRole: string = "SUPER_ADMIN";
     branchesList: any = [];
     searchForm: FormGroup;
     responseUser: any[];
-    defaultSelectedBranch :any;
-    doctorsInBranch:any=[];
+    defaultSelectedBranch: any;
+    doctorsInBranch: any = [];
+
+    cols: any[];
 
 
     constructor(private requestService: RequestsService, private router: Router,
                 private notificationService: NotificationService, private fb: FormBuilder,
                 private matDialog: MatDialog, private confirmationDialogService: ConformationDialogService) {
-        this.allBranches();
-     //   this.getbranchesWithDoctors(2);
-        this.allDepartments();
+        // this.allBranches();
+        //   this.getbranchesWithDoctors(2);
+        // this.allDepartments();
 
     }
 
     ngOnInit() {
         this.searchForm = this.fb.group({
-            'branch': [null],
-            'department': [null],
-            'description': [null]
+            "branch": [null],
+            "department": [null],
+            "description": [null]
         });
-        this.getBranchFromServer(0);
+        this.allBranches();
+        this.allDepartments();
+        // this.getBranchFromServer(0);
+        this.cols = [
+            {field: "name", header: "Name"},
+            {field: "doctorsList", header: "Doctors"},
+            /* TODO: Uncomment
+            {field: 'country', header: 'Country'},
+            {field: 'city', header: 'City'},*/
+            {field: "rooms", header: "# of Exam Rooms"},
+            {field: "id", header: "Action"}
+        ];
     }
 
     allBranches() {
-        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_ALL_URL)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'BR_SUC_01') {
-                        this.branchesList = response['responseData'];
-                    //    this.defaultSelectedBranch= this.branchesList[0].id;
+                    if (response["responseCode"] === "BR_SUC_01") {
+                        this.branchesList = response["responseData"];
+                        this.data = this.branchesList;
+                        //    this.defaultSelectedBranch= this.branchesList[0].id;
                     }
-               //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
-                },
-                (error: any) => {
+                    //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
+                }, (error: any) => {
                     this.error = error.error.error;
                 })
     }
 
-    getbranchesWithDoctors(id:number) {
+    getbranchesWithDoctors(id: number) {
         this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTORS + id)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'BR_SUC_01') {
-                        this.doctorsInBranch = response['responseData'];
-                        console.log('doctor:'+ this.doctorsInBranch);
+                    if (response["responseCode"] === "BR_SUC_01") {
+                        this.doctorsInBranch = response["responseData"];
+                        // console.log("doctor:" + this.doctorsInBranch);
                         //    this.defaultSelectedBranch= this.branchesList[0].id;
                     }
                     //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
@@ -85,9 +96,8 @@ export class BranchComponent implements OnInit {
         this.requestService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                        this.departments = response['responseData'];
-                        console.log('dept' + this.departments);
+                    if (response["responseCode"] === "CLI_DPT_SUC_01") {
+                        this.departments = response["responseData"];
                     }
                 },
                 (error: any) => {
@@ -97,26 +107,26 @@ export class BranchComponent implements OnInit {
     }
 
     searchData(data: SearchBranch) {
-     //   if (this.searchForm.valid) {
-            let searchUserObj = new SearchBranch(data.branch, data.department, data.description);
-         //   this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
-           this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch )
-                .subscribe(
-                    (response: Response) => {
+        //   if (this.searchForm.valid) {
+        let searchUserObj = new SearchBranch(data.branch, data.department, data.description);
+        //   this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
+        this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + "?branch=" + data.branch)
+            .subscribe(
+                (response: Response) => {
 
-                        if (response['responseCode'] === 'BRANCH_SUC_01') {
-                            this.nextPage = response['responseData']['nextPage'];
-                            this.prePage = response['responseData']['prePage'];
-                            this.currPage = response['responseData']['currPage'];
-                            this.pages = response['responseData']['pages'];
-                            this.data = response['responseData']['data'];
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.nextPage = response["responseData"]["nextPage"];
+                        this.prePage = response["responseData"]["prePage"];
+                        this.currPage = response["responseData"]["currPage"];
+                        this.pages = response["responseData"]["pages"];
+                        this.data = response["responseData"]["data"];
 
-                        }
-                    },
-                    (error: any) => {
+                    }
+                },
+                (error: any) => {
 
-                        this.error = error.error.error;
-                    })
+                    this.error = error.error.error;
+                })
         /*} else {
             this.validateAllFormFields(this.searchForm)
         }*/
@@ -141,55 +151,57 @@ export class BranchComponent implements OnInit {
 
     displayFieldCss(field: string) {
         return {
-            'has-error': this.isFieldValid(field),
-            'has-feedback': this.isFieldValid(field)
+            "has-error": this.isFieldValid(field),
+            "has-feedback": this.isFieldValid(field)
         };
     }
 
-    getBranchFromServer(page: number) {
-        if (page > 0) {
-            page = page;
-
-        }
-        this.requestService.getRequest(
-            AppConstants.FETCH_ALL_BRANCHES_URL + page)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'BRANCH_SUC_01') {
-                        this.nextPage = response['responseData']['nextPage'];
-                        this.prePage = response['responseData']['prePage'];
-                        this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];
-                        this.data = response['responseData']['data'];
-
-
-                    }
-                },
-                (error: any) => {
-                    this.error = error.error.error;
-                }
-            );
-    }
+    // getBranchFromServer(page: number) {
+    //     if (page > 0) {
+    //         page = page;
+    //
+    //     }
+    //     this.requestService.getRequest(
+    //         AppConstants.FETCH_ALL_BRANCHES_URL + page)
+    //         .subscribe(
+    //             (response: Response) => {
+    //                 if (response["responseCode"] === "BRANCH_SUC_01") {
+    //                     this.nextPage = response["responseData"]["nextPage"];
+    //                     this.prePage = response["responseData"]["prePage"];
+    //                     this.currPage = response["responseData"]["currPage"];
+    //                     this.pages = response["responseData"]["pages"];
+    //                     this.data = response["responseData"]["data"];
+    //
+    //
+    //                 }
+    //             },
+    //             (error: any) => {
+    //                 this.error = error.error.error;
+    //             }
+    //         );
+    // }
 
     deleteBranch(id: number) {
         this.confirmationDialogService
-            .confirm('Delete', 'Are you sure you want to do this?')
+            .confirm("Delete", "Are you sure you want to do this?")
             .subscribe(res => {
-                if (res ==true) {
+                if (res == true) {
                     this.requestService.deleteRequest(AppConstants.DELETE_BRANCH_URI + id).subscribe((data: Response) => {
-                        if (data['responseCode'] === 'BRANCH_DEL_SUC_01') {
-                            this.notificationService.success('Branch has been Deleted Successfully');
-                            this.getBranchFromServer(this.currPage);
+                        if (data["responseCode"] === "BRANCH_DEL_SUC_01") {
+                            this.notificationService.success("Branch has been Deleted Successfully");
+                            // this.getBranchFromServer(this.currPage);
+
+                            this.allBranches();
 
                         }
-                        if (data['responseCode'] === 'BRANCH_NOT_FOUND') {
-                            this.notificationService.warn('Branch is Accossiated ');
-                           // this.getBranchFromServer(this.currPage);
+                        if (data["responseCode"] === "BRANCH_NOT_FOUND") {
+                            this.notificationService.warn("Branch is Accossiated ");
+                            // this.getBranchFromServer(this.currPage);
 
                         }
 
                     }, error => {
-                        this.notificationService.error('ERROR', 'Branch is Associated with another Branch');
+                        this.notificationService.error("ERROR", "Branch is Associated with another Branch");
 
                     });
                 }
@@ -198,20 +210,20 @@ export class BranchComponent implements OnInit {
     }
 
     updateBranch(id: any) {
-        this.router.navigate(['/dashboard/setting/branch/edit/', id]);
-}
+        this.router.navigate(["/dashboard/setting/branch/edit/", id]);
+    }
 
     getSelectedBranch(valueObj: any) {
         let value = valueObj.value;
         if (value) {
-            this.searchForm.controls['branch'].setValue(value);
+            this.searchForm.controls["branch"].setValue(value);
         }
     }
 
     getSelectedDepartment(value: any) {
         if (value) {
             //console.log('sel:' + value);
-            this.searchForm.controls['department'].setValue(value);
+            this.searchForm.controls["department"].setValue(value);
         }
     }
 
