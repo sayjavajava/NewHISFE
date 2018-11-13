@@ -218,6 +218,7 @@ var AddBranchComponent = (function () {
         });
     };
     AddBranchComponent.prototype.createExamRoom = function () {
+        debugger;
         return this.fb.group({
             'roomName': [null, forms_1.Validators.required],
             'allowOnlineScheduling': '',

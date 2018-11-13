@@ -29,6 +29,7 @@ var UpdatedoctorComponent = (function () {
         this.amazingTimePickerService = amazingTimePickerService;
         this.dutyShift1 = false;
         this.selectedDepartment = [];
+        this.selectedDepartmentObj = [];
         this.selectedServices = [];
         this.doctorServices = [];
         this.selectedWorkingDays = [];
@@ -160,7 +161,7 @@ var UpdatedoctorComponent = (function () {
             'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
-            'interval': [null, forms_1.Validators.required],
+            'interval': [null],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.email])],
             'restrictBranch': [null],
             'allowDiscount': [null],
@@ -255,19 +256,23 @@ var UpdatedoctorComponent = (function () {
                         _this.selectedDepartment[0] = docDeptId;
                         break;
                     }
+                    _this.selectedDepartmentObj.push(user.docDepartmentId);
                 }
                 _this.staffBranches = user.staffBranches;
                 _this.staffBranches = _this.staffBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
                 _this.visitingBranches = _this.visitingBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
-                for (var key in _this.visitingBranches) {
-                    for (var k in _this.staffBranches) {
-                        if (_this.staffBranches[k].id == _this.visitingBranches[key].id) {
-                            _this.visitingBranches[key].checked = true;
-                            _this.selectedVisitBranches.push(_this.staffBranches[k].id);
-                            break;
-                        }
-                    }
-                }
+                /* for(let key in this.visitingBranches){
+                     for(let k in this.staffBranches){
+                         if(this.staffBranches[k].id == this.visitingBranches[key].id){
+                             this.visitingBranches[key].checked = true;
+                             this.selectedVisitBranches.push(this.staffBranches[k].id);
+                             break;
+                         }
+                     }
+                 }*/
+                _this.staffBranches.forEach(function (x) {
+                    _this.selectedVisitBranches.push(x.id);
+                });
                 _this.doctorServices = user.doctorMedicalSrvcList;
                 _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + docDeptId)
                     .subscribe(function (response) {
@@ -393,12 +398,13 @@ var UpdatedoctorComponent = (function () {
             this.validateAllFormFields(this.userForm);
         }
     };
-    UpdatedoctorComponent.prototype.selectDoctorDepartment = function (deptId) {
+    UpdatedoctorComponent.prototype.selectDoctorDepartment = function (deptIdObj) {
         /*console.log("Doc Dept:"+itemId);
         if (itemId) {
             this.selectedDepartment[0] = itemId;
         }
 */
+        var deptId = deptIdObj.value;
         if (deptId) {
             this.selectedDepartment[0] = deptId;
             this.getDeptServices(deptId);

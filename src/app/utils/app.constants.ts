@@ -16,6 +16,7 @@ export class AppConstants {
     public static CREATE_USER_ENDPOINT = '/user/add';
     public static USER_SEARCH = '/user/search/';
     public static FETCH_ALL_USERS_URI = '/user/';
+    public static FETCH_ALL_USERS = '/user/all';
     public static FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     public static ADD_BRANCH = '/setting/branch/create';

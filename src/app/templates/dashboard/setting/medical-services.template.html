@@ -36,6 +36,15 @@
                 </div>
             </ng-template>
 
+                    <div class="col-md-2">
+                        <div class="form-group font-siz11">
+                            <label>Code</label>
+                            <input type="text" class="form-control"
+                                   placeholder="Service Name"
+                                   [(ngModel)]="searchMSModel.searchCode"
+                                   (keydown.enter)="searchByMedicalServiceParams(0)">
+                        </div>
+                    </div>
 
             <ng-template pTemplate="header" let-columns>
                 <tr>

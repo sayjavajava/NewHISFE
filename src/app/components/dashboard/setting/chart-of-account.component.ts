@@ -56,14 +56,14 @@ export class ChartOfAccountComponent {
         ];
 
         this.element = document.getElementById("addAccDiv") as HTMLElement;
-        this.element.style.height = "190px";
+       // this.element.style.height = "190px";
 
         this.elementByClass = Array.from(document.getElementsByClassName("scroller"));
 
         this.elementByDiv = document.getElementById("slimScrollDiv");
-        if (!isNullOrUndefined(this.elementByDiv)) {
+        /*if (!isNullOrUndefined(this.elementByDiv)) {
             this.elementByDiv.style.height = "180px";
-        }
+        }*/
     }
 
     getAllAccountsList() {
@@ -75,7 +75,7 @@ export class ChartOfAccountComponent {
                         this.chartOfAccountList = response["responseData"].accountList;
                         this.accountConfig = response["responseData"].accountConfig;
                     } else {
-                        this.notificationService.error(response["responseMessage"], "Chart of Accounts Configurations");
+                       // this.notificationService.error(response["responseMessage"], "Chart of Accounts Configurations");
                     }
                 },
                 (error: any) => {

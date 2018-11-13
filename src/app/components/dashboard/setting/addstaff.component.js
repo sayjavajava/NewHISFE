@@ -182,7 +182,7 @@ var AddStaffComponent = (function () {
             'homePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'cellPhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'primaryBranch': [null, forms_1.Validators.required],
-            'interval': [null, forms_1.Validators.required],
+            'interval': [null],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'restrictBranch': [null],
             'allowDiscount': [null],
@@ -565,17 +565,9 @@ var AddStaffComponent = (function () {
             this.selectedRoles.splice(index, 1);
         }
     };
-    AddStaffComponent.prototype.dutyWithDoctor = function (event, item) {
-        // console.log(item);
-        if (event.target.checked) {
-            this.dutyWithDoctors.push(item.id);
-        }
-        else {
-            var updateItem = this.dutyWithDoctors.find(this.findIndexToUpdate, item.id);
-            var index = this.dutyWithDoctors.indexOf(updateItem);
-            this.dutyWithDoctors.splice(index, 1);
-        }
-        //console.log(this.dutyWithDoctors);
+    AddStaffComponent.prototype.dutyWithDoctor = function (eventObj, item) {
+        var eventVal = eventObj.value;
+        this.selectedDoctors.push(eventVal);
     };
     AddStaffComponent.prototype.findIndexToUpdate = function (type) {
         return type.name === this;

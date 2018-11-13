@@ -134,10 +134,10 @@
                                             <option *ngFor="let item of departmentList" [selected] = "item.selected" value="{{item.id}}">{{item.name}}</option>
                                         </select>-->
 
-                                        <p-dropdown placeholder="Select Department" [autoWidth]="false"
+                                        <p-dropdown [autoWidth]="false"
                                                     formControlName="departmentControl" name="dept"
-                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [(ngModel)]="selectedDepartment" [options]="departmentList"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="selectDoctorDepartment($event)"
+                                                    [(ngModel)]="selectedDepartmentObj" [options]="departmentList"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                             <!--<ng-template let-dpt pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{dpt.name}}</div>
@@ -170,18 +170,7 @@
                                 </div>
 
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Account Expiry
-                                    </label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <mat-form-field class="mrgn-lft8">
-                                            <input matInput [matDatepicker]="expire" placeholder="Expiry Date"
-                                                   formControlName="accountExpiry">
-                                            <mat-datepicker-toggle matSuffix [for]="expire"></mat-datepicker-toggle>
-                                            <mat-datepicker #expire></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Active
                                     </label>
@@ -198,29 +187,6 @@
                                 </div>
 
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Checkup Interval:
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                    <div class="col-md-8">
-                                        <!--<select class="form-control" (change)="checkupIntervalMethod($event.target.value)"  formControlName="interval">
-                                            <option value="5">5</option>
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
-                                            <option value="50">50</option>
-                                            <option value="60">60</option>
-
-                                        </select>-->
-                                        <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [options]="intervalList" formControlName="interval"
-                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                        </p-dropdown>
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
-                                    </div>
-                                </div>
 
 
                             </div>

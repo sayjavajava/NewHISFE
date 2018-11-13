@@ -46,7 +46,14 @@ var StaffComponent = (function () {
             'name': [null]
         });
         this.searchForm.controls['userType'].setValue(this.default, { onlySelf: true });
-        this.getUserFromServer(0);
+        this.getUserFromServer();
+        this.cols = [
+            { field: 'firstName', header: 'Name' },
+            { field: 'primaryBranch', header: 'Primary Branch' },
+            { field: 'username', header: 'User Name' },
+            { field: 'email', header: 'Email' },
+            { field: 'Action', header: 'Action' }
+        ];
     };
     StaffComponent.prototype.searchData = function (data) {
         var _this = this;
@@ -92,19 +99,22 @@ var StaffComponent = (function () {
             'has-feedback': this.isFieldValid(field)
         };
     };
-    StaffComponent.prototype.getUserFromServer = function (page) {
+    StaffComponent.prototype.getUserFromServer = function () {
         var _this = this;
-        if (page > 0) {
-            page = page;
-        }
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_USERS_URI + page)
+        /* if (page > 0) {
+             page = page;
+ 
+         }*/
+        this.requestService.getRequest(
+        //    AppConstants.FETCH_ALL_USERS + page)
+        app_constants_1.AppConstants.FETCH_ALL_USERS)
             .subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.data = response['responseData']['data'];
+                /* this.nextPage = response['responseData']['nextPage'];
+                 this.prePage = response['responseData']['prePage'];
+                 this.currPage = response['responseData']['currPage'];
+                 this.pages = response['responseData']['pages'];*/
+                _this.data = response['responseData'];
                 //  let data = response['responseData']['data'];
             }
         }, function (error) {
@@ -147,7 +157,7 @@ var StaffComponent = (function () {
                 _this.requestService.deleteRequest('/user/delete/' + id).subscribe(function (data) {
                     if (data['responseCode'] === 'USER_DEL_SUC_01') {
                         _this.notificationService.success('User has been Deleted Successfully');
-                        _this.getUserFromServer(0);
+                        _this.getUserFromServer();
                     }
                 }, function (error) {
                     _this.error = error.error.error_description;

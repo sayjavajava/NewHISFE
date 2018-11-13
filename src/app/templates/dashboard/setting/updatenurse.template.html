@@ -53,14 +53,21 @@
                                     </label>
                                     <div class="col-md-8">
 
-                                        <select class="form-control"
+                                       <!-- <select class="form-control"
                                                 (change)="getSelectedBranch($event.target.value)"
                                                 formControlName="primaryBranch" placeholder="Select Branch">
                                             <option *ngFor="let br of branchesList" [value]="br.id">
                                                 {{br.name}}
                                             </option>
 
-                                        </select>
+                                        </select>-->
+                                        <p-dropdown placeholder="Select Branch" [autoWidth]="false"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                     [options]="branchesList"
+                                                    formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
+                                                    [filter]="true">
+                                        </p-dropdown>
+                                        <!--[(ngModel)]="pBranch"-->
                                         <span class="text-danger" *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">Select Primary Branch</span>
                                     </div>
                                 </div>
@@ -80,7 +87,7 @@
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
-                                        <div class="checkbox-box cod-higt" id="not-due">
+                                       <!-- <div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label class="mt-checkbox mt-checkbox-outline">
                                                 <div *ngFor="let item of branchesList" class="col-md-6">
                                                     <input type="checkbox" formControlName="restrictBranch"
@@ -93,7 +100,17 @@
                                                 </div>
                                             </label>
                                             </address>
-                                        </div>
+                                        </div>-->
+                                        <p-multiSelect placeholder="select branches"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="branchesList"
+                                                       [(ngModel)]="selectedVisitBranches"
+                                                       [ngModelOptions]="{standalone:true}"
+                                                       [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-br pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
+                                            </ng-template>
+                                        </p-multiSelect>
                                         <span class="text-danger" *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
 
                                     </div>
@@ -103,7 +120,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <div class="checkbox-box cod-higt" id="not-due">
+                                        <!--<div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label>
                                                 <div *ngFor="let item of departmentList" class="col-md-6">
                                                     <input type="checkbox" formControlName="departmentControl"
@@ -117,7 +134,19 @@
 
                                             </label>
                                             </address>
-                                        </div>
+                                        </div>-->
+                                        <p-multiSelect
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="departmentList"
+                                                       [(ngModel)]="selectedDepartment"
+                                                       (onChange)="selectDepartment($event)"
+                                                       [ngModelOptions]="{standalone:true}"
+                                                       [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-br pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
+                                            </ng-template>
+                                        </p-multiSelect>
+
                                         <span class="text-danger"
                                               *ngIf="departmentFlag">
                                             {{departmentError}}
@@ -130,7 +159,7 @@
 
                                     </label>
                                     <div class="col-md-8">
-                                        <div class="checkbox-box cod-higt" id="not-due">
+                                       <!-- <div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label class="mt-checkbox mt-checkbox-outline">
                                                 <div *ngFor="let item of doctorsList" class="col-md-6">
                                                     <input type="checkbox" formControlName="nurseDutyWithDoctor"
@@ -138,29 +167,27 @@
                                                            value="{{item.id}}"
                                                            [checked] = "item.checked"
                                                            (change)="dutyWithDoctor($event,item)">
-                                                    <!--{{item.firstName}}-->
+                                                    &lt;!&ndash;{{item.firstName}}&ndash;&gt;
                                                     {{item.lastName}}
                                                     <span></span></div>
                                             </label>
                                             </address>
-                                        </div>
+                                        </div>-->
+                                        <p-multiSelect placeholder="select Doctor"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="doctorsList" [(ngModel)]="dutyWithDoctors" formControlName="nurseDutyWithDoctor"
+                                                       (change)="dutyWithDoctor($event)"
+                                                       [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-dpt pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{dpt.label}}
+                                                </div>
+                                            </ng-template>
+                                        </p-multiSelect>
+
                                         <span class="text-danger" *ngIf="!userForm.controls['nurseDutyWithDoctor'].valid && userForm.controls['nurseDutyWithDoctor'].touched">please select Doctor </span>
                                     </div>
                                 </div>
-                                <div  class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Manage Patients Records</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox-outline chckbox mrgn-top12">
-                                            <input type="checkbox" formControlName="managePatientRecords" class=""><span></span></label>
-                                    </div>
-                                </div>
-                                <div  class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Manage Patients Invoices</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox-outline chckbox mrgn-top12">
-                                            <input type="checkbox" formControlName="managePatientInvoices"><span></span></label>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -180,18 +207,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Account Expiry
-                                    </label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <mat-form-field class="mrgn-lft8">
-                                            <input matInput [matDatepicker]="from" placeholder="Expiry Date"
-                                                   formControlName="accountExpiry">
-                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                                            <mat-datepicker #from></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
+
 
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Active

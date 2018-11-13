@@ -42,6 +42,7 @@ export class BranchComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.searchForm = this.fb.group({
             'branch': [null],
             'department': [null],
