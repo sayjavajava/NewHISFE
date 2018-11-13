@@ -74,6 +74,7 @@ export class AppConstants {
 
     ////////////////////// Service Tax URLs ///////////////////////////////
     public static FETCH_ALL_TAX_URL = '/setting/tax/';
+    public static FETCH_ALL_TAX_DATA_TABLE_URL = '/setting/tax/dataTable';
     public static SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     public static SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     public static SERVICE_TAX_UPDATE_URL = '/setting/tax/update';

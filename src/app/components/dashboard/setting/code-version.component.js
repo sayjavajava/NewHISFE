@@ -25,8 +25,8 @@ var CodeVersionComponent = (function () {
         this.iCDCVM = new ICDCodeVersionModel_1.ICDCodeVersionModel();
         this.pages = [];
         this.data = [];
-        this.searchCodeVersion = "";
-        this.searchCodeVersionCode = "";
+        this.searchCodeVersion = '';
+        this.searchCodeVersionCode = '';
     }
     CodeVersionComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code Version';
@@ -85,7 +85,7 @@ var CodeVersionComponent = (function () {
     };
     CodeVersionComponent.prototype.refreshCodeVersionTable = function () {
         this.searched = false;
-        this.searchCodeVersion = "";
+        this.searchCodeVersion = '';
         this.getCodeVersionsFromServer(0);
     };
     CodeVersionComponent.prototype.refreshICDsTable = function (page) {
@@ -94,7 +94,7 @@ var CodeVersionComponent = (function () {
     CodeVersionComponent.prototype.deleteCodeVersion = function (associateICDCVId) {
         var _this = this;
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete"))
+            if (!confirm('Are Your Source You Want To Delete'))
                 return;
             this.requestsService.deleteRequest(app_constants_1.AppConstants.ICD_CODE_VERSION_DELETE_URL + associateICDCVId)
                 .subscribe(function (response) {
@@ -136,6 +136,17 @@ var CodeVersionComponent = (function () {
         var _this = this;
         if (this.iCDCVM.selectedICDVersionId === 0) {
             this.notificationService.error('Please select Version ', 'Association');
+            return;
+        }
+        var isCodeFound = false; // one code is required , this implementation is suggested by ammara and tahir
+        for (var _i = 0, _a = this.iCDCodes; _i < _a.length; _i++) {
+            var cv = _a[_i];
+            if (cv.checkedCode) {
+                isCodeFound = true;
+            }
+        }
+        if (!isCodeFound) {
+            this.notificationService.warn('Please select at least one code.');
             return;
         }
         this.iCDCVM.iCDCodes = this.iCDCodes;

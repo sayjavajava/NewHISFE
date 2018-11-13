@@ -44,6 +44,10 @@ var PatientProblemListComponent = (function () {
     PatientProblemListComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Problem list';
         this.getPaginatedProblemsFromServer(0);
+        this.statusType = [
+            { label: 'ACTIVE', value: 'ACTIVE' },
+            { label: 'IN-ACTIVE', value: 'IN-ACTIVE' },
+        ];
     };
     PatientProblemListComponent.prototype.appointmentsByServer = function () {
         var _this = this;
@@ -93,7 +97,6 @@ var PatientProblemListComponent = (function () {
             this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSIONS)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
-                    _this.iCDVersions = [];
                     _this.iCDVersions = response['responseData'];
                 }
             }, function (error) {

@@ -1,4 +1,4 @@
-export class ServiceTax {
+export class TaxService {
     id: number = 0;
     name: string = '';
     description: string = '';

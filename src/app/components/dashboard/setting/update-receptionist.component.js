@@ -34,7 +34,7 @@ var UpdateReceptionistComponent = (function () {
         this.defaultBranch = 'primaryBranch';
         this.userSelected = 'doctor';
         this.selectedVisitBranches = [];
-        //this.allBranches();
+        this.allBranches();
         //this.allDoctors();
         this.createUserForm();
         this.sub = this.route.params.subscribe(function (params) {
@@ -72,6 +72,7 @@ var UpdateReceptionistComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                _this.visitingBranches = response['responseData'];
                 //  this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
                 /*if(this.branchesList.length >1 ){
                  this.removeBranch();
@@ -88,7 +89,7 @@ var UpdateReceptionistComponent = (function () {
             'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
             'password': [null],
             'confirmPassword': [null],
-            'homePhone': [null, forms_1.Validators.required],
+            'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
             'interval': [null],
@@ -137,10 +138,13 @@ var UpdateReceptionistComponent = (function () {
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         _this.branchesList = response['responseData'];
-                        for (var key in _this.branchesList) {
+                        _this.visitingBranches = response['responseData'];
+                        _this.staffBranches = _this.staffBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
+                        _this.visitingBranches = _this.visitingBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
+                        for (var key in _this.visitingBranches) {
                             for (var k in _this.staffBranches) {
-                                if (_this.staffBranches[k].id == _this.branchesList[key].id) {
-                                    _this.branchesList[key].checked = true;
+                                if (_this.staffBranches[k].id == _this.visitingBranches[key].id) {
+                                    _this.visitingBranches[key].checked = true;
                                     _this.selectedVisitBranches.push(_this.staffBranches[k].id);
                                     break;
                                 }
@@ -253,14 +257,12 @@ var UpdateReceptionistComponent = (function () {
     UpdateReceptionistComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);
     };
-    UpdateReceptionistComponent.prototype.getSelectedBranch = function (value) {
-        console.log(value);
-        if (value === undefined) {
-            this.userForm.controls['primaryBranch'].setValue('primaryBranch');
+    UpdateReceptionistComponent.prototype.getSelectedBranch = function (event) {
+        if (event && event.target.value) {
+            this.userForm.controls['primaryBranch'].setValue(event.target.value);
         }
-        else {
-            this.userForm.controls['primaryBranch'].setValue(value);
-        }
+        this.visitingBranches = this.branchesList;
+        this.visitingBranches = this.visitingBranches.filter(function (br) { return br.id != event.target.value; });
     };
     UpdateReceptionistComponent = __decorate([
         core_1.Component({

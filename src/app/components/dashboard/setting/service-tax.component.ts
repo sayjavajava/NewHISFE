@@ -3,53 +3,53 @@ import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
 import {AppConstants} from '../../../utils/app.constants';
-import {ServiceTax} from '../../../model/service-tax';
+import {TaxService} from '../../../model/service-tax';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
     selector: 'service-tax-component',
-    templateUrl: '../../../templates/dashboard/setting/service-tax.template.html',
+    templateUrl: '../../../templates/dashboard/setting/tax.template.html',
 
 })
-export class ServiceTaxComponent implements OnInit {
-    serviceTax: ServiceTax = new ServiceTax();
-    nextPage: any;
-    prePage: any;
-    currPage: any;
-    pages: number[] = [];
-    dataTaxes: ServiceTax[] = [];
+export class taxComponent implements OnInit {
+    serviceTax: TaxService = new TaxService();
+
+    dataTaxes: TaxService[] = [];
     isUpdateServiceTax: boolean = false;
     isSearchedTax: boolean = false;
     searchTax: string = '';
+    cols: any[] = [
+        {field: 'name', header: 'name'},
+        {field: 'rate', header: 'rate'},
+        {field: 'fromDate', header: 'fromDate'},
+        {field: 'toDate', header: 'toDate'},
+        {field: 'description', header: 'description'},
+        {field: 'status', header: 'status'},
+        {field: 'Action', header: 'Action'},
+    ];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router) {
+
     }
 
     ngOnInit() {
         document.title = 'HIS | Service Tax';
         if (localStorage.getItem(btoa('access_token'))) {
-            this.getTaxesFromServer(0);
+            this.getAllTaxesForDataTable();
         }
     }
 
-    getTaxesFromServer(page: number) {
-        if (page > 0) {
-            page = page;
-        }
+    getAllTaxesForDataTable() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_TAX_URL + page)
+            AppConstants.FETCH_ALL_TAX_DATA_TABLE_URL)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SER_TAX_SUC_01') {
-                        this.nextPage = response['responseData']['nextPage'];
-                        this.prePage = response['responseData']['prePage'];
-                        this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];
-                        this.dataTaxes = response['responseData']['data'];
+                        this.dataTaxes = response['responseData'];
                     }
                 },
                 (error: any) => {
@@ -58,9 +58,10 @@ export class ServiceTaxComponent implements OnInit {
             );
     }
 
+
     onTaxPopupLoad() {
         this.isUpdateServiceTax = false;
-        this.serviceTax = new ServiceTax();
+        this.serviceTax = new TaxService();
     }
 
     saveServiceTax(form: NgForm) {
@@ -83,7 +84,7 @@ export class ServiceTaxComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'SER_TAX_SUC_03') {
                             this.notificationService.success(response['responseMessage'], 'Tax');
-                            this.getPageWiseTax(this.currPage);
+                            this.getAllTaxesForDataTable();
                             document.getElementById('close-btn').click();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Tax');
@@ -137,9 +138,9 @@ export class ServiceTaxComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'SER_TAX_SUC_02') {
                             this.notificationService.success(response['responseMessage'], 'Tax');
-                            this.getPageWiseTax(this.currPage);
+                            this.getAllTaxesForDataTable();
                         } else {
-                            this.getPageWiseTax(this.currPage);
+                            this.getAllTaxesForDataTable();
                             this.notificationService.error(response['responseMessage'], 'Tax');
                         }
                     },
@@ -176,10 +177,10 @@ export class ServiceTaxComponent implements OnInit {
                 ).subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SER_TAX_SUC_06') {
-                            this.serviceTax = new ServiceTax();
+                            this.serviceTax = new TaxService();
                             this.notificationService.success(response['responseMessage'], 'Tax');
                             document.getElementById('close-btn').click();
-                            this.getPageWiseTax(this.currPage);
+                            this.getAllTaxesForDataTable();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Tax')
                         }
@@ -217,48 +218,10 @@ export class ServiceTaxComponent implements OnInit {
         }
     }
 
-    getPageWiseTax(page: number) {
-        this.dataTaxes = [];
-        if (this.isSearchedTax) {
-            this.searchByTaxName();
-        } else {
-            this.getTaxesFromServer(page);
-        }
-    }
 
     refreshTaxesTable() {
         this.isSearchedTax = false;
         this.searchTax = '';
-        this.getTaxesFromServer(0);
-    }
-
-    private searchByTaxName() {
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.isSearchedTax = true;
-            this.requestsService.getRequest(
-                AppConstants.SERVICE_TAX_SEARCH_URL + '0?searchTax=' + this.searchTax)
-                .subscribe(
-                    (response: Response) => {
-                        if (response['responseCode'] === 'SER_TAX_SUC_07') {
-                            this.nextPage = response['responseData']['nextPage'];
-                            this.prePage = response['responseData']['prePage'];
-                            this.currPage = response['responseData']['currPage'];
-                            this.pages = response['responseData']['pages'];
-                            this.dataTaxes = response['responseData']['data'];
-                            this.notificationService.success('Taxes found successfully');
-                        } else {
-                            this.nextPage = 0;
-                            this.prePage = 0;
-                            this.currPage = 0;
-                            this.pages = [];
-                            this.dataTaxes = [];
-                            this.notificationService.warn('Taxes not found');
-                        }
-                    },
-                    (error: any) => {
-                        this.HISUtilService.tokenExpired(error.error.error);
-                    }
-                );
-        }
+        this.getAllTaxesForDataTable();
     }
 }

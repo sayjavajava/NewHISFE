@@ -16,6 +16,7 @@ var router_1 = require("@angular/router");
 var notification_service_1 = require("../../../services/notification.service");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var app_constants_1 = require("../../../utils/app.constants");
+var organization_1 = require("../../../model/organization");
 var AddBranchComponent = (function () {
     function AddBranchComponent(router, requestService, fb, notificationService, amazingTimePickerService) {
         var _this = this;
@@ -25,16 +26,27 @@ var AddBranchComponent = (function () {
         this.notificationService = notificationService;
         this.amazingTimePickerService = amazingTimePickerService;
         this.examRooms = [];
+        this.officeHoursStart = '07:00';
+        this.officeHoursEnd = '17:00';
         this.userSelected = 'doctor';
-        this.pDoctor = [];
+        this.organization = new organization_1.Organization();
         this.branchesList = [];
         // defaultDoctor:string='primarydoctor';
         this.defaultBranch = 'primaryBranch';
         this.noOfRoom = 1;
-        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+        this.cities = [];
+        this.countryList = [
+            { name: 'Germany', label: 'Germany', value: 'Germany', cities: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn'] },
+            { name: 'Pakistan', label: 'Pakistan', value: 'Pakistan', cities: ['Punjab', 'Sindh', 'Balochistan', 'KPK'] },
+            { name: 'USA', label: 'USA', value: 'USA', cities: ['California', 'Florida', 'Texas', 'New York', 'Hawai', 'Pennsylvania'] },
+            { name: 'Canada', label: 'Caanda', value: 'Canada', cities: ['Alberta', 'Ontario'] },
+            { name: 'Saudi Arab', label: 'Saudi Arab', value: 'Saudi Arab', cities: ['Riyadh', 'Jeddah', 'Dammam'] },
+            { name: 'China', label: 'China', value: 'China', cities: ['Hainan', 'Sichuan', 'Hunan', 'Henan'] },
+        ];
+        this.requestService.getRequest(app_constants_1.AppConstants.BRANCH_ORGANIZATION)
             .subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
-                _this.pDoctor = response['responseData'];
+                _this.organization = response['responseData'];
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -45,6 +57,31 @@ var AddBranchComponent = (function () {
         this.createBranchMendatoryForm();
         this.createBranchForm();
         this.createScheduleForm();
+        this.branchForm.controls['companyName'].disable();
+        this.noOfRoomsList = [
+            { label: '1', value: 1 },
+            { label: '2', value: 2 },
+            { label: '3', value: 3 },
+            { label: '4', value: 4 },
+            { label: '5', value: 5 },
+            { label: '6', value: 6 },
+            { label: '7', value: 7 },
+            { label: '8', value: 8 },
+            { label: '9', value: 9 },
+            { label: '10', value: 10 },
+            { label: '15', value: 15 },
+            { label: '20', value: 20 },
+            { label: '25', value: 25 },
+            { label: '30', value: 30 },
+            { label: '35', value: 35 },
+            { label: '40', value: 40 },
+        ];
+        this.flowList = [
+            { label: 'RCND', value: 'RCND' },
+            { label: '2', value: 2 },
+            { label: '3', value: 3 },
+            { label: '4', value: 4 },
+        ];
     };
     AddBranchComponent.prototype.createBranchForm = function () {
         this.billingForm = this.fb.group({
@@ -61,6 +98,8 @@ var AddBranchComponent = (function () {
     };
     AddBranchComponent.prototype.createBranchMendatoryForm = function () {
         this.branchForm = this.fb.group({
+            'companyName': [null],
+            'flow': [null],
             'branchName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'country': [null],
             'state': [null],
@@ -83,6 +122,11 @@ var AddBranchComponent = (function () {
                 if(item.userName === this.defaultDoctor) this.pDoctor.splice(index,1);
             });
         }*/
+    AddBranchComponent.prototype.getSelectedStates = function (countryObj) {
+        var country = countryObj.value;
+        this.cities = this.countryList.find(function (x) { return x.name == country; }).cities;
+        this.branchForm.controls['country'].setValue(country);
+    };
     AddBranchComponent.prototype.removeBranch = function () {
         var _this = this;
         this.branchesList.forEach(function (item, index) {
@@ -219,11 +263,6 @@ var AddBranchComponent = (function () {
             this.branchForm.controls['primaryDoctor'].setValue(value);
         }
     };
-    AddBranchComponent.prototype.getCountry = function (value) {
-        if (value) {
-            this.branchForm.controls['country'].setValue(value);
-        }
-    };
     AddBranchComponent.prototype.getState = function (value) {
         if (value) {
             this.branchForm.controls['state'].setValue(value);
@@ -234,7 +273,8 @@ var AddBranchComponent = (function () {
             this.branchForm.controls['zipCode'].setValue(value);
         }
     };
-    AddBranchComponent.prototype.getNoOfExamRooms = function (value) {
+    AddBranchComponent.prototype.getNoOfExamRooms = function (room) {
+        var value = room.value;
         if (value) {
             this.noOfRoom = value;
             this.branchForm.controls['noOfExamRooms'].setValue(value);

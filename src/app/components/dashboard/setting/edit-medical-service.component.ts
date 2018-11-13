@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ServiceTax} from '../../../model/service-tax';
+import {TaxService} from '../../../model/service-tax';
 import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
 import {HISUtilService} from '../../../services/his-util.service';

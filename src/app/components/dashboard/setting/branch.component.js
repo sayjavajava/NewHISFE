@@ -30,7 +30,9 @@ var BranchComponent = (function () {
         this.pageNo = 0;
         this.selectedRole = 'SUPER_ADMIN';
         this.branchesList = [];
+        this.doctorsInBranch = [];
         this.allBranches();
+        //   this.getbranchesWithDoctors(2);
         this.allDepartments();
     }
     BranchComponent.prototype.ngOnInit = function () {
@@ -47,6 +49,20 @@ var BranchComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                //    this.defaultSelectedBranch= this.branchesList[0].id;
+            }
+            //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
+        }, function (error) {
+            _this.error = error.error.error;
+        });
+    };
+    BranchComponent.prototype.getbranchesWithDoctors = function (id) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTORS + id)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'BR_SUC_01') {
+                _this.doctorsInBranch = response['responseData'];
+                console.log('doctor:' + _this.doctorsInBranch);
                 //    this.defaultSelectedBranch= this.branchesList[0].id;
             }
             //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
@@ -151,7 +167,8 @@ var BranchComponent = (function () {
     BranchComponent.prototype.updateBranch = function (id) {
         this.router.navigate(['/dashboard/setting/branch/edit/', id]);
     };
-    BranchComponent.prototype.getSelectedBranch = function (value) {
+    BranchComponent.prototype.getSelectedBranch = function (valueObj) {
+        var value = valueObj.value;
         if (value) {
             this.searchForm.controls['branch'].setValue(value);
         }

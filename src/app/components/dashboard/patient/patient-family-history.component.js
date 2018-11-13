@@ -28,8 +28,10 @@ var PatientFamilyHistoryComponent = (function () {
         this.dataService = dataService;
         this.notificationService = notificationService;
         this.confirmationDialogService = confirmationDialogService;
+        this.loading = false;
         this.pages = [];
         this.selectedFamily = new Family_1.Family();
+        this.relationsList2 = [];
         this.patient = new patient_1.Patient();
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.patientId = id;
@@ -41,6 +43,28 @@ var PatientFamilyHistoryComponent = (function () {
     PatientFamilyHistoryComponent.prototype.ngOnInit = function () {
         this.loadRecord();
         this.getFamilyHistoryFromServer(0);
+        this.cols = [
+            { field: 'name', header: 'name' },
+            { field: 'relation', header: 'Relation' },
+            { field: 'ethnicGroup', header: 'EthnicGroup' },
+            { field: 'status', header: 'Status' }
+        ];
+        this.statusType = [
+            { label: 'SINGLE', value: 'SINGLE' },
+            { label: 'MARRIED', value: 'MARRIED' },
+        ];
+        this.ethnicGroup = [
+            { label: 'PUNJABI', value: 'PUNJABI' },
+            { label: 'SINDHI', value: 'SINDHI' },
+            { label: 'BALOCHI', value: 'BALOCHI' },
+        ];
+        this.relationType = [
+            { label: 'WIFE', value: 'WIFE' },
+            { label: 'HUSBAND', value: 'HUSBAND' },
+            { label: 'FATHER', value: 'FATHER' },
+            { label: 'MOTHER', value: 'MOTHER' },
+            { label: 'SON', value: 'SON' },
+        ];
     };
     PatientFamilyHistoryComponent.prototype.loadRecord = function () {
         var _this = this;
@@ -61,25 +85,46 @@ var PatientFamilyHistoryComponent = (function () {
             });
         }
     };
+    PatientFamilyHistoryComponent.prototype.onYearChange = function (event, dt) {
+        if (this.yearTimeout) {
+            clearTimeout(this.yearTimeout);
+        }
+        this.yearTimeout = setTimeout(function () {
+            dt.filter(event.value, 'year', 'gt');
+        }, 250);
+    };
     PatientFamilyHistoryComponent.prototype.getFamilyHistoryFromServer = function (page) {
         var _this = this;
+        this.loading = true;
         if (page > 0) {
             page = page;
         }
-        this.requestsService.getRequestWithParam(app_constants_1.AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL + page, this.patientId)
+        this.requestsService.getRequest(
+        // AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL + page,this.patientId)
+        app_constants_1.AppConstants.FETCH_ALL_FAMILY_HISTORY_BY_PATIENT_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'FAM_HISTORY_SUC_02') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.data = response['responseData']['data'];
+                /*this.nextPage = response['responseData']['nextPage'];
+                this.prePage = response['responseData']['prePage'];
+                this.currPage = response['responseData']['currPage'];
+                this.pages = response['responseData']['pages'];*/
+                _this.data = response['responseData'];
+                _this.data.map(function (x) {
+                    var fm = new Family_1.Family();
+                    fm.label = x.relation,
+                        fm.relation = x.relation,
+                        fm.value = x.relation;
+                    _this.relationsList2.push(fm);
+                    _this.loading = false;
+                });
             }
-            /* if(response['responseCode'] =='FAM_HISTORY_ERR_02'){
-                 this.notificationService.error(`Error ${response['responseMessage']}`)
-             }*/
+            if (response['responseCode'] == 'FAM_HISTORY_ERR_02') {
+                _this.loading = false;
+                _this.notificationService.error("Error " + response['responseMessage']);
+            }
         }, function (error) {
             _this.error = error.error.error;
+            _this.loading = false;
         });
     };
     PatientFamilyHistoryComponent.prototype.goToUserDashBoard = function () {
@@ -137,6 +182,15 @@ var PatientFamilyHistoryComponent = (function () {
         else {
             this.notificationService.error('Required fields missing', 'Clinical Department');
         }
+    };
+    PatientFamilyHistoryComponent.prototype.loadFamilyLazy = function (event) {
+        var _this = this;
+        console.log('lazy...' + event.first, +'' + event.rows);
+        setTimeout(function () {
+            if (_this.data) {
+                _this.cars = _this.data.slice(event.first, (event.first + event.rows));
+            }
+        }, 250);
     };
     PatientFamilyHistoryComponent.prototype.onAddPopupLoad = function () {
         this.selectedFamily = new Family_1.Family();

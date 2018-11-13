@@ -26,6 +26,13 @@ export class DepartmentComponent implements OnInit {
     error:any;
     selectedDepartment: Department = new Department();
 
+    cols: any[] = [
+        {field: 'name', header: 'name'},
+        {field: 'description', header: 'description'},
+        {field: 'status', header: 'status'},
+        {field: 'Action', header: 'Action'},
+    ];
+
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private userSharedService: UserSharedService,
