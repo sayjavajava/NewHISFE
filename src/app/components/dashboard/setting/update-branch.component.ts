@@ -8,13 +8,70 @@ import {AmazingTimePickerService} from "amazing-time-picker";
 import {Branch} from "../../../model/Branch";
 import {ExamRooms} from "../../../model/ExamRooms";
 import {AppConstants} from "../../../utils/app.constants";
+import {isNullOrUndefined} from "util";
+import {SelectItem} from "primeng/api";
 
 
 @Component({
-    selector: 'update-branch-component',
-    templateUrl: '../../../templates/dashboard/setting/update-branch.template.html',
+    selector: "update-branch-component",
+    templateUrl: "../../../templates/dashboard/setting/update-branch.template.html",
 })
 export class UpdateBranchComponent implements OnInit {
+    id: number;
+    examRooms: any = [];
+    branchesList: any = [];
+    officeHoursStart: string;
+    officeHoursEnd: string;
+    userSelected: string = "DOCTOR";
+    pDoctor: any = [];
+    error: any;
+    branchForm: FormGroup;
+    billingForm: FormGroup;
+    scheduleForm: FormGroup;
+    branch: Branch;
+    defaultBranch: string = "primary";
+    noOfRoom: number = 1;
+    disable: boolean = true;
+    flowList: any;
+    countryList: any[];
+    countryListModified: SelectItem[] = [];
+    statesList: any[];
+    statesListModified: SelectItem[] = [];
+    citiesList: any[];
+    citiesListModified: SelectItem[] = [];
+    city: any;
+    state: any;
+    country: any;
+    cityId: any;
+    stateId: any;
+    countryId: any;
+
+    selectedCountry: SelectItem[] = [];
+    selectedState: SelectItem[] = [];
+    selectedCity: SelectItem[] = [];
+
+
+    allRoomCount = () => {
+        this.requestService.getRequest(AppConstants.FETCH_ROOM_COUNT_OF_BRANCH + this.id)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        if (!isNullOrUndefined(response["responseData"])) {
+                            this.noOfRoom = response["responseData"].data;
+                        }
+                        if (this.noOfRoom < 1) {
+                            this.noOfRoom = 1;
+                        }
+                        console.log("No of rooms: " + this.noOfRoom);
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+    }
+    
+    private sub: any;
+
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private requestService: RequestsService,
@@ -22,106 +79,83 @@ export class UpdateBranchComponent implements OnInit {
                 private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
 
-        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+        this.requestService.getRequest(AppConstants.USER_BY_ROLE + "?name=" + this.userSelected)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'USER_SUC_01') {
-                        this.pDoctor = response['responseData'];
+                    if (response["responseCode"] === "USER_SUC_01") {
+                        this.pDoctor = response["responseData"];
                     }
                 },
                 (error: any) => {
                     this.error = error.error.error;
                 });
-        this.allBranches();
+        // this.allBranches();
     }
-
-    private sub: any;
-    id: number;
-    examRooms: any = [];
-    branchesList: any = [];
-    officeHoursStart: string;
-    officeHoursEnd: string;
-    userSelected: string = 'DOCTOR';
-    pDoctor: any = [];
-    error: any;
-    branchForm: FormGroup;
-    billingForm: FormGroup;
-    scheduleForm: FormGroup;
-    branch: Branch;
-    defaultBranch: string = 'primary';
-    noOfRoom:number=1;
-    disable:boolean =true;
-    flowList:any;
-    cities: any = [];
-    state:any;
-    countryList: Array<any> = [
-        {name: 'Germany', label:'Germany',value:'Germany', cities: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn']},
-        {name: 'Pakistan',label:'Pakistan',value:'Pakistan', cities: ['Punjab', 'Sindh', 'Balochistan', 'KPK']},
-        {name: 'USA',label:'USA',value:'USA', cities: ['California', 'Florida', 'Texas', 'New York', 'Hawai', 'Pennsylvania']},
-        {name: 'Canada',label:'Caanda',value:'Canada', cities: ['Alberta', 'Ontario']},
-        {name: 'Saudi Arab',label:'Saudi Arab',value:'Saudi Arab', cities: ['Riyadh', 'Jeddah', 'Dammam']},
-        {name: 'China',label:'China',value:'China', cities: ['Hainan', 'Sichuan', 'Hunan', 'Henan']},
-    ];
 
     ngOnInit() {
         this.createBranchForm();
         this.sub = this.route.params.subscribe(params => {
-            this.id = params['id'];
+            this.id = params["id"];
             console.log(this.id);
         });
         this.createBillingForm();
         this.createScheduleForm();
         this.patchData();
         this.flowList = [
-            { label: 'RCND', value: 'RCND' },
-            { label: '2', value: 2 },
-            { label: '3', value: 3 },
-            { label: '4', value: 4 },
+            {label: "RCND", value: "RCND"},
+            {label: "2", value: 2},
+            {label: "3", value: 3},
+            {label: "4", value: 4},
 
         ];
+        this.getCityStateCntryByBranchId();
     }
 
     createBranchForm() {
         this.branchForm = this.fb.group({
-
-            'branchName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-            'country': [null],
-            'state': [null],
-            'flow':[null],
-            'city': [null],
-            'primaryDoctor': [null],
-            'zipCode': [null],
-            'address': [null],
-            'officePhone': [null],
-            'fax': [null],
-            'formattedAddress': [null],
-            'officeHoursStart': [null, Validators.required],
-            'officeHoursEnd': [null, Validators.required],
-            'noOfExamRooms': [null],
-            'examRooms': this.fb.array([this.createExamRoom()]),
+            "branchName": [null, Validators.compose([Validators.required, Validators.minLength(4)])],
+            "country": [null],
+            "state": [null],
+            "city": [null],
+            "flow": [null],
+            "countryId": [null],
+            "stateId": [null],
+            "cityId": [null],
+            "primaryDoctor": [null],
+            "zipCode": [null],
+            "address": [null],
+            "officePhone": [null],
+            "fax": [null],
+            "formattedAddress": [null],
+            "officeHoursStart": [null, Validators.required],
+            "officeHoursEnd": [null, Validators.required],
+            "noOfExamRooms": [null],
+            "examRooms": this.fb.array([this.createExamRoom()]),
+            "selectedCountry": [null],
+            "selectedState": [null],
+            "selectedCity": [null],
         })
     }
 
     createBillingForm() {
         this.billingForm = this.fb.group({
-            'billingBranch': [null],
-            'billingName': [null],
-            'billingTaxID': [null],
+            "billingBranch": [null],
+            "billingName": [null],
+            "billingTaxID": [null],
         })
     }
 
     createScheduleForm() {
         this.scheduleForm = this.fb.group({
-            'showBranchOnline': '',
-            'allowOnlineSchedulingInBranch': '',
+            "showBranchOnline": "",
+            "allowOnlineSchedulingInBranch": "",
         })
     }
 
-
     createExamRoom(): FormGroup {
         return this.fb.group({
-            'roomName': '',
-            'allowOnlineScheduling': '',
+            "roomName": "",
+            "allowOnlineScheduling": "",
         });
     }
 
@@ -129,9 +163,8 @@ export class UpdateBranchComponent implements OnInit {
         this.requestService.getRequest(AppConstants.BRANCHES_NAME)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'BRANCH_SUC_01') {
-                        this.branchesList = response['responseData'];
-
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.branchesList = response["responseData"];
                     }
                 },
                 (error: any) => {
@@ -143,43 +176,50 @@ export class UpdateBranchComponent implements OnInit {
         if (this.id) {
             this.requestService.findById(AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(
                 branch => {
-                    //  this.id = user.id;
-                    this.cities = this.countryList.find((x: any) => x.name == branch.country).cities;
                     this.branchForm.patchValue({
                         branchName: branch.branchName,
                         officeHoursStart: branch.officeHoursStart,
                         officeHoursEnd: branch.officeHoursEnd,
-                        noOfExamRooms: branch.rooms,
-                        state:branch.state,
-                        city: branch.city,
+                        noOfExamRooms: branch.examRooms.length,
+                        city: branch.city.city,
+                        state: branch.city.state,
+                        country: branch.city.country,
+                        cityId: branch.city.cityId,
+                        stateId: branch.city.stateId,
+                        countryId: branch.city.countryId,
+                        selectedCity: branch.city.city,
+                        selectedState: branch.city.state,
+                        selectedCountry: branch.city.country,
                         // primaryDoctor: branch.user.id,
                         fax: branch.fax,
-                        country: branch.country,
                         address: branch.address,
                         zipCode: branch.zipCode,
                         officePhone: branch.officePhone,
-                        flow : branch.flow,
+                        flow: branch.flow,
 
                     });
 
-                   // this.state = branch.state,
+                    this.cityId = branch.city.cityId;
+                    this.stateId = branch.city.stateId;
+                    this.countryId = branch.city.countryId;
 
+                    /*     this.billingForm.patchValue({
+                             billingBranch: branch.billingBranch,
+                             billingName: branch.billingName,
+                             billingTaxID: branch.billingTaxID
 
-                        /*     this.billingForm.patchValue({
-                                 billingBranch: branch.billingBranch,
-                                 billingName: branch.billingName,
-                                 billingTaxID: branch.billingTaxID
+                         });
 
-                             });
-
-                             this.scheduleForm.patchValue({
-                                     showBranchOnline: branch.showBranchOnline,
-                                     allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
-                                 }
-                             );*/
-                    this.branchForm.controls['zipCode'].patchValue(branch.zipCode);
+                         this.scheduleForm.patchValue({
+                                 showBranchOnline: branch.showBranchOnline,
+                                 allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
+                             }
+                         );*/
+                    this.branchForm.controls["zipCode"].patchValue(branch.zipCode);
+                    this.allRoomCount();
+                    branch.examRooms = this.noOfRoom;
                     this.addFields(branch.rooms);
-                    this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
+                    // this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -196,26 +236,28 @@ export class UpdateBranchComponent implements OnInit {
     }
 
     addBranch(data: FormData) {
+        data["cityId"] = this.selectedCity;
+
         if (this.branchForm.valid) {
             //  let branchObject = this.prepareSaveBranch();
             var that = this;
             this.requestService.putRequest(AppConstants.UPDATE_BRANCH + this.id, data)
                 .subscribe(
                     (response: Response) => {
-                        that.router.navigate(['/dashboard/setting/branch']);
-                        if (response['responseCode'] == 'BRANCH_UPDATE_SUC_01') {
-                            console.log('updated...');
-                            that.notificationService.success(' Branch has been Updated Successfully');
-                            that.router.navigate(['/dashboard/setting/branch']);
+                        that.router.navigate(["/dashboard/setting/branch"]);
+                        if (response["responseCode"] == "BRANCH_UPDATE_SUC_01") {
+                            console.log("updated...");
+                            that.notificationService.success(" Branch has been Updated Successfully");
+                            that.router.navigate(["/dashboard/setting/branch"]);
                         }
-                        if (response['responseCode'] === 'BR_ALREADY_EXISTS_01') {
-                            this.notificationService.warn('Branch already Exists');
+                        if (response["responseCode"] === "BR_ALREADY_EXISTS_01") {
+                            this.notificationService.warn("Branch already Exists");
                             //  this.router.navigate(['/dashboard/setting/branch'])
                         }
 
                     }, function (error) {
                         this.error = error.error.error_description;
-                        this.notificationService.error('ERROR', 'Branch is not updated ');
+                        this.notificationService.error("ERROR", "Branch is not updated ");
                     });
 
         } else {
@@ -225,14 +267,13 @@ export class UpdateBranchComponent implements OnInit {
                 for (var i = 0; i < examRoomLen; i++) {
                    console.log(this.examRooms.controls(i).controls['roomName'].value);
                 }*/
-                this.notificationService.error("Fill examroom Properly");
+                this.notificationService.error("Fill exam room Properly");
             }
         }
-
     }
 
     deleteField(index: number) {
-        this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        this.examRooms = this.branchForm.get("examRooms") as FormArray;
         this.examRooms.removeAt(index);
     }
 
@@ -273,18 +314,16 @@ export class UpdateBranchComponent implements OnInit {
         return saveBranchModel;
     }
 
-
     isFieldValid(field: string) {
         return !this.branchForm.get(field).valid && this.branchForm.get(field).touched;
     }
 
     displayFieldCss(field: string) {
         return {
-            'has-error': this.isFieldValid(field),
-            'has-feedback': this.isFieldValid(field)
+            "has-error": this.isFieldValid(field),
+            "has-feedback": this.isFieldValid(field)
         };
     }
-
 
     validateAllFormFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(field => {
@@ -299,14 +338,14 @@ export class UpdateBranchComponent implements OnInit {
     }
 
     cancel() {
-        this.router.navigate(['/dashboard/setting/staff']);
+        this.router.navigate(["/dashboard/setting/staff"]);
     }
 
     getOfficeHoursStart() {
         const amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(time => {
             this.officeHoursStart = time;
-            this.branchForm.controls['officeHoursStart'].setValue(time);
+            this.branchForm.controls["officeHoursStart"].setValue(time);
 
         })
     }
@@ -315,46 +354,38 @@ export class UpdateBranchComponent implements OnInit {
         const amazingTimePicker = this.amazingTimePickerService.open();
         amazingTimePicker.afterClose().subscribe(time => {
             this.officeHoursEnd = time;
-            this.branchForm.controls['officeHoursEnd'].setValue(time);
+            this.branchForm.controls["officeHoursEnd"].setValue(time);
 
         })
     }
 
     getDoctor(value: any) {
         if (value) {
-            this.branchForm.controls['primaryDoctor'].setValue(value);
-        }
-    }
-
-    getSelectedStates(countryObj: any) {
-        const country = countryObj.value;
-        if (country) {
-            this.cities = this.countryList.find((x: any) => x.name == country).cities;
-            this.branchForm.controls['country'].setValue(country);
+            this.branchForm.controls["primaryDoctor"].setValue(value);
         }
     }
 
     getState(value: any) {
         if (value) {
-            this.branchForm.controls['state'].setValue(value);
+            this.branchForm.controls["state"].setValue(value);
         }
     }
 
     getBillingBranch(value: any) {
         if (value) {
-            this.billingForm.controls['billingBranch'].setValue(value);
+            this.billingForm.controls["billingBranch"].setValue(value);
         }
     }
 
     getZipCode(value: any) {
         if (value) {
-            this.branchForm.controls['zipCode'].setValue(value);
+            this.branchForm.controls["zipCode"].setValue(value);
         }
     }
 
     getNoOfExamRooms(value: any) {
         if (value) {
-            this.branchForm.controls['noOfExamRooms'].setValue(value);
+            this.branchForm.controls["noOfExamRooms"].setValue(value);
             //  this.noOfExamRooms=value;
             this.addFields(value);
         }
@@ -362,7 +393,7 @@ export class UpdateBranchComponent implements OnInit {
 
     addFields(no: number): void {
         this.removeAllFields();
-        this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        this.examRooms = this.branchForm.get("examRooms") as FormArray;
         for (var i = 0; i < no; i++) {
             this.examRooms.push(this.createExamRoom());
         }
@@ -370,12 +401,96 @@ export class UpdateBranchComponent implements OnInit {
     }
 
     removeAllFields() {
-        this.examRooms = this.branchForm.get('examRooms') as FormArray;
+        this.examRooms = this.branchForm.get("examRooms") as FormArray;
         let examRoomLen = this.examRooms.length;
         for (var i = 0; i < examRoomLen; i++) {
             this.examRooms.removeAt(0);
         }
     }
 
+    createCountriesList() {
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_COUNTRIES)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.countryList = response["responseData"].data;
+                        for (let country of this.countryList) {
+                            var pair: any = {label: country.name, value: country.id};
+                            this.countryListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Countries List is not available");
+                });
+    }
 
+    getStatesByCountryId(countryId: any) {
+        this.statesList = this.citiesList = this.statesListModified = this.citiesListModified = [];
+
+        this.cityId = this.selectedCity;
+        this.stateId = this.state.id;
+        this.countryId = this.country.id;
+
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.statesList = response["responseData"].data;
+                        for (let state of this.statesList) {
+                            var pair: any = {label: state.name, value: state.id};
+                            this.statesListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "States List is not available");
+                });
+    }
+
+    getCitiesByStateId(stateId: any) {
+        this.citiesList = this.citiesListModified = [];
+
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.citiesList = response["responseData"].data;
+                        for (let city of this.citiesList) {
+                            var pair: any = {label: city.name, value: city.id};
+                            this.citiesListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Cities List is not available");
+                });
+    }
+
+    selectBranchCity(city: any) {
+        this.city = city;
+    }
+
+    getCityStateCntryByBranchId(){
+        this.requestService.getRequest(AppConstants.FETCH_CITY_STATE_CNTRY_BY_BR_ID + this.id)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.city = response["responseData"].data.city;
+                        this.state = response["responseData"].data.state;
+                        this.country = response["responseData"].data.country;
+
+                        this.selectedCity = this.city.name;
+                        this.selectedState = this.state.name;
+                        this.selectedCountry = this.country.name;
+
+                        this.cityId = this.city.id;
+                        this.stateId = this.state.id;
+                        this.countryId = this.country.id;
+
+                        this.createCountriesList();
+                        this.getStatesByCountryId(this.countryId)
+                        this.getCitiesByStateId(this.stateId);
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "CIty State Country for branch is/are not available");
+                });
+    }
 }

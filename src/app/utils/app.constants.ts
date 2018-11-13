@@ -29,6 +29,11 @@ export class AppConstants {
     public static FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
     public static FETCH_ALL_BRANCHES_WITH_DOCTORS= '/setting/branch/doctorsInBranch/';
+    public static FETCH_ROOM_COUNT_OF_BRANCH = '/setting/branch/rooms/';
+    public static FETCH_LIST_OF_COUNTRIES = '/setting/branch/countries/';
+    public static FETCH_LIST_OF_STATES_BY_CNTRY_ID = '/setting/branch/states/';
+    public static FETCH_LIST_OF_CITIES_BY_STATE_ID = '/setting/branch/cities/';
+    public static FETCH_CITY_STATE_CNTRY_BY_BR_ID = '/setting/branch/cityStateCountry/';
 
     ////////////////////// Patients Invoices ///////////////////////////////
     public static SAVE_INVOICE = '/invoice/saveInvoice';

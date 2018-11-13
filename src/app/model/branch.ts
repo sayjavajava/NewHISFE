@@ -1,4 +1,7 @@
 import {ExamRooms} from './ExamRooms';
+import {City} from "./City";
+import {State} from "./State";
+import {Country} from "./Country";
 
 export class Branch {
     id?: number;
@@ -6,8 +9,8 @@ export class Branch {
     officeHoursStart: number;
     officeHoursEnd: number;
     noOfExamRooms: number;
-    state: string;
-    city: string;
+    state: State;
+    city: City;
     primaryDoctor: string;
     zipCode: number;
     address: string;
@@ -15,7 +18,7 @@ export class Branch {
     fax: string;
     formattedAddress: string;
     examRooms: ExamRooms;
-    country: string;
+    country: Country;
     billingName ?: string;
     billingBranch ?: string;
     billingTaxID ?: string;
@@ -24,7 +27,7 @@ export class Branch {
     checkedBranch?: boolean;
 
 
-    constructor(id?: number, branchName?: string, officeHoursStart?: number, officeHoursEnd?: number, noOfExamRooms?: number, state ?: string, city?: string, primaryDoctor ?: string, zipCode?: number, address?: string, officePhone?: number, fax?: string, formattedAddress?: string, checked?: boolean) {
+    constructor(id?: number, branchName?: string, officeHoursStart?: number, officeHoursEnd?: number, noOfExamRooms?: number, state ?: State, city?: City, primaryDoctor ?: string, zipCode?: number, address?: string, country?: Country, officePhone?: number, fax?: string, formattedAddress?: string, checked?: boolean) {
         this.id = id;
         this.branchName = branchName;
         this.officeHoursStart = officeHoursStart;
@@ -35,6 +38,7 @@ export class Branch {
         this.primaryDoctor = primaryDoctor;
         this.zipCode = zipCode;
         this.address = address;
+        this.country = country;
         this.officePhone = officePhone;
         this.fax = fax;
         this.formattedAddress = formattedAddress;
