@@ -47,12 +47,14 @@ var AppConstants = (function () {
     AppConstants.ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     AppConstants.ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     AppConstants.ICD_CODES = '/setting/icd/codes/';
+    AppConstants.ICD_CODES_DATA_TABLE = '/setting/icd/codes/dataTable';
     AppConstants.ICD_CODES_ASSOCIATED_BY_VERSION_ID = '/setting/icd/codes/associated/?versionId=';
     AppConstants.ICD_CODE_DELETE_URL = '/setting/icd/code/delete?codeId=';
     AppConstants.ICD_CODE_SEARCH = '/setting/icd/code/search/';
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     AppConstants.ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     AppConstants.ICD_VERSIONS = '/setting/icd/versions/';
+    AppConstants.ICD_VERSIONS_DATA_TABLE = '/setting/icd/versions/dataTable';
     AppConstants.ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     AppConstants.ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     AppConstants.ICD_VERSION_SEARCH = '/setting/icd/version/search/';
@@ -70,6 +72,7 @@ var AppConstants = (function () {
     AppConstants.ASSIGN_PERMISSIONS_TO_USERS = '/user/auth/assignUserPermissions';
     ////////////////////// Service Tax URLs ///////////////////////////////
     AppConstants.FETCH_ALL_TAX_URL = '/setting/tax/';
+    AppConstants.FETCH_ALL_TAX_DATA_TABLE_URL = '/setting/tax/dataTable';
     AppConstants.SERVICE_TAX_SAVE_URL = '/setting/tax/save';
     AppConstants.SERVICE_TAX_DELETE_URL = '/setting/tax/delete?taxId=';
     AppConstants.SERVICE_TAX_UPDATE_URL = '/setting/tax/update';
