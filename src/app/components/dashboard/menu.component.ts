@@ -48,19 +48,20 @@ export class MenuComponent implements OnInit{
 
             this.userPermissions.forEach(x=>{
                 if(x.indicatior == 'G'){
-                    let ob2  = new items(x.name,x.routeUrl);
+                    let ob2  = new items(x.name,x.routeUrl,x.permissionIcon);
+                    console.log('decript:' + x.permissionIcon)
                     itemsList.push(ob2)
-                    gInd = new items('Genaral','/dashboard/setting/organization',itemsList);
+                    gInd = new items('Genaral','/dashboard/setting/organization','fa fa-cog',itemsList);
                    }
                 if(x.indicatior == 'S'){
                     let ob3 = new items(x.name,x.routeUrl);
                     gList.push(ob3)
-                    sInd = new items('Other','/dashboard/setting/organization',gList);
+                    sInd = new items('Other','/dashboard/setting/organization','',gList);
                 }
                 if(x.indicatior == 'C'){
                     let ob3  = new items(x.name,x.routeUrl);
                     mList.push(ob3)
-                    mInd = new items('Content','/dashboard/setting/staff',mList);
+                    mInd = new items('Content','/dashboard/setting/staff','fa fa-code-fork',mList);
                 }
 
             })

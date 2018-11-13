@@ -230,6 +230,14 @@ var AppConstants = (function () {
     AppConstants.SAVE_PAYMENTTYPE = '/PaymentType/save';
     AppConstants.DELETE_PAYMENTTYPE = '/PaymentType/delete/';
     AppConstants.UPDATE_PAYMENTTYPE = '/PaymentType/update';
+    ////////////////Country/////////////////////////////
+    AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
+    AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';
+    AppConstants.GET_STATE_BYCITYID = '/CityAPI/get/';
+    AppConstants.GET_ALL_DATEFORMAT = '/common/';
+    AppConstants.ZONE_FETCH_URL = '/common/timezoneApi';
+    AppConstants.GET_CITY_URL = '/CityAPI/';
+    AppConstants.GET_STATE_URL = '/StateAPI/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

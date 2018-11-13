@@ -52,19 +52,20 @@ var MenuComponent = (function () {
             var mInd_1;
             this.userPermissions.forEach(function (x) {
                 if (x.indicatior == 'G') {
-                    var ob2 = new items_1.items(x.name, x.routeUrl);
+                    var ob2 = new items_1.items(x.name, x.routeUrl, x.permissionIcon);
+                    console.log('decript:' + x.permissionIcon);
                     itemsList_1.push(ob2);
-                    gInd_1 = new items_1.items('Genaral', '/dashboard/setting/organization', itemsList_1);
+                    gInd_1 = new items_1.items('Genaral', '/dashboard/setting/organization', 'fa fa-cog', itemsList_1);
                 }
                 if (x.indicatior == 'S') {
                     var ob3 = new items_1.items(x.name, x.routeUrl);
                     gList_1.push(ob3);
-                    sInd_1 = new items_1.items('Other', '/dashboard/setting/organization', gList_1);
+                    sInd_1 = new items_1.items('Other', '/dashboard/setting/organization', '', gList_1);
                 }
                 if (x.indicatior == 'C') {
                     var ob3 = new items_1.items(x.name, x.routeUrl);
                     mList_1.push(ob3);
-                    mInd_1 = new items_1.items('Content', '/dashboard/setting/staff', mList_1);
+                    mInd_1 = new items_1.items('Content', '/dashboard/setting/staff', 'fa fa-code-fork', mList_1);
                 }
             });
             this.items.push(gInd_1);

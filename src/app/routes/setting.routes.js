@@ -72,7 +72,7 @@ exports.SettingRoutes = [
     { path: 'medicalServices/edit/:id', component: edit_medical_service_component_1.EditMedicalServiceComponent },
     { path: 'role-permissions', component: role_permissions_component_1.RolePermissionsComponent },
     { path: 'user-permissions', component: user_permissions_component_1.UserPermissionsComponent },
-    { path: 'service-tax', component: service_tax_component_1.ServiceTaxComponent },
+    { path: 'tax', component: service_tax_component_1.taxComponent },
     { path: 'status', component: statuses_component_1.StatusesComponent },
     { path: '404-not-found', component: not_found_404_setting_component_1.NotFound404SettingComponent },
     { path: 'branch/edit/:id', component: update_branch_component_1.UpdateBranchComponent },
