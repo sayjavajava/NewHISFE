@@ -16,7 +16,6 @@ export class AppConstants {
     public static CREATE_USER_ENDPOINT = '/user/add';
     public static USER_SEARCH = '/user/search/';
     public static FETCH_ALL_USERS_URI = '/user/';
-    public static FETCH_ALL_USERS = '/user/all';
     public static FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     public static ADD_BRANCH = '/setting/branch/create';
@@ -47,14 +46,12 @@ export class AppConstants {
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     public static ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     public static ICD_CODES = '/setting/icd/codes/';
-    public static ICD_CODES_DATA_TABLE = '/setting/icd/codes/dataTable';
     public static ICD_CODES_ASSOCIATED_BY_VERSION_ID = '/setting/icd/codes/associated/?versionId=';
     public static ICD_CODE_DELETE_URL = '/setting/icd/code/delete?codeId=';
     public static ICD_CODE_SEARCH = '/setting/icd/code/search/';
     public static ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     public static ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     public static ICD_VERSIONS = '/setting/icd/versions/';
-    public static ICD_VERSIONS_DATA_TABLE = '/setting/icd/versions/dataTable';
     public static ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     public static ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     public static ICD_VERSION_SEARCH = '/setting/icd/version/search/';
@@ -269,4 +266,14 @@ export class AppConstants {
     public static SAVE_PAYMENTTYPE = '/PaymentType/save';
     public static DELETE_PAYMENTTYPE = '/PaymentType/delete/';
     public static UPDATE_PAYMENTTYPE= '/PaymentType/update';
+
+
+    ////////////////Country/////////////////////////////
+    public static GET_ALL_COUNTRY='/CountryAPI/';
+    public static GET_STATE_BYCOUNTRYID='/StateAPI/get/';
+    public static GET_STATE_BYCITYID='/CityAPI/get/';
+    public static GET_ALL_DATEFORMAT='/common/';
+    public static ZONE_FETCH_URL = '/common/timezoneApi';
+    public  static GET_CITY_URL='/CityAPI/';
+    public static GET_STATE_URL='/StateAPI/';
 }
