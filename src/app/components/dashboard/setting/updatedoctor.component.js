@@ -55,7 +55,7 @@ var UpdatedoctorComponent = (function () {
         this.date = new forms_1.FormControl(new Date());
         this.allBranches();
         //this.allServices();
-        this.allDepartments();
+        //  this.allDepartments();
         this.allDoctors();
     }
     UpdatedoctorComponent.prototype.ngOnDestroy = function () {
@@ -115,9 +115,13 @@ var UpdatedoctorComponent = (function () {
                 _this.branchesList.splice(index, 1);
         });
     };
+    UpdatedoctorComponent.prototype.selectedBranch = function (eventObj) {
+        this.selectedBranchId = eventObj.value;
+        this.allDepartments();
+    };
     UpdatedoctorComponent.prototype.allDepartments = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_DEPARTMENT_BY_BRANCH + this.selectedBranchId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                 _this.departmentList = response['responseData'];

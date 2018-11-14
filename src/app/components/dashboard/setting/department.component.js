@@ -28,6 +28,7 @@ var DepartmentComponent = (function () {
         this.pages = [];
         this.searched = false;
         this.branchesList = [];
+        this.selectedBranches = [];
         this.selectedDepartment = new department_1.Department();
         this.allBranches();
     }
@@ -75,17 +76,21 @@ var DepartmentComponent = (function () {
     DepartmentComponent.prototype.getPageWiseDepartmentFromServer = function (page) {
         var _this = this;
         this.searchDepart = '';
-        if (page > 0) {
+        /*if (page > 0) {
             page = page;
-        }
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI + page)
+        }*/
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.data = response['responseData']['data'];
+                /*                        this.nextPage = response['responseData']['nextPage'];
+                                        this.prePage = response['responseData']['prePage'];
+                                        this.currPage = response['responseData']['currPage'];
+                                        this.pages = response['responseData']['pages'];*/
+                _this.data = response['responseData'];
+                _this.data.forEach(function (x) {
+                    _this.selectedBranches.push(x.name);
+                    console.log('editting...' + _this.selectedBranches.forEach(function (x) { console.log('coding..' + x.name); }));
+                });
             }
         }, function (error) {
             //console.log(error.json())

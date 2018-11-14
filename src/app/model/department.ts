@@ -7,6 +7,7 @@ export class Department {
     checkedDepartment: boolean;
     branch :string;
     branchId :number;
+    selectedBranches:any;
     branchDepartmentId:number;
     hasChild: boolean = false;
 
