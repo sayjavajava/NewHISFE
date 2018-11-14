@@ -32,6 +32,11 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
     AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
     AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTORS = '/setting/branch/doctorsInBranch/';
+    AppConstants.FETCH_ROOM_COUNT_OF_BRANCH = '/setting/branch/rooms/';
+    AppConstants.FETCH_LIST_OF_COUNTRIES = '/setting/branch/countries/';
+    AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID = '/setting/branch/states/';
+    AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID = '/setting/branch/cities/';
+    AppConstants.FETCH_CITY_STATE_CNTRY_BY_BR_ID = '/setting/branch/cityStateCountry/';
     ////////////////////// Patients Invoices ///////////////////////////////
     AppConstants.SAVE_INVOICE = '/invoice/saveInvoice';
     AppConstants.GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';

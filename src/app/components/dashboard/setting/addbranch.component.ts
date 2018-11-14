@@ -244,7 +244,7 @@ export class AddBranchComponent implements OnInit {
     }
 
     createExamRoom(): FormGroup {
-        debugger;
+
         return this.fb.group({
             "roomName": [null, Validators.required],
             "allowOnlineScheduling": "",

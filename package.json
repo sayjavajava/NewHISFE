@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Hospital Information System",
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --watch --host 192.168.1.150 --port 8181",
+    "start": "webpack-dev-server --inline --progress --watch --host localhost --port 8181",
     "test": "karma start",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
