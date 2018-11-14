@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ICDCodeModel = (function () {
     function ICDCodeModel() {
         this.code = '';
+        this.problem = ''; //// title replaced by problem
+        this.infoURL = '';
         this.status = true;
         this.hasChild = false;
         this.selectedVersions = [];

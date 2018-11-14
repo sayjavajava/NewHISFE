@@ -72,7 +72,7 @@ var update_branch_component_1 = require("./components/dashboard/setting/update-b
 var version_component_1 = require("./components/dashboard/setting/version.component");
 var code_version_component_1 = require("./components/dashboard/setting/code-version.component");
 var add_medical_service_component_1 = require("./components/dashboard/setting/add-medical-service.component");
-var service_tax_component_1 = require("./components/dashboard/setting/service-tax.component");
+var tax_component_1 = require("./components/dashboard/setting/tax.component");
 var edit_medical_service_component_1 = require("./components/dashboard/setting/edit-medical-service.component");
 var not_found_404_setting_component_1 = require("./components/dashboard/setting/not-found-404-setting.component");
 var email_template_component_1 = require("./components/dashboard/setting/email-template-component");
@@ -276,7 +276,7 @@ var AppModule = (function () {
                 confirmationdialog_component_1.ConfirmationdialogComponent,
                 update_branch_component_1.UpdateBranchComponent,
                 addstaff_component_1.AddStaffComponent,
-                service_tax_component_1.taxComponent,
+                tax_component_1.TaxComponent,
                 email_template_component_1.EmailTemplateComponent,
                 email_configuration_component_1.EmailConfigurationComponent,
                 sms_template_component_1.SmsTemplateComponent,

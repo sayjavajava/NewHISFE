@@ -33,6 +33,7 @@ var CodeComponent = (function () {
         this.clientCheckedVersions = [];
         this.cols = [
             { field: 'code', header: 'code' },
+            { field: 'problem', header: 'problem' },
             { field: 'version', header: 'version' },
             { field: 'description', header: 'description' },
             { field: 'status', header: 'status' },
@@ -252,6 +253,21 @@ var CodeComponent = (function () {
             }, function (error) {
                 _this.notificationService.error(error.error.error);
             });
+        }
+    };
+    CodeComponent.prototype.changeSelectedChecked = function () {
+        for (var _i = 0, _a = this.icdVersions; _i < _a.length; _i++) {
+            var selectedVersion = _a[_i];
+            selectedVersion.selectedVersion = false;
+        }
+        for (var _b = 0, _c = this.clientCheckedVersions; _b < _c.length; _b++) {
+            var checked = _c[_b];
+            for (var _d = 0, _e = this.icdVersions; _d < _e.length; _d++) {
+                var selectedVersion = _e[_d];
+                if (checked == selectedVersion.id) {
+                    selectedVersion.selectedVersion = true;
+                }
+            }
         }
     };
     CodeComponent = __decorate([

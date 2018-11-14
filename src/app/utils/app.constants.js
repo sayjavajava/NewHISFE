@@ -19,7 +19,6 @@ var AppConstants = (function () {
     AppConstants.CREATE_USER_ENDPOINT = '/user/add';
     AppConstants.USER_SEARCH = '/user/search/';
     AppConstants.FETCH_ALL_USERS_URI = '/user/';
-    AppConstants.FETCH_ALL_USERS = '/user/all';
     AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
@@ -59,7 +58,6 @@ var AppConstants = (function () {
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     AppConstants.ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     AppConstants.ICD_VERSIONS = '/setting/icd/versions/';
-    AppConstants.ICD_VERSIONS_DATA_TABLE = '/setting/icd/versions/dataTable';
     AppConstants.ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     AppConstants.ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     AppConstants.ICD_VERSION_SEARCH = '/setting/icd/version/search/';

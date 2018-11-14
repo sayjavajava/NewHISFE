@@ -43,6 +43,9 @@
                                     <th *ngFor="let col of cols" [ngSwitch]="col.field">
                                         <input *ngSwitchCase="'code'" pInputText type="text" style="width: 100%"
                                                (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                        <input *ngSwitchCase="'problem'" pInputText type="text" style="width: 100%"
+                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     </th>
 
                                 </tr>
@@ -50,7 +53,9 @@
                             <ng-template pTemplate="body" let-item>
                                 <tr>
                                     <td>{{item.code}}</td>
-                                    <td rowspan="1" colspan="1" [hidden]="!versionCountUnique">
+                                    <td>{{item.problem}}</td>
+                                    <td rowspan="1" colspan="1"
+                                        [hidden]="!versionCountUnique">
                                         {{item.checkedVersionCount}}
                                     </td>
                                     <td rowspan="1" colspan="1" [hidden]="versionCountUnique">
@@ -82,6 +87,9 @@
                                                 <i class="fa fa-remove"></i>
                                             </button>
                                         </span>
+                                        <a href="{{item.infoURL}}" target="_blank" placeholder="Click to see information" >
+                                            Information
+                                        </a>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -134,16 +142,12 @@
                                 <label class="control-label col-md-3 pdng-lr-5 txt-size">Versions</label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <p-multiSelect
-                                            placeholder="select branches"
+                                            placeholder="select"
                                             [style]="{'text-align': 'left' ,'width':'100%','margin-left':'25px'}"
-                                            [options]="icdVersions"
+                                            [options]="icdVersions" (onChange)="changeSelectedChecked()"
                                             [ngModelOptions]="{standalone:true}" [(ngModel)]="clientCheckedVersions"
                                             [panelStyle]="{minWidth:'12em'}">
-                                        <ng-template let-br pTemplate="item">
-                                            <div style="font-size:14px;float:right;margin-top:4px">
-                                                {{br.label}}
-                                            </div>
-                                        </ng-template>
+
                                     </p-multiSelect>
                                 </div>
 
@@ -157,16 +161,54 @@
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" pInputText size="30"
-                                           [(ngModel)]="iCDModel.code"
-                                           placeholder="Enter Code" name="codeName" id="codeId"
+                                           [(ngModel)]="iCDModel.code" id="code"
+                                           placeholder="Enter Code" name="code"
                                            required pattern="^[a-zA-Z 0-9_-]{1,60}$"
-                                           #codeName="ngModel">
+                                           #code="ngModel">
                                 </div>
-                                <span *ngIf="codeName.invalid && codeName.touched"
+                                <span *ngIf="code.invalid && code.touched"
                                       class="col-md-9 select pdng-lr-5 text-danger">
                                     Please enter valid code.
-                            </span>
+                                </span>
                             </div>
+
+
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Problem
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" pInputText size="30"
+                                           [(ngModel)]="iCDModel.problem" id="problem"
+                                           placeholder="Enter Code" name="problem"
+                                           required pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                           #problem="ngModel">
+                                </div>
+                                <span *ngIf="problem.invalid && problem.touched"
+                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                    Please enter valid problem.
+                                </span>
+                            </div>
+
+
+
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Info URL
+                                </label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" pInputText size="30"
+                                           [(ngModel)]="iCDModel.infoURL"
+                                           placeholder="Enter info URL" name="infoURL" id="infoURL"
+                                           #infoURL="ngModel">
+                                </div>
+                                <span *ngIf="infoURL.invalid && infoURL.touched"
+                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                    Please enter valid code.
+                                </span>
+                            </div>
+
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
                                 <div class="col-md-9 select pdng-lr-5">

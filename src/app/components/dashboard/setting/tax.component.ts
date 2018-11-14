@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
     templateUrl: '../../../templates/dashboard/setting/tax.template.html',
 
 })
-export class taxComponent implements OnInit {
+export class TaxComponent implements OnInit {
     serviceTax: TaxService = new TaxService();
 
     dataTaxes: TaxService[] = [];

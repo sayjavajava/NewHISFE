@@ -17,7 +17,7 @@ import {UpdateBranchComponent} from '../components/dashboard/setting/update-bran
 import {VersionComponent} from '../components/dashboard/setting/version.component';
 import {CodeVersionComponent} from '../components/dashboard/setting/code-version.component';
 import {AddMedicalServiceComponent} from '../components/dashboard/setting/add-medical-service.component';
-import {taxComponent} from '../components/dashboard/setting/service-tax.component';
+import {TaxComponent} from '../components/dashboard/setting/tax.component';
 import {EmailTemplateComponent} from "../components/dashboard/setting/email-template-component";
 import {AddEmailTemplateComponent} from "../components/dashboard/setting/add-email-template.component";
 import {EditEmailTemplateComponent} from "../components/dashboard/setting/edit-email-template.component";
@@ -76,7 +76,7 @@ export const SettingRoutes: Routes = [
     {path: 'medicalServices/edit/:id', component: EditMedicalServiceComponent},
     {path: 'role-permissions', component: RolePermissionsComponent},
     {path: 'user-permissions', component: UserPermissionsComponent},
-    {path: 'tax', component: taxComponent},
+    {path: 'tax', component: TaxComponent},
     {path: 'status', component: StatusesComponent},
     {path: '404-not-found', component: NotFound404SettingComponent},
     {path: 'branch/edit/:id',component: UpdateBranchComponent},
