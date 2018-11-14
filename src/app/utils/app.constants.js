@@ -19,7 +19,6 @@ var AppConstants = (function () {
     AppConstants.CREATE_USER_ENDPOINT = '/user/add';
     AppConstants.USER_SEARCH = '/user/search/';
     AppConstants.FETCH_ALL_USERS_URI = '/user/';
-    AppConstants.FETCH_ALL_USERS = '/user/all';
     AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
@@ -32,6 +31,11 @@ var AppConstants = (function () {
     AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
     AppConstants.FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
     AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTORS = '/setting/branch/doctorsInBranch/';
+    AppConstants.FETCH_ROOM_COUNT_OF_BRANCH = '/setting/branch/rooms/';
+    AppConstants.FETCH_LIST_OF_COUNTRIES = '/setting/branch/countries/';
+    AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID = '/setting/branch/states/';
+    AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID = '/setting/branch/cities/';
+    AppConstants.FETCH_CITY_STATE_CNTRY_BY_BR_ID = '/setting/branch/cityStateCountry/';
     ////////////////////// Patients Invoices ///////////////////////////////
     AppConstants.SAVE_INVOICE = '/invoice/saveInvoice';
     AppConstants.GET_INVOICE_ITEMS = '/invoice/getInvoiceItemsById/';
@@ -54,7 +58,6 @@ var AppConstants = (function () {
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     AppConstants.ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     AppConstants.ICD_VERSIONS = '/setting/icd/versions/';
-    AppConstants.ICD_VERSIONS_DATA_TABLE = '/setting/icd/versions/dataTable';
     AppConstants.ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     AppConstants.ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     AppConstants.ICD_VERSION_SEARCH = '/setting/icd/version/search/';
@@ -230,6 +233,14 @@ var AppConstants = (function () {
     AppConstants.SAVE_PAYMENTTYPE = '/PaymentType/save';
     AppConstants.DELETE_PAYMENTTYPE = '/PaymentType/delete/';
     AppConstants.UPDATE_PAYMENTTYPE = '/PaymentType/update';
+    ////////////////Country/////////////////////////////
+    AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
+    AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';
+    AppConstants.GET_STATE_BYCITYID = '/CityAPI/get/';
+    AppConstants.GET_ALL_DATEFORMAT = '/common/';
+    AppConstants.ZONE_FETCH_URL = '/common/timezoneApi';
+    AppConstants.GET_CITY_URL = '/CityAPI/';
+    AppConstants.GET_STATE_URL = '/StateAPI/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

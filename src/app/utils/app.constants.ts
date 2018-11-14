@@ -51,6 +51,7 @@ export class AppConstants {
     public static ICD_CODE_SAVE_URL = '/setting/icd/code/save';
     public static ICD_CODE_UPDATE_URL = '/setting/icd/code/update';
     public static ICD_CODES = '/setting/icd/codes/';
+    public static ICD_CODES_DATA_TABLE = '/setting/icd/codes/dataTable';
     public static ICD_CODES_ASSOCIATED_BY_VERSION_ID = '/setting/icd/codes/associated/?versionId=';
     public static ICD_CODE_DELETE_URL = '/setting/icd/code/delete?codeId=';
     public static ICD_CODE_SEARCH = '/setting/icd/code/search/';
