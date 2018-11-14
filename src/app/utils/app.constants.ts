@@ -228,7 +228,7 @@ export class AppConstants {
     public static COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
     public static EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
 
-
+    public static FETCH_ACCOUNT_CODE = '/chartOfAccountConfigurations/accountCode';
 
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
