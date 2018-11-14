@@ -77,7 +77,7 @@ import {UpdateBranchComponent} from "./components/dashboard/setting/update-branc
 import {VersionComponent} from "./components/dashboard/setting/version.component";
 import {CodeVersionComponent} from "./components/dashboard/setting/code-version.component";
 import {AddMedicalServiceComponent} from "./components/dashboard/setting/add-medical-service.component";
-import {taxComponent} from "./components/dashboard/setting/service-tax.component";
+import {TaxComponent} from "./components/dashboard/setting/tax.component";
 import {EditMedicalServiceComponent} from "./components/dashboard/setting/edit-medical-service.component";
 import {NotFound404SettingComponent} from "./components/dashboard/setting/not-found-404-setting.component";
 import {EmailTemplateComponent} from "./components/dashboard/setting/email-template-component";
@@ -290,7 +290,7 @@ import {StatusesComponent} from "./components/dashboard/setting/statuses.compone
         ConfirmationdialogComponent,
         UpdateBranchComponent,
         AddStaffComponent,
-        taxComponent,
+        TaxComponent,
         EmailTemplateComponent,
         EmailConfigurationComponent,
         SmsTemplateComponent,

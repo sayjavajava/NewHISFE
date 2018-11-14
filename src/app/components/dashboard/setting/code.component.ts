@@ -14,8 +14,8 @@ import any = jasmine.any;
     templateUrl: '../../../templates/dashboard/setting/code.template.html',
 })
 export class CodeComponent implements OnInit {
-    public iCDModel: ICDCodeModel = new ICDCodeModel();
-    private iCDData: any;
+    iCDModel: ICDCodeModel = new ICDCodeModel();
+    iCDData: any;
     nextPage: any;
     prePage: any;
     currPage: any;
@@ -28,20 +28,19 @@ export class CodeComponent implements OnInit {
     checkedVersions: ICDVersionModel [] = [];
     selectAll: boolean = false;
     clientCheckedVersions: ICDVersionModel [] = [];
-    cols: any;
+    cols: any = [
+        {field: 'code', header: 'code'},
+        {field: 'problem', header: 'problem'},
+        {field: 'version', header: 'version'},
+        {field: 'description', header: 'description'},
+        {field: 'status', header: 'status'},
+        {field: 'Action', header: 'Action'},
+    ];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router) {
-
-        this.cols = [
-            {field: 'code', header: 'code'},
-            {field: 'version', header: 'version'},
-            {field: 'description', header: 'description'},
-            {field: 'status', header: 'status'},
-            {field: 'Action', header: 'Action'},
-        ];
 
     }
 
@@ -244,7 +243,7 @@ export class CodeComponent implements OnInit {
                 (error: any) => {
                     this.notificationService.warn(error.error.error);
                 }
-            )
+            );
 
     }
 
@@ -292,6 +291,20 @@ export class CodeComponent implements OnInit {
                         this.notificationService.error(error.error.error);
                     }
                 );
+        }
+    }
+
+    changeSelectedChecked() {
+        for (let selectedVersion of this.icdVersions) {
+            selectedVersion.selectedVersion = false;
+        }
+        for (let checked of this.clientCheckedVersions) {
+            for (let selectedVersion of this.icdVersions) {
+                if (checked == selectedVersion.id) {
+                    selectedVersion.selectedVersion = true;
+                }
+            }
+
         }
     }
 

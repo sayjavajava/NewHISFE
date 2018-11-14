@@ -3,7 +3,8 @@ export class ICDCodeModel {
 
     id: number;
     code: string = '';
-    problem: string;//// title replaced by problem
+    problem: string = '';//// title replaced by problem
+    infoURL: any = '';
     status: boolean = true;
     updatedOn: number;
     createdOn: number;
