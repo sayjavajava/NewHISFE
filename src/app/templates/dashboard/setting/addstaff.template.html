@@ -88,10 +88,11 @@
                                     <div class="col-md-8" id="not-due">
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [(ngModel)]="pBranch" [options]="branchesList"
+                                                    [options]="branchesList"
                                                     formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
                                                     [filter]="true">
                                         </p-dropdown>
+                                        <!-- [(ngModel)]="pBranch"-->
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['primaryBranch'].valid && userForm.controls['primaryBranch'].touched">
                                                   <span *ngIf="userForm.controls['primaryBranch'].errors.required">Primary Branch is required </span>

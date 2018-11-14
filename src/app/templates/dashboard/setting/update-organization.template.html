@@ -92,10 +92,10 @@
                                                     </select>-->
                                                     <!--countryLst ,countryListModified-->
 
-                                                   <p-dropdown  placeholder="Select Country" [autoWidth]="false" [(ngModel)]="selectedCountry"
+                                                   <p-dropdown  placeholder="Select Country" [autoWidth]="false"
                                                                  formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getStatesByCountryId($event.value)"
-                                                                [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                                 [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
 
                                                 </div>

@@ -36,6 +36,7 @@ var UpdateOrganizationComponent = (function () {
         this.cityLst = [];
         this.cityLstModified = [];
         this.dateFormatLst = [];
+        this.countryObj = [];
         this.allTimezone();
         this.allBranches();
         this.getOrganizationAccount();
@@ -147,17 +148,13 @@ var UpdateOrganizationComponent = (function () {
         var _this = this;
         this.requestService.getRequest(app_constants_1.AppConstants.GET_ALL_COUNTRY)
             .subscribe(function (response) {
-            debugger;
             if (response['responseCode'] === 'COUNTRY_SUC_11') {
-                debugger;
                 _this.countryLst = response['responseData'];
-                debugger;
                 for (var _i = 0, _a = _this.countryLst; _i < _a.length; _i++) {
                     var country = _a[_i];
                     var pair = { label: country.name, value: country.id };
                     _this.countryListModified.push(pair);
                 }
-                debugger;
             }
         }, function (error) {
             _this.notificationService.error(error.error.error);
@@ -166,13 +163,10 @@ var UpdateOrganizationComponent = (function () {
     UpdateOrganizationComponent.prototype.getStatesByCountryId = function (id) {
         var _this = this;
         this.stateList = this.citiesList = this.cityLstModified = this.citiesList = [];
-        debugger;
         this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_BYCOUNTRYID + id)
             .subscribe(function (response) {
-            debugger;
             if (response['responseCode'] === 'STATE_SUC_11') {
                 _this.stateLst = response['responseData'];
-                debugger;
                 for (var _i = 0, _a = _this.stateLst; _i < _a.length; _i++) {
                     var state = _a[_i];
                     var pair = { label: state.name, value: state.id };
@@ -186,11 +180,9 @@ var UpdateOrganizationComponent = (function () {
     UpdateOrganizationComponent.prototype.getCitiesByStateId = function (id) {
         var _this = this;
         this.citiesList = this.cityLstModified = [];
-        debugger;
         this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_BYCITYID + id)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CITY_SUC_11') {
-                debugger;
                 _this.cityLst = response['responseData'];
                 for (var _i = 0, _a = _this.cityLst; _i < _a.length; _i++) {
                     var city = _a[_i];
@@ -208,10 +200,8 @@ var UpdateOrganizationComponent = (function () {
         debugger;
         this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_URL)
             .subscribe(function (response) {
-            debugger;
             if (response['responseCode'] === 'STATE_SUC_11') {
                 _this.StateList = response['responseData'];
-                debugger;
                 for (var _i = 0, _a = _this.StateList; _i < _a.length; _i++) {
                     var state = _a[_i];
                     var pair = { label: state.name, value: state.id };
@@ -229,7 +219,6 @@ var UpdateOrganizationComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.GET_CITY_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CITY_SUC_11') {
-                debugger;
                 _this.cityList = response['responseData'];
                 for (var _i = 0, _a = _this.cityList; _i < _a.length; _i++) {
                     var city = _a[_i];
@@ -256,7 +245,6 @@ var UpdateOrganizationComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.GET_ALL_DATEFORMAT)
             .subscribe(function (response) {
             if (response['responseCode'] === 'DATEFORMAT_SUC_11') {
-                debugger;
                 _this.dateFormat = response['responseData'];
                 for (var _i = 0, _a = _this.dateFormat; _i < _a.length; _i++) {
                     var dateFormatLst = _a[_i];
@@ -272,12 +260,8 @@ var UpdateOrganizationComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.ZONE_FETCH_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'TZ_SUC_01') {
-                debugger;
                 _this.timezoneList = response['responseData'];
-                debugger;
                 _this.zoneFormat = _this.timezoneList;
-                console.log(_this.zoneFormat);
-                debugger;
             }
         }, function (error) {
         });
@@ -287,22 +271,24 @@ var UpdateOrganizationComponent = (function () {
         if (this.id) {
             this.requestService.findById(app_constants_1.AppConstants.FETCH_ORGANIZATION_BY_ID + this.id).subscribe(function (organization) {
                 //  this.id = user.id;
-                _this.proForm.patchValue({
-                    userName: organization.userName,
-                    companyEmail: organization.companyEmail,
-                    fax: organization.fax,
-                    countryName: organization.countryName,
-                    homePhone: organization.homePhone,
-                    officePhone: organization.officePhone,
-                    address: organization.address,
-                    website: organization.website,
-                    companyName: organization.companyName,
-                    specialty: organization.speciality,
-                    selectedCountry: organization.country,
-                    selectedCity: organization.city,
-                    selectedState: organization.state
-                    //   specialty: organization.speciality,
-                });
+                _this.countryObj.push(organization.country),
+                    _this.proForm.patchValue({
+                        userName: organization.userName,
+                        companyEmail: organization.companyEmail,
+                        fax: organization.fax,
+                        countryName: organization.countryName,
+                        homePhone: organization.homePhone,
+                        officePhone: organization.officePhone,
+                        address: organization.address,
+                        website: organization.website,
+                        companyName: organization.companyName,
+                        specialty: organization.speciality,
+                        selectedCountry: organization.country,
+                        selectedCity: organization.city,
+                        selectedState: organization.state,
+                        country: organization.country
+                        //   specialty: organization.speciality,
+                    });
                 _this.generalForm.patchValue({
                     defaultBranch: organization.defaultBranch,
                     durationOfExam: organization.durationOfExam,
@@ -406,7 +392,6 @@ var UpdateOrganizationComponent = (function () {
     UpdateOrganizationComponent.prototype.saveAccount = function (data) {
         var self = this;
         if (this.accountForm.valid) {
-            //account url can be change
             this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_03') {
@@ -423,7 +408,6 @@ var UpdateOrganizationComponent = (function () {
     UpdateOrganizationComponent.prototype.getSelected = function (value) {
         if (value) {
             this.organization.zoneId = value;
-            console.log(value);
         }
     };
     UpdateOrganizationComponent.prototype.getSelectedBranch = function (value) {
@@ -438,7 +422,6 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
-        //console.log(field);
         Object.keys(formGroup.controls).forEach(function (field) {
             var control = formGroup.get(field);
             if (control instanceof forms_1.FormControl) {

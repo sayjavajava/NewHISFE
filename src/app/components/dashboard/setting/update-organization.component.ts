@@ -63,6 +63,7 @@ export class UpdateOrganizationComponent implements OnInit {
     selectedState:string;
     StateList:any[];
     cityList:any[];
+    countryObj :{value:''}[] =[];
     //  ctry:any=[];
     //  @ViewChild('ddEditor') ddEditor : FormControl;
     /*static getNamesAndValues<T extends number>(e: any) {
@@ -192,16 +193,13 @@ export class UpdateOrganizationComponent implements OnInit {
         this.requestService.getRequest(AppConstants.GET_ALL_COUNTRY)
             .subscribe(
                 (response: Response) => {
-                    debugger;
                     if (response['responseCode'] === 'COUNTRY_SUC_11') {
-                        debugger;
                         this.countryLst = response['responseData'];
-                        debugger;
                         for (let country of this.countryLst) {
-                            var pair: any = {label: country.name, value: country.id};
+                            let pair: any = {label: country.name, value: country.id};
                             this.countryListModified.push(pair);
                         }
-                        debugger;
+
                     }
                 },
                 (error: any) => {
@@ -212,14 +210,11 @@ export class UpdateOrganizationComponent implements OnInit {
 
     getStatesByCountryId(id: number) {
         this.stateList = this.citiesList = this.cityLstModified = this.citiesList = [];
-        debugger;
         this.requestService.getRequest(AppConstants.GET_STATE_BYCOUNTRYID +id)
             .subscribe(
                 (response: Response) => {
-                    debugger;
                     if (response['responseCode'] === 'STATE_SUC_11') {
                         this.stateLst = response['responseData'];
-                        debugger;
 
                         for (let state of this.stateLst) {
                             var pair: any = {label: state.name, value: state.id};
@@ -235,14 +230,12 @@ export class UpdateOrganizationComponent implements OnInit {
     getCitiesByStateId(id: number) {
 
         this.citiesList = this.cityLstModified = [];
-        debugger;
+
         this.requestService.getRequest(AppConstants.GET_STATE_BYCITYID + id)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CITY_SUC_11') {
-                        debugger;
                         this.cityLst = response['responseData'];
-
                         for (let city of this.cityLst) {
                             var pair: any = {label: city.name, value: city.id};
                             this.cityLstModified.push(pair);
@@ -260,11 +253,8 @@ export class UpdateOrganizationComponent implements OnInit {
         this.requestService.getRequest(AppConstants.GET_STATE_URL)
             .subscribe(
                 (response: Response) => {
-                    debugger;
                     if (response['responseCode'] === 'STATE_SUC_11') {
                         this.StateList = response['responseData'];
-                        debugger;
-
                         for (let state of this.StateList) {
                             var pair: any = {label: state.name, value: state.id};
                             this.stateLstModified.push(pair);
@@ -284,7 +274,6 @@ export class UpdateOrganizationComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CITY_SUC_11') {
-                        debugger;
                         this.cityList = response['responseData'];
 
                         for (let city of this.cityList) {
@@ -318,10 +307,7 @@ export class UpdateOrganizationComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DATEFORMAT_SUC_11') {
-                        debugger;
                         this. dateFormat= response['responseData'];
-
-
                         for (let dateFormatLst of this.dateFormat) {
                             var pair: any = {label: dateFormatLst.toString(), value: dateFormatLst.toString()};
 
@@ -341,15 +327,8 @@ export class UpdateOrganizationComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'TZ_SUC_01') {
-                        debugger;
                         this.timezoneList = response['responseData'];
-                        debugger;
                         this.zoneFormat=this.timezoneList;
-
-                        console.log(this.zoneFormat);
-                        debugger;
-
-
 
                     }
                 },
@@ -364,6 +343,8 @@ export class UpdateOrganizationComponent implements OnInit {
             this.requestService.findById(AppConstants.FETCH_ORGANIZATION_BY_ID + this.id).subscribe(
                 organization => {
                     //  this.id = user.id;
+                     this.countryObj.push(organization.country),
+
                     this.proForm.patchValue({
                         userName: organization.userName,
                         companyEmail: organization.companyEmail,
@@ -377,7 +358,8 @@ export class UpdateOrganizationComponent implements OnInit {
                         specialty : organization.speciality,
                         selectedCountry:organization.country,
                         selectedCity:organization.city,
-                        selectedState:organization.state
+                        selectedState:organization.state,
+                        country :organization.country
                         //   specialty: organization.speciality,
 
                     });
@@ -484,7 +466,6 @@ export class UpdateOrganizationComponent implements OnInit {
     saveGeneralSettings(data: FormData) {
 
         var self = this;
-
         this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
             .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_03') {
@@ -500,7 +481,6 @@ export class UpdateOrganizationComponent implements OnInit {
     saveAccount(data: FormData) {
         var self = this;
         if(this.accountForm.valid) {
-            //account url can be change
             this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
                     if (response['responseCode'] === 'ORG_SUC_03') {
@@ -521,7 +501,6 @@ export class UpdateOrganizationComponent implements OnInit {
         if (value) {
             this.organization.zoneId=value;
 
-            console.log(value);
         }
     }
 
@@ -538,7 +517,6 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
     validateAllFormFields(formGroup: FormGroup) {
-        //console.log(field);
         Object.keys(formGroup.controls).forEach(field => {
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
