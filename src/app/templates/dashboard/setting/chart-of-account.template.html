@@ -57,33 +57,33 @@
                     <h4 class="modal-title" >Account Configuration</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller"  data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
-
+<!--style="height:180px"-->
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Parent Type</label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <!--<select class="form-control" style="width: 250px !important" name="parentType"  (change)="parentTypeSelected($event.target.value)">
+                               <div class="col-md-9 select pdng-lr-5">
+                                   <!--   <select class="form-control" style="width: 250px !important" name="parentType"  (change)="parentTypeSelected($event.target.value)">
                                         <option value="">Select Account Type</option>
                                         <option value="Assets">Assets</option>
                                         <option value="Liabilities">Liabilities</option>
                                         <option value="Revenue">Revenue</option>
                                         <option value="Cost of Goods Sold">Cost of Goods Sold</option>
                                         <option value="Expense">Expenses</option>
-                                    </select>-->
+                                    </select>
+                                     -->
 
                                         <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [options]="accountType" [(ngModel)]="selectedParentType" name="pType" (onChange)="parentTypeSelected($event)"
+                                                    [options]="accountType"  name="pType" (onChange)="parentTypeSelected($event)"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
-
-                                </div>
+                               </div>
                             </div>
-
+<!--style="width: 250px !important"-->
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Account Type</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <select class="form-control" style="width: 250px !important" name="accountType" (change)="accountTypeSelected($event.target.value)">
+                                    <select class="form-control"  name="accountType" (change)="accountTypeSelected($event.target.value)">
                                         <option value="">Select Account Type</option>
 
                                         <option value="Fixed Assets" *ngIf="chartOfAccount.parentType==='Assets'">Fixed Assets</option>

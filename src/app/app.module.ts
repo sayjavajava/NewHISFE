@@ -120,7 +120,10 @@ import {DataService} from "./services/DataService";
 
 import {ModalModule} from "ngx-bootstrap";
 
-import {CheckboxModule, DataTableModule, PaginatorModule, ScheduleModule} from "primeng/primeng";
+import {
+    CheckboxModule, DataTableModule, MegaMenuModule, PaginatorModule, PanelMenuModule,
+    ScheduleModule
+} from "primeng/primeng";
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {AdminProfileComponent} from "./components/dashboard/setting/admin-profile.component";
 
@@ -150,6 +153,8 @@ import {ngxLoadingAnimationTypes, NgxLoadingModule} from "ngx-loading";
 import {ChipsModule} from 'primeng/chips';
 import {PaymentTypeComponent} from "./components/dashboard/setting/PaymentType.component";
 import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
+import {EditorModule} from "primeng/editor";
+
 
 
 @NgModule({
@@ -210,11 +215,9 @@ import {StatusesComponent} from "./components/dashboard/setting/statuses.compone
         AutoCompleteModule,
         DataTableModule,
         PaginatorModule,
+        PanelMenuModule,MegaMenuModule,ChipsModule,SliderModule,TableModule,
         SharedModule,
-        TableModule,
-        SliderModule,
-        ChipsModule
-
+        EditorModule
     ],
     declarations: [
         // App Components

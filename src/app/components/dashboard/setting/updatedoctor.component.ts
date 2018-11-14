@@ -34,6 +34,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     managepatientinvoices: boolean;
     userForm: FormGroup;
     selectedDepartment: any = [];
+    selectedDepartmentObj:any=[];
     selectedServices: any = [];
     doctorServices: any = [];
     selectedTime: string;
@@ -196,7 +197,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
-                'interval': [null, Validators.required],
+                'interval': [null],
                 'email': [null, Validators.compose([Validators.required, Validators.email])],
                 'restrictBranch': [null],
                 'allowDiscount': [null],
@@ -295,11 +296,14 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                             this.selectedDepartment[0] = docDeptId;
                             break;
                         }
+                        this.selectedDepartmentObj.push(user.docDepartmentId);
+
+
                     }
                     this.staffBranches = user.staffBranches;
                     this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
                     this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
-                    for(let key in this.visitingBranches){
+                   /* for(let key in this.visitingBranches){
                         for(let k in this.staffBranches){
                             if(this.staffBranches[k].id == this.visitingBranches[key].id){
                                 this.visitingBranches[key].checked = true;
@@ -307,7 +311,10 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                                 break;
                             }
                         }
-                    }
+                    }*/
+                   this.staffBranches.forEach(x=>{
+                       this.selectedVisitBranches.push(x.id)
+                   })
                     this.doctorServices = user.doctorMedicalSrvcList;
 
                     this.requestService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+docDeptId)
@@ -446,12 +453,13 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         }
     }
 
-    selectDoctorDepartment(deptId: any) {
+    selectDoctorDepartment(deptIdObj: any) {
         /*console.log("Doc Dept:"+itemId);
         if (itemId) {
             this.selectedDepartment[0] = itemId;
         }
 */
+        let deptId = deptIdObj.value;
         if (deptId) {
             this.selectedDepartment[0] = deptId;
             this.getDeptServices(deptId);

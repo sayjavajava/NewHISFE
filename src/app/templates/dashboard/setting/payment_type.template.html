@@ -22,6 +22,7 @@
                     <!--(onLazyLoad)="loadLazy($event)"[loading]="loading"  -->
                     <p-table #dt [columns]="cols" [value]="paymentlst"  [rows]="10"  [paginator]="true" >
                         <ng-template sortable="true" pTemplate="header" let-columns>
+
                             <tr>
                                 <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
                                     {{col.header}}

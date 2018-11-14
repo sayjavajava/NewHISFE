@@ -1,3 +1,5 @@
+import {Country} from "./Country";
+
 export class Organization {
     id:number;
     firstName: string;
@@ -18,10 +20,14 @@ export class Organization {
     'defaultBranch': number;
     'durationOfExam': number;
     'followUpExam': string;
+    dateFormat:string;
+    timeFormat:string;
+    zoneId:string;
     email: string;
     address: string;
-
-
+    'country':string;
+    'city':string;
+    'state':string;
     /*  constructor(firstName ?:  string, lastName ?:  string,userName?: string, email?: string, cellPhone?:string, homePhone?: string, address?: string) {
           this.firstName = firstName;
           this.lastName = lastName;

@@ -183,6 +183,7 @@ var AddAppointmentComponent = (function () {
                         doctorId: apt.doctorId,
                         serviceId: apt.serviceId,
                         patientId: apt.patientId,
+                        appointmentId: apt.appointmentId
                     });
                     _this.refresh.next();
                 }

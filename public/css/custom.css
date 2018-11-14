@@ -124,7 +124,7 @@ p, h3, h4{margin:0; padding:0;}
 .round-table{border-radius: 3px !important; border: 1px solid #ddd; /*padding: 10px;*/}
 .round-bck{border: 1px solid #82b8dd; border-radius: 3px !important; background: #abd8f7;}
 .tbl-brdrs th, .tbl-brdrs td, .tbl-brdrs tr, .tbl-brdrs>thead>tr>th, .tbl-brdrs>thead>tr>td{border:none;}
-.font-siz{font-size:12px;}
+.font-siz{font-size:12px !important;}
 .font-siz11 label{font-size:11px;}
 .txt-size-mrgn{margin-right: 8px !important; font-size: 12px !important; padding-left: 26px !important; margin-bottom:0 !important;}
 .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a{font-size:14px !important;}
@@ -607,7 +607,7 @@ textarea {
 .ui-dropdown label.ui-dropdown-label {
     cursor: pointer;
     height: 25px !important;
-    padding: 2px 12px !important;
+    /*padding: 2px 12px !important;*/
 }
 .ui-multiSelect  {
     width:100% !important;
@@ -629,6 +629,10 @@ textarea {
     width: 100%;
 
 }
+.ui-dropdown{
+    border-color:#c2cad8 !important ;
+}
+.ui-inputtext{font-size: 12px !important; color: #333 !important;}
 .ui-dropdown-panel {
     max-width: 100%;
     width: 100%;
@@ -767,3 +771,18 @@ default css for mat check box
     width: 308px !important;
     margin-left: 14px;
 }
+.ui-panelmenu{
+width: 93%; !important;
+}
+.ui-panelmenu{width: 93%; !important;}
+.cusm-col-3{width: 20% !important;}
+.fnt-sze10{font-size: 10px;}
+.mat-form-field-infix{border-top:0px !important; width: 100px !important;}
+.mat-form-field-wrapper{width:100px !important;}
+.wc-date-container {width: 100% !important; margin-left: 0px !important;}
+.wc-day-row{display: none !important;}
+.wc-date-row{display: none !important;}
+.wc-month-row{display: none !important;}
+.wc-time-sec[_ngcontent-c19] {padding: 10px 10px 8px !important;}
+.time-view[_ngcontent-c8]{padding:0px !important;}
+.wc-date-popover[_ngcontent-c8] {height: 355px !important;}

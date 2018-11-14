@@ -19,6 +19,7 @@ var AppConstants = (function () {
     AppConstants.CREATE_USER_ENDPOINT = '/user/add';
     AppConstants.USER_SEARCH = '/user/search/';
     AppConstants.FETCH_ALL_USERS_URI = '/user/';
+    AppConstants.FETCH_ALL_USERS = '/user/all';
     AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
