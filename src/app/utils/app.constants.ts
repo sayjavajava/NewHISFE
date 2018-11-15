@@ -9,6 +9,7 @@ export class AppConstants {
     public static EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     public static USER_BY_ROLE = '/user/role';
     public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';///only active departments
+    public static FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI = '/setting/department/branches';///
     public static DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     public static SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
     public static SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';

@@ -207,10 +207,9 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Strength<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <p-chips min="0" max="3"
+                                        <p-chips min="0" max="3" name="strengths"
                                                  [(ngModel)]="drug.strengths"
-                                                 required id="strengths"
-                                                 name="strengths"
+                                                 required id="strengths" placeholder="xxx-yy-zz-aa"
                                                  #strengths="ngModel">
                                         </p-chips>
                                         <span *ngIf="strengths.invalid && strengths.touched"

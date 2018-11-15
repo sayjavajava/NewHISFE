@@ -248,6 +248,7 @@ export class CodeComponent implements OnInit {
     }
 
     onAddICDCodePopupLoad() {
+        this.clientCheckedVersions = [];
         this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel();
         this.selectAll = false;

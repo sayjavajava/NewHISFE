@@ -54,26 +54,14 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-<!--                                         <div class="col-md-6" *ngFor="let branch of ms.branches">
-                                                    <address>
-                                                        <label class="mt-checkbox-outline">
-                                                            <input type="checkbox"
-                                                                   id="branchId"
-                                                                   name="{{branch.id}}"
-                                                                   [(ngModel)]="branch.checkedBranch">
-                                                            {{branch.branchName}}
-                                                            <span></span>
-                                                        </label>
-                                                    </address>
-                                                </div>-->
-                                        <p-multiSelect placeholder="select branches"  [style]="{'text-align': 'left' ,'width':'100%'}"  [options]="ms.branches" [(ngModel)]="ms.selectedBranches" name="brList" [panelStyle]="{minWidth:'12em'}">
-                                                    <ng-template let-br pTemplate="item">
-                                                        <div style="font-size:14px;float:right;margin-top:4px">{{br.label}}</div>
-                                                    </ng-template>
-                                                </p-multiSelect>
-
-
-
+                                        <p-multiSelect
+                                                placeholder="select branches"
+                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                [options]="ms.branches" name="brList"
+                                                [(ngModel)]="ms.selectedBranches"
+                                                (onChange)="onBranchSelection()"
+                                                [panelStyle]="{minWidth:'12em'}">
+                                        </p-multiSelect>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -95,9 +83,14 @@
                                                 </address>
                                             </div>
                                         </div>-->
-                                        <p-multiSelect placeholder="select department"  [style]="{'text-align': 'left' ,'width':'100%'}"  [options]="ms.departments" [(ngModel)]="ms.selectedDepartments" name="dptList" [panelStyle]="{minWidth:'12em'}">
+                                        <p-multiSelect
+                                                placeholder="select department"
+                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                [options]="ms.departments" [(ngModel)]="ms.selectedDepartments"
+                                                name="dptList" [panelStyle]="{minWidth:'12em'}">
                                             <ng-template let-dpt pTemplate="item">
-                                                <div style="font-size:14px;float:right;margin-top:4px">{{dpt.name}}</div>
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{dpt.name}}
+                                                </div>
                                             </ng-template>
                                         </p-multiSelect>
 
@@ -150,7 +143,10 @@
                                                 {{item.name}}
                                             </option>
                                         </select>-->
-                                        <p-dropdown  placeholder="Select Tax" [autoWidth]="false"  name="dpt" [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="ms.tax.id" [options]="taxes"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        <p-dropdown placeholder="Select Tax" [autoWidth]="false" name="dpt"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                    [(ngModel)]="ms.tax.id" [options]="taxes"
+                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
                                     </div>
                                 </div>
@@ -196,14 +192,14 @@
                                     <label class="control-label col-md-3">Status
                                     </label>
                                     <div class="col-md-9">
-                                       <!-- <label class="mrgn-top12 mt-checkbox-outline chckbox">
-                                            <input type="checkbox"
-                                                   [(ngModel)]="ms.status"
-                                                   name="status"
-                                                   #status="ngModel"/>
-                                            <span></span></label>-->
+                                        <!-- <label class="mrgn-top12 mt-checkbox-outline chckbox">
+                                             <input type="checkbox"
+                                                    [(ngModel)]="ms.status"
+                                                    name="status"
+                                                    #status="ngModel"/>
+                                             <span></span></label>-->
                                         <label class="mt-checkbox-outline">
-                                                          <mat-checkbox #status="ngModel"
+                                            <mat-checkbox #status="ngModel"
                                                           name="status"
                                                           [(ngModel)]="ms.status"
                                                           color="primary"></mat-checkbox>

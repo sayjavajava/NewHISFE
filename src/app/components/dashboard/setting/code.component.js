@@ -217,6 +217,7 @@ var CodeComponent = (function () {
         });
     };
     CodeComponent.prototype.onAddICDCodePopupLoad = function () {
+        this.clientCheckedVersions = [];
         this.isCodeUpdate = false;
         this.iCDModel = new ICDCodeModel_1.ICDCodeModel();
         this.selectAll = false;
