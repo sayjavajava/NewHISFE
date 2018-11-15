@@ -24,6 +24,7 @@ export class DepartmentComponent implements OnInit {
     searched: boolean = false;
     branchesList: any = [];
     error:any;
+    selectedBranches:any=[];
     selectedDepartment: Department = new Department();
     cols:any;
 
@@ -72,6 +73,7 @@ export class DepartmentComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
+
                     }
                     // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
                 },
@@ -82,20 +84,26 @@ export class DepartmentComponent implements OnInit {
 
     getPageWiseDepartmentFromServer(page: number) {
         this.searchDepart = '';
-        if (page > 0) {
+        /*if (page > 0) {
             page = page;
-        }
+        }*/
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI + page)
+            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                        this.nextPage = response['responseData']['nextPage'];
+/*                        this.nextPage = response['responseData']['nextPage'];
                         this.prePage = response['responseData']['prePage'];
                         this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];
-                        this.data = response['responseData']['data'];
+                        this.pages = response['responseData']['pages'];*/
+                        this.data = response['responseData'];
+                        this.data.forEach((x:any)=>{
+                            this.selectedBranches.push(x.name);
+                            console.log('editting...'+ this.selectedBranches.forEach((x:any)=>{console.log('coding..'+x.name)}));
+                        })
+
                     }
+
                 },
                 (error: any) => {
                     //console.log(error.json())

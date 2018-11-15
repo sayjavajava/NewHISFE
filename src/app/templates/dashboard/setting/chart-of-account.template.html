@@ -54,67 +54,78 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title" >Account Configuration</h4>
+                    <h4 class="modal-title" >Add Account</h4>
                 </div>
-                <div class="modal-body">
-                    <div class="scroller"  data-always-visible="1" data-rail-visible1="1">
+                <div class="modal-body" id="addAccDiv">
+                    <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
-<!--style="height:180px"-->
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Account Code</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <b>{{code}}</b>
+                                </div>
+                            </div>
+
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Parent Type</label>
-                               <div class="col-md-9 select pdng-lr-5">
-                                   <!--   <select class="form-control" style="width: 250px !important" name="parentType"  (change)="parentTypeSelected($event.target.value)">
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <!--<p-dropdown [required]="true" [options]="parentTypeItems" [(ngModel)]="selectedParentType" name="parentType"  [style]="{'width':'150px'}" filter="true">
+                                        <ng-template let-item pTemplate="selectedItem">
+                                            <span style="vertical-align:middle; margin-left: .5em">{{item.value.parentType}}</span>
+                                        </ng-template>
+                                        <ng-template let-parentTypeItem pTemplate="item">
+                                            <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{parentTypeItem.value.parentType}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>-->
+                                    <select class="form-control" style="width: 250px !important" name="parentType"  (change)="parentTypeSelected($event.target.value)" [(ngModel)]="selectedParentType">
+                                        <option *ngFor="let parentType of parentTypesList" [value]="parentType">{{parentType}}</option>
+                                    </select>
+                                    <!--<select class="form-control" style="width: 250px !important" name="parentType"  (change)="parentTypeSelected($event.target.value)">
                                         <option value="">Select Account Type</option>
                                         <option value="Assets">Assets</option>
+                                        <option value="Bank">Bank</option>
                                         <option value="Liabilities">Liabilities</option>
                                         <option value="Revenue">Revenue</option>
                                         <option value="Cost of Goods Sold">Cost of Goods Sold</option>
                                         <option value="Expense">Expenses</option>
-                                    </select>
-                                     -->
-
-                                        <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [options]="accountType"  name="pType" (onChange)="parentTypeSelected($event)"
-                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                        </p-dropdown>
-                               </div>
+                                    </select>-->
+                                </div>
                             </div>
-<!--style="width: 250px !important"-->
+
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Account Type</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <select class="form-control"  name="accountType" (change)="accountTypeSelected($event.target.value)">
+                                    <select class="form-control" style="width: 250px !important" name="accountType" [(ngModel)]="selectedAccountType"
+                                            (change)="accountTypeSelected($event.target.value);" >
                                         <option value="">Select Account Type</option>
 
-                                        <option value="Fixed Assets" *ngIf="chartOfAccount.parentType==='Assets'">Fixed Assets</option>
-                                        <option value="Current Assets" *ngIf="chartOfAccount.parentType==='Assets'">Current Assets</option>
+                                        <option value="Fixed Assets" *ngIf="chartOfAccount.parentType==='Assets'" [selected]="chartOfAccount.accountType == selectedAccountType">Fixed Assets</option>
+                                        <option value="Current Assets" *ngIf="chartOfAccount.parentType==='Assets'" [selected]="chartOfAccount.accountType == selectedAccountType">Current Assets</option>
 
-                                        <option value="Current Liabilities" *ngIf="chartOfAccount.parentType==='Liabilities'">Current Liabilities</option>
-                                        <option value="Long Term Liabilities" *ngIf="chartOfAccount.parentType==='Liabilities'">Long Term Liabilities</option>
+                                        <option value="Current Liabilities" *ngIf="chartOfAccount.parentType==='Liabilities'" [selected]="chartOfAccount.accountType == selectedAccountType">Current Liabilities</option>
+                                        <option value="Long Term Liabilities" *ngIf="chartOfAccount.parentType==='Liabilities'" [selected]="chartOfAccount.accountType == selectedAccountType">Long Term Liabilities</option>
 
-                                        <option value="Revenue" *ngIf="chartOfAccount.parentType==='Revenue'">Revenue</option>
-                                        <option value="Other Income" *ngIf="chartOfAccount.parentType==='Revenue'">Other Income</option>
+                                        <option value="Revenue" *ngIf="chartOfAccount.parentType==='Revenue'" [selected]="chartOfAccount.accountType == selectedAccountType">Revenue</option>
+                                        <option value="Other Income" *ngIf="chartOfAccount.parentType==='Revenue'" [selected]="chartOfAccount.accountType == selectedAccountType">Other Income</option>
 
-                                        <option value="Cost of Goods Sold" *ngIf="chartOfAccount.parentType==='Cost of Goods Sold'">Cost of Goods Sold</option>
+                                        <option value="Cost of Goods Sold" *ngIf="chartOfAccount.parentType==='Cost of Goods Sold'" [selected]="chartOfAccount.accountType == selectedAccountType">Cost of Goods Sold</option>
 
-                                        <option value="Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'">Operational Expense</option>
-                                        <option value="Non Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'">Non Operational Expense</option>
+                                        <option value="Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'" [selected]="chartOfAccount.accountType == selectedAccountType">Operational Expense</option>
+                                        <option value="Non Operational Expense" *ngIf="chartOfAccount.parentType==='Expense'" [selected]="chartOfAccount.accountType == selectedAccountType">Non Operational Expense</option>
+
+                                        <option value="Bank" *ngIf="chartOfAccount.parentType==='Bank'" [selected]="chartOfAccount.accountType == selectedAccountType">Bank</option>
 
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Account Code</label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text"  required name="nameName" id="nameNameId" class="form-control" placeholder="Enter Name"
-                                           [(ngModel)]="chartOfAccount.code" #nameName="ngModel">
-                                </div>
-                            </div>
+
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Account Name</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" name="title" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter text"
+                                    <input type="text" name="title" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter account name"
                                            [(ngModel)]="chartOfAccount.name" #title="ngModel">
                                 </div>
                                 <span *ngIf="title.invalid && title.touched" class="col-md-9 select pdng-lr-5 text-danger">
@@ -125,7 +136,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text"  name="currentValue" class="form-control" placeholder="Enter text"
+                                    <input type="text"  name="currentValue" class="form-control" placeholder="Enter description"
                                            [(ngModel)]="chartOfAccount.description" #currentValue="ngModel">
                                 </div>
                             </div>
@@ -135,32 +146,32 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account Title</label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input type="text"  required name="bankAc" id="bankAcId" class="form-control" placeholder="Enter Bank Account Title"
-                                                   [(ngModel)]="chartOfAccount.bankAccount.title" #bankAc="ngModel">
+                                            <input type="text"  required name="title" id="title" class="form-control" placeholder="Enter Bank Account Title"
+                                                   [(ngModel)]="chartOfAccount.bankAccount.title" #title="ngModel">
                                         </div>
                                     </div>
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account #</label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input type="text"  required name="bankAc" id="bankAcNumId" class="form-control" placeholder="Enter Bank Account Number"
-                                                   [(ngModel)]="chartOfAccount.bankAccount.accountNumber" #bankAc="ngModel">
+                                            <input type="text"  required name="accountNumber" id="accountNumber" class="form-control" placeholder="Enter Bank Account Number"
+                                                   [(ngModel)]="chartOfAccount.bankAccount.accountNumber" #accountNumber="ngModel">
                                         </div>
                                     </div>
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">IBAN</label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input type="text"  required name="bankAc" id="bankAcIbanId" class="form-control" placeholder="Enter IBAN"
-                                                   [(ngModel)]="chartOfAccount.bankAccount.iban" #bankAc="ngModel">
+                                            <input type="text"  required name="iban" id="iban" class="form-control" placeholder="Enter IBAN"
+                                                   [(ngModel)]="chartOfAccount.bankAccount.iban" #iban="ngModel">
                                         </div>
                                     </div>
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Branch</label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input type="text"  required name="bankAc" id="bankAcBrId" class="form-control" placeholder="Enter Bank Branch"
-                                                   [(ngModel)]="chartOfAccount.bankAccount.branch" #bankAc="ngModel">
+                                            <input type="text"  required name="branch" id="branch" class="form-control" placeholder="Enter Bank Branch"
+                                                   [(ngModel)]="chartOfAccount.bankAccount.branch" #branch="ngModel">
                                         </div>
                                     </div>
                                 </span>

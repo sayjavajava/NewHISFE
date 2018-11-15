@@ -74,12 +74,13 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     private subscription :Subscription;
     userId:number;
     intervalList:any;
+    selectedBranchId:number;
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService
                 ,private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
            this.allBranches();
            //this.allServices();
-           this.allDepartments();
+         //  this.allDepartments();
            this.allDoctors();
     }
 
@@ -141,10 +142,14 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
             if(item === this.defaultBranch) this.branchesList.splice(index,1);
         });
     }
+    selectedBranch(eventObj :any){
+        this.selectedBranchId = eventObj.value;
+        this.allDepartments();
+    }
 
 
     allDepartments() {
-        this.requestService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+        this.requestService.getRequest(AppConstants.FETCH_ALL_DEPARTMENT_BY_BRANCH +this.selectedBranchId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {

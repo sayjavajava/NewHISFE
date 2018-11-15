@@ -20,7 +20,7 @@ export class ChartOfAccountComponent {
     chartOfAccountList: GeneralLedgerModel[];
     chartOfAccount: GeneralLedgerModel = new GeneralLedgerModel();
     id: number;
-    accountType :any ;
+    code: any;
 
     accountConfig: AccountConfigModel = new AccountConfigModel();
     /*accountConfigUpdate: AccountConfigModel = new AccountConfigModel();*/
@@ -28,9 +28,11 @@ export class ChartOfAccountComponent {
     showBankDetailsDiv: boolean;
 
     selectedParentType: any = "";
+    selectedAccountType: any = "";
     element: any;
-    elementByDiv: any;
+    elementByDiv: any[];
     elementByClass: any[];
+    parentTypesList: string[] = ["Assets" ,"Bank", "Liabilities", "Revenue", "Cost of Goods Sold","Expense"];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -38,32 +40,20 @@ export class ChartOfAccountComponent {
                 /*private route: ActivatedRoute,*/
                 private router: Router
         , @Inject(DOCUMENT) document: any) {
-      //  this.chartOfAccount.bankAccount = new BankAccountModel;
+        this.chartOfAccount.bankAccount = new BankAccountModel;
         this.showBankDetailsDiv = false;
     }
 
     ngOnInit() {
-        document.title = 'HIS | Chart Of Account Template';
-        if (localStorage.getItem(btoa('access_token'))) {
+        document.title = "HIS | Chart Of Account Template";
+
+        if (localStorage.getItem(btoa("access_token"))) {
             this.getAllAccountsList();
         }
-        this.accountType = [
-            {label: 'Assets', value: 'Assets'},
-            {label: 'Liabilities', value: 'Liabilities'},
-            {label: 'Revenue', value: 'Revenue'},
-            {label: 'Cost of Goods Sold', value: 'Cost of Goods Sold'},
-            {label: 'Expense', value: 'Expense'}
-        ];
 
         this.element = document.getElementById("addAccDiv") as HTMLElement;
-       // this.element.style.height = "190px";
-
+        this.element.style.height = "190px";
         this.elementByClass = Array.from(document.getElementsByClassName("scroller"));
-
-        this.elementByDiv = document.getElementById("slimScrollDiv");
-        /*if (!isNullOrUndefined(this.elementByDiv)) {
-            this.elementByDiv.style.height = "180px";
-        }*/
     }
 
     getAllAccountsList() {
@@ -75,7 +65,7 @@ export class ChartOfAccountComponent {
                         this.chartOfAccountList = response["responseData"].accountList;
                         this.accountConfig = response["responseData"].accountConfig;
                     } else {
-                       // this.notificationService.error(response["responseMessage"], "Chart of Accounts Configurations");
+                        this.notificationService.error(response["responseMessage"], "Chart of Accounts Configurations");
                     }
                 },
                 (error: any) => {
@@ -90,7 +80,11 @@ export class ChartOfAccountComponent {
 
     editAccountSetUp(formData: NgForm) {
         if (localStorage.getItem(btoa("access_token"))) {
+            this.chartOfAccount.code = this.code;
             console.log(this.chartOfAccount);
+            if (this.chartOfAccount.parentType != "Bank" && !isNullOrUndefined(this.chartOfAccount.bankAccount)) {
+                this.chartOfAccount.bankAccount = null;
+            }
             this.requestsService.postRequest(AppConstants.ACCOUNTS_CONFIGURATION_SAVE, this.chartOfAccount)
                 .subscribe(
                     (response: Response) => {
@@ -114,46 +108,71 @@ export class ChartOfAccountComponent {
 
     edit(editConfiguration: any) {
         if (editConfiguration) {
-            this.selectedParentType = this.chartOfAccount = editConfiguration;
+            this.chartOfAccount = editConfiguration;
+            this.selectedParentType = this.chartOfAccount.parentType;
+            this.selectedAccountType = this.chartOfAccount.accountType;
+            this.code = this.chartOfAccount.code;
+            this.parentTypeSelected(this.selectedParentType);
         } else {
             this.chartOfAccount = new GeneralLedgerModel();
+            this.requestsService.getRequest(AppConstants.FETCH_ACCOUNT_CODE)
+                .subscribe(
+                    (response: Response) => {
+                        if (response["responseCode"] === "SUCCESS") {
+                            this.code = response["responseData"].data;
+                            // this.notificationService.success(response["responseMessage"], "Chart of Account");
+                        } else {
+                            this.notificationService.error(response["responseMessage"], "Chart of Accounts");
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+            this.chartOfAccount.code = this.code;
         }
     }
 
-    parentTypeSelected(parentTypeObj : any){
-        let parentType = parentTypeObj.value;
+    parentTypeSelected(parentType: any) {
+        console.log(this.chartOfAccount.parentType +' : '+ this.chartOfAccount.accountType);
         this.chartOfAccount.parentType = parentType;
-    //parentTypeSelected(parentType: any) {
         this.selectedParentType = parentType;
-        this.elementByDiv = document.getElementById("slimScrollDiv");
+
+        this.elementByDiv = Array.from(document.getElementsByClassName("slimScrollDiv"));
 
         if (this.chartOfAccount.parentType === "Bank") {
             this.showBankDetailsDiv = true;
-            this.chartOfAccount.bankAccount = new BankAccountModel();
             this.element.style.height = "380px";
+
+            if(isNullOrUndefined(this.chartOfAccount.bankAccount)){
+                this.chartOfAccount.bankAccount = new BankAccountModel;
+            }
 
             for (let i = 0; i < this.elementByClass.length; i++) {
                 if (this.elementByClass[i].style.height == "180px") {
-                   this.elementByClass[i].style.height = '350px';
+                    this.elementByClass[i].style.height = "350px";
                 }
             }
 
-            if (this.elementByDiv) {
-                this.elementByDiv.style.height = "350px";
+            for (let i = 0; i < this.elementByDiv.length; i++) {
+                if (this.elementByDiv[i].style.height == "180px") {
+                    this.elementByDiv[i].style.height = "350px";
+                }
             }
         } else {
             this.showBankDetailsDiv = false;
-            this.chartOfAccount.bankAccount = null;
             this.element.style.height = "190px";
 
             for (let i = 0; i < this.elementByClass.length; i++) {
                 if (this.elementByClass[i].style.height == "350px") {
-                    this.elementByClass[i].style.height = '180px';
+                    this.elementByClass[i].style.height = "180px";
                 }
             }
 
-            if (this.elementByDiv) {
-                this.elementByDiv.style.height = "180px";
+            for (let i = 0; i < this.elementByDiv.length; i++) {
+                if (this.elementByDiv[i].style.height == "350px") {
+                    this.elementByDiv[i].style.height = "180px";
+                }
             }
         }
     }

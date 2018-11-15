@@ -10,6 +10,7 @@ export class AppConstants {
     public static USER_BY_ROLE = '/user/role';
     public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';///only active departments
     public static FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI = '/setting/department/branches';///
+    public static FETCH_ALL_DEPARTMENT_BY_BRANCH = '/user/department/';
     public static DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     public static SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
     public static SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
@@ -228,7 +229,7 @@ export class AppConstants {
     public static COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
     public static EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
 
-
+    public static FETCH_ACCOUNT_CODE = '/chartOfAccountConfigurations/accountCode';
 
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
