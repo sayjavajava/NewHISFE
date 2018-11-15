@@ -65,14 +65,55 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-8">
-                                    <textarea data-provide="markdown" rows="10" cols="100"
+
+                                    <ckeditor #emailTemplate="ngModel"
+                                                [(ngModel)]="emailTempModel.emailTemplate"
+                                                [config]="ckeConfig"
+                                                [readonly]="false"
+                                                debounce="500"
+                                                name="myckeditor"
+                                                (change)="onChange($event)">
+
+
+
+                                    </ckeditor>
+
+                                    <!--<ckeditor
+                                            [data]="emailTempModel.emailTemplate"
+                                            [editor]="Editor"
+                                            [disabled]="isDisabled"npm install --save-dev @ckeditor/ckeditor5-build-classic
+                                            id="classic-editor"
+                                            name="classic-editor"
+                                            >
+                                    </ckeditor>-->
+
+                                    <!--<ckeditor #emailTemplate="ngModel"  [editor]="Editor"  [(ngModel)]="emailTempModel.emailTemplate"
+                                              name="basic">
+                                    </ckeditor>-->
+                                   <!-- <p-editor #emailTemplate="ngModel" [style]="{'height':'320px'}" name="basic"  maxlength="3999" minlength="1" [(ngModel)]="emailTempModel.emailTemplate" styleClass="editor-dimensions">
+
+                                        <p-header>
+                                         <span class="ql-format-group">
+                                            <span title="Bold" class="ql-format-button ql-bold"></span>
+                                            <span class="ql-format-separator"></span>
+                                            <span title="Italic" class="ql-format-button ql-italic"></span>
+                                            <span class="ql-format-separator"></span>
+                                            <span title="Underline" class="ql-format-button ql-underline"></span>
+                                            <span class="ql-format-separator"></span>
+                                            <span title="Strikethrough" class="ql-format-button ql-strike"></span>
+                                        </span>
+                                        </p-header>
+
+                                    </p-editor>-->
+                                   <!-- <textarea data-provide="markdown" rows="10" cols="100"
                                               required name="emailTemplate" maxlength="3999" minlength="1"
                                               [(ngModel)]="emailTempModel.emailTemplate"
                                               #emailTemplate="ngModel">
-                                    </textarea>
+                                    </textarea>-->
                                     <span *ngIf="emailTemplate.invalid && emailTemplate.touched"
                                           class="col-md-9 select pdng-lr-5 text-danger">
                                         Please enter some data in email template
@@ -127,6 +168,7 @@
                                     <button type="button" class="btn  btn-default"> Cancel</button>
                                 </a>
                                 <button type="button" class="btn blue" (click)="saveEmailTemplate(form)"> Save</button>
+                                <div [innerHTML]="ckeditorContent"></div>
                             </div>
                         </div>
                     </div>

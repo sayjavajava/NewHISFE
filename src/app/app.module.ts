@@ -21,6 +21,7 @@ import {NotFound404Component} from "./components/errors/not-found-404.component"
 // Routes
 import {routes} from "./app.routes";
 import {ColorPickerModule} from "ngx-color-picker";
+import { CKEditorModule } from 'ng2-ckeditor';
 // Services
 import {RequestsService} from "./services/requests.service";
 import {HISUtilService} from "./services/his-util.service";
@@ -217,7 +218,8 @@ import {EditorModule} from "primeng/editor";
         PaginatorModule,
         PanelMenuModule,MegaMenuModule,ChipsModule,SliderModule,TableModule,
         SharedModule,
-        EditorModule
+        EditorModule,
+        CKEditorModule
     ],
     declarations: [
         // App Components
