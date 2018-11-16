@@ -280,9 +280,10 @@ export class AppConstants {
     ////////////////Country/////////////////////////////
     public static GET_ALL_COUNTRY='/CountryAPI/';
     public static GET_STATE_BYCOUNTRYID='/StateAPI/get/';
-    public static GET_STATE_BYCITYID='/CityAPI/get/';
+    public static GET_CITY_BYSTATEID='/CityAPI/get/';
     public static GET_ALL_DATEFORMAT='/common/';
     public static ZONE_FETCH_URL = '/common/timezoneApi';
     public  static GET_CITY_URL='/CityAPI/';
     public static GET_STATE_URL='/StateAPI/';
+    public static GET_ALL_COUNTRYBYID='/CountryAPI/get/';
 }

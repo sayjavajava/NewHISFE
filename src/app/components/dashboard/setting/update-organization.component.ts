@@ -8,7 +8,13 @@ import {AppConstants} from '../../../utils/app.constants';
 import {Organization} from '../../../model/organization';
 import {SelectItem} from "primeng/api";
 import {DateFormatENUM} from "../../../enums/DateFormatEnum";
-
+import {Country} from "../../../model/Country";
+import {City} from "../../../model/City";
+import {State} from "../../../model/State";
+import 'rxjs/add/operator/toPromise';
+import {async} from "@angular/core/testing";
+import {count} from "rxjs/operators";
+import any = jasmine.any;
 
 
 @Component({
@@ -31,8 +37,7 @@ export class UpdateOrganizationComponent implements OnInit {
     error: any;
     proForm: FormGroup;
     generalForm: FormGroup;
-    accountForm: FormGroup
-    // timezoneList: any = [];
+    accountForm: FormGroup;
     timezoneList: any=[];
     branchesList: any = [];
     organizationACCOUNT :any =[];
@@ -40,38 +45,28 @@ export class UpdateOrganizationComponent implements OnInit {
     defaultBranch: string = 'primaryBranch';
     specialtyList :any;
     countryLst:any=[];
-    countryListModified: SelectItem[] = [];
     stateLst:any=[];
-    stateLstModified:SelectItem[] = [];
     cityLst:any=[];
-    cityLstModified:SelectItem[] = [];
     currency:string;
     dateFormat:DateFormatENUM[];
     dateFormatLst:SelectItem[] = [];
-    //{name:'',value:''}[];
     dateType:any;
     timeType:any;
-    currencyLabel:string;
-    zoneType:any;
     zoneFormat:any;
-    countryList: any[];
-    stateList:any[];
-    citiesList:any[];
-    // selectedCountry:any;
-    selectedCountry:string;
-    selectedCity:string;
-    selectedState:string;
-    StateList:any[];
-    cityList:any[];
-    countryObj :{value:''}[] =[];
-    //  ctry:any=[];
-    //  @ViewChild('ddEditor') ddEditor : FormControl;
-    /*static getNamesAndValues<T extends number>(e: any) {
-        return DateFormatENUM.getname(e).map(n => ({ name: n, value: e[n] as T }));
-    }*/
-
-    // dateFormatLstModified:any=[];
-
+    currencyCountryLst:any;
+    countryListModified: SelectItem[] = [];
+    statesListModified: SelectItem[] = [];
+    citiesList: any[];
+    citiesListModified: SelectItem[] = [];
+    city: any;
+    state: any;
+    country: any;
+    cityId: any;
+    stateId: any;
+    countryId: any;
+    selectedCountry: SelectItem[] = [];
+    selectedState: SelectItem[] = [];
+    selectedCity: SelectItem[] = [];
 
 
     ngOnInit() {
@@ -85,10 +80,7 @@ export class UpdateOrganizationComponent implements OnInit {
         });
         this.patchData();
         this.accountForm.controls['userName'].disable();
-        /*this.ctry=this.selectedCountry;
-        this.cityLstModified=this.ctry;*/
-        //   alert(this.selectedCountry);
-        //  this.proForm.controls['country'].setValue(this.selectedCountry);
+
 
         this.specialtyList = [
             {label: 'Anesthesiologists ', value: 'Anesthesiologists '},
@@ -102,22 +94,24 @@ export class UpdateOrganizationComponent implements OnInit {
         this.dateType = [
             {label: 'dd-MM-yyyy',value:'dd-MM-yyyy'},
             {label: 'yyyy-MM-dd',value:'yyyy-MM-dd'},
-            {label: 'MM-dd',value:'MM-dd'},
+            {label: 'yyyy-dd-MM',value:'yyyy-dd-MM'},
             {label: 'yyyy/MM/dd',value:'yyyy/MM/dd'},
             {label: 'dd/MM/YYYY',value:'dd/MM/YYYY'},
-            {label: 'MM/dd',value:'MM/dd'}
+            {label: 'YYYY/dd/MM',value:'YYYY/dd/MM'},
 
         ];
 
         this.timeType = [
-            {label: 'HHmm',value:'HH:mm'},
-            {label: 'HHmmss',value:'HH:mm:ss'},
-            {label: 'mmss',value:'mm:ss'}
+            {label: 'HH:mm',value:'HH:mm'},
+            {label: 'HH:mm:ss a',value:'HH:mm:ss a'},
+            {label: 'HH:mm:ss',value:'HH:mm:ss'},
 
 
         ];
-        //  this.getAllStates();
-        //   this.getAllCities();
+
+
+
+
 
     }
 
@@ -127,9 +121,9 @@ export class UpdateOrganizationComponent implements OnInit {
                 'companyName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'officePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'specialty': [null],
-                'country':[null],
-                'state':[null],
-                'city':[null],
+                'selectedCountry': [null],
+                'selectedState': [null],
+                'selectedCity': [null],
                 'fax': [null],
                 'currency':[null],
                 'formName': ['PROFILE'],
@@ -167,24 +161,27 @@ export class UpdateOrganizationComponent implements OnInit {
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-            'country':[null],
-            'state':[null],
-            'city':[null],
+            'selectedCountry': [null],
+            'selectedState': [null],
+            'selectedCity': [null],
+            'currency':[null],
         })
     }
 
 
 
     allBranches() {
+
         this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
+
                         this.branchesList = response['responseData'];
                     }
                 },
                 (error: any) => {
-
+                    this.notificationService.error(error.error.error);
                 })
     }
 
@@ -198,6 +195,7 @@ export class UpdateOrganizationComponent implements OnInit {
                         for (let country of this.countryLst) {
                             let pair: any = {label: country.name, value: country.id};
                             this.countryListModified.push(pair);
+
                         }
 
                     }
@@ -208,84 +206,65 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
 
-    getStatesByCountryId(id: number) {
-        this.stateList = this.citiesList = this.cityLstModified = this.citiesList = [];
-        this.requestService.getRequest(AppConstants.GET_STATE_BYCOUNTRYID +id)
+    getStatesById(id: any) {
+
+        let listOfCountry=this.countryLst.filter((listing: any) => listing.id === id);
+        this.currency=listOfCountry[0].currency;
+        this.requestService.getRequest(AppConstants.GET_STATE_BYCOUNTRYID + id)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'STATE_SUC_11') {
+                    if (response["responseCode"] === "STATE_SUC_11") {
+
                         this.stateLst = response['responseData'];
 
                         for (let state of this.stateLst) {
                             var pair: any = {label: state.name, value: state.id};
-                            this.stateLstModified.push(pair);
+                            this.statesListModified.push(pair);
                         }
+
                     }
-                },
-                (error: any) => {
-                    this.notificationService.error(error.error.error);
-                })
+                }, function (error) {
+                    this.notificationService.error("ERROR", "States List is not available");
+                });
     }
 
-    getCitiesByStateId(id: number) {
-
-        this.citiesList = this.cityLstModified = [];
-
-        this.requestService.getRequest(AppConstants.GET_STATE_BYCITYID + id)
+    async getCountryById(id: any) {
+        this.requestService.getRequest(AppConstants.GET_ALL_COUNTRYBYID + id)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'CITY_SUC_11') {
-                        this.cityLst = response['responseData'];
-                        for (let city of this.cityLst) {
+                    if (response["responseCode"] ==="COUNTRY_SUC_11") {
+
+                        this.currencyCountryLst = response['responseData'];
+                        console.log(this.currencyCountryLst);
+                        this.currency=this.currencyCountryLst.currency;
+
+
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Country is not available");
+                });
+    }
+
+    getCitiesById(id: any) {
+
+
+        this.requestService.getRequest(AppConstants.GET_CITY_BYSTATEID + id)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "CITY_SUC_11") {
+                        this.citiesList = response["responseData"];
+                        for (let city of this.citiesList) {
                             var pair: any = {label: city.name, value: city.id};
-                            this.cityLstModified.push(pair);
+                            this.citiesListModified.push(pair);
                         }
                     }
-                },
-                (error: any) => {
-                    this.notificationService.error(error.error.error);
-                })
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Cities List is not available");
+                });
     }
 
-    getAllStates() {
-        // this.stateList = this.citiesList = this.cityLstModified = this.citiesList = [];
-        debugger;
-        this.requestService.getRequest(AppConstants.GET_STATE_URL)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'STATE_SUC_11') {
-                        this.StateList = response['responseData'];
-                        for (let state of this.StateList) {
-                            var pair: any = {label: state.name, value: state.id};
-                            this.stateLstModified.push(pair);
-                        }
-                    }
-                },
-                (error: any) => {
-                    this.notificationService.error(error.error.error);
-                })
-    }
 
-    getAllCities() {
 
-        //    this.citiesList = this.cityLstModified = [];
-        debugger;
-        this.requestService.getRequest(AppConstants.GET_CITY_URL)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'CITY_SUC_11') {
-                        this.cityList = response['responseData'];
-
-                        for (let city of this.cityList) {
-                            var pair: any = {label: city.name, value: city.id};
-                            this.cityLstModified.push(pair);
-                        }
-                    }
-                },
-                (error: any) => {
-                    this.notificationService.error(error.error.error);
-                })
-    }
 
 
     getOrganizationAccount() {
@@ -300,6 +279,9 @@ export class UpdateOrganizationComponent implements OnInit {
 
                 })
     }
+
+
+
 
 
     getDateFormatList() {
@@ -328,6 +310,7 @@ export class UpdateOrganizationComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'TZ_SUC_01') {
                         this.timezoneList = response['responseData'];
+
                         this.zoneFormat=this.timezoneList;
 
                     }
@@ -342,8 +325,7 @@ export class UpdateOrganizationComponent implements OnInit {
         if (this.id) {
             this.requestService.findById(AppConstants.FETCH_ORGANIZATION_BY_ID + this.id).subscribe(
                 organization => {
-                    //  this.id = user.id;
-                     this.countryObj.push(organization.country),
+
 
                     this.proForm.patchValue({
                         userName: organization.userName,
@@ -356,11 +338,10 @@ export class UpdateOrganizationComponent implements OnInit {
                         website: organization.website,
                         companyName: organization.companyName,
                         specialty : organization.speciality,
-                        selectedCountry:organization.country,
-                        selectedCity:organization.city,
-                        selectedState:organization.state,
-                        country :organization.country
-                        //   specialty: organization.speciality,
+                        selectedCountry:organization.addInfo.country,
+                        selectedCity:organization.addInfo.city,
+                        selectedState:organization.addInfo.state,
+                        currency:organization.addInfo.Currency
 
                     });
                     this.generalForm.patchValue({
@@ -374,7 +355,7 @@ export class UpdateOrganizationComponent implements OnInit {
 
                     });
 
-                    //  alert(this.selectedCountry);
+
 
 
                 }, (error: any) => {
@@ -386,6 +367,13 @@ export class UpdateOrganizationComponent implements OnInit {
 
     }
 
+
+
+
+
+
+
+
     isFieldValid(field: string) {
         return !this.proForm.get(field).valid && this.proForm.get(field).touched;
     }
@@ -396,6 +384,7 @@ export class UpdateOrganizationComponent implements OnInit {
             'has-feedback': this.isFieldValid(field)
         };
     }
+
 
     /* prepareSaveOrganization(): Organization {
          const formModel = this.proForm.value;
@@ -448,6 +437,8 @@ export class UpdateOrganizationComponent implements OnInit {
 */
     saveProfile(data: FormData) {
         if(this.proForm.valid) {
+
+            console.log(data);
             var self = this;
             this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
@@ -466,6 +457,7 @@ export class UpdateOrganizationComponent implements OnInit {
     saveGeneralSettings(data: FormData) {
 
         var self = this;
+        console.log(data);
         this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
             .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_03') {
@@ -480,6 +472,8 @@ export class UpdateOrganizationComponent implements OnInit {
 
     saveAccount(data: FormData) {
         var self = this;
+
+        console.log(data);
         if(this.accountForm.valid) {
             this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {

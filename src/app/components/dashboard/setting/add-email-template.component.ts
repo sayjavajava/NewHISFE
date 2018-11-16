@@ -18,7 +18,6 @@ export class AddEmailTemplateComponent implements OnInit {
     emailTempModel: EmailTemplateModel = new EmailTemplateModel();
     emailType:any =[];
     ckeConfig: any;
-    mycontent: string;
     ckeditorContent: string;
 
     @ViewChild("myckeditor") ckeditor: any;
@@ -99,10 +98,7 @@ export class AddEmailTemplateComponent implements OnInit {
             // this.notificationService.error('Required Fields are missing', 'Email Template');
         }
     }
-    onChange($event: any): void {
-        console.log("onChange");
-        //this.log += new Date() + "<br />";
-    }
+
 
 
 }

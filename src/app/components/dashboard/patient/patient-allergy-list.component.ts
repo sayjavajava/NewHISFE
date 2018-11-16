@@ -35,7 +35,7 @@ export class PatientAllergyListComponent implements OnInit {
     subscription: Subscription;
     allergyType :any;
     statusType:any;
-
+    cols: any[];
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -63,6 +63,16 @@ export class PatientAllergyListComponent implements OnInit {
             {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
             {label: 'RESOLVED',value:'RESOLVED'}
 
+        ];
+
+
+        this.cols = [
+            { field: 'name', header: 'Allergy' },
+            { field: 'reaction', header: 'Reaction' },
+            { field: 'status', header: 'Status' },
+            { field: 'note', header: 'Notes' },
+            { field: 'updatedOn', header: 'updated' },
+            { field: 'origin', header: 'Action' }
         ];
     }
 
