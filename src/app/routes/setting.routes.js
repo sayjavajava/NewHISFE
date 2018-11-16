@@ -43,6 +43,7 @@ var drug_component_1 = require("../components/dashboard/setting/drug.component")
 var user_permissions_component_1 = require("../components/dashboard/setting/user-permissions.component");
 var PaymentType_component_1 = require("../components/dashboard/setting/PaymentType.component");
 var currency_component_1 = require("../components/dashboard/setting/currency.component");
+var payment_component_1 = require("../components/dashboard/cashier/payment.component");
 exports.SettingRoutes = [
     // Setting Pages dashboard/setting/chart-of-account-template
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -92,6 +93,7 @@ exports.SettingRoutes = [
     { path: 'drug', component: drug_component_1.DrugComponent },
     // Add Payment Type
     { path: 'currency', component: currency_component_1.CurrencyComponent },
+    { path: 'payment', component: payment_component_1.PaymentComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

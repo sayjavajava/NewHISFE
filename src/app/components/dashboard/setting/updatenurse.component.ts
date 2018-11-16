@@ -45,6 +45,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     firstShiftToTime: string;
     selectedVacationWeek: any = [];
     selectedVisitBranches: any = [];
+    testBranches:any;
     selectedDoctors: any = [];
     branchesList: any = [];
     staffBranches: any [];
@@ -203,14 +204,13 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                     }
                    user.nurseDepartmentList.forEach((x:any)=>{
-                        console.log('xlog:'+ x.id);
                             this.selectedDepartment.push(x.id);
                         }),
                     //for selected
                     this.staffBranches = user.staffBranches;
                     this.selectedDoctors = user.dutyWithDoctors;
 
-                    for(let key in this.branchesList){
+                   /* for(let key in this.branchesList){
                         for(let k in this.staffBranches){
                             if(this.staffBranches[k].id == this.branchesList[key].id){
                                 this.branchesList[key].checked = true;
@@ -218,7 +218,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                                 break;
                             }
                         }
-                    }
+                    }*/
                     for(let key in this.doctorsList){
                         for(let k in this.selectedDoctors){
                             if(this.selectedDoctors[k].id == this.doctorsList[key].id){
@@ -238,6 +238,12 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                             }
                         }
                     };
+                    //selectedVisitBranches
+                    this.selectedVisitBranches.length=0;
+                    user.staffBranches.forEach((x:any)=>{
+                        console.log('logging...'+ x.id);
+                       this.selectedVisitBranches.push(x.id);
+                    })
 
 
                 }, (error: any) => {
@@ -338,15 +344,16 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     selectDepartment(eventObj: any, item?: any) {
         this.departmentFlag = false;
         let event = eventObj.value;
-        if (event.target.checked) {
-            this.selectedDepartment.push(item.id);
+        /*if (event) {
+            this.selectedDepartment.push(item.value);
         }
         else {
-            let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
+            let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.value);
             let index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
-        }
-        console.log(this.selectedDepartment);
+        }*/
+      //  this.selectedVisitBranches2.forEach((x:any)=>console.log('visiting..' + x))
+
     }
 
 

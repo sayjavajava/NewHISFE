@@ -115,6 +115,8 @@ export class ChartOfAccountComponent {
             this.parentTypeSelected(this.selectedParentType);
         } else {
             this.chartOfAccount = new GeneralLedgerModel();
+            this.selectedParentType = '';
+            this.selectedAccountType = '';
             this.requestsService.getRequest(AppConstants.FETCH_ACCOUNT_CODE)
                 .subscribe(
                     (response: Response) => {

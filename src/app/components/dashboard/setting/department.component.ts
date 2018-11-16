@@ -8,6 +8,8 @@ import {NotificationService} from '../../../services/notification.service';
 import {NgForm} from '@angular/forms';
 import {Department} from '../../../model/department';
 import * as _ from 'lodash'
+import {Family} from "../../../model/Family";
+import {OverlayPanel} from "primeng/primeng";
 
 @Component({
     selector: 'department-component',
@@ -23,10 +25,13 @@ export class DepartmentComponent implements OnInit {
     searchDepart: string;
     searched: boolean = false;
     branchesList: any = [];
-    error:any;
-    selectedBranches:any=[];
+    error: any;
+    selectedBranches: any = [];
     selectedDepartment: Department = new Department();
-    cols:any;
+    cols: any;
+    branchesInDepartment: any = [];
+    branchesListResponse: any = [];
+    selectedFamily = new Family();
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -43,13 +48,11 @@ export class DepartmentComponent implements OnInit {
             this.router.navigate(['/login']);
         };
         this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'description', header: 'Description' },
-            { field: 'status', header: 'Status' },
-            { field: 'Action', header: 'Action' },
-
+            {field: 'name', header: 'Name'},
+            {field: 'description', header: 'Description'},
+            {field: 'listOfBranches', header: 'Branch'},
+            {field: 'Action', header: 'Action'},
         ];
-
 
     }
 
@@ -67,6 +70,7 @@ export class DepartmentComponent implements OnInit {
         this.searchDepart = '';
         this.getPageWiseDepartmentFromServer(0);
     }
+
     allBranches() {
         this.requestsService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
@@ -75,7 +79,6 @@ export class DepartmentComponent implements OnInit {
                         this.branchesList = response['responseData'];
 
                     }
-                    // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -92,15 +95,13 @@ export class DepartmentComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-/*                        this.nextPage = response['responseData']['nextPage'];
-                        this.prePage = response['responseData']['prePage'];
-                        this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];*/
+                        /*                        this.nextPage = response['responseData']['nextPage'];
+                                                this.prePage = response['responseData']['prePage'];
+                                                this.currPage = response['responseData']['currPage'];
+                                                this.pages = response['responseData']['pages'];*/
                         this.data = response['responseData'];
-                        this.data.forEach((x:any)=>{
-                            this.selectedBranches.push(x.name);
-                            console.log('editting...'+ this.selectedBranches.forEach((x:any)=>{console.log('coding..'+x.name)}));
-                        })
+                        // this.branchesListResponse = this.data.listOfBranches;
+
 
                     }
 
@@ -164,11 +165,26 @@ export class DepartmentComponent implements OnInit {
             );
     }
 
+    getBranchesWithDepartment(id?: number, overlaypanel?: OverlayPanel,event?:any) {
+        this.branchesInDepartment =[];
+        this.branchesListResponse = this.data.filter((x:any)=>x.id == id);
+        this.branchesListResponse.forEach((x:any)=>{
+        if(x.listOfBranches != null){
+            this.branchesInDepartment = x.listOfBranches;
+
+        };
+
+      });
+       overlaypanel.toggle(event);
+    }
+
     saveClinicalDepartment(form: NgForm) {
         if (form.valid) {
+           this.selectedDepartment.selectedBranches =[...this.selectedBranches];
             this.requestsService.postRequest(
-                AppConstants.SAVE_CLINICAL_DEPARTMENT_URL,
-                this.selectedDepartment)
+            AppConstants.SAVE_CLINICAL_DEPARTMENT_URL,
+            this.selectedDepartment)
+                //    , this.selectedDepartment
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'CLI_DPT_SUC_02') {
@@ -180,7 +196,6 @@ export class DepartmentComponent implements OnInit {
                         }
                     },
                     (error: any) => {
-                        //console.log(error.json())
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
                 );
@@ -194,6 +209,7 @@ export class DepartmentComponent implements OnInit {
             control['_touched'] = true
         });
         if (form.valid) {
+            this.selectedDepartment.selectedBranches =[...this.selectedBranches];
             this.requestsService.putRequest(
                 AppConstants.UPDATE_CLINICAL_DEPARTMENT_URL,
                 this.selectedDepartment)
@@ -218,11 +234,22 @@ export class DepartmentComponent implements OnInit {
         }
     }
 
-    onUpdatePopupLoad(department: Department) {
+    onUpdatePopupLoad(department: Department,id:number) {
         this.selectedDepartment = department;
+         let brList = this.data.filter((x:any)=>x.id == id);
+        this.selectedBranches =[];
+         brList.forEach((x:any)=> {
+            if (x.listOfBranches != null)
+                x.listOfBranches.forEach((x:any)=>{
+                   this.selectedBranches.push(x.id)
+            });
+
+         });
+
     }
 
     onAddPopupLoad() {
         this.selectedDepartment = new Department();
+
     }
 }

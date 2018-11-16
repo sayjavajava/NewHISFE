@@ -162,21 +162,20 @@ var UpdateNurseComponent = (function () {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                 }
                 user.nurseDepartmentList.forEach(function (x) {
-                    console.log('xlog:' + x.id);
                     _this.selectedDepartment.push(x.id);
                 }),
                     //for selected
                     _this.staffBranches = user.staffBranches;
                 _this.selectedDoctors = user.dutyWithDoctors;
-                for (var key in _this.branchesList) {
-                    for (var k in _this.staffBranches) {
-                        if (_this.staffBranches[k].id == _this.branchesList[key].id) {
-                            _this.branchesList[key].checked = true;
-                            _this.selectedVisitBranches.push(_this.staffBranches[k].id);
-                            break;
-                        }
-                    }
-                }
+                /* for(let key in this.branchesList){
+                     for(let k in this.staffBranches){
+                         if(this.staffBranches[k].id == this.branchesList[key].id){
+                             this.branchesList[key].checked = true;
+                             this.selectedVisitBranches.push(this.staffBranches[k].id);
+                             break;
+                         }
+                     }
+                 }*/
                 for (var key in _this.doctorsList) {
                     for (var k in _this.selectedDoctors) {
                         if (_this.selectedDoctors[k].id == _this.doctorsList[key].id) {
@@ -197,6 +196,12 @@ var UpdateNurseComponent = (function () {
                     }
                 }
                 ;
+                //selectedVisitBranches
+                _this.selectedVisitBranches.length = 0;
+                user.staffBranches.forEach(function (x) {
+                    console.log('logging...' + x.id);
+                    _this.selectedVisitBranches.push(x.id);
+                });
             }, function (error) {
                 //console.log(error.json());
                 _this.error = error.error.error_description;
@@ -287,15 +292,15 @@ var UpdateNurseComponent = (function () {
     UpdateNurseComponent.prototype.selectDepartment = function (eventObj, item) {
         this.departmentFlag = false;
         var event = eventObj.value;
-        if (event.target.checked) {
-            this.selectedDepartment.push(item.id);
+        /*if (event) {
+            this.selectedDepartment.push(item.value);
         }
         else {
-            var updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.id);
-            var index = this.selectedDepartment.indexOf(updateItem);
+            let updateItem = this.selectedDepartment.find(this.findIndexToUpdate, item.value);
+            let index = this.selectedDepartment.indexOf(updateItem);
             this.selectedDepartment.splice(index, 1);
-        }
-        console.log(this.selectedDepartment);
+        }*/
+        //  this.selectedVisitBranches2.forEach((x:any)=>console.log('visiting..' + x))
     };
     UpdateNurseComponent.prototype.selectVisitBranches = function (event, item) {
         console.log(item);

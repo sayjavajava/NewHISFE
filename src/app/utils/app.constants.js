@@ -201,6 +201,7 @@ var AppConstants = (function () {
     AppConstants.REVENUE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateRevenueConfig';
     AppConstants.COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
     AppConstants.EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
+    AppConstants.FETCH_ACCOUNT_CODE = '/chartOfAccountConfigurations/accountCode';
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     AppConstants.FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     AppConstants.VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';

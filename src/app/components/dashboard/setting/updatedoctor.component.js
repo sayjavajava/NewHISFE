@@ -52,6 +52,7 @@ var UpdatedoctorComponent = (function () {
             { label: 'Saturday', value: 'Saturday' },
             { label: 'Sunday', value: 'Sunday' },
         ];
+        this.hasServices = false;
         this.date = new forms_1.FormControl(new Date());
         this.allBranches();
         //this.allServices();
@@ -116,6 +117,7 @@ var UpdatedoctorComponent = (function () {
         });
     };
     UpdatedoctorComponent.prototype.selectedBranch = function (eventObj) {
+        this.hasServices = false;
         this.selectedBranchId = eventObj.value;
         this.allDepartments();
     };
@@ -132,11 +134,12 @@ var UpdatedoctorComponent = (function () {
     };
     UpdatedoctorComponent.prototype.getDeptServices = function (deptId) {
         var _this = this;
+        this.hasServices = false;
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + deptId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
-                //console.log(this.servicesList);
+                _this.hasServices = true;
             }
             else {
                 _this.servicesList = [];
@@ -264,7 +267,7 @@ var UpdatedoctorComponent = (function () {
                 }
                 _this.staffBranches = user.staffBranches;
                 _this.staffBranches = _this.staffBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
-                _this.visitingBranches = _this.visitingBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
+                //   this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
                 /* for(let key in this.visitingBranches){
                      for(let k in this.staffBranches){
                          if(this.staffBranches[k].id == this.visitingBranches[key].id){
@@ -274,40 +277,14 @@ var UpdatedoctorComponent = (function () {
                          }
                      }
                  }*/
+                _this.selectedVisitBranches.length = 0;
+                user.staffBranches.forEach(function (x) {
+                    _this.selectedVisitBranches.push(x.id);
+                });
                 _this.staffBranches.forEach(function (x) {
                     _this.selectedVisitBranches.push(x.id);
                 });
                 _this.doctorServices = user.doctorMedicalSrvcList;
-                _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + docDeptId)
-                    .subscribe(function (response) {
-                    if (response['responseCode'] === 'MED_SER_SUC_01') {
-                        _this.servicesList = response['responseData'];
-                        for (var key in _this.servicesList) {
-                            for (var k in _this.doctorServices) {
-                                if (_this.doctorServices[k].id == _this.servicesList[key].id) {
-                                    _this.servicesList[key].checked = true;
-                                    _this.selectedServices.push(_this.doctorServices[k].id);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    else {
-                        _this.servicesList = [];
-                    }
-                }, function (error) {
-                    _this.servicesList = [];
-                    _this.error = error.error.error;
-                });
-                /*for(let key in this.servicesList){
-                    for(let k in this.doctorServices){
-                        if(this.doctorServices[k].id == this.servicesList[key].id){
-                            this.servicesList[key].checked = true;
-                            this.selectedServices.push(this.doctorServices[k].id);
-                            break;
-                        }
-                    }
-                }*/
                 if (user.vacation) {
                     _this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
                     _this.userForm.controls['dateTo'].setValue(new Date(user.vacationTo));

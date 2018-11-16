@@ -46,6 +46,8 @@ p, h3, h4{margin:0; padding:0;}
 .mrgn-top14{margin-top: 14px;}
 .mrgn-top24{margin-top: 24px;}
 .mrgn-top30{margin-top: 30px;}
+.mrgn-top-8{margin-top: -8px;}
+.mrgn-top-20{margin-top: -20px;}
 .mrgn-rght10{margin-right: 10px;}
 .font-smaller{ font-size:70%;}
 .label-lineheight{line-height: 16px !important;}
@@ -786,3 +788,7 @@ width: 93%; !important;
 .wc-time-sec[_ngcontent-c19] {padding: 10px 10px 8px !important;}
 .time-view[_ngcontent-c8]{padding:0px !important;}
 .wc-date-popover[_ngcontent-c8] {height: 355px !important;}
+.mat-input-wrapper, .mat-form-field-wrapper{margin-right: 0px;}
+.ui-overlaypanel {top:40% !important; left:40% !important; width: 20% !important; position: absolute !important;}
+.brnch-modl ul{list-style: none; padding-left: 0;}
+.brnch-modl li{color: blue;}

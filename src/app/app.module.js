@@ -203,7 +203,9 @@ var AppModule = (function () {
                 primeng_1.PaginatorModule,
                 primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule,
                 shared_1.SharedModule,
-                editor_1.EditorModule
+                editor_1.EditorModule,
+                primeng_1.OverlayPanelModule,
+                primeng_1.PasswordModule,
             ],
             declarations: [
                 // App Components
