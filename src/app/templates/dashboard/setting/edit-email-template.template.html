@@ -63,11 +63,24 @@
                             <div class="col-md-12">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <textarea data-provide="markdown" rows="10" cols="100"
+
+
+                                        <ckeditor #emailTemplate="ngModel"
+                                                  [(ngModel)]="emailTempModel.emailTemplate"
+                                                  [config]="ckeConfig"
+                                                  [readonly]="false"
+                                                  debounce="500"
+                                                  name="myckeditor"
+                                                  >
+
+
+
+                                        </ckeditor>
+                                       <!-- <textarea data-provide="markdown" rows="10" cols="100"
                                                   maxlength="3999" minlength="1"
                                                   required name="emailTemplate" id="emailTemplate"
                                                   [(ngModel)]="emailTempModel.emailTemplate"
-                                                  #emailTemplate="ngModel"></textarea>
+                                                  #emailTemplate="ngModel"></textarea>-->
                                         <span class="col-md-9 select pdng-lr-5 text-danger"
                                               *ngIf="emailTemplate.invalid && emailTemplate.touched">
                                         Please enter some data in email template

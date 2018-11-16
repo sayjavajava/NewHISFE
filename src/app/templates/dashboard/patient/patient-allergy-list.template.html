@@ -98,7 +98,76 @@
                     </h4>
                 </div>
                 <div class="table-scrollable tbl-brdr-radus">
-                    <table class="table table-hover table-light">
+
+
+                    <p-table #dt [columns]="cols" [value]="allergyData"  [rows]="10"  [paginator]="true" >
+
+                        <div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Global Filter"
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                   style="width:auto">
+                        </div>
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+
+                            <tr>
+                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                    <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'reaction'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+
+
+
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-allergyData>
+                            <tr>
+
+                                <td field="name"><strong>{{allergyData.name}}</strong></td>
+                                <td field="reaction">{{allergyData.reaction}}</td>
+                                <td field="status">{{allergyData.status}}</td>
+                                <td field="note">{{allergyData.note}}</td>
+                                <td field="updatedOn">{{allergyData.updatedOn}}</td>
+
+                                <td>
+                                    <a href="#responsiveAllergy" data-toggle="modal"
+                                       (click)="editAllergy(allergyData.id)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <button
+                                            (click)="deleteAllergy(allergyData.id)">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+
+
+
+                    <!--<table class="table table-hover table-light">
                         <thead>
                         <tr class="hedng-bck-clr tbl-pdng">
                             <th> Allergy</th>
@@ -128,7 +197,7 @@
                             </td>
                         </tr>
                         </tbody>
-                    </table>
+                    </table>-->
                 </div>
             </div>
         </div>

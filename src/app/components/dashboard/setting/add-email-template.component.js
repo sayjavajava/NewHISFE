@@ -24,6 +24,7 @@ var AddEmailTemplateComponent = (function () {
         this.router = router;
         this.emailTempModel = new EmailTemplateModel_1.EmailTemplateModel();
         this.emailType = [];
+        this.emailTempModel.emailTemplate = "<p>Please Enter Data</p>";
     }
     AddEmailTemplateComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Email Template';
@@ -32,6 +33,10 @@ var AddEmailTemplateComponent = (function () {
             { label: 'CONFIRM_APPOINTMENT', value: 'CONFIRM_APPOINTMENT' },
             { label: 'APPOINTMENT_REMINDER', value: 'APPOINTMENT_REMINDER' }
         ];
+        this.ckeConfig = {
+            allowedContent: false,
+            forcePasteAsPlainText: true
+        };
     };
     AddEmailTemplateComponent.prototype.saveEmailTemplate = function (form) {
         var _this = this;
@@ -83,6 +88,10 @@ var AddEmailTemplateComponent = (function () {
             // this.notificationService.error('Required Fields are missing', 'Email Template');
         }
     };
+    __decorate([
+        core_1.ViewChild("myckeditor"),
+        __metadata("design:type", Object)
+    ], AddEmailTemplateComponent.prototype, "ckeditor", void 0);
     AddEmailTemplateComponent = __decorate([
         core_1.Component({
             selector: 'service-tax-component',

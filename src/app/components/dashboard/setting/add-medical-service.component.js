@@ -24,6 +24,7 @@ var AddMedicalServiceComponent = (function () {
         this.router = router;
         this.ms = new medical_service_1.MedicalService();
         this.taxes = [];
+        this.branchIds = [];
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
@@ -48,6 +49,26 @@ var AddMedicalServiceComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                 _this.ms.departments = response['responseData'];
+            }
+        }, function (error) {
+            _this.HISUtilService.tokenExpired(error.error.error);
+        });
+    };
+    AddMedicalServiceComponent.prototype.onBranchSelection = function () {
+        var _this = this;
+        this.ms.selectedDepartments = [];
+        this.ms.departments = [];
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.ms.selectedBranches)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                _this.ms.selectedDepartments = [];
+                _this.ms.departments = [];
+                _this.ms.departments = response['responseData'];
+            }
+            else {
+                _this.ms.selectedDepartments = [];
+                _this.ms.departments = [];
+                _this.notificationService.error(response['responseMessage']);
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);

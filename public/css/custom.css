@@ -792,3 +792,4 @@ width: 93%; !important;
 .ui-overlaypanel {top:40% !important; left:40% !important; width: 20% !important; position: absolute !important;}
 .brnch-modl ul{list-style: none; padding-left: 0;}
 .brnch-modl li{color: blue;}
+ul.ui-inputtext{width: 100%;}

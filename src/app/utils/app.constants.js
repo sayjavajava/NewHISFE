@@ -12,6 +12,7 @@ var AppConstants = (function () {
     AppConstants.EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     AppConstants.USER_BY_ROLE = '/user/role';
     AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/'; ///only active departments
+    AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI = '/setting/department/branches'; ///
     AppConstants.FETCH_ALL_DEPARTMENT_BY_BRANCH = '/user/department/';
     AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
@@ -240,11 +241,12 @@ var AppConstants = (function () {
     ////////////////Country/////////////////////////////
     AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
     AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';
-    AppConstants.GET_STATE_BYCITYID = '/CityAPI/get/';
+    AppConstants.GET_CITY_BYSTATEID = '/CityAPI/get/';
     AppConstants.GET_ALL_DATEFORMAT = '/common/';
     AppConstants.ZONE_FETCH_URL = '/common/timezoneApi';
     AppConstants.GET_CITY_URL = '/CityAPI/';
     AppConstants.GET_STATE_URL = '/StateAPI/';
+    AppConstants.GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

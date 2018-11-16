@@ -266,6 +266,8 @@ export class DrugComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] == 'DRUG_SUC_15') {
                         this.drug.drugNaturalId = response['responseData'];
+                    } else {
+                        this.notificationService.error(response['responseMessage']);
                     }
                 }
             ),

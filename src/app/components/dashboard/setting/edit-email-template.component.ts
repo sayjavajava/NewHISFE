@@ -15,7 +15,8 @@ import {NgForm} from '@angular/forms';
 })
 export class EditEmailTemplateComponent implements OnInit {
     emailTempModel: EmailTemplateModel = new EmailTemplateModel();
-
+    ckeConfig: any;
+    ckeditorContent: string;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -34,6 +35,11 @@ export class EditEmailTemplateComponent implements OnInit {
         } else {
             this.router.navigate(['/login']);
         }
+
+        this.ckeConfig = {
+            allowedContent: false,
+            forcePasteAsPlainText: true
+        };
     }
 
     getEmailTemplateById(id: any) {
@@ -42,6 +48,8 @@ export class EditEmailTemplateComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'EMAIL_TEMP_SUC_02') {
                         this.emailTempModel = response['responseData'];
+                        var emailStr=this.getPlainText(this.emailTempModel.emailTemplate);
+                        this.emailTempModel.emailTemplate=emailStr;
                     }
                 },
                 (error: any) => {
@@ -103,6 +111,20 @@ export class EditEmailTemplateComponent implements OnInit {
                 return;
             }
         }
+    }
+
+    getPlainText(strSrc:string ) {
+        var resultStr = "";
+
+        // Ignore the <p> tag if it is in very start of the text
+        if(strSrc.indexOf('<p>') == 0)
+            resultStr = strSrc.substring(3);
+        else
+            resultStr = strSrc;
+        resultStr = resultStr.replace(/<p>/gi, "\r\n\r\n");
+        resultStr = resultStr.replace(/<br \/>/gi, "\r\n");
+        resultStr = resultStr.replace(/<br>/gi, "\r\n");
+        return  resultStr.replace( /<[^<|>]+?>/gi,'' );
     }
 
 }
