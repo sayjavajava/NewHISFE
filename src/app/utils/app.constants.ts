@@ -228,6 +228,7 @@ export class AppConstants {
     public static EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
 
     public static FETCH_ACCOUNT_CODE = '/chartOfAccountConfigurations/accountCode';
+    public static DELETE_ACCOUNT_URL = '/chartOfAccountConfigurations/delete/';
 
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
