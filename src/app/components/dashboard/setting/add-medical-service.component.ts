@@ -7,9 +7,6 @@ import {MedicalService} from '../../../model/medical-service';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Tax} from '../../../model/Tax';
-import {forEach} from '@angular/router/src/utils/collection';
-import {Branch} from '../../../model/branch';
-import {letProto} from 'rxjs/operator/let';
 
 @Component({
     selector: 'add-medical-services-component',
@@ -21,7 +18,8 @@ export class AddMedicalServiceComponent implements OnInit {
     taxes: Tax[] = [];
     branchId: number;
     serviceTax: any;
-    branchIds: number[] = [];
+    selectedBranches: any[] = [];
+    selectedDepartments: any[] = [];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -29,7 +27,6 @@ export class AddMedicalServiceComponent implements OnInit {
                 private router: Router) {
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
-        this.getDepartmentsFromServer();
         this.getTaxesFromServer();
     }
 
@@ -39,7 +36,7 @@ export class AddMedicalServiceComponent implements OnInit {
 
     getBranchesFromServer() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+            AppConstants.FETCH_ALL_BRANCHES_URL + 'all/all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
@@ -52,14 +49,23 @@ export class AddMedicalServiceComponent implements OnInit {
             );
     }
 
-    getDepartmentsFromServer() {
+    onBranchSelection() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.selectedBranches)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                        this.selectedDepartments = [];
+                        this.ms.departments = [];
                         this.ms.departments = response['responseData'];
+                        this.notificationService.success(response['responseMessage']);
+                    } else {
+                        this.selectedDepartments = [];
+                        this.ms.departments = [];
+                        this.notificationService.error(response['responseMessage']);
                     }
+
+                    this.changeSelectedCheckedBranch();
                 },
                 (error: any) => {
                     this.HISUtilService.tokenExpired(error.error.error);
@@ -67,28 +73,30 @@ export class AddMedicalServiceComponent implements OnInit {
             );
     }
 
-    onBranchSelection() {
-
-        this.ms.selectedDepartments = [];
-        this.ms.departments = [];
-        this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.ms.selectedBranches)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                        this.ms.selectedDepartments = [];
-                        this.ms.departments = [];
-                        this.ms.departments = response['responseData'];
-                    } else {
-                        this.ms.selectedDepartments = [];
-                        this.ms.departments = [];
-                        this.notificationService.error(response['responseMessage']);
-                    }
-                },
-                (error: any) => {
-                    this.HISUtilService.tokenExpired(error.error.error);
+    changeSelectedCheckedBranch() {
+        for (let selectedBranch of this.ms.branches) {
+            selectedBranch.checkedBranch = false;
+        }
+        for (let checked of this.selectedBranches) {
+            for (let selected of this.ms.branches) {
+                if (checked === selected.id) {
+                    selected.checkedBranch = true;
                 }
-            );
+            }
+        }
+    }
+
+    changeSelectedCheckedDepartment() {
+        for (let selectedDepartment of this.ms.departments) {
+            selectedDepartment.checkedDepartment = false;
+        }
+        for (let checked of this.selectedDepartments) {
+            for (let selected of this.ms.departments) {
+                if (checked === selected.id) {
+                    selected.checkedDepartment = true;
+                }
+            }
+        }
     }
 
     getTaxesFromServer() {

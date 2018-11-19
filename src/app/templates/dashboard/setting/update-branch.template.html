@@ -1,5 +1,5 @@
 <div class="page-content-wrapper">
-    <div class="page-content">
+    <div class="page-content content">
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
@@ -106,7 +106,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <!--<div class="form-group">
                                                 <label class="control-label col-md-4">Zip Code
                                                 </label>
                                                 <div class="col-md-8">
@@ -121,7 +121,7 @@
                                                         <option value="21431">21431</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Address
@@ -259,6 +259,8 @@
                                         <div class="col-md-12 text-center">
                                             <button (click)="addBranch(branchForm.value)" class="btn blue"><i
                                                     class="fa fa-plus"></i> Update
+                                            </button>
+                                            <button (click)="cancel()" class="btn default"><i class="fa fa-cancel"></i> Cancel
                                             </button>
 
                                         </div>

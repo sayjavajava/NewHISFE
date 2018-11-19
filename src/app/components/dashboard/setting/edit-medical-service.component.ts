@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {TaxService} from '../../../model/service-tax';
 import {RequestsService} from '../../../services/requests.service';
 import {NotificationService} from '../../../services/notification.service';
 import {HISUtilService} from '../../../services/his-util.service';
@@ -7,8 +6,6 @@ import {AppConstants} from '../../../utils/app.constants';
 import {MedicalService} from '../../../model/medical-service';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Department} from '../../../model/department';
-import {Branch} from '../../../model/branch';
 import {Tax} from '../../../model/Tax';
 
 @Component({
@@ -17,19 +14,20 @@ import {Tax} from '../../../model/Tax';
 })
 export class EditMedicalServiceComponent implements OnInit {
 
-    selectedMS: MedicalService = new MedicalService();
+    ms: MedicalService = new MedicalService();
     taxes: Tax[] = [];
+    selectedBranches: any[] = [];
+    selectedDepartments: any[] = [];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute) {
-
     }
 
     ngOnInit() {
-        this.selectedMS.tax.id = -1;
+        this.ms.tax.id = -1;
         this.activatedRoute.params.subscribe(
             params => {
                 this.requestsService.getRequest(
@@ -37,7 +35,20 @@ export class EditMedicalServiceComponent implements OnInit {
                 ).subscribe(
                     response => {
                         if (response['responseCode'] === 'MED_SER_SUC_01') {
-                            this.selectedMS = response['responseData'];
+                            this.ms = response['responseData'];
+                            console.log("total branchs:" + JSON.stringify(this.ms.branches));
+                            this.selectedBranches = [];
+                            this.selectedDepartments = [];
+                            for (let checked of this.ms.checkedBranches) {
+                                this.selectedBranches.push(checked.id);
+                            }
+                            console.log(this.selectedBranches)
+
+                            for (let checked of this.ms.checkedDepartments) {
+                                this.selectedDepartments.push(checked.id);
+                            }
+                            console.log(this.selectedDepartments);
+
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Medical Service Policies');
                             this.router.navigate(['404-not-found'])
@@ -73,20 +84,20 @@ export class EditMedicalServiceComponent implements OnInit {
         if (!this.isUnderprocess) {
             this.isUnderprocess = true;
 
-            if (this.selectedMS.name === '') {
+            if (this.ms.name === '') {
                 this.notificationService.warn('Please enter name.');
                 document.getElementById('msTitle').focus();
                 this.isUnderprocess = false;
                 return;
             }
-            if (this.selectedMS.code === '') {
+            if (this.ms.code === '') {
                 this.notificationService.warn('Please enter code.');
                 document.getElementById('code').focus();
                 this.isUnderprocess = false;
                 return;
             }
             let foundBranch = 0;
-            for (let branch of this.selectedMS.branches) {
+            for (let branch of this.ms.branches) {
                 if (branch.checkedBranch) {
                     foundBranch++;
                 }
@@ -100,7 +111,7 @@ export class EditMedicalServiceComponent implements OnInit {
             }
 
             let foundDepartment = 0;
-            for (let department of this.selectedMS.departments) {
+            for (let department of this.ms.departments) {
                 if (department.checkedDepartment) {
                     foundDepartment++;
                 }
@@ -113,14 +124,14 @@ export class EditMedicalServiceComponent implements OnInit {
                 return;
             }
 
-            if (this.selectedMS.tax.id <= 0) {
+            if (this.ms.tax.id <= 0) {
                 this.notificationService.warn('Please select tax.');
                 document.getElementById('taxId').focus();
                 this.isUnderprocess = false;
                 return;
             }
 
-            this.requestsService.putRequest(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.selectedMS)
+            this.requestsService.putRequest(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.ms)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -143,6 +154,56 @@ export class EditMedicalServiceComponent implements OnInit {
         }
 
 
+    }
+
+    onBranchSelection() {
+        this.requestsService.getRequest(
+            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.selectedBranches)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                        this.selectedDepartments = [];
+                        this.ms.departments = [];
+                        this.ms.departments = response['responseData'];
+                        this.notificationService.success(response['responseMessage']);
+                    } else {
+                        this.ms.selectedDepartments = [];
+                        this.ms.departments = [];
+                        this.notificationService.error(response['responseMessage']);
+                    }
+
+                    this.changeSelectedCheckedBranch();
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
+    changeSelectedCheckedBranch() {
+        for (let selectedBranch of this.ms.branches) {
+            selectedBranch.checkedBranch = false;
+        }
+        for (let checked of this.selectedBranches) {
+            for (let selected of this.ms.branches) {
+                if (checked === selected.id) {
+                    selected.checkedBranch = true;
+                }
+            }
+        }
+    }
+
+    changeSelectedCheckedDepartment() {
+        for (let selectedDepartment of this.ms.departments) {
+            selectedDepartment.checkedDepartment = false;
+        }
+        for (let checked of this.selectedDepartments) {
+            for (let selected of this.ms.departments) {
+                if (checked === selected.id) {
+                    selected.checkedDepartment = true;
+                }
+            }
+        }
     }
 
 }

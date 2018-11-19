@@ -1,4 +1,3 @@
-<!--
 <div class="page-content-wrapper">
     <div class="page-content">
         <div class="row">
@@ -26,84 +25,88 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_1_1">
-                            &lt;!&ndash;<form id="assetsForm" class="form-horizontal" >&ndash;&gt;
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Cash </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.cash">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    &lt;!&ndash;    <select class="form-control" name="select" [(ngModel)]="smsTemplate.type">
+                            <!--<form id="assetsForm" class="form-horizontal" >-->
+                            <div class="row">
+                                <label class="control-label col-md-2"> Cash </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.cash">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <!--<ng-container *ngFor="let item of chartOfAccountList;">
+                                            <option *ngIf="item.parentType=='Assets'"  [ngValue]="item.id" >{{item.name}}</option>
+                                        </ng-container>-->
+
+                                        <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
+                                            {{item.name}}
+                                        </option>
+                                    </select>
+                                    <!--    <select class="form-control" name="select" [(ngModel)]="smsTemplate.type">
                                             <option value="-1">-&#45;&#45;&#45;&#45; Select -&#45;&#45;&#45;&#45;</option>
                                             <option value="APPOINTMENT">Appointment</option>
                                             <option value="CONFIRM_APPOINTMENT">Confirm Appointment</option>
                                             <option value="APPOINTMENT_REMINDER">Appointment Reminder</option>
-                                        </select>&ndash;&gt;
-                                    </div>
+                                        </select>-->
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Bank </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.bank">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Bank </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.bank">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Inventory </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.inventory">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Inventory </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.inventory">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Account Receivable </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accountReceivable">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Account Receivable </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accountReceivable">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of assetsAccountList;" value={{item.id}} >
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Plant & Equipment </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.palntEquipment">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Plant & Equipment </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.palntEquipment">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Furniture & Fixture </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.furnitureFixture">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Furniture & Fixture </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.furnitureFixture">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="hr mrgn-top14">
@@ -111,69 +114,69 @@
                                     </div>
                                 </div>
                             </div>
-                            &lt;!&ndash;</form>&ndash;&gt;
+                            <!--</form>-->
                         </div>
 
                         <div class="tab-pane" id="tab_1_2">
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Account Payable </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accountPayable">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Account Payable </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accountPayable">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of liabilitiesAccountList;" value={{item.id}} >
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Tax Payable </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.taxPayable">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Tax Payable </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.taxPayable">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of liabilitiesAccountList;" value={{item.id}}>
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Accured Salary </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accuredSalary">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Accured Salary </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accuredSalary">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of liabilitiesAccountList;" value={{item.id}}>
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Loan </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.loan">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Loan </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.loan">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of liabilitiesAccountList;" value={{item.id}} >
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Other Payable </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.otherPayable">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Other Payable </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.otherPayable">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of liabilitiesAccountList;" value={{item.id}} >
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
                             <div class="row mrgn-top14">
                                 <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateLiabilityConfig()"> Save  </button>
                                 </div></div>
@@ -181,29 +184,29 @@
                         </div>
 
                         <div class="tab-pane" id="tab_1_3">
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Income </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.income">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Income </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.income">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of revenueAccountList;" value={{item.id}} >
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Other Income </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.otherIncome">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}}>
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Other Income </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.otherIncome">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of revenueAccountList;" value={{item.id}}>
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
                             <div class="row mrgn-top14">
                                 <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateRevenueConfig()"> Save  </button>
                                 </div></div>
@@ -211,17 +214,17 @@
                         </div>
 
                         <div class="tab-pane" id="tab_1_4">
-                                <div class="row">
-                                    <label class="control-label col-md-2"> Cost of Sale </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.costOfSale">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList;" value={{item.id}} >
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> Cost of Sale </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.costOfSale">
+                                        <option value=-1 [disabled]="true">Select Account Type</option>
+                                        <option *ngFor="let item of cogsAccountList;" value={{item.id}} >
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
                             <div class="row mrgn-top14">
                                 <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateCOSConfig()"> Save </button>
                                 </div></div>
@@ -229,17 +232,17 @@
                         </div>
 
                         <div class="tab-pane" id="tab_1_5">
-                                <div class="row">
-                                    <label class="control-label col-md-2"> General Expenses </label>
-                                    <div class="col-md-8">
-                                        <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.generalExpense">
-                                            <option value=-1>Select Account Type</option>
-                                            <option *ngFor="let item of chartOfAccountList; " value={{item.id}} >
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <label class="control-label col-md-2"> General Expenses </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.generalExpense">
+                                        <option value=-1 >Select Account Type</option>
+                                        <option *ngFor="let item of expensesAccountList; " value={{item.id}} >
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
                             <div class="row mrgn-top14">
                                 <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateExpenseConfig()"> Save </button>
                                 </div></div>
@@ -251,4 +254,4 @@
         </div>
         <div class="clearfix"></div>
     </div>
-</div>-->
+</div>

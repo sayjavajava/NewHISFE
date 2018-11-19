@@ -15,7 +15,7 @@
                             <button class="btn mt-sweetalert btn blue"
                                     data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                     data-type="success" data-allow-outside-click="true"
-                                    (click)="getBranchFromServer(0)"
+                                    (click)="allBranches()"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
                             <span><button class="btn btn-default btn-outline"> <i
@@ -115,7 +115,7 @@
                         </tr>
                         </thead>
                     </table>-->
-                    <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="7">
+                    <p-table #dt [columns]="cols" [value]="branchesList" [paginator]="true" [rows]="10">
                         <ng-template sortable="true" pTemplate="header" let-columns>
                             <tr>
                                 <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;'>
@@ -129,27 +129,26 @@
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-data>
+                        <ng-template pTemplate="body" let-rowData let-branchesList>
                             <tr>
-                                <td field="name"> {{data.name}} </td>
+                                <td field="name"> {{branchesList.name}} </td>
                                 <td field="doctorsList">
                                     <a href="#popupTest" data-toggle="modal">
                                         <button class="btn mt-sweetalert btn green-meadow"
-                                                (click)="getbranchesWithDoctors(item.id)"
+                                                (click)="getbranchesWithDoctors(branchesList.id)"
                                                 data-confirm-button-class="btn-success">
                                             <i class="fa fa"></i>Doctors
                                         </button>
                                     </a>
                                 </td>
-                                <!--  TODO: Uncomment
-                                <td field="country"> {{data.country}} </td>
-                                <td field="city"> {{data.city}} </td>-->
-                                <td field="rooms">{{data.rooms}}</td>
+                                <td field="country"> {{branchesList.country}} </td>
+                                <td field="city"> {{branchesList.city}} </td>
+                                <td field="rooms">{{branchesList.rooms}}</td>
                                 <td field="id">
                                     <ng-container>
-                                        <button (click)="updateBranch(data.id)" class="btn btn-default btn-outline btn-sm"><i
+                                        <button (click)="updateBranch(branchesList.id)" class="btn btn-default btn-outline btn-sm"><i
                                                 class="fa fa-pencil"></i></button>
-                                        <button (click)="deleteBranch(data.id)" class="btn btn-default btn-outline btn-sm"><i
+                                        <button (click)="deleteBranch(branchesList.id)" class="btn btn-default btn-outline btn-sm"><i
                                                 class="fa fa-remove"></i></button>
                                     </ng-container>
                                 </td>

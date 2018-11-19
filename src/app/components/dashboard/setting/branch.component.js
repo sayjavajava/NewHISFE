@@ -17,7 +17,6 @@ var notification_service_1 = require("../../../services/notification.service");
 var material_1 = require("@angular/material");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var app_constants_1 = require("../../../utils/app.constants");
-var searchBranch_1 = require("../../../model/searchBranch");
 var BranchComponent = (function () {
     function BranchComponent(requestService, router, notificationService, fb, matDialog, confirmationDialogService) {
         // this.allBranches();
@@ -47,15 +46,15 @@ var BranchComponent = (function () {
         this.cols = [
             { field: "name", header: "Name" },
             { field: "doctorsList", header: "Doctors" },
-            /* TODO: Uncomment
-            {field: 'country', header: 'Country'},
-            {field: 'city', header: 'City'},*/
+            { field: 'country', header: 'Country' },
+            { field: 'city', header: 'City' },
             { field: "rooms", header: "Rooms" },
             { field: "id", header: "Action" }
         ];
     };
     BranchComponent.prototype.allBranches = function () {
         var _this = this;
+        // console.log('Inside all br');
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_ALL_URL)
             .subscribe(function (response) {
             if (response["responseCode"] === "BR_SUC_01") {
@@ -67,6 +66,7 @@ var BranchComponent = (function () {
         }, function (error) {
             _this.error = error.error.error;
         });
+        // console.log(this.branchesList);
     };
     BranchComponent.prototype.getbranchesWithDoctors = function (id) {
         var _this = this;
@@ -93,27 +93,31 @@ var BranchComponent = (function () {
             _this.error = error.error.error;
         });
     };
-    BranchComponent.prototype.searchData = function (data) {
-        var _this = this;
+    /*searchData(data: SearchBranch) {
         //   if (this.searchForm.valid) {
-        var searchUserObj = new searchBranch_1.SearchBranch(data.branch, data.department, data.description);
+        let searchUserObj = new SearchBranch(data.branch, data.department, data.description);
         //   this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
-        this.requestService.getRequest(app_constants_1.AppConstants.BRANCH_SEARCH + this.pageNo + "?branch=" + data.branch)
-            .subscribe(function (response) {
-            if (response["responseCode"] === "BRANCH_SUC_01") {
-                _this.nextPage = response["responseData"]["nextPage"];
-                _this.prePage = response["responseData"]["prePage"];
-                _this.currPage = response["responseData"]["currPage"];
-                _this.pages = response["responseData"]["pages"];
-                _this.data = response["responseData"]["data"];
-            }
-        }, function (error) {
-            _this.error = error.error.error;
-        });
-        /*} else {
+        this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + "?branch=" + data.branch)
+            .subscribe(
+                (response: Response) => {
+
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.nextPage = response["responseData"]["nextPage"];
+                        this.prePage = response["responseData"]["prePage"];
+                        this.currPage = response["responseData"]["currPage"];
+                        this.pages = response["responseData"]["pages"];
+                        this.data = response["responseData"]["data"];
+
+                    }
+                },
+                (error: any) => {
+
+                    this.error = error.error.error;
+                })
+        /!*} else {
             this.validateAllFormFields(this.searchForm)
-        }*/
-    };
+        }*!/
+    }*/
     BranchComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
         Object.keys(formGroup.controls).forEach(function (field) {
@@ -136,30 +140,30 @@ var BranchComponent = (function () {
             "has-feedback": this.isFieldValid(field)
         };
     };
-    // getBranchFromServer(page: number) {
-    //     if (page > 0) {
-    //         page = page;
-    //
-    //     }
-    //     this.requestService.getRequest(
-    //         AppConstants.FETCH_ALL_BRANCHES_URL + page)
-    //         .subscribe(
-    //             (response: Response) => {
-    //                 if (response["responseCode"] === "BRANCH_SUC_01") {
-    //                     this.nextPage = response["responseData"]["nextPage"];
-    //                     this.prePage = response["responseData"]["prePage"];
-    //                     this.currPage = response["responseData"]["currPage"];
-    //                     this.pages = response["responseData"]["pages"];
-    //                     this.data = response["responseData"]["data"];
-    //
-    //
-    //                 }
-    //             },
-    //             (error: any) => {
-    //                 this.error = error.error.error;
-    //             }
-    //         );
-    // }
+    /*getBranchFromServer(page: number) {
+        if (page > 0) {
+            page = page;
+
+        }
+        this.requestService.getRequest(
+            AppConstants.FETCH_ALL_BRANCHES_URL + page)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.nextPage = response["responseData"]["nextPage"];
+                        this.prePage = response["responseData"]["prePage"];
+                        this.currPage = response["responseData"]["currPage"];
+                        this.pages = response["responseData"]["pages"];
+                        this.data = response["responseData"]["data"];
+
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                }
+            );
+    }*/
     BranchComponent.prototype.deleteBranch = function (id) {
         var _this = this;
         this.confirmationDialogService

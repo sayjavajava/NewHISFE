@@ -10,6 +10,7 @@ import {AccountConfigModel} from "../../../model/AccountConfigModel";
 import {BankAccountModel} from "../../../model/BankAccountModel";
 import {DOCUMENT} from "@angular/common";
 import {isNullOrUndefined} from "util";
+import {ConformationDialogService} from "../../../services/ConformationDialogService";
 
 @Component({
     selector: "chart-of-account-template-component",
@@ -32,16 +33,34 @@ export class ChartOfAccountComponent {
     element: any;
     elementByDiv: any[];
     elementByClass: any[];
-    parentTypesList: string[] = ["Assets" ,"Bank", "Liabilities", "Revenue", "Cost of Goods Sold","Expense"];
+    parentTypesList: string[] = ["Assets", "Bank", "Liabilities", "Revenue", "Cost of Goods Sold", "Expense"];
+    cols: any[];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 /*private route: ActivatedRoute,*/
-                private router: Router
-        , @Inject(DOCUMENT) document: any) {
+                private router: Router,
+                @Inject(DOCUMENT) document: any,
+                private confirmationDialogService: ConformationDialogService) {
         this.chartOfAccount.bankAccount = new BankAccountModel;
         this.showBankDetailsDiv = false;
+        this.cols = [
+            {field: "code", header: "Account Code"},
+            {field: "name", header: "Account Name"},
+            {field: "parentType", header: "Parent Type"},
+            {field: "description", header: "Description"},
+            {field: "balance", header: "Balance"},
+            {field: "action", header: "Action"}
+            /*
+            <td field="code">{{chartOfAccountList.code}}</td>
+            <td field="name">{{chartOfAccountList.name}}</td>
+            <td field="parentType">{{chartOfAccountList.parentType}}</td>
+            <td field="description">{{chartOfAccountList.description}}</td>
+            <td field="balance">{{chartOfAccountList.balance}}</td>
+            <td field="action">{{chartOfAccountList.action}}</td>
+             */
+        ];
     }
 
     ngOnInit() {
@@ -81,7 +100,7 @@ export class ChartOfAccountComponent {
     editAccountSetUp(formData: NgForm) {
         if (localStorage.getItem(btoa("access_token"))) {
             this.chartOfAccount.code = this.code;
-            console.log(this.chartOfAccount);
+            // console.log(this.chartOfAccount);
             if (this.chartOfAccount.parentType != "Bank" && !isNullOrUndefined(this.chartOfAccount.bankAccount)) {
                 this.chartOfAccount.bankAccount = null;
             }
@@ -103,6 +122,8 @@ export class ChartOfAccountComponent {
         } else {
             this.router.navigate(["/login"]);
         }
+        this.chartOfAccount.parentType = "";
+        this.setWidthOfElements();
     }
 
 
@@ -115,8 +136,8 @@ export class ChartOfAccountComponent {
             this.parentTypeSelected(this.selectedParentType);
         } else {
             this.chartOfAccount = new GeneralLedgerModel();
-            this.selectedParentType = '';
-            this.selectedAccountType = '';
+            this.selectedParentType = "";
+            this.selectedAccountType = "";
             this.requestsService.getRequest(AppConstants.FETCH_ACCOUNT_CODE)
                 .subscribe(
                     (response: Response) => {
@@ -135,29 +156,55 @@ export class ChartOfAccountComponent {
         }
     }
 
+    deleteAccount(id: number) {
+        this.confirmationDialogService
+            .confirm("Delete", "Are you sure you want to do this?")
+            .subscribe(res => {
+                if (res == true) {
+                    this.requestsService.deleteRequest(AppConstants.DELETE_ACCOUNT_URL + id).subscribe((data: Response) => {
+                        if (data["responseCode"] === "GL_DEL_SUC_01") {
+                            this.notificationService.success("Account has been Deleted Successfully");
+                            this.getAllAccountsList();
+
+                        }
+                    }, error => {
+                        // this.error = error.error.error_description;
+                        this.notificationService.error("ERROR", "Unable to Delete Account");
+                    });
+                    // this.router.navigate(['/home']);
+                }
+            });
+    }
+
     parentTypeSelected(parentType: any) {
-        console.log(this.chartOfAccount.parentType +' : '+ this.chartOfAccount.accountType);
         this.chartOfAccount.parentType = parentType;
         this.selectedParentType = parentType;
+        this.setWidthOfElements();
+    }
 
+    accountTypeSelected(accountType: any) {
+        this.chartOfAccount.accountType = accountType;
+    }
+
+    setWidthOfElements() {
         this.elementByDiv = Array.from(document.getElementsByClassName("slimScrollDiv"));
 
         if (this.chartOfAccount.parentType === "Bank") {
             this.showBankDetailsDiv = true;
             this.element.style.height = "380px";
 
-            if(isNullOrUndefined(this.chartOfAccount.bankAccount)){
+            if (isNullOrUndefined(this.chartOfAccount.bankAccount)) {
                 this.chartOfAccount.bankAccount = new BankAccountModel;
             }
 
             for (let i = 0; i < this.elementByClass.length; i++) {
-                if (this.elementByClass[i].style.height == "180px") {
+                if (this.elementByClass[i].style.height == "190px") {
                     this.elementByClass[i].style.height = "350px";
                 }
             }
 
             for (let i = 0; i < this.elementByDiv.length; i++) {
-                if (this.elementByDiv[i].style.height == "180px") {
+                if (this.elementByDiv[i].style.height == "190px") {
                     this.elementByDiv[i].style.height = "350px";
                 }
             }
@@ -167,19 +214,15 @@ export class ChartOfAccountComponent {
 
             for (let i = 0; i < this.elementByClass.length; i++) {
                 if (this.elementByClass[i].style.height == "350px") {
-                    this.elementByClass[i].style.height = "180px";
+                    this.elementByClass[i].style.height = "190px";
                 }
             }
 
             for (let i = 0; i < this.elementByDiv.length; i++) {
                 if (this.elementByDiv[i].style.height == "350px") {
-                    this.elementByDiv[i].style.height = "180px";
+                    this.elementByDiv[i].style.height = "190px";
                 }
             }
         }
-    }
-
-    accountTypeSelected(accountType: any) {
-        this.chartOfAccount.accountType = accountType;
     }
 }

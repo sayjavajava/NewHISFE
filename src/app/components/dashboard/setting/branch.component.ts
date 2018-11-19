@@ -54,15 +54,15 @@ export class BranchComponent implements OnInit {
         this.cols = [
             {field: "name", header: "Name"},
             {field: "doctorsList", header: "Doctors"},
-            /* TODO: Uncomment
             {field: 'country', header: 'Country'},
-            {field: 'city', header: 'City'},*/
+            {field: 'city', header: 'City'},
             {field: "rooms", header: "Rooms"},
             {field: "id", header: "Action"}
         ];
     }
 
     allBranches() {
+        // console.log('Inside all br');
         this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_ALL_URL)
             .subscribe(
                 (response: Response) => {
@@ -75,6 +75,7 @@ export class BranchComponent implements OnInit {
                 }, (error: any) => {
                     this.error = error.error.error;
                 })
+        // console.log(this.branchesList);
     }
 
     getbranchesWithDoctors(id: number) {
@@ -107,7 +108,7 @@ export class BranchComponent implements OnInit {
 
     }
 
-    searchData(data: SearchBranch) {
+    /*searchData(data: SearchBranch) {
         //   if (this.searchForm.valid) {
         let searchUserObj = new SearchBranch(data.branch, data.department, data.description);
         //   this.requestService.getRequest(AppConstants.BRANCH_SEARCH + this.pageNo + '?branch=' + data.branch + '&department=' + data.department)
@@ -128,10 +129,10 @@ export class BranchComponent implements OnInit {
 
                     this.error = error.error.error;
                 })
-        /*} else {
+        /!*} else {
             this.validateAllFormFields(this.searchForm)
-        }*/
-    }
+        }*!/
+    }*/
 
 
     validateAllFormFields(formGroup: FormGroup) {
@@ -157,30 +158,30 @@ export class BranchComponent implements OnInit {
         };
     }
 
-    // getBranchFromServer(page: number) {
-    //     if (page > 0) {
-    //         page = page;
-    //
-    //     }
-    //     this.requestService.getRequest(
-    //         AppConstants.FETCH_ALL_BRANCHES_URL + page)
-    //         .subscribe(
-    //             (response: Response) => {
-    //                 if (response["responseCode"] === "BRANCH_SUC_01") {
-    //                     this.nextPage = response["responseData"]["nextPage"];
-    //                     this.prePage = response["responseData"]["prePage"];
-    //                     this.currPage = response["responseData"]["currPage"];
-    //                     this.pages = response["responseData"]["pages"];
-    //                     this.data = response["responseData"]["data"];
-    //
-    //
-    //                 }
-    //             },
-    //             (error: any) => {
-    //                 this.error = error.error.error;
-    //             }
-    //         );
-    // }
+    /*getBranchFromServer(page: number) {
+        if (page > 0) {
+            page = page;
+
+        }
+        this.requestService.getRequest(
+            AppConstants.FETCH_ALL_BRANCHES_URL + page)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.nextPage = response["responseData"]["nextPage"];
+                        this.prePage = response["responseData"]["prePage"];
+                        this.currPage = response["responseData"]["currPage"];
+                        this.pages = response["responseData"]["pages"];
+                        this.data = response["responseData"]["data"];
+
+
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                }
+            );
+    }*/
 
     deleteBranch(id: number) {
         this.confirmationDialogService
