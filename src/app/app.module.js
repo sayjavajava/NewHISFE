@@ -29,6 +29,7 @@ var not_found_404_component_1 = require("./components/errors/not-found-404.compo
 // Routes
 var app_routes_1 = require("./app.routes");
 var ngx_color_picker_1 = require("ngx-color-picker");
+var ng2_ckeditor_1 = require("ng2-ckeditor");
 // Services
 var requests_service_1 = require("./services/requests.service");
 var his_util_service_1 = require("./services/his-util.service");
@@ -203,7 +204,11 @@ var AppModule = (function () {
                 primeng_1.PaginatorModule,
                 primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule,
                 shared_1.SharedModule,
-                editor_1.EditorModule
+                editor_1.EditorModule,
+                primeng_1.OverlayPanelModule,
+                primeng_1.PasswordModule,
+                editor_1.EditorModule,
+                ng2_ckeditor_1.CKEditorModule
             ],
             declarations: [
                 // App Components

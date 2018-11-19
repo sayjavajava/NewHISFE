@@ -21,6 +21,7 @@ import {NotFound404Component} from "./components/errors/not-found-404.component"
 // Routes
 import {routes} from "./app.routes";
 import {ColorPickerModule} from "ngx-color-picker";
+import { CKEditorModule } from 'ng2-ckeditor';
 // Services
 import {RequestsService} from "./services/requests.service";
 import {HISUtilService} from "./services/his-util.service";
@@ -121,7 +122,8 @@ import {DataService} from "./services/DataService";
 import {ModalModule} from "ngx-bootstrap";
 
 import {
-    CheckboxModule, DataTableModule, MegaMenuModule, PaginatorModule, PanelMenuModule,
+    CheckboxModule, DataTableModule, MegaMenuModule, OverlayPanelModule, PaginatorModule, PanelMenuModule,
+    PasswordModule,
     ScheduleModule
 } from "primeng/primeng";
 import {ToggleButtonModule} from 'primeng/togglebutton';
@@ -144,7 +146,6 @@ import {LabTestComponent} from "./components/dashboard/setting/lab-test.componen
 import {PatientGroupComponent} from './components/dashboard/patient/patient-group.component';
 import {DrugComponent} from './components/dashboard/setting/drug.component';
 import {CurrencyComponent} from './components/dashboard/setting/currency.component';
-import {InputTextModule} from 'primeng/inputtext'
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {SharedModule} from "primeng/shared";
 import {TableModule} from "primeng/table";
@@ -217,7 +218,11 @@ import {EditorModule} from "primeng/editor";
         PaginatorModule,
         PanelMenuModule,MegaMenuModule,ChipsModule,SliderModule,TableModule,
         SharedModule,
-        EditorModule
+        EditorModule,
+        OverlayPanelModule,
+        PasswordModule,
+        EditorModule,
+        CKEditorModule
     ],
     declarations: [
         // App Components

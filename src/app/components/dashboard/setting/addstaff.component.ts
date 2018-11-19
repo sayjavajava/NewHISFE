@@ -12,6 +12,7 @@ import {RoleAndPermission} from '../../../model/roleandpermission';
 import {DatePicker} from 'angular2-datetimepicker';
 import {UserTypeEnum} from '../../../enums/user-type-enum';
 
+
 @Component({
     selector: 'addstaff-component',
     templateUrl: '../../../templates/dashboard/setting/addstaff.template.html',
@@ -90,12 +91,15 @@ export class AddStaffComponent implements OnInit {
 
     ];
     dutyShift1: boolean = false;
+    hasServices : boolean = false;
 
     intervalList: any[] = [];
     selectedCars2: any;
     pBillReport: boolean;
     pRoles: string[] = [];
     date: Date = new Date();
+    msgs:'This has no services';
+  //  msgs: Message[] = [];
 
     constructor(private router: Router, private  fb: FormBuilder, private requestsService: RequestsService, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
@@ -131,6 +135,7 @@ export class AddStaffComponent implements OnInit {
 
 
     }
+
 
     /*    removeBranch() {
             this.branchesList.forEach((item: any, index: any) => {
@@ -205,7 +210,7 @@ export class AddStaffComponent implements OnInit {
             );
     }
 
-    allDepartments() {
+    allDepartments(){
         this.requestsService.getRequest(AppConstants.FETCH_ALL_DEPARTMENT_BY_BRANCH + this.selectedBranchId)
             .subscribe(
                 (response: Response) => {
@@ -216,22 +221,24 @@ export class AddStaffComponent implements OnInit {
                 (error: any) => {
                     this.error = error.error.error;
                 })
-
     }
 
     selectedBranch(eventObj: any) {
+        this.hasServices =false;
         this.selectedBranchId = eventObj.value;
         this.allDepartments();
     }
 
     getDeptServices(deptId: any) {
-        console.log('sevices +' + deptId)
+        this.hasServices = false;
         this.requestsService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + deptId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
-                        //console.log(this.servicesList);
+                        if(this.servicesList.length ==0){
+                            this.hasServices = true;
+                        }
                     } else {
                         this.servicesList = [];
                     }

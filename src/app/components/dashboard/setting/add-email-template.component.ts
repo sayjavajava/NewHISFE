@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
@@ -6,6 +6,7 @@ import {EmailTemplateModel} from '../../../model/EmailTemplateModel';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AppConstants} from '../../../utils/app.constants';
+
 
 
 @Component({
@@ -16,12 +17,15 @@ import {AppConstants} from '../../../utils/app.constants';
 export class AddEmailTemplateComponent implements OnInit {
     emailTempModel: EmailTemplateModel = new EmailTemplateModel();
     emailType:any =[];
+    ckeConfig: any;
+    ckeditorContent: string;
 
+    @ViewChild("myckeditor") ckeditor: any;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router) {
-
+        this.emailTempModel.emailTemplate= "<p>Please Enter Data</p>";
     }
 
     ngOnInit() {
@@ -31,16 +35,23 @@ export class AddEmailTemplateComponent implements OnInit {
             {label: 'CONFIRM_APPOINTMENT', value: 'CONFIRM_APPOINTMENT'},
             {label: 'APPOINTMENT_REMINDER', value: 'APPOINTMENT_REMINDER'}
         ];
+
+        this.ckeConfig = {
+            allowedContent: false,
+            forcePasteAsPlainText: true
+        };
     }
 
     saveEmailTemplate(form: NgForm) {
         if (form.valid) {
+
 
             if (this.emailTempModel.type == '-1') {
                 this.notificationService.warn('Please select type.');
                 document.getElementById('type').focus();
                 return;
             }
+
 
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
@@ -87,5 +98,7 @@ export class AddEmailTemplateComponent implements OnInit {
             // this.notificationService.error('Required Fields are missing', 'Email Template');
         }
     }
+
+
 
 }

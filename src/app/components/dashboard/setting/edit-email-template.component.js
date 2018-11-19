@@ -36,6 +36,10 @@ var EditEmailTemplateComponent = (function () {
         else {
             this.router.navigate(['/login']);
         }
+        this.ckeConfig = {
+            allowedContent: false,
+            forcePasteAsPlainText: true
+        };
     };
     EditEmailTemplateComponent.prototype.getEmailTemplateById = function (id) {
         var _this = this;
@@ -43,6 +47,8 @@ var EditEmailTemplateComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'EMAIL_TEMP_SUC_02') {
                 _this.emailTempModel = response['responseData'];
+                var emailStr = _this.getPlainText(_this.emailTempModel.emailTemplate);
+                _this.emailTempModel.emailTemplate = emailStr;
             }
         }, function (error) {
             //console.log(error.json())
@@ -97,6 +103,18 @@ var EditEmailTemplateComponent = (function () {
                 return;
             }
         }
+    };
+    EditEmailTemplateComponent.prototype.getPlainText = function (strSrc) {
+        var resultStr = "";
+        // Ignore the <p> tag if it is in very start of the text
+        if (strSrc.indexOf('<p>') == 0)
+            resultStr = strSrc.substring(3);
+        else
+            resultStr = strSrc;
+        resultStr = resultStr.replace(/<p>/gi, "\r\n\r\n");
+        resultStr = resultStr.replace(/<br \/>/gi, "\r\n");
+        resultStr = resultStr.replace(/<br>/gi, "\r\n");
+        return resultStr.replace(/<[^<|>]+?>/gi, '');
     };
     EditEmailTemplateComponent = __decorate([
         core_1.Component({

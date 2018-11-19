@@ -41,7 +41,86 @@
                     </div>-->
 
                     <div class="table-scrollable">
-                        <table class="table table-striped table-hover table-checkable dataTable no-footer"
+
+                        <p-table #dt [columns]="cols" [value]="data"  [rows]="10"  [paginator]="true" >
+
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Global Filter"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                       style="width:auto">
+                            </div>
+                            <ng-template sortable="true" pTemplate="header" let-columns>
+
+                                <tr>
+                                    <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                        {{col.header}}
+                                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                        <input *ngSwitchCase="'drugName'" pInputText type="text" style="width: 100%"
+                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                        <input *ngSwitchCase="'companyName'" pInputText type="text" style="width: 100%"
+                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                        <input *ngSwitchCase="'genericName'" pInputText type="text" style="width: 100%"
+                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                        <input *ngSwitchCase="'route'" pInputText type="text" style="width: 100%"
+                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                        <input *ngSwitchCase="'strength'" pInputText type="text" style="width: 100%"
+                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                        <input *ngSwitchCase="'uOM'" pInputText type="text" style="width: 100%"
+                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                        <input *ngSwitchCase="'origin'" pInputText type="text" style="width: 100%"
+                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+
+
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-data>
+                                <tr>
+
+                                    <td field="drugName"><strong>{{data.drugName}}</strong></td>
+                                    <td field="companyName">{{data.companyName}}</td>
+                                    <td field="genericName">{{data.genericName}}</td>
+                                    <td field="route">{{data.route}}</td>
+                                    <td field="strength">{{data.strength}}</td>
+                                    <td field="uOM">{{data.uOM}}</td>
+                                    <td field="origin">{{data.origin}}</td>
+                                    <td field="active">{{data.active === true ? 'Active' : 'In-Active'}}</td>
+                                    <td>
+                                        <a href="#responsive" data-toggle="modal">
+                                            <button class="btn btn-default btn-outline btn-sm"
+                                                    (click)="onUpdatePopupDrug(data)"><i class="fa fa-pencil"></i>
+
+                                            </button>
+                                        </a>
+                                        <span [hidden]="data.hasChild">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="deleteDrug(data.id)">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </span>
+
+
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+
+                        </p-table>
+                       <!-- <table class="table table-striped table-hover table-checkable dataTable no-footer"
                                id="datatable_ajax" role="grid">
                             <thead>
                             <tr role="row" class="off-wite-bg">
@@ -81,7 +160,7 @@
                                 </td>
                             </tr>
                             </thead>
-                        </table>
+                        </table>-->
                     </div>
                 </div>
             </div>
@@ -197,38 +276,46 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Dozage/Route<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <p-dropdown [(ngModel)]="drug.route" size="30"
+                                        <div class="col-md-9 pdng-lr-5">
+                                        <p-dropdown [(ngModel)]="drug.route"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     required id="route"
                                                     name="route" [options]="drug.routes"
                                                     #route="ngModel">
                                         </p-dropdown>
+                                        </div>
                                     </div>
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Strength<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <p-chips min="0" max="3" name="strengths"
+                                        <div class="col-md-9 pdng-lr-5">
+                                        <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                  [(ngModel)]="drug.strengths"
                                                  required id="strengths" placeholder="xxx-yy-zz-aa"
                                                  #strengths="ngModel">
                                         </p-chips>
-                                        <span *ngIf="strengths.invalid && strengths.touched"
-                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                            <span *ngIf="strengths.invalid && strengths.touched"
+                                                        class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter.
                                         </span>
+                                        </div>
+
                                     </div>
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">UoM<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <p-dropdown [options]="drug.UOMs" [(ngModel)]="drug.uOM"
-                                                    size="30" id="uOM" name="uOM"
+                                        <div class="col-md-9 pdng-lr-5">
+                                        <p-dropdown [options]="drug.UOMs" [(ngModel)]="drug.uOM" [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                     id="uOM" name="uOM"
                                                     #uOM="ngModel">
                                         </p-dropdown>
+
                                         <span *ngIf="uOM.invalid && uOM.touched"
                                               class="col-md-12 select pdng-lr-5 text-danger">
                                             Please enter.
                                         </span>
+                                        </div>
                                     </div>
 
                                     <div class="form-group hr">
@@ -237,14 +324,15 @@
                                         <div class="col-md-9 select pdng-lr-5">
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.origin"
-                                                   size="30" id="origin"
+                                                   size="10" id="origin"
                                                    name="origin"
                                                    #origin="ngModel"/>
-                                        </div>
-                                        <span *ngIf="origin.invalid && origin.touched"
-                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                            <span *ngIf="origin.invalid && origin.touched"
+                                                                            class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter.
                                         </span>
+                                        </div>
+
                                     </div>
 
                                     <div class="form-group hr">

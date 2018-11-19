@@ -9,8 +9,8 @@ export class Branch {
     officeHoursStart: number;
     officeHoursEnd: number;
     noOfExamRooms: number;
-    state: State;
-    city: City;
+    state?: State;
+    city?: City;
     primaryDoctor: string;
     zipCode: number;
     address: string;
@@ -18,7 +18,7 @@ export class Branch {
     fax: string;
     formattedAddress: string;
     examRooms: ExamRooms;
-    country: Country;
+    country?: Country;
     billingName ?: string;
     billingBranch ?: string;
     billingTaxID ?: string;

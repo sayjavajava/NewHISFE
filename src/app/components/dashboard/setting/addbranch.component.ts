@@ -381,4 +381,8 @@ export class AddBranchComponent implements OnInit {
         this.branchCity = cityId;
         // console.log("Branch City ID: " + this.branchCity);
     }
+
+    cancel() {
+        this.router.navigate(["/dashboard/setting/branch"]);
+    }
 }

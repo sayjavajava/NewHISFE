@@ -4,7 +4,9 @@ var Department = (function () {
     function Department() {
         this.name = '';
         this.active = true;
+        this.selectedBranches = [];
         this.hasChild = false;
+        this.selectedBranches = [];
     }
     return Department;
 }());

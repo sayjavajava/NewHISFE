@@ -13,9 +13,10 @@ import {VitalSetupModel} from "../../../model/VitalSetupModel";
 })
 export class VitalSetupComponent {
 
-    vitalSetupTemplateList: VitalSetupModel[];
+    data: VitalSetupModel[];
     vitalSetupTemplate: VitalSetupModel = new VitalSetupModel();
     id: number;
+    cols:any;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -28,7 +29,15 @@ export class VitalSetupComponent {
         document.title = 'HIS | Vital Setup Template';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getVitalSetupList();
-        }
+        };
+        this.cols = [
+            {field: 'name', header: 'Name'},
+            {field: 'unit', header: 'Unit'},
+            {field: 'standardValue', header: 'Standard Value'},
+            {field: 'status', header: 'Status'},
+            {field: 'Action', header: 'Action'},
+
+        ];
     }
 
     getVitalSetupList() {
@@ -37,7 +46,7 @@ export class VitalSetupComponent {
             ).subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
-                        this.vitalSetupTemplateList = response['responseData'];
+                        this.data = response['responseData'];
                         // console.log("Length : " + this.prefixTemplateList.length);
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
@@ -59,7 +68,7 @@ export class VitalSetupComponent {
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
-                            this.vitalSetupTemplateList = response['responseData'];
+                            this.data = response['responseData'];
                             document.getElementById('close-btn-Prefix').click();
                             this.notificationService.success(response['responseMessage'], 'Vital Setup Configurations');
                         } else {
@@ -79,7 +88,6 @@ export class VitalSetupComponent {
     edit(editModule: any){
         if(editModule) {
             this.vitalSetupTemplate = editModule;
-            console.log("status : " + this.vitalSetupTemplate.status);
         }else{
             this.vitalSetupTemplate = new VitalSetupModel();
         }

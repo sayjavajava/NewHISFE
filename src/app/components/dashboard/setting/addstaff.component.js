@@ -21,6 +21,7 @@ var PasswordValidation_1 = require("./PasswordValidation");
 var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
 var AddStaffComponent = (function () {
+    //  msgs: Message[] = [];
     function AddStaffComponent(router, fb, requestsService, notificationService, amazingTimePickerService) {
         this.router = router;
         this.fb = fb;
@@ -73,6 +74,7 @@ var AddStaffComponent = (function () {
             { name: 'CASHIER', label: 'CASHIER', value: 'CASHIER' }
         ];
         this.dutyShift1 = false;
+        this.hasServices = false;
         this.intervalList = [];
         this.pRoles = [];
         this.date = new Date();
@@ -174,17 +176,20 @@ var AddStaffComponent = (function () {
         });
     };
     AddStaffComponent.prototype.selectedBranch = function (eventObj) {
+        this.hasServices = false;
         this.selectedBranchId = eventObj.value;
         this.allDepartments();
     };
     AddStaffComponent.prototype.getDeptServices = function (deptId) {
         var _this = this;
-        console.log('sevices +' + deptId);
+        this.hasServices = false;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + deptId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
-                //console.log(this.servicesList);
+                if (_this.servicesList.length == 0) {
+                    _this.hasServices = true;
+                }
             }
             else {
                 _this.servicesList = [];
