@@ -106,7 +106,6 @@
 <div id="popupCode" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <form id="saveCodeForm" #form="ngForm">
-
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -114,94 +113,64 @@
                     <h4 class="modal-title" [hidden]="!(this.isCodeUpdate)">Update Code</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:320px" data-always-visible="1" data-rail-visible1="1">
-
-
+                    <div class="scroller" style="height:220px" data-always-visible="1" data-rail-visible1="1">
                         <!-- Multi select by ng-->
-                        <div class="row mrgn-btm10">
-                            <div class="col-md-8">
-                                <!-- <label class="control-label col-md-3 pdng-lr-5 txt-size">Versions</label>-->
-                                <!-- <div class="col-md-9 select pdng-lr-5">
-                                     <div class="checkbox-box cod-higt" id="not-due">
-                                         <address class="row">
-                                             <div class="col-md-6" *ngFor="let code of icdVersions">
-                                                 <label class="mt-checkbox mt-checkbox-outline">
-                                                     <input type="checkbox"
-                                                            id="chk-{{code.id}}"
-                                                            name="chk-{{code.id}}"
-                                                            (change)="checkedVersion()"
-                                                            [(ngModel)]="code.selectedVersion">
-                                                     {{code.name}}
-                                                     <span></span>
-                                                 </label>
-                                             </div>
-                                         </address>
-                                          </div>
-                                     </div>-->
-
+                        <div class="form-group hr">
                                 <label class="control-label col-md-3 pdng-lr-5 txt-size">Versions</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 pdng-lr-5">
                                     <p-multiSelect
                                             placeholder="select"
-                                            [style]="{'text-align': 'left' ,'width':'100%','margin-left':'25px'}"
+                                            [style]="{'text-align': 'left' ,'width':'100%'}"
                                             [options]="icdVersions" (onChange)="changeSelectedChecked()"
                                             [ngModelOptions]="{standalone:true}" [(ngModel)]="clientCheckedVersions"
                                             [panelStyle]="{minWidth:'12em'}">
 
                                     </p-multiSelect>
                                 </div>
-
-                            </div>
                         </div>
                         <!-- Multi select by ng-->
-                        <div class="row">
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Code
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" pInputText size="30"
+                                <div class="col-md-9 pdng-lr-5">
+                                    <input type="text" pInputText
                                            [(ngModel)]="iCDModel.code" id="code"
                                            placeholder="Enter Code" name="code"
                                            required pattern="^[a-zA-Z 0-9_-]{1,60}$"
-                                           #code="ngModel">
+                                           #code="ngModel" class="form-control">
                                 </div>
                                 <span *ngIf="code.invalid && code.touched"
-                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                      class="text-danger col-md-9 pdng-l-r-15">
                                     Please enter valid code.
                                 </span>
                             </div>
-
-
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Problem
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" pInputText size="30"
+                                    <input type="text" pInputText
                                            [(ngModel)]="iCDModel.problem" id="problem"
                                            placeholder="Enter Code" name="problem"
                                            required pattern="^[a-zA-Z 0-9_-]{1,60}$"
-                                           #problem="ngModel">
-                                </div>
-                                <span *ngIf="problem.invalid && problem.touched"
-                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                           #problem="ngModel" class="form-control">
+                                    <span *ngIf="problem.invalid && problem.touched"
+                                                                    class="text-danger">
                                     Please enter valid problem.
                                 </span>
+                                </div>
                             </div>
-
-
-
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Info URL
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" pInputText size="30"
+                                    <input type="text" pInputText
                                            [(ngModel)]="iCDModel.infoURL"
                                            placeholder="Enter info URL" name="infoURL" id="infoURL"
-                                           #infoURL="ngModel">
+                                           #infoURL="ngModel" class="form-control">
                                 </div>
                                 <span *ngIf="infoURL.invalid && infoURL.touched"
                                       class="col-md-9 select pdng-lr-5 text-danger">
@@ -212,11 +181,10 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                <textarea rows="3" cols="80"
-                                          [(ngModel)]="iCDModel.description" maxlength="300"
-                                          name="description" size="30"
-                                          pInputTextarea style="margin: 0px; width: 241px; height: 58px;"
-                                          placeholder="Enter text">
+                                <textarea rows="3"
+                                          [(ngModel)]="iCDModel.description"
+                                          name="description" pInputTextarea
+                                          placeholder="Enter text" class="form-control">
                                 </textarea>
                                 </div>
                             </div>
@@ -235,7 +203,6 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
