@@ -344,6 +344,9 @@ var AddBranchComponent = (function () {
         this.branchCity = cityId;
         // console.log("Branch City ID: " + this.branchCity);
     };
+    AddBranchComponent.prototype.cancel = function () {
+        this.router.navigate(["/dashboard/setting/branch"]);
+    };
     AddBranchComponent = __decorate([
         core_1.Component({
             selector: "addbranch-component",

@@ -147,15 +147,15 @@ var UpdateBranchComponent = (function () {
                     officeHoursStart: branch.officeHoursStart,
                     officeHoursEnd: branch.officeHoursEnd,
                     noOfExamRooms: branch.examRooms.length,
-                    city: branch.city.city,
-                    state: branch.city.state,
-                    country: branch.city.country,
-                    cityId: branch.city.cityId,
-                    stateId: branch.city.stateId,
-                    countryId: branch.city.countryId,
-                    selectedCity: branch.city.city,
-                    selectedState: branch.city.state,
-                    selectedCountry: branch.city.country,
+                    city: branch.city,
+                    state: branch.city,
+                    country: branch.city,
+                    cityId: branch.cityId,
+                    stateId: branch.stateId,
+                    countryId: branch.countryId,
+                    selectedCity: branch.city,
+                    selectedState: branch.state,
+                    selectedCountry: branch.country,
                     // primaryDoctor: branch.user.id,
                     fax: branch.fax,
                     address: branch.address,
@@ -163,9 +163,9 @@ var UpdateBranchComponent = (function () {
                     officePhone: branch.officePhone,
                     flow: branch.flow,
                 });
-                _this.cityId = branch.city.cityId;
-                _this.stateId = branch.city.stateId;
-                _this.countryId = branch.city.countryId;
+                _this.cityId = branch.cityId;
+                _this.stateId = branch.stateId;
+                _this.countryId = branch.countryId;
                 /*     this.billingForm.patchValue({
                          billingBranch: branch.billingBranch,
                          billingName: branch.billingName,
@@ -195,40 +195,6 @@ var UpdateBranchComponent = (function () {
             if (item === _this.defaultBranch)
                 _this.branchesList.splice(index, 1);
         });
-    };
-    UpdateBranchComponent.prototype.addBranch = function (data) {
-        var _this = this;
-        data["cityId"] = this.selectedCity;
-        if (this.branchForm.valid) {
-            //  let branchObject = this.prepareSaveBranch();
-            var that = this;
-            this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, data)
-                .subscribe(function (response) {
-                that.router.navigate(["/dashboard/setting/branch"]);
-                if (response["responseCode"] == "BRANCH_UPDATE_SUC_01") {
-                    console.log("updated...");
-                    that.notificationService.success(" Branch has been Updated Successfully");
-                    that.router.navigate(["/dashboard/setting/branch"]);
-                }
-                if (response["responseCode"] === "BR_ALREADY_EXISTS_01") {
-                    _this.notificationService.warn("Branch already Exists");
-                    //  this.router.navigate(['/dashboard/setting/branch'])
-                }
-            }, function (error) {
-                this.error = error.error.error_description;
-                this.notificationService.error("ERROR", "Branch is not updated ");
-            });
-        }
-        else {
-            this.validateAllFormFields(this.branchForm);
-            if (this.examRooms.length != 0) {
-                /*let examRoomLen = this.examRooms.length;
-                for (var i = 0; i < examRoomLen; i++) {
-                   console.log(this.examRooms.controls(i).controls['roomName'].value);
-                }*/
-                this.notificationService.error("Fill exam room Properly");
-            }
-        }
     };
     UpdateBranchComponent.prototype.deleteField = function (index) {
         this.examRooms = this.branchForm.get("examRooms");
@@ -262,6 +228,40 @@ var UpdateBranchComponent = (function () {
         };
         return saveBranchModel;
     };
+    UpdateBranchComponent.prototype.addBranch = function (data) {
+        var _this = this;
+        // data["cityId"] = this.selectedCity;
+        if (this.branchForm.valid) {
+            //  let branchObject = this.prepareSaveBranch();
+            var that = this;
+            this.requestService.postRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, data)
+                .subscribe(function (response) {
+                //that.router.navigate(["/dashboard/setting/branch"]);
+                if (response["responseCode"] == "BRANCH_UPDATE_SUC_01") {
+                    console.log("updated...");
+                    that.notificationService.success(" Branch has been Updated Successfully");
+                    that.router.navigate(["/dashboard/setting/branch"]);
+                }
+                if (response["responseCode"] === "BR_ALREADY_EXISTS_01") {
+                    _this.notificationService.warn("Branch already Exists");
+                    //  this.router.navigate(['/dashboard/setting/branch'])
+                }
+            }, function (error) {
+                this.error = error.error.error_description;
+                this.notificationService.error("ERROR", "Branch is not updated ");
+            });
+        }
+        else {
+            this.validateAllFormFields(this.branchForm);
+            if (this.examRooms.length != 0) {
+                /*let examRoomLen = this.examRooms.length;
+                for (var i = 0; i < examRoomLen; i++) {
+                   console.log(this.examRooms.controls(i).controls['roomName'].value);
+                }*/
+                this.notificationService.error("Fill exam room Properly");
+            }
+        }
+    };
     UpdateBranchComponent.prototype.isFieldValid = function (field) {
         return !this.branchForm.get(field).valid && this.branchForm.get(field).touched;
     };
@@ -283,9 +283,6 @@ var UpdateBranchComponent = (function () {
                 _this.validateAllFormFields(control);
             }
         });
-    };
-    UpdateBranchComponent.prototype.cancel = function () {
-        this.router.navigate(["/dashboard/setting/staff"]);
     };
     UpdateBranchComponent.prototype.getOfficeHoursStart = function () {
         var _this = this;
@@ -421,6 +418,9 @@ var UpdateBranchComponent = (function () {
         }, function (error) {
             this.notificationService.error("ERROR", "CIty State Country for branch is/are not available");
         });
+    };
+    UpdateBranchComponent.prototype.cancel = function () {
+        this.router.navigate(["/dashboard/setting/branch"]);
     };
     UpdateBranchComponent = __decorate([
         core_1.Component({
