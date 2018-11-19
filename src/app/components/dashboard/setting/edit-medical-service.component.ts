@@ -40,12 +40,12 @@ export class EditMedicalServiceComponent implements OnInit {
                             this.selectedBranches = [];
                             this.selectedDepartments = [];
                             for (let checked of this.ms.checkedBranches) {
-                                //this.selectedBranches.push(checked.id);
+                                this.selectedBranches.push(checked.id);
                             }
                             console.log(this.selectedBranches)
 
                             for (let checked of this.ms.checkedDepartments) {
-                                //this.selectedDepartments.push(checked.id);
+                                this.selectedDepartments.push(checked.id);
                             }
                             console.log(this.selectedDepartments);
 

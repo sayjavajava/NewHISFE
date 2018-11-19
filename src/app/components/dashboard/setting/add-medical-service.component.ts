@@ -18,8 +18,8 @@ export class AddMedicalServiceComponent implements OnInit {
     taxes: Tax[] = [];
     branchId: number;
     serviceTax: any;
-    selectedBranches: number[] = [];
-    selectedDepartments: number[] = [];
+    selectedBranches: any[] = [];
+    selectedDepartments: any[] = [];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
