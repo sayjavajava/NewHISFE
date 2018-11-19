@@ -74,12 +74,14 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     private subscription :Subscription;
     userId:number;
     intervalList:any;
+    selectedBranchId:number;
+    hasServices :boolean = false;
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService
                 ,private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
            this.allBranches();
            //this.allServices();
-           this.allDepartments();
+         //  this.allDepartments();
            this.allDoctors();
     }
 
@@ -141,15 +143,20 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
             if(item === this.defaultBranch) this.branchesList.splice(index,1);
         });
     }
+    selectedBranch(eventObj :any){
+            this.hasServices =false;
+            this.selectedBranchId = eventObj.value;
+            this.allDepartments();
+
+    }
 
 
     allDepartments() {
-        this.requestService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+        this.requestService.getRequest(AppConstants.FETCH_ALL_DEPARTMENT_BY_BRANCH +this.selectedBranchId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                         this.departmentList = response['responseData'];
-
                     }
                 },
                 (error: any) => {
@@ -158,12 +165,13 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     }
 
     getDeptServices(deptId: any) {
+        this.hasServices =false;
         this.requestService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+deptId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
-                        //console.log(this.servicesList);
+                        this.hasServices =true;
                     }else{
                         this.servicesList = [];
                     }
@@ -297,12 +305,10 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                             break;
                         }
                         this.selectedDepartmentObj.push(user.docDepartmentId);
-
-
                     }
                     this.staffBranches = user.staffBranches;
                     this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
-                    this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
+               //   this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
                    /* for(let key in this.visitingBranches){
                         for(let k in this.staffBranches){
                             if(this.staffBranches[k].id == this.visitingBranches[key].id){
@@ -312,44 +318,16 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                             }
                         }
                     }*/
-                   this.staffBranches.forEach(x=>{
+                    this.selectedVisitBranches.length=0;
+                    user.staffBranches.forEach((x:any)=>{
+                        this.selectedVisitBranches.push(x.id);
+                    })
+
+                    this.staffBranches.forEach(x=>{
                        this.selectedVisitBranches.push(x.id)
                    })
                     this.doctorServices = user.doctorMedicalSrvcList;
-
-                    this.requestService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+docDeptId)
-                        .subscribe(
-                            (response: Response) => {
-                                if (response['responseCode'] === 'MED_SER_SUC_01') {
-                                    this.servicesList = response['responseData'];
-                                    for(let key in this.servicesList){
-                                        for(let k in this.doctorServices){
-                                            if(this.doctorServices[k].id == this.servicesList[key].id){
-                                                this.servicesList[key].checked = true;
-                                                this.selectedServices.push(this.doctorServices[k].id);
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }else{
-                                    this.servicesList = [];
-                                }
-                            },
-                            (error: any) => {
-                                this.servicesList = [];
-                                this.error = error.error.error;
-                            })
-
-                    /*for(let key in this.servicesList){
-                        for(let k in this.doctorServices){
-                            if(this.doctorServices[k].id == this.servicesList[key].id){
-                                this.servicesList[key].checked = true;
-                                this.selectedServices.push(this.doctorServices[k].id);
-                                break;
-                            }
-                        }
-                    }*/
-                     if(user.vacation){
+                    if(user.vacation){
                      this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
                      this.userForm.controls['dateTo'].setValue(new Date(user.vacationTo));}
                      this.userForm.controls['workingDaysContorl'].patchValue({

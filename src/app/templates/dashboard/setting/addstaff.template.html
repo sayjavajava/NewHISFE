@@ -85,10 +85,10 @@
                                     <label class="control-label col-md-4">Primary Branch <span class="required"
                                                                                                aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8" id="not-due">
+                                    <div class="col-md-8">
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [options]="branchesList"
+                                                    [options]="branchesList" (onChange)="selectedBranch($event)"
                                                     formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
                                                     [filter]="true">
                                         </p-dropdown>
@@ -147,7 +147,7 @@
                                          <p>Selected Cars: {{selectedCars2}}</p>-->
 
                                         <p-multiSelect placeholder="select branches"
-                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="sortServices($event)"
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
                                                        [panelStyle]="{minWidth:'12em'}">
@@ -198,6 +198,7 @@
 
                                 </div>
 
+
                                 <!--doctor department container-->
                                 <div *ngIf="doctorDepartment" class="form-group">
                                     <label class="control-label col-md-4">Department
@@ -210,7 +211,6 @@
                                         </select>-->
                                         <p-dropdown [autoWidth]="false" (onChange)="selectDoctorDepartment($event)"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
-
                                                     [options]="departmentList" formControlName="departmentControl"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
@@ -225,19 +225,6 @@
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
-
-                                            <!--<address class="row">
-                                                <label class="mt-checkbox mt-checkbox-outline">
-                                                    <div *ngFor="let item of servicesList" class="col-md-6">
-                                                        <input type="checkbox" formControlName="servicesControl" class="mt-checkbox mt-checkbox-outline"
-                                                               name={{item.name}}
-                                                               value="{{item.id}}"
-                                                               (change)="selectServices($event,item)">
-                                                        {{item.name}}
-                                                    </div>
-                                                </label>
-                                            </address>-->
-
                                             <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
                                                            [options]="servicesList" [(ngModel)]="selectedServices"
                                                            [ngModelOptions]="{standalone:true}"
@@ -251,6 +238,7 @@
 
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
+                                        <div *ngIf="doctorDepartment"><div class="font-red font-siz" *ngIf="hasServices">This Department has no service</div></div>
                                     </div>
                                 </div>
 
@@ -365,11 +353,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="password" formControlName="password" class="form-control">
-                                        <span class="text-danger"
+                                        <input type="password" formControlName="password" pPassword  class="form-control">
+                                        <span class="font-siz" class="text-danger"
                                               *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">
-                                            <span *ngIf="userForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
-                                           <span *ngIf="userForm.controls['password'].errors.required">{{passwordError}} </span>
+                                            <span class="font-siz" *ngIf="userForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
+                                           <span class="font-siz" *ngIf="userForm.controls['password'].errors.required">{{passwordError}} </span>
                                         </span>
                                     </div>
                                 </div>
@@ -379,7 +367,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input type="password" formControlName="confirmPassword" class="form-control">
-                                        <span class="text-danger"
+                                        <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['confirmPassword'].valid && userForm.controls['confirmPassword'].touched">{{confirmPasswordError}}</span>
                                     </div>
                                 </div>
@@ -389,11 +377,11 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input type="text" formControlName="userName" class="form-control">
-                                        <span class="text-danger"
+                                        <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
-                                           <span *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
-                                           <span *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
-                                          <span *ngIf="userForm.controls['userName'].errors.pattern">User name not valid</span>
+                                           <span class="font-siz" *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
+                                           <span class="font-siz" *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
+                                          <span class="font-siz" *ngIf="userForm.controls['userName'].errors.pattern">User name not valid</span>
                                         </span>
                                         <!--<app-field-error-display [displayError]="isFieldValid('userName')" errorMsg="user name is required">
                                         </app-field-error-display>-->
@@ -613,7 +601,7 @@
 
 
                             <div *ngIf="vacation" class="form-group">
-                                <label class="control-label col-md-4 col-xs-12 mrgn-top14"> Vacation:
+                                <label class="control-label col-md-4 col-xs-12 mrgn-top-8"> Vacation:
                                 </label>
                                 <div class="col-md-8 col-xs-12">
                                     <!--<div class="width6 pull-left no-padding mrgn-top24">

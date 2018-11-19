@@ -51,6 +51,14 @@ var PatientAllergyListComponent = (function () {
             { label: 'IN-ACTIVE', value: 'IN-ACTIVE' },
             { label: 'RESOLVED', value: 'RESOLVED' }
         ];
+        this.cols = [
+            { field: 'name', header: 'Allergy' },
+            { field: 'reaction', header: 'Reaction' },
+            { field: 'status', header: 'Status' },
+            { field: 'note', header: 'Notes' },
+            { field: 'updatedOn', header: 'updated' },
+            { field: 'origin', header: 'Action' }
+        ];
     };
     PatientAllergyListComponent.prototype.getPaginatedAllergyFromServer = function (p) {
         var _this = this;

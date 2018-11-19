@@ -9,6 +9,8 @@ export class AppConstants {
     public static EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     public static USER_BY_ROLE = '/user/role';
     public static FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/';///only active departments
+    public static FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI = '/setting/department/branches';///
+    public static FETCH_ALL_DEPARTMENT_BY_BRANCH = '/user/department/';
     public static DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     public static SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
     public static SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
@@ -279,9 +281,10 @@ export class AppConstants {
     ////////////////Country/////////////////////////////
     public static GET_ALL_COUNTRY='/CountryAPI/';
     public static GET_STATE_BYCOUNTRYID='/StateAPI/get/';
-    public static GET_STATE_BYCITYID='/CityAPI/get/';
+    public static GET_CITY_BYSTATEID='/CityAPI/get/';
     public static GET_ALL_DATEFORMAT='/common/';
     public static ZONE_FETCH_URL = '/common/timezoneApi';
     public  static GET_CITY_URL='/CityAPI/';
     public static GET_STATE_URL='/StateAPI/';
+    public static GET_ALL_COUNTRYBYID='/CountryAPI/get/';
 }

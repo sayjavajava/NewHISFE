@@ -12,6 +12,8 @@ var AppConstants = (function () {
     AppConstants.EXPIRE_PASSWORD_TOKEN = 'expire_password_token';
     AppConstants.USER_BY_ROLE = '/user/role';
     AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI = '/setting/department/'; ///only active departments
+    AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI = '/setting/department/branches'; ///
+    AppConstants.FETCH_ALL_DEPARTMENT_BY_BRANCH = '/user/department/';
     AppConstants.DELETE_CLINICAL_DEPARTMENTS_URI = '/setting/department/delete/';
     AppConstants.SEARCH_CLINICAL_DEPARTMENT_URL = '/setting/department/search/';
     AppConstants.SAVE_CLINICAL_DEPARTMENT_URL = '/setting/department/save';
@@ -19,6 +21,7 @@ var AppConstants = (function () {
     AppConstants.CREATE_USER_ENDPOINT = '/user/add';
     AppConstants.USER_SEARCH = '/user/search/';
     AppConstants.FETCH_ALL_USERS_URI = '/user/';
+    AppConstants.FETCH_ALL_USERS = '/user/all';
     AppConstants.FETCH_USER_BY_ID = '/user/get/';
     ////////////////////// Branch URLs ///////////////////////////////
     AppConstants.ADD_BRANCH = '/setting/branch/create';
@@ -58,6 +61,7 @@ var AppConstants = (function () {
     AppConstants.ICD_VERSION_SAVE_URL = '/setting/icd/version/save';
     AppConstants.ICD_VERSION_UPDATE_URL = '/setting/icd/version/update';
     AppConstants.ICD_VERSIONS = '/setting/icd/versions/';
+    AppConstants.ICD_VERSIONS_DATA_TABLE = '/setting/icd/versions/dataTable';
     AppConstants.ICD_VERSIONS_BY_CODE_URL = '/setting/icd/versions/associated?codeId=';
     AppConstants.ICD_VERSION_DELETE_URL = '/setting/icd/version/delete?iCDVersionId=';
     AppConstants.ICD_VERSION_SEARCH = '/setting/icd/version/search/';
@@ -198,6 +202,7 @@ var AppConstants = (function () {
     AppConstants.REVENUE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateRevenueConfig';
     AppConstants.COS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateCOSConfig';
     AppConstants.EXPENSE_CONFIG_SAVE = '/chartOfAccountConfigurations/updateExpenseConfig';
+    AppConstants.FETCH_ACCOUNT_CODE = '/chartOfAccountConfigurations/accountCode';
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     AppConstants.FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     AppConstants.VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
@@ -236,11 +241,12 @@ var AppConstants = (function () {
     ////////////////Country/////////////////////////////
     AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
     AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';
-    AppConstants.GET_STATE_BYCITYID = '/CityAPI/get/';
+    AppConstants.GET_CITY_BYSTATEID = '/CityAPI/get/';
     AppConstants.GET_ALL_DATEFORMAT = '/common/';
     AppConstants.ZONE_FETCH_URL = '/common/timezoneApi';
     AppConstants.GET_CITY_URL = '/CityAPI/';
     AppConstants.GET_STATE_URL = '/StateAPI/';
+    AppConstants.GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

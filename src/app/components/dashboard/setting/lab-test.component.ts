@@ -13,10 +13,10 @@ import {LabTestSpecimanModel} from "../../../model/LabTestSpecimanModel";
 })
 export class LabTestComponent {
 
-    labTestSpecimanList: LabTestSpecimanModel[];
+    data: LabTestSpecimanModel[];
     labTestSpeciman: LabTestSpecimanModel = new LabTestSpecimanModel();
     id: number;
-
+    cols:any;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -28,7 +28,16 @@ export class LabTestComponent {
         document.title = 'HIS | Lab Test Speciman Template';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getAllTestSpecimanList();
-        }
+        };
+        this.cols = [
+            { field: 'testCode', header: 'Test Code' },
+            { field: 'testName', header: 'Name' },
+            { field: 'minNormalRange', header: 'MIN Range' },
+            { field: 'maxNormalRange', header: 'MAX RANGE' },
+            { field: 'description', header: 'Description' },
+            {field: 'Action', header: 'Action'},
+
+        ];
 
     }
 
@@ -40,7 +49,7 @@ export class LabTestComponent {
             ).subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
-                        this.labTestSpecimanList = response['responseData'];
+                        this.data = response['responseData'];
                        // this.cars = response['responseData'];
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Lab Test Speciman Configurations');
@@ -62,7 +71,7 @@ export class LabTestComponent {
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
-                            this.labTestSpecimanList = response['responseData'];
+                            this.data = response['responseData'];
                             document.getElementById('close-btn-Prefix').click();
                             this.notificationService.success(response['responseMessage'], 'Lab Test Speciman');
                         } else {

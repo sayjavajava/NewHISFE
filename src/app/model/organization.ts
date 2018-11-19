@@ -25,9 +25,10 @@ export class Organization {
     zoneId:string;
     email: string;
     address: string;
-    'country':string;
-    'city':string;
-    'state':string;
+    country:string;
+    city:string;
+    state:string;
+
     /*  constructor(firstName ?:  string, lastName ?:  string,userName?: string, email?: string, cellPhone?:string, homePhone?: string, address?: string) {
           this.firstName = firstName;
           this.lastName = lastName;

@@ -36,6 +36,7 @@
     "angular4-datepicker": "^1.0.1",
     "core-js": "^2.4.1",
     "fullcalendar": "^3.9.0",
+    "ng2-ckeditor": "^1.2.2",
     "ng2-toastr": "^4.1.2",
     "ngx-bootstrap": "^3.0.1",
     "ngx-color-picker": "^6.3.3",

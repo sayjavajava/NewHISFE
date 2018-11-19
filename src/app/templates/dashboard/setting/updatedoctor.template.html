@@ -66,7 +66,7 @@
 
                                                                                 </select>-->
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
-                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="selectedBranch($event)"
                                                     [(ngModel)]="pBranch" [options]="branchesList"
                                                     formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
                                                     [filter]="true">
@@ -221,42 +221,32 @@
                                         </p-multiSelect>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
-
+                                        <div class="font-siz font-red" *ngIf="hasServices">This Department has no service</div>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 1):
+                                    <label class="control-label col-md-4 col-xs-12"> Duty (Shift 1):
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 col-xs-12">
-                                        <div class="width6 pull-left no-padding"><label
-                                                class="mrgn-top12 mt-checkbox-outline chckbox">
+                                        <div class="pull-left no-padding col-md-1"><label
+                                                class="mt-checkbox-outline chckbox">
                                             <!--<input type="checkbox" formControlName="shift1" class="">-->
                                             <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
                                             <span></span></label>
                                         </div>
-                                        <div class="mrgn-top12">
-                                            <!--<a href="#" class="col-md-2 width12"> <button type="button" (click)="firstShiftFrom()">From</button></a>
-                                            <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
-                                            &emsp;
-                                            <a href="#" class="col-md-2 width12"><button type="button" (click)="firstShiftTo()">To</button></a>
-                                            <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
-
-    -->
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 pdng-lr-5">
                                                 <button type="button" (click)="firstShiftFrom()">From</button>
                                             </div>
-                                            <div class="col-md-2" style="width: 72px">
-                                                <input type="time" style="width: 122px" value="{{firstShiftFromTime}}">
+                                            <div class="col-md-4 pdng-lr-5">
+                                                <input type="time" style="width: 100%" value="{{firstShiftFromTime}}">
                                             </div>
-                                            <div class="col-md-2" style="width: 68px;margin-left: 55px;">
+                                            <div class="col-md-1 pdng-lr-5">
                                                 <button type="button" (click)="firstShiftTo()">To</button>
                                             </div>
-                                            <div class="col-md-2" style="width: 72px;margin-left: -37px;">
-                                                <input type="time" style="width: 122px" value="{{firstShiftToTime}}">
+                                            <div class="col-md-4 pdng-lr-5">
+                                                <input type="time" style="width: 100%" value="{{firstShiftToTime}}">
                                             </div>
-                                        </div>
                                     </div>
                                     <span class="text-danger"
                                           *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
@@ -267,36 +257,30 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
+                                    <label class="control-label col-md-4 col-xs-12"> Duty (Shift 2):
                                     </label>
                                     <div class="col-md-8  col-xs-12">
-                                        <div class="width6 col-md-1 pull-left no-padding"><label
-                                                class="mrgn-top8 mt-checkbox-outline chckbox">
+                                        <div class="col-md-1 pull-left no-padding"><label
+                                                class="mt-checkbox-outline chckbox">
                                             <!--<input type="checkbox" class=""
                                                    formControlName="shift2">-->
                                             <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
                                             <span></span></label></div>
-
-                                        <div class="mrgn-top8">
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 pdng-lr-5">
                                                 <button type="button" (click)="secondShiftFrom()">From</button>
                                             </div>
-                                            <div class="col-md-2" style="width: 72px">
-                                                <input type="time" style="width: 122px" value="{{secondShiftFromTime}}">
+                                            <div class="col-md-4 pdng-lr-5">
+                                                <input type="time" style="width: 100%" value="{{secondShiftFromTime}}">
                                             </div>
-                                            <div class="col-md-2" style="width: 68px;margin-left: 55px;">
+                                            <div class="col-md-1 pdng-lr-5">
                                                 <button type="button" (click)="secondShiftTo()">To</button>
                                             </div>
-                                            <div class="col-md-2" style="width: 72px;margin-left: -37px;">
-                                                <input type="time" style="width: 122px" value="{{secondShiftToTime}}">
+                                            <div class="col-md-4 pdng-lr-5">
+                                                <input type="time" style="width:100%" value="{{secondShiftToTime}}">
                                             </div>
-                                        </div>
                                         <div>
-
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -304,7 +288,7 @@
                                     <label class="control-label col-md-4 col-xs-12"> Vacation:
                                     </label>
                                     <div class="col-md-8  col-xs-12">
-                                        <div class="width6 pull-left no-padding mrgn-top24"><label
+                                        <div class="width6 pull-left no-padding col-md-1"><label
                                                 class="mt-checkbox-outline chckbox">
                                             <!--<input type="checkbox" formControlName="vacation"
                                                    class="">-->
@@ -314,7 +298,7 @@
                                             From
                                         </div>-->
                                         <div class=" col-md-6 col-xs-5 pull-left">
-                                            <mat-form-field class="mrgn-lft8">
+                                            <mat-form-field style="">
                                                 <input matInput [matDatepicker]="from" placeholder="From"
                                                        formControlName="dateFrom">
                                                 <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
@@ -322,8 +306,8 @@
                                             </mat-form-field>
                                         </div>&emsp;
 
-                                        <div class=" col-md-4 col-xs-4 pull-left">
-                                            <mat-form-field style="margin-left: -18px;">
+                                        <div class=" col-md-5 col-xs-5 pull-left mrgn-top-20">
+                                            <mat-form-field style="width: 100%">
                                                 <input matInput [matDatepicker]="to" placeholder="To"
                                                        formControlName="dateTo">
                                                 <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>

@@ -18,6 +18,7 @@ var app_constants_1 = require("../../../utils/app.constants");
 var notification_service_1 = require("../../../services/notification.service");
 var department_1 = require("../../../model/department");
 var _ = require("lodash");
+var Family_1 = require("../../../model/Family");
 var DepartmentComponent = (function () {
     function DepartmentComponent(requestsService, router, userSharedService, HISUtilService, notificationService) {
         this.requestsService = requestsService;
@@ -28,7 +29,11 @@ var DepartmentComponent = (function () {
         this.pages = [];
         this.searched = false;
         this.branchesList = [];
+        this.selectedBranches = [];
         this.selectedDepartment = new department_1.Department();
+        this.branchesInDepartment = [];
+        this.branchesListResponse = [];
+        this.selectedFamily = new Family_1.Family();
         this.allBranches();
     }
     DepartmentComponent.prototype.ngOnInit = function () {
@@ -42,7 +47,7 @@ var DepartmentComponent = (function () {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'description', header: 'Description' },
-            { field: 'status', header: 'Status' },
+            { field: 'listOfBranches', header: 'Branch' },
             { field: 'Action', header: 'Action' },
         ];
     };
@@ -67,7 +72,6 @@ var DepartmentComponent = (function () {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
             }
-            // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
         }, function (error) {
             _this.error = error.error.error;
         });
@@ -75,17 +79,18 @@ var DepartmentComponent = (function () {
     DepartmentComponent.prototype.getPageWiseDepartmentFromServer = function (page) {
         var _this = this;
         this.searchDepart = '';
-        if (page > 0) {
+        /*if (page > 0) {
             page = page;
-        }
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI + page)
+        }*/
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                _this.nextPage = response['responseData']['nextPage'];
-                _this.prePage = response['responseData']['prePage'];
-                _this.currPage = response['responseData']['currPage'];
-                _this.pages = response['responseData']['pages'];
-                _this.data = response['responseData']['data'];
+                /*                        this.nextPage = response['responseData']['nextPage'];
+                                        this.prePage = response['responseData']['prePage'];
+                                        this.currPage = response['responseData']['currPage'];
+                                        this.pages = response['responseData']['pages'];*/
+                _this.data = response['responseData'];
+                // this.branchesListResponse = this.data.listOfBranches;
             }
         }, function (error) {
             //console.log(error.json())
@@ -140,9 +145,22 @@ var DepartmentComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
+    DepartmentComponent.prototype.getBranchesWithDepartment = function (id, overlaypanel, event) {
+        var _this = this;
+        this.branchesInDepartment = [];
+        this.branchesListResponse = this.data.filter(function (x) { return x.id == id; });
+        this.branchesListResponse.forEach(function (x) {
+            if (x.listOfBranches != null) {
+                _this.branchesInDepartment = x.listOfBranches;
+            }
+            ;
+        });
+        overlaypanel.toggle(event);
+    };
     DepartmentComponent.prototype.saveClinicalDepartment = function (form) {
         var _this = this;
         if (form.valid) {
+            this.selectedDepartment.selectedBranches = this.selectedBranches.slice();
             this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_CLINICAL_DEPARTMENT_URL, this.selectedDepartment)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'CLI_DPT_SUC_02') {
@@ -154,7 +172,6 @@ var DepartmentComponent = (function () {
                     _this.notificationService.error(response['responseMessage'], 'Clinical Department');
                 }
             }, function (error) {
-                //console.log(error.json())
                 _this.HISUtilService.tokenExpired(error.error.error);
             });
         }
@@ -168,6 +185,7 @@ var DepartmentComponent = (function () {
             control['_touched'] = true;
         });
         if (form.valid) {
+            this.selectedDepartment.selectedBranches = this.selectedBranches.slice();
             this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_CLINICAL_DEPARTMENT_URL, this.selectedDepartment)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'CLI_DPT_SUC_02') {
@@ -187,8 +205,17 @@ var DepartmentComponent = (function () {
             this.notificationService.error('Required fields missing', 'Clinical Department');
         }
     };
-    DepartmentComponent.prototype.onUpdatePopupLoad = function (department) {
+    DepartmentComponent.prototype.onUpdatePopupLoad = function (department, id) {
+        var _this = this;
         this.selectedDepartment = department;
+        var brList = this.data.filter(function (x) { return x.id == id; });
+        this.selectedBranches = [];
+        brList.forEach(function (x) {
+            if (x.listOfBranches != null)
+                x.listOfBranches.forEach(function (x) {
+                    _this.selectedBranches.push(x.id);
+                });
+        });
     };
     DepartmentComponent.prototype.onAddPopupLoad = function () {
         this.selectedDepartment = new department_1.Department();

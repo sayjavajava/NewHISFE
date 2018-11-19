@@ -19,9 +19,9 @@ export class AddMedicalServiceComponent implements OnInit {
 
     ms: MedicalService = new MedicalService();
     taxes: Tax[] = [];
-    branchId :number;
-    serviceTax:any;
-
+    branchId: number;
+    serviceTax: any;
+    branchIds: number[] = [];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -59,6 +59,30 @@ export class AddMedicalServiceComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                         this.ms.departments = response['responseData'];
+                    }
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
+    onBranchSelection() {
+
+        this.ms.selectedDepartments = [];
+        this.ms.departments = [];
+        this.requestsService.getRequest(
+            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.ms.selectedBranches)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                        this.ms.selectedDepartments = [];
+                        this.ms.departments = [];
+                        this.ms.departments = response['responseData'];
+                    } else {
+                        this.ms.selectedDepartments = [];
+                        this.ms.departments = [];
+                        this.notificationService.error(response['responseMessage']);
                     }
                 },
                 (error: any) => {
@@ -148,5 +172,6 @@ export class AddMedicalServiceComponent implements OnInit {
             this.notificationService.error('Please provide required field data', 'Medical Service');
         }
     }
+
 
 }

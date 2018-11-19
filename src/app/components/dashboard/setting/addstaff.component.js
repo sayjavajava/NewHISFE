@@ -21,6 +21,7 @@ var PasswordValidation_1 = require("./PasswordValidation");
 var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
 var AddStaffComponent = (function () {
+    //  msgs: Message[] = [];
     function AddStaffComponent(router, fb, requestsService, notificationService, amazingTimePickerService) {
         this.router = router;
         this.fb = fb;
@@ -44,6 +45,7 @@ var AddStaffComponent = (function () {
         this.primaryDoctor = [];
         this.servicesList = [];
         this.doctorsList = [];
+        this.allServicesList = [];
         this.workingDays = [
             { label: 'Monday', value: 'Monday' },
             { label: 'Tuesday', value: 'Tuesday' },
@@ -72,14 +74,14 @@ var AddStaffComponent = (function () {
             { name: 'CASHIER', label: 'CASHIER', value: 'CASHIER' }
         ];
         this.dutyShift1 = false;
+        this.hasServices = false;
         this.intervalList = [];
         this.pRoles = [];
         this.date = new Date();
         this.allRoles();
         this.allBranches();
-        this.allDepartments();
         this.allDoctors();
-        //this.allServices();
+        this.allServices();
         angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
             this.settings = Object.assign(this.defaultSettings, this.settings);
             if (this.settings.defaultOpen) {
@@ -122,6 +124,24 @@ var AddStaffComponent = (function () {
             _this.error = error.error.error;
         });
     };
+    AddStaffComponent.prototype.sortServices = function (branchObj) {
+        var brId = branchObj.value;
+        var sortedList = this.allServicesList.filter(function (x) {
+            if (x.branches.length > 0)
+                x.branches.id == brId;
+        });
+        console.log('servicesList' + sortedList[0]);
+    };
+    AddStaffComponent.prototype.allServices = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'MED_SER_SUC_01') {
+                _this.allServicesList = response['responseData'];
+            }
+        }, function (error) {
+        });
+    };
     AddStaffComponent.prototype.allRoles = function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.PERMISSION_ENDPOINT)
@@ -146,7 +166,7 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.allDepartments = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_DEPARTMENT_BY_BRANCH + this.selectedBranchId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                 _this.departmentList = response['responseData'];
@@ -155,13 +175,21 @@ var AddStaffComponent = (function () {
             _this.error = error.error.error;
         });
     };
+    AddStaffComponent.prototype.selectedBranch = function (eventObj) {
+        this.hasServices = false;
+        this.selectedBranchId = eventObj.value;
+        this.allDepartments();
+    };
     AddStaffComponent.prototype.getDeptServices = function (deptId) {
         var _this = this;
+        this.hasServices = false;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL + deptId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
-                //console.log(this.servicesList);
+                if (_this.servicesList.length == 0) {
+                    _this.hasServices = true;
+                }
             }
             else {
                 _this.servicesList = [];
@@ -522,7 +550,6 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.selectDoctorDepartment = function (deptObj) {
         var deptId = deptObj.value;
-        console.log('department obj' + deptId);
         if (deptId) {
             this.selectedDepartment[0] = deptId;
             this.getDeptServices(deptId);
@@ -603,7 +630,7 @@ var AddStaffComponent = (function () {
             this.checkPermission(value);
             this.setValidate(value);
             if (value === 'DOCTOR' || value === 'NURSE') {
-                this.allDepartments();
+                // this.allDepartments();
                 //this.allServices();
             }
         }
