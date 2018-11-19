@@ -53,6 +53,7 @@ var UpdatedoctorComponent = (function () {
             { label: 'Sunday', value: 'Sunday' },
         ];
         this.hasServices = false;
+        this.listOfServices = [];
         this.date = new forms_1.FormControl(new Date());
         this.allBranches();
         //this.allServices();
@@ -139,7 +140,18 @@ var UpdatedoctorComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
-                _this.hasServices = true;
+                //this.hasServices =true;
+                _this.listOfServices.forEach(function (z) { return console.log('doob+' + z.id); });
+                console.log('doo' + _this.listOfServices.length);
+                _this.servicesList.forEach(function (x) {
+                    console.log('inn' + x.id);
+                    _this.listOfServices.forEach(function (y) {
+                        if ((x.id == y)) {
+                            x.checked = true;
+                            console.log('hip:' + x.id);
+                        }
+                    });
+                });
             }
             else {
                 _this.servicesList = [];
@@ -234,6 +246,9 @@ var UpdatedoctorComponent = (function () {
                 if (user.expiryDate != null) {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                 }
+                // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
+                console.log('med service ' + user.doctorMedicalSrvcList.length);
+                user.doctorMedicalSrvcList.forEach(function (x) { _this.listOfServices.push(x.id); });
                 //let shifts: any [] = user.dutyShifts;
                 if (user.dutyShifts != null && user.dutyShifts.length > 0) {
                     for (var s in user.dutyShifts) {

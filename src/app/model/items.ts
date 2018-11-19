@@ -1,6 +1,6 @@
 export class items{
     label:string;
-    routerLink:string='/dashboard/setting/branch';
+    routerLink?:string='/dashboard/setting/branch';
     name:string;
     items:any=[];
     icon:string;

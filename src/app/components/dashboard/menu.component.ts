@@ -13,21 +13,6 @@ export class MenuComponent implements OnInit{
     userPermissions: any[];
     showMenuBar: boolean = false;
     items:items[] =[];
-    items2 = [{
-        label: 'File',
-        items: [
-            {label: 'New', icon: 'fa fa-plus'},
-            {label: 'Open', icon: 'fa fa-download'}
-        ]
-    },
-        {
-            label: 'Edit',
-            items: [
-                {label: 'Undo', icon: 'fa fa-refresh'},
-                {label: 'Redo', icon: 'fa fa-repeat'}
-            ]
-        }
-        ];
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private titleService: Title) {
@@ -49,19 +34,18 @@ export class MenuComponent implements OnInit{
             this.userPermissions.forEach(x=>{
                 if(x.indicatior == 'G'){
                     let ob2  = new items(x.name,x.routeUrl,x.permissionIcon);
-                    console.log('decript:' + x.permissionIcon)
                     itemsList.push(ob2)
-                    gInd = new items('Genaral','/dashboard/setting/organization','fa fa-cog',itemsList);
+                    gInd = new items('Genaral','','fa fa-cog',itemsList);
                    }
                 if(x.indicatior == 'S'){
                     let ob3 = new items(x.name,x.routeUrl);
                     gList.push(ob3)
-                    sInd = new items('Other','/dashboard/setting/organization','',gList);
+                    sInd = new items('Other','','',gList);
                 }
                 if(x.indicatior == 'C'){
                     let ob3  = new items(x.name,x.routeUrl);
                     mList.push(ob3)
-                    mInd = new items('Content','/dashboard/setting/staff','fa fa-code-fork',mList);
+                    mInd = new items('Content','','fa fa-code-fork',mList);
                 }
 
             })
@@ -70,8 +54,6 @@ export class MenuComponent implements OnInit{
             this.items.push(mInd);
             this.items.push(sInd);
 
-
-            console.log('permissionss +:' +  this.items.forEach(x=>{console.log(x)}));
         }
         this.titleService.setTitle('HIS | Dashboard');
         let userType: string = atob(localStorage.getItem(btoa('user_type')))

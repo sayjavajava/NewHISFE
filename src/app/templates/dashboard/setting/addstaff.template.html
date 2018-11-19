@@ -11,8 +11,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Role <span class="required"
-                                                                                     aria-required="true"> * </span></label>
+                                    <label class="control-label col-md-4">Role <span class="required" aria-required="true"> * </span></label>
                                     <div class="col-md-8">
                                         <!--<select class="form-control" (change)="goTo($event.target.value)" formControlName="changeUser">
                                             <option *ngFor="let r of allStaffTypes" value="{{r.name}}">{{ r.name }}</option>
@@ -225,20 +224,32 @@
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
-                                            <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                           [options]="servicesList" [(ngModel)]="selectedServices"
+                                           <!-- <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                           [options]="servicesList" [(ngModel)]="selectedServices" (onChange)="addComission($event)"
                                                            [ngModelOptions]="{standalone:true}"
                                                            [panelStyle]="{minWidth:'12em'}">
                                                 <ng-template let-ser pTemplate="item">
-                                                    <div style="font-size:14px;float:right;margin-top:4px">
-                                                        {{ser.label}}
+                                                    <div style="font-size:14px;float:right;margin-top:4px">&lt;!&ndash;{{ser.label}}&ndash;&gt;
+                                                         <input formControlName="comission" placeholder={{ser.label}} id={{ser.id}} type="text" width="30%">
                                                     </div>
                                                 </ng-template>
-                                            </p-multiSelect>
+                                            </p-multiSelect>-->
+                                        <div class="ui-inputgroup" *ngFor="let item of servicesList">
+                                            <span class="ui-inputgroup-addon"><p-checkbox value="{{item.id}}"(onChange) ="addComissionCheck($event,item)" ></p-checkbox></span>
+                                            <input type="text" pInputText  (keyup)="addComission($event,item)" placeholder="comission">
+                                        </div>
+
+<!--                                        <label class="col-md-6" *ngFor="let item of departmentList">
+                                            <input type="checkbox" formControlName="departmentControl"
+                                                   name={{item.name}}
+                                                   value="{{item.id}}"
+                                                   (change)="selectDepartment($event,item)">{{item.name}}
+                                            <span></span>
+                                        </label>-->
 
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
-                                        <div *ngIf="doctorDepartment"><div class="font-red font-siz" *ngIf="hasServices">This Department has no service</div></div>
+                                        <div  *ngIf="doctorDepartment"><div class="font-red font-siz" *ngIf="hasServices">This Department has no service</div></div>
                                     </div>
                                 </div>
 

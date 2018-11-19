@@ -38,6 +38,7 @@ var User = (function () {
         this.shift2 = user.shift2;
         this.dateFrom = user.dateFrom;
         this.dateTo = user.dateTo;
+        this.serviceComission = user.serviceComission;
     }
     return User;
 }());

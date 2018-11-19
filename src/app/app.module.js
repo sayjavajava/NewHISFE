@@ -139,6 +139,7 @@ var chips_1 = require("primeng/chips");
 var PaymentType_component_1 = require("./components/dashboard/setting/PaymentType.component");
 var statuses_component_1 = require("./components/dashboard/setting/statuses.component");
 var editor_1 = require("primeng/editor");
+var chart_1 = require("primeng/chart");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -208,7 +209,8 @@ var AppModule = (function () {
                 primeng_1.OverlayPanelModule,
                 primeng_1.PasswordModule,
                 editor_1.EditorModule,
-                ng2_ckeditor_1.CKEditorModule
+                ng2_ckeditor_1.CKEditorModule,
+                chart_1.ChartModule
             ],
             declarations: [
                 // App Components

@@ -1,5 +1,6 @@
 import {IUser} from './IUser';
 import {WorkingDays} from './WorkingDays';
+import {ServiceComission} from "./service-comission";
 
 export class User {
 
@@ -42,6 +43,7 @@ export class User {
     selectedDoctors ?: any[];
     departmentControl ?: any[];
     dutyWithDoctors ?: any[];
+    serviceComission ?: ServiceComission[];
 
     constructor(user: IUser) {
         this.userType = user.userType;
@@ -83,6 +85,7 @@ export class User {
 
         this.dateFrom = user.dateFrom;
         this.dateTo = user.dateTo;
+        this.serviceComission =user.serviceComission;
 
 
     }

@@ -20,8 +20,8 @@ var notification_service_1 = require("../../../services/notification.service");
 var PasswordValidation_1 = require("./PasswordValidation");
 var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var user_type_enum_1 = require("../../../enums/user-type-enum");
+var service_comission_1 = require("../../../model/service-comission");
 var AddStaffComponent = (function () {
-    //  msgs: Message[] = [];
     function AddStaffComponent(router, fb, requestsService, notificationService, amazingTimePickerService) {
         this.router = router;
         this.fb = fb;
@@ -78,6 +78,8 @@ var AddStaffComponent = (function () {
         this.intervalList = [];
         this.pRoles = [];
         this.date = new Date();
+        //serviceComission:{id:number,checked:boolean,comission:''}[]=[];
+        this.serviceComission = [];
         this.allRoles();
         this.allBranches();
         this.allDoctors();
@@ -105,6 +107,28 @@ var AddStaffComponent = (function () {
             { label: '45', value: 45 },
             { label: '50', value: 50 },
         ];
+    };
+    AddStaffComponent.prototype.addComission = function (service, item) {
+        // serviceComission:{id:number,checked:boolean,comission:''}[];
+        var list = this.serviceComission.filter(function (x) { return x.id == item.value; });
+        if (list != null) {
+            list.forEach(function (x) {
+                x.comission = service.target.value;
+                console.log('last flat' + x.id + x.comission + x.checked);
+            });
+        }
+    };
+    AddStaffComponent.prototype.addComissionCheck = function (ser, item) {
+        var _this = this;
+        if (ser == true) {
+            this.serviceComission.forEach(function (it, index) {
+                if (it === item.value)
+                    _this.serviceComission.splice(index, 1);
+            });
+            console.log('flatt check  :' + ser + 'checking..' + item.value);
+            var sc = new service_comission_1.ServiceComission(item.value, ser, '');
+            this.serviceComission.push(sc);
+        }
     };
     /*    removeBranch() {
             this.branchesList.forEach((item: any, index: any) => {
@@ -231,6 +255,7 @@ var AddStaffComponent = (function () {
             'shift1': [null, forms_1.Validators.required],
             'nurseDutyWithDoctor': [null],
             'changeUser': [this.allStaffTypes[2].name, forms_1.Validators.required],
+            'comission': '',
         }, {
             validator: PasswordValidation_1.CustomValidators.Match('password', 'confirmPassword')
         });
@@ -356,7 +381,7 @@ var AddStaffComponent = (function () {
                     dateFrom: data.dateFrom,
                     selectedWorkingDays: this.selectedWorkingDays,
                     //selectedRoles : this.selectedRoles,
-                    userType: this.selectedUser
+                    userType: this.selectedUser,
                 });
                 this.makeService(doctor);
             }
@@ -471,6 +496,7 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.makeService = function (user) {
         var _this = this;
+        user.serviceComission = this.serviceComission;
         //console.log('i am make service ....');
         this.requestsService.postRequest('/user/add', user).subscribe(function (response) {
             if (response['responseCode'] === 'USER_ADD_SUCCESS_01') {
