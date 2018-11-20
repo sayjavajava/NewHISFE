@@ -22,6 +22,8 @@ export class VersionComponent implements OnInit {
     private searched: boolean;
     private isVersionUpdate: boolean;
     cols: any;
+    public loading: boolean = false;
+
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -32,15 +34,16 @@ export class VersionComponent implements OnInit {
     ngOnInit() {
         document.title = 'HIS | Manage ICD';
         if (localStorage.getItem(btoa('access_token'))) {
+            this.cols = [
+                {field: 'name', header: 'name'},
+                {field: 'description', header: 'description'},
+                {field: 'status', header: 'status'},
+                {field: 'Action', header: 'Action'}
+            ];
+
             this.getAllVersionsFromServer();
         }
 
-        this.cols = [
-            {field: 'name', header: 'name'},
-            {field: 'description', header: 'description'},
-            {field: 'status', header: 'status'},
-            {field: 'Action', header: 'Action'}
-        ];
     }
 
     refreshVersionsTable() {
@@ -51,6 +54,8 @@ export class VersionComponent implements OnInit {
 
 
     getAllVersionsFromServer() {
+        this.loading = true;
+
         this.requestsService.getRequest(
             AppConstants.ICD_VERSIONS_DATA_TABLE)
             .subscribe(
@@ -58,9 +63,11 @@ export class VersionComponent implements OnInit {
                     if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
                         this.data = response['responseData'];
                     }
+                    this.loading = false;
                 },
                 (error: any) => {
                     this.HISUtilService.tokenExpired(error.error.error);
+                    this.loading = false;
                 }
             );
     }
