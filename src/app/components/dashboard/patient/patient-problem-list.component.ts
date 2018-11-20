@@ -35,7 +35,8 @@ export class PatientProblemListComponent implements OnInit {
     subscription: Subscription;
     statusType:any;
     private isRequestUnderProcess: boolean = false;
-
+    cols: any[];
+    problemList:any;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -57,6 +58,23 @@ export class PatientProblemListComponent implements OnInit {
             {label: 'ACTIVE',value:'ACTIVE'},
             {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
         ];
+
+
+        this.cols = [
+            { field: 'versionName', header: 'Version' },
+            { field: 'codeName', header: 'Code' },
+            { field: 'dateDiagnosis', header: 'Diagnosis Date' },
+            { field: 'note', header: 'Notes' },
+            { field: 'status', header: 'Status' },
+            { field: 'action', header: 'Action' }
+        ];
+
+
+       /* this.problemList = [
+            {label: 'Fever ', value: '0 '},
+            {label: 'General ', value: '1 '},
+            {label: 'BackBone ', value: '2 '}
+        ];*/
     }
 
     appointmentsByServer() {
@@ -146,7 +164,9 @@ export class PatientProblemListComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                             this.associatedCodes = [];
+
                             this.associatedCodes = response['responseData'].code;
+                            alert(this.associatedCodes);
                         }
                     },
                     (error: any) => {
@@ -177,7 +197,7 @@ export class PatientProblemListComponent implements OnInit {
 
         if (this.ppm.selectedCodeId <= 0) {
             this.notificationService.warn('Please select Code.');
-            document.getElementById('associatedCodesId').focus();
+           document.getElementById('associatedCodesId').focus();
             return;
         }
 

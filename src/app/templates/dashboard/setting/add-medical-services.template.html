@@ -95,8 +95,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Service Cost
-                                    </label>
+                                    <label class="control-label col-md-3">Service Cost {{+ "("+currency+")"}}
+                                        <span class="required" aria-required="true"> * </span>
+
                                     <div class="col-md-9">
                                         <input class="form-control"
                                                type="number"
@@ -110,7 +111,7 @@
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Service Fee
+                                    <label class="control-label col-md-3">Service Fee {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
@@ -126,7 +127,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-3">
-                                        Service Tax
+                                        Service Tax {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">

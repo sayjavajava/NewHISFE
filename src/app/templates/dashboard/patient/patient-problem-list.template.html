@@ -104,7 +104,74 @@
                     </h4>
                 </div>
                 <div class="table-scrollable tbl-brdr-radus">
-                    <table class="table table-hover table-light">
+
+                    <p-table #dt [columns]="cols" [value]="problemData"  [rows]="10"  [paginator]="true" >
+
+                        <div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Global Filter"
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                   style="width:auto">
+                        </div>
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+
+                            <tr>
+                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                    <input *ngSwitchCase="'versionName'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'codeName'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'dateDiagnosis'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <!--<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+
+
+
+
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-problemData>
+                            <tr>
+
+                                <td field="versionName"><strong>{{problemData.versionName}}</strong></td>
+                                <td field="codeName">{{problemData.codeName}}</td>
+                                <td field="dateDiagnosis">{{problemData.dateDiagnosis}}</td>
+                                <td field="note">{{problemData.note}}</td>
+                                <td field="status">{{problemData.status}}</td>
+
+                                <td>
+                                    <a href="#responsiveAllergy" data-toggle="modal"
+                                       (click)="editPatientProblem(problemData.id)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <button
+                                            (click)="deletePatientProblem(problemData.id)">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+
+
+                    <!--<table class="table table-hover table-light">
                         <thead>
                         <tr class="hedng-bck-clr tbl-pdng">
                             <th> Version</th>
@@ -134,7 +201,7 @@
                             </td>
                         </tr>
                         </tbody>
-                    </table>
+                    </table>-->
                 </div>
             </div>
         </div>
@@ -243,11 +310,16 @@
                                                                                                    aria-required="true"> * </span></label>
                             <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
+                                    <!-- Testing purpose -->
+                                    <!--<p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="ppm.selectedCodeId" [options]="problemList"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>-->
+                                    <!--<p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.specialty" [options]="specialtyList" formControlName="specialty"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>-->
                                     <select id="associatedCodesId"
                                             [(ngModel)]="ppm.selectedCodeId"
                                             #associatedCodesId="ngModel" name="selectedVer"
                                             class="form-control">
-                                        <option value="-1">--- Please select ---</option>
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
                                         <option
                                                 *ngFor="let code of associatedCodes"
                                                 [(value)]="code.id">

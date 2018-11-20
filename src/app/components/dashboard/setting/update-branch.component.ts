@@ -443,7 +443,7 @@ export class UpdateBranchComponent implements OnInit {
     }
 
     getCitiesByStateId(stateId: any) {
-        this.citiesList = this.citiesListModified = [];
+
 
         this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
             .subscribe(

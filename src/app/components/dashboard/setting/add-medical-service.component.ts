@@ -18,6 +18,9 @@ export class AddMedicalServiceComponent implements OnInit {
     taxes: Tax[] = [];
     branchId: number;
     serviceTax: any;
+    branchIds: number[] = [];
+    organizationDataList: any;
+    currency:string;
     selectedBranches: any[] = [];
     selectedDepartments: any[] = [];
 
@@ -31,6 +34,7 @@ export class AddMedicalServiceComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.allorganizationData();
 
     }
 
@@ -72,6 +76,42 @@ export class AddMedicalServiceComponent implements OnInit {
                 }
             );
     }
+
+    getDepartmentsFromServer() {
+        this.requestsService.getRequest(
+            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                        this.ms.departments = response['responseData'];
+                    }
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
+
+
+
+    allorganizationData() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+                        this.currency=this.organizationDataList.currency;
+                        console.log(this.organizationDataList);
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
+    }
+
 
     changeSelectedCheckedBranch() {
         for (let selectedBranch of this.ms.branches) {

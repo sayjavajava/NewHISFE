@@ -6,11 +6,12 @@ import {AppConstants} from "../../../utils/app.constants";
 import {FormGroup, NgForm} from '@angular/forms';
 import { PaymentType } from '../../../model/PaymentType';
 import {HISUtilService} from "../../../services/his-util.service";
-import {LazyLoadEvent} from 'primeng/api';
+import {LazyLoadEvent, SelectItem} from 'primeng/api';
 import {FilterMetadata} from 'primeng/api';
 import {Table} from "primeng/table";
 import {GeneralLedgerModel} from "../../../model/GeneralLedgerModel";
 import any = jasmine.any;
+import {isEmpty} from "rxjs/operators";
 
 
 
@@ -30,8 +31,13 @@ export class PaymentTypeComponent implements OnInit {
     copyListPayment: PaymentType[];
     totalRecords: number;
     chartOfAccountList: GeneralLedgerModel[];
+    selectedCharteredAccount: SelectItem[] = [];
+    chartofAccountListModified: SelectItem[] = [];
     accountList:GeneralLedgerModel= new GeneralLedgerModel();
-
+    selectedSecondCharteredAccount:any;
+    organizationDataList: any;
+    currency:string;
+ //   intPattern="/^[0-9]*$/";
     allTypePAYMENT = [
         {name: 'Cash'},
         {name: 'Card'},
@@ -44,6 +50,10 @@ export class PaymentTypeComponent implements OnInit {
 
     ngOnInit(): void {
 
+        this.getPaymentTypeList();
+        this.getAllAccountsList();
+        this.allorganizationData();
+
         this.cols = [
             { field: 'paymentTitle', header: 'Payment Title' },
             { field: 'paymentGlAccount', header: 'GL Account' },
@@ -53,9 +63,6 @@ export class PaymentTypeComponent implements OnInit {
             { field: 'Action', header: 'Action' }
         ];
 
-        this.getPaymentTypeList();
-        this.getAllAccountsList();
-
 
     }
 
@@ -64,7 +71,7 @@ export class PaymentTypeComponent implements OnInit {
         this.service.getRequest(AppConstants.GET_ALL_PAYMENTTYPE).subscribe(
             (response: Response) => {
                 if (response['responseCode'] === 'PAYMENT_SUC_11') {
-                    debugger;
+
 
                     this.paymentlst= response['responseData'];
 
@@ -92,7 +99,7 @@ export class PaymentTypeComponent implements OnInit {
 
 
             }else if(value==="Card"){
-                debugger;
+
                 this.bankGlDiv = true;
                 this.maxCardChargesDiv = true;
                 this.payCreditDiv = true;
@@ -106,14 +113,13 @@ export class PaymentTypeComponent implements OnInit {
                 this.payCreditDiv = false;
                 this.serviceChargesDiv = false;
                 this.newPaymentType.payCredit=true;
-
                 this.newPaymentType.paymentMode="Others";
             }
     }
 
     getSelectedAccount(id: number) {
 
-           debugger;
+
            let charteredofAccount = this.chartOfAccountList.filter(x=>x.id==id);
 
 
@@ -125,15 +131,31 @@ export class PaymentTypeComponent implements OnInit {
         if (window.localStorage.getItem(btoa('access_token'))) {
 
 
-            var charteredofAccount = this.chartOfAccountList.filter(x=>x.id==this.newPaymentType.paymentGlAccount.id);
+
+
+            var charteredofAccount = this.chartOfAccountList.filter(x=>x.id==this.selectedCharteredAccount);
             this.newPaymentType.paymentGlAccount=charteredofAccount[0];
+
+
             if (form.valid) {
-                if(this.newPaymentType.paymentMode==="CASH"){
+                if(this.newPaymentType.paymentMode==="Cash"){
+                    this.newPaymentType.serviceCharges='';
+                    this.newPaymentType.maxCardCharges=''
+                    this.newPaymentType.payCredit=false;
+                    this.newPaymentType.bankGlCharges=null;
+
+                }if(this.newPaymentType.paymentMode==="Card"){
+                    var charteredofSecondAccount = this.chartOfAccountList.filter(x=>x.id==this.selectedSecondCharteredAccount);
+                    this.newPaymentType.bankGlCharges=charteredofSecondAccount[0];
+                }else{
+
                     this.newPaymentType.serviceCharges='';
                     this.newPaymentType.maxCardCharges=''
                     this.newPaymentType.payCredit=false;
                     this.newPaymentType.bankGlCharges=null;
                 }
+
+
                 this.service.postRequest(AppConstants.SAVE_PAYMENTTYPE, this.newPaymentType)
                     .subscribe((response: Response) => {
                             if (response['responseCode'] === 'PAYMENT_SUC_02') {
@@ -159,25 +181,37 @@ export class PaymentTypeComponent implements OnInit {
         }
     };
 
+    /*numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
 
+    }*/
 
 
     onAddPopup() {
         this.newPaymentType = new PaymentType();
         this.newPaymentType.paymentMode="Cash";
-        debugger;
-       this.newPaymentType.paymentGlAccount=this.chartOfAccountList[0];
-       this.newPaymentType.bankGlCharges=this.chartOfAccountList[0];
+
+
+        this.newPaymentType.active=true;
+        this.selectedSecondCharteredAccount=this.chartOfAccountList[0].id;
+        this.selectedCharteredAccount=this.chartOfAccountList[0].id;
 
     }
 
     onUpdatePopupLoad(objPaymentType: PaymentType) {
-        debugger;
-        console.log(objPaymentType);
+
+
+
+
         this.newPaymentType = new PaymentType();
 
         if(objPaymentType.paymentMode==="Card"){
-            debugger;
+
+
             this.bankGlDiv = true;
             this.maxCardChargesDiv = true;
             this.payCreditDiv = true;
@@ -185,7 +219,8 @@ export class PaymentTypeComponent implements OnInit {
             this.newPaymentType.paymentMode="Card";
 
         }else if(objPaymentType.paymentMode==="Cash"){
-            debugger;
+
+
             this.bankGlDiv = false;
             this.maxCardChargesDiv = false;
             this.payCreditDiv = false;
@@ -194,7 +229,8 @@ export class PaymentTypeComponent implements OnInit {
             this.newPaymentType.paymentMode="Cash";
 
         }else if(objPaymentType.paymentMode==="Others"){
-            debugger;
+
+
             this.bankGlDiv = false;
             this.maxCardChargesDiv = false;
             this.payCreditDiv = false;
@@ -250,16 +286,36 @@ export class PaymentTypeComponent implements OnInit {
                 this.paymentlst = this.copyListPayment.slice(event.first, (event.first + event.rows));
 
 
-                console.log(this.paymentlst);
+
+
                 this.loading = false;
             }
         }, 1000);
     }
 
 
+    allorganizationData() {
+
+        this.service.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+
+
+                        this.currency=this.organizationDataList.currency;
+
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
+    }
+
+
     sort(fieldName:string, order:number){
-        console.log(fieldName);
-        console.log(order)
+
         this.paymentlst.sort((row1,row2)=>{
             const val1=row1[fieldName];
             const val2=row2[fieldName];
@@ -280,14 +336,18 @@ export class PaymentTypeComponent implements OnInit {
 
     getAllAccountsList() {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.service.getRequest(AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS
+            this.service.getRequest(AppConstants.FETCH_ACCOUNTS_PAYMENTTYPE
             ).subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.chartOfAccountList = response['responseData'];
                         this.accountList=response['responseData'];
-                        debugger;
+                        for (let charteredAccount of this.chartOfAccountList) {
 
+                            let pair: any = {label:charteredAccount.name, value: charteredAccount.id};
+                            this.chartofAccountListModified.push(pair);
+
+                        }
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Chart of Accounts Configurations');
                     }
@@ -301,9 +361,33 @@ export class PaymentTypeComponent implements OnInit {
         }
     }
 
-
+   /* public isEmpty(myVar): boolean {
+        return (myVar && (Object.keys(myVar).length === 0));
+    }*/
     updatePaymentType(form: NgForm) {
         if (window.localStorage.getItem(btoa('access_token'))) {
+
+            var charteredofAccount = this.chartOfAccountList.filter(x=>x.id==this.selectedCharteredAccount);
+            this.newPaymentType.paymentGlAccount=charteredofAccount[0];
+
+
+            if(this.newPaymentType.paymentMode==="Cash"){
+
+                this.newPaymentType.serviceCharges='';
+                this.newPaymentType.maxCardCharges=''
+                this.newPaymentType.payCredit=false;
+                this.newPaymentType.bankGlCharges=null;
+
+            }if(this.newPaymentType.paymentMode==="Card"){
+                var charteredofSecondAccount = this.chartOfAccountList.filter(x=>x.id==this.selectedSecondCharteredAccount);
+                this.newPaymentType.bankGlCharges=charteredofSecondAccount[0];
+            }else{
+
+                this.newPaymentType.serviceCharges='';
+                this.newPaymentType.maxCardCharges=''
+                this.newPaymentType.payCredit=false;
+                this.newPaymentType.bankGlCharges=null;
+            }
 
             if (form.valid) {
                 this.service.putRequest(

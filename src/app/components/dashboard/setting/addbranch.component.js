@@ -26,8 +26,8 @@ var AddBranchComponent = (function () {
         this.notificationService = notificationService;
         this.amazingTimePickerService = amazingTimePickerService;
         this.examRooms = [];
-        this.officeHoursStart = "07:00";
-        this.officeHoursEnd = "17:00";
+        this.officeHoursStart = "07:00:00 AM";
+        this.officeHoursEnd = "17:00:00 PM";
         this.userSelected = "doctor";
         this.organization = new organization_1.Organization();
         this.branchesList = [];
@@ -52,6 +52,7 @@ var AddBranchComponent = (function () {
         this.createBranchMandatoryForm();
         this.createBranchForm();
         this.createScheduleForm();
+        this.allorganizationData();
         this.branchForm.controls["companyName"].disable();
         this.noOfRoomsList = [
             { label: "1", value: 1 },
@@ -89,6 +90,19 @@ var AddBranchComponent = (function () {
         this.scheduleForm = this.fb.group({
             "showBranchOnline": "",
             "allowOnlineSchedulingInBranch": "",
+        });
+    };
+    AddBranchComponent.prototype.allorganizationData = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'ORG_SUC_01') {
+                _this.organizationDataList = response['responseData'];
+                console.log(_this.organizationDataList);
+                _this.timeFormat = _this.organizationDataList.timeFormat;
+            }
+        }, function (error) {
+            _this.notificationService.error(error.error.error);
         });
     };
     AddBranchComponent.prototype.createBranchMandatoryForm = function () {

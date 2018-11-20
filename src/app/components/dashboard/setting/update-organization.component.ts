@@ -67,13 +67,14 @@ export class UpdateOrganizationComponent implements OnInit {
     selectedCountry: SelectItem[] = [];
     selectedState: SelectItem[] = [];
     selectedCity: SelectItem[] = [];
-
-
+    selectedTimeZoneFormat: SelectItem[] = [];
+    timeZoneListModified: SelectItem[] = [];
+    organizationDataList: any;
     ngOnInit() {
         this.createProfileForm();
         this.createGenralForm();
         this.createAccountForm();
-
+        this.allorganizationData();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
 
@@ -144,7 +145,7 @@ export class UpdateOrganizationComponent implements OnInit {
             'prefixSerialDepartment': [null],
             'prefixSerialAppointment': [null],
             'prefixSerialInvoices': [null],
-            'zoneFormat':[null],
+            'selectedTimeZoneFormat':[null],
             'dateFormat':[null],
             'timeFormat':[null],
         });
@@ -184,6 +185,24 @@ export class UpdateOrganizationComponent implements OnInit {
                     this.notificationService.error(error.error.error);
                 })
     }
+
+
+    allorganizationData() {
+
+        this.requestService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
+    }
+
 
     allCountries() {
 
@@ -235,7 +254,7 @@ export class UpdateOrganizationComponent implements OnInit {
                     if (response["responseCode"] ==="COUNTRY_SUC_11") {
 
                         this.currencyCountryLst = response['responseData'];
-                        console.log(this.currencyCountryLst);
+
                         this.currency=this.currencyCountryLst.currency;
 
 
@@ -311,6 +330,12 @@ export class UpdateOrganizationComponent implements OnInit {
                     if (response['responseCode'] === 'TZ_SUC_01') {
                         this.timezoneList = response['responseData'];
 
+                        for (let zone of this.timezoneList) {
+                     //       var disPlayName=;
+                            let pair: any = {label:zone.name+''+zone.zoneTime, value: zone.zoneId};
+                            this.timeZoneListModified.push(pair);
+
+                        }
                         this.zoneFormat=this.timezoneList;
 
                     }
@@ -350,7 +375,7 @@ export class UpdateOrganizationComponent implements OnInit {
                         durationFollowUp: organization.durationFollowUp,
                         dateFormat:organization.dateFormat,
                         timeFormat:organization.timeFormat,
-                        zoneFormat:organization.zoneFormat
+                        selectedTimeZoneFormat:organization.addInfo.zoneFormat
 
 
                     });
@@ -359,7 +384,7 @@ export class UpdateOrganizationComponent implements OnInit {
 
 
                 }, (error: any) => {
-                    //console.log(error.json());
+
                     this.error = error.error.error_description;
 
                 });
@@ -438,7 +463,7 @@ export class UpdateOrganizationComponent implements OnInit {
     saveProfile(data: FormData) {
         if(this.proForm.valid) {
 
-            console.log(data);
+
             var self = this;
             this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
@@ -457,7 +482,7 @@ export class UpdateOrganizationComponent implements OnInit {
     saveGeneralSettings(data: FormData) {
 
         var self = this;
-        console.log(data);
+
         this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
             .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_03') {
@@ -473,7 +498,7 @@ export class UpdateOrganizationComponent implements OnInit {
     saveAccount(data: FormData) {
         var self = this;
 
-        console.log(data);
+
         if(this.accountForm.valid) {
             this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
