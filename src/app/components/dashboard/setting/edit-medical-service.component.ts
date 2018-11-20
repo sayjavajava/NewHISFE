@@ -19,6 +19,7 @@ export class EditMedicalServiceComponent implements OnInit {
     selectedBranches: any[] = [];
     selectedDepartments: any[] = [];
 
+
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -36,7 +37,7 @@ export class EditMedicalServiceComponent implements OnInit {
                     response => {
                         if (response['responseCode'] === 'MED_SER_SUC_01') {
                             this.ms = response['responseData'];
-                            console.log("total branchs:" + JSON.stringify(this.ms.branches));
+                            console.log('total branchs:' + JSON.stringify(this.ms.branches));
                             this.selectedBranches = [];
                             this.selectedDepartments = [];
                             for (let checked of this.ms.checkedBranches) {

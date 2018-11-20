@@ -27,26 +27,27 @@ var MedicalServiceComponent = (function () {
         this.checkedBranches = [];
         this.checkedDepartments = [];
         this.searchMSModel = new MedicalServiceSearchModel_1.MedicalServiceSearchModel();
+        this.loading = false;
     }
     MedicalServiceComponent.prototype.ngOnInit = function () {
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
         document.title = 'HIS | Medical Services';
         if (localStorage.getItem(btoa('access_token'))) {
+            this.cols = [
+                { field: 'name', header: 'name' },
+                { field: 'code', header: 'code' },
+                { field: 'branch', header: 'branch' },
+                { field: 'department', header: 'department' },
+                { field: 'fee', header: 'fee' },
+                { field: 'tax', header: 'tax' },
+                { field: 'cost', header: 'cost' },
+                { field: 'status', header: 'status' },
+                { field: 'Action', header: 'Action' }
+            ];
             this.getAllMedicalServicesFromServer();
         }
         ;
-        this.cols = [
-            { field: 'name', header: 'name' },
-            { field: 'code', header: 'code' },
-            { field: 'branch', header: 'branch' },
-            { field: 'department', header: 'department' },
-            { field: 'fee', header: 'fee' },
-            { field: 'tax', header: 'tax' },
-            { field: 'cost', header: 'cost' },
-            { field: 'status', header: 'status' },
-            { field: 'Action', header: 'Action' }
-        ];
     };
     MedicalServiceComponent.prototype.deleteMedicalServices = function (ms) {
         var _this = this;
@@ -132,13 +133,16 @@ var MedicalServiceComponent = (function () {
     };
     MedicalServiceComponent.prototype.getAllMedicalServicesFromServer = function () {
         var _this = this;
+        this.loading = true;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
             .subscribe(function (response) {
             if (response['responseCode'] == 'MED_SER_SUC_01') {
                 _this.dataMD = response['responseData'];
+                _this.loading = false;
             }
             else {
                 _this.notificationService.error(response['responseMessage']);
+                _this.loading = false;
             }
         });
     };

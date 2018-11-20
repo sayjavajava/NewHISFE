@@ -25,6 +25,7 @@
             </div>
         </div>
 
+        <ngx-loading [show]="loading"></ngx-loading>
         <!--table-->
         <p-table #dt [columns]="cols" [value]="dataMD" [paginator]="true" [rows]="5">
 
@@ -36,20 +37,24 @@
                 </div>
             </ng-template>
 
-                    <div class="col-md-2">
-                        <div class="form-group font-siz11">
-                            <label>Code</label>
-                            <input type="text" class="form-control"
-                                   placeholder="Service Name"
-                                   [(ngModel)]="searchMSModel.searchCode"
-                                   (keydown.enter)="searchByMedicalServiceParams(0)">
-                        </div>
-                    </div>
+            <div class="col-md-2">
+                <div class="form-group font-siz11">
+                    <label>Code</label>
+                    <input type="text" class="form-control"
+                           placeholder="Service Name"
+                           [(ngModel)]="searchMSModel.searchCode">
+                </div>
+            </div>
 
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                         {{col.header}}
+                        <p-sortIcon
+                                [field]="col.field" ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon>
                     </th>
                 </tr>
                 <tr>

@@ -28,7 +28,7 @@ export class TaxComponent implements OnInit {
         {field: 'status', header: 'status'},
         {field: 'Action', header: 'Action'},
     ];
-
+    loading: boolean = false;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -44,6 +44,7 @@ export class TaxComponent implements OnInit {
     }
 
     getAllTaxesForDataTable() {
+        this.loading = true;
         this.requestsService.getRequest(
             AppConstants.FETCH_ALL_TAX_DATA_TABLE_URL)
             .subscribe(
@@ -51,9 +52,11 @@ export class TaxComponent implements OnInit {
                     if (response['responseCode'] === 'SER_TAX_SUC_01') {
                         this.dataTaxes = response['responseData'];
                     }
+                    this.loading = false;
                 },
                 (error: any) => {
                     this.HISUtilService.tokenExpired(error.error.error);
+                    this.loading = false;
                 }
             );
     }

@@ -22,6 +22,7 @@
 
                 <div class="col-md-12 col-xs-12">
                     <div class="hr">
+                        <ngx-loading [show]="loading"></ngx-loading>
                         <!--table prime-->
                         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="5">
 
@@ -35,8 +36,13 @@
                             </ng-template>
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
-                                    <th *ngFor="let col of columns">
+                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                                         {{col.header}}
+                                        <p-sortIcon
+                                                [field]="col.field" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descending order"
+                                                ariaLabelAsc="Activate to sort in ascending order">
+                                        </p-sortIcon>
                                     </th>
                                 </tr>
                                 <tr>
@@ -153,7 +159,7 @@
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" pInputText
                                            [(ngModel)]="iCDModel.problem" id="problem"
-                                           placeholder="Enter Code" name="problem"
+                                           placeholder="Enter problem" name="problem"
                                            required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                            #problem="ngModel" class="form-control">
                                     <span *ngIf="problem.invalid && problem.touched"
