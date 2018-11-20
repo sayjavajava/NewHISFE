@@ -62,6 +62,7 @@ export class AdminProfileComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'ORG_SUC_04') {
                         this.organization = response['responseData'];
+                        console.log(this.organization);
                     }
                 },
                 (error: any) => {

@@ -7,9 +7,10 @@ export class PaymentType{
     paymentPurpose:string;
     active:boolean;
     serviceCharges:string;
-    maxCardCharges:String
+    maxCardCharges:string;
     payCredit:boolean;
     bankGlCharges:GeneralLedgerModel = new GeneralLedgerModel();
+    isPatient:boolean;
 
     constructor() {
 

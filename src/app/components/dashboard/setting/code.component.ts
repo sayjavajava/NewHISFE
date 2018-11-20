@@ -37,6 +37,7 @@ export class CodeComponent implements OnInit {
         {field: 'Action', header: 'Action'},
     ];
 
+    loading:boolean = false;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -86,6 +87,7 @@ export class CodeComponent implements OnInit {
     }
 
     getAllCodesFromServer() {
+        this.loading = true;
         this.requestsService.getRequest(
             AppConstants.ICD_CODES_DATA_TABLE)
             .subscribe(
@@ -93,9 +95,11 @@ export class CodeComponent implements OnInit {
                     if (response['responseCode'] === 'ICD_SUC_16') {
                         this.data = response['responseData'];
                     }
+                    this.loading = false;
                 },
                 (error: any) => {
                     this.HISUtilService.tokenExpired(error.error.error);
+                    this.loading = false;
                 }
             );
     }

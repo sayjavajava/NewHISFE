@@ -48,6 +48,19 @@ var PatientProblemListComponent = (function () {
             { label: 'ACTIVE', value: 'ACTIVE' },
             { label: 'IN-ACTIVE', value: 'IN-ACTIVE' },
         ];
+        this.cols = [
+            { field: 'versionName', header: 'Version' },
+            { field: 'codeName', header: 'Code' },
+            { field: 'dateDiagnosis', header: 'Diagnosis Date' },
+            { field: 'note', header: 'Notes' },
+            { field: 'status', header: 'Status' },
+            { field: 'action', header: 'Action' }
+        ];
+        /* this.problemList = [
+             {label: 'Fever ', value: '0 '},
+             {label: 'General ', value: '1 '},
+             {label: 'BackBone ', value: '2 '}
+         ];*/
     };
     PatientProblemListComponent.prototype.appointmentsByServer = function () {
         var _this = this;
@@ -125,6 +138,7 @@ var PatientProblemListComponent = (function () {
                 if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                     _this.associatedCodes = [];
                     _this.associatedCodes = response['responseData'].code;
+                    alert(_this.associatedCodes);
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);

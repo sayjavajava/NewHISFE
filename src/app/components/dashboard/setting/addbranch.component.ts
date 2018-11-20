@@ -18,8 +18,8 @@ export class AddBranchComponent implements OnInit {
     error: any;
     branchForm: FormGroup;
     examRooms: any = [];
-    officeHoursStart: string = "07:00";
-    officeHoursEnd: string = "17:00";
+    officeHoursStart: string = "07:00:00 AM";
+    officeHoursEnd: string = "17:00:00 PM";
     userSelected: string = "doctor";
     organization: Organization = new Organization();
     branchesList: any = [];
@@ -38,6 +38,9 @@ export class AddBranchComponent implements OnInit {
     branchCity: number;
     flowList: any;
     flow: any;
+    organizationDataList: any;
+    currency:string;
+    timeFormat:string;
 
     constructor(private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,
@@ -61,6 +64,7 @@ export class AddBranchComponent implements OnInit {
         this.createBranchMandatoryForm();
         this.createBranchForm();
         this.createScheduleForm();
+        this.allorganizationData();
         this.branchForm.controls["companyName"].disable();
         this.noOfRoomsList = [
             {label: "1", value: 1},
@@ -102,6 +106,24 @@ export class AddBranchComponent implements OnInit {
             "showBranchOnline": "",
             "allowOnlineSchedulingInBranch": "",
         })
+    }
+
+    allorganizationData() {
+
+        this.requestService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+                        console.log(this.organizationDataList);
+                        this.timeFormat=this.organizationDataList.timeFormat;
+
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
     }
 
     createBranchMandatoryForm() {

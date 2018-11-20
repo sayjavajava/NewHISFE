@@ -39,6 +39,7 @@ var CodeComponent = (function () {
             { field: 'status', header: 'status' },
             { field: 'Action', header: 'Action' },
         ];
+        this.loading = false;
     }
     CodeComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | ICD Code';
@@ -79,13 +80,16 @@ var CodeComponent = (function () {
     };
     CodeComponent.prototype.getAllCodesFromServer = function () {
         var _this = this;
+        this.loading = true;
         this.requestsService.getRequest(app_constants_1.AppConstants.ICD_CODES_DATA_TABLE)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ICD_SUC_16') {
                 _this.data = response['responseData'];
             }
+            _this.loading = false;
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
+            _this.loading = false;
         });
     };
     CodeComponent.prototype.saveICDCode = function (form) {

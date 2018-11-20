@@ -26,7 +26,7 @@ export class MedicalServiceComponent implements OnInit {
     checkedDepartments: Department[] = [];
     cols:any;
     searchMSModel: MedicalServiceSearchModel = new MedicalServiceSearchModel();
-
+    loading: boolean = false;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -39,22 +39,21 @@ export class MedicalServiceComponent implements OnInit {
 
         document.title = 'HIS | Medical Services';
         if (localStorage.getItem(btoa('access_token'))) {
+            this.cols = [
+                { field: 'name', header: 'name' },
+                { field: 'code', header: 'code' },
+                { field: 'branch', header: 'branch' },
+                { field: 'department', header: 'department' },
+                { field: 'fee', header: 'fee' },
+                { field: 'tax', header: 'tax' },
+                { field: 'cost', header: 'cost' },
+                { field: 'status', header: 'status' },
+                { field: 'Action', header: 'Action' }
+            ];
 
             this.getAllMedicalServicesFromServer();
 
         };
-
-        this.cols = [
-            { field: 'name', header: 'name' },
-            { field: 'code', header: 'code' },
-            { field: 'branch', header: 'branch' },
-            { field: 'department', header: 'department' },
-            { field: 'fee', header: 'fee' },
-            { field: 'tax', header: 'tax' },
-            { field: 'cost', header: 'cost' },
-            { field: 'status', header: 'status' },
-            { field: 'Action', header: 'Action' }
-        ];
     }
 
 
@@ -158,14 +157,18 @@ export class MedicalServiceComponent implements OnInit {
     }
 
     getAllMedicalServicesFromServer() {
+        this.loading = true;
         this.requestsService.getRequest(AppConstants.FETCH_ALL_MEDICAL_SERVICES_URL)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] == 'MED_SER_SUC_01') {
                         this.dataMD = response['responseData'];
+                        this.loading = false;
                     } else {
                         this.notificationService.error(response['responseMessage']);
+                        this.loading = false;
                     }
+
                 }
             )
     }

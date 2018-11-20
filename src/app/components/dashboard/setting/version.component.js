@@ -25,17 +25,19 @@ var VersionComponent = (function () {
         this.iCDVersionModel = new ICDVersionModel_1.ICDVersionModel();
         this.pages = [];
         this.searchVersion = '';
+        this.loading = false;
     }
     VersionComponent.prototype.ngOnInit = function () {
         document.title = 'HIS | Manage ICD';
         if (localStorage.getItem(btoa('access_token'))) {
+            this.cols = [
+                { field: 'name', header: 'name' },
+                { field: 'description', header: 'description' },
+                { field: 'status', header: 'status' },
+                { field: 'Action', header: 'Action' }
+            ];
             this.getAllVersionsFromServer();
         }
-        this.cols = [
-            { field: 'name', header: 'name' },
-            { field: 'status', header: 'status' },
-            { field: 'Action', header: 'Action' },
-        ];
     };
     VersionComponent.prototype.refreshVersionsTable = function () {
         this.searchVersion = '';
@@ -44,13 +46,16 @@ var VersionComponent = (function () {
     };
     VersionComponent.prototype.getAllVersionsFromServer = function () {
         var _this = this;
+        this.loading = true;
         this.requestsService.getRequest(app_constants_1.AppConstants.ICD_VERSIONS_DATA_TABLE)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
                 _this.data = response['responseData'];
             }
+            _this.loading = false;
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
+            _this.loading = false;
         });
     };
     VersionComponent.prototype.editICDVersion = function (iCDVersion) {

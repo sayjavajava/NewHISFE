@@ -74,6 +74,8 @@ var UpdateOrganizationComponent = (function () {
         this.selectedCountry = [];
         this.selectedState = [];
         this.selectedCity = [];
+        this.selectedTimeZoneFormat = [];
+        this.timeZoneListModified = [];
         this.allTimezone();
         this.allBranches();
         this.getOrganizationAccount();
@@ -83,6 +85,7 @@ var UpdateOrganizationComponent = (function () {
         this.createProfileForm();
         this.createGenralForm();
         this.createAccountForm();
+        this.allorganizationData();
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
@@ -138,7 +141,7 @@ var UpdateOrganizationComponent = (function () {
             'prefixSerialDepartment': [null],
             'prefixSerialAppointment': [null],
             'prefixSerialInvoices': [null],
-            'zoneFormat': [null],
+            'selectedTimeZoneFormat': [null],
             'dateFormat': [null],
             'timeFormat': [null],
         });
@@ -166,6 +169,17 @@ var UpdateOrganizationComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+            }
+        }, function (error) {
+            _this.notificationService.error(error.error.error);
+        });
+    };
+    UpdateOrganizationComponent.prototype.allorganizationData = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'ORG_SUC_01') {
+                _this.organizationDataList = response['responseData'];
             }
         }, function (error) {
             _this.notificationService.error(error.error.error);
@@ -213,7 +227,6 @@ var UpdateOrganizationComponent = (function () {
                     .subscribe(function (response) {
                     if (response["responseCode"] === "COUNTRY_SUC_11") {
                         _this.currencyCountryLst = response['responseData'];
-                        console.log(_this.currencyCountryLst);
                         _this.currency = _this.currencyCountryLst.currency;
                     }
                 }, function (error) {
@@ -270,6 +283,12 @@ var UpdateOrganizationComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'TZ_SUC_01') {
                 _this.timezoneList = response['responseData'];
+                for (var _i = 0, _a = _this.timezoneList; _i < _a.length; _i++) {
+                    var zone = _a[_i];
+                    //       var disPlayName=;
+                    var pair = { label: zone.name + '' + zone.zoneTime, value: zone.zoneId };
+                    _this.timeZoneListModified.push(pair);
+                }
                 _this.zoneFormat = _this.timezoneList;
             }
         }, function (error) {
@@ -301,10 +320,9 @@ var UpdateOrganizationComponent = (function () {
                     durationFollowUp: organization.durationFollowUp,
                     dateFormat: organization.dateFormat,
                     timeFormat: organization.timeFormat,
-                    zoneFormat: organization.zoneFormat
+                    selectedTimeZoneFormat: organization.addInfo.zoneFormat
                 });
             }, function (error) {
-                //console.log(error.json());
                 _this.error = error.error.error_description;
             });
         }
@@ -369,7 +387,6 @@ var UpdateOrganizationComponent = (function () {
 */
     UpdateOrganizationComponent.prototype.saveProfile = function (data) {
         if (this.proForm.valid) {
-            console.log(data);
             var self = this;
             this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
@@ -386,7 +403,6 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.saveGeneralSettings = function (data) {
         var self = this;
-        console.log(data);
         this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ORG_SUC_03') {
@@ -398,7 +414,6 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.saveAccount = function (data) {
         var self = this;
-        console.log(data);
         if (this.accountForm.valid) {
             this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {

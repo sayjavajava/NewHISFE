@@ -24,14 +24,45 @@
                         <ng-template sortable="true" pTemplate="header" let-columns>
 
                             <tr>
-                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
-                                    {{col.header}}
+                                <th sortable="true" *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+                                    <span *ngSwitchCase="'paymentTitle'"> {{col.header}}
                                     <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    </span>
+                                    <span *ngSwitchCase="'paymentGlAccount'"> {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    </span>
+                                    <span *ngSwitchCase="'serviceCharges'"> {{col.header + "("+this.currency+")" }}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    </span>
+                                    <span *ngSwitchCase="'maxCardCharges'"> {{col.header + "("+this.currency+")"}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    </span>
+                                    <span *ngSwitchCase="'active'"> {{col.header}}
+
+                                    </span>
+
+                                    <span *ngSwitchCase="'Action'"> {{col.header}}
+
+                                    </span>
+
                                 </th>
                             </tr>
                             <tr>
-                                <th *ngFor="let col of columns">
-                                    <input  pInputText type="text"  (input)="dt.filter($event.target.value, col.field, col.filterMode)"  style='width:-webkit-fill-available;'>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                    <input *ngSwitchCase="'paymentTitle'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'paymentGlAccount'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'serviceCharges'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'maxCardCharges'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+
                                 </th>
                             </tr>
                         </ng-template>
@@ -39,10 +70,11 @@
                             <tr>
                                 <td field="paymentTitle"> {{paymentlst.paymentTitle}} </td>
                                 <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount.name}} </td>
-                                <td field="serviceCharges"> {{paymentlst.serviceCharges}} </td>
-                                <td field="maxCardCharges"> {{paymentlst.maxCardCharges}} </td>
 
-                                <td field="active"> <span class="font-blue"> {{paymentlst.active}} </span> </td>
+                                <td field="serviceCharges" > {{ paymentlst.serviceCharges | number : '1.2-2'  }} </td>
+                                <td field="maxCardCharges"> {{paymentlst.maxCardCharges | number : '1.2-2'}} </td>
+
+                                <td field="active"> <span class="font-blue"> {{paymentlst.active || uppercase }} </span> </td>
                                 <td>
                                     <a href="#responsive" data-toggle="modal">
                                         <button class="btn btn-default btn-outline btn-sm"
@@ -76,7 +108,7 @@
 
     <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form id="loginForm" class="login-form"   #form="ngForm">
+            <form id="loginForm"   class="login-form"   #form="ngForm">
                 <div class="modal-content" style="width: 150%">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -101,7 +133,15 @@
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">GL Account</label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <!--[(ngModel)]="newPaymentType.paymentGlAccount.id"-->
-                                            <select  #select class="form-control"  name="selectedLevel"  #selectedLevel="ngModel"   [ngModel]="newPaymentType.paymentGlAccount.id"
+
+
+                                            <p-dropdown placeholder="{{selectedCharteredAccount}}" [autoWidth]="false" [(ngModel)]="selectedCharteredAccount"
+                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                        [options]="chartofAccountListModified" (change)="getSelectedAccount(select.value)"
+                                                         [panelStyle]="{minWidth:'12em'}"  [ngModelOptions]="{standalone: true}"
+                                                        [filter]="true">
+                                            </p-dropdown>
+                                            <!--<select  #select class="form-control"  name="selectedLevel"  #selectedLevel="ngModel"   [ngModel]="newPaymentType.paymentGlAccount.id"
                                                     (change)="getSelectedAccount(select.value)"
                                                      placeholder="Select GL Account">
                                                 <option  [value]="null"    disabled>Select GL Account</option>
@@ -109,7 +149,7 @@
                                                     {{ca.name}}
                                                 </option>
 
-                                            </select>
+                                            </select>-->
 
                                         </div>
 
@@ -149,15 +189,16 @@
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Service Charges </label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control" type="text" pattern="^[0-9]{1,60}$"
                                                    [(ngModel)]="newPaymentType.serviceCharges"
 
                                                    name="payserv" #payserv="ngModel"/>
                                         </div>
                                         <span *ngIf="payserv.invalid && payserv.touched"
                                               class="col-md-9 select pdng-lr-5 text-danger">
-                                                Please enter valid Service.
+                                                Please enter Number.
                                         </span>
+
                                     </div>
 
 
@@ -165,12 +206,15 @@
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Max Card Charges </label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control" type="text" pattern="^[0-9]{1,60}$"
                                                    [(ngModel)]="newPaymentType.maxCardCharges"
 
                                                    name="paycard" #paycard="ngModel"/>
                                         </div>
-
+                                        <span *ngIf="paycard.invalid && paycard.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter Number.
+                                        </span>
                                     </div>
 
 
@@ -182,11 +226,19 @@
                                         <div class="col-md-9 select pdng-lr-5">
 
 
-                                            <label class="mt-checkbox-outline" >
+                                            <label class="mt-checkbox-outline">
+                                                <mat-checkbox #active="ngModel"
+                                                              name="active"
+                                                              [(ngModel)]="newPaymentType.isPatient"
+                                                              color="primary"></mat-checkbox>
+
+                                            </label>
+
+                                            <!--<label class="mt-checkbox-outline" >
                                                 <input class="mt-checkbox mt-checkbox-outline ng-dirty ng-valid ng-touched" formcontrolname="restrictBranch" type="radio"   value="true" checked>
                                                 Patient
                                                 <span></span>
-                                            </label>
+                                            </label>-->
 
                                         </div>
 
@@ -198,7 +250,15 @@
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank GL Account </label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <select   class="form-control"  name="selectedBankLevel"  #selectedBankLevel="ngModel"   [ngModel]="newPaymentType.bankGlCharges.id"
+
+                                            <p-dropdown placeholder="{{selectedSecondCharteredAccount}}" [autoWidth]="false" [(ngModel)]="selectedSecondCharteredAccount"
+                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                        [options]="chartofAccountListModified" (change)="getSelectedAccount(select.value)"
+                                                        [panelStyle]="{minWidth:'12em'}"  [ngModelOptions]="{standalone: true}"
+                                                        [filter]="true">
+                                            </p-dropdown>
+
+                                            <!--<select   class="form-control"  name="selectedBankLevel"  #selectedBankLevel="ngModel"   [ngModel]="newPaymentType.bankGlCharges.id"
                                                      (change)="getSelectedAccount(select.value)"
                                                      placeholder="Select GL Account">
                                                 <option  [value]="null"  disabled  selected>Select GL Account</option>
@@ -206,7 +266,7 @@
                                                     {{ca.name}}
                                                 </option>
 
-                                            </select>
+                                            </select>-->
 
                                         </div>
 
@@ -216,12 +276,21 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Status</label>
                                         <div class="col-md-3 select pdng-lr-5">
-                                            <label class="mt-checkbox mt-checkbox-outline chckbox">
+
+
+                                            <label class="mt-checkbox-outline">
+                                                <mat-checkbox #active="ngModel"
+                                                              name="active"
+                                                              [(ngModel)]="newPaymentType.active"
+                                                              color="primary"></mat-checkbox>
+
+                                            </label>
+                                            <!--<label class="mt-checkbox mt-checkbox-outline chckbox">
                                                 <input type="checkbox"
                                                        class="form-control"
                                                        [(ngModel)]="newPaymentType.active"
                                                        name="active"
-                                                       #active="ngModel"><span></span></label>
+                                                       #active="ngModel"><span></span></label>-->
                                         </div>
                                     </div>
 

@@ -64,9 +64,9 @@
             </div>
         </div>
 
-
+        <ngx-loading [show]="loading"></ngx-loading>
         <!--table prime-->
-        <p-table #dt [columns]="cols" [value]="data" [paginator]="true"  [rows]="5">
+        <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="5">
 
             <ng-template pTemplate="caption">
                 <div style="text-align: right">
@@ -78,8 +78,13 @@
 
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                         {{col.header}}
+                        <p-sortIcon
+                                [field]="col.field" ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon>
                     </th>
                 </tr>
                 <tr>
@@ -92,6 +97,7 @@
             <ng-template pTemplate="body" let-item>
                 <tr>
                     <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
                     <td>{{item.status === true ? 'Active' : 'In-Active'}}</td>
                     <td rowspan="1" colspan="1">
                         <a href="#popupVersion" data-toggle="modal">
@@ -144,21 +150,20 @@
                                     Please enter valid code.
                             </span>
                             </div>
-                            <!--<div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Title</label>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" [(ngModel)]="iCDVersionModel.title"
-                                           name="title"
+                                    <input type="textarea" [(ngModel)]="iCDVersionModel.description"
+                                           name="description"
                                            pInputText size="30"
-                                           pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                            placeholder="Enter text"
-                                           #title="ngModel">
+                                           #description="ngModel">
                                 </div>
-                                <span *ngIf="title.invalid && title.touched"
+                                <span *ngIf="description.invalid && description.touched"
                                       class="col-md-9 select pdng-lr-5 text-danger">
-                                    Please enter valid code.
+                                    Please enter valid description.
                             </span>
-                            </div>-->
+                            </div>
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
                                 <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">

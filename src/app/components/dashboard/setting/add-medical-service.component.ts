@@ -18,8 +18,12 @@ export class AddMedicalServiceComponent implements OnInit {
     taxes: Tax[] = [];
     branchId: number;
     serviceTax: any;
+    branchIds: number[] = [];
+    organizationDataList: any;
+    currency:string;
     selectedBranches: any[] = [];
     selectedDepartments: any[] = [];
+
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -27,11 +31,14 @@ export class AddMedicalServiceComponent implements OnInit {
                 private router: Router) {
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
+        this.getDepartmentsFromServer();
         this.getTaxesFromServer();
     }
 
     ngOnInit() {
-
+        this.allorganizationData();
+     //   this.getBranchesFromServer();
+    //    this.getDepartmentsFromServer();
     }
 
     getBranchesFromServer() {
@@ -49,23 +56,14 @@ export class AddMedicalServiceComponent implements OnInit {
             );
     }
 
-    onBranchSelection() {
+    getDepartmentsFromServer() {
         this.requestsService.getRequest(
-            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.selectedBranches)
+            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                        this.selectedDepartments = [];
-                        this.ms.departments = [];
                         this.ms.departments = response['responseData'];
-                        this.notificationService.success(response['responseMessage']);
-                    } else {
-                        this.selectedDepartments = [];
-                        this.ms.departments = [];
-                        this.notificationService.error(response['responseMessage']);
                     }
-
-                    this.changeSelectedCheckedBranch();
                 },
                 (error: any) => {
                     this.HISUtilService.tokenExpired(error.error.error);
@@ -73,31 +71,48 @@ export class AddMedicalServiceComponent implements OnInit {
             );
     }
 
-    changeSelectedCheckedBranch() {
-        for (let selectedBranch of this.ms.branches) {
-            selectedBranch.checkedBranch = false;
-        }
-        for (let checked of this.selectedBranches) {
-            for (let selected of this.ms.branches) {
-                if (checked === selected.id) {
-                    selected.checkedBranch = true;
+    onBranchSelection() {
+
+        this.ms.selectedDepartments = [];
+        this.ms.departments = [];
+        this.requestsService.getRequest(
+            AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.ms.selectedBranches)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                        this.ms.selectedDepartments = [];
+                        this.ms.departments = [];
+                        this.ms.departments = response['responseData'];
+                    } else {
+                        this.ms.selectedDepartments = [];
+                        this.ms.departments = [];
+                        this.notificationService.error(response['responseMessage']);
+                    }
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
                 }
-            }
-        }
+            );
     }
 
-    changeSelectedCheckedDepartment() {
-        for (let selectedDepartment of this.ms.departments) {
-            selectedDepartment.checkedDepartment = false;
-        }
-        for (let checked of this.selectedDepartments) {
-            for (let selected of this.ms.departments) {
-                if (checked === selected.id) {
-                    selected.checkedDepartment = true;
-                }
-            }
-        }
+
+    allorganizationData() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+                        this.currency=this.organizationDataList.currency;
+                        console.log(this.organizationDataList);
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
     }
+
 
     getTaxesFromServer() {
         this.requestsService.getRequest(

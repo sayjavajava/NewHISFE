@@ -66,6 +66,7 @@ var AdminProfileComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'ORG_SUC_04') {
                 _this.organization = response['responseData'];
+                console.log(_this.organization);
             }
         }, function (error) {
         });

@@ -15,7 +15,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control" minlength="1"
-                                               type="text" required
+                                               type="text" required placeholder="Enter Name"
                                                [(ngModel)]="ms.name"
                                                required id="msTitle"
                                                name="msTitle" #msTitle="ngModel"/>
@@ -35,7 +35,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control"
-                                               type="text"
+                                               type="text" placeholder="Enter Code"
                                                [(ngModel)]="ms.code" minlength="3"
                                                required id="code"
                                                name="code" #code="ngModel"/>
@@ -95,11 +95,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Service Cost
-                                    </label>
+                                    <label class="control-label col-md-3">Service Cost {{+ "("+currency+")"}}
+                                        <span class="required" aria-required="true"> * </span></label>
+
                                     <div class="col-md-9">
                                         <input class="form-control"
-                                               type="number"
+                                               type="number" placeholder="Enter Cost"
                                                [(ngModel)]="ms.cost" min="0"
                                                required pattern="^[0-9]{1,60}$"
                                                name="cost" #cost="ngModel"/>
@@ -110,12 +111,12 @@
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Service Fee
+                                    <label class="control-label col-md-3">Service Fee {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="number"
-                                               [(ngModel)]="ms.fee" min="0"
+                                               [(ngModel)]="ms.fee" min="0" placeholder="Enter fee"
                                                required pattern="^[0-9]{1,60}$"
                                                name="fee" #fee="ngModel"/>
                                     </div>
@@ -126,7 +127,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-3">
-                                        Service Tax
+                                        Service Tax {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
@@ -154,7 +155,7 @@
                                         <input class="form-control"
                                                type="number" required
                                                [(ngModel)]="ms.duration" min="0" maxlength="5"
-                                               name="duration"
+                                               name="duration" placeholder="Enter duration"
                                                #duration="ngModel"/>
                                     </div>
                                     <div class="control-label col-md-1">
@@ -182,8 +183,9 @@
                                     <label class="col-md-3 control-label txt-size">Status</label>
                                     <div class="col-md-9 select mt-checkbox mt-checkbox-outline pdng-l-r-15">
                                         <label class="mt-checkbox-outline col-md-2 pdng-lr-5">
-                                            <mat-checkbox [(ngModel)]="ms.status" name="status"
-                                                          color="primary">
+                                            <mat-checkbox
+                                                    [(ngModel)]="ms.status" name="status"
+                                                    color="primary">
                                             </mat-checkbox>
                                         </label>
                                     </div>

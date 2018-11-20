@@ -287,4 +287,7 @@ export class AppConstants {
     public  static GET_CITY_URL='/CityAPI/';
     public static GET_STATE_URL='/StateAPI/';
     public static GET_ALL_COUNTRYBYID='/CountryAPI/get/';
+
+    public static ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
+    public static FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';
 }

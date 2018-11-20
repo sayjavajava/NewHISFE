@@ -379,7 +379,6 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent.prototype.getCitiesByStateId = function (stateId) {
         var _this = this;
-        this.citiesList = this.citiesListModified = [];
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
             .subscribe(function (response) {
             if (response["responseCode"] === "BRANCH_SUC_01") {

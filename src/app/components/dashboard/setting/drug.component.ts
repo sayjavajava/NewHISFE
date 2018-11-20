@@ -22,6 +22,7 @@ export class DrugComponent implements OnInit {
     currPage: any;
     pages: number[] = [];
     data: DrugModel [] = [];
+    cols: any[];
     /*searchDepart: string;
      searched: boolean = false;*/
 
@@ -38,6 +39,19 @@ export class DrugComponent implements OnInit {
         } else {
             this.router.navigate(['/login']);
         }
+
+
+        this.cols = [
+           { field: 'drugName', header: 'Drug Name' },
+            { field: 'companyName', header: 'Company Name' },
+            { field: 'genericName', header: 'GenericName' },
+            { field: 'route', header: 'Route' },
+            { field: 'strength', header: 'Strength' },
+            { field: 'uOM', header: 'UoM' },
+            { field: 'origin', header: 'Origin' },
+            { field: 'status', header: 'Status' },
+            { field: 'active', header: 'Action' }
+        ];
     }
 
     getPageWiseDrug(page: number) {
@@ -68,6 +82,7 @@ export class DrugComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.data = response['responseData']['data'];
+
                     }
                 },
                 (error: any) => {

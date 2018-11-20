@@ -14,7 +14,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input class="form-control" type="text"
+                                        <input class="form-control" type="text" placeholder="Enter name"
                                                [(ngModel)]="ms.name" id="msTitle" minlength="1"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                name="msTitle" #msTitle="ngModel"/>
@@ -33,7 +33,7 @@
                                     <div class="col-md-9">
                                         <input class="form-control" type="text"
                                                [(ngModel)]="ms.code" minlength="1"
-                                               required id="code"
+                                               required id="code" placeholder="Enter code"
                                                name="code" #code="ngModel"/>
                                     </div>
                                     <span *ngIf="code.invalid && code.touched"
@@ -73,11 +73,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Service Cost
+                                    <label class="control-label col-md-3">Service Cost {{+ "("+currency+")"}}
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control"
-                                               type="number"
+                                               type="number" placeholder="Enter Cost"
                                                [(ngModel)]="ms.cost" min="0"
                                                required pattern="^[0-9]{1,60}$"
                                                name="cost" #cost="ngModel"/>
@@ -88,12 +88,12 @@
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Service Fee
+                                    <label class="control-label col-md-3">Service Fee {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="number"
-                                               [(ngModel)]="ms.fee" min="0"
+                                               [(ngModel)]="ms.fee" min="0" placeholder="Enter fee"
                                                required pattern="^[0-9]{1,60}$"
                                                name="fee" #fee="ngModel"/>
                                     </div>
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-3">
-                                        Service Tax
+                                        Service Tax {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-9">
@@ -125,7 +125,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input class="form-control"
-                                               type="number"
+                                               type="number" placeholder="Enter duration"
                                                [(ngModel)]="ms.duration" min="0"
                                                pattern="^[0-9]{1,60}$"
                                                name="duration"
