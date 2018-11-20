@@ -126,7 +126,9 @@
                 <p></p>
             </div>
         </div>-->
+
         <div class="col-md-12">
+            <!--<h4 class="text-info">Staff</h4>-->
         <div class="pull-right mrgn-btm10">
             <a routerLink="/dashboard/setting/staff/add">
                 <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
@@ -155,8 +157,11 @@
                         </th>
                     </tr>
                    <tr>
-                        <th *ngFor="let col of columns">
-                            <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <input *ngSwitchCase="'firstName'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            <input *ngSwitchCase="'primaryBranch'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            <input *ngSwitchCase="'username'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            <input *ngSwitchCase="'email'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         </th>
                     </tr>
                 </ng-template>

@@ -198,7 +198,7 @@
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
-                                        <!-- <div class="checkbox-box cod-higt" id="not-due">
+                                      <div class="checkbox-box cod-higt" id="not-due">
                                              <address><label class="mt-checkbox mt-checkbox-outline">
                                                  <div *ngFor="let item of servicesList">
                                                      <input type="checkbox" formControlName="servicesControl"
@@ -209,8 +209,8 @@
                                                      {{item.name}}
                                                  </div></label>
                                              </address>
-                                         </div>-->
-                                        <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
+                                         </div>
+                                        <!--<p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="servicesList" [(ngModel)]="selectedServices"
                                                        [ngModelOptions]="{standalone:true}"
                                                        [panelStyle]="{minWidth:'12em'}">
@@ -218,7 +218,7 @@
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{ser.label}}
                                                 </div>
                                             </ng-template>
-                                        </p-multiSelect>
+                                        </p-multiSelect>-->
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
                                         <div class="font-siz font-red" *ngIf="hasServices">This Department has no service</div>

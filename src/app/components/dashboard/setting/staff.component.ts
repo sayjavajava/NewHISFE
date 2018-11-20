@@ -28,8 +28,6 @@ export class StaffComponent implements OnInit {
     selectedType: string;
     allDBRoles: any[];
     cols:any;
-
-    responseUser: any[];
     allStaffTypes = [
         {name: 'NURSE',label : 'NURSE' ,value :'NURSE'},
         {name: 'DOCTOR',label : 'DOCTOR',value :'DOCTOR'},

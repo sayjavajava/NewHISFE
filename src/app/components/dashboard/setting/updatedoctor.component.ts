@@ -76,6 +76,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     intervalList:any;
     selectedBranchId:number;
     hasServices :boolean = false;
+    listOfServices :any=[];
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService
                 ,private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
@@ -171,7 +172,18 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 (response: Response) => {
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
-                        this.hasServices =true;
+                        //this.hasServices =true;
+                        this.listOfServices.forEach((z:any)=>console.log('doob+'+ z.id));
+                        console.log('doo'+ this.listOfServices.length);
+                        this.servicesList.forEach((x:any)=>{
+                            console.log('inn'+ x.id)
+                            this.listOfServices.forEach((y:any)=>{
+                                if((x.id ==y)){
+                                 x.checked=true;
+                                 console.log('hip:' + x.id)
+                                }
+                            })
+                        })
                     }else{
                         this.servicesList = [];
                     }
@@ -274,6 +286,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     if (user.expiryDate != null) {
                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                     }
+                   // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
+                    console.log('med service '+ user.doctorMedicalSrvcList.length);
+                    user.doctorMedicalSrvcList.forEach((x:any)=>{this.listOfServices.push(x.id)})
                     //let shifts: any [] = user.dutyShifts;
                     if (user.dutyShifts!=null && user.dutyShifts.length > 0) {
                         for (let s in user.dutyShifts) {

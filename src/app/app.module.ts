@@ -155,6 +155,7 @@ import {ChipsModule} from 'primeng/chips';
 import {PaymentTypeComponent} from "./components/dashboard/setting/PaymentType.component";
 import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
 import {EditorModule} from "primeng/editor";
+import {ChartModule} from "primeng/chart";
 
 
 
@@ -222,7 +223,8 @@ import {EditorModule} from "primeng/editor";
         OverlayPanelModule,
         PasswordModule,
         EditorModule,
-        CKEditorModule
+        CKEditorModule,
+        ChartModule
     ],
     declarations: [
         // App Components

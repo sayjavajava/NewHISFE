@@ -327,7 +327,7 @@
                                             </label>
                                             <div class="col-md-5">
 
-                                                <select class="form-control"
+                                                <!--<select class="form-control"
                                                         (change)="getSelectedBranch($event.target.value)"
                                                         formControlName="defaultBranch">
                                                     <option *ngFor="let br of branchesList"
@@ -335,7 +335,13 @@
                                                         {{br.name}}
                                                     </option>
 
-                                                </select>
+                                                </select>-->
+                                                <p-dropdown placeholder="Select Branch" [autoWidth]="false"
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            [options]="branchesList"
+                                                            formControlName="defaultBranch" [panelStyle]="{minWidth:'12em'}"
+                                                            [filter]="true">
+                                                </p-dropdown>
                                                 <span class="text-danger"
                                                       *ngIf="!generalForm.controls['defaultBranch'].valid && generalForm.controls['defaultBranch'].touched">
                                                   <span *ngIf="generalForm.controls['defaultBranch'].errors.required">Default Branch is required </span>
@@ -481,7 +487,7 @@
                                                 </p-dropdown>-->
 
 
-                                                <select class="form-control"
+<!--                                                <select class="form-control"
                                                         (change)="getSelected($event.target.value)"
                                                         formControlName="zoneFormat" placeholder="Select Timezone">
                                                     <option *ngFor="let tz of timezoneList" [value]="tz.zoneId">
@@ -489,7 +495,17 @@
 
                                                     </option>
 
-                                                </select>
+                                                </select>-->
+                                                <p-dropdown placeholder="Select Time Zone" [autoWidth]="false"
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            [options]="timezoneList"
+                                                            formControlName="zoneFormat" [panelStyle]="{minWidth:'12em'}"
+                                                            [filter]="true">
+                                                  <!--  <ng-template let-br pTemplate="item">
+                                                        <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
+                                                    </ng-template>-->
+                                                    
+                                                </p-dropdown>
 
                                             </div>
                                         </div>

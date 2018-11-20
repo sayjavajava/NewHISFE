@@ -1,4 +1,5 @@
 import {WorkingDays} from './WorkingDays';
+import {ServiceComission} from "./service-comission";
 
 
 export interface  IUser {
@@ -42,5 +43,6 @@ export interface  IUser {
     selectedDoctors ?: any[];
     dutyWithDoctors ?: any[];
     selectedRoles ? : any[];
+    serviceComission ?:ServiceComission[];
 
 }

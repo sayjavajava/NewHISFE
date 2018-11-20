@@ -11,6 +11,7 @@ import {CustomValidators} from './PasswordValidation';
 import {RoleAndPermission} from '../../../model/roleandpermission';
 import {DatePicker} from 'angular2-datetimepicker';
 import {UserTypeEnum} from '../../../enums/user-type-enum';
+import {ServiceComission} from "../../../model/service-comission";
 
 
 @Component({
@@ -98,9 +99,9 @@ export class AddStaffComponent implements OnInit {
     pBillReport: boolean;
     pRoles: string[] = [];
     date: Date = new Date();
-    msgs:'This has no services';
-  //  msgs: Message[] = [];
-
+    comissionValue : any;
+    //serviceComission:{id:number,checked:boolean,comission:''}[]=[];
+    serviceComission:ServiceComission[] =[]
     constructor(private router: Router, private  fb: FormBuilder, private requestsService: RequestsService, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
         this.allRoles();
@@ -131,9 +132,32 @@ export class AddStaffComponent implements OnInit {
             {label: '40', value: 40},
             {label: '45', value: 45},
             {label: '50', value: 50},
-        ];
+        ]
 
+    }
+    addComission(service :any,item ?:any){
+     // serviceComission:{id:number,checked:boolean,comission:''}[];
 
+        let list = this.serviceComission.filter((x:any)=>x.id == item.value);
+        if(list !=null){
+         list.forEach(x=>{
+            x.comission = service.target.value;
+            console.log( 'last flat' +x.id +x.comission +x.checked);
+        })
+
+    }
+
+    }
+    addComissionCheck(ser:any,item?:any){
+        if(ser == true){
+            this.serviceComission.forEach( (it, index) => {
+                if(it === item.value)
+                    this.serviceComission.splice(index,1);
+            });
+            console.log('flatt check  :' + ser + 'checking..' + item.value);
+            let sc = new ServiceComission(item.value,ser,'');
+            this.serviceComission.push(sc)
+        }
     }
 
 
@@ -282,6 +306,8 @@ export class AddStaffComponent implements OnInit {
                 'shift1': [null, Validators.required],
                 'nurseDutyWithDoctor': [null],
                 'changeUser': [this.allStaffTypes[2].name, Validators.required],
+                'comission':'',
+
 
             },
             {
@@ -418,7 +444,8 @@ export class AddStaffComponent implements OnInit {
                     dateFrom: data.dateFrom,
                     selectedWorkingDays: this.selectedWorkingDays,
                     //selectedRoles : this.selectedRoles,
-                    userType: this.selectedUser
+                    userType: this.selectedUser,
+
                 });
                 this.makeService(doctor);
             }
@@ -538,6 +565,7 @@ export class AddStaffComponent implements OnInit {
     }
 
     makeService(user: any) {
+        user.serviceComission = this.serviceComission;
         //console.log('i am make service ....');
         this.requestsService.postRequest('/user/add', user).subscribe(
             (response: Response) => {
