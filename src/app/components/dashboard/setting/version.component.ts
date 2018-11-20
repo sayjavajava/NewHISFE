@@ -37,9 +37,9 @@ export class VersionComponent implements OnInit {
 
         this.cols = [
             {field: 'name', header: 'name'},
+            {field: 'description', header: 'description'},
             {field: 'status', header: 'status'},
-            {field: 'Action', header: 'Action'},
-
+            {field: 'Action', header: 'Action'}
         ];
     }
 

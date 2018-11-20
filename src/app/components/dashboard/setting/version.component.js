@@ -33,8 +33,9 @@ var VersionComponent = (function () {
         }
         this.cols = [
             { field: 'name', header: 'name' },
+            { field: 'description', header: 'description' },
             { field: 'status', header: 'status' },
-            { field: 'Action', header: 'Action' },
+            { field: 'Action', header: 'Action' }
         ];
     };
     VersionComponent.prototype.refreshVersionsTable = function () {
