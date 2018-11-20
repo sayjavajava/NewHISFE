@@ -224,6 +224,7 @@
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8">
+                                        <div class="checkbox-box">
                                            <!-- <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
                                                            [options]="servicesList" [(ngModel)]="selectedServices" (onChange)="addComission($event)"
                                                            [ngModelOptions]="{standalone:true}"
@@ -234,9 +235,10 @@
                                                     </div>
                                                 </ng-template>
                                             </p-multiSelect>-->
-                                        <div class="ui-inputgroup" *ngFor="let item of servicesList">
-                                            <span class="ui-inputgroup-addon"><p-checkbox value="{{item.id}}"(onChange) ="addComissionCheck($event,item)" ></p-checkbox></span>
-                                            <input type="text" pInputText  (keyup)="addComission($event,item)" placeholder="comission">
+                                        <div class="ui-inputgroup row margin-bottom-5" *ngFor="let item of servicesList">
+                                            <div class="col-md-2 no-padding-rgt"><span class="ui-inputgroup-addon"><p-checkbox value="{{item.id}}"(onChange) ="addComissionCheck($event,item)" ></p-checkbox></span></div>
+                                            <div class="col-md-6 pdng-lr-5"><input type="text" pInputText  (keyup)="addComission($event,item)" placeholder="comission"></div>
+                                            <div class="col-md-4 pdng-lr-5"><div class=""></div></div>
                                         </div>
 
 <!--                                        <label class="col-md-6" *ngFor="let item of departmentList">
@@ -250,6 +252,7 @@
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
                                         <div  *ngIf="doctorDepartment"><div class="font-red font-siz" *ngIf="hasServices">This Department has no service</div></div>
+                                    </div>
                                     </div>
                                 </div>
 
@@ -320,7 +323,7 @@
                             </div>
                             <div class="col-md-6">
                                 <!-- nurse department container
-                                <div *ngIf="nurseDepartment" class="form-group mrgn-btm10">
+                                <div *ngIf="nurseDepartment" class="form-group">
                                      <label class="control-label col-md-4">Department
                                          <span class="required" aria-required="true"> * </span>
                                      </label>
@@ -344,7 +347,7 @@
                                  </div>-->
 
                                 <!--doctor department container-->
-                                <!--<div *ngIf="doctorDepartment" class="form-group mrgn-btm10">
+                                <!--<div *ngIf="doctorDepartment" class="form-group">
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>

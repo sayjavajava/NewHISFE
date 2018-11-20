@@ -12,6 +12,7 @@ import {AppConstants} from '../../../utils/app.constants';
 import {HISUtilService} from '../../../services/his-util.service';
 import {Subscription} from "rxjs/Subscription";
 import {DataService} from "../../../services/DataService";
+import {ServiceComission} from "../../../model/service-comission";
 
 @Component({
     selector: 'adddoctor-component',
@@ -71,18 +72,19 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         {label: 'Sunday',value:'Sunday'},
 
     ];
+    serviceComission:ServiceComission[] =[];
     private subscription :Subscription;
     userId:number;
     intervalList:any;
     selectedBranchId:number;
     hasServices :boolean = false;
     listOfServices :any=[];
+    showComissioninput :boolean =false;
+    comissionBtn:any = 'Show';
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService
                 ,private fb: FormBuilder, private notificationService: NotificationService
         , private amazingTimePickerService?: AmazingTimePickerService) {
            this.allBranches();
-           //this.allServices();
-         //  this.allDepartments();
            this.allDoctors();
     }
 
@@ -148,7 +150,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
             this.hasServices =false;
             this.selectedBranchId = eventObj.value;
             this.allDepartments();
-
+            let idd = '5';
     }
 
 
@@ -164,7 +166,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     this.error = error.error.error;
                 })
     }
-
     getDeptServices(deptId: any) {
         this.hasServices =false;
         this.requestService.getRequest(AppConstants.FETCH_DEPT_MEDICAL_SERVICES_URL+deptId)
@@ -173,17 +174,16 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     if (response['responseCode'] === 'MED_SER_SUC_01') {
                         this.servicesList = response['responseData'];
                         //this.hasServices =true;
-                        this.listOfServices.forEach((z:any)=>console.log('doob+'+ z.id));
-                        console.log('doo'+ this.listOfServices.length);
                         this.servicesList.forEach((x:any)=>{
-                            console.log('inn'+ x.id)
                             this.listOfServices.forEach((y:any)=>{
-                                if((x.id ==y)){
+                                if((x.id ==y.id)){
                                  x.checked=true;
-                                 console.log('hip:' + x.id)
+                                 let sc = new ServiceComission(y.id,true,y.comission);
+                                 this.serviceComission.push(sc);
                                 }
-                            })
-                        })
+                            });
+                        });
+
                     }else{
                         this.servicesList = [];
                     }
@@ -193,6 +193,49 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     this.error = error.error.error;
                 })
 
+    }
+    showServiceComission(){
+        this.showComissioninput =!this.showComissioninput;
+
+        if(this.showComissioninput)
+            this.comissionBtn = 'HIDE'
+        else
+            this.comissionBtn='SHOW'
+
+        this.listOfServices.forEach((x:any) =>{
+            var input = (<HTMLInputElement>document.getElementById(x.id));
+            if(input != null)
+            input.value = x.comission;
+        })
+       // console.log('flat:' + input);
+    }
+
+    addComission(service :any,item ?:any){
+        // serviceComission:{id:number,checked:boolean,comission:''}[];
+        console.log('i am comission..' + service.target.value + ':' + item.value);
+        let list = this.serviceComission.filter((x:any)=>x.id == item.value);
+        if(list !=null){
+            list.forEach(x=>{
+                x.comission = service.target.value;
+                console.log('content:' + service.target.value)
+            })
+
+        }
+    }
+    addComissionCheck(ser:any,item?:any){
+        console.log('checkbox:'+ ser.target.checked + ': :' + item.id);
+        if(ser.target.checked == true){
+            this.serviceComission.forEach( (it, index) => {
+                if(it === item.value)
+                    this.serviceComission.splice(index,1);
+            });
+            console.log('flatt check  :' + ser + 'checking..' + item.value);
+            let sc = new ServiceComission(item.value,ser.target.checked,'');
+            this.serviceComission.push(sc)
+        }else{
+            this.serviceComission.splice(this.serviceComission.findIndex(it => it.id = item.id),1)
+            console.log('fatt..'+ this.serviceComission.length);
+        }
     }
 
     allServices() {
@@ -288,7 +331,8 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     }
                    // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
                     console.log('med service '+ user.doctorMedicalSrvcList.length);
-                    user.doctorMedicalSrvcList.forEach((x:any)=>{this.listOfServices.push(x.id)})
+                    user.doctorServiceComission.forEach((x:any)=>{
+                        this.listOfServices.push({id:x.id,comission:x.comissionService})})
                     //let shifts: any [] = user.dutyShifts;
                     if (user.dutyShifts!=null && user.dutyShifts.length > 0) {
                         for (let s in user.dutyShifts) {
@@ -462,6 +506,8 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     }
 
     makeService(user: any) {
+        user.serviceComission = this.serviceComission;
+        console.log('service update:'+ this.serviceComission);
         this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(
             (response: Response) => {
                 if (response['responseStatus'] === 'SUCCESS') {
@@ -620,6 +666,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         }
         this.visitingBranches = this.branchesList;
         this.visitingBranches = this.visitingBranches.filter(br=> br.id != event.target.value);
+
 
         /*if (value === undefined) {
             console.log('i am esss');

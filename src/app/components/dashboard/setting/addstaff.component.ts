@@ -142,7 +142,6 @@ export class AddStaffComponent implements OnInit {
         if(list !=null){
          list.forEach(x=>{
             x.comission = service.target.value;
-            console.log( 'last flat' +x.id +x.comission +x.checked);
         })
 
     }

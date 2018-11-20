@@ -18,6 +18,7 @@ var User_1 = require("../../../model/User");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var app_constants_1 = require("../../../utils/app.constants");
 var DataService_1 = require("../../../services/DataService");
+var service_comission_1 = require("../../../model/service-comission");
 var UpdatedoctorComponent = (function () {
     function UpdatedoctorComponent(route, router, requestService, dataService, fb, notificationService, amazingTimePickerService) {
         this.route = route;
@@ -52,12 +53,13 @@ var UpdatedoctorComponent = (function () {
             { label: 'Saturday', value: 'Saturday' },
             { label: 'Sunday', value: 'Sunday' },
         ];
+        this.serviceComission = [];
         this.hasServices = false;
         this.listOfServices = [];
+        this.showComissioninput = false;
+        this.comissionBtn = 'Show';
         this.date = new forms_1.FormControl(new Date());
         this.allBranches();
-        //this.allServices();
-        //  this.allDepartments();
         this.allDoctors();
     }
     UpdatedoctorComponent.prototype.ngOnDestroy = function () {
@@ -121,6 +123,7 @@ var UpdatedoctorComponent = (function () {
         this.hasServices = false;
         this.selectedBranchId = eventObj.value;
         this.allDepartments();
+        var idd = '5';
     };
     UpdatedoctorComponent.prototype.allDepartments = function () {
         var _this = this;
@@ -141,14 +144,12 @@ var UpdatedoctorComponent = (function () {
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesList = response['responseData'];
                 //this.hasServices =true;
-                _this.listOfServices.forEach(function (z) { return console.log('doob+' + z.id); });
-                console.log('doo' + _this.listOfServices.length);
                 _this.servicesList.forEach(function (x) {
-                    console.log('inn' + x.id);
                     _this.listOfServices.forEach(function (y) {
-                        if ((x.id == y)) {
+                        if ((x.id == y.id)) {
                             x.checked = true;
-                            console.log('hip:' + x.id);
+                            var sc = new service_comission_1.ServiceComission(y.id, true, y.comission);
+                            _this.serviceComission.push(sc);
                         }
                     });
                 });
@@ -160,6 +161,47 @@ var UpdatedoctorComponent = (function () {
             _this.servicesList = [];
             _this.error = error.error.error;
         });
+    };
+    UpdatedoctorComponent.prototype.showServiceComission = function () {
+        this.showComissioninput = !this.showComissioninput;
+        if (this.showComissioninput)
+            this.comissionBtn = 'HIDE';
+        else
+            this.comissionBtn = 'SHOW';
+        this.listOfServices.forEach(function (x) {
+            var input = document.getElementById(x.id);
+            if (input != null)
+                input.value = x.comission;
+        });
+        // console.log('flat:' + input);
+    };
+    UpdatedoctorComponent.prototype.addComission = function (service, item) {
+        // serviceComission:{id:number,checked:boolean,comission:''}[];
+        console.log('i am comission..' + service.target.value + ':' + item.value);
+        var list = this.serviceComission.filter(function (x) { return x.id == item.value; });
+        if (list != null) {
+            list.forEach(function (x) {
+                x.comission = service.target.value;
+                console.log('content:' + service.target.value);
+            });
+        }
+    };
+    UpdatedoctorComponent.prototype.addComissionCheck = function (ser, item) {
+        var _this = this;
+        console.log('checkbox:' + ser.target.checked + ': :' + item.id);
+        if (ser.target.checked == true) {
+            this.serviceComission.forEach(function (it, index) {
+                if (it === item.value)
+                    _this.serviceComission.splice(index, 1);
+            });
+            console.log('flatt check  :' + ser + 'checking..' + item.value);
+            var sc = new service_comission_1.ServiceComission(item.value, ser.target.checked, '');
+            this.serviceComission.push(sc);
+        }
+        else {
+            this.serviceComission.splice(this.serviceComission.findIndex(function (it) { return it.id = item.id; }), 1);
+            console.log('fatt..' + this.serviceComission.length);
+        }
     };
     UpdatedoctorComponent.prototype.allServices = function () {
         var _this = this;
@@ -248,7 +290,9 @@ var UpdatedoctorComponent = (function () {
                 }
                 // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
                 console.log('med service ' + user.doctorMedicalSrvcList.length);
-                user.doctorMedicalSrvcList.forEach(function (x) { _this.listOfServices.push(x.id); });
+                user.doctorServiceComission.forEach(function (x) {
+                    _this.listOfServices.push({ id: x.id, comission: x.comissionService });
+                });
                 //let shifts: any [] = user.dutyShifts;
                 if (user.dutyShifts != null && user.dutyShifts.length > 0) {
                     for (var s in user.dutyShifts) {
@@ -411,6 +455,8 @@ var UpdatedoctorComponent = (function () {
     };
     UpdatedoctorComponent.prototype.makeService = function (user) {
         var _this = this;
+        user.serviceComission = this.serviceComission;
+        console.log('service update:' + this.serviceComission);
         this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(function (response) {
             if (response['responseStatus'] === 'SUCCESS') {
                 _this.responseUser = response['responseData'];
