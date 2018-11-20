@@ -18,7 +18,8 @@ export class EditMedicalServiceComponent implements OnInit {
     taxes: Tax[] = [];
     selectedBranches: any[] = [];
     selectedDepartments: any[] = [];
-
+    organizationDataList: any;
+    currency:string;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -59,7 +60,7 @@ export class EditMedicalServiceComponent implements OnInit {
 
                     });
             });
-
+        this.allorganizationData();
         this.getTaxesFromServer();
     }
 
@@ -79,6 +80,23 @@ export class EditMedicalServiceComponent implements OnInit {
     }
 
     isUnderprocess: boolean = false;
+
+    allorganizationData() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+                        this.currency=this.organizationDataList.currency;
+                        console.log(this.organizationDataList);
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
+    }
 
     updateMedicalServices(form: NgForm) {
 

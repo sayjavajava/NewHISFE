@@ -29,10 +29,13 @@ var AddMedicalServiceComponent = (function () {
         this.selectedDepartments = [];
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
+        this.getDepartmentsFromServer();
         this.getTaxesFromServer();
     }
     AddMedicalServiceComponent.prototype.ngOnInit = function () {
         this.allorganizationData();
+        //   this.getBranchesFromServer();
+        //    this.getDepartmentsFromServer();
     };
     AddMedicalServiceComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
@@ -45,32 +48,32 @@ var AddMedicalServiceComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
-    AddMedicalServiceComponent.prototype.onBranchSelection = function () {
-        var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.selectedBranches)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                _this.selectedDepartments = [];
-                _this.ms.departments = [];
-                _this.ms.departments = response['responseData'];
-                _this.notificationService.success(response['responseMessage']);
-            }
-            else {
-                _this.selectedDepartments = [];
-                _this.ms.departments = [];
-                _this.notificationService.error(response['responseMessage']);
-            }
-            _this.changeSelectedCheckedBranch();
-        }, function (error) {
-            _this.HISUtilService.tokenExpired(error.error.error);
-        });
-    };
     AddMedicalServiceComponent.prototype.getDepartmentsFromServer = function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                 _this.ms.departments = response['responseData'];
+            }
+        }, function (error) {
+            _this.HISUtilService.tokenExpired(error.error.error);
+        });
+    };
+    AddMedicalServiceComponent.prototype.onBranchSelection = function () {
+        var _this = this;
+        this.ms.selectedDepartments = [];
+        this.ms.departments = [];
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.ms.selectedBranches)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                _this.ms.selectedDepartments = [];
+                _this.ms.departments = [];
+                _this.ms.departments = response['responseData'];
+            }
+            else {
+                _this.ms.selectedDepartments = [];
+                _this.ms.departments = [];
+                _this.notificationService.error(response['responseMessage']);
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
@@ -88,36 +91,6 @@ var AddMedicalServiceComponent = (function () {
         }, function (error) {
             _this.notificationService.error(error.error.error);
         });
-    };
-    AddMedicalServiceComponent.prototype.changeSelectedCheckedBranch = function () {
-        for (var _i = 0, _a = this.ms.branches; _i < _a.length; _i++) {
-            var selectedBranch = _a[_i];
-            selectedBranch.checkedBranch = false;
-        }
-        for (var _b = 0, _c = this.selectedBranches; _b < _c.length; _b++) {
-            var checked = _c[_b];
-            for (var _d = 0, _e = this.ms.branches; _d < _e.length; _d++) {
-                var selected = _e[_d];
-                if (checked === selected.id) {
-                    selected.checkedBranch = true;
-                }
-            }
-        }
-    };
-    AddMedicalServiceComponent.prototype.changeSelectedCheckedDepartment = function () {
-        for (var _i = 0, _a = this.ms.departments; _i < _a.length; _i++) {
-            var selectedDepartment = _a[_i];
-            selectedDepartment.checkedDepartment = false;
-        }
-        for (var _b = 0, _c = this.selectedDepartments; _b < _c.length; _b++) {
-            var checked = _c[_b];
-            for (var _d = 0, _e = this.ms.departments; _d < _e.length; _d++) {
-                var selected = _e[_d];
-                if (checked === selected.id) {
-                    selected.checkedDepartment = true;
-                }
-            }
-        }
     };
     AddMedicalServiceComponent.prototype.getTaxesFromServer = function () {
         var _this = this;
