@@ -38,12 +38,8 @@
     "angular2-datetimepicker": "^1.1.1",
     "angular2-froala-wysiwyg": "^2.6.0",
     "angular4-datepicker": "^1.0.1",
-<<<<<<< Updated upstream
-    "chart.js": "^2.7.3",
-=======
     "app-module-path": "^2.2.0",
     "ckeditor": "^4.11.1",
->>>>>>> Stashed changes
     "core-js": "^2.4.1",
     "fullcalendar": "^3.9.0",
     "ng2-ckeditor": "^1.2.2",
