@@ -227,7 +227,7 @@
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <input class="form-control" type="text" required
-                                                   [(ngModel)]="selectedDepartment.name"
+                                                   [(ngModel)]="selectedDepartment.name" placeholder="enter name e.g heart department"
                                                    name="dptName" #dptName="ngModel"/>
                                             <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
                                         </div>
@@ -266,8 +266,8 @@
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <textarea class="form-control" rows="3"
-                                                      type="text" [(ngModel)]="selectedDepartment.description"
-                                                      name="desc" #desc="ngModel">
+                                                      [(ngModel)]="selectedDepartment.description"
+                                                      name="desc" #desc="ngModel" placeholder="enter description of department e.g heart department">
 
                                             </textarea>
                                         </div>

@@ -11,7 +11,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Role <span class="required" aria-required="true"> * </span></label>
+                                    <label class="control-label col-md-4">Role <span class="required"
+                                                                                     aria-required="true"> * </span></label>
                                     <div class="col-md-8">
                                         <!--<select class="form-control" (change)="goTo($event.target.value)" formControlName="changeUser">
                                             <option *ngFor="let r of allStaffTypes" value="{{r.name}}">{{ r.name }}</option>
@@ -63,7 +64,8 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="text" formControlName="firstName" data-required="1"
+                                        <input type="text" formControlName="firstName"
+                                               placeholder="enter first name e.g  James" data-required="1"
                                                class="form-control">
                                         <span class="text-danger"
                                               *ngIf="userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched">{{firstNameError}}</span>
@@ -76,7 +78,9 @@
                                     <label class="control-label col-md-4">Last Name
                                     </label>
                                     <div class="col-md-8">
-                                        <input formControlName="lastName" type="text" class="form-control">
+                                        <input formControlName="lastName" type="text"
+                                               placeholder="enter last name e.g  Gosling"
+                                               class="form-control">
                                     </div>
                                 </div>
 
@@ -106,7 +110,8 @@
                                     </label>
                                     <div class="col-md-8">
                                         <input type="email" formControlName="email"
-                                               class="form-control">
+                                               class="form-control"
+                                               placeholder="enter email address or id e.g  zzz@gmail.com">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">
                                                   <span *ngIf="userForm.controls['email'].errors.required">Email is required </span>
@@ -146,7 +151,8 @@
                                          <p>Selected Cars: {{selectedCars2}}</p>-->
 
                                         <p-multiSelect placeholder="select branches"
-                                                       [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="sortServices($event)"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       (onChange)="sortServices($event)"
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
                                                        [panelStyle]="{minWidth:'12em'}">
@@ -225,34 +231,51 @@
                                     </label>
                                     <div class="col-md-8">
                                         <div class="checkbox-box">
-                                           <!-- <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                           [options]="servicesList" [(ngModel)]="selectedServices" (onChange)="addComission($event)"
-                                                           [ngModelOptions]="{standalone:true}"
-                                                           [panelStyle]="{minWidth:'12em'}">
-                                                <ng-template let-ser pTemplate="item">
-                                                    <div style="font-size:14px;float:right;margin-top:4px">&lt;!&ndash;{{ser.label}}&ndash;&gt;
-                                                         <input formControlName="comission" placeholder={{ser.label}} id={{ser.id}} type="text" width="30%">
-                                                    </div>
-                                                </ng-template>
-                                            </p-multiSelect>-->
-                                        <div class="ui-inputgroup row margin-bottom-5" *ngFor="let item of servicesList">
-                                            <div class="col-md-2 no-padding-rgt"><span class="ui-inputgroup-addon"><p-checkbox value="{{item.id}}"(onChange) ="addComissionCheck($event,item)" ></p-checkbox></span></div>
-                                            <div class="col-md-6 pdng-lr-5"><input type="text" pInputText  (keyup)="addComission($event,item)" placeholder="comission"></div>
-                                            <div class="col-md-4 pdng-lr-5"><div class=""></div></div>
+                                            <!-- <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            [options]="servicesList" [(ngModel)]="selectedServices" (onChange)="addComission($event)"
+                                                            [ngModelOptions]="{standalone:true}"
+                                                            [panelStyle]="{minWidth:'12em'}">
+                                                 <ng-template let-ser pTemplate="item">
+                                                     <div style="font-size:14px;float:right;margin-top:4px">&lt;!&ndash;{{ser.label}}&ndash;&gt;
+                                                          <input formControlName="comission" placeholder={{ser.label}} id={{ser.id}} type="text" width="30%">
+                                                     </div>
+                                                 </ng-template>
+                                             </p-multiSelect>-->
+                                            <div class="ui-inputgroup row margin-bottom-5"
+                                                 *ngFor="let item of servicesList">
+                                                <div class="col-md-2 no-padding-rgt">
+                                                    <span class="ui-inputgroup-addon">
+                                                        <p-checkbox value="{{item.id}}"
+                                                                    (onChange)="addComissionCheck($event,item)">
+                                                        </p-checkbox>
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-6 pdng-lr-5">
+                                                    <input type="text" pInputText
+                                                           (keyup)="addComission($event,item)"
+                                                           placeholder="comission">
+                                                </div>
+                                                <div class="col-md-4 pdng-lr-5">
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+
+                                            <!--                                        <label class="col-md-6" *ngFor="let item of departmentList">
+                                                                                        <input type="checkbox" formControlName="departmentControl"
+                                                                                               name={{item.name}}
+                                                                                               value="{{item.id}}"
+                                                                                               (change)="selectDepartment($event,item)">{{item.name}}
+                                                                                        <span></span>
+                                                                                    </label>-->
+
+                                            <span class="text-danger"
+                                                  *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
+                                            <div *ngIf="doctorDepartment">
+                                                <div class="font-red font-siz" *ngIf="hasServices">This Department has
+                                                    no service
+                                                </div>
+                                            </div>
                                         </div>
-
-<!--                                        <label class="col-md-6" *ngFor="let item of departmentList">
-                                            <input type="checkbox" formControlName="departmentControl"
-                                                   name={{item.name}}
-                                                   value="{{item.id}}"
-                                                   (change)="selectDepartment($event,item)">{{item.name}}
-                                            <span></span>
-                                        </label>-->
-
-                                        <span class="text-danger"
-                                              *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
-                                        <div  *ngIf="doctorDepartment"><div class="font-red font-siz" *ngIf="hasServices">This Department has no service</div></div>
-                                    </div>
                                     </div>
                                 </div>
 
@@ -283,16 +306,17 @@
 
                                         <p-multiSelect placeholder="select Doctor"
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                       [options]="doctorsList" [(ngModel)]="dutyWithDoctors" formControlName="nurseDutyWithDoctor"
-                                                        (change)="dutyWithDoctor($event)"
+                                                       [options]="doctorsList" [(ngModel)]="dutyWithDoctors"
+                                                       formControlName="nurseDutyWithDoctor"
+                                                       (change)="dutyWithDoctor($event)"
                                                        [panelStyle]="{minWidth:'12em'}">
                                             <ng-template let-dpt pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{dpt.label}}
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
-                                      </div>
-                                     </div>
+                                    </div>
+                                </div>
 
 
                                 <!--<div *ngIf="dutytimmingshift2" class="form-group">
@@ -367,10 +391,12 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="password" formControlName="password" pPassword  class="form-control">
+                                        <input type="password" formControlName="password" pPassword
+                                               class="form-control" placeholder="enter password  e.g  xxxJames_Gosling_1235">
                                         <span class="font-siz" class="text-danger"
                                               *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">
-                                            <span class="font-siz" *ngIf="userForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
+                                            <span class="font-siz"
+                                                  *ngIf="userForm.controls['password'].errors.minlength"> minimum 6 charachters</span>
                                            <span class="font-siz" *ngIf="userForm.controls['password'].errors.required">{{passwordError}} </span>
                                         </span>
                                     </div>
@@ -380,7 +406,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="password" formControlName="confirmPassword" class="form-control">
+                                        <input type="password" formControlName="confirmPassword" placeholder="enter confirm password  e.g  xxxJames_Gosling_1235" class="form-control">
                                         <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['confirmPassword'].valid && userForm.controls['confirmPassword'].touched">{{confirmPasswordError}}</span>
                                     </div>
@@ -390,10 +416,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="text" formControlName="userName" class="form-control">
+                                        <input type="text" formControlName="userName" placeholder="enter user name  e.g James Gosling" class="form-control">
                                         <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
-                                           <span class="font-siz" *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
+                                           <span class="font-siz"
+                                                 *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
                                            <span class="font-siz" *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
                                           <span class="font-siz" *ngIf="userForm.controls['userName'].errors.pattern">User name not valid</span>
                                         </span>
@@ -406,7 +433,7 @@
                                     <label class="control-label col-md-4">Home Phone
                                     </label>
                                     <div class="col-md-8">
-                                        <input formControlName="homePhone" type="text"
+                                        <input formControlName="homePhone" type="text" placeholder="enter home phone number  e.g 1235"
                                                class="form-control">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['homePhone'].valid && userForm.controls['homePhone'].touched">
@@ -419,7 +446,7 @@
                                     <label class="control-label col-md-4">Cell Phone
                                     </label>
                                     <div class="col-md-8">
-                                        <input formControlName="cellPhone" type="text"
+                                        <input formControlName="cellPhone" type="text" placeholder="enter cell phone number  e.g 1235"
                                                class="form-control">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['cellPhone'].valid && userForm.controls['cellPhone'].touched">
@@ -430,24 +457,24 @@
                                     </div>
                                 </div>
 
-                             <!--   <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        &lt;!&ndash;<label class="mt-checkbox-outline chckbox mrgn-top10">&ndash;&gt;
-                                        &lt;!&ndash;<input type="checkbox" formControlName="sendBillingReport"
-                                               class="">&ndash;&gt;
-                                        &lt;!&ndash;<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
-                                        <span></span>&ndash;&gt;
-                                        <label class="mt-checkbox-outline">
-                                            <mat-checkbox formControlName="sendBillingReport"
-                                                          color="primary"></mat-checkbox>
-                                            &lt;!&ndash; <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>&ndash;&gt;
+                                <!--   <div class="form-group">
+                                       <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
+                                       <div class="col-md-8 col-xs-6">
+                                           &lt;!&ndash;<label class="mt-checkbox-outline chckbox mrgn-top10">&ndash;&gt;
+                                           &lt;!&ndash;<input type="checkbox" formControlName="sendBillingReport"
+                                                  class="">&ndash;&gt;
+                                           &lt;!&ndash;<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                           <span></span>&ndash;&gt;
+                                           <label class="mt-checkbox-outline">
+                                               <mat-checkbox formControlName="sendBillingReport"
+                                                             color="primary"></mat-checkbox>
+                                               &lt;!&ndash; <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>&ndash;&gt;
 
-                                            <span></span>
-                                        </label>
-                                        &lt;!&ndash;</label>&ndash;&gt;
-                                    </div>
-                                </div>-->
+                                               <span></span>
+                                           </label>
+                                           &lt;!&ndash;</label>&ndash;&gt;
+                                       </div>
+                                   </div>-->
 
                                 <!--<div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Use Receipt Dashboard?</label>
@@ -475,19 +502,19 @@
                                     </div>
                                 </div>
 -->
-                              <!--  <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Account Expiry
-                                    </label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <mat-form-field class="mrgn-lft8">
-                                            <input [style]="{'text-align': 'left' ,'width':'100%'}" matInput
-                                                   [matDatepicker]="from" placeholder="Expiry Date"
-                                                   formControlName="accountExpiry">
-                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                                            <mat-datepicker #from></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-                                </div>-->
+                                <!--  <div class="form-group">
+                                      <label class="control-label col-md-4 col-xs-6">Account Expiry
+                                      </label>
+                                      <div class="col-md-8 col-xs-6">
+                                          <mat-form-field class="mrgn-lft8">
+                                              <input [style]="{'text-align': 'left' ,'width':'100%'}" matInput
+                                                     [matDatepicker]="from" placeholder="Expiry Date"
+                                                     formControlName="accountExpiry">
+                                              <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                              <mat-datepicker #from></mat-datepicker>
+                                          </mat-form-field>
+                                      </div>
+                                  </div>-->
                                 <!--   <div class="form-group">
                                        <label class="control-label col-md-4 col-xs-6">Active
                                        </label>
@@ -566,13 +593,13 @@
                                             <button type="button" (click)="firstShiftFrom()">From</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px">
-                                            <input type="time" style="width: 75px" value="{{firstShiftFromTime}}">
+                                            <input type="time" style="width: 75px" placeholder="select start time e.g 8:00 AM" value="{{firstShiftFromTime}}">
                                         </div>
                                         <div class="col-md-2" style="width: 68px;margin-left: 26px;">
                                             <button type="button" (click)="firstShiftTo()">To</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px;margin-left: -37px;">
-                                            <input type="time" style="width: 75px" value="{{firstShiftToTime}}">
+                                            <input type="time" placeholder="select end time e.g 4:00 PM" style="width: 75px" value="{{firstShiftToTime}}">
                                         </div>
                                     </div>
                                 </div>
@@ -601,13 +628,13 @@
                                             <button type="button" (click)="secondShiftFrom()">From</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px">
-                                            <input type="time" style="width: 75px" value="{{secondShiftFromTime}}">
+                                            <input type="time" placeholder="select start time e.g 8:00 AM" style="width: 75px" value="{{secondShiftFromTime}}">
                                         </div>
                                         <div class="col-md-2" style="width: 68px;margin-left: 26px;">
                                             <button type="button" (click)="secondShiftTo()">To</button>
                                         </div>
                                         <div class="col-md-2" style="width: 72px;margin-left: -37px;">
-                                            <input type="time" style="width: 75px" value="{{secondShiftToTime}}">
+                                            <input type="time" placeholder="select end time e.g 4:00 AM"style="width: 75px" value="{{secondShiftToTime}}">
                                         </div>
                                     </div>
                                 </div>
@@ -624,29 +651,29 @@
                                                    class=""><span></span></label>
                                     </div>-->
                                     <div class="row">
-                                    <div class="width6 pull-left col-md-1">
-                                        <label>
-                                            <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
-                                        </label>
-                                    </div>
+                                        <div class="width6 pull-left col-md-1">
+                                            <label>
+                                                <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
+                                            </label>
+                                        </div>
 
-                                    <div class=" col-md-6 col-xs-5 pull-left">
-                                        <mat-form-field class="mrgn-lft8">
-                                            <input matInput [matDatepicker]="from" placeholder="From"
-                                                   formControlName="dateFrom">
-                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                                            <mat-datepicker #from></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>&emsp;
-                                    <div class=" col-md-4 col-xs-4 pull-left">
-                                        <mat-form-field style="">
-                                            <input matInput [matDatepicker]="to" placeholder="To"
-                                                   formControlName="dateTo">
-                                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
-                                            <mat-datepicker #to></mat-datepicker>
-                                        </mat-form-field>
+                                        <div class=" col-md-6 col-xs-5 pull-left">
+                                            <mat-form-field class="mrgn-lft8">
+                                                <input matInput [matDatepicker]="from" placeholder="enter start time e.g 8:00 AM"
+                                                       formControlName="dateFrom">
+                                                <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                                <mat-datepicker #from></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>&emsp;
+                                        <div class=" col-md-4 col-xs-4 pull-left">
+                                            <mat-form-field style="">
+                                                <input matInput [matDatepicker]="to" placeholder="enter end time e.g 4:00 AM"
+                                                       formControlName="dateTo">
+                                                <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                                                <mat-datepicker #to></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <div *ngIf="vacationweek" class="form-group">
@@ -675,15 +702,16 @@
                                 </div>
 
                             </div>
-                        <div class="form-group">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-8">
-                                <!--<input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
-                                <owl-date-time #dt1></owl-date-time>-->
-                                <angular2-date-picker [(ngModel)]="date" [ngModelOptions]="{standalone:true}" [settings]="settings"></angular2-date-picker>
+                            <div class="form-group">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8">
+                                    <!--<input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                                    <owl-date-time #dt1></owl-date-time>-->
+                                    <angular2-date-picker [(ngModel)]="date" [ngModelOptions]="{standalone:true}"
+                                                          [settings]="settings"></angular2-date-picker>
 
+                                </div>
                             </div>
-                        </div>
 
                         </div>
                     </div>
