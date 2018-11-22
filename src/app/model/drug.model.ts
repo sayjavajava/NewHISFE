@@ -12,13 +12,24 @@ export class DrugModel {
     companyName: string = '';
 
     route: string = 'Syrup';
-    routes: SelectItem[] = [];
+    routes: SelectItem[] = [
+        {label: 'Oral', value: 'Oral'},
+        {label: 'Syrup', value: 'Syrup'},
+        {label: 'Tab', value: 'Tab'},
+        {label: 'Injection', value: 'Injection'},
+    ];
 
     strength: string = '';
     strengths: string[] = [];
 
     uOM: string = 'DOSING SYRINGE';
-    UOMs: SelectItem[] = [];
+    UOMs: SelectItem[] = [
+        {label: 'ML', value: 'ML'},
+        {label: 'DOSING CUP', value: 'DOSING CUP'},
+        {label: 'MEASURING SPOONS', value: 'MEASURING SPOONS'},
+        {label: 'DOSING SPOONS', value: 'DOSING SPOONS'},
+        {label: 'DOSING SYRINGE', value: 'DOSING SYRINGE'},
+    ];
 
     origin: string = '';
     active: boolean = true;
@@ -26,19 +37,6 @@ export class DrugModel {
 
 
     constructor() {
-        this.routes = [
-            {label: 'Oral', value: 'Oral'},
-            {label: 'Syrup', value: 'Syrup'},
-            {label: 'Tab', value: 'Tab'},
-            {label: 'Injection', value: 'Injection'},
-        ];
 
-        this.UOMs = [
-            {label: 'ML', value: 'ML'},
-            {label: 'DOSING CUP', value: 'DOSING CUP'},
-            {label: 'MEASURING SPOONS', value: 'MEASURING SPOONS'},
-            {label: 'DOSING SPOONS', value: 'DOSING SPOONS'},
-            {label: 'DOSING SYRINGE', value: 'DOSING SYRINGE'},
-        ];
     }
 }

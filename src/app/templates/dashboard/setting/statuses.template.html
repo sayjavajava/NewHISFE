@@ -143,7 +143,7 @@
                                             class="required" aria-required="true"> * </span></label>
                                     <div class="col-md-8 select pdng-lr-5">
                                         <input class="form-control" type="text" required
-                                               [(ngModel)]="status.name"
+                                               [(ngModel)]="status.name"  placeholder="name e.g under process or confirmed"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                name="stName" #stName="ngModel"/>
                                     </div>
@@ -158,7 +158,7 @@
                                         </label>
 
                                         <div class="col-md-8 select pdng-lr-5">
-                                            <input class="form-control"
+                                            <input class="form-control"  placeholder="abbreviation e.g short name "
                                                       type="text" [(ngModel)]="status.abbreviation"
                                                       name="abbrevation" #abbrevation="ngModel"/>
                                         </div>
@@ -172,7 +172,7 @@
                                     <div class="col-md-8 select pdng-lr-5">
                                         <input [(colorPicker)]="color" [value]="color"
                                                [ngModelOptions]="{standalone:true}"
-                                               [style.background]="color"
+                                               [style.background]="color"  placeholder="e.g color red ,blue"
                                                (keyup)="refresh.next()" [(ngModel)]="status.colorHash"/>
                                     </div>
 
@@ -198,8 +198,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-
-                    <!--<ui-switch></ui-switch>-->
                     <button type="button" data-dismiss="modal" id="closeButton" (click)="closeAddStatusModal()" class="btn btn-default btn-outline">
                         Close
                     </button>

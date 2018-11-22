@@ -125,7 +125,7 @@
                                 <label class="control-label col-md-3 pdng-lr-5 txt-size">Versions</label>
                                 <div class="col-md-9 pdng-lr-5">
                                     <p-multiSelect
-                                            placeholder="select"
+                                            placeholder="select version e.g icd-version-0001"
                                             [style]="{'text-align': 'left' ,'width':'100%'}"
                                             [options]="icdVersions" (onChange)="changeSelectedChecked()"
                                             [ngModelOptions]="{standalone:true}" [(ngModel)]="clientCheckedVersions"
@@ -142,7 +142,7 @@
                                 <div class="col-md-9 pdng-lr-5">
                                     <input type="text" pInputText
                                            [(ngModel)]="iCDModel.code" id="code"
-                                           placeholder="Enter Code" name="code"
+                                           placeholder="Enter Code e.g" name="code"
                                            required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                            #code="ngModel" class="form-control">
                                 </div>

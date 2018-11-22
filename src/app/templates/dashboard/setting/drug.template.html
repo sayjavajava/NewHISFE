@@ -23,23 +23,6 @@
                 </div>
                 <div class="">
 
-                    <!--<div class=" patient-profile hr portlet padding-10 light bordered view-pro">
-                        <div class="col-md-4">
-                            <div class="form-group font-siz11">
-                                <input type="text" class="form-control"
-                                       placeholder="Department Name"
-                                       [(ngModel)]="searchDepart"
-                                       (keydown.enter)="searchClinicalDepartment(0)">
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="form-group">
-                                <button type="button" (click)="searchClinicalDepartment(0)" class="btn blue">Search
-                                </button>
-                            </div>
-                        </div>
-                    </div>-->
-
                     <div class="table-scrollable">
 
                         <p-table #dt [columns]="cols" [value]="data"  [rows]="10"  [paginator]="true" >
@@ -100,9 +83,9 @@
                                     <td field="origin">{{data.origin}}</td>
                                     <td field="active">{{data.active === true ? 'Active' : 'In-Active'}}</td>
                                     <td>
-                                        <a href="#responsive" data-toggle="modal">
+                                        <a href="#popupDrug" data-toggle="modal">
                                             <button class="btn btn-default btn-outline btn-sm"
-                                                    (click)="onUpdatePopupDrug(data)"><i class="fa fa-pencil"></i>
+                                                    (click)="onUpdatePopupDrug(data.id)"><i class="fa fa-pencil"></i>
 
                                             </button>
                                         </a>
@@ -120,47 +103,7 @@
                             </ng-template>
 
                         </p-table>
-                       <!-- <table class="table table-striped table-hover table-checkable dataTable no-footer"
-                               id="datatable_ajax" role="grid">
-                            <thead>
-                            <tr role="row" class="off-wite-bg">
-                                <th width="10%" class="c-text-left padding"> Drug Name</th>
-                                <th width="10%" class="c-text-left padding"> Company Name</th>
-                                <th width="10%"> Generic Name</th>
-                                <th width="10%"> Route</th>
-                                <th width="10%"> Strength</th>
-                                <th width="10%"> UoM</th>
-                                <th width="10%"> Origin</th>
-                                <th width="10%"> Status</th>
-                                <th width="10%"> Action</th>
-                            </tr>
-                            <tr *ngFor="let item of data; let i = index;" class="filter">
-                                <td class="c-text-left padding font-green-dark"><strong>{{item.drugName}}</strong></td>
-                                <td class="c-text-left">{{item.companyName}}</td>
-                                <td class="c-text-left">{{item.genericName}}</td>
-                                <td class="c-text-left">{{item.route}}</td>
-                                <td class="c-text-left">{{item.strength}}</td>
-                                <td class="c-text-left">{{item.uOM}}</td>
-                                <td class="c-text-left">{{item.origin}}</td>
-                                <td>{{item.active === true ? 'Active' : 'In-Active'}}</td>
-                                <td class="sorting_disabled">
-                                    <a href="#popupDrug" data-toggle="modal">
-                                        <button class="btn btn-default btn-outline btn-sm"
-                                                (click)="onUpdatePopupDrug(item.id)"><i class="fa fa-pencil"></i>
 
-                                        </button>
-                                    </a>
-                                    <span [hidden]="item.hasChild">
-                                        <button class="btn btn-default btn-outline btn-sm"
-                                                (click)="deleteDrug(item.id)">
-                                            <i class="fa fa-remove"></i>
-                                        </button>
-                                    </span>
-
-                                </td>
-                            </tr>
-                            </thead>
-                        </table>-->
                     </div>
                 </div>
             </div>
@@ -232,7 +175,7 @@
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.drugName" size="30"
                                                    required id="drugName" pInputText
-                                                   name="drugName"
+                                                   name="drugName" placeholder="drug name"
                                                    #drugName="ngModel"/>
                                         </div>
                                         <span *ngIf="drugName.invalid && drugName.touched"
@@ -248,7 +191,7 @@
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.genericName" size="30"
                                                    required id="genericName" pInputText
-                                                   name="genericName"
+                                                   name="genericName" placeholder="drug generic name"
                                                    #genericName="ngModel"/>
                                         </div>
                                         <span *ngIf="genericName.invalid && genericName.touched"
@@ -264,7 +207,7 @@
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.companyName" size="30"
                                                    required id="companyName" pInputText
-                                                   name="companyName"
+                                                   name="companyName" placeholder="company name"
                                                    #companyName="ngModel"/>
                                         </div>
                                         <span *ngIf="companyName.invalid && companyName.touched"
@@ -278,7 +221,7 @@
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 pdng-lr-5">
                                         <p-dropdown [(ngModel)]="drug.route"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    required id="route"
+                                                    required id="route" placeholder="select route"
                                                     name="route" [options]="drug.routes"
                                                     #route="ngModel">
                                         </p-dropdown>
@@ -291,7 +234,7 @@
                                         <div class="col-md-9 pdng-lr-5">
                                         <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                  [(ngModel)]="drug.strengths"
-                                                 required id="strengths" placeholder="xxx-yy-zz-aa"
+                                                 required id="strengths" placeholder="Write value then press enter button"
                                                  #strengths="ngModel">
                                         </p-chips>
                                             <span *ngIf="strengths.invalid && strengths.touched"
@@ -307,7 +250,7 @@
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 pdng-lr-5">
                                         <p-dropdown [options]="drug.UOMs" [(ngModel)]="drug.uOM" [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                     id="uOM" name="uOM"
+                                                     id="uOM" name="uOM"  placeholder="select uom"
                                                     #uOM="ngModel">
                                         </p-dropdown>
 
@@ -325,7 +268,7 @@
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.origin"
                                                    size="10" id="origin"
-                                                   name="origin"
+                                                   name="origin"  placeholder="enter origin"
                                                    #origin="ngModel"/>
                                             <span *ngIf="origin.invalid && origin.touched"
                                                                             class="col-md-9 select pdng-lr-5 text-danger">
