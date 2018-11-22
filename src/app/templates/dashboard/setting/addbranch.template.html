@@ -27,7 +27,9 @@
                                                 <label class="control-label col-md-4">Company Name
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text"   formControlName="companyName" [(ngModel)]="organization.companyName" name="cname"
+                                                    <input type="text"   formControlName="companyName" [(ngModel)]="organization.companyName"
+                                                           placeholder="enter company name e.g iPhone"
+                                                           name="cname"
                                                            class="form-control">
 
                                                 </div>
@@ -37,7 +39,9 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" formControlName="branchName"
+                                                    <input type="text"
+                                                           placeholder="enter branch name e.g heart branch of city"
+                                                           formControlName="branchName"
                                                            class="form-control">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['branchName'].valid && branchForm.controls['branchName'].touched">
@@ -135,7 +139,9 @@
                                                 <label class="control-label col-md-4">Office Phone
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input name="home phone" formControlName="officePhone" type="text"
+                                                    <input name="home phone"
+                                                           placeholder="enter office phone number e.g 12456"
+                                                           formControlName="officePhone" type="text"
                                                            value="(876) 785-6757"
                                                            class="form-control">
                                                 </div>
@@ -144,7 +150,7 @@
                                                 <label class="control-label col-md-4">Fax
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" formControlName="fax" data-required="1" value=""
+                                                    <input type="text" formControlName="fax" placeholder="enter fax number e.g 12456" data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
 
@@ -152,7 +158,7 @@
                                                 <label class="control-label col-md-4">Address
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" formControlName="address"
+                                                    <input type="text" placeholder="enter address" formControlName="address"
                                                            data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
@@ -179,7 +185,9 @@
 
                                                 <div class="col-md-8">
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
-                                                    <input class="col-md-4 time-form-control pdng-lr-5 font-siz" type="time" formControlName="officeHoursStart" value="{{officeHoursStart}}">
+                                                    <input class="col-md-4 time-form-control pdng-lr-5 font-siz" type="time"
+                                                           placeholder="select start time e.g 8:00 AM"
+                                                           formControlName="officeHoursStart" value="{{officeHoursStart}}">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
                                                     <!--<span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>-->
@@ -194,7 +202,7 @@
                                                 <div class="col-md-8">
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
                                                     <input class="col-md-4 time-form-control pdng-lr-5 font-siz" type="time"
-                                                           formControlName="officeHoursEnd"
+                                                           formControlName="officeHoursEnd" placeholder="select end time e.g 4:00 PM"
                                                            value="{{officeHoursEnd}}">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursEnd'].valid && branchForm.controls['officeHoursEnd'].touched">
@@ -273,7 +281,7 @@
                                             <label class="control-label col-md-4">Billing Name
                                             </label>
                                             <div class="col-md-8">
-                                                <input type="text" formControlName="billingName"
+                                                <input type="text" placeholder="enter name of bill e.g purchase bill" formControlName="billingName"
                                                        class="form-control"></div>
                                         </div>
                                         <div class="form-group">
@@ -294,7 +302,7 @@
                                             <label class="control-label col-md-4">Billing Tax ID #
                                             </label>
                                             <div class="col-md-8">
-                                                <input type="text" formControlName="billingTaxID"
+                                                <input type="text" placeholder="enter billing tax id" formControlName="billingTaxID"
                                                        class="form-control">
                                             </div>
                                         </div>

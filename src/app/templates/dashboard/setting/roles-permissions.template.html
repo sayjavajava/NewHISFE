@@ -78,7 +78,7 @@
                                                 class="required"
                                                 aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input type="text" class=" form-control" formControlName="name">
+                                            <input type="text" class="form-control" placeholder="enter name e.g admin or doctor" formControlName="name">
                                             <span class="text-danger"
                                                   *ngIf="!roleForm.controls['name'].valid && roleForm.controls['name'].touched">
                                                 {{ titleAlert  }}
@@ -92,8 +92,9 @@
                                         <div class="col-md-9 select pdng-lr-5">
 
                                             <textarea class="form-control" rows="3"
-                                                      formControlName="description"></textarea>
-
+                                                      placeholder="enter description of role e.g admin or doctor"
+                                                      formControlName="description">
+                                            </textarea>
                                         </div>
                                     </div>
                                    <!-- <div class="form-group hr">
