@@ -95,14 +95,14 @@
                                     <td field="companyName">{{data.companyName}}</td>
                                     <td field="genericName">{{data.genericName}}</td>
                                     <td field="route">{{data.route}}</td>
-                                    <td field="strength">{{data.strength}}</td>
+                                    <td field="strength">{{data.strengths}}</td>
                                     <td field="uOM">{{data.uOM}}</td>
-                                    <td field="origin">{{data.origin}}</td>
+                                    <td field="origin">{{data.countryView}}</td>
                                     <td field="active">{{data.active === true ? 'Active' : 'In-Active'}}</td>
                                     <td>
-                                        <a href="#responsive" data-toggle="modal">
+                                        <a href="#popupDrug" data-toggle="modal">
                                             <button class="btn btn-default btn-outline btn-sm"
-                                                    (click)="onUpdatePopupDrug(data)"><i class="fa fa-pencil"></i>
+                                                    (click)="onUpdatePopupDrug(data.id)"><i class="fa fa-pencil"></i>
 
                                             </button>
                                         </a>
@@ -229,7 +229,7 @@
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Drug Name<span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control" type="text" placeholder=" e.g Panadol"
                                                    [(ngModel)]="drug.drugName" size="30"
                                                    required id="drugName" pInputText
                                                    name="drugName"
@@ -245,7 +245,7 @@
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Generic Name<span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control" type="text" placeholder=" e.g Antibotic"
                                                    [(ngModel)]="drug.genericName" size="30"
                                                    required id="genericName" pInputText
                                                    name="genericName"
@@ -261,7 +261,7 @@
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Company Name<span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control" type="text" placeholder=" e.g Medical Care"
                                                    [(ngModel)]="drug.companyName" size="30"
                                                    required id="companyName" pInputText
                                                    name="companyName"
@@ -318,15 +318,43 @@
                                         </div>
                                     </div>
 
+
                                     <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">origin<span
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Info<span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <input class="form-control" type="text"
+                                                   [(ngModel)]="drug.drugInfo" placeholder=" e.g www.medicalcare.com"
+                                                   size="10" id="info"
+                                                   name="info"
+                                                   #info="ngModel"/>
+                                            <!--<p-dropdown id="origin" placeholder="{{selectedCountry}}" [autoWidth]="false" [(ngModel)]="selectedCountry"
+                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                        name="selectedCountry" #origin="ngModel"
+                                                        [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                            </p-dropdown>-->
+                                            <span *ngIf="info.invalid && info.touched"
+                                                  class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter Info.
+                                        </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Make<span
+                                                class="required" aria-required="true"> * </span></label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <!--<input class="form-control" type="text"
                                                    [(ngModel)]="drug.origin"
                                                    size="10" id="origin"
                                                    name="origin"
-                                                   #origin="ngModel"/>
+                                                   #origin="ngModel"/>-->
+                                            <p-dropdown id="origin" placeholder="{{selectedCountry}}" [autoWidth]="false" [(ngModel)]="selectedCountry"
+                                                          [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                         name="selectedCountry" #origin="ngModel"
+                                                         [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                            </p-dropdown>
                                             <span *ngIf="origin.invalid && origin.touched"
                                                                             class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter.

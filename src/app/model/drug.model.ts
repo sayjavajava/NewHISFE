@@ -1,4 +1,5 @@
 import {SelectItem} from 'primeng/api';
+import {Country} from "./Country";
 /**
  * Created by jamal on 10/24/2018.
  */
@@ -19,12 +20,13 @@ export class DrugModel {
 
     uOM: string = 'DOSING SYRINGE';
     UOMs: SelectItem[] = [];
-
-    origin: string = '';
+    drugInfo:String='';
+   // origin: string = '';
     active: boolean = true;
     hasChild: boolean = false;
-
-
+    selectedCountry:any;
+    addInfo:any;
+    countryView:string;
     constructor() {
         this.routes = [
             {label: 'Oral', value: 'Oral'},
