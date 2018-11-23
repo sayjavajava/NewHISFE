@@ -26,7 +26,6 @@ export class PatientDemographicComponent implements OnInit {
     photoBack: File = null;
     doctors: any = [];
     titleList:any = [];
-    rLanguage:any =[];
     pCommunication:any=[];
     smokeStatus: PatientSmokeStatus = new PatientSmokeStatus();
     smokeStatusList: any = [];
@@ -62,12 +61,6 @@ export class PatientDemographicComponent implements OnInit {
                 {label: 'Ms', value: 'Ms'},
                 {label: 'Dr', value: 'dr'},
             ];
-            this.rLanguage = [
-                {label: 'ENGLISH', value: 'ENGLISH'},
-                {label: 'URDU', value: 'URDU'},
-                {label: 'ARABIC', value: 'ARABIC'},
-                {label: 'CHINESE', value: 'CHINESE'},
-            ];
             this.pCommunication =[
                 {label: 'ENGLISH', value: 'ENGLISH'},
                 {label: 'URDU', value: 'URDU'},
@@ -75,11 +68,6 @@ export class PatientDemographicComponent implements OnInit {
                 {label: 'CHINESE', value: 'CHINESE'},
             ];
         });
-       /* <option value="SINGLE">Single</option>
-            <option value="MARRIED">Married</option>
-            <option value="WIDOWED">Widowed</option>
-            <option value="DIVORCED">Divorced</option>
-            <option value="SEPERATED">Seperated</option>*/
     }
 
     isValidPatientId() {
@@ -101,17 +89,6 @@ export class PatientDemographicComponent implements OnInit {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
                     this.smokeStatusList = response['responseData'].smokingStatus;
-                    let savedRace = response['responseData'].races;
-                    this.patient.races = new Patient().races;
-                    this.patient.races.forEach(function (race) {
-
-                        savedRace.forEach(function (dbRaces:Race) {
-                            if(race.value === dbRaces.nameRace){
-                    //        if(race.nameRace === dbRaces.nameRace){
-                                race.selected = true;
-                            }
-                        })
-                    });
                 } else {
                     this.notificationService.error(response['responseMessage'], 'Patient');
                 }

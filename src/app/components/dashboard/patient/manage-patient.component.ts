@@ -8,6 +8,7 @@ import {NotificationService} from "../../../services/notification.service";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {Patient} from "../../../model/patient";
 
+
 @Component({
     selector: 'manage-patient',
     templateUrl: '../../../templates/dashboard/patient/manage-patient.template.html',
@@ -21,6 +22,9 @@ export class ManagePatientComponent implements OnInit {
     data: any;
     searchString:string="";
     searched:boolean=false;
+    cols: any[];
+
+    patientDataImport: File = null;
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -31,15 +35,25 @@ export class ManagePatientComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Patient');
-        this.getAllPaginatedPatientFromServer(0);
+        // this.getAllPaginatedPatientFromServer(0);
+        this.getAllPatientsFromServer();
+        this.cols = [
+            {field: "firstName", header: "Patient Name"},
+            {field: "email", header: "Email"},
+            {field: 'gender', header: 'Gender'},
+            {field: 'cellPhone', header: 'Cell No.'},
+            {field: "status", header: "Status"},
+            {field: "id", header: "Action"}
+        ];
     }
 
     getPageWisePatients(page: number) {
-        if (this.searched){
+        /*if (this.searched){
             this.searchPatient(page);
-        }else {
+        } else {
             this.getAllPaginatedPatientFromServer(page);
-        }
+        }*/
+        this.getAllPatientsFromServer();
     }
 
     getAllPaginatedPatientFromServer(page: number) {
@@ -64,6 +78,22 @@ export class ManagePatientComponent implements OnInit {
             );
     }
 
+    getAllPatientsFromServer() {
+        this.requestsService.getRequest(
+            AppConstants.FETCH_ALL_PATIENT_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'PATIENT_SUC_11') {
+                        this.data = response['responseData']['data'];
+                        console.log(this.data);
+                    }
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
     deletePatient(patientId: number) {
         if (localStorage.getItem(btoa('access_token'))) {
             if (!confirm("Are Your Source You Want To Delete")) return;
@@ -73,9 +103,11 @@ export class ManagePatientComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'PATIENT_SUC_06') {
                             this.notificationService.success(response['responseMessage'], 'Patient');
-                            this.getAllPaginatedPatientFromServer(0);
+                            // this.getAllPaginatedPatientFromServer(0);
+                            this.getAllPatientsFromServer();
                         } else {
-                            this.getAllPaginatedPatientFromServer(0);
+                            // this.getAllPaginatedPatientFromServer(0);
+                            this.getAllPatientsFromServer();
                             this.notificationService.error(response['responseMessage'], 'Patient');
                         }
                     },
@@ -119,7 +151,39 @@ export class ManagePatientComponent implements OnInit {
     refreshPatient(){
         this.searched = false;
         this.searchString = "";
-        this.getAllPaginatedPatientFromServer(0);
+        // this.getAllPaginatedPatientFromServer(0);
+        this.getAllPatientsFromServer();
+    }
+
+
+    importData(event: any) {
+        console.log(event);
+        console.log("Data import method is called");
+        let fileList: FileList = event.target.files;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === 'patientDataImport') {
+                // if (fileList[0].size < 4000000) {
+                    this.patientDataImport = fileList[0];
+                // } else {
+                    // this.notificationService.warn('File size must be less than 4000000 bytes');
+                // }
+
+                this.requestsService.postRequestMultipartForm(AppConstants.IMPORT_PATIENTS_LIST_TO_SERVER, this.patientDataImport)
+                    .subscribe(
+                        (response: Response) => {
+                            if (response['responseCode'] === 'SUCCESS') {
+                                this.notificationService.success(response['responseMessage'], 'Patient');
+                            } else {
+                                this.notificationService.error(response['responseMessage'], 'Patient');
+                            }
+                        },
+                        (error: any) => {
+                            //console.log(error.json())
+                            this.HISUtilService.tokenExpired(error.error.error);
+                        }
+                    );
+            }
+        }
     }
 
 
