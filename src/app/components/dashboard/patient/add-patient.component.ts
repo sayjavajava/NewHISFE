@@ -73,10 +73,10 @@ export class AddPatientComponent implements OnInit {
              {label: 'CHINESE', value: 'CHINESE'},
          ];*/
         this.pCommunication =[
-            {label: 'ENGLISH', value: 'ENGLISH'},
-            {label: 'URDU', value: 'URDU'},
-            {label: 'ARABIC', value: 'ARABIC'},
-            {label: 'CHINESE', value: 'CHINESE'},
+            {label: 'CELL PHONE', value: 'CELL PHONE'},
+            {label: 'HOME PHONE', value: 'HOME PHONE'},
+            {label: 'OFFICE PHONE', value: 'OFFICE PHONE'},
+            {label: 'EMAIL', value: 'EMAIL'},
         ];
         this.maritalStatus =[
             {label: 'SINGLE', value: 'SINGLE'},
@@ -95,6 +95,7 @@ export class AddPatientComponent implements OnInit {
             {label: 'Other', value: 'O'},
         ];
         this.createCountriesList();
+        this.patient.status = true;
 
     }
 

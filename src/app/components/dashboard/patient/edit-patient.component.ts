@@ -24,7 +24,7 @@ export class EditPatientComponent implements OnInit {
     titleList:any;
     pCommunication :any;
     emergencyContactRelations: any = [];
-    maritalStatus: any = [];
+    martialStatus: any = [];
     file: File;
     profileImg: File = null;
     photoFront: File = null;
@@ -95,12 +95,12 @@ export class EditPatientComponent implements OnInit {
             {label: 'Dr', value: 'dr'},
         ];
         this.pCommunication =[
-            {label: 'ENGLISH', value: 'ENGLISH'},
-            {label: 'URDU', value: 'URDU'},
-            {label: 'ARABIC', value: 'ARABIC'},
-            {label: 'CHINESE', value: 'CHINESE'},
+            {label: 'CELL PHONE', value: 'CELL PHONE'},
+            {label: 'HOME PHONE', value: 'HOME PHONE'},
+            {label: 'OFFICE PHONE', value: 'OFFICE PHONE'},
+            {label: 'EMAIL', value: 'EMAIL'},
         ];
-        this.maritalStatus =[
+        this.martialStatus =[
             {label: 'SINGLE', value: 'SINGLE'},
             {label: 'MARRIED', value: 'MARRIED'},
             {label: 'WIDOWED', value: 'WIDOWED'},
@@ -108,13 +108,13 @@ export class EditPatientComponent implements OnInit {
             {label: 'SEPERATED', value: 'SEPERATED'},
         ];
         this.emergencyContactRelations = [
-            {label: 'Father', value: 'F'},
-            {label: 'Mother', value: 'M'},
-            {label: 'Husband', value: 'H'},
-            {label: 'Wife', value: 'W'},
-            {label: 'Brother', value: 'B'},
-            {label: 'Son', value: 'S'},
-            {label: 'Other', value: 'O'},
+            {label: 'Father', value: 'Father'},
+            {label: 'Mother', value: 'Mother'},
+            {label: 'Husband', value: 'Husband'},
+            {label: 'Wife', value: 'Wife'},
+            {label: 'Brother', value: 'Brother'},
+            {label: 'Son', value: 'Son'},
+            {label: 'Other', value: 'Other'},
         ];
     }
 

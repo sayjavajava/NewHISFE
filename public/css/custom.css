@@ -794,3 +794,6 @@ width: 93%; !important;
 .brnch-modl li{color: blue;}
 ul.ui-inputtext{width: 100%;}
 .ui-inputgroup-addon{padding:3px 0px !important;}
+.upload-btn-wrapper{position: relative; overflow: hidden; display: inline-block; top: 14px;}
+.btn{color: #FFF; background-color: #3598dc; border-color: #3598dc; padding: 7px 12px; font-size: 14px; font-weight: 400;}
+.upload-btn-wrapper input[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; cursor: pointer; line-height: 34px;}

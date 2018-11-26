@@ -7,6 +7,7 @@ import {HISUtilService} from "../../../services/his-util.service";
 import {NotificationService} from "../../../services/notification.service";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {Patient} from "../../../model/patient";
+import {DataService} from "../../../services/DataService";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class ManagePatientComponent implements OnInit {
                 private router: Router,
                 private titleService: Title,
                 private HISUtilService: HISUtilService,
+                private dataService: DataService,
                 private notificationService: NotificationService) {
     };
 
@@ -38,10 +40,14 @@ export class ManagePatientComponent implements OnInit {
         // this.getAllPaginatedPatientFromServer(0);
         this.getAllPatientsFromServer();
         this.cols = [
+            {field: "id", header: "S.No."},
+            {field: "patientId", header: "EMR No."},
             {field: "firstName", header: "Patient Name"},
             {field: "email", header: "Email"},
             {field: 'gender', header: 'Gender'},
             {field: 'cellPhone', header: 'Cell No.'},
+            {field: 'pastAppointments', header: 'Last Appt.'},
+            {field: 'futureAppointments', header: 'Next Appt.'},
             {field: "status", header: "Status"},
             {field: "id", header: "Action"}
         ];
@@ -180,10 +186,17 @@ export class ManagePatientComponent implements OnInit {
                         (error: any) => {
                             //console.log(error.json())
                             this.HISUtilService.tokenExpired(error.error.error);
+                            this.notificationService.error(error.error.responseMessage, 'Patient');
                         }
                     );
             }
         }
+    }
+
+    patientHistory(id:any){
+        console.log('patient history'+ id);
+        this.dataService.getPatientId(id);
+        this.router.navigate(['/dashboard/patient/',id,'history']);
     }
 
 

@@ -165,10 +165,10 @@
                                                placeholder="Enter cell Phone"
                                                name="cellPhone" id="cellPhone"
                                                #cellPhone="ngModel">
-                                        <!--<div *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)"
+                                        <div *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)"
                                              class="alert alert-danger">
-                                            please provide valid number
-                                        </div>-->
+                                            Please provide valid number
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -255,8 +255,7 @@
                                     </div>
                                 </div>-->
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Preferred Communication Language
-                                    </label>
+                                    <label class="control-label col-md-4">Preferred Communication</label>
                                     <div class="col-md-8">
                                         <!--<select class="form-control" name="preferredCommunication"
                                                 #preferredCommunication="ngModel"
@@ -266,7 +265,7 @@
                                             <option value="URDU">Urdu</option>
                                             <option value="CHINESE">Chinese</option>
                                         </select>-->
-                                        <p-dropdown placeholder="Select Language" [autoWidth]="false"
+                                        <p-dropdown placeholder="Select prefered communication method" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}" name="pLanguage"
                                                     [(ngModel)]="patient.preferredCommunication" [options]="pCommunication"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">

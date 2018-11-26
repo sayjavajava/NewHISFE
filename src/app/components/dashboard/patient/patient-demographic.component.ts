@@ -11,6 +11,7 @@ import {UserTypeEnum} from '../../../enums/user-type-enum';
 import {PatientSmokeStatus} from '../../../model/PatientSmokeStatus';
 import {ConformationDialogService} from '../../../services/ConformationDialogService';
 import {Invoice} from '../../../model/Invoice';
+import {SelectItem} from "primeng/api";
 
 @Component({
     selector: 'patient-history',
@@ -31,14 +32,17 @@ export class PatientDemographicComponent implements OnInit {
     smokeStatusList: any = [];
     patientInvBal: Invoice = new Invoice();
     updateBtn :boolean =false;
-    martialStatus = [
-        {label: 'SINGLE', value: 'SINGLE',selected:false},
-        {label: 'MARRIED', value: 'MARRIED',selected:false},
-        {label: 'WIDOWED', value: 'WIDOWED',selected:false},
-        {label: 'DIVORCED', value: 'DIVORCED',selected:false},
-        {label: 'SEPARATED', value: 'SEPARATED',selected:false},
-
-    ];
+    martialStatus:any = [];
+    emergencyContactRelations:any = [];
+    countryList: any[];
+    countryListModified: SelectItem[] = [];
+    selectedCountry: string = '';
+    statesList: any[];
+    statesListModified: SelectItem[] = [];
+    selectedState: string = '';
+    citiesList: any[];
+    citiesListModified: SelectItem[] = [];
+    selectedCity: string = '';
 
     constructor(private router: Router, private route: ActivatedRoute, private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
@@ -62,12 +66,30 @@ export class PatientDemographicComponent implements OnInit {
                 {label: 'Dr', value: 'dr'},
             ];
             this.pCommunication =[
-                {label: 'ENGLISH', value: 'ENGLISH'},
-                {label: 'URDU', value: 'URDU'},
-                {label: 'ARABIC', value: 'ARABIC'},
-                {label: 'CHINESE', value: 'CHINESE'},
+                {label: 'CELL PHONE', value: 'CELL PHONE'},
+                {label: 'HOME PHONE', value: 'HOME PHONE'},
+                {label: 'OFFICE PHONE', value: 'OFFICE PHONE'},
+                {label: 'EMAIL', value: 'EMAIL'},
+            ];
+            this.martialStatus =[
+                {label: 'SINGLE', value: 'SINGLE'},
+                {label: 'MARRIED', value: 'MARRIED'},
+                {label: 'WIDOWED', value: 'WIDOWED'},
+                {label: 'DIVORCED', value: 'DIVORCED'},
+                {label: 'SEPERATED', value: 'SEPERATED'},
+            ];
+            this.emergencyContactRelations = [
+                {label: 'Father', value: 'Father'},
+                {label: 'Mother', value: 'Mother'},
+                {label: 'Husband', value: 'Husband'},
+                {label: 'Wife', value: 'Wife'},
+                {label: 'Brother', value: 'Brother'},
+                {label: 'Son', value: 'Son'},
+                {label: 'Other', value: 'Other'},
             ];
         });
+
+        this.createCountriesList();
     }
 
     isValidPatientId() {
@@ -89,6 +111,9 @@ export class PatientDemographicComponent implements OnInit {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
                     this.smokeStatusList = response['responseData'].smokingStatus;
+                    this.selectedCountry = this.patient.country;
+                    this.selectedState = this.patient.state;
+                    this.selectedCity = this.patient.city;
                 } else {
                     this.notificationService.error(response['responseMessage'], 'Patient');
                 }
@@ -119,7 +144,7 @@ export class PatientDemographicComponent implements OnInit {
 
     updatePatient(insuranceForm: NgForm, demographicForm: NgForm, patientForm: NgForm) {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid) {
-            if (this.patient.selectedDoctor <= 0) {
+            /*if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
                 document.getElementById('selectedDoctor').focus();
                 return;
@@ -127,11 +152,21 @@ export class PatientDemographicComponent implements OnInit {
                 this.notificationService.error('Please select title', 'Patient');
                 document.getElementById('titlePrefix').focus();
                 return;
-            } else if (this.patient.cellPhone.length <= 0) {
+            } else*/
+            if (this.patient.firstName == null || this.patient.firstName.toString().trim().length <= 0) {
+                this.notificationService.error('Please enter first name.', 'Patient');
+                document.getElementById('firstName').focus();
+                return;
+            } else if (this.patient.lastName == null || this.patient.lastName.toString().trim().length <= 0) {
+                this.notificationService.error('Please enter last name.', 'Patient');
+                document.getElementById('lastName').focus();
+                return;
+            } else if (this.patient.cellPhone == null || this.patient.cellPhone.toString().trim().length <= 0) {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
                 document.getElementById('cellPhone').focus();
                 return;
-            } else if (this.patient.email.length <= 0) {
+            }
+            /*else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
                 document.getElementById('email').focus();
                 return;
@@ -139,8 +174,7 @@ export class PatientDemographicComponent implements OnInit {
                 this.notificationService.error('Please provide user name', 'Patient');
                 document.getElementById('userName').focus();
                 return;
-            }
-            /*else if (this.patient.dob.length<=0) {
+            } else if (this.patient.dob.length<=0) {
              this.notificationService.error('Please provide user name', 'Patient');
              // document.getElementById("dob").style.color = "red";
              document.getElementById("dob").focus();
@@ -339,4 +373,57 @@ export class PatientDemographicComponent implements OnInit {
     goToUserDashBoard() {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     }
+
+    createCountriesList() {
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_COUNTRIES)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.countryList = response["responseData"].data;
+                        for (let country of this.countryList) {
+                            var pair: any = {label: country.name, value: country.id};
+                            this.countryListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Countries List is not available");
+                });
+    }
+
+    getStatesByCountryId(countryId: any) {
+        this.statesList = this.citiesList = this.statesListModified = this.citiesListModified = [];
+
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.statesList = response["responseData"].data;
+                        for (let state of this.statesList) {
+                            var pair: any = {label: state.name, value: state.id};
+                            this.statesListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "States List is not available");
+                });
+    }
+
+    getCitiesByStateId(stateId: any) {
+        this.citiesList = this.citiesListModified = [];
+
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.citiesList = response["responseData"].data;
+                        for (let city of this.citiesList) {
+                            var pair: any = {label: city.name, value: city.id};
+                            this.citiesListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Cities List is not available");
+                });
+    }
 }
+

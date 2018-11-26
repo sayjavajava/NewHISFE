@@ -29,6 +29,7 @@ export class Patient {
     futureAppointments: any[];
     /////// DEMOGRAPHY
     patientId: number;
+    patientSSN: string = "";
     dob: string = "";
     gender: string = "MALE";
     country: string = "";

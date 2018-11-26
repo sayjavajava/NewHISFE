@@ -39,9 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Title
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
+                                    <label class="control-label col-md-4">Title</label>
                                     <div class="col-md-8">
                                        <!-- <select class="form-control"
                                                 name="titlePrefix"
@@ -64,6 +62,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">First Name
+                                        <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 select pdng-lr-4">
                                         <input type="text"
@@ -94,6 +93,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Last Name
+                                        <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
@@ -216,10 +216,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Preferred Communication Langugae
+                                    <label class="control-label col-md-4">Preferred Communication
                                     </label>
                                     <div class="col-md-8">
-                                        <p-dropdown placeholder="Select Language" [autoWidth]="false"
+                                        <p-dropdown placeholder="Select prefered communication method" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}" name="preferredCommunication"
                                                     [(ngModel)]="patient.preferredCommunication" [options]="pCommunication"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
@@ -381,8 +381,8 @@
                                     </label>
                                     <div class="col-md-8">
                                         <p-dropdown placeholder="Select Marital Status" [autoWidth]="false"
-                                                    [style]="{'text-align': 'left' ,'width':'100%'}" name="maritalStatus"
-                                                    [(ngModel)]="patient.marital" [options]="maritalStatus"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}" name="martialStatus"
+                                                    [(ngModel)]="patient.marital" [options]="martialStatus"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
                                     </div>

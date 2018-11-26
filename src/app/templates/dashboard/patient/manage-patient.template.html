@@ -1,20 +1,4 @@
 <!--<menu-component></menu-component>-->
-<style>
-    #patientDataImport {
-        display: inline-block;
-        width: 8%;
-        padding: 50px 0 0 0;
-        height: 20px;
-        overflow: hidden;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        background: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698394-icon-130-cloud-upload-32.png') center center no-repeat #e4e4e4;
-        border-radius: 20px;
-        background-size: 32px 32px;
-        float: right;
-    }
-</style>
 <div class="page-content-wrapper">
     <div class="page-content" style="margin-left: 0px !important;">
         <div class="row">
@@ -61,11 +45,18 @@
                         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10" exportFilename="patients">
                             <ng-template pTemplate="caption">
                                 <div class="ui-helper-clearfix">
-                                    <input type="file" id="patientDataImport" name="patientDataImport" (change)="importData($event)">
-
-                                    <button class="btn mt-sweetalert green-meadow" type="button" pButton (click)="dt.exportCSV()" style="float:right">
-                                        <i class="fa fa-download" aria-hidden="true"></i> Export All Data
-                                    </button>
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button class="btn mt-sweetalert green-meadow" type="button" pButton (click)="dt.exportCSV()">
+                                                <i class="fa fa-download" aria-hidden="true"></i> Export All Data
+                                            </button>
+                                            <div class="upload-btn-wrapper">
+                                                <button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>
+                                                <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                       id="patientDataImport" name="patientDataImport" value="" placeholder="" (change)="importData($event)">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </ng-template>
                             <ng-template sortable="true" pTemplate="header" let-columns>
@@ -81,12 +72,26 @@
                                     </th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-rowData let-data>
+                            <ng-template pTemplate="body" let-rowData let-data let-a="rowIndex">
                                 <tr>
+                                    <td field="serial">{{a+1}}</td>
+                                    <!--<p-column field="serial" header="#" [style]="{width:'5%','text-align':'left'}">
+                                        <template let-a="absRowIndex" pTemplate="body">
+                                            {{a+1}}
+                                        </template>
+                                    </p-column>-->
+                                    <!--<td field="serial" class="c-text-left">{{1+1}}</td>-->
+                                    <td field="patientId" class="c-text-left padding font-green-dark">
+                                        <strong>
+                                            <a title="Patient History" class="font-green-dark" (click)="patientHistory(data.id)">{{data.patientId}}</a>
+                                        </strong>
+                                    </td>
                                     <td field="firstName" class="c-text-left padding font-green-dark"><strong>{{data.firstName}} {{data.middleName}} {{data.lastName}}</strong></td>
-                                    <td field="email" class="c-text-left">{{data.email}}</td>
+                                    <td field="email" class="c-text-left" style="word-break: break-all;">{{data.email}}</td>
                                     <td field="gender" class="c-text-left">{{data.gender}}</td>
                                     <td field="cellPhone" class="c-text-left">{{data.cellPhone}}</td>
+                                    <td field="pastAppointments" class="c-text-left">{{data.pastAppointments}}</td>
+                                    <td field="futureAppointments" class="c-text-left">{{data.futureAppointments}}</td>
                                     <td field="status">{{data.status === true ? 'Active' : 'Inactive'}}</td>
                                     <td class="sorting_disabled">
                                         <a routerLink="/dashboard/patient/edit/{{data.id}}">
