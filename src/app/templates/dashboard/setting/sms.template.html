@@ -15,7 +15,44 @@
                 </div>
 
                 <div class="table-scrollable">
-                    <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                    <p-table #dt [columns]="cols" [value]="smsTemplateList" [paginator]="true" [rows]="10">
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
+                                    {{col.header}}
+                                    <p-sortIcon *ngIf="col.field != 'active' && col.field != 'action'"
+                                                [field]="col.field"
+                                                ariaLabel="Sort"
+                                                ariaLabelDesc="Sort in descending order"
+                                                ariaLabelAsc="Sort in ascending order">
+                                    </p-sortIcon>
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                    <input *ngSwitchCase="'subject'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <input *ngSwitchCase="'type'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-smsTemplateList>
+                            <tr>
+                                <td field="code">{{smsTemplateList.subject}}</td>
+                                <td field="name">{{smsTemplateList.type}}</td>
+                                <td field="active">{{smsTemplateList.active === true ? 'Active' : 'In-Active'}}</td>
+                                <td field="action">
+                                    <ng-container>
+                                        <a routerLink="/dashboard/setting/sms-template/edit/{{smsTemplateList.id}}">
+                                            <button class="btn btn-default btn-outline btn-sm"> <i class="fa fa-pencil"></i> </button>
+                                        </a>
+                                        <button class="btn btn-default btn-outline btn-sm" (click)="deleteSmsTemplate(smsTemplateList.id)"> <i class="fa fa-remove"></i> </button>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <!--<table class="table table-striped table-hover table-checkable dataTable no-footer"
                            id="datatable_ajax">
                         <thead>
                         <tr role="row" class="off-wite-bg">
@@ -44,7 +81,7 @@
                             </td>
                         </tr>
                         </thead>
-                    </table>
+                    </table>-->
                 </div>
             </div>
         </div>

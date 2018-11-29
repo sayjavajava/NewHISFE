@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AppConstants} from '../../../utils/app.constants';
-import {RequestsService} from '../../../services/requests.service';
-import {Patient} from '../../../model/patient';
-import {NotificationService} from '../../../services/notification.service';
-import {HISUtilService} from '../../../services/his-util.service';
-import {Race} from '../../../model/race-model';
-import {NgForm} from '@angular/forms';
-import {UserTypeEnum} from '../../../enums/user-type-enum';
-import {PatientSmokeStatus} from '../../../model/PatientSmokeStatus';
-import {ConformationDialogService} from '../../../services/ConformationDialogService';
-import {Invoice} from '../../../model/Invoice';
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AppConstants} from "../../../utils/app.constants";
+import {RequestsService} from "../../../services/requests.service";
+import {Patient} from "../../../model/patient";
+import {NotificationService} from "../../../services/notification.service";
+import {HISUtilService} from "../../../services/his-util.service";
+import {NgForm} from "@angular/forms";
+import {UserTypeEnum} from "../../../enums/user-type-enum";
+import {PatientSmokeStatus} from "../../../model/PatientSmokeStatus";
+import {ConformationDialogService} from "../../../services/ConformationDialogService";
+import {Invoice} from "../../../model/Invoice";
 import {SelectItem} from "primeng/api";
+import {DatePicker} from "angular2-datetimepicker";
 
 @Component({
     selector: 'patient-history',
@@ -28,6 +28,7 @@ export class PatientDemographicComponent implements OnInit {
     doctors: any = [];
     titleList:any = [];
     pCommunication:any=[];
+    genders:any=[];
     smokeStatus: PatientSmokeStatus = new PatientSmokeStatus();
     smokeStatusList: any = [];
     patientInvBal: Invoice = new Invoice();
@@ -48,6 +49,25 @@ export class PatientDemographicComponent implements OnInit {
                 private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
                 private notificationService: NotificationService) {
 
+        DatePicker.prototype.ngOnInit = function() {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker = false;
+            this.settings.format = "E MMM dd yyyy";
+            this.date = new Date();
+        };
+
+        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+            this.patient.dob = new Date().toDateString();
+        }
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
     }
 
     ngOnInit(): void {
@@ -76,20 +96,35 @@ export class PatientDemographicComponent implements OnInit {
                 {label: 'MARRIED', value: 'MARRIED'},
                 {label: 'WIDOWED', value: 'WIDOWED'},
                 {label: 'DIVORCED', value: 'DIVORCED'},
-                {label: 'SEPERATED', value: 'SEPERATED'},
+                {label: 'SEPARATED', value: 'SEPARATED'},
+            ];
+            this.genders = [
+                {label: 'MALE', value: 'MALE'},
+                {label: 'FEMALE', value: 'FEMALE'},
+                {label: 'OTHER', value: 'OTHER'},
             ];
             this.emergencyContactRelations = [
-                {label: 'Father', value: 'Father'},
-                {label: 'Mother', value: 'Mother'},
-                {label: 'Husband', value: 'Husband'},
-                {label: 'Wife', value: 'Wife'},
-                {label: 'Brother', value: 'Brother'},
-                {label: 'Son', value: 'Son'},
-                {label: 'Other', value: 'Other'},
+                {label: 'FATHER', value: 'FATHER'},
+                {label: 'MOTHER', value: 'MOTHER'},
+                {label: 'HUSBAND', value: 'HUSBAND'},
+                {label: 'WIFE', value: 'WIFE'},
+                {label: 'BROTHER', value: 'BROTHER'},
+                {label: 'SON', value: 'SON'},
+                {label: 'OTHER', value: 'OTHER'},
             ];
         });
 
         this.createCountriesList();
+
+        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+            this.patient.dob = new Date().toDateString();
+        }
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
     }
 
     isValidPatientId() {
@@ -114,6 +149,15 @@ export class PatientDemographicComponent implements OnInit {
                     this.selectedCountry = this.patient.country;
                     this.selectedState = this.patient.state;
                     this.selectedCity = this.patient.city;
+                    if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+                        this.patient.dob = new Date().toDateString();
+                    }
+                    if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+                        this.patient.cardIssuedDate = new Date().toDateString();
+                    }
+                    if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+                        this.patient.cardExpiryDate = new Date().toDateString();
+                    }
                 } else {
                     this.notificationService.error(response['responseMessage'], 'Patient');
                 }
@@ -140,6 +184,7 @@ export class PatientDemographicComponent implements OnInit {
 
             }
         );
+
     }
 
     updatePatient(insuranceForm: NgForm, demographicForm: NgForm, patientForm: NgForm) {
@@ -183,6 +228,15 @@ export class PatientDemographicComponent implements OnInit {
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         } else {
+            if (this.patient.dob.toString().length > 0) {
+                this.patient.dob = this.patient.dob.toString().substring(0, 24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time) -> Wed Mar 17 1993 17:03:21
+            }
+            if (this.patient.cardIssuedDate.toString().length > 0) {
+                this.patient.cardIssuedDate = this.patient.cardIssuedDate.toString().substring(0, 24);
+            }
+            if (this.patient.cardExpiryDate.toString().length > 0) {
+                this.patient.cardExpiryDate = this.patient.cardExpiryDate.toString().substring(0, 24);
+            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
                 this.requestService.postRequestMultipartFormAndData(

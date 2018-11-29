@@ -1,0 +1,46 @@
+<div class="page-container">
+    <div class="page-content-wrapper">
+        <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="hr"><h3 class="text-info">Receipt Listing</h3></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-scrollable tbl-brdr-radus">
+                        <p-table #dt [columns]="cols" [value]="invoiceList" [paginator]="true" [rows]="10">
+                            <ng-template sortable="true" pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                                        {{col.header}}
+                                        <p-sortIcon *ngIf="col.field != 'serialNo' && col.field != 'paymentNumber' && col.field != 'action'" [field]="col.field"
+                                                    ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order">
+                                        </p-sortIcon>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                        <input *ngSwitchCase="'patientName'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-invoiceList let-sNo="rowIndex">
+                                <tr>
+                                    <td field="serialNo">{{sNo+1}}</td>
+                                    <td field="paymentId">  </td>
+                                    <td field="patientName">  </td>
+                                    <td field="discount">  </td>
+                                    <td field="advUtil">  </td>
+                                    <td field="totalAmount">  </td>
+                                    <td field="paymentAmount">  </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

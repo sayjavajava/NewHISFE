@@ -6,6 +6,7 @@ import {AppConstants} from "../../../utils/app.constants";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GeneralLedgerModel} from "../../../model/GeneralLedgerModel";
 import {AccountConfigModel} from "../../../model/AccountConfigModel";
+import {SelectItem} from "primeng/api";
 
 
 @Component({
@@ -20,11 +21,11 @@ export class AccountSetupComponent {
 
     id: number;
 
-    assetsAccountList: GeneralLedgerModel[];
-    liabilitiesAccountList: GeneralLedgerModel[];
-    revenueAccountList: GeneralLedgerModel[];
-    cogsAccountList: GeneralLedgerModel[];
-    expensesAccountList: GeneralLedgerModel[];
+    assetsAccountList: SelectItem[] = [];
+    liabilitiesAccountList: SelectItem[] = [];
+    revenueAccountList: SelectItem[] = [];
+    cogsAccountList: SelectItem[] = [];
+    expensesAccountList: SelectItem[] = [];
 
     typesArray: Array<string> = ["undefined", "string", "number"];
 
@@ -51,31 +52,24 @@ export class AccountSetupComponent {
                         this.chartOfAccountList = response["responseData"].accountList;
                         this.accountConfig = response["responseData"].accountConfig;
                         // console.log(this.accountConfig.cash.id + " : " + typeof this.accountConfig.cash.id);
-                        this.assetsAccountList = this.chartOfAccountList.filter(value => {
-                            if (value.parentType === "Assets") {
-                                return value;
+                        for (let account of this.chartOfAccountList) {
+                            var pair: any = {label: account.name, value: account.id};
+                            if (account.parentType === "Assets") {
+                                this.assetsAccountList.push(pair);
                             }
-                        });
-                        this.revenueAccountList = this.chartOfAccountList.filter(value => {
-                            if (value.parentType === "Revenue") {
-                                return value;
+                            if (account.parentType === "Revenue") {
+                                this.revenueAccountList.push(pair);
                             }
-                        });
-                        this.liabilitiesAccountList = this.chartOfAccountList.filter(value => {
-                            if (value.parentType === "Liabilities") {
-                                return value;
+                            if (account.parentType === "Liabilities") {
+                                this.liabilitiesAccountList.push(pair);
                             }
-                        });
-                        this.cogsAccountList = this.chartOfAccountList.filter(value => {
-                            if (value.parentType === "Cost of Goods Sold") {
-                                return value;
+                            if (account.parentType === "Cost of Goods Sold") {
+                                this.cogsAccountList.push(pair);
                             }
-                        });
-                        this.expensesAccountList = this.chartOfAccountList.filter(value => {
-                            if (value.parentType === "Expense") {
-                                return value;
+                            if (account.parentType === "Expense") {
+                                this.expensesAccountList.push(pair);
                             }
-                        });
+                        }
                         this.setAccountIds();
                     } else {
                         this.notificationService.error(response["responseMessage"], "Account Setup");

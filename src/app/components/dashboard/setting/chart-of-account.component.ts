@@ -20,21 +20,20 @@ export class ChartOfAccountComponent {
 
     chartOfAccountList: GeneralLedgerModel[];
     chartOfAccount: GeneralLedgerModel = new GeneralLedgerModel();
-    id: number;
-    code: any;
+    id: number;code: any;
 
     accountConfig: AccountConfigModel = new AccountConfigModel();
     /*accountConfigUpdate: AccountConfigModel = new AccountConfigModel();*/
-
     showBankDetailsDiv: boolean;
-
     selectedParentType: any = "";
     selectedAccountType: any = "";
     element: any;
     elementByDiv: any[];
     elementByClass: any[];
-    parentTypesList: string[] = ["Assets", "Bank", "Liabilities", "Revenue", "Cost of Goods Sold", "Expense"];
+    // parentTypesList: string[] = ["Assets", "Bank", "Liabilities", "Revenue", "Cost of Goods Sold", "Expense"];
     cols: any[];
+    parentTypes: any = [];
+    accountTypes: any = [];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -52,15 +51,15 @@ export class ChartOfAccountComponent {
             {field: "description", header: "Description"},
             {field: "balance", header: "Balance"},
             {field: "action", header: "Action"}
-            /*
-            <td field="code">{{chartOfAccountList.code}}</td>
-            <td field="name">{{chartOfAccountList.name}}</td>
-            <td field="parentType">{{chartOfAccountList.parentType}}</td>
-            <td field="description">{{chartOfAccountList.description}}</td>
-            <td field="balance">{{chartOfAccountList.balance}}</td>
-            <td field="action">{{chartOfAccountList.action}}</td>
-             */
         ];
+        this.parentTypes = [
+            {label: 'Assets', value: 'Assets'},
+            {label: 'Bank', value: 'Bank'},
+            {label: 'Liabilities', value: 'Liabilities'},
+            {label: 'Revenue', value: 'Revenue'},
+            {label: 'Cost of Goods Sold', value: 'Expense'},
+        ];
+        this.accountTypes = [];
     }
 
     ngOnInit() {
@@ -97,30 +96,43 @@ export class ChartOfAccountComponent {
     }
 
 
-    editAccountSetUp(formData: NgForm) {
-        if (localStorage.getItem(btoa("access_token"))) {
-            this.chartOfAccount.code = this.code;
-            // console.log(this.chartOfAccount);
-            if (this.chartOfAccount.parentType != "Bank" && !isNullOrUndefined(this.chartOfAccount.bankAccount)) {
-                this.chartOfAccount.bankAccount = null;
+    editAccountSetUp(accountForm: NgForm) {
+        if (accountForm.invalid) {
+            if (this.chartOfAccount.name == null || this.chartOfAccount.name.trim().length <= 0) {
+                this.notificationService.error("Please provide account name", "Chart Of Account");
+                document.getElementById("accountName").focus();
+                return;
             }
-            this.requestsService.postRequest(AppConstants.ACCOUNTS_CONFIGURATION_SAVE, this.chartOfAccount)
-                .subscribe(
-                    (response: Response) => {
-                        if (response["responseCode"] === "SUCCESS") {
-                            this.chartOfAccountList = response["responseData"];
-                            document.getElementById("close-btn-Prefix").click();
-                            this.notificationService.success(response["responseMessage"], "Chart of Account");
-                        } else {
-                            this.notificationService.error(response["responseMessage"], "Chart of Accounts");
-                        }
-                    },
-                    (error: any) => {
-                        this.HISUtilService.tokenExpired(error.error.error);
-                    }
-                );
         } else {
-            this.router.navigate(["/login"]);
+            if (this.chartOfAccount.name.trim().length <= 0) {
+                this.notificationService.warn('Please provide account name');
+                document.getElementById('name').focus();
+                return;
+            }
+            if (localStorage.getItem(btoa("access_token"))) {
+                this.chartOfAccount.code = this.code;
+                // console.log(this.chartOfAccount);
+                if (this.chartOfAccount.parentType != "Bank" && !isNullOrUndefined(this.chartOfAccount.bankAccount)) {
+                    this.chartOfAccount.bankAccount = null;
+                }
+                this.requestsService.postRequest(AppConstants.ACCOUNTS_CONFIGURATION_SAVE, this.chartOfAccount)
+                    .subscribe(
+                        (response: Response) => {
+                            if (response["responseCode"] === "SUCCESS") {
+                                this.chartOfAccountList = response["responseData"];
+                                document.getElementById("close-btn-Prefix").click();
+                                this.notificationService.success(response["responseMessage"], "Chart of Account");
+                            } else {
+                                this.notificationService.error(response["responseMessage"], "Chart of Accounts");
+                            }
+                        },
+                        (error: any) => {
+                            this.HISUtilService.tokenExpired(error.error.error);
+                        }
+                    );
+            } else {
+                this.router.navigate(["/login"]);
+            }
         }
         this.chartOfAccount.parentType = "";
         this.setWidthOfElements();
@@ -177,9 +189,43 @@ export class ChartOfAccountComponent {
     }
 
     parentTypeSelected(parentType: any) {
+        console.log(parentType);
         this.chartOfAccount.parentType = parentType;
         this.selectedParentType = parentType;
         this.setWidthOfElements();
+        this.generateAccountTypesList();
+    }
+
+    generateAccountTypesList(){
+        if(this.selectedParentType == 'Assets'){
+            this.accountTypes = [
+                {label: 'Fixed Assets', value: 'Fixed Assets'},
+                {label: 'Current Assets', value: 'Current Assets'},
+            ];
+        } else if(this.selectedParentType == 'Liabilities'){
+            this.accountTypes = [
+                {label: 'Current Liabilities', value: 'Current Liabilities'},
+                {label: 'Long Term Liabilities', value: 'Long Term Liabilities'},
+            ];
+        } else if(this.selectedParentType == 'Revenue'){
+            this.accountTypes = [
+                {label: 'Revenue', value: 'Revenue'},
+                {label: 'Other Income', value: 'Other Income'},
+            ];
+        } else if(this.selectedParentType == 'Cost of Goods Sold'){
+            this.accountTypes = [
+                {label: 'Cost of Goods Sold', value: 'Cost of Goods Sold'},
+            ];
+        } else if(this.selectedParentType == 'Expense'){
+            this.accountTypes = [
+                {label: 'Operational Expense', value: 'Operational Expense'},
+                {label: 'Non Operational Expense', value: 'Non Operational Expense'},
+            ];
+        } else if(this.selectedParentType == 'Bank'){
+            this.accountTypes = [
+                {label: 'Bank', value: 'Bank'},
+            ];
+        }
     }
 
     accountTypeSelected(accountType: any) {
@@ -189,13 +235,13 @@ export class ChartOfAccountComponent {
     setWidthOfElements() {
         this.elementByDiv = Array.from(document.getElementsByClassName("slimScrollDiv"));
 
+        if (isNullOrUndefined(this.chartOfAccount.bankAccount)) {
+            this.chartOfAccount.bankAccount = new BankAccountModel;
+        }
+
         if (this.chartOfAccount.parentType === "Bank") {
             this.showBankDetailsDiv = true;
             this.element.style.height = "380px";
-
-            if (isNullOrUndefined(this.chartOfAccount.bankAccount)) {
-                this.chartOfAccount.bankAccount = new BankAccountModel;
-            }
 
             for (let i = 0; i < this.elementByClass.length; i++) {
                 if (this.elementByClass[i].style.height == "190px") {
@@ -224,5 +270,12 @@ export class ChartOfAccountComponent {
                 }
             }
         }
+    }
+
+    clearAccountSetUp() {
+        this.selectedAccountType = '';
+        this.selectedParentType = '';
+        this.chartOfAccount = new GeneralLedgerModel();
+        this.setWidthOfElements();
     }
 }

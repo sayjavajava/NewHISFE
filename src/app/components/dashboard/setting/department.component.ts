@@ -51,7 +51,7 @@ export class DepartmentComponent implements OnInit {
             {field: 'name', header: 'Name'},
             {field: 'description', header: 'Description'},
             {field: 'listOfBranches', header: 'Branch'},
-            {field: 'Action', header: 'Action'},
+            {field: 'action', header: 'Action'},
         ];
 
     }

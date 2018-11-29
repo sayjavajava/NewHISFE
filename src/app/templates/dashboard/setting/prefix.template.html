@@ -7,7 +7,47 @@
                 </div>
 
                 <div class="table-scrollable">
-                    <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax">
+                    <p-table #dt [columns]="cols" [value]="prefixTemplateList" [paginator]="true" [rows]="10">
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
+                                    {{col.header}}
+                                    <p-sortIcon *ngIf="col.field != 'action'"
+                                                [field]="col.field"
+                                                ariaLabel="Sort"
+                                                ariaLabelDesc="Sort in descending order"
+                                                ariaLabelAsc="Sort in ascending order">
+                                    </p-sortIcon>
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                    <input *ngSwitchCase="'module'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <input *ngSwitchCase="'startValue'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <input *ngSwitchCase="'currentValue'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-prefixTemplateList>
+                            <tr>
+                                <td field="module">{{prefixTemplateList.module}}</td>
+                                <td field="name">{{prefixTemplateList.name}}</td>
+                                <td field="startValue">{{prefixTemplateList.startValue}}</td>
+                                <td field="currentValue">{{prefixTemplateList.currentValue}}</td>
+                                <td field="action">
+                                    <ng-container>
+                                        <a href="#prefixModule" data-toggle="modal">
+                                            <button class="btn btn-default btn-outline btn-sm" (click)="edit(prefixTemplateList)"> <i class="fa fa-pencil"></i></button>
+                                        </a>
+                                        <!--<button class="btn btn-default btn-outline btn-sm" (click)="deleteAccount(chartOfAccountList.id)"> <i class="fa fa-remove"></i> </button>-->
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <!--<table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax">
                         <thead>
                         <tr role="row" class="off-wite-bg">
                             <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Module</th>
@@ -29,7 +69,7 @@
                             </td>
                         </tr>
                         </thead>
-                    </table>
+                    </table>-->
                 </div>
             </div>
         </div>

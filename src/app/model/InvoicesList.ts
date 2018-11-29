@@ -6,6 +6,8 @@ export class InvoicesList
     paidAmount : number;
     invoiceAmount : number;
     status : string;
+    taxAmount: number;
+    discountAmount: number;
 
     constructor() {
     }

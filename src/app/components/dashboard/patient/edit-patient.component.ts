@@ -10,7 +10,7 @@ import {NgForm} from "@angular/forms";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {ImageModel} from "../../../model/image-model";
 import {SelectItem} from "primeng/api";
-import {Country} from "../../../model/Country";
+import {DatePicker} from "angular2-datetimepicker";
 
 @Component({
     selector: 'add-patient',
@@ -18,6 +18,7 @@ import {Country} from "../../../model/Country";
 })
 export class EditPatientComponent implements OnInit {
     patient: Patient = new Patient();
+    showProfilePicUploadBtn = false;
     imageModel: ImageModel = new ImageModel();
     selectedPatientId: any;
     doctors: any = [];
@@ -25,6 +26,7 @@ export class EditPatientComponent implements OnInit {
     pCommunication :any;
     emergencyContactRelations: any = [];
     martialStatus: any = [];
+    genders: any = [];
     file: File;
     profileImg: File = null;
     photoFront: File = null;
@@ -48,6 +50,27 @@ export class EditPatientComponent implements OnInit {
                 private activatedRoute: ActivatedRoute) {
         this.populatePatient();
         this.createCountriesList();
+
+        DatePicker.prototype.ngOnInit = function() {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker = false;
+            this.settings.format = "E MMM dd yyyy";
+            this.date = new Date();
+        };
+
+        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+            this.patient.dob = new Date().toDateString();
+        }
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
+
     };
 
     populatePatient() {
@@ -74,6 +97,16 @@ export class EditPatientComponent implements OnInit {
                             this.selectedCountry = this.patient.country;
                             this.selectedState = this.patient.state;
                             this.selectedCity = this.patient.city;
+                            console.log(this.patient.dob);
+                            if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+                                this.patient.dob = new Date().toDateString();
+                            }
+                            if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+                                this.patient.cardIssuedDate = new Date().toDateString();
+                            }
+                            if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+                                this.patient.cardExpiryDate = new Date().toDateString();
+                            }
                         } else {
                             this.notificationService.error(response["responseMessage"], "Patient");
                             // this.router.navigate(['404-not-found'])
@@ -83,6 +116,12 @@ export class EditPatientComponent implements OnInit {
                         this.HISUTilService.tokenExpired(error.error.error);
                     });
             });
+        if (this.patient.profileImgURL == null) {
+            this.showProfilePicUploadBtn = false;
+        } else {
+            this.showProfilePicUploadBtn = true;
+        }
+
     };
 
     ngOnInit() {
@@ -105,16 +144,21 @@ export class EditPatientComponent implements OnInit {
             {label: 'MARRIED', value: 'MARRIED'},
             {label: 'WIDOWED', value: 'WIDOWED'},
             {label: 'DIVORCED', value: 'DIVORCED'},
-            {label: 'SEPERATED', value: 'SEPERATED'},
+            {label: 'SEPARATED', value: 'SEPARATED'},
+        ];
+        this.genders = [
+            {label: 'MALE', value: 'MALE'},
+            {label: 'FEMALE', value: 'FEMALE'},
+            {label: 'OTHER', value: 'OTHER'},
         ];
         this.emergencyContactRelations = [
-            {label: 'Father', value: 'Father'},
-            {label: 'Mother', value: 'Mother'},
-            {label: 'Husband', value: 'Husband'},
-            {label: 'Wife', value: 'Wife'},
-            {label: 'Brother', value: 'Brother'},
-            {label: 'Son', value: 'Son'},
-            {label: 'Other', value: 'Other'},
+            {label: 'FATHER', value: 'FATHER'},
+            {label: 'MOTHER', value: 'MOTHER'},
+            {label: 'HUSBAND', value: 'HUSBAND'},
+            {label: 'WIFE', value: 'WIFE'},
+            {label: 'BROTHER', value: 'BROTHER'},
+            {label: 'SON', value: 'SON'},
+            {label: 'OTHER', value: 'OTHER'},
         ];
     }
 
@@ -140,6 +184,17 @@ export class EditPatientComponent implements OnInit {
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         } else {
+            // console.log(this.patient.dob);
+            if(this.patient.dob.toString().length>0){
+                this.patient.dob = this.patient.dob.toString().substring(0,24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time)
+            }
+            if(this.patient.cardIssuedDate.toString().length>0){
+                this.patient.cardIssuedDate = this.patient.cardIssuedDate.toString().substring(0,24);
+            }
+            if(this.patient.cardExpiryDate.toString().length>0){
+                this.patient.cardExpiryDate = this.patient.cardExpiryDate.toString().substring(0,24);
+            }
+            console.log(this.patient.dob);
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
 
@@ -170,6 +225,15 @@ export class EditPatientComponent implements OnInit {
                             this.patient = new Patient();
                             this.notificationService.success(response['responseMessage'], 'Patient');
                             this.router.navigate(['/dashboard/patient/manage']);
+                            if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+                                this.patient.dob = new Date().toDateString();
+                            }
+                            if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+                                this.patient.cardIssuedDate = new Date().toDateString();
+                            }
+                            if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+                                this.patient.cardExpiryDate = new Date().toDateString();
+                            }
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Patient');
                         }
@@ -202,6 +266,8 @@ export class EditPatientComponent implements OnInit {
                 this.photoBack = fileList[0];
             }
         }
+
+        this.showProfilePicUploadBtn = true;
     }
 
     uploadProfileImg() {

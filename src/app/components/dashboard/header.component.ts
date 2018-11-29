@@ -52,14 +52,7 @@ export class HeaderComponent implements OnInit {
 
                         },
                     ],
-                    [
-                        {   label: 'Invoices',
-                        items: [{label: 'Invoice',icon: 'icon-user-following',routerLink: ['/dashboard/invoice']},
-                            {label: 'refund',icon: 'icon-user-follow',routerLink: ['/dashboard/refund']},
-                            {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/patient/payment']}]
 
-                    },
-                    ],
                 ],
             },
             {
@@ -67,9 +60,16 @@ export class HeaderComponent implements OnInit {
                 items: [
                     [
                         {   label: 'Patient',
-                            items: [{label: 'Manage Patient',icon: 'icon-user-following',routerLink: ['/dashboard/patient/manage']},
+                            items: [
+                                {label: 'Manage Patient',icon: 'icon-user-following',routerLink: ['/dashboard/patient/manage']},
                                 {label: 'New Patient',icon: 'icon-user-follow',routerLink: ['/dashboard/patient/add']},
-                                {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/patient/reports']}]
+                                {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/patient/reports']},
+                                {label: 'Invoice Listing',icon: 'far fa-file-invoice',routerLink: ['/dashboard/invoice-listing']},
+                                {label: 'Receipt Listing',icon: 'fas fa-file-invoice',routerLink: ['/dashboard/receipt-listing']},
+                                {label: 'Refunds Listing',icon: 'icon-user-follow',routerLink: ['/dashboard/refund']},
+                                {label: 'Invoices',icon: 'icon-user-following',routerLink: ['/dashboard/invoice']},
+                                {label: 'Receipt',icon: 'fa fa-book',routerLink: ['/dashboard/patient/payment']}
+                                ]
 
                         },
 

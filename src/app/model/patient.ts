@@ -20,7 +20,7 @@ export class Patient {
     officePhone: string = "";
     email: string = "";
     userName: string = "";
-    preferredCommunication: string = "ENGLISH";
+    preferredCommunication: string = "";
     status: boolean = false;
     primaryDoctorFirstName: string = "";
     primaryDoctorLastName: string = "";
@@ -30,8 +30,8 @@ export class Patient {
     /////// DEMOGRAPHY
     patientId: number;
     patientSSN: string = "";
-    dob: string = "";
-    gender: string = "MALE";
+    dob: any;
+    gender: string = "";
     country: string = "";
     countryId: number;
     streetAddress: string = "";
@@ -39,7 +39,7 @@ export class Patient {
     cityId: number;
     state: string = "";
     stateId: number;
-    marital: string = "SINGLE";
+    marital: string = "";
     emergencyContactName: string = "";
     emergencyContactPhone: string = "";
     emergencyContactRelation: string = "";
@@ -65,6 +65,7 @@ export class Patient {
     hasChild: boolean = false;
 
     constructor() {
-        
+
     }
 }
+

@@ -329,14 +329,16 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Date of Birth
-                                                </label>
+                                                <label class="control-label col-md-4">Date of Birth</label>
                                                 <div class="col-md-8 select ">
-                                                    <input type="date"
+                                                    <!--<input type="date"
                                                            class="form-control form-control-inline input-medium"
                                                            [(ngModel)]="patient.dob"
                                                            (ngModelChange)="patient.dob = $event"
-                                                           name="dob" #dob="ngModel">
+                                                           name="dob" #dob="ngModel">-->
+                                                    <angular2-date-picker name="dob" id="dob" [settings]="settings"
+                                                                          [(ngModel)]="patient.dob" [ngModelOptions]="{standalone:true}">
+                                                    </angular2-date-picker>
                                                 </div>
                                                 <!--<span *ngIf="dob.invalid && dob.touched"
                                                       class="col-md-9 select pdng-lr-5 text-danger">
@@ -397,12 +399,17 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Gender</label>
                                                 <div class="col-md-8">
-                                                    <select class="form-control" name="gender"
+                                                    <!--<select class="form-control" name="gender"
                                                             #gender="ngModel"
                                                             [(ngModel)]="patient.gender">
                                                         <option value="MALE">Male</option>
                                                         <option value="FEMALE">Female</option>
-                                                    </select>
+                                                    </select>-->
+                                                    <p-dropdown placeholder="Select Gender" [autoWidth]="false"
+                                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="gender"
+                                                                [(ngModel)]="patient.gender" [options]="genders"
+                                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -449,8 +456,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Street Address
-                                                </label>
+                                                <label class="control-label col-md-4">Street Address</label>
                                                 <div class="col-md-8">
                                                     <textarea class="form-control" rows="3"
                                                               placeholder=" Street Address"
@@ -529,27 +535,31 @@
                                                        [(ngModel)]="patient.planName"></div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label txt-size ">Card Issued Date
-                                            </label>
+                                            <label class="col-md-4 control-label txt-size ">Card Issued Date</label>
                                             <div class="col-md-8 select ">
-                                                <input type="date" class="form-control form-control-inline input-medium"
+                                                <!--<input type="date" class="form-control form-control-inline input-medium"
                                                        (ngModelChange)="patient.cardIssuedDate = $event"
                                                        #cardIssuedDate="ngModel"
-                                                       [(ngModel)]="patient.cardIssuedDate" name="cardIssuedDate">
+                                                       [(ngModel)]="patient.cardIssuedDate" name="cardIssuedDate">-->
+                                                <angular2-date-picker name="cardIssuedDate" id="cardIssuedDate" [settings]="settings"
+                                                                      [(ngModel)]="patient.cardIssuedDate" [ngModelOptions]="{standalone:true}">
+                                                </angular2-date-picker>
                                             </div>
-                                            <span *ngIf="cardIssuedDate.invalid && cardIssuedDate.touched"
+                                            <!--<span *ngIf="cardIssuedDate.invalid && cardIssuedDate.touched"
                                                   class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter valid from Date.
-                                            </span>
+                                            </span>-->
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label txt-size ">Card expiry Date
-                                            </label>
+                                            <label class="col-md-4 control-label txt-size ">Card expiry Date</label>
                                             <div class="col-md-8 select ">
-                                                <input type="date" class="form-control form-control-inline input-medium"
+                                                <!--<input type="date" class="form-control form-control-inline input-medium"
                                                        (ngModelChange)="patient.cardExpiryDate = $event"
                                                        #cardExpiryDate="ngModel"
-                                                       [(ngModel)]="patient.cardExpiryDate" name="cardExpiryDate">
+                                                       [(ngModel)]="patient.cardExpiryDate" name="cardExpiryDate">-->
+                                                <angular2-date-picker name="cardExpiryDate" id="cardExpiryDate" [settings]="settings"
+                                                                      [(ngModel)]="patient.cardExpiryDate" [ngModelOptions]="{standalone:true}">
+                                                </angular2-date-picker>
                                             </div>
                                             <!--<span *ngIf="cardExpiryDate.invalid && cardExpiryDate.touched"
                                                   class="col-md-9 select pdng-lr-5 text-danger">

@@ -20,6 +20,7 @@ import {PatientLabOrdersComponent} from "../components/dashboard/patient/patient
 import {PatientCommunicationComponent} from "../components/dashboard/patient/patient-communication.component";
 import {PatientFamilyHistoryComponent} from "../components/dashboard/patient/patient-family-history.component";
 import {PatientAddLabOrdersComponent} from "../components/dashboard/patient/patient-add-lab-orders.component";
+import {InvoiceListingComponent} from "../components/dashboard/patient/invoice-listing.component";
 
 export const PatientRoutes: Routes = [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},

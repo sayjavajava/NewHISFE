@@ -9,6 +9,8 @@ import {NotificationService} from "../../../services/notification.service";
 import {NgForm} from "@angular/forms";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {SelectItem} from "primeng/api";
+import {DatePicker} from "angular2-datetimepicker";
+import * as moment from 'moment';
 
 @Component({
     selector: 'add-patient',
@@ -25,6 +27,7 @@ export class AddPatientComponent implements OnInit {
     pCommunication :any;
     emergencyContactRelations: any = [];
     maritalStatus: any = [];
+    genders: any = [];
     countryList: any[];
     countryListModified: SelectItem[] = [];
     statesList: any[];
@@ -48,6 +51,15 @@ export class AddPatientComponent implements OnInit {
                 (error: any) => {
                     this.HISUTilService.tokenExpired(error.error.error);
                 });
+        DatePicker.prototype.ngOnInit = function() {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker = false;
+            this.settings.format = "E MMM dd yyyy";
+            this.date = new Date();
+        };
     }
 
     /*search = (text$: Observable<string>) =>
@@ -83,19 +95,31 @@ export class AddPatientComponent implements OnInit {
             {label: 'MARRIED', value: 'MARRIED'},
             {label: 'WIDOWED', value: 'WIDOWED'},
             {label: 'DIVORCED', value: 'DIVORCED'},
-            {label: 'SEPERATED', value: 'SEPERATED'},
+            {label: 'SEPARATED', value: 'SEPARATED'},
+        ];
+        this.genders = [
+            {label: 'MALE', value: 'MALE'},
+            {label: 'FEMALE', value: 'FEMALE'},
+            {label: 'OTHER', value: 'OTHER'},
         ];
         this.emergencyContactRelations = [
-            {label: 'Father', value: 'F'},
-            {label: 'Mother', value: 'M'},
-            {label: 'Husband', value: 'H'},
-            {label: 'Wife', value: 'W'},
-            {label: 'Brother', value: 'B'},
-            {label: 'Son', value: 'S'},
-            {label: 'Other', value: 'O'},
+            {label: 'FATHER', value: 'FATHER'},
+            {label: 'MOTHER', value: 'MOTHER'},
+            {label: 'HUSBAND', value: 'HUSBAND'},
+            {label: 'WIFE', value: 'WIFE'},
+            {label: 'BROTHER', value: 'BROTHER'},
+            {label: 'SON', value: 'SON'},
+            {label: 'OTHER', value: 'OTHER'},
         ];
         this.createCountriesList();
         this.patient.status = true;
+
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
 
     }
 
@@ -155,6 +179,15 @@ export class AddPatientComponent implements OnInit {
             this.notificationService.error('Please provide required values', 'Patient');
             return;
         } else {
+            console.log(this.patient.dob);
+            if(this.patient.dob.toString().length>0){
+                this.patient.dob = this.patient.dob.toString().substring(0,24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time)
+            }
+            console.log(this.patient.dob);
+
+            // let dateObj = moment(this.patient.dob , "EEE MMM dd YYYY HH:mm:ss 'GMT'Z");
+            // console.log(dateObj.toDate());
+
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
 

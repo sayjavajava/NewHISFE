@@ -28,20 +28,18 @@ export class LabTestComponent {
         document.title = 'HIS | Lab Test Speciman Template';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getAllTestSpecimanList();
-        };
+        }
         this.cols = [
             { field: 'testCode', header: 'Test Code' },
             { field: 'testName', header: 'Name' },
             { field: 'minNormalRange', header: 'MIN Range' },
-            { field: 'maxNormalRange', header: 'MAX RANGE' },
+            { field: 'maxNormalRange', header: 'MAX Range' },
             { field: 'description', header: 'Description' },
-            {field: 'Action', header: 'Action'},
+            { field: 'action', header: 'Action' },
 
         ];
 
     }
-
-
 
     getAllTestSpecimanList() {
         if (localStorage.getItem(btoa('access_token'))) {

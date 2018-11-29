@@ -1,3 +1,4 @@
+///<reference path="components/dashboard/patient/invoice-listing.component.ts"/>
 // Modules
 import {NgModule, OnInit} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
@@ -156,6 +157,9 @@ import {PaymentTypeComponent} from "./components/dashboard/setting/PaymentType.c
 import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
 import {EditorModule} from "primeng/editor";
 import {ChartModule} from "primeng/chart";
+import {InvoiceListingComponent} from "./components/dashboard/patient/invoice-listing.component";
+import {ReceiptListingComponent} from "./components/dashboard/patient/receipt-listing.component";
+import {RefundListingComponent} from "./components/dashboard/patient/refund-listing.component";
 
 
 @NgModule({
@@ -327,7 +331,11 @@ import {ChartModule} from "primeng/chart";
         MenuComponent,
         PaymentTypeComponent,
         DrugComponent,
-        CurrencyComponent
+        CurrencyComponent,
+
+        InvoiceListingComponent,
+        ReceiptListingComponent,
+        RefundListingComponent,
     ],
     bootstrap: [AppComponent]
 })

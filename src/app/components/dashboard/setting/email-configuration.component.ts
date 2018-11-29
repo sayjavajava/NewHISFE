@@ -28,9 +28,8 @@ export class EmailConfigurationComponent {
 
     getAllConfigurations() {
         if (localStorage.getItem(btoa('access_token'))) {
-
-            this.requestsService.getRequest(AppConstants.FETCH_EMAIL_CONFIGURATIONS
-            ).subscribe(
+            this.requestsService.getRequest(AppConstants.FETCH_EMAIL_CONFIGURATIONS)
+                .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
                         if (response['responseData'].length > 0) {

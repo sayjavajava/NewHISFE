@@ -1,15 +1,15 @@
 /**
  * Created by jamal on 10/24/2018.
  */
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {RequestsService} from '../../../services/requests.service';
-import {HISUtilService} from '../../../services/his-util.service';
-import {ConformationDialogService} from '../../../services/ConformationDialogService';
-import {DataService} from '../../../services/DataService';
-import {NotificationService} from '../../../services/notification.service';
-import {PatientGroupModel} from '../../../model/patient-group.model';
-import {AppConstants} from '../../../utils/app.constants';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {RequestsService} from "../../../services/requests.service";
+import {HISUtilService} from "../../../services/his-util.service";
+import {ConformationDialogService} from "../../../services/ConformationDialogService";
+import {DataService} from "../../../services/DataService";
+import {NotificationService} from "../../../services/notification.service";
+import {PatientGroupModel} from "../../../model/patient-group.model";
+import {AppConstants} from "../../../utils/app.constants";
 
 
 @Component({
@@ -28,13 +28,20 @@ export class PatientGroupComponent implements OnInit, OnDestroy {
     patientId: number;
     error: any;
     searchPatientGroup: string = '';
+    cols: any[];
 
     constructor(private router: Router, private requestsService: RequestsService, private HISUtilService: HISUtilService, private dataService: DataService,
                 private notificationService: NotificationService, private confirmationDialogService: ConformationDialogService) {
+        this.cols = [
+            {field: "name", header: "Name"},
+            {field: "description", header: "Description"},
+            {field: "patientCount", header: "Patient Count"},
+            {field: "status", header: "Status"},
+            {field: "action", header: "Action"}
+        ];
     }
 
     ngOnInit(): void {
-
         if (window.localStorage.getItem(btoa('access_token'))) {
             this.getPageWisePatientGroupFromServer(0);
         } else {

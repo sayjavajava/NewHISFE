@@ -57,7 +57,7 @@ export class BranchComponent implements OnInit {
             {field: 'country', header: 'Country'},
             {field: 'city', header: 'City'},
             {field: "rooms", header: "Rooms"},
-            {field: "id", header: "Action"}
+            {field: "action", header: "Action"}
         ];
     }
 
