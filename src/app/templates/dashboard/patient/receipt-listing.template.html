@@ -1,9 +1,28 @@
 <div class="page-container">
     <div class="page-content-wrapper">
+
         <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
-                    <div class="hr"><h3 class="text-info">Receipt Listing</h3></div>
+                    <div class="hr">
+                        <h3 class="text-info">Receipt Listing
+                            <div class="pull-right">
+                                <a href="#responsive" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow">
+                                        <i class="fa fa-plus"></i> Add
+                                    </button>
+                                </a>
+                            </div>
+
+
+                            <div class="pull-right" style="padding-right: 5px">
+                                    <button class="btn mt-sweetalert btn green-meadow" (click)="patientInvoiceList(1)">
+                                        <i class="fa fa-plus"></i> Patient Invoices
+                                    </button>
+                            </div>
+
+                        </h3>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -40,6 +59,141 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+            <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form id="loginForm" class="login-form" #form="ngForm">
+                        <div class="modal-content" style="width: 80%">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Add Advance</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <div>
+                                        <div class="row">
+                                            <div class="form-group hr">
+                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Entry Number <span class="required" aria-required="true"> * </span></label>
+                                                <div class="col-md-9 select pdng-lr-5">
+                                                    <input class="form-control" type="text"
+                                                           name="paymentId"
+                                                           required
+                                                           [(ngModel)]="addAdvance.paymentId"
+                                                           #paymentId="ngModel"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group hr">
+                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Entry Date <span class="required" aria-required="true"> * </span></label>
+                                               <!-- <div class="col-md-9 select pdng-lr-5">
+                                                    <input class="form-control"
+                                                           type="text"
+                                                           name="date"
+                                                           required
+                                                           [(ngModel)]="addAdvance.date"
+                                                           #date="ngModel"/>
+                                                </div> -->
+
+                                                <div class="col-md-8 select ">
+                                                    <angular2-date-picker
+                                                            name="date"
+                                                            id="date"
+                                                            [settings]="settings"
+                                                            [(ngModel)]="addAdvance.date"
+                                                            [ngModelOptions]="{standalone:true}">
+                                                    </angular2-date-picker>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group hr">
+                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Patient Name <span class="required" aria-required="true"> * </span></label>
+                                                <div class="col-md-9 select pdng-lr-5">
+                                                    <p-dropdown [(ngModel)]="addAdvance.patientId"
+                                                                [autoWidth]="false"
+                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                required
+                                                                id="route"
+                                                                placeholder="Select Customer"
+                                                                name="route"
+                                                                [options]="patientList"
+                                                                #route="ngModel">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group hr">
+                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Payment Type <span class="required" aria-required="true"> * </span></label>
+
+                                                <div class="col-md-9 select pdng-lr-5">
+                                                    <p-dropdown [(ngModel)]="addAdvance.paymentTypeId"
+                                                                [autoWidth]="false"
+                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                required
+                                                                id="paymentType"
+                                                                placeholder="Select Payment Type"
+                                                                name="paymentType"
+                                                                [options]="paymentTypeList"
+                                                                #paymentType="ngModel">
+                                                    </p-dropdown>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group hr">
+                                                <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
+                                                <div class="col-md-9 select pdng-lr-5">
+                                                    <textarea class="form-control"
+                                                              rows="3"
+                                                              [(ngModel)]="addAdvance.description"
+                                                              name="desc"
+                                                              #desc="ngModel"
+                                                              placeholder="enter description of advance payment">
+
+                                                    </textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group hr">
+                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
+                                                <div class="col-md-9 select pdng-lr-5">
+                                                    <input class="form-control"
+                                                           type="text"
+                                                           name="amount"
+                                                           placeholder="enter advance amount"
+                                                           required
+                                                           [(ngModel)]="addAdvance.amount"
+                                                           #amount="ngModel"/>
+                                                    <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+                                                </div>
+                                                <span *ngIf="amount.invalid && amount.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                                    Please enter valid amount.
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline"> Close </button>
+                                <button type="button"
+                                        class="btn blue"
+                                        (click)="saveAdvance(form)">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
             <div class="clearfix"></div>
         </div>
     </div>

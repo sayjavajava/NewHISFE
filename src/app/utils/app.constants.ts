@@ -279,6 +279,16 @@ export class AppConstants {
     public static DELETE_PAYMENTTYPE = '/PaymentType/delete/';
     public static UPDATE_PAYMENTTYPE= '/PaymentType/update';
 
+
+    //////////////Payment API for Receipt ///////////////////////////////////
+    public static SAVE_ADVANCE_PAYMENT = '/payment/saveAdvancePayment';
+    public static GET_INVOICE_List_BY_PAT_ID = '/payment/getPatientInvoiceListById/';
+
+
+
+
+
+
     ////////////////Country/////////////////////////////
     public static GET_ALL_COUNTRY='/CountryAPI/';
     public static GET_STATE_BYCOUNTRYID='/StateAPI/get/';

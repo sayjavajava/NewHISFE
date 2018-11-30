@@ -160,6 +160,7 @@ import {ChartModule} from "primeng/chart";
 import {InvoiceListingComponent} from "./components/dashboard/patient/invoice-listing.component";
 import {ReceiptListingComponent} from "./components/dashboard/patient/receipt-listing.component";
 import {RefundListingComponent} from "./components/dashboard/patient/refund-listing.component";
+import {PatientInvoiceListComponent} from "./components/dashboard/patient/patient-invoice-list.component";
 
 
 @NgModule({
@@ -336,6 +337,8 @@ import {RefundListingComponent} from "./components/dashboard/patient/refund-list
         InvoiceListingComponent,
         ReceiptListingComponent,
         RefundListingComponent,
+
+        PatientInvoiceListComponent
     ],
     bootstrap: [AppComponent]
 })

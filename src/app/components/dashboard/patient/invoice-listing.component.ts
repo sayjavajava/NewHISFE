@@ -15,6 +15,7 @@ export class InvoiceListingComponent {
     selectedInvoiceId: any;
     cols: any[];
     currency: string = "";
+    totalAmount: number;
 
     constructor(private router: Router, private titleService: Title, private route: ActivatedRoute, private requestsService: RequestsService) {
         this.currency = "USD";

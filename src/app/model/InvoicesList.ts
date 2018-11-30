@@ -9,6 +9,9 @@ export class InvoicesList
     taxAmount: number;
     discountAmount: number;
 
+    totalAmount: number;
+
     constructor() {
+        this.totalAmount = this.invoiceAmount + this.taxAmount - this.discountAmount;
     }
 }
