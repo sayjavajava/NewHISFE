@@ -19,3 +19,6 @@ target/
 
 ### NodeJS ###
 /node_modules
+
+### Package File ###
+package-lock.json

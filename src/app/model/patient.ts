@@ -24,6 +24,9 @@ export class Patient {
     status: boolean = false;
     primaryDoctorFirstName: string = "";
     primaryDoctorLastName: string = "";
+    patientGroup: string = "";
+    patientGroupId: number;
+
     ////////Appointment
     pastAppointments: any = [];
     futureAppointments: any[];
