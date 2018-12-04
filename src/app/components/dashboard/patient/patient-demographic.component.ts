@@ -12,6 +12,7 @@ import {ConformationDialogService} from "../../../services/ConformationDialogSer
 import {Invoice} from "../../../model/Invoice";
 import {SelectItem} from "primeng/api";
 import {DatePicker} from "angular2-datetimepicker";
+import any = jasmine.any;
 
 @Component({
     selector: 'patient-history',
@@ -45,14 +46,7 @@ export class PatientDemographicComponent implements OnInit {
     citiesListModified: SelectItem[] = [];
     selectedCity: string = '';
     smokeStatusType :any;
-    martialStatus = [
-        {label: 'SINGLE', value: 'SINGLE',selected:false},
-        {label: 'MARRIED', value: 'MARRIED',selected:false},
-        {label: 'WIDOWED', value: 'WIDOWED',selected:false},
-        {label: 'DIVORCED', value: 'DIVORCED',selected:false},
-        {label: 'SEPARATED', value: 'SEPARATED',selected:false},
 
-    ];
 
 
 
