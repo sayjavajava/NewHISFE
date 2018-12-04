@@ -236,6 +236,8 @@ export class AppConstants {
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+    public static VITALS_CONFIGURATION_GET_BY_ID = '/vitalSetup/get/';
+    public static VITALS_CONFIGURATION_DELETE = '/vitalSetup/delete/';
 
 
     ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
@@ -249,6 +251,7 @@ export class AppConstants {
     public static PATIENT_GROUP_SAVE_URL = '/patient/group/save';
     public static PATIENT_GROUP_UPDATE_URL = '/patient/group/update';
     public static PATIENT_GROUP_GET_URL = '/patient/group/get?patientGroupId=';
+    public static PATIENT_GROUP_GET_ALL = '/patient/group/get/all';
 
 
     ///////////////////// Drug URLs ////////////////////////////////////////

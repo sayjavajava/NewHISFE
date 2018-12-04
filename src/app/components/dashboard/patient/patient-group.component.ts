@@ -43,7 +43,8 @@ export class PatientGroupComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.getPageWisePatientGroupFromServer(0);
+            // this.getPageWisePatientGroupFromServer(0);
+            this.getAllPatientGroupsFromServer();
         } else {
             this.router.navigate(['/login']);
         }
@@ -70,7 +71,8 @@ export class PatientGroupComponent implements OnInit, OnDestroy {
                 (response: Response) => {
                     if (response['responseCode'] === 'PATGRP_SUC_1') {
                         this.notificationService.success(response['responseMessage'], 'Patient Group');
-                        this.getPageWisePatientGroupFromServer(0);
+                        // this.getPageWisePatientGroupFromServer(0);
+                        this.getAllPatientGroupsFromServer();
                         this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Patient Group');
@@ -110,7 +112,8 @@ export class PatientGroupComponent implements OnInit, OnDestroy {
 
         if (this.patientGroup.id <= 0) {
             this.notificationService.error('Please select proper record again.', 'Patient Group');
-            this.getPageWisePatientGroupFromServer(0);
+            // this.getPageWisePatientGroupFromServer(0);
+            this.getAllPatientGroupsFromServer();
             return;
         }
 
@@ -121,7 +124,8 @@ export class PatientGroupComponent implements OnInit, OnDestroy {
                 (response: Response) => {
                     if (response['responseCode'] === 'PATGRP_SUC_7') {
                         this.notificationService.success(response['responseMessage'], 'Patient Group');
-                        this.getPageWisePatientGroupFromServer(0);
+                        // this.getPageWisePatientGroupFromServer(0);
+                        this.getAllPatientGroupsFromServer();
                         this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Patient Group');
@@ -157,6 +161,21 @@ export class PatientGroupComponent implements OnInit, OnDestroy {
             );
     }
 
+    getAllPatientGroupsFromServer() {
+        this.requestsService.getRequest(AppConstants.PATIENT_GROUP_GET_ALL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'PATGRP_SUC_6') {
+                        this.data = response['responseData']['data'];
+                    }
+                },
+                (error: any) => {
+                    console.log(error.error.error);
+                    this.notificationService.error(error.error.error);
+                }
+            );
+    }
+
     getPageWisePatientGroup(page: any) {
 
         this.getPageWisePatientGroupFromServer(page);
@@ -171,9 +190,11 @@ export class PatientGroupComponent implements OnInit, OnDestroy {
                     (response: Response) => {
                         if (response['responseCode'] === 'PATGRP_SUC_10') {
                             this.notificationService.success(response['responseMessage'], 'Patient Group');
-                            this.getPageWisePatientGroupFromServer(0);
+                            // this.getPageWisePatientGroupFromServer(0);
+                            this.getAllPatientGroupsFromServer();
                         } else {
-                            this.getPageWisePatientGroupFromServer(0);
+                            // this.getPageWisePatientGroupFromServer(0);
+                            this.getAllPatientGroupsFromServer();
                             this.notificationService.error(response['responseMessage'], 'Patient Group');
                         }
                     },
