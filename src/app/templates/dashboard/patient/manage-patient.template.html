@@ -22,7 +22,7 @@
                 </div>
                 <div class="">
 
-                    <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <!--<div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                         <div class="col-md-4">
                             <div class="form-group font-siz11">
                                 <input type="text" class="form-control"
@@ -39,10 +39,72 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="table-scrollable">
-                        <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                        <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10" exportFilename="patients">
+                            <ng-template pTemplate="caption">
+                                <div class="ui-helper-clearfix">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button class="btn mt-sweetalert green-meadow" type="button" pButton (click)="dt.exportCSV()">
+                                                <i class="fa fa-download" aria-hidden="true"></i> Export All Data
+                                            </button>
+                                            <div class="upload-btn-wrapper">
+                                                <button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>
+                                                <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                       id="patientDataImport" name="patientDataImport" value="" placeholder="" (change)="importData($event)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template sortable="true" pTemplate="header" let-columns>
+                                <tr>
+                                    <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;'>
+                                        {{col.header}}
+                                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns">
+                                        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"  style='width: -webkit-fill-available;'>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-data let-a="rowIndex">
+                                <tr>
+                                    <td field="serial">{{a+1}}</td>
+                                    <!--<p-column field="serial" header="#" [style]="{width:'5%','text-align':'left'}">
+                                        <template let-a="absRowIndex" pTemplate="body">
+                                            {{a+1}}
+                                        </template>
+                                    </p-column>-->
+                                    <!--<td field="serial" class="c-text-left">{{1+1}}</td>-->
+                                    <td field="patientId" class="c-text-left padding font-green-dark">
+                                        <strong>
+                                            <a title="Patient History" class="font-green-dark" (click)="patientHistory(data.id)">{{data.patientId}}</a>
+                                        </strong>
+                                    </td>
+                                    <td field="firstName" class="c-text-left padding font-green-dark"><strong>{{data.firstName}} {{data.middleName}} {{data.lastName}}</strong></td>
+                                    <td field="email" class="c-text-left" style="word-break: break-all;">{{data.email}}</td>
+                                    <td field="gender" class="c-text-left">{{data.gender}}</td>
+                                    <td field="cellPhone" class="c-text-left">{{data.cellPhone}}</td>
+                                    <td field="pastAppointments" class="c-text-left">{{data.pastAppointments}}</td>
+                                    <td field="futureAppointments" class="c-text-left">{{data.futureAppointments}}</td>
+                                    <td field="status">{{data.status === true ? 'Active' : 'Inactive'}}</td>
+                                    <td class="sorting_disabled">
+                                        <a routerLink="/dashboard/patient/edit/{{data.id}}">
+                                            <button class="btn btn-default btn-outline btn-sm"> <i class="fa fa-pencil"></i> </button>
+                                        </a>
+                                        <span [hidden]="data.hasChild">
+                                            <button class="btn btn-default btn-outline btn-sm" (click)="deletePatient(data.id)"> <i class="fa fa-remove"></i> </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <!--<table class="table table-striped table-hover table-checkable dataTable no-footer"
                                id="datatable_ajax" role="grid">
                             <thead>
                             <tr role="row" class="off-wite-bg">
@@ -59,7 +121,7 @@
                                 <td class="c-text-left">{{patient.gender}}</td>
                                 <td class="c-text-left">{{patient.cellPhone}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">
-                                    {{patient.statusUser === true ? 'Active' : 'InActive'}}
+                                    {{patient.status === true ? 'Active' : 'InActive'}}
                                 </td>
                                 <td class="sorting_disabled">
                                     <a routerLink="/dashboard/patient/edit/{{patient.id}}">
@@ -76,13 +138,13 @@
                                 </td>
                             </tr>
                             </thead>
-                        </table>
+                        </table>-->
                     </div>
                 </div>
             </div>
             <div class="clearfix"></div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -114,7 +176,7 @@
                 </div>
                 <p></p>
             </div>
-        </div>
+        </div>-->
     </div>
 
 </div>

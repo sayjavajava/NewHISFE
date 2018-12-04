@@ -1,26 +1,26 @@
 <div class="page-content-wrapper">
     <div class="page-content">
 
-                <div class="hr">
-                    <h4 class="text-info">Vital Setup
-                        <div class="pull-right">
-                            <a href="#vitalSetup" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow" >
-                                    <i class="fa fa-plus"></i> Add
-                                </button>
-                            </a>
+        <div class="hr">
+            <h4 class="text-info">Vital Setup
+                <div class="pull-right">
+                    <a href="#vitalSetup" data-toggle="modal">
+                        <button class="btn mt-sweetalert btn green-meadow" >
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                    </a>
 
-                            <!--<button class="btn mt-sweetalert btn blue"
-                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                    data-type="success" data-allow-outside-click="true"
-                                    (click)="getBranchFromServer(0)"
-                                    data-confirm-button-class="btn-success"> Refresh
-                            </button>-->
-                            <span><button class="btn btn-default btn-outline"> <i
-                                    class=" icon-clock"></i> Print </button></span>
-                        </div>
-                    </h4>
+                    <!--<button class="btn mt-sweetalert btn blue"
+                            data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                            data-type="success" data-allow-outside-click="true"
+                            (click)="getBranchFromServer(0)"
+                            data-confirm-button-class="btn-success"> Refresh
+                    </button>-->
+                    <span><button class="btn btn-default btn-outline"> <i
+                            class=" icon-clock"></i> Print </button></span>
                 </div>
+            </h4>
+        </div>
 
               <!--  <div class="table-scrollable">
                     <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax">
@@ -48,55 +48,62 @@
                     </table>
                 </div>-->
         <div class="col-md-12 col-xs-12">
-                <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
-                    <ng-template pTemplate="caption">
-                        <div style="text-align: right">
-                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                        </div>
-                    </ng-template>
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th *ngFor="let col of columns">
-                                {{col.header}}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th *ngFor="let col of columns">
-                                <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                            </th>
-                        </tr>
+            <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
+                <!--<ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>-->
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
+                            {{col.header}}
+                            <p-sortIcon *ngIf="col.field != 'action' && col.field != 'status'"
+                                        [field]="col.field"
+                                        ariaLabel="Sort"
+                                        ariaLabelDesc="Sort in descending order"
+                                        ariaLabelAsc="Sort in ascending order">
+                            </p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            <input *ngSwitchCase="'unit'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            <input *ngSwitchCase="'standardValue'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        </th>
+                    </tr>
+                </ng-template>
 
-                    </ng-template>
+                <ng-template pTemplate="body" let-item let-columns="columns">
+                    <tr>
 
-                    <ng-template pTemplate="body" let-item let-columns="columns">
-                        <tr>
-
-                            <!--{{car[col.field]}}-->
-                            <td> {{item.name}}</td>
-                            <td> {{item.unit}}</td>
-                            <td> {{item.standardValue}}</td>
-                             <td> {{item.status}}</td>
+                        <!--{{car[col.field]}}-->
+                        <td> {{item.name}}</td>
+                        <td> {{item.unit}}</td>
+                        <td> {{item.standardValue}}</td>
+                        <td> {{item.status==true || item.status=='true'? 'Active': 'Inactive'}}</td>
 
 
-                            <td>
-                                <a href="#vitalSetup" data-toggle="modal">
-                                    <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="edit(item)"><i class="fa fa-pencil"></i>
-
-                                    </button>
-                                </a>
+                        <td>
+                            <a href="#vitalSetup" data-toggle="modal">
                                 <button class="btn btn-default btn-outline btn-sm"
-                                        (click)="deleteDepartment(item.id)">
-                                    <i class="fa fa-remove"></i>
+                                        (click)="edit(item)"><i class="fa fa-pencil"></i>
+
                                 </button>
+                            </a>
+                            <button class="btn btn-default btn-outline btn-sm"
+                                    (click)="deleteDepartment(item.id)">
+                                <i class="fa fa-remove"></i>
+                            </button>
 
-                            </td>
+                        </td>
 
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
 
         <div class="clearfix"></div>
     </div>

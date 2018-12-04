@@ -118,6 +118,26 @@
                     <p-table #dt [columns]="cols" [value]="branchesList" [paginator]="true" [rows]="10">
                         <ng-template sortable="true" pTemplate="header" let-columns>
                             <tr>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
+                                    {{col.header}}
+                                    <p-sortIcon *ngIf="col.field != 'doctorsList' && col.field != 'action'"
+                                                [field]="col.field"
+                                                ariaLabel="Sort"
+                                                ariaLabelDesc="Sort in descending order"
+                                                ariaLabelAsc="Sort in ascending order">
+                                    </p-sortIcon>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                    <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <!--<input *ngSwitchCase="'doctorsList'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+                                    <input *ngSwitchCase="'country'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <input *ngSwitchCase="'city'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <input *ngSwitchCase="'rooms'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                </th>
+                            </tr>
+                            <!--<tr>
                                 <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;'>
                                     {{col.header}}
                                     <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
@@ -127,7 +147,7 @@
                                 <th *ngFor="let col of columns">
                                     <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"  style='width: -webkit-fill-available;'>
                                 </th>
-                            </tr>
+                            </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-branchesList>
                             <tr>

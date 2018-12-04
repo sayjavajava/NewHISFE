@@ -153,6 +153,18 @@ export class RequestsService {
         }
         return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
     }
+
+    postRequestMultipartForm(url: any, dataFile: File) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'multipart/form-data');
+        let formData: FormData = new FormData();
+
+        if (dataFile != null) {
+            formData.append('dataFile', dataFile, dataFile.name);
+        }
+        return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
+    }
+
     getEvents() {
         return this.http.get('showcase/resources/data/scheduleevents.json')
             .toPromise()

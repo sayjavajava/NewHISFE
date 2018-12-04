@@ -6,7 +6,12 @@ export class InvoicesList
     paidAmount : number;
     invoiceAmount : number;
     status : string;
+    taxAmount: number;
+    discountAmount: number;
+
+    totalAmount: number;
 
     constructor() {
+        this.totalAmount = this.invoiceAmount + this.taxAmount - this.discountAmount;
     }
 }

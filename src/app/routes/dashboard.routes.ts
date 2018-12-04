@@ -14,6 +14,10 @@ import {ReceptionistDashboardComponent} from "../components/dashboard/receptioni
 import { CashierComponent } from "../components/dashboard/cashier/cashier.component";
 import { PaymentComponent } from "../components/dashboard/cashier/payment.component";
 import {PrimeSchedularComponent} from "../components/dashboard/primeschedular/prime-schedular.component";
+import {PatientInvoiceComponent} from "../components/dashboard/patient/patient-invoice.component";
+import {InvoiceListingComponent} from "../components/dashboard/patient/invoice-listing.component";
+import {ReceiptListingComponent} from "../components/dashboard/patient/receipt-listing.component";
+import {RefundListingComponent} from "../components/dashboard/patient/refund-listing.component";
 
 
 export const DashboardRoutes: Routes = [      
@@ -23,6 +27,10 @@ export const DashboardRoutes: Routes = [
     {path: 'doctor', component: DoctorDashboardComponent},
     {path: 'cashier', component: CashierComponent },
     {path: 'payment/:id', component: PaymentComponent },
+    {path: 'invoice', component: PatientInvoiceComponent },
+    {path: 'invoice-listing', component: InvoiceListingComponent },
+    {path: 'receipt-listing', component: ReceiptListingComponent },
+    {path: 'refund', component: RefundListingComponent },
 
     {path: 'nurse', component: NurseDashboardComponent},
     {path: 'receptionist', component: ReceptionistDashboardComponent},

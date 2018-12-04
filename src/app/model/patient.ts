@@ -12,19 +12,16 @@ export class Patient {
     firstName: string = "";
     middleName: string = "";
     lastName: string = "";
-    foreignName: string = "";
     profileImgURL: string;
     profileImg: File;
     homePhone: string = "";
     cellPhone: string = "";
     disableSMSTxt: boolean = false;
     officePhone: string = "";
-    officeExtension: string = "";
     email: string = "";
     userName: string = "";
-    preferredCommunication: string = "ENGLISH";
-    reminderLanguage: string = "ENGLISH";
-    statusUser: boolean = true;
+    preferredCommunication: string = "";
+    status: boolean = false;
     primaryDoctorFirstName: string = "";
     primaryDoctorLastName: string = "";
     ////////Appointment
@@ -33,37 +30,19 @@ export class Patient {
     /////// DEMOGRAPHY
     patientId: number;
     patientSSN: string = "";
-    dob: string = "";
-    gender: string = "MALE";
-   /* races: Race[] = [
-        {id: 1, nameRace: 'American Indian or Alaska Native', selected: false},
-        {id: 2, nameRace: 'Asian', selected: false},
-        {id: 3, nameRace: 'Black or African American', selected: false},
-        {id: 4, nameRace: 'Native Hawaiian or Other Pacific Islam', selected: false},
-        {id: 5, nameRace: 'White', selected: false},
-        {id: 6, nameRace: 'Other Race', selected: false}
-    ];*/
-
-    races = [
-        {label: 'American Indian or Alaska Native', value: 'American Indian or Alaska Native',selected:false},
-        {label: 'Americian', value: 'Americian',selected:false},
-        {label: 'Asian', value: 'Asian',selected:false},
-        {label: 'Black or African American', value: 'Black or African American',selected:false},
-        {label: 'White', value: 'White',selected:false},
-        {label: 'Other Race', value: 'Other Race',selected:false},
-
-    ];
-    country: string = "SAUDI ARAB";
+    dob: any;
+    gender: string = "";
+    country: string = "";
+    countryId: number;
     streetAddress: string = "";
-    zipCode: string = "";
     city: string = "";
-    state: string = "SAUDI ARAB";
-    formattedAddress: string = "";
-    marital: string = "SINGLE";
+    cityId: number;
+    state: string = "";
+    stateId: number;
+    marital: string = "";
     emergencyContactName: string = "";
     emergencyContactPhone: string = "";
     emergencyContactRelation: string = "";
-    signatureOnFile: boolean = false;
 
     ///////////////// INSURANCE
     insuranceId: number;// PK
@@ -75,8 +54,8 @@ export class Patient {
     cardIssuedDate: string = "";
     cardExpiryDate: string = "";
     primaryInsuranceNotes: string = "";
-    photoBackURL: string
-    photoFrontURL: string
+    photoBackURL: string;
+    photoFrontURL: string;
     photoFront: File;
     photoBack: File;
 
@@ -86,6 +65,7 @@ export class Patient {
     hasChild: boolean = false;
 
     constructor() {
-        
+
     }
 }
+

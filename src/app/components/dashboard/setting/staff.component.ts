@@ -58,7 +58,7 @@ export class StaffComponent implements OnInit {
             { field: 'primaryBranch', header: 'Primary Branch' },
             { field: 'username', header: 'User Name' },
             { field: 'email', header: 'Email' },
-            { field: 'Action', header: 'Action' }
+            { field: 'action', header: 'Action' }
         ];
     }
 

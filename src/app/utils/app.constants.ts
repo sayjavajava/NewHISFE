@@ -125,6 +125,7 @@ export class AppConstants {
     public static PATIENT_UPDATE_URL = '/patient/update';
     public static SEARCH_ALL_PATIENT_URL = '/patient/search';
     public static GET_ALL_PATIENT_URL = '/patient/';
+    public static IMPORT_PATIENTS_LIST_TO_SERVER = '/patient/importPatientRecords';
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadInsuranceFrontImg/';//'/patient/uploadImageFront/insurance/';
     public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadInsuranceBackImg/';//'/patient/uploadImageBack/insurance/';
@@ -278,6 +279,17 @@ export class AppConstants {
     public static DELETE_PAYMENTTYPE = '/PaymentType/delete/';
     public static UPDATE_PAYMENTTYPE= '/PaymentType/update';
 
+
+    //////////////Payment API for Receipt ///////////////////////////////////
+    public static SAVE_ADVANCE_PAYMENT = '/payment/saveAdvancePayment';
+    public static GET_INVOICE_List_BY_PAT_ID = '/payment/getPatientInvoiceListById/';
+
+    public static SAVE_BULK_RECEIT = '/payment/saveBulkReceit';
+    public static GET_RECEIPT_List = '/payment/getReceiptList';
+
+
+
+
     ////////////////Country/////////////////////////////
     public static GET_ALL_COUNTRY='/CountryAPI/';
     public static GET_STATE_BYCOUNTRYID='/StateAPI/get/';
@@ -290,4 +302,7 @@ export class AppConstants {
 
     public static ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
     public static FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';
+    public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';
+
+
 }

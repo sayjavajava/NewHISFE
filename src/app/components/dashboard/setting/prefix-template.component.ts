@@ -19,12 +19,20 @@ export class PrefixTemplateComponent {
     prefixTemplate: PrefixTemplateModel = new PrefixTemplateModel();
 
     id: number;
+    cols: any[];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private route: ActivatedRoute,
                 private router: Router) {
+        this.cols = [
+            {field: "module", header: "Module"},
+            {field: "name", header: "Prefix"},
+            {field: "startValue", header: "Start Value"},
+            {field: "currentValue", header: "Current Value"},
+            {field: "action", header: "Action"}
+        ];
     }
 
     ngOnInit() {

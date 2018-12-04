@@ -153,7 +153,12 @@
                     <tr>
                         <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
                             {{col.header}}
-                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            <p-sortIcon *ngIf="col.field != 'action'"
+                                        [field]="col.field"
+                                        ariaLabel="Sort"
+                                        ariaLabelDesc="Sort in descending order"
+                                        ariaLabelAsc="Sort in ascending order">
+                            </p-sortIcon>
                         </th>
                     </tr>
                    <tr>

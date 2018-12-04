@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AppConstants} from '../../../utils/app.constants';
-import {RequestsService} from '../../../services/requests.service';
-import {Patient} from '../../../model/patient';
-import {NotificationService} from '../../../services/notification.service';
-import {HISUtilService} from '../../../services/his-util.service';
-import {Race} from '../../../model/race-model';
-import {NgForm} from '@angular/forms';
-import {UserTypeEnum} from '../../../enums/user-type-enum';
-import {PatientSmokeStatus} from '../../../model/PatientSmokeStatus';
-import {ConformationDialogService} from '../../../services/ConformationDialogService';
-import {Invoice} from '../../../model/Invoice';
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AppConstants} from "../../../utils/app.constants";
+import {RequestsService} from "../../../services/requests.service";
+import {Patient} from "../../../model/patient";
+import {NotificationService} from "../../../services/notification.service";
+import {HISUtilService} from "../../../services/his-util.service";
+import {NgForm} from "@angular/forms";
+import {UserTypeEnum} from "../../../enums/user-type-enum";
+import {PatientSmokeStatus} from "../../../model/PatientSmokeStatus";
+import {ConformationDialogService} from "../../../services/ConformationDialogService";
+import {Invoice} from "../../../model/Invoice";
+import {SelectItem} from "primeng/api";
+import {DatePicker} from "angular2-datetimepicker";
 
 @Component({
     selector: 'patient-history',
@@ -26,25 +27,47 @@ export class PatientDemographicComponent implements OnInit {
     photoBack: File = null;
     doctors: any = [];
     titleList:any = [];
-    rLanguage:any =[];
     pCommunication:any=[];
+    genders:any=[];
     smokeStatus: PatientSmokeStatus = new PatientSmokeStatus();
     smokeStatusList: any = [];
     patientInvBal: Invoice = new Invoice();
     updateBtn :boolean =false;
-    martialStatus = [
-        {label: 'SINGLE', value: 'SINGLE',selected:false},
-        {label: 'MARRIED', value: 'MARRIED',selected:false},
-        {label: 'WIDOWED', value: 'WIDOWED',selected:false},
-        {label: 'DIVORCED', value: 'DIVORCED',selected:false},
-        {label: 'SEPARATED', value: 'SEPARATED',selected:false},
-
-    ];
+    martialStatus:any = [];
+    emergencyContactRelations:any = [];
+    countryList: any[];
+    countryListModified: SelectItem[] = [];
+    selectedCountry: string = '';
+    statesList: any[];
+    statesListModified: SelectItem[] = [];
+    selectedState: string = '';
+    citiesList: any[];
+    citiesListModified: SelectItem[] = [];
+    selectedCity: string = '';
 
     constructor(private router: Router, private route: ActivatedRoute, private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
                 private notificationService: NotificationService) {
 
+        DatePicker.prototype.ngOnInit = function() {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker = false;
+            this.settings.format = "E MMM dd yyyy";
+            this.date = new Date();
+        };
+
+        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+            this.patient.dob = new Date().toDateString();
+        }
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
     }
 
     ngOnInit(): void {
@@ -62,24 +85,46 @@ export class PatientDemographicComponent implements OnInit {
                 {label: 'Ms', value: 'Ms'},
                 {label: 'Dr', value: 'dr'},
             ];
-            this.rLanguage = [
-                {label: 'ENGLISH', value: 'ENGLISH'},
-                {label: 'URDU', value: 'URDU'},
-                {label: 'ARABIC', value: 'ARABIC'},
-                {label: 'CHINESE', value: 'CHINESE'},
-            ];
             this.pCommunication =[
-                {label: 'ENGLISH', value: 'ENGLISH'},
-                {label: 'URDU', value: 'URDU'},
-                {label: 'ARABIC', value: 'ARABIC'},
-                {label: 'CHINESE', value: 'CHINESE'},
+                {label: 'CELL PHONE', value: 'CELL PHONE'},
+                {label: 'HOME PHONE', value: 'HOME PHONE'},
+                {label: 'OFFICE PHONE', value: 'OFFICE PHONE'},
+                {label: 'EMAIL', value: 'EMAIL'},
+            ];
+            this.martialStatus =[
+                {label: 'SINGLE', value: 'SINGLE'},
+                {label: 'MARRIED', value: 'MARRIED'},
+                {label: 'WIDOWED', value: 'WIDOWED'},
+                {label: 'DIVORCED', value: 'DIVORCED'},
+                {label: 'SEPARATED', value: 'SEPARATED'},
+            ];
+            this.genders = [
+                {label: 'MALE', value: 'MALE'},
+                {label: 'FEMALE', value: 'FEMALE'},
+                {label: 'OTHER', value: 'OTHER'},
+            ];
+            this.emergencyContactRelations = [
+                {label: 'FATHER', value: 'FATHER'},
+                {label: 'MOTHER', value: 'MOTHER'},
+                {label: 'HUSBAND', value: 'HUSBAND'},
+                {label: 'WIFE', value: 'WIFE'},
+                {label: 'BROTHER', value: 'BROTHER'},
+                {label: 'SON', value: 'SON'},
+                {label: 'OTHER', value: 'OTHER'},
             ];
         });
-       /* <option value="SINGLE">Single</option>
-            <option value="MARRIED">Married</option>
-            <option value="WIDOWED">Widowed</option>
-            <option value="DIVORCED">Divorced</option>
-            <option value="SEPERATED">Seperated</option>*/
+
+        this.createCountriesList();
+
+        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+            this.patient.dob = new Date().toDateString();
+        }
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
     }
 
     isValidPatientId() {
@@ -101,17 +146,18 @@ export class PatientDemographicComponent implements OnInit {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
                     this.smokeStatusList = response['responseData'].smokingStatus;
-                    let savedRace = response['responseData'].races;
-                    this.patient.races = new Patient().races;
-                    this.patient.races.forEach(function (race) {
-
-                        savedRace.forEach(function (dbRaces:Race) {
-                            if(race.value === dbRaces.nameRace){
-                    //        if(race.nameRace === dbRaces.nameRace){
-                                race.selected = true;
-                            }
-                        })
-                    });
+                    this.selectedCountry = this.patient.country;
+                    this.selectedState = this.patient.state;
+                    this.selectedCity = this.patient.city;
+                    if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+                        this.patient.dob = new Date().toDateString();
+                    }
+                    if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+                        this.patient.cardIssuedDate = new Date().toDateString();
+                    }
+                    if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+                        this.patient.cardExpiryDate = new Date().toDateString();
+                    }
                 } else {
                     this.notificationService.error(response['responseMessage'], 'Patient');
                 }
@@ -138,11 +184,12 @@ export class PatientDemographicComponent implements OnInit {
 
             }
         );
+
     }
 
     updatePatient(insuranceForm: NgForm, demographicForm: NgForm, patientForm: NgForm) {
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid) {
-            if (this.patient.selectedDoctor <= 0) {
+            /*if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
                 document.getElementById('selectedDoctor').focus();
                 return;
@@ -150,11 +197,21 @@ export class PatientDemographicComponent implements OnInit {
                 this.notificationService.error('Please select title', 'Patient');
                 document.getElementById('titlePrefix').focus();
                 return;
-            } else if (this.patient.cellPhone.length <= 0) {
+            } else*/
+            if (this.patient.firstName == null || this.patient.firstName.toString().trim().length <= 0) {
+                this.notificationService.error('Please enter first name.', 'Patient');
+                document.getElementById('firstName').focus();
+                return;
+            } else if (this.patient.lastName == null || this.patient.lastName.toString().trim().length <= 0) {
+                this.notificationService.error('Please enter last name.', 'Patient');
+                document.getElementById('lastName').focus();
+                return;
+            } else if (this.patient.cellPhone == null || this.patient.cellPhone.toString().trim().length <= 0) {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
                 document.getElementById('cellPhone').focus();
                 return;
-            } else if (this.patient.email.length <= 0) {
+            }
+            /*else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
                 document.getElementById('email').focus();
                 return;
@@ -162,8 +219,7 @@ export class PatientDemographicComponent implements OnInit {
                 this.notificationService.error('Please provide user name', 'Patient');
                 document.getElementById('userName').focus();
                 return;
-            }
-            /*else if (this.patient.dob.length<=0) {
+            } else if (this.patient.dob.length<=0) {
              this.notificationService.error('Please provide user name', 'Patient');
              // document.getElementById("dob").style.color = "red";
              document.getElementById("dob").focus();
@@ -172,6 +228,15 @@ export class PatientDemographicComponent implements OnInit {
             this.notificationService.error('Please provide required Values', 'Patient');
             return;
         } else {
+            if (this.patient.dob.toString().length > 0) {
+                this.patient.dob = this.patient.dob.toString().substring(0, 24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time) -> Wed Mar 17 1993 17:03:21
+            }
+            if (this.patient.cardIssuedDate.toString().length > 0) {
+                this.patient.cardIssuedDate = this.patient.cardIssuedDate.toString().substring(0, 24);
+            }
+            if (this.patient.cardExpiryDate.toString().length > 0) {
+                this.patient.cardExpiryDate = this.patient.cardExpiryDate.toString().substring(0, 24);
+            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
                 this.requestService.postRequestMultipartFormAndData(
@@ -362,4 +427,57 @@ export class PatientDemographicComponent implements OnInit {
     goToUserDashBoard() {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     }
+
+    createCountriesList() {
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_COUNTRIES)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.countryList = response["responseData"].data;
+                        for (let country of this.countryList) {
+                            var pair: any = {label: country.name, value: country.id};
+                            this.countryListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Countries List is not available");
+                });
+    }
+
+    getStatesByCountryId(countryId: any) {
+        this.statesList = this.citiesList = this.statesListModified = this.citiesListModified = [];
+
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.statesList = response["responseData"].data;
+                        for (let state of this.statesList) {
+                            var pair: any = {label: state.name, value: state.id};
+                            this.statesListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "States List is not available");
+                });
+    }
+
+    getCitiesByStateId(stateId: any) {
+        this.citiesList = this.citiesListModified = [];
+
+        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "BRANCH_SUC_01") {
+                        this.citiesList = response["responseData"].data;
+                        for (let city of this.citiesList) {
+                            var pair: any = {label: city.name, value: city.id};
+                            this.citiesListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Cities List is not available");
+                });
+    }
 }
+

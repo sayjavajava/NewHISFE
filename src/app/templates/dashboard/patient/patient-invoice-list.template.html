@@ -1,0 +1,209 @@
+<div class="page-content-wrapper">
+    <div class="page-content" style="margin-left: 0px !important;">
+        <!--<div class="portlet-body">-->
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-info">
+                    <b>Patient Receipts</b>
+                </h4>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hr off-wite-bg">
+                    <div class="hr drk-bck pdng-all">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label font-white">Patient Name:</label>
+                            <div class="col-md-4">
+                               <p-dropdown [(ngModel)]="selectedPatientId"
+                                           [autoWidth]="false"
+                                           [style]="{'text-align': 'left' ,'width':'100%'}"
+                                           required
+                                           [filter]="true"
+                                           id="patientName"
+                                           placeholder="Select Customer"
+                                           name="patientName"
+                                           [options]="patientList"
+                                           (onChange) = "getPatientIvoices(selectedPatientId)"
+                                           #patientName="ngModel">
+                               </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-6">
+                        <div class="hr white-bck">
+                            <div class="col-md-8 no-padding">
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-4">Date: </label>
+                                    <div class="col-md-8">
+                                        <div class="col-md-8 select ">
+                                            <angular2-date-picker
+                                                    name="date"
+                                                    id="date"
+                                                    [settings]="settings"
+                                                    [(ngModel)]="bulkReceitRequest.date"
+                                                    [ngModelOptions]="{standalone:true}">
+                                            </angular2-date-picker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-4">Payment Method:<span class="required" aria-required="true"> * </span> </label>
+                                    <div class="col-md-8">
+                                        <p-dropdown [options]="paymentTypeList" [(ngModel)]="selectedPaymentType" optionLabel="paymentTitle" (onChange) = "getSelectedPaymentType(selectedPaymentType)" [filter]="true"></p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="form-group hr">
+                                    <label class="control-label col-md-4">Payment Amount:
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="number" name="name" data-required="1" class="form-control text-right" [(ngModel)]="appliedAmountTottal" disabled> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="hr">
+                            <div class="col-md-7">
+                                <p class="text-right">Receipt Transaction ID:</p>
+                            </div>
+                            <div class="col-md-5 text-right"># <b>53</b></div>
+                        </div>
+                        <div class="hr white-bck">
+                            <div class="col-md-7">
+                                <p class="text-right">Due Invoices Balance SAR:</p>
+                            </div>
+                            <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{dueAmountOnAllInvc}}</b></div>
+                        </div>
+                        <div class="hr">
+                            <div class="col-md-7">
+                                <p class="text-right">Advance Balance:</p>
+                            </div>
+                            <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{cusAdvanceBalance}}</b></div>
+                        </div>
+                        <div class="hr">
+                            <input type="checkbox"
+                                   [(ngModel)]="bulkReceitRequest.useAdvance"
+                                   ng-reflect-name="chk-3"
+                                   ng-reflect-model="false"
+                                   id="chk-3"
+                                   class="ng-valid ng-dirty ng-touched">
+                                <b> Use Advanced Balance : </b>  <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="">
+                    <div class="off-wite-bg">
+                        <h4 class="bold padding-10">Details</h4>
+                    </div>
+                    <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
+                        <thead>
+                        <tr role="row" class="">
+                            <th width="5%" class="sorting_disabled" rowspan="1" colspan="1"> </th>
+                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Inv Code #</th>
+                            <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1">Invoice Amount </th>
+                            <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Paid Amount </th>
+                            <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Discount </th>
+                            <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Advance </th>
+                            <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Applied Amount </th>
+                            <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Balance </th>
+
+                        </tr>
+                        <tr role="row" class="filter" *ngFor="let invc of patientInvoiceList;  let idx = index">
+                            <td rowspan="1" colspan="1">
+                                <input type="checkbox" id="chk-3"  class="ng-valid ng-dirty ng-touched"
+                                       [(ngModel)]="invc.selected"
+                                       ng-reflect-name="chk-3"
+                                       ng-reflect-model="false"
+                                       (change)="getSelectedIndex(idx)" >
+                            </td>
+                            <td rowspan="1" colspan="1">   {{invc.invoiceId}}   </td>
+                            <td rowspan="1" colspan="1" class="text-align-right">
+                                <input type="number" class="form-control text-align-right" name="totalInvoiceAmount" [(ngModel)]="invc.totalInvoiceAmount" [step]="0.01" readonly>
+                                </td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="invc.paidAmount" [step]="0.01" readonly>
+                                </td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                <input type="number" class="form-control text-align-right" name="discountOnPayment" (change)="getTotalOfAllInvice()" [(ngModel)]="invc.discountOnPayment" [step]="0.01">
+                                </td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                <input type="number" class="form-control text-align-right" name="advanceBalance" (change)="getTotalOfAllInvice()" [(ngModel)]="invc.advanceBalance" [step]="0.01" [(readonly)]="!invc.useAdvancedBal">
+                                </td>
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                <input type="number" class="form-control text-align-right" name="appliedAmount" (change)="getTotalOfAllInvice()" [(ngModel)]="invc.appliedAmount" [step]="0.01">
+                                </td>
+
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                <input type="number" class="form-control text-align-right" name="dueAmount" [(ngModel)]="invc.dueAmount" [step]="0.01" readonly>
+                                </td>
+                        </tr>
+
+                        <tr role="row" class="filter" >
+                            <td rowspan="1" colspan="1">                                                       </td>
+                            <td rowspan="1" colspan="1">                                                       </td>
+                            <td rowspan="1" colspan="1" class="text-align-right">   {{invoicesAmountTotal | number}}    </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{paidAmountTotal | number}}        </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{discountTotalOnPayment | number}} </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{useAdvanceTotal | number}}        </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{appliedAmountTottal | number}}    </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{dueAmountTotal  | number}}         </td>
+                        </tr>
+
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4 mrgn-top8">
+
+            </div>
+
+            <div class="col-md-4 pull-right mrgn-top8">
+                <div class="hedng-bck-clr padding-10 sub-total">
+                   
+                    <ul>
+                        <li>
+                            <span> Amount Due:</span>
+                            <span>{{dueAmountOnSelectedInvc | number}}</span>
+                        </li>
+                        <li>
+                            <span>Applied Amount:</span>
+                            <span>{{appliedAmountOnSelectedInvc | number}}</span>
+                        </li>
+                        <li>
+                            <span>Advance Amount:</span>
+                            <span>{{advancedAmountOnSelectedInvc | number}}</span>
+                        </li>
+                        <li>
+                            <span>Discount Amount:</span>
+                            <span>{{discountAmountOnSelectedInvc | number}}</span>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-md-12 mrgn-top14">
+                <div class="pull-right">
+                    <button class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel </button>
+                    <span>
+                        <button class="btn btn-default btn-outline btn-sm" (click)="savePayment()"> Save </button>
+                    </span>
+                </div>
+            </div>
+        </div>    
+           
+        <!--</div>-->
+    </div>
+</div>

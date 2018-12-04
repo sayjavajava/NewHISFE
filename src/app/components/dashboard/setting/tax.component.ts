@@ -26,7 +26,7 @@ export class TaxComponent implements OnInit {
         {field: 'toDate', header: 'toDate'},
         {field: 'description', header: 'description'},
         {field: 'status', header: 'status'},
-        {field: 'Action', header: 'Action'},
+        {field: 'ction', header: 'Action'},
     ];
     loading: boolean = false;
     constructor(private notificationService: NotificationService,

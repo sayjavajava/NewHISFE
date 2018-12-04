@@ -40,20 +40,20 @@ export class MedicalServiceComponent implements OnInit {
         document.title = 'HIS | Medical Services';
         if (localStorage.getItem(btoa('access_token'))) {
             this.cols = [
-                { field: 'name', header: 'name' },
-                { field: 'code', header: 'code' },
-                { field: 'branch', header: 'branch' },
-                { field: 'department', header: 'department' },
-                { field: 'fee', header: 'fee' },
-                { field: 'tax', header: 'tax' },
-                { field: 'cost', header: 'cost' },
-                { field: 'status', header: 'status' },
-                { field: 'Action', header: 'Action' }
+                { field: 'name', header: 'Name' },
+                { field: 'code', header: 'Code' },
+                { field: 'branch', header: 'Branch' },
+                { field: 'department', header: 'Department' },
+                { field: 'fee', header: 'Fee' },
+                { field: 'tax', header: 'Tax' },
+                { field: 'cost', header: 'Cost' },
+                { field: 'status', header: 'Status' },
+                { field: 'action', header: 'Action' }
             ];
 
             this.getAllMedicalServicesFromServer();
 
-        };
+        }
     }
 
 

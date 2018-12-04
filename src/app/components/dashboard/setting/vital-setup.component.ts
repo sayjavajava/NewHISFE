@@ -29,13 +29,13 @@ export class VitalSetupComponent {
         document.title = 'HIS | Vital Setup Template';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getVitalSetupList();
-        };
+        }
         this.cols = [
             {field: 'name', header: 'Name'},
             {field: 'unit', header: 'Unit'},
             {field: 'standardValue', header: 'Standard Value'},
             {field: 'status', header: 'Status'},
-            {field: 'Action', header: 'Action'},
+            {field: 'action', header: 'Action'},
 
         ];
     }

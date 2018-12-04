@@ -54,21 +54,25 @@
 
         <!--Data Table-->
         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
-            <ng-template pTemplate="caption">
-                <div style="text-align: right">
-                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                </div>
-            </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
                         {{col.header}}
+                        <p-sortIcon *ngIf="col.field != 'action' && col.field != 'description'"
+                                    [field]="col.field"
+                                    ariaLabel="Sort"
+                                    ariaLabelDesc="Sort in descending order"
+                                    ariaLabelAsc="Sort in ascending order">
+                        </p-sortIcon>
                     </th>
+
                 </tr>
                 <tr>
-                    <th *ngFor="let col of columns">
-                        <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <input *ngSwitchCase="'testCode'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        <input *ngSwitchCase="'testName'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        <input *ngSwitchCase="'minNormalRange'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        <input *ngSwitchCase="'maxNormalRange'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                     </th>
                 </tr>
 
@@ -120,25 +124,28 @@
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code</label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" required name="testCode" id="testCode" class="form-control"
-                                           placeholder="Enter Name"
+                                           placeholder="Enter Test Code"
                                            [(ngModel)]="labTestSpeciman.testCode" #testCode="ngModel">
                                 </div>
                             </div>
 
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" required name="testName" id="testName" class="form-control"
-                                           placeholder="Enter Name"
+                                           placeholder="Enter Test Name"
                                            [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
                                 </div>
+                                <span *ngIf="testName.invalid && testName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter valid test name.</span>
                             </div>
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Min Normal Range</label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" required name="minNormalRange" id="minNormalRange"
-                                           class="form-control" placeholder="Enter Name"
+                                           class="form-control" placeholder="Enter Minimum Range of Test Result"
                                            [(ngModel)]="labTestSpeciman.minNormalRange" #minNormalRange="ngModel">
                                 </div>
                             </div>
@@ -146,7 +153,7 @@
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Max Normal Range</label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" name="maxNormalRange" id="maxNormalRange" class="form-control"
-                                           placeholder="Enter text"
+                                           placeholder="Enter Maximum Range of Test Result"
                                            [(ngModel)]="labTestSpeciman.maxNormalRange" #maxNormalRange="ngModel">
                                 </div>
                                 <span *ngIf="maxNormalRange.invalid && maxNormalRange.touched"
@@ -159,7 +166,7 @@
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" name="description" id="description" class="form-control"
-                                           placeholder="Enter text"
+                                           placeholder="Enter description"
                                            [(ngModel)]="labTestSpeciman.description" #description="ngModel">
                                 </div>
                             </div>

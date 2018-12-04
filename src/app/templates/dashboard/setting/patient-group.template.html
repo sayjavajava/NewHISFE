@@ -41,7 +41,46 @@
                     </div>-->
 
                     <div class="table-scrollable">
-                        <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                        <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
+                            <ng-template sortable="true" pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
+                                        {{col.header}}
+                                        <p-sortIcon *ngIf="col.field == 'name'"
+                                                    [field]="col.field"
+                                                    ariaLabel="Sort"
+                                                    ariaLabelDesc="Sort in descending order"
+                                                    ariaLabelAsc="Sort in ascending order">
+                                        </p-sortIcon>
+                                    </th>
+
+                                </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                        <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-data>
+                                <tr>
+                                    <td field="name">{{data.name}}</td>
+                                    <td field="description">{{data.description}}</td>
+                                    <td field="patientCount">{{data.patientCount}}</td>
+                                    <td field="status">{{data.status === true ? 'Active' : 'Inactive'}}</td>
+                                    <td field="action">
+                                        <ng-container>
+                                            <a href="#popupPatientGroup" data-toggle="modal">
+                                                <button class="btn btn-default btn-outline btn-sm" (click)="editPopupPatientGroupLoad(data)"> <i class="fa fa-pencil"></i> </button>
+                                            </a>
+                                            <span [hidden]="data.hasChild">
+                                                <button class="btn btn-default btn-outline btn-sm" (click)="deletePatientGroup(data.id)"> <i class="fa fa-remove"></i> </button>
+                                            </span>
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <!--<table class="table table-striped table-hover table-checkable dataTable no-footer"
                                id="datatable_ajax" role="grid">
                             <thead>
                             <tr role="row" class="off-wite-bg">
@@ -73,7 +112,7 @@
                                 </td>
                             </tr>
                             </thead>
-                        </table>
+                        </table>-->
                     </div>
                 </div>
             </div>

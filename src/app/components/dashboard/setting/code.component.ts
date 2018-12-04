@@ -34,7 +34,7 @@ export class CodeComponent implements OnInit {
         {field: 'version', header: 'version'},
         {field: 'description', header: 'description'},
         {field: 'status', header: 'status'},
-        {field: 'Action', header: 'Action'},
+        {field: 'action', header: 'Action'},
     ];
 
     loading:boolean = false;

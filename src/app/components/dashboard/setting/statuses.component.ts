@@ -34,8 +34,16 @@ export class StatusesComponent implements OnInit {
     error: any;
     pageNo:number =0;
     patient :Patient =new Patient();
+    cols: any[];
     constructor(private router: Router, private requestsService: RequestsService,
                 private notificationService: NotificationService, private confirmationDialogService: ConformationDialogService) {
+        this.cols = [
+            {field: "name", header: "Name"},
+            {field: "abbreviation", header: "Abbreviation"},
+            {field: "colorHash", header: "Color"},
+            {field: "active", header: "Status"},
+            {field: "action", header: "Action"}
+        ];
     }
 
     ngOnInit(): void {

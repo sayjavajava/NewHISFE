@@ -15,14 +15,19 @@ export class SmsTemplateComponent{
 
     smsTemplateList: SmsTemplateModel[] = [];
     id: number;
-
+    cols: any[];
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private route: ActivatedRoute,
                 private router: Router) {
-
+        this.cols = [
+            {field: "subject", header: "Subject"},
+            {field: "type", header: "Type"},
+            {field: "active", header: "Status"},
+            {field: "action", header: "Action"}
+        ];
     }
 
     ngOnInit() {
@@ -59,7 +64,7 @@ export class SmsTemplateComponent{
 
     deleteSmsTemplate(id: any) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are you source.")) return;
+            if (!confirm("Are you sure?")) return;
             this.requestsService.deleteRequest(
                 AppConstants.SMS_CONFIGURATION_DELETE_SAVE + id)
                 .subscribe(
