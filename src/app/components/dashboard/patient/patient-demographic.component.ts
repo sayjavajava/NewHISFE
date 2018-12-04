@@ -46,6 +46,7 @@ export class PatientDemographicComponent implements OnInit {
     selectedCity: string = '';
     patientGroupList: any[];
     patientGroupListModified: SelectItem[] = [];
+    smokeStatusType :any;
 
     constructor(private router: Router, private route: ActivatedRoute, private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
@@ -81,6 +82,13 @@ export class PatientDemographicComponent implements OnInit {
                 return;
             }
             this.loadRecord();
+            this.smokeStatusType = [
+                {label: 'Every Day ', value: 'Every Day '},
+                {label: 'Every Week ', value: 'Every Week '},
+                {label: 'Every Month ', value: 'Every Month '},
+                {label: 'Every Year  ', value: 'Every Year'}
+
+            ];
             this.titleList = [
                 {label: 'Mr', value: 'Mr'},
                 {label: 'Mrs', value: 'Mrs'},
@@ -223,7 +231,7 @@ export class PatientDemographicComponent implements OnInit {
             return;
         } else {
             if (this.patient.dob.toString().length > 0) {
-                this.patient.dob = this.patient.dob.toString().substring(0, 24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time)
+                this.patient.dob = this.patient.dob.toString().substring(0, 24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time) -> Wed Mar 17 1993 17:03:21
             }
             if (this.patient.cardIssuedDate.toString().length > 0) {
                 this.patient.cardIssuedDate = this.patient.cardIssuedDate.toString().substring(0, 24);
@@ -242,16 +250,6 @@ export class PatientDemographicComponent implements OnInit {
                             this.patient = new Patient();
                             this.notificationService.success(response['responseMessage'], 'Patient');
                             this.loadRecord();
-
-                            if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
-                                this.patient.dob = new Date().toDateString();
-                            }
-                            if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
-                                this.patient.cardIssuedDate = new Date().toDateString();
-                            }
-                            if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
-                                this.patient.cardExpiryDate = new Date().toDateString();
-                            }
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Patient');
                         }

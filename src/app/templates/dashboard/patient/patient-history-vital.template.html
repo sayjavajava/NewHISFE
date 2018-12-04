@@ -78,9 +78,9 @@
         <!-- common dive profile -->
         <!-- New Vital Tab Active -->
         <div class="row">
-            <div class="hr">
-                <h4 class="text-info">Active Problems
-                    <div class="pull-right">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr mrgn-top10">
+                    <h4 class="text-info">Vital <div class="pull-right">
                         <!--<a href="#responsive" data-toggle="modal">
                             <button class="btn mt-sweetalert btn green-meadow pdngall3"
                                     data-title="Sweet Alerts with Icons" data-message="Success Icon"
@@ -88,7 +88,7 @@
                                     data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
                             </button>
                         </a>-->
-                           <!-- <span>
+                        <span>
                                  <a href="#vitalSetup" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow pdngall3"
                                         data-title="Sweet Alerts with Icons" data-message="Success Icon"
@@ -97,16 +97,113 @@
                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Vital
                                 </button>
                                  </a>
-                            </span>-->
+                            </span>
 
-                    </div>
-                </h4>
-            </div>
-            <div class="col-md-12 col-xs-12">
-                <div class="hr">
-                    <h4 class="text-info">Vital </h4>
+                    </div></h4>
                 </div>
                 <div class="table-scrollable tbl-brdr-radus">
+
+
+                    <p-table #dt [columns]="cols" [value]="vitalListData"  [rows]="10"  [paginator]="true" >
+
+                        <div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Global Filter"
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                   style="width:auto">
+                        </div>
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+
+                            <tr>
+                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                    <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'unit'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <!--<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+
+                                    <!--<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+
+
+
+
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-vitalListData>
+                            <tr>
+
+                                <td field="name"><strong>{{vitalListData.name}}</strong></td>
+                                <td field="unit">{{vitalListData.unit}}</td>
+                                <td field="currentValue">{{vitalListData.currentValue}}</td>
+                                <td field="standardValue">{{vitalListData.standardValue}}</td>
+                                <td field="status">{{vitalListData.status}}</td>
+
+                                <td>
+                                    <a href="#vitalSetup" data-toggle="modal"
+                                       (click)="editVital(vitalListData.id)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <button
+                                            (click)="delete(vitalListData.id)">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+
+
+
+                    <!--<table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Allergy</th>
+                            <th> Reaction</th>
+                            <th> Status</th>
+                            <th> Notes</th>
+                            <th>updated</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng" *ngFor="let allergy of allergyData" class="filter">
+                            <td>{{allergy.name}}</td>
+                            <td>{{allergy.reaction}}</td>
+                            <td>{{allergy.status}}</td>
+                            <td>{{allergy.note}}</td>
+                            <td>{{allergy.updatedOn}}</td>
+                            <td>
+                                <a href="#responsiveAllergy" data-toggle="modal"
+                                   (click)="editAllergy(allergy.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="deleteAllergy(allergy.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>-->
+                </div>
+                <!--<div class="table-scrollable tbl-brdr-radus">
                     <table class="table table-hover table-light">
                         <thead>
                         <tr class="hedng-bck-clr tbl-pdng">
@@ -115,7 +212,7 @@
                             <th> Current Value</th>
                             <th> Standard</th>
                             <th> Status</th>
-                           <!-- <th> Acton</th>-->
+                             <th> Acton</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -125,7 +222,7 @@
                             <td> {{vitalList.currentValue }}</td>
                             <td>{{vitalList.standardValue}}</td>
                             <td>{{vitalList.status}}</td>
-                            <!--<td>
+                            <td>
                                 <a href="#vitalSetup" data-toggle="modal"
                                    (click)="editVital(vitalList.id)">
                                     <i class="fa fa-pencil"></i>
@@ -134,27 +231,59 @@
                                         (click)="delete(vitalList.id)">
                                     <i class="fa fa-remove"></i>
                                 </button>
-                                &lt;!&ndash;      href = "#{{aType.Name}}"&ndash;&gt;
-                                &lt;!&ndash;<button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>&ndash;&gt;
-                                &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
-                                &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
+                                 &lt;!&ndash;   href = "#{{aType.Name}}"&ndash;&gt;
+                                    <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
+                                    <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>
+                                    <a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
 
 
 
-                            </td>-->
+                            </td>
                         </tr>
                         </tbody>
                     </table>
-                </div>
+                </div>-->
             </div>
             <div class="clearfix"></div>
 
         </div>
 
+       <!-- <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="vitalPages.length >= 2 && vitalCurrPage > 0">
+                            <a (click)="getPageWiseVitalActive(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="vitalPrePage">
+                            <a (click)="getPageWiseVitalActive(vitalCurrPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === vitalCurrPage}"
+                            *ngFor="let page of vitalPages">
+                            <a (click)="getPageWiseVitalActive(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="vitalNextPage">
+                            <a (click)="getPageWiseVitalActive(problemCurrPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next"
+                            *ngIf="vitalPages.length >= 2 && vitalCurrPage < vitalPages[vitalPages.length - 1]">
+                            <a (click)="getPageWiseVitalActive(vitalPages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>-->
 
 
-
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Ongoing Problems</h4>
@@ -166,8 +295,8 @@
                             <th> Version Name</th>
                             <th> Problem</th>
                             <th> Diagnosis Date</th>
-                            <!-- <th> Created</th>
-                             <th> Updated</th>-->
+                            &lt;!&ndash; <th> Created</th>
+                             <th> Updated</th>&ndash;&gt;
                             <th> Status</th>
                             <th> Notes</th>
                         </tr>
@@ -186,9 +315,9 @@
             </div>
             <div class="clearfix"></div>
 
-        </div>
+        </div>-->
 
-        <div class="row">
+       <!-- <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
                     <ul class="pagination" style="visibility: visible;">
@@ -220,115 +349,14 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>-->
 
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-                <div class="hr">
-                    <h4 class="text-info">Active Allergies</h4>
-                </div>
-                <div class="table-scrollable tbl-brdr-radus">
-                    <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
-                            <th> Name</th>
-                            <th> Type</th>
-                            <th> Reaction</th>
-                            <!--<th> Created On</th>
-                            <th> Updated On</th>-->
-                            <th> Status</th>
-                            <th> Notes</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let allergyActive of allergiesActiveData" class="filter">
-                            <td>{{allergyActive.name}}</td>
-                            <td>{{allergyActive.allergyType}}</td>
-                            <td>{{allergyActive.reaction}}</td>
-                            <!--<td>{{allergyActive.createdOn }}</td>
-                            <td>{{allergyActive.updatedOn}}</td>-->
-                            <td>{{allergyActive.status}}</td>
-                            <td>{{allergyActive.note}}</td>
-                        </tr>
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="dataTables_paginate paging_bootstrap_full_number pull-right"
-                     id="getPageWiseAllergiesByActive">
-                    <ul class="pagination" style="visibility: visible;">
-                        <li class="prev" *ngIf="allergiesPages.length >= 2 && allergiesCurrPage > 0">
-                            <a (click)="getPageWiseAllergiesByActive(0);" title="First">
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>
-                        </li>
-                        <li class="prev" *ngIf="allergiesPrePage">
-                            <a (click)="getPageWiseAllergiesByActive(allergiesCurrPage - 1)" title="Previous">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li [ngClass]="{active: page === allergiesCurrPage}"
-                            *ngFor="let page of allergiesPages">
-                            <a (click)="getPageWiseAllergiesByActive(page)">{{page + 1}}</a>
-                        </li>
-                        <li class="next" *ngIf="allergiesNextPage">
-                            <a (click)="getPageWiseAllergiesByActive(allergiesCurrPage + 1)" title="Next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                        <li class="next"
-                            *ngIf="allergiesPages.length >= 2 && allergiesCurrPage < allergiesPages[allergiesPages.length - 1]">
-                            <a (click)="getPageWiseAllergiesByActive(allergiesPages.length - 1)" title="Last">
-                                <i class="fa fa-angle-double-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-                <div class="hr">
-                    <h4 class="text-info">Active Medications</h4>
-                </div>
-                <div class="table-scrollable tbl-brdr-radus">
-                    <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
-                            <th> Drug Name</th>
-                            <th> Prescribed Date</th>
-                            <th> Taking</th>
-                            <th> Stopped</th>
-                            <!--<th> Updated</th>-->
-                            <th> Order</th>
-                            <th>Refill</th>
-                            <th> Indication</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let med of medicationsActiveData" class="tbl-pdng">
-                            <td>{{med.drugName}}</td>
-                            <td>{{med.datePrescribedString | date:'medium'}}</td>
-                            <td>{{med.dateStartedTakingString | date:'medium'}}</td>
-                            <td>{{med.dateStoppedTakingString | date:'medium'}}</td>
-                            <!--<td>{{med.updatedOn}}</td>-->
-                            <td>{{med.orderStatus}}</td>
-                            <td>{{med.numberRefill}}</td>
-                            <td>{{med.indication}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
+
+       <!-- <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right"
                      id="getPageWiseMedicationsByActive">
@@ -361,58 +389,8 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>-->
 
-        <!--<div class="row">
-            <div class="col-md-12 col-xs-12">
-                <div class="hr">
-                    <h4 class="text-info">Lab Results</h4>
-                </div>
-                <div class="table-scrollable tbl-brdr-radus">
-                    <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
-                            <th> LOINC Code</th>
-                            <th> Lab Description</th>
-                            <th> Date</th>
-                            <th> Sign off</th>
-                            <th> Status</th>
-                            <th> Result</th>
-                            <th> Comments</th>
-                            <th> Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="tbl-pdng">
-                            <td>No Problem information has been recorded for this patient.</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="tbl-pdng off-wite-bg">
-                            <td>No Problem information has been recorded for this patient.</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>-->
-        <!--<div class="clearfix">
-            <a (click)="goToUserDashBoard();" class="nav-link">
-                <button type="button" class="btn  btn-default"> Cancel</button>
-            </a>
-        </div>-->
     </div>
 </div>
 
@@ -427,10 +405,10 @@
                     <h4 class="modal-title" >Vital Setup</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:190px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5">
 
                                     <p-autoComplete
@@ -441,15 +419,11 @@
                                             [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
                                     </p-autoComplete>
 
-                                   <!-- <p-dropdown [(ngModel)]="selectedstr"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                required id="name" (onChange)="getSelectedVital($event.value)"
-                                                name="name" [options]="searchedVitalAnyListModified"
-                                                #name="ngModel">
-                                    </p-dropdown>-->
-
-                                   <!-- <input type="text" required name="name" id="name" class="form-control" placeholder="Enter Name"
-                                           [(ngModel)]="vitalSetupTemplate.name" #name="ngModel">-->
                                 </div>
+
+                                <span *ngIf="name.invalid && name.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please Select Name.
+                                </span>
                             </div>
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Unit</label>
@@ -457,9 +431,9 @@
                                     <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="eg bpm"
                                            [(ngModel)]="vitalSetupTemplate.unit" #unit="ngModel">
                                 </div>
-                                <span *ngIf="unit.invalid && unit.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                               <!-- <span *ngIf="unit.invalid && unit.touched" class="col-md-9 select pdng-lr-5 text-danger">
                                         Please enter valid unit.
-                                </span>
+                                </span>-->
                             </div>
 
 
@@ -477,16 +451,18 @@
                                     <input type="text" name="standardValue" class="form-control" placeholder="eg 92"
                                            [(ngModel)]="vitalSetupTemplate.standardValue" #standardValue="ngModel">
                                 </div>
+                                 <span *ngIf="standardValue.invalid && standardValue.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                       Please Select  Vital.
+                               </span>
                             </div>
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
-                                <label class="mt-checkbox-outline">
+                                <label class="mt-checkbox-outline col-md-3 pdng-lr-5">
                                     <mat-checkbox #status="ngModel"
                                                   name="status"
                                                   [(ngModel)]="vitalSetupTemplate.status"
                                                   color="primary"></mat-checkbox>
-
                                 </label>
 
                             </div>

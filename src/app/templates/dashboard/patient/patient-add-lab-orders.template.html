@@ -59,10 +59,7 @@
                                 <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
                             </div>
                         </div>
-                        <!-- <div class="hr no-margin">
-                             <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
-                             <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
-                         </div>-->
+
                     </div>
                 </div>
             </div>
@@ -75,68 +72,21 @@
                         <div class="col-md-12 mrgn-btm10">
                             <h3 class="text-info">Enter Lab Orders</h3>
                         </div>
+
+
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label class="control-label col-md-3"> Status <span
+                                <label class="control-label col-md-3"> Appointments <span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-5">
-                                    <!--<select class="form-control" formControlName="orderStatus" (change)="goToStatus($event.target.value)">
-                                        <option value="">Select...</option>
-                                        <option value="COMPLETED">COMPLETED</option>
-                                        <option value="IN_PROGRESS"> IN PROGRESS</option>
-                                        <option value="CANCELLED">CANCELLED</option>
-                                        <option value="REVIEW">REVIEW</option>
+                                <!-- <label class="control-label txt-size pdng-lr-3">
+                                     Appointments<span class="required" aria-required="true"> * </span>
+                                 </label>-->
 
-                                    </select>-->
-                                    <p-dropdown  placeholder="Select Status" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="goToStatus($event)" name="pStatus"
-                                                 formControlName="orderStatus" [options]="statusType"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                    </p-dropdown>
-                                </div>
-                                <span class="text-danger"
-                                      *ngIf="!labForm.controls['orderStatus'].valid && labForm.controls['orderStatus'].touched">
-                                                    <span *ngIf="labForm.controls['orderStatus'].errors.required"> Please Select Status </span>
-                                                </span>
-                                <div class="col-md-4">Status of the lab order.</div>
-                            </div>
-                            <!--<div class="form-group">
-                                <label class="control-label col-md-3">Date test performed</label>
-                                <div class="col-md-5"><input class="form-control form-control-inline input-medium date-picker" size="16"  formControlName="orderTestDate" type="text" value=""></div>
-                            </div>-->
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Test Date </label>
                                 <div class="col-md-5">
-                                    <div class="pdng-l-r-15">
-                                        <mwl-demo-utils-date-time-picker
-                                                [(ngModel)] ="dateTest"
-                                                formControlName="orderTestDate"
-                                                placeholder="Not set">
-                                        </mwl-demo-utils-date-time-picker>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Comments</label>
-                                <div class="col-md-5">
-                                    <textarea class="form-control" formControlName="comments"  style="height: 50em; width: 22em "></textarea>
-                                </div>
-                                <div class="col-md-4">Status of the lab order.</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Appointments <span
-                                        class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-5">
-                                    <!--<select class="form-control" (change)="selectedAppointment($event.target.value)" formControlName="appointmentId" [(ngModel)]="appointmentId">
-                                    &lt;!&ndash;[ngModelOptions]="{standalone:true}"&ndash;&gt;
-                                    &lt;!&ndash;[(ngModel)]="event.branch"&ndash;&gt;
-                                    <option value="0">&#45;&#45; Select &#45;&#45;</option>
-                                    <option  *ngFor="let item of patient.pastAppointments; let i = index;"
-                                             value={{item.id}}>
-                                        {{item.scheduleDate}}
-                                    </option>
-                                </select>-->
-                                    <p-dropdown  placeholder="Select Appointment" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="apt"
-                                                  (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+
+                                    <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
+                                                 (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
                                     <span class="text-danger"
                                           *ngIf="!labForm.controls['appointmentId'].valid && labForm.controls['appointmentId'].touched">
@@ -144,112 +94,355 @@
                                                 </span>
 
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8" *ngIf="showDoctor">
+                            <div class="form-group">
+                                <label class="control-label col-md-3"> Doctor </label>
+                                <!-- <label class="control-label txt-size pdng-lr-3">
+                                     Appointments<span class="required" aria-required="true"> * </span>
+                                 </label>-->
+                                <div class="col-md-5">
+
+
+                                    <input type="text"  class="form-control" formControlName="doctorName" value="{{doctorAppointment}}"  disabled>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="control-label col-md-3"> Status <span
+                                        class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-5">
+
+                                    <p-dropdown  placeholder="Select Status" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="goToStatus($event)" name="pStatus"
+                                                 formControlName="orderStatus" [options]="statusType"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+                                    <span class="text-danger"
+                                          *ngIf="!labForm.controls['orderStatus'].valid && labForm.controls['orderStatus'].touched">
+                                                    <span *ngIf="labForm.controls['orderStatus'].errors.required"> Please Select Status </span>
+                                                </span>
+                                </div>
+                                <div class="col-md-4">Status of the lab order.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label txt-size pdng-lr-4">Test Date:</label>
+
+                                <div class="col-md-5 select pdng-lr-3">
+                                    <angular2-date-picker   name="TestDate"
+                                                            id="TestDate" [settings]="settings" [(ngModel)]="dateTest" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8">
+                            <div class="form-group mrgn-top8">
+                                <label class="control-label col-md-3">Comments</label>
+                                <div class="col-md-5">
+                                    <textarea class="form-control" formControlName="comments"  style="height: 50em; "></textarea>
+                                </div>
+                                <div class="col-md-4">Status of the lab order.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Test<span
+                                        class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-5">
+                                    <p-autoComplete  placeholder={{selectedString}} [suggestions]="filteredTestSingle" formControlName="testNameId" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true" [disabled]="showEdit"></p-autoComplete>
+                                </div>
+
+                                <div class="col-md-4">Status of the lab order.</div>
                                 <span class="text-danger"
-                                      *ngIf="labForm.controls['appointmentId'].invalid ">Select Appointment</span>
-                            </div>
+                                      *ngIf="!labForm.controls['testNameId'].valid && labForm.controls['testNameId'].touched">
+                                                    <span *ngIf="labForm.controls['testNameId'].errors.required"> Please Select Test </span>
+                                                </span>
+                            </div></div>
 
-
-
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 table-responsive round-table table table-striped table-hover table-checkable dataTable no-footer" >
 
-                            <div class="col-md-2">LOINC Code</div>
-                            <div class="col-md-2">Description</div>
-                            <div class="col-md-2">Result value</div>
-                            <div class="col-md-2">Units</div>
-                            <div class="col-md-2">Normal Range</div>
-                            <div class="col-md-2">Actions</div>
-                        </div>
-                        <div class="col-md-12" formArrayName="labTest" *ngFor="let item of labForm.get('labTest').controls; let i = index;">
-                            <div [formGroupName]="i">
-                            <div class="col-md-3">
-                                <!--<input type="text" formControlName="loincCode" class="form-control" value="23">-->
-                                <p-autoComplete formControlName="loincCode" [suggestions]="filteredTestSingle" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true"></p-autoComplete>
-                            </div>
-                            <!-- <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>-->
-                            <div class="col-md-2"> <input type="text" formControlName="description" class="form-control" value="23"> </div>
-                            <div class="col-md-2"> <input type="text" formControlName="units" class="form-control" value="23"> </div>
-                            <div class="col-md-2"> <input type="text" formControlName="resultValue" class="form-control" value="45"> </div>
-                            <div class="col-md-2"> <input type="text" formControlName="normalRange" class="form-control" value="100"> </div>
-                            <!--  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>-->
-                            <div class="col-md-2"> <i (click)="deleteTest(i)" title="Remove" class="fa fa-close font-red"></i> </div>
-                        </div>
-                        </div>
-                   <!-- <div class="table-responsive round-table" formArrayName="labTest" *ngFor="let item of labForm.get('labTest').controls; let i = index;" >
-                        <div class="" [formGroupName]="i">
-                            <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
-                                <thead>
-                                <tr role="row" class=" hedng-bck-clr" *ngIf="i==0">
-                                    <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> LOINC Code </th>
-                                    <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th>
-                                    <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result value </th>
-                                    <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Units </th>
-                                    <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Normal Range </th>
-                                    <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Actions </th>
-                                </tr>
-                                &lt;!&ndash;<div class="table-responsive round-table"  >
-                                    <div >&ndash;&gt;
+                   <!-- <div class="row">
+                        <form id="LabForm" *ngIf="showEdit" [formGroup]="labForm" #form="ngForm">
+                            <div class="col-md-12">
 
-                                <tr role="row" class="filter pdng-lr-5" >
+                                <div class="hr padding round-bck table-responsive">
+                                    <div class="col-md-12 table-responsive round-table table table-striped table-hover table-checkable dataTable no-footer" >
 
-                                    <td rowspan="1" colspan="1"> <input type="text" formControlName="loincCode" class="form-control" value="23"> </td>
-                                    &lt;!&ndash; <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>&ndash;&gt;
-                                    <td rowspan="1" colspan="1"> <input type="text" formControlName="description" class="form-control" value="23"> </td>
-                                    <td rowspan="1" colspan="1"> <input type="text" formControlName="units" class="form-control" value="23"> </td>
-                                    <td rowspan="1" colspan="1"> <input type="text" formControlName="resultValue" class="form-control" value="45"> </td>
-                                    <td rowspan="1" colspan="1"> <input type="text" formControlName="normalRange" class="form-control" value="100"> </td>
-                                  &lt;!&ndash;  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>&ndash;&gt;
-                                <td rowspan="1" colspan="1"> <i (click)="deleteTest(i)" title="Remove"
-                                                                class="fa fa-close font-red"></i> </td>
-
-                                </tr>
-
-                                &lt;!&ndash;<div formArrayName="examRooms"
-                                     *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
-                                    <div class="form-group" [formGroupName]="i">
-                                        <label class="control-label col-md-4">Exam Rooms
-                                        </label>
-                                        <div class="col-md-3 no-padding-rgt">
-                                            <input type="text" class="form-control"
-                                                   style="width: 128px !important;"
-                                                   formControlName="roomName">
-                                        </div>
-                                        <div class="col-md-5 pdng-lr-5 mrgn-top4">
-                                            <label class="mt-checkbox-outline">
-                                                <input type="checkbox"
-                                                       formControlName="allowOnlineScheduling"> Allow Online
-                                                Scheduling
-                                                <span></span>
-                                            </label>
-                                            <i (click)="deleteField(i)" title="Remove"
-                                               class="fa fa-close font-red"></i>
-                                        </div>
-                                        &lt;!&ndash;<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>&ndash;&gt;
+                                        <div class="col-md-2">Test Code</div>
+                                        <div class="col-md-2">Tes Name</div>
+                                        <div class="col-md-2">Result value</div>
+                                        <div class="col-md-2">Units</div>
+                                        <div class="col-md-2">Normal Range</div>
+                                        <div class="col-md-2">Actions</div>
                                     </div>
-                                </div>&ndash;&gt;
+                                    <div class="col-md-12">
+                                        <div>
 
-                                </thead>
-                            </table>
+                                            <div class="col-md-2">
+                                                <input type="text" formControlName="textCode" class="form-control" value="{{selectedTest.testCode}}"  disabled> </div>
+                                            <div class="col-md-2">
+                                                <input type="text" formControlName="testName" class="form-control" value="{{selectedTest.testName}}"  disabled> </div>
+
+                                            <div class="col-md-2">
+
+                                                <input type="text" required id="resultValueIdEdit" name="resultValueEdit"   class="form-control" placeholder="Enter Value"
+                                                       [(ngModel)]="resultValue"  >
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <input type="text" formControlName="unit" class="form-control" value="{{selectedTest.unit}}" disabled> </div>
+
+                                            <div class="col-md-2">
+                                                <input type="text" formControlName="normalRange" class="form-control" value="{{selectedTest.minNormalRange +'-'+ selectedTest.minNormalRange }}" disabled> </div>
+                                            &lt;!&ndash;  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>&ndash;&gt;
+                                            <div class="col-md-2">
+                                                <i (click)="deleteTestEdit()" title="Remove" class="fa fa-close font-red"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>-->
+                    <!--<div class="row">
+                        <form name="LabForm" *ngIf="!showEdit" [formGroup]="labForm"  #form="ngForm" >
+                            <div class="col-md-12">
+
+                                <div class="hr padding round-bck table-responsive">
+                                    <div class="col-md-12 table-responsive round-table table table-striped table-hover table-checkable dataTable no-footer" >
+
+                                        <div class="col-md-2">Test Code</div>
+                                        <div class="col-md-2">Tes Name</div>
+                                        <div class="col-md-2">Result value</div>
+                                        <div class="col-md-2">Units</div>
+                                        <div class="col-md-2">Normal Range</div>
+                                        <div class="col-md-2">Actions</div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div>
+
+                                            <div class="col-md-2">
+                                                <input type="text" formControlName="textCode" class="form-control" value="{{singleTestSpeciman.testCode}}"  disabled> </div>
+                                            <div class="col-md-2">
+                                                <input type="text" formControlName="testName" class="form-control" value="{{singleTestSpeciman.testName}}"  disabled> </div>
+                                            <div class="col-md-2">
+
+
+
+                                                <input type="text" id="resultValueId" name="resultValue"  class="form-control" placeholder="eg 123.."
+                                                       [(ngModel)]="resultValue"  >
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <input type="text" formControlName="unit" class="form-control" value="{{singleTestSpeciman.unit}}" disabled> </div>
+
+                                            <div class="col-md-2">
+                                                <input type="text" formControlName="normalRange" class="form-control" value="{{singleTestSpeciman.minNormalRange}}" disabled> </div>
+                                            &lt;!&ndash;  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>&ndash;&gt;
+                                            <div class="col-md-2">
+                                                <i (click)="deleteTest()" title="Remove" class="fa fa-close font-red"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>-->
+
+                   <!-- <div class="row">
+                        <div class="col-md-12 mrgn-btm10">
+                            <div class="pull-right">
+                                <div class="pull-right">
+
+                                    <button *ngIf="!showEdit" class="btn btn-default btn-outline btn-sm" (click)="addLabtoGrid()"> Add Test </button>
+                                    <button *ngIf="showEdit" class="btn btn-default btn-outline btn-sm" (click)="updateLabtoGrid()"> Update Test </button>
+
+                                </div>
+                                &lt;!&ndash;<button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons" data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success" (click)="addMoreTest()"><i class="fa fa-plus"></i> Add another </button>&ndash;&gt;
+                            </div>
                         </div>
                     </div>-->
+
+
+                    <!--<div class="row">
+
+                        <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
+                               role="grid">
+                            <thead>
+                            &lt;!&ndash;<tr role="row" class="">
+                                <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Code </th>
+                                <th width="12%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Test Name </th>
+                                <th width="4%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Result value </th>
+                                <th width="9%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Units </th>
+                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Min - Max Range  </th>
+                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Action </th>
+                            </tr>&ndash;&gt;
+                            <tr role="row" class="filter" *ngFor="let lbRT of LabReadList;  let idx = index">
+
+                                <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.testCode}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{lbRT.testName}}</td>
+                                <td rowspan="1" colspan="1" rowspan="1" colspan="1" >{{lbRT.resultValue }}
+                                </td>
+
+                                <td rowspan="1" colspan="1" class="text-align-right">{{lbRT.unit}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{lbRT.minNormalRange}}</td>
+
+                                <td rowspan="1" colspan="1" class="text-align-right">
+                                    <button  (click)="editLabtoGrid(lbRT.id)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
+                                    <button  (click)="removeLabtoGrid(lbRT.id)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
+                                </td>
+                            </tr>
+
+                            </thead>
+                        </table>
+                        &lt;!&ndash; <div class="col-md-12 mrgn-btm10">
+                             <div [formGroupName]="i">
+                                 &lt;!&ndash; <div class="col-md-3">
+                                      &lt;!&ndash;<input type="text" formControlName="loincCode" class="form-control" value="23">&ndash;&gt;
+                                      <p-autoComplete formControlName="loincCode" [suggestions]="filteredTestSingle" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true"></p-autoComplete>
+                                  </div>&ndash;&gt;
+                                 &lt;!&ndash; <td rowspan="1" colspan="1"> 11293-8: Type of Referral source </td>&ndash;&gt;
+                                 <div class="col-md-2">
+                                     <input type="text" formControlName="description" class="form-control" value="23" readonly>
+                                 </div>
+                                 <div class="col-md-2"> <input type="text" formControlName="units" class="form-control" value="23" readonly> </div>
+                                 <div class="col-md-2"> <input type="text" formControlName="resultValue" class="form-control" value="45" readonly> </div>
+                                 <div class="col-md-2"> <input type="text" formControlName="normalRange" class="form-control" value="100" readonly> </div>
+                                 &lt;!&ndash;  <td rowspan="1" colspan="1"> <button class="btn btn-default pdng-lr-5 btn-outline font-red" data-title="Sweet Alerts with Icons" (click)="deleteTest(i)"  data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success"><i class="fa fa-remove"></i></button> </td>&ndash;&gt;
+                                 <div class="col-md-2">
+                                     <i (click)="deleteTest(i)" title="" class="fa fa-pencil"></i>
+                                     <i (click)="deleteTest(i)" title="Remove" class="fa fa-close font-red"></i>
+                                 </div>
+                             </div>
+                         </div>&ndash;&gt;
+                    </div>-->
+                    <!--<div class="hr text-center bdr-top bdr-btm padding-b-10 padding-t-10">
+                        <button class="btn blue" (click)="addLabOrder(labForm.value)"> Submit Order </button>
+                    </div>-->
+                    <div class="row">
+                        <div class="col-md-12"  *ngIf="show">
+                            <form name="invoiceForm">
+                                <div class="hr padding round-bck table-responsive">
+                                    <table class="table table-striped table-hover table-checkable dataTable no-footer" id="" aria-describedby="datatable_ajax_info"
+                                           role="grid">
+                                        <thead>
+                                        <tr role="row" class="">
+                                            <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
+
+                                            <!-- <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th> -->
+                                            <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result Value </th>
+                                            <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Unit  </th>
+
+                                            <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
+                                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
+
+                                        </tr>
+                                        <tr role="row" class="filter">
+                                            <td rowspan="1" colspan="1" class="custom-td-size">
+                                                <input type="text" name="code" value="{{filterSpeciman.testCode}}"  disabled class="form-control" >
+                                            </td>
+                                            <!--<td class="sorting_disabled custom-td-size" rowspan="1" colspan="1">
+                                                <input type="text" class="form-control" name="testname" value="{{filterSpeciman.testName}}"  disabled>
+                                            </td>-->
+                                            <!--   <td rowspan="1" colspan="1" class="custom-td-size">
+                                                  <textarea type="text" name="description" value="{{selectedService.description}}" rows="1"></textarea>
+                                              </td> -->
+                                            <td rowspan="1" colspan="1" class="custom-td-size">
+                                                <input type="text" id="resultValueId" name="resultValue"  class="form-control" placeholder="eg 123.."
+                                                       [(ngModel)]="resultValue"  >
+                                            </td>
+                                            <td rowspan="1" colspan="1" class="custom-td-size">
+                                                <input type="text"  class="form-control" value="{{filterSpeciman.unit}}" disabled>
+                                            </td>
+
+                                            <td rowspan="1" colspan="1" class="custom-td-size">
+                                                <input type="text"  class="form-control" value="{{filterSpeciman.minNormalRange}}" disabled>
+
+                                            </td>
+                                            <td rowspan="1" colspan="1" class="custom-td-size">
+                                                <i (click)="clearField()" title="Remove" class="fa fa-close font-red"></i>
+                                            </td>
+
+
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                    <div class="pull-right">
+
+                                        <button *ngIf="!showEdit" class="btn btn-default btn-outline btn-sm" (click)="addLabtoGrid()"> Add Test </button>
+                                        <button *ngIf="showEdit" class="btn btn-default btn-outline btn-sm" (click)="updateLabtoGrid()"> Edit Test </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    <div class="pull-right">
-                        <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons" data-message="Success Icon" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success" (click)="addMoreTest()"><i class="fa fa-plus"></i> Add another </button>
+                        <div class="col-md-12">
+                            <div class="table-scrollable">
+                                <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
+                                       role="grid">
+                                    <thead>
+                                    <tr role="row" class="off-wite-bg">
+                                        <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
+
+
+                                        <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result Value </th>
+                                        <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Unit  </th>
+
+                                        <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
+                                        <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
+                                    </tr>
+                                    <tr role="row" class="filter" *ngFor="let lbRT of LabReadList;  let idx = index">
+                                       <!-- <td rowspan="1" colspan="1">{{lbRT.id}}</td>-->
+                                        <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.testCode}}</td>
+
+                                        <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.resultValue }}</td>
+                                        <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.unit}}</td>
+                                        <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.minNormalRange}}</td>
+
+                                        <td rowspan="1" colspan="1" class="text-align-left">
+                                            <button  (click)="editLabtoGrid(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
+                                            <button  (click)="removeLabtoGrid(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
+                                        </td>
+                                    </tr>
+
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mrgn-top8">
+
+                        </div>
+
+
+                        <div class="col-md-12 mrgn-top14">
+
+                            <div class="pull-right">
+
+
+                                <button class="btn blue" (click)="addLabOrder(labForm.value)"> Submit Order </button>
+
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="hr text-center bdr-top bdr-btm padding-b-10 padding-t-10">
-                        <button class="btn blue" (click)="addLabOrder(labForm.value)"> Submit Order </button>
-                    </div>
                 </form>
             </div>
         </div>
-        <!--<div class="clearfix">
-            <a (click)="goToUserDashBoard();" class="nav-link">
-                <button type="button" class="btn  btn-default"> Cancel</button>
-            </a>
-        </div>-->
+
     </div>
 </div>
 

@@ -155,7 +155,7 @@ var PatientFamilyHistoryComponent = (function () {
             }
         }
         else {
-            this.notificationService.error('Form Invalid', '');
+            this.notificationService.error('Please Provide Name of Family Member');
         }
     };
     PatientFamilyHistoryComponent.prototype.onUpdatePopupLoad = function (family) {

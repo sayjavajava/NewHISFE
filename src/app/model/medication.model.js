@@ -1,9 +1,7 @@
 "use strict";
-/**
- * Created by jamal on 8/28/2018.
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 var MedicationModel = (function () {
+    // appoint:Appointment=new Appointment();
     function MedicationModel() {
         this.drugName = "";
         this.prn = false;
@@ -19,6 +17,9 @@ var MedicationModel = (function () {
         this.note = "";
         this.orderStatus = "";
         this.updatedOn = "";
+        this.datePrescribedDate = new Date();
+        this.dateStartedTakingDate = new Date();
+        this.dateStoppedTakingDate = new Date();
     }
     return MedicationModel;
 }());

@@ -1,6 +1,7 @@
 /**
  * Created by jamal on 8/28/2018.
  */
+import {Appointment} from "./Appointment";
 
 export class MedicationModel {
 
@@ -25,8 +26,17 @@ export class MedicationModel {
     note: string = "";
     orderStatus: string = "";
     updatedOn: string = "";
-
-
+    /// New Changes add
+    frequency:string;
+    route:string;
+    strengths:any;
+    duration:string;
+    durationPeriod:string;
+    datePrescribedDate: Date = new Date();
+    dateStartedTakingDate: Date = new Date();
+    dateStoppedTakingDate: Date = new Date();
+    appointmentDate:string;
+   // appoint:Appointment=new Appointment();
     constructor() {
     }
 

@@ -121,7 +121,8 @@
                         <div class="row">
 
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code<span
+                                        class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" required name="testCode" id="testCode" class="form-control"
                                            placeholder="Enter Test Code"
@@ -133,8 +134,11 @@
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name<span
+                                        class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" required name="testName" id="testName" class="form-control"
+                                           placeholder="Blood Cells"
                                            placeholder="Enter Test Name"
                                            [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
                                 </div>
@@ -142,23 +146,41 @@
                             </div>
 
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Min Normal Range</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Min Normal Range<span
+                                        class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" required name="minNormalRange" id="minNormalRange"
+                                           class="form-control" placeholder="5"
                                            class="form-control" placeholder="Enter Minimum Range of Test Result"
                                            [(ngModel)]="labTestSpeciman.minNormalRange" #minNormalRange="ngModel">
                                 </div>
                             </div>
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Max Normal Range</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Max Normal Range<span
+                                        class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <input type="text" name="maxNormalRange" id="maxNormalRange" class="form-control"
+                                           placeholder="2"
                                            placeholder="Enter Maximum Range of Test Result"
                                            [(ngModel)]="labTestSpeciman.maxNormalRange" #maxNormalRange="ngModel">
                                 </div>
                                 <span *ngIf="maxNormalRange.invalid && maxNormalRange.touched"
                                       class="col-md-9 select pdng-lr-5 text-danger">
-                                        Please enter valid value.
+                                        Please enter valid Value.
+                                </span>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Unit<span
+                                        class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" name="unit" id="unit" class="form-control"
+                                           placeholder="BPM"
+                                           [(ngModel)]="labTestSpeciman.unit" #unit="ngModel">
+                                </div>
+                                <span *ngIf="unit.invalid && unit.touched"
+                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter unit.
                                 </span>
                             </div>
 
@@ -179,8 +201,14 @@
                             class="btn btn-default btn-outline">Close </button>
                 </span>
                     <span>
-                    <button type="button" class="btn blue" id="save-btn-update"
-                            (click)="editLabSpeciman(ngForm)">Add</button>
+                        <button type="button" class="btn blue"
+                                 *ngIf="labTestSpeciman.id <= 0 || labTestSpeciman.id == null"
+                                 (click)="editLabSpeciman(ngForm)">Save
+                        </button>
+                        <button type="button" class="btn blue" *ngIf="labTestSpeciman.id > 0"
+                                (click)="editLabSpeciman(ngForm)">Update
+                        </button>
+
                 </span>
                 </div>
             </div>

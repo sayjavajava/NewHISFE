@@ -10,22 +10,28 @@ import {MedicationModel} from "../../../model/medication.model";
 import {DataService} from "../../../services/DataService";
 import {Subscription} from "rxjs/Subscription";
 import {Patient} from "../../../model/patient";
-import {VitalSetupModel} from "../../../model/VitalSetupModel";
 import {SelectItem} from "primeng/api";
 import {PatientVitalModel} from "../../../model/PatientVitalModel";
 
 
 @Component({
     selector: 'patient-history',
-    templateUrl: '../../../templates/dashboard/patient/patient-history.template.html',
+    templateUrl: '../../../templates/dashboard/patient/patient-history-vital.template.html',
 })
-export class PatientHistoryComponent implements OnInit, OnDestroy {
+export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
 
     problemPages: number[] = [];
     problemNextPage: any;
     problemPrePage: any;
     problemCurrPage: any;
     problemActiveData: PatientProblemModel[] = [];
+
+
+    vitalPages: number[] = [];
+    vitalNextPage: any;
+    vitalPrePage: any;
+    vitalCurrPage: any;
+   // vitalActiveData: PatientProblemModel[] = [];
 
     allergiesPages: number[] = [];
     allergiesNextPage: any;
@@ -50,7 +56,11 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     allVitalsNamesAny: any[];
     vitalList: PatientVitalModel[];
     vitalListData: PatientVitalModel[];
-
+    nextPage: any;
+    prePage: any;
+    currPage: any;
+    pages: number[] = [];
+    cols: any[];
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -63,15 +73,24 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
             this.selectedPatientId = id;
         });
 
-        this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
-        this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
+        this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPatientByIdFromServer(this.selectedPatientId);
+        this.getPaginatedPatientVitalList(0);
         this.getVitalSetupList();
-        this.getPatientVitalList();
+        //   this.getPatientVitalList();
     }
 
     ngOnInit(): void {
+
+        this.cols = [
+            { field: 'name', header: 'Name' },
+            { field: 'unit', header: 'Unit' },
+            { field: 'currentValue', header: 'Current' },
+            { field: 'standardValue', header: 'Standard' },
+            { field: 'status', header: 'Status' },
+            { field: 'status', header: 'Action' }
+        ];
     }
 
     getPatientByIdFromServer(patientId: number) {
@@ -113,10 +132,10 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
             );
     }
 
-    getPageWiseProblemActive(page: number) {
-        this.getPaginatedProblemsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
-    }
-
+    /*  getPageWiseProblemActive(page: number) {
+          this.getPaginatedProblemsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
+      }
+  */
     getPaginatedAllergiesByActiveAndPatientIdFromServer(page: number, pageSize: number, allergyStatus: any) {
 
         this.requestsService.getRequest(
@@ -189,7 +208,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     addVitalPopupClick() {
         this.isUpdate = false;
         this.vitalSetupTemplate = new PatientVitalModel();
-        this.getVitalSetupList();
+        this.getPaginatedPatientVitalList(0);
     }
 
     getVitalSetupList() {
@@ -213,11 +232,11 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
 
                         // console.log("Length : " + this.prefixTemplateList.length);
                     } else {
-                        this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
+                        this.notificationService.error('Vital Information not fetched');
                     }
                 },
                 (error: any) => {
-                    this.notificationService.error(Response['responseMessage'], 'Vital Setup Configurations');
+                    this.notificationService.error('Vital  Information not fetched');
                 }
             );
         } else {
@@ -226,7 +245,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     }
 
 
-    getPatientVitalList() {
+    /*getPatientVitalList() {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(AppConstants.FETCH_VITALS_PATIENT
             ).subscribe(
@@ -234,19 +253,9 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.vitalListData = response['responseData'];
                         console.log(this.vitalListData);
-                        //   this.allVitalsNamesAny=this.data;
 
-                        /*for (let vital of this.allVitalsNamesAny) {
-                            let pair: any = {label: vital.name, value: vital.name};
-                            this.searchedVitalAnyListModified.push(pair);
-
-                        }*/
-
-                  //      this.selectedstr = this.searchedVitalAnyListModified[0].value;
-
-                        // console.log("Length : " + this.prefixTemplateList.length);
                     } else {
-                        this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
+                        this.notificationService.error(response['responseMessage'], 'Vital ');
                     }
                 },
                 (error: any) => {
@@ -256,7 +265,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
         } else {
             this.router.navigate(['/login']);
         }
-    }
+    }*/
 
 
     getSelectedVital(name: any) {
@@ -276,20 +285,30 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
             return;
         }
 
-
+        debugger;
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
             document.getElementById('name').focus();
             return;
         }
 
-        if (this.vitalSetupTemplate.currentValue == '') {
+        if (this.vitalSetupTemplate.currentValue == '' || this.vitalSetupTemplate.currentValue == null) {
             this.notificationService.warn('Please Enter Current Value');
             document.getElementById('currentValueId').focus();
             return;
         }
+        if (this.vitalSetupTemplate.standardValue == '' || this.vitalSetupTemplate.standardValue == null) {
+            this.notificationService.warn('Please Select Vital');
+            document.getElementById('name').focus();
+            return;
+        }
 
-
+        if (this.vitalSetupTemplate.unit == '' || this.vitalSetupTemplate.unit == null) {
+            this.notificationService.warn('Please Select Vital');
+            document.getElementById('name').focus();
+            return;
+        }
+        debugger;
         this.vitalSetupTemplate.name = this.selectedstr.toString();
 
         if (localStorage.getItem(btoa('access_token'))) {
@@ -300,12 +319,15 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
 
-                            this.notificationService.success(response['responseMessage'], 'Patient Vital Sucessfully Saved');
-                             this.getPatientVitalList();
-                            // this.closeBtn.nativeElement.click();
+                            this.notificationService.success('Patient Vital Sucessfully Saved');
+                            document.getElementById('close-btn-Prefix').click();
+                            this.getPaginatedPatientVitalList(0);
+                            //  this.getPatientVitalList();
+
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                            this.notificationService.error("Patient Vital not Saved");
                             //  this.getPaginatedProblemsFromServer(0);
+                            this.getPaginatedPatientVitalList(0);
                         }
 
                     },
@@ -325,7 +347,9 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     editVital(Id: number) {
 
         this.isUpdate = true;
-        //  this.vitalSetupTemplate = new PatientVitalModel();
+
+
+        debugger;
 
         if (Id > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
@@ -334,7 +358,10 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                         response => {
                             if (response['responseCode'] === 'SUCCESS') {
                                 this.vitalSetupTemplate = response['responseData'];
-                                this.selectedPatientId=this.vitalSetupTemplate.patientId;
+                                debugger;
+                                this.selectedPatientId=this.vitalSetupTemplate.patient.id;
+
+
                                 debugger;
                             }
                         },
@@ -349,6 +376,12 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
 
 
     delete(Id: number) {
+
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
+
         if (window.localStorage.getItem(btoa('access_token'))) {
             if (!confirm('Are Your Sure You Want To Delete')) return;
             this.requestsService.deleteRequest(
@@ -356,17 +389,21 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
-                            this.notificationService.success(response['responseMessage'], 'Patient Vital Delete');
-                            this.getPatientVitalList();
-                            this.HISUTilService.hidePopupWithCloseButtonId('closeButton');
+                            this.notificationService.success('Patient Vital Sucessfully Deleted');
+                            //  this.getPatientVitalList();
+
+                            //   this.HISUTilService.hidePopupWithCloseButtonId('closeButton');
+                            document.getElementById('close-btn-Prefix').click();
+                            this.getPaginatedPatientVitalList(0);
                         } else {
-                            this.getPatientVitalList();
-                            this.notificationService.error(response['responseMessage'], 'Patient Vital Delete');
+                            //     this.getPatientVitalList();
+                            this.getPaginatedPatientVitalList(0);
+                            this.notificationService.error(response['responseMessage'], 'Patient Vital unable to Delete');
                         }
                     },
                     (error: any) => {
 
-                        this.notificationService.error(error.error, 'Patient Vital  Delete')
+                        this.notificationService.error(error.error.error)
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );
@@ -385,13 +422,25 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
         }
 
 
+
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
             document.getElementById('name').focus();
             return;
         }
 
+        if (this.vitalSetupTemplate.currentValue == '' || this.vitalSetupTemplate.currentValue == null) {
+            this.notificationService.warn('Please Enter Current value');
+            document.getElementById('currentValueId').focus();
+            return;
+        }
 
+
+        if (this.vitalSetupTemplate.standardValue == '' || this.vitalSetupTemplate.standardValue == null) {
+            this.notificationService.warn('Please Select Vital');
+            document.getElementById('name').focus();
+            return;
+        }
 
         this.vitalSetupTemplate.name = this.selectedstr.toString();
 
@@ -403,12 +452,18 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
 
-                            this.notificationService.success(response['responseMessage'], 'Patient Vital Sucessfully Updated');
-                            // this.getPaginatedProblemsFromServer(0);
-                            //  this.closeBtn.nativeElement.click();
+                            this.notificationService.success('Patient Vital Sucessfully Updated');
+
+                            // this.getPatientVitalList();
+                            //  this.HISUTilService.hidePopupWithCloseButtonId('closeButton');
+                            document.getElementById('close-btn-Prefix').click();
+                            this.getPaginatedPatientVitalList(0);
+
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Problem of Patient');
+                            this.notificationService.error("Patient Vital Not Sucessfully Updated");
                             //  this.getPaginatedProblemsFromServer(0);
+                            //  this.getPatientVitalList();
+                            this.getPaginatedPatientVitalList(0);
                         }
 
                     },
@@ -423,4 +478,81 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
         }
 
     }
+
+
+    /*getPaginatedPatientVitalList(page:number) {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL
+            ).subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.vitalListData = response['responseData'];
+                        console.log(this.vitalListData);
+
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(Response['responseMessage'], 'Vital Setup Configurations');
+                }
+            );
+        } else {
+            this.router.navigate(['/login']);
+        }
+    }*/
+
+
+    private getPaginatedPatientVitalList(page: number) {
+        debugger;
+        //   this.selectedPatientId=this.vitalSetupTemplate.patientId;
+
+        this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.vitalNextPage = response['responseData']['nextPage'];
+                        this.vitalPrePage = response['responseData']['prePage'];
+                        this.vitalCurrPage = response['responseData']['currPage'];
+                        this.vitalPages = response['responseData']['pages'];
+                       // this.vitalActiveData=[];
+                        this.vitalListData = response['responseData']['data'];
+                    } else {
+                        this.notificationService.error( 'Vital  Information not fetched');
+                    }
+                },
+                (error: any) => {
+                    this.HISUTilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
+    getPageWiseVitalActive(page: number) {
+        this.getPaginatedVitalByActiveAndPatientIdFromServer(page, 5);
+    }
+
+    getPaginatedVitalByActiveAndPatientIdFromServer(page: number, pageSize: number) {
+
+        this.requestsService.getRequest(
+            AppConstants.VITALS_PAGINATED_URL + page +
+            "?selectedPatientId=" + this.selectedPatientId +
+            "&pageSize=" + pageSize)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.vitalNextPage = response['responseData']['nextPage'];
+                        this.vitalPrePage = response['responseData']['prePage'];
+                        this.vitalCurrPage = response['responseData']['currPage'];
+                        this.vitalPages = response['responseData']['pages'];
+                     //   this.vitalActiveData = [];
+                        this.vitalListData = response['responseData']['data'];
+                    }
+                },
+                (error: any) => {
+                    this.HISUTilService.tokenExpired(error.error.error);
+                }
+            );
+    }
+
+
 }

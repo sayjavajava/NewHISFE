@@ -77,7 +77,7 @@
         </div>
         <!-- common dive profile -->
         
-        <div class="row">
+        <div class="row mrgn-top10">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Active Medication Orders
@@ -93,7 +93,7 @@
                                 </button>
                             </a>
                         </span>
-                            <span><button class="btn btn-default btn-outline btn-sm"> <i class=" icon-clock"></i> Print List </button></span>
+                            <!--<span><button class="btn btn-default btn-outline btn-sm"> <i class=" icon-clock"></i> Print List </button></span>-->
                         </div>
                     </h4>
                 </div>
@@ -126,14 +126,14 @@
                                     <input *ngSwitchCase="'reaction'" pInputText type="text" style="width: 100%"
                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
 
-                                    <input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <!--<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
 
-                                    <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                   <!-- <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
 
-                                    <input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    <!--<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
 
 
 
@@ -258,15 +258,15 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:200px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
-                        <div class="form-group hr">
+                        <!--<div class="form-group hr">
                             <label class="control-label txt-size pdng-lr-5 col-md-4">
                                 Appointments<span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-                                    <!--<select
+                                    &lt;!&ndash;<select
                                             name="appointment" id="appointmentId"
                                             [(ngModel)]="pam.appointmentId"
                                             class="form-control">
@@ -277,14 +277,15 @@
                                             {{pastApp.appointmentId}},
                                             {{"Schedule Date:"+pastApp.scheduleDate}}
                                         </option>
-                                    </select>-->
+                                    </select>&ndash;&gt;
+                                    &lt;!&ndash; Remove appointment from allergy screen 11-22-2018&ndash;&gt;
                                     <p-dropdown  placeholder="select appointment" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="apt"
                                                  [options]="patient.pastAppointments"
                                                  [(ngModel)]="pam.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">
                                 Allergy type:<span class="required" aria-required="true"> * </span>
@@ -308,10 +309,10 @@
                         </div>
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                allergy Name:<span class="required" aria-required="true"> * </span>
+                                Allergy Name:<span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control"  placeholder=" e.g Tartrazine"
                                        id="nameId"
                                        name="nameId"
                                        #nameId="ngModel"
@@ -321,7 +322,7 @@
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">Reaction:</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" placeholder=" e.g Diabetes"
                                        id="reactionId"
                                        name="reactionId"
                                        #reactionId="ngModel"
@@ -345,7 +346,7 @@
                         <div class="form-group hr">
                             <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes:</label>
                             <div class="col-md-7 select pdng-lr-5">
-                                <textarea class="form-control"
+                                <textarea class="form-control" placeholder="Description  here"
                                           rows="3"
                                           [(ngModel)]="pam.note">
                                 </textarea>

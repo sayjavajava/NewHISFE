@@ -78,23 +78,18 @@
         </div>
         <!-- common dive profile -->
 
-        <div class="row">
+        <div class="row mrgn-top10">
             <div class="col-md-12">
+                <div class="hr"><h4 class="text-info">Add new documents for this patient</h4></div>
                 <div class="portlet-body">
                     <ul class="nav nav-tabs">
                         <li class="active">
                             <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Uploaded Documents </a>
                         </li>
-
                     </ul>
                     <div class="tab-content">
-                        <div class="hr">
-                            <div class="tab-pane col-md-12 fade active in" id="tab_1_1">
-                                <h4 class="text-info">Add new documents for this patient</h4>
-                            </div>
-                        </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group hr">
                                     <label class="col-md-3 pdng-lr-5 control-label txt-size">Name</label>
                                     <div class="col-md-9 select pdng-lr-5">
@@ -102,9 +97,7 @@
                                                [(ngModel)]="dm.name">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group hr">
                                     <label class="col-md-3 pdng-lr-5 control-label txt-size">Type</label>
                                     <div class="col-md-9 select pdng-lr-5">
                                        <!-- <select class="form-control" [ngModelOptions]="{standalone:true}"
@@ -119,9 +112,7 @@
                                         </p-dropdown>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group hr">
                                     <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File</label>
                                     <div class="col-md-9 select pdng-lr-5">
                                         <input type="file"
@@ -130,15 +121,10 @@
                                                (change)="uploadImgOnChange($event)">
                                     </div>
                                 </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
                                 <div class="form-group hr">
-                                    <label class="col-md-2 pdng-lr-5 control-label txt-size">Description</label>
-                                    <div class="col-md-10 select pdng-lr-5">
-                                        <address>
+                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        <address class="no-margin">
                                                 <textarea rows="5" cols="80"
                                                           id="descriptionId"
                                                           name="description" maxlength="3000"

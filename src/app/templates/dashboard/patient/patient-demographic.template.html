@@ -291,14 +291,30 @@
                                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                                                            class="form-control">
                                                     <!--<div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                                           class="form-control" >-->
+                                                    <div *ngIf="email.invalid && (email.dirty || officeExtension.touched)"
                                                          class="alert alert-danger">
                                                         please provide valid email
-                                                    </div>-->
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Disable SMS/Txt</label>
                                                 <div class="col-md-8">
+                                                    <p-dropdown  placeholder="Select Language" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="rLanguage" [(ngModel)]="patient.reminderLanguage" [options]="rLanguage"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Disable SMS/Txt
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <!--<label class="control-label">
+                                                        <input type="checkbox" name="disableSMSTxt"
+                                                               #disableSMSTxt="ngModel"
+                                                               [(ngModel)]="patient.disableSMSTxt">
+                                                        Disable all SMS/Txt Messages for this user
+                                                    </label>-->
                                                     <label class="mt-checkbox-outline">
                                                         <mat-checkbox name="disableSMSTxt" [(ngModel)]="patient.disableSMSTxt" color="primary"> </mat-checkbox>
                                                         <span></span>
@@ -936,19 +952,29 @@
                                                     <label class="col-md-5 col-sm-5 col-xs-6 control-label">Smoking
                                                         Status *</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-6">
-                                                        <input type="text" class="form-control"
+                                                        <!--<input type="text" class="form-control"
                                                                [(ngModel)]="smokeStatus.smokingStatus"
                                                                required="required"
                                                                placeholder="Enter Smoking Status" name="smokingStatus"
                                                                pattern="^[a-zA-Z 0-9_-]{1,60}$"
-                                                               #smokingStatus="ngModel">
-                                                        <!--<select class="form-control" name="select">
+                                                               #smokingStatus="ngModel">-->
+                                                       <!-- <select class="form-control" name="select">
                                                             <option value="">Select...</option>
                                                             <option value="Category 1">Current every day smoker</option>
                                                             <option value="Category 2">Current every day smoker</option>
                                                             <option value="Category 3">Current every day smoker</option>
                                                             <option value="Category 4">Current every day smoker</option>
                                                         </select>-->
+
+                                                        <p-dropdown
+                                                                [autoWidth]="false" required="required"  placeholder="Please Select Smoking Status" name="smokingStatus"
+                                                                pattern="^[a-zA-Z 0-9_-]{1,60}$"
+                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                [(ngModel)]="smokeStatus.smokingStatus"
+                                                                [options]="smokeStatusType"
+                                                                [panelStyle]="{minWidth:'12em'}"
+                                                                [filter]="true">
+                                                        </p-dropdown>
                                                     </div>
                                                 </div>
                                                 <div class="hr no-padding">
