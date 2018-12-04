@@ -236,7 +236,6 @@ export class AppConstants {
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
-    public static VITALS_CONFIGURATION_GET_BY_ID = '/vitalSetup/get/';
     public static VITALS_CONFIGURATION_DELETE = '/vitalSetup/delete/';
 
 
