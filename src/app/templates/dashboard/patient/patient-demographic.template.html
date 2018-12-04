@@ -279,9 +279,13 @@
                                                     <input type="email" name="email" readonly
                                                            [(ngModel)]="patient.email" #email="ngModel"
                                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+<<<<<<< Updated upstream
                                                            class="form-control">
                                                     <!--<div *ngIf="email.invalid && (email.dirty || email.touched)"
                                                            class="form-control" >-->
+=======
+                                                           class="form-control" >
+>>>>>>> Stashed changes
                                                     <div *ngIf="email.invalid && (email.dirty || officeExtension.touched)"
                                                          class="alert alert-danger">
                                                         please provide valid email

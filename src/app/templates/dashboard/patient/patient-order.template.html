@@ -1,0 +1,374 @@
+<patient-history-menu></patient-history-menu>
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+
+        <!-- common dive profile -->
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="portlet-title">
+                        <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-sm-8 col-xs-12">
+                            <div class="hr">
+                                <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date: 'MM-dd-yyyy'}})</small>
+                            </div>
+                            <div class="hr padding-b-10">
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Cell Phone:</td>
+                                            <td class="txt-left font-red">{{patient.cellPhone}}</td>
+                                            <!--<td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Address:</td>
+                                            <td class="text-left font-red">{{patient.formattedAddress}}</td>
+                                            <!--<td class="font-red">No address on file</td>-->
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Email:</td>
+                                            <td class="text-left font-red">{{patient.email}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Gender:</td>
+                                            <td class="text-left font-red">{{patient.gender}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <!--<tr>
+                                            <td class="txt-rigt">Appt:</td>
+                                            <td class="font-red">Mon. Jul. 27, 2015</td>
+                                        </tr>-->
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
+                    </div>
+                    <div class="hr no-margin">
+                        <div class="hr">
+                            <div *ngIf="patient.primaryDoctorFirstName"  class="portlet-title">
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primery Doctor:</span> <span
+                                        class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="hr no-margin">
+                             <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
+                             <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
+                         </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- common dive profile -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet-body">
+                    <ul class="nav nav-tabs">
+                        <!--<li class="active">
+                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Uploaded Documents </a>
+                        </li>-->
+                        <div class="pull-right">
+                            <!--<a href="#responsive" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                        data-type="success" data-allow-outside-click="true"
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
+                                </button>
+                            </a>-->
+                            <span>
+                                <a href="#responsive" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                        data-type="success" data-allow-outside-click="true"
+                                        (click)="addProblemPopupClick()"
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Order
+                                </button>
+                                 </a>
+                            </span>
+
+                        </div>
+
+
+                    </ul>
+                    <!--<div class="tab-content">
+                        <div class="hr">
+                            <div class="tab-pane col-md-12 fade active in" id="tab_1_1">
+                                <h4 class="text-info">Add new documents for this patient</h4>
+                            </div>
+                        </div>
+                       &lt;!&ndash; <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group hr">
+                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Name</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        <input type="text" class="form-control"
+                                               [(ngModel)]="dm.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Type</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        &lt;!&ndash; <select class="form-control" [ngModelOptions]="{standalone:true}"
+                                                 id="typeId" name="type"
+                                                 [(ngModel)]="dm.type">
+                                             <option value="INSURANCE">Insurance</option>
+                                             <option value="HEALTH_CERTIFICATE">Health Certificate</option>
+                                             <option value="REPORT">Report</option>
+                                             <option value="TEST">Test</option>
+                                         </select>&ndash;&gt;
+                                        <p-dropdown  placeholder="Select Type" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="dm.type" name="pType" [options]="reportType"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>&ndash;&gt;
+                          &lt;!&ndash;  <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        <input type="file"
+                                               id="documentId"
+                                               name="documentName"
+                                               (change)="uploadImgOnChange($event)">
+                                    </div>
+                                </div>
+                            </div>&ndash;&gt;
+
+                        </div>-->
+                        <!--<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group hr">
+                                    <label class="col-md-2 pdng-lr-5 control-label txt-size">Description</label>
+                                    <div class="col-md-10 select pdng-lr-5">
+                                        <address>
+                                                <textarea rows="5" cols="80"
+                                                          id="descriptionId"
+                                                          name="description" maxlength="3000"
+                                                          [(ngModel)]="dm.description">
+                                                </textarea>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                        <!--<div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group hr" align="right">
+                                     <span [hidden]="isUpdate">
+                                        <input type="button" id="saveDocumentId" class="btn green"
+                                               (click)="saveDocumentByPatient()" value="Save">
+                                     </span>
+                                </div>
+                                <div class="form-group hr" align="right">
+                                    <span [hidden]="!isUpdate">
+                                        <input type="button" id="updateDocumentId" class="btn green"
+                                               (click)="updateDocumentByPatient()" value="Update">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>-->
+
+                        <div class="hr">
+                            <h4 class="text-info">Uploaded Documents</h4>
+                            <div class="table-scrollable tbl-brdr-radus">
+                                <table class="table table-hover table-light">
+                                    <thead>
+                                    <tr class="hedng-bck-clr tbl-pdng">
+                                        <th> Order  Name</th>
+                                        <th> Download</th>
+                                        <th> Doctor Comment</th>
+                                        <th>Description</th>
+                                        <th> Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="tbl-pdng" *ngFor="let order of orderData;">
+                                        <td>{{order.orderObj.name}}</td>
+                                        <td><a href="{{order.url}}" target="_blank">Download</a></td>
+                                        <td>{{order.doctorComment}}</td>
+                                        <td>{{order.description}}</td>
+                                        <td>
+                                            <a
+                                                    (click)="editOrder(order.id)">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+
+                                           <button
+
+                                                    (click)="deleteOrder(order.id)">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="clearfix margin-bottom-20"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
+                            <a (click)="getPageWiseDocuments(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="prePage">
+                            <a (click)="getPageWiseDocuments(currPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === currPage}"
+                            *ngFor="let page of pages">
+                            <a (click)="getPageWiseDocuments(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="nextPage">
+                            <a (click)="getPageWiseDocuments(currPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next" *ngIf="pages.length >= 2 && currPage < pages[pages.length - 1]">
+                            <a (click)="getPageWiseDocuments(pages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+
+<!--   Add Pop Buuton Html -->
+<div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Image Order </h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="form-group hr">
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">Order<span class="required"
+                                                                                                       aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+
+                                    <p-dropdown  placeholder="select Order"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedId"
+                                                 [options]="orderListModified"
+                                                 [(ngModel)]="selectedOrder"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">Description
+                                <span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+
+                                    <input type="text" class="form-control"
+                                           [(ngModel)]="patientImageTemplate.description">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Doctor Comment:<span class="required"
+                                                                                                   aria-required="true"> * </span></label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+
+                                    <textarea class="form-control" [(ngModel)]="patientImageTemplate.doctorComment"   style="height: 50em; "></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+
+                            <div class="col-md-7 select pdng-lr-5">
+                                <p-dropdown  placeholder={{patientImageTemplate.status}} [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="statusType"
+                                             [options]="statusType"
+                                             [(ngModel)]="patientImageTemplate.status"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                </p-dropdown>
+                               <!-- <span class="text-danger"
+                                      *ngIf="!labForm.controls['orderStatus'].valid && labForm.controls['orderStatus'].touched">
+                                                    <span *ngIf="labForm.controls['orderStatus'].errors.required"> Please Select Status </span>
+                                                </span>-->
+                            </div>
+                        </div>
+
+
+
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <p-fileUpload name="demo[]"  customUpload="true" (uploadHandler)="uploadImgOnChange($event)" (onUpload)="onUpload($event)"
+                                                  multiple="multiple"  maxFileSize="4000000">
+
+                                    </p-fileUpload>
+
+                                </div>
+                            </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" #closeBtn
+                        class="btn btn-default btn-outline">Close
+                </button>
+                <span [hidden]="isUpdate">
+                    <button type="button" class="btn green" (click)="saveOrder()">Save</button>
+                </span>
+                <span [hidden]="!isUpdate">
+                    <button type="button" class="btn green" (click)="updatePatientProblem()">Update
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

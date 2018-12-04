@@ -47,9 +47,6 @@ export class PatientDemographicComponent implements OnInit {
     selectedCity: string = '';
     smokeStatusType :any;
 
-
-
-
     constructor(private router: Router, private route: ActivatedRoute, private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
                 private notificationService: NotificationService) {

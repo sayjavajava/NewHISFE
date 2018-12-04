@@ -20,9 +20,13 @@ import {PatientLabOrdersComponent} from "../components/dashboard/patient/patient
 import {PatientCommunicationComponent} from "../components/dashboard/patient/patient-communication.component";
 import {PatientFamilyHistoryComponent} from "../components/dashboard/patient/patient-family-history.component";
 import {PatientAddLabOrdersComponent} from "../components/dashboard/patient/patient-add-lab-orders.component";
+<<<<<<< Updated upstream
 import {InvoiceListingComponent} from "../components/dashboard/patient/invoice-listing.component";
 import {PatientInvoiceListComponent} from "../components/dashboard/patient/patient-invoice-list.component";
 /*import {PatientImageOrderComponent} from "../components/dashboard/patient/PatientImageOrderComponent";*/
+=======
+import {PatientImageOrderComponent} from "../components/dashboard/patient/PatientImageOrderComponent";
+>>>>>>> Stashed changes
 import {PatientHistoryVitalComponent} from "../components/dashboard/patient/patient-history-vital.component";
 
 export const PatientRoutes: Routes = [
@@ -52,7 +56,11 @@ export const PatientRoutes: Routes = [
     {path: 'create-order/:id/add/:orderId/order', component: PatientAddLabOrdersComponent},
     {path: 'communication', component: PatientCommunicationComponent},
     {path: 'family-history', component: PatientFamilyHistoryComponent},
+<<<<<<< Updated upstream
     /*{path: 'image-order', component: PatientImageOrderComponent},*/
+=======
+    {path: 'image-order', component: PatientImageOrderComponent},
+>>>>>>> Stashed changes
     {path: 'patient-vital', component: PatientHistoryVitalComponent},
     {path: '**', redirectTo: '404'}
 ];
