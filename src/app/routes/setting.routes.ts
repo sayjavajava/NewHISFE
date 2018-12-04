@@ -46,6 +46,7 @@ import {UserPermissionsComponent} from "../components/dashboard/setting/user-per
 import {PaymentTypeComponent} from "../components/dashboard/setting/PaymentType.component";
 import {CurrencyComponent} from '../components/dashboard/setting/currency.component';
 import {PaymentComponent} from "../components/dashboard/cashier/payment.component";
+import {PatientImageComponent} from "../components/dashboard/setting/PatientImageComponent";
 
 
 export const SettingRoutes: Routes = [
@@ -99,6 +100,6 @@ export const SettingRoutes: Routes = [
 // Add Payment Type
     {path: 'currency', component: CurrencyComponent},
     {path :'payment', component :PaymentComponent},
-
+    {path: 'PatientImage', component: PatientImageComponent},
     {path: '**', redirectTo: '404'}
 ];

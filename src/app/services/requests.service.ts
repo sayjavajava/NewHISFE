@@ -172,5 +172,21 @@ export class RequestsService {
             .then(data => { return data; });
     }
 
+    postRequestMultipartFormAndDataWithMultipleFile(url: any, data: any, img: File[]) {
+        const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
+        reqHeader.append('Content-Type', 'multipart/form-data');
+        let formData: FormData = new FormData();
+        formData.append('myObject', new Blob([JSON.stringify(data)],
+            {
+                type: "application/json"
+            }));
+        if (img != null) {
+            for (var i = 0; i < img.length; i++) {
+                formData.append('img',img[i]);
+            }
+         //   formData.append('img', img, img.name);
+        }
+        return this.http.post(this.getBEAPIServer() + url, formData, {headers: reqHeader});
+    }
 
 }

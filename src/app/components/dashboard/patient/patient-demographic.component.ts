@@ -44,6 +44,17 @@ export class PatientDemographicComponent implements OnInit {
     citiesList: any[];
     citiesListModified: SelectItem[] = [];
     selectedCity: string = '';
+    smokeStatusType :any;
+    martialStatus = [
+        {label: 'SINGLE', value: 'SINGLE',selected:false},
+        {label: 'MARRIED', value: 'MARRIED',selected:false},
+        {label: 'WIDOWED', value: 'WIDOWED',selected:false},
+        {label: 'DIVORCED', value: 'DIVORCED',selected:false},
+        {label: 'SEPARATED', value: 'SEPARATED',selected:false},
+
+    ];
+
+
 
     constructor(private router: Router, private route: ActivatedRoute, private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
@@ -79,6 +90,13 @@ export class PatientDemographicComponent implements OnInit {
                 return;
             }
             this.loadRecord();
+            this.smokeStatusType = [
+                {label: 'Every Day ', value: 'Every Day '},
+                {label: 'Every Week ', value: 'Every Week '},
+                {label: 'Every Month ', value: 'Every Month '},
+                {label: 'Every Year  ', value: 'Every Year'}
+
+            ];
             this.titleList = [
                 {label: 'Mr', value: 'Mr'},
                 {label: 'Mrs', value: 'Mrs'},

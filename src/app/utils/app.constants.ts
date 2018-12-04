@@ -302,6 +302,42 @@ export class AppConstants {
 
     public static ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
     public static FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';
+    /////////////////////FETCH
+    public static FETCH_NAME_ROUTE = '/setting/drug/searchName?drugName=';
+
+    public static FETCH_NAME_STRENGTHS= '/setting/drug/searchStrengths?drugName=';
+
+
+    ////////////////////////////////
+    public static FETCH_VITALS_PATIENT = '/PatientVital/getPatientVital';
+    public static VITALS_PATIENT_SAVE = '/PatientVital/savePatientVital';
+    public static DELETE_VITAL = '/PatientVital/delete/';
+    public static VITAL_GET_URL = '/PatientVital/get/';
+    public static VITALS_PATIENT_UPDATE = '/PatientVital/update';
+    public static VITALS_PAGINATED_URL = '/PatientVital/';
+
+    ///////////////////////////////////////////
+    public static FETCH_PATIENT_IMAGE = '/PatientImage/getSetup';
+    public static PATIENT_IMAGE_SAVE = '/PatientImage/savePatientImageSetup';
+    public static DELETE_PATIENT_IMAGE = '/PatientImage/delete/';
+    public static UPDATE_PATIENT_IMAGE= '/PatientImage/update';
+
+
+
+
+    /*public static DOCUMENT_SAVE_URL = '/patient/document/save';
+    public static DOCUMENT_PAGINATED_URL = '/patient/document/';
+    public static DOCUMENT_GET_URL = '/patient/document/get?';
+    public static DOCUMENT_UPDATE_URL = '/patient/document/update';
+    public static DOCUMENT_DELETE_URI = '/patient/document/delete/';*/
+
+    public static FETCH_PATIENT_ORDER = '/PatientImage/getSetup';
+    public static PATIENT_IMAGE_SAVE_ORDER = '/patient/Imageorder/save';
+    public static DELETE_PATIENT_IMAGE_DELETE = '/patient/Imageorder/delete/';
+    public static UPDATE_PATIENT_IMAGE_UPDATE= '/patient/Imageorder/update';
+    public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
+    public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
+
     public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';
 
 

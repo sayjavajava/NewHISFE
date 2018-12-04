@@ -77,7 +77,7 @@
         </div>
         <!-- common dive profile -->
 
-        <div class="row">
+        <div class="row mrgn-top10">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Active Problems
@@ -90,7 +90,7 @@
                                 </button>
                             </a>-->
                             <span>
-                                 <a href="#responsive" data-toggle="modal">
+                                <a href="#responsive" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow pdngall3"
                                         data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                         data-type="success" data-allow-outside-click="true"
@@ -99,12 +99,120 @@
                                 </button>
                                  </a>
                             </span>
-                            <span><button class="btn btn-default btn-outline btn-sm"> <i class=" icon-clock"></i> Print List </button></span>
+                           <!-- <span><button class="btn btn-default btn-outline btn-sm"> <i class=" icon-clock"></i> Print List </button></span>-->
                         </div>
                     </h4>
                 </div>
                 <div class="table-scrollable tbl-brdr-radus">
-                    <table class="table table-hover table-light">
+                    <p-table #dt [columns]="cols" [value]="problemData" [paginator]="true"  [rows]="5">
+                        <!--<ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50"  style="width:auto">
+                            </div>
+                        </ng-template>-->
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+
+                            <tr>
+                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                    <input *ngSwitchCase="'versionName'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'codeName'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <!--<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+
+                                    <!-- <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+
+                                    <!--<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+
+
+
+
+                                </th>
+                            </tr>
+                        </ng-template>
+                      <!--  <ng-template pTemplate="header">
+                            <tr>
+                                &lt;!&ndash; <th *ngFor="let col of columns">
+                                     {{col.header}}
+                                 </th>&ndash;&gt;
+                                <th>Name</th>
+                                <th>Relation</th>
+                                &lt;!&ndash; <th>Ethnic Group</th>&ndash;&gt;
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                            <tr>
+
+                                <th *ngFor="let col of cols" [ngSwitch]="col.field">
+                                    <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">
+                                    &lt;!&ndash;<div *ngSwitchCase="'year'">
+                                        Value < {{yearFilter}}
+                                        <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+                                        <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider>
+                                    </div>&ndash;&gt;
+                                    <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">
+                                    &lt;!&ndash;<p-dropdown *ngSwitchCase="'relation'" [options]="relationsList2" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>&ndash;&gt;
+                                    &lt;!&ndash;<input *ngSwitchCase="'relation'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">&ndash;&gt;
+                                    &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">&ndash;&gt;
+                                    &lt;!&ndash;<p-multiSelect *ngSwitchCase="'status'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>&ndash;&gt;
+                                </th>
+
+                            </tr>
+                        </ng-template>-->
+                        <!--<ng-template pTemplate="body" let-rowData>
+                            <tr [pSelectableRow]="rowData">
+                                <td *ngFor="let rowData of data">
+                                   &lt;!&ndash; {{rowData[col.brand]}}&ndash;&gt;
+                                    {{rowData.name}}
+                                    {{rowData.relation}}
+                                    {{rowData.ethnicGroup}}
+                                    {{rowData.status}}
+
+                                </td>
+                            </tr>
+                        </ng-template>-->
+                        <ng-template pTemplate="body" let-problem let-columns="columns">
+                            <tr>
+
+                                <!--{{car[col.field]}}-->
+                                <td> {{problem.versionName}}</td>
+                                <td> {{problem.codeName}}</td>
+                                 <td>{{problem.dateDiagnosis}}</td>
+                                <td> {{problem.note}} </td>
+                                <td> {{problem.status}} </td>
+                                <td>
+                                    <a href="#responsive" data-toggle="modal"
+                                       (click)="editPatientProblem(problem.id)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <button
+                                            (click)="deletePatientProblem(problem.id)">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+
+                                    <button (click)="openUrl(problem.info)"><i class="fa fa-globe"></i></button>
+                                </td>
+
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+                    <!--<table class="table table-hover table-light">
                         <thead>
                         <tr class="hedng-bck-clr tbl-pdng">
                             <th> Version</th>
@@ -112,7 +220,7 @@
                             <th> Diagnosis Date</th>
                             <th> Notes</th>
                             <th> Status</th>
-                            <th>Action</th>
+                            <th> Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -131,10 +239,12 @@
                                         (click)="deletePatientProblem(problem.id)">
                                     <i class="fa fa-remove"></i>
                                 </button>
+
+                                <button (click)="openUrl(problem.info)"><i class="fa fa-globe"></i></button>
                             </td>
                         </tr>
                         </tbody>
-                    </table>
+                    </table>-->
                 </div>
             </div>
         </div>
@@ -178,6 +288,9 @@
 </div>
 
 <!--Start Modal-->
+
+
+
 <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -194,18 +307,28 @@
                             </label>
                             <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-                                    <select id="selectedAppointmentId"
+
+
+                                    <p-dropdown  placeholder="select appointment"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAppointmentId"
+                                                 [options]="patient.pastAppointments"
+                                                 [(ngModel)]="ppm.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+
+                                    <!--<select id="selectedAppointmentId"
                                             [(ngModel)]="ppm.appointmentId"
                                             name="selectedAppointmentId"
                                             class="form-control">
-                                        <option value="-1">--- Please select ---</option>
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
                                         <option
                                                 *ngFor="let appointment of pastAppointments"
                                                 [(value)]="appointment.id">
                                             {{appointment.appointmentId}},
                                             {{"Schedule Date:"+appointment.scheduleDate}}
                                         </option>
-                                    </select>
+                                    </select>-->
                                 </div>
                             </div>
                         </div>
@@ -215,18 +338,26 @@
                             </label>
                             <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-                                    <select id="icdVersionId" [(ngModel)]="ppm.selectedICDVersionId"
+
+                                    <p-dropdown  placeholder="select Version"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="icdVersionId"
+                                                 [options]="iCDVersions" (onChange)="changedVersion(ppm.selectedICDVersionId)"
+                                                 [(ngModel)]="ppm.selectedICDVersionId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+                                   <!-- <select id="icdVersionId" [(ngModel)]="ppm.selectedICDVersionId"
                                             #icdVersionId="ngModel"
                                             name="icdVersionId"
                                             class="form-control"
                                             (change)="changedVersion(ppm.selectedICDVersionId)">
-                                        <option value="-1">--- Please select ---</option>
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
                                         <option
                                                 *ngFor="let ver of iCDVersions"
                                                 [(value)]="ver.id">
                                             {{ver.name}}
                                         </option>
-                                    </select>
+                                    </select>-->
                                 </div>
                             </div>
                         </div>
@@ -235,29 +366,37 @@
                                                                                                    aria-required="true"> * </span></label>
                             <div class="col-md-7 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-                                    <select id="associatedCodesId"
+
+                                    <p-dropdown  placeholder="select Version"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedVer"
+                                                 [options]="associatedCodes"
+                                                 [(ngModel)]="ppm.selectedCodeId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+                                    <!--<select id="associatedCodesId"
                                             [(ngModel)]="ppm.selectedCodeId"
                                             #associatedCodesId="ngModel" name="selectedVer"
                                             class="form-control">
-                                        <option value="-1">--- Please select ---</option>
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
                                         <option
                                                 *ngFor="let code of associatedCodes"
                                                 [(value)]="code.id">
                                             {{code.code}}
                                         </option>
-                                    </select>
+                                    </select>-->
                                 </div>
                             </div>
                         </div>
                         <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis
-                                <span class="required" aria-required="true"> * </span>
-                            </label>
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis:</label>
+
                             <div class="col-md-7 select pdng-lr-5">
-                                <input type="date" class="form-control" name="dateDiagnosis" id="dateDiagnosisId"
-                                       [(ngModel)]="ppm.dateDiagnosis">
+                                <angular2-date-picker  name="dateDiagnosis"
+                                                       id="dateDiagnosisId" [settings]="settings" [(ngModel)]="ppm.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
                             </div>
                         </div>
+
                         <div class="form-group hr">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
                             <div class="col-md-7 select pdng-lr-5">
@@ -268,6 +407,16 @@
                                 </select>
                             </div>
                         </div>
+
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Url</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <input type="text" class="form-control" id="problemInfoId" name="problemInfo"
+                                           [(ngModel)]="ppm.info">
+                            </div>
+                        </div>
+
                         <div class="form-group hr">
                             <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes:</label>
                             <div class="col-md-7 select pdng-lr-5">

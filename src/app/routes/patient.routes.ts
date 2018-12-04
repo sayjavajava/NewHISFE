@@ -22,6 +22,8 @@ import {PatientFamilyHistoryComponent} from "../components/dashboard/patient/pat
 import {PatientAddLabOrdersComponent} from "../components/dashboard/patient/patient-add-lab-orders.component";
 import {InvoiceListingComponent} from "../components/dashboard/patient/invoice-listing.component";
 import {PatientInvoiceListComponent} from "../components/dashboard/patient/patient-invoice-list.component";
+/*import {PatientImageOrderComponent} from "../components/dashboard/patient/PatientImageOrderComponent";*/
+import {PatientHistoryVitalComponent} from "../components/dashboard/patient/patient-history-vital.component";
 
 export const PatientRoutes: Routes = [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -50,5 +52,7 @@ export const PatientRoutes: Routes = [
     {path: 'create-order/:id/add/:orderId/order', component: PatientAddLabOrdersComponent},
     {path: 'communication', component: PatientCommunicationComponent},
     {path: 'family-history', component: PatientFamilyHistoryComponent},
+    /*{path: 'image-order', component: PatientImageOrderComponent},*/
+    {path: 'patient-vital', component: PatientHistoryVitalComponent},
     {path: '**', redirectTo: '404'}
 ];

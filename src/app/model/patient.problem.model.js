@@ -10,6 +10,7 @@ var PatientProblemModel = (function () {
         this.selectedCodeId = -1;
         this.dateDiagnosis = "";
         this.status = "ACTIVE";
+        this.datePrescribedDate = new Date();
     }
     return PatientProblemModel;
 }());

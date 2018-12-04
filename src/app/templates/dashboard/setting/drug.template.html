@@ -23,6 +23,23 @@
                 </div>
                 <div class="">
 
+                    <!--<div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                        <div class="col-md-4">
+                            <div class="form-group font-siz11">
+                                <input type="text" class="form-control"
+                                       placeholder="Department Name"
+                                       [(ngModel)]="searchDepart"
+                                       (keydown.enter)="searchClinicalDepartment(0)">
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <button type="button" (click)="searchClinicalDepartment(0)" class="btn blue">Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>-->
+
                     <div class="table-scrollable">
 
                         <p-table #dt [columns]="cols" [value]="data"  [rows]="10"  [paginator]="true" >
@@ -78,7 +95,7 @@
                                     <td field="companyName">{{data.companyName}}</td>
                                     <td field="genericName">{{data.genericName}}</td>
                                     <td field="route">{{data.route}}</td>
-                                    <td field="strength">{{data.strength}}</td>
+                                    <td field="strength">{{data.strengths}}</td>
                                     <td field="uOM">{{data.uOM}}</td>
                                     <td field="origin">{{data.countryView}}</td>
                                     <td field="active">{{data.active === true ? 'Active' : 'In-Active'}}</td>
@@ -103,7 +120,47 @@
                             </ng-template>
 
                         </p-table>
+                       <!-- <table class="table table-striped table-hover table-checkable dataTable no-footer"
+                               id="datatable_ajax" role="grid">
+                            <thead>
+                            <tr role="row" class="off-wite-bg">
+                                <th width="10%" class="c-text-left padding"> Drug Name</th>
+                                <th width="10%" class="c-text-left padding"> Company Name</th>
+                                <th width="10%"> Generic Name</th>
+                                <th width="10%"> Route</th>
+                                <th width="10%"> Strength</th>
+                                <th width="10%"> UoM</th>
+                                <th width="10%"> Origin</th>
+                                <th width="10%"> Status</th>
+                                <th width="10%"> Action</th>
+                            </tr>
+                            <tr *ngFor="let item of data; let i = index;" class="filter">
+                                <td class="c-text-left padding font-green-dark"><strong>{{item.drugName}}</strong></td>
+                                <td class="c-text-left">{{item.companyName}}</td>
+                                <td class="c-text-left">{{item.genericName}}</td>
+                                <td class="c-text-left">{{item.route}}</td>
+                                <td class="c-text-left">{{item.strength}}</td>
+                                <td class="c-text-left">{{item.uOM}}</td>
+                                <td class="c-text-left">{{item.origin}}</td>
+                                <td>{{item.active === true ? 'Active' : 'In-Active'}}</td>
+                                <td class="sorting_disabled">
+                                    <a href="#popupDrug" data-toggle="modal">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="onUpdatePopupDrug(item.id)"><i class="fa fa-pencil"></i>
 
+                                        </button>
+                                    </a>
+                                    <span [hidden]="item.hasChild">
+                                        <button class="btn btn-default btn-outline btn-sm"
+                                                (click)="deleteDrug(item.id)">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </span>
+
+                                </td>
+                            </tr>
+                            </thead>
+                        </table>-->
                     </div>
                 </div>
             </div>
@@ -175,7 +232,7 @@
                                             <input class="form-control" type="text" placeholder=" e.g Panadol"
                                                    [(ngModel)]="drug.drugName" size="30"
                                                    required id="drugName" pInputText
-                                                   name="drugName" placeholder="drug name"
+                                                   name="drugName"
                                                    #drugName="ngModel"/>
                                         </div>
                                         <span *ngIf="drugName.invalid && drugName.touched"
@@ -191,7 +248,7 @@
                                             <input class="form-control" type="text" placeholder=" e.g Antibotic"
                                                    [(ngModel)]="drug.genericName" size="30"
                                                    required id="genericName" pInputText
-                                                   name="genericName" placeholder="Enter  Generic Name "
+                                                   name="genericName"
                                                    #genericName="ngModel"/>
                                         </div>
                                         <span *ngIf="genericName.invalid && genericName.touched"
@@ -207,7 +264,7 @@
                                             <input class="form-control" type="text" placeholder=" e.g Medical Care"
                                                    [(ngModel)]="drug.companyName" size="30"
                                                    required id="companyName" pInputText
-                                                   name="companyName" placeholder="company name"
+                                                   name="companyName"
                                                    #companyName="ngModel"/>
                                         </div>
                                         <span *ngIf="companyName.invalid && companyName.touched"
@@ -221,7 +278,7 @@
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 pdng-lr-5">
                                         <p-dropdown [(ngModel)]="drug.route"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    required id="route" placeholder="select route"
+                                                    required id="route"
                                                     name="route" [options]="drug.routes"
                                                     #route="ngModel">
                                         </p-dropdown>
@@ -234,7 +291,7 @@
                                         <div class="col-md-9 pdng-lr-5">
                                         <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                  [(ngModel)]="drug.strengths"
-                                                 required id="strengths" placeholder="Write value then press enter button"
+                                                 required id="strengths" placeholder="xxx-yy-zz-aa"
                                                  #strengths="ngModel">
                                         </p-chips>
                                             <span *ngIf="strengths.invalid && strengths.touched"
@@ -300,7 +357,7 @@
                                             </p-dropdown>
                                             <span *ngIf="origin.invalid && origin.touched"
                                                                             class="col-md-9 select pdng-lr-5 text-danger">
-                                                Please Select.
+                                                Please enter.
                                         </span>
                                         </div>
 

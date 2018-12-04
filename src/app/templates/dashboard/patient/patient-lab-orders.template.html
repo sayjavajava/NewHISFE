@@ -71,17 +71,16 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mrgn-top10">
             <div class="col-md-12">
-                <h4 class="text-info">Lab Orders
-                    <div class="pull-right">
+                <h4 class="text-info mrgn-btm10">Lab Orders
+                    <div class="pull-right mrgn-btm10">
                         <a [routerLink]="['/dashboard/patient/create-order/',id,'add',orderId,'order']">
                             <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
                                     data-message="Success Icon" data-type="success" data-allow-outside-click="true"
                                     data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
                             </button>
                         </a>
-
                     </div>
                 </h4>
 
@@ -90,6 +89,7 @@
                            aria-describedby="datatable_ajax_info" role="grid">
                         <thead>
                         <tr role="row" class="off-wite-bg">
+                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Doctor Name</th>
                             <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Test Date</th>
                             <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Order Status</th>
                             <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Description</th>
@@ -97,22 +97,26 @@
                             <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                         </tr>
 
-                        <tr role="row" class="filter" *ngFor="let item of allOrders">
+                        <tr role="row" class="filter" *ngFor="let item of allOrders; let idx = index">
 
                             <td class="sorting_disabled" rowspan="1" colspan="1">
-                                {{item.dateTest}}
+                                {{ item.appointment[0].doctor.firstName +""+ item.appointment[0].doctor.lastName}}
+                            </td>
+
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                {{item.dateTest | date:stdSystemFormat}}
                             </td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.status}}
                             </td>
                             <td rowspan="1" colspan="1">{{item.comments}}</td>
-                            <a href="#popupTest" data-toggle="modal">
+                            <td><a href="#popupTest" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow"
                                         (click)="getLabTest(item.id)"
                                         data-confirm-button-class="btn-success">
                                     <i class="fa fa"></i> Show Test
                                 </button>
-                            </a>
+                            </a></td>
                             <td rowspan="1" colspan="1">
 
                                 <button (click)="updateOrder(item.id)" class="btn btn-default btn-outline btn-sm"><i
@@ -127,7 +131,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -162,7 +166,7 @@
                 </div>
                 <p></p>
             </div>
-        </div>
+        </div>-->
 
 
         <!--<div class="clearfix">
@@ -188,6 +192,35 @@
                         <address>
                             <div class="form-group">
                                 <div class="col-md-12">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
+                                               role="grid">
+                                            <thead>
+                                            <tr role="row" class="off-wite-bg">
+                                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
+
+                                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result Value </th>
+                                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Unit  </th>
+
+                                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
+
+                                            </tr>
+                                            <tr role="row" class="filter" *ngFor="let lbRT of filteredLabTest;  let idx = index">
+                                                <!-- <td rowspan="1" colspan="1">{{lbRT.id}}</td>-->
+                                                <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.loincCode}}</td>
+
+                                                <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.resultValue }}</td>
+                                                <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.units}}</td>
+                                                <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.normalRange}}</td>
+
+
+                                            </tr>
+
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--<div class="col-md-12">
                                     <div class="select2-bootstrap-prepend">
                                         <div class="checkbox-box cod-higt" id="branchNameDiv">
                                             <div class="col-md-6 branches-list">
@@ -203,7 +236,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         </address>
                     </div>

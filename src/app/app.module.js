@@ -111,6 +111,7 @@ var edit_appointment_component_1 = require("./components/dashboard/appointment/e
 var patient_add_lab_orders_component_1 = require("./components/dashboard/patient/patient-add-lab-orders.component");
 var DataService_1 = require("./services/DataService");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
+var fileupload_1 = require("primeng/fileupload");
 var primeng_1 = require("primeng/primeng");
 var togglebutton_1 = require("primeng/togglebutton");
 var admin_profile_component_1 = require("./components/dashboard/setting/admin-profile.component");
@@ -140,6 +141,9 @@ var PaymentType_component_1 = require("./components/dashboard/setting/PaymentTyp
 var statuses_component_1 = require("./components/dashboard/setting/statuses.component");
 var editor_1 = require("primeng/editor");
 var chart_1 = require("primeng/chart");
+var PatientImageComponent_1 = require("./components/dashboard/setting/PatientImageComponent");
+var PatientImageOrderComponent_1 = require("./components/dashboard/patient/PatientImageOrderComponent");
+var patient_history_vital_component_1 = require("./components/dashboard/patient/patient-history-vital.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -210,7 +214,8 @@ var AppModule = (function () {
                 primeng_1.PasswordModule,
                 editor_1.EditorModule,
                 ng2_ckeditor_1.CKEditorModule,
-                chart_1.ChartModule
+                chart_1.ChartModule,
+                fileupload_1.FileUploadModule,
             ],
             declarations: [
                 // App Components
@@ -310,7 +315,10 @@ var AppModule = (function () {
                 menu_component_1.MenuComponent,
                 PaymentType_component_1.PaymentTypeComponent,
                 drug_component_1.DrugComponent,
-                currency_component_1.CurrencyComponent
+                currency_component_1.CurrencyComponent,
+                PatientImageComponent_1.PatientImageComponent,
+                PatientImageOrderComponent_1.PatientImageOrderComponent,
+                patient_history_vital_component_1.PatientHistoryVitalComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

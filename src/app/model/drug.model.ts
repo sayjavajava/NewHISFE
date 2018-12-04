@@ -24,11 +24,11 @@ export class DrugModel {
     strengths: string[] = [];
 
     uOM: string = 'DOSING SYRINGE';
-<<<<<<< HEAD
-    UOMs: SelectItem[] = [];
+
+ //   UOMs: SelectItem[] = [];
     drugInfo:String='';
    // origin: string = '';
-=======
+
     UOMs: SelectItem[] = [
         {label: 'ML', value: 'ML'},
         {label: 'DOSING CUP', value: 'DOSING CUP'},
@@ -38,7 +38,7 @@ export class DrugModel {
     ];
 
     origin: string = '';
->>>>>>> 6be55b1e75b1020afdc6ae69d3feb594ecdf4487
+
     active: boolean = true;
     hasChild: boolean = false;
     selectedCountry:any;

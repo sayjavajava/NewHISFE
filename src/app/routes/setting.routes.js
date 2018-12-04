@@ -44,6 +44,7 @@ var user_permissions_component_1 = require("../components/dashboard/setting/user
 var PaymentType_component_1 = require("../components/dashboard/setting/PaymentType.component");
 var currency_component_1 = require("../components/dashboard/setting/currency.component");
 var payment_component_1 = require("../components/dashboard/cashier/payment.component");
+var PatientImageComponent_1 = require("../components/dashboard/setting/PatientImageComponent");
 exports.SettingRoutes = [
     // Setting Pages dashboard/setting/chart-of-account-template
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -94,6 +95,7 @@ exports.SettingRoutes = [
     // Add Payment Type
     { path: 'currency', component: currency_component_1.CurrencyComponent },
     { path: 'payment', component: payment_component_1.PaymentComponent },
+    { path: 'PatientImage', component: PatientImageComponent_1.PatientImageComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

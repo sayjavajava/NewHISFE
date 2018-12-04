@@ -59,6 +59,12 @@ var PatientDemographicComponent = (function () {
                 return;
             }
             _this.loadRecord();
+            _this.smokeStatusType = [
+                { label: 'Every Day ', value: 'Every Day ' },
+                { label: 'Every Week ', value: 'Every Week ' },
+                { label: 'Every Month ', value: 'Every Month ' },
+                { label: 'Every Year  ', value: 'Every Year' }
+            ];
             _this.titleList = [
                 { label: 'Mr', value: 'Mr' },
                 { label: 'Mrs', value: 'Mrs' },

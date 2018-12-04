@@ -797,3 +797,6 @@ ul.ui-inputtext{width: 100%;}
 .upload-btn-wrapper{position: relative; overflow: hidden; display: inline-block; top: 14px;}
 .btn{color: #FFF; background-color: #3598dc; border-color: #3598dc; padding: 7px 12px; font-size: 14px; font-weight: 400;}
 .upload-btn-wrapper input[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; cursor: pointer; line-height: 34px;}
+.ui-autocomplete-input{width:91% !important;}
+.ui-autocomplete{width: 100% !important;}
+.ui-button-text{padding-bottom: 2px !important;}

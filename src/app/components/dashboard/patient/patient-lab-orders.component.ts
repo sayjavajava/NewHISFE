@@ -8,6 +8,8 @@ import {Patient} from "../../../model/patient";
 import {HISUtilService} from "../../../services/his-util.service";
 import {ConfirmationdialogComponent} from "../confirmationdialog.component";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
+import {LabOrderProjection} from "../../../model/LabOrderProjection";
+import {LabOrderProjectionModel} from "../../../model/LabOrderProjectModel";
 
 
 @Component({
@@ -27,10 +29,15 @@ export class PatientLabOrdersComponent implements OnInit {
     orderId:number;
     error:any;
     orderNotFound:boolean=false;
-
-    allOrders:any=[];
+    organizationDataList: any;
+    stdSystemFormat:string;
+   // allOrders:any=[];
+    allOrders:any[];
     filteredLabTest :any[] =[];
+    ListofAppointment:any[]=[];
+    LabOrderProjectionModelList:LabOrderProjectionModel[]=[]
     patient:Patient =new Patient();
+    cols: any[];
     constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,
                 private notificationService:NotificationService,private hISUtilService: HISUtilService,private confirmationDialogService: ConformationDialogService ) {
     }
@@ -38,12 +45,22 @@ export class PatientLabOrdersComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.id = params['id'];
         });
+        this.allorganizationData();
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
         this.getLabOrderFromServer(0);
 
       //  this.addMoreTest();
+
+        this.cols = [
+            { field: 'name', header: 'Doctor Name' },
+            { field: 'TestDate', header: 'Test Date' },
+            { field: 'orderStatus', header: 'Order Status' },
+            { field: 'description', header: 'Description' },
+            { field: 'LabTest', header: 'Lab Test' },
+            { field: 'action', header: 'Lab Test' }
+        ];
     }
 
     goToUserDashBoard(){
@@ -68,6 +85,11 @@ export class PatientLabOrdersComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.allOrders = response['responseData']['data'];
+                        this.LabOrderProjectionModelList=this.allOrders;
+                      //  this.ListofAppointment=response['responseData']['doctors'];
+                        const myClonedArray  = Object.assign([], this.LabOrderProjectionModelList);
+                        console.log(myClonedArray);
+
 
                     }
                     if(response['responseCode'] =='LAB_ORDER_ERR_02'){
@@ -87,6 +109,7 @@ export class PatientLabOrdersComponent implements OnInit {
             response => {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
+                    console.log(this.patient)
                     //this.patient.races = JSON.parse(response['responseData'].racesString);
                 }
             },
@@ -115,6 +138,23 @@ export class PatientLabOrdersComponent implements OnInit {
             'normalRange': '',
         });
     }
+
+    allorganizationData() {
+
+        this.requestService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+                        this.stdSystemFormat=this.organizationDataList.dateFormat +' '+this.organizationDataList.timeFormat;
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
+    }
+
 
     addMoreTest(): void {
         this.labTest = this.labForm.get('labTest') as FormArray;
@@ -152,6 +192,7 @@ export class PatientLabOrdersComponent implements OnInit {
     }
     getLabTest(orderId:any){
       let labTestFiltered :any[]= this.allOrders.filter((x:any) =>x.id == orderId).map((x:any)=>x.labTests);
+      debugger;
       this.filteredLabTest = labTestFiltered[0];
       labTestFiltered.forEach(function (msg) {
           console.log(msg);

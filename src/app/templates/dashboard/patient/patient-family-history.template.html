@@ -141,7 +141,7 @@
                             </th>-->
                             <th>Name</th>
                             <th>Relation</th>
-                            <th>Ethnic Group</th>
+                           <!-- <th>Ethnic Group</th>-->
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -157,7 +157,7 @@
                                 </div>-->
                                 <p-dropdown *ngSwitchCase="'relation'" [options]="relationsList2" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
                                 <!--<input *ngSwitchCase="'relation'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">-->
-                                <input *ngSwitchCase="'status'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">
+                                <!--<input *ngSwitchCase="'status'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">-->
                                 <!--<p-multiSelect *ngSwitchCase="'status'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>-->
                             </th>
 
@@ -181,7 +181,7 @@
                                 <!--{{car[col.field]}}-->
                             <td> {{item.name}}</td>
                             <td>  {{item.relation}}</td>
-                            <td>  {{item.ethnicGroup}}</td>
+                           <!-- <td>  {{item.ethnicGroup}}</td>-->
                             <td>  {{item.status}}</td>
                             <td>
                                 <a href="#responsive" data-toggle="modal">
@@ -208,7 +208,7 @@
 </div>
 
 <!--pagination -->
-<div class="row">
+<!--<div class="row">
     <div class="col-md-12 col-xs-12 col-sm-12">
         <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
             <ul class="pagination" style="visibility: visible;">
@@ -243,7 +243,7 @@
         </div>
         <p></p>
     </div>
-</div>
+</div>-->
 
 <!-- Pop-up Modal-->
 
@@ -296,25 +296,25 @@
 
                                 </div>
 
-                                <div class="form-group hr">
+                                <!--<div class="form-group hr">
                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Ethnic Group
                                       </label>
                                     <div class="col-md-9 select pdng-lr-5">
-                                        <!--<select class="form-control" name="statusDrp"
+                                        &lt;!&ndash;<select class="form-control" name="statusDrp"
                                                 [ngModelOptions]="{standalone:true}"
                                                 [(ngModel)]="selectedFamily.ethnicGroup" >
                                             <option value="Sindhis"> Sindhis</option>
                                             <option value="Muhajir">Muhajir</option>
                                             <option value="Kalash">Kalash</option>
                                             <option value="Sariki">Sariki</option>
-                                        </select>-->
+                                        </select>&ndash;&gt;
                                         <p-dropdown  placeholder="select group" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="ethDrp"
                                                      [options]="ethnicGroup"
                                                      [(ngModel)]="selectedFamily.ethnicGroup"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
                                     </div>
 
-                                </div>
+                                </div>-->
 
                                 <div class="form-group hr">
                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Status
