@@ -284,7 +284,8 @@ export class AppConstants {
     public static SAVE_ADVANCE_PAYMENT = '/payment/saveAdvancePayment';
     public static GET_INVOICE_List_BY_PAT_ID = '/payment/getPatientInvoiceListById/';
 
-
+    public static SAVE_BULK_RECEIT = '/payment/saveBulkReceit';
+    public static GET_RECEIPT_List = '/payment/getReceiptList';
 
 
 

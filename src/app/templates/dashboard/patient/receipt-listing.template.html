@@ -28,12 +28,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-scrollable tbl-brdr-radus">
-                        <p-table #dt [columns]="cols" [value]="invoiceList" [paginator]="true" [rows]="10">
+                        <p-table #dt [columns]="cols" [value]="receiptList" [paginator]="true" [rows]="10">
                             <ng-template sortable="true" pTemplate="header" let-columns>
                                 <tr>
                                     <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
                                         {{col.header}}
-                                        <p-sortIcon *ngIf="col.field != 'serialNo' && col.field != 'paymentNumber' && col.field != 'action'" [field]="col.field"
+                                        <p-sortIcon [field]="col.field"
                                                     ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order">
                                         </p-sortIcon>
                                     </th>
@@ -44,15 +44,15 @@
                                     </th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-rowData let-invoiceList let-sNo="rowIndex">
+                            <ng-template pTemplate="body" let-rowData let-receiptList let-sNo="rowIndex">
                                 <tr>
-                                    <td field="serialNo">{{sNo+1}}</td>
-                                    <td field="paymentId">  </td>
-                                    <td field="patientName">  </td>
-                                    <td field="discount">  </td>
-                                    <td field="advUtil">  </td>
-                                    <td field="totalAmount">  </td>
-                                    <td field="paymentAmount">  </td>
+                                    <!--<td field="serialNo">{{sNo+1}}</td>-->
+                                    <td field="paymentId"> {{receiptList.paymentId}} </td>
+                                    <td field="patientName"> {{receiptList.patientName}} </td>
+                                    <td field="discountAmount"> {{receiptList.discountAmount}} </td>
+                                    <td field="advanceUsedAmount"> {{receiptList.advanceUsedAmount}} </td>
+                                    <td field="paymontAmount"> {{receiptList.paymontAmount}} </td>
+                                    <td field="paymentType">  </td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -128,17 +128,14 @@
                                             <div class="form-group hr">
                                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Payment Type <span class="required" aria-required="true"> * </span></label>
 
-                                                <div class="col-md-9 select pdng-lr-5">
-                                                    <p-dropdown [(ngModel)]="addAdvance.paymentTypeId"
-                                                                [autoWidth]="false"
-                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                                required
-                                                                id="paymentType"
-                                                                placeholder="Select Payment Type"
-                                                                name="paymentType"
-                                                                [options]="paymentTypeList"
-                                                                #paymentType="ngModel">
-                                                    </p-dropdown>
+                                                <div class="col-md-8">
+                                                     <p-dropdown [options]="paymentTypeList"
+                                                                 [(ngModel)]="selectedPaymentType"
+                                                                 optionLabel="paymentTitle"
+                                                                 name="paymentTitle"
+                                                                 (onChange) = "getSelectedPaymentType(selectedPaymentType)"
+                                                                 [filter]="true">
+                                                     </p-dropdown>
                                                 </div>
 
                                             </div>

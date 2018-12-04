@@ -18,10 +18,13 @@ export class ReceiptListingComponent {
     selectedInvoiceId: any;
     cols: any[];
     currency: string = "";
+    error: string;
 
     addAdvance: AdvanceReceived = new AdvanceReceived();
+    selectedPaymentType: any ;
     patientList: any[];
     paymentTypeList: any[];
+    receiptList: any[];
 
     constructor(private router: Router,
                 private titleService: Title,
@@ -34,17 +37,18 @@ export class ReceiptListingComponent {
 
        this.getAllPatient();
        this.getAllPaymentTypes();
+       this.getAllReceiptListing();
     }
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Receipt Listing');
         this.cols = [
-            {field: "serialNo", header: "Serial #"},
+         /*   {field: "serialNo", header: "Serial #"},*/
             {field: "paymentId", header: "Payment #"},
             {field: "patientName", header: "Patient Name"},
-            {field: "discount", header: "Discount (" + (this.currency) + ")"},
-            {field: "advUtil", header: "Advance Utilized (" + (this.currency) + ")"},
-            {field: "paymentAmount", header: "Payment Amount (" + (this.currency) + ")"},
+            {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
+            {field: "advanceUsedAmount", header: "Advance Utilized (" + (this.currency) + ")"},
+            {field: "paymontAmount", header: "Payment Amount (" + (this.currency) + ")"},
             {field: "paymentType", header: "Payment Type"},
         ];
 
@@ -77,6 +81,24 @@ export class ReceiptListingComponent {
             }
     }
 
+    getAllReceiptListing(){
+        this.requestsService.getRequest(AppConstants.GET_RECEIPT_List).subscribe(
+            (response : Response)=> {
+                if(response["responseCode"] === "SUCCESS")
+                {
+                    this.receiptList = response["responseData"];
+                }
+            }
+          /*  ,function (error) {
+            this.notificationService.error("ERROR", "Receipt List is not available");
+        }*/
+        );
+    }
+
+    getSelectedPaymentType(selectedPaymentTyp: any){
+        console.log("------------"+selectedPaymentTyp);
+        this.addAdvance.paymentTypeId=selectedPaymentTyp.id;
+    }
 
     getAllPatient()
     {
@@ -87,9 +109,11 @@ export class ReceiptListingComponent {
                  {
                      this.patientList = response["responseData"].data;
                  }
-             }, function (error) {
-                 this.notificationService.error("ERROR", "States List is not available");
-             });
+             }
+          /*   , function (error) {
+                 this.notificationService.error("ERROR", "Patient List is not available");
+             }*/
+             );
     }
 
     getAllPaymentTypes()
@@ -101,9 +125,10 @@ export class ReceiptListingComponent {
                     {
                         this.paymentTypeList = response["responseData"].data;
                     }
-                }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
-                });
+                }/*, function (error) {
+                    this.notificationService.error("ERROR", "Payment Type List is not available");
+                }*/
+                );
     }
 
     patientInvoiceList(id: any) {
