@@ -340,10 +340,9 @@ export class AppConstants {
     public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
     public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
 
-<<<<<<< Updated upstream
+
     public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';
 
 
-=======
->>>>>>> Stashed changes
+
 }
