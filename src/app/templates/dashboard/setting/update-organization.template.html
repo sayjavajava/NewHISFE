@@ -30,7 +30,7 @@
                                                 <label class="control-label col-md-4">Company Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text" formControlName="companyName"
                                                            class="form-control"></div>
                                                 <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
@@ -42,7 +42,6 @@
                                                 <label class="control-label col-md-4">Specialty
                                                 </label>
                                                 <div class="col-md-8">
-
                                                     <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.specialty" [options]="specialtyList" formControlName="specialty"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
                                                 </div>
@@ -50,14 +49,13 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Website
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text" formControlName="website" class="form-control">
                                                 </div>
                                                 <span class="text-danger" *ngIf="!proForm.controls['website'].valid && proForm.controls['website'].touched">
                                                     <span *ngIf="proForm.controls['website'].errors.pattern">Web Url is not valid</span>
                                         </span>
                                             </div>
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Country
                                                 </label>
@@ -73,14 +71,12 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Currency
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text" formControlName="currency" [(ngModel)]="currency" readonly
                                                            class="form-control">
                                                 </div>
 
                                             </div>
-
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">State
                                                 </label>
@@ -107,8 +103,6 @@
                                                            class="form-control">-->
                                                 </div>
                                             </div>
-
-
                                             <!--<div class="form-group">
                                                 <label class="control-label col-md-4">Country
                                                 </label>
@@ -236,8 +230,6 @@
 
                                                 </div>
                                             </div>-->
-
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Practice Business Logo
                                                 </label>
@@ -247,15 +239,13 @@
                                                         forms </p>
                                                 </div>
                                             </div>
-
                                             <br/>
-                                            <h4 class="hr" style="margin-left: 26%;"> Contact</h4>
-
+                                            <h4 class="hr" style="margin-left: 19%;"> Contact</h4>
                                             <div class="form-group">
-                                                <label class="control-label col-md-6">Email
+                                                <label class="control-label col-md-4">Email
                                                     <span class="required" aria-required="true"> </span>
                                                 </label>
-                                                <div class="col-md-6">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="email" formControlName="companyEmail"
                                                            class="form-control">
 
@@ -271,42 +261,33 @@
                                                  </span>
                                                 <input  formControlName="formName" value="PROFILE" type="hidden" />
                                             </div>
-
                                             <div class="form-group">
-                                                <label class="control-label col-md-6">Fax   <span class="required" aria-required="true"> </span>
+                                                <label class="control-label col-md-4">Fax   <span class="required" aria-required="true"> </span>
                                                 </label>
-                                                <div class="col-md-6">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text" formControlName="fax"
                                                            class="form-control">
-
                                                 </div>
                                             </div>
-
                                             <div class="form-group">
-                                                <label class="control-label col-md-6">Address<span class="required" aria-required="true"> </span>
+                                                <label class="control-label col-md-4">Address<span class="required" aria-required="true"> </span>
                                                 </label>
-                                                <div class="col-md-6">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text" formControlName="address"
                                                            class="form-control">
 
                                                 </div>
                                             </div>
-
-
-
                                             <div class="form-group">
-                                                <label class="control-label col-md-6">Office Phone
+                                                <label class="control-label col-md-4">Office Phone
                                                 </label>
-                                                <div class="col-md-6">
+                                                <div class="col-md-8 profile-frm">
                                                     <input  type="text" formControlName="officePhone"
                                                             class="form-control">
                                                     <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
                                                         <span *ngIf="proForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span></span>
                                                 </div>
                                             </div>
-
-
-
                                         </div>
                                     </div>
                                     <div class="hr">
@@ -326,17 +307,12 @@
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-5">
-
                                                 <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                             [style]="{'text-align': 'left' ,'width':'100%'}"
                                                             [options]="branchesList"
                                                             formControlName="defaultBranch" [panelStyle]="{minWidth:'12em'}"
                                                             [filter]="true">
                                                 </p-dropdown>
-
-
-
-
                                                 <!--<select class="form-control"
                                                         (change)="getSelectedBranch($event.target.value)"
                                                         formControlName="defaultBranch">
@@ -367,7 +343,6 @@
                                                     <option value="40">40</option>
                                                     <option value="50">50</option>
                                                     <option value="60">60</option>
-
                                                 </select>
                                             </div>
                                             <div class="col-md-4">Default duration of an exam in minutes</div>
@@ -417,10 +392,8 @@
                                                     <option value="40">9000</option>
                                                     <option value="50">10000</option>
                                                     <option value="60">11000</option>
-
                                                 </select>
                                             </div>
-
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Prefix Serial Department
@@ -437,7 +410,6 @@
                                                     <option value="60">11000</option>
                                                 </select>
                                             </div>
-
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Prefix Serial Appointment
@@ -452,12 +424,9 @@
                                                     <option value="40">9000</option>
                                                     <option value="50">10000</option>
                                                     <option value="60">11000</option>
-
                                                 </select>
                                             </div>
-
                                         </div>
-
                                         <div class="form-group">
                                             <label class="control-label col-md-3">Prefix Serial Invoices
                                                 <span class="required" aria-required="true"> * </span>
@@ -471,15 +440,12 @@
                                                     <option value="40">9000</option>
                                                     <option value="50">10000</option>
                                                     <option value="60">11000</option>
-
                                                 </select>
                                             </div>
-
                                         </div>-->
                                         <div class="form-group">
                                             <label  class="control-label col-md-3">Time Zone </label>
                                             <div class="col-md-5">
-
                                                 <!--<p-dropdown
                                                         [autoWidth]="false"
                                                         [style]="{'text-align': 'left' ,'width':'100%'}"
@@ -495,27 +461,18 @@
                                                             formControlName="selectedTimeZoneFormat" [panelStyle]="{minWidth:'12em'}"
                                                             [filter]="true">
                                                 </p-dropdown>
-
                                                 <!--<select class="form-control"
                                                         (change)="getSelected($event.target.value)"
                                                         formControlName="zoneFormat" placeholder="Select Timezone">
                                                     <option *ngFor="let tz of timezoneList" [value]="tz.zoneId">
                                                         {{tz.name + ' ' + tz.zoneTime}}
-
-
                                                     </option>
-
                                                 </select>-->
-
                                             </div>
                                         </div>
-
-
                                         <div class="form-group">
                                             <label  class="control-label col-md-3">Date Format </label>
                                             <div class="col-md-5">
-
-
                                                 <!--
                                                 <p-dropdown name="customizedselect" [options]="countrycodes" [(ngModel)]="selectedCountry"
                         filter="filter" [autoWidth]="false" [style]="{'width':'150px'}">
@@ -528,20 +485,15 @@
                 </ng-template>
             </p-dropdown>
                                                 -->
-
                                                 <p-dropdown   [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.dateFormat" [options]="dateType" formControlName="dateFormat"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
-
                                                <!-- <p-dropdown placeholder="Select Date Format" [autoWidth]="false"  class="form-control" formControlName="dateFormat"
                                                              [panelStyle]="{minWidth:'10em'}"  [options]="dateFormatLst">
 
 
                                                 </p-dropdown>-->
-
                                             </div>
                                         </div>
-
-
                                         <div class="form-group">
                                             <label  class="control-label col-md-3">Time  Format </label>
                                             <div class="col-md-5">
@@ -551,7 +503,6 @@
 
                                             </div>
                                         </div>
-
                                        <!-- <div class="form-group">
                                             <label  class="control-label col-md-3">Date Format </label>
                                             <div class="col-sm-7">
@@ -561,23 +512,18 @@
                                                              (onChange)="getStatesByCountryId($event.value)"
                                                              [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
-
                                             </div>
                                         </div>-->
-
                                         <!--<div class="form-group">
                                             <label  class="control-label col-md-4">Time Format </label>
                                             <div class="col-sm-7">
-
                                                 <p-dropdown  placeholder="Select Country" [autoWidth]="false"
                                                              formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                              (onChange)="getStatesByCountryId($event.value)"
                                                              [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
-
                                             </div>
                                         </div>-->
-
                                     </form>
                                 </div>
                             </div>
@@ -587,7 +533,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!--<div class="tab-pane fade" id="tab_1_5">
                             <div class="row">
                                 <div class="col-md-12">
@@ -663,9 +608,8 @@
                                                                    [(ngModel)]="organization.address"
                                                                    class="form-control"></div>
                                                     </div>
-
                                         </div>
-                                            </div></div>
+                                       </div></div>
                                     </form>
                                 </div>
                             </div>

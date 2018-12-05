@@ -27,7 +27,7 @@
                                                 <label class="control-label col-md-4">Branch Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text" formControlName="branchName"
                                                            class="form-control">
                                                     <span class="text-danger"
@@ -123,7 +123,7 @@
                                                 </div>
                                             </div>-->
 
-                                            <div class="form-group">
+                                            <div class="form-group mrgn-btm10">
                                                 <label class="control-label col-md-4">Address
                                                 </label>
                                                 <div class="col-md-8">
@@ -133,13 +133,13 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Office Phone
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input name="home phone" formControlName="officePhone" type="text"
                                                            value="(876) 785-6757"
                                                            class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group profile-frm">
                                                 <label class="control-label col-md-4">Fax
                                                 </label>
                                                 <div class="col-md-8">
@@ -170,7 +170,7 @@
                                         <div class="col-md-6">
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-3"> Office Start Time
+                                                <label class="control-label col-md-3"> Office St. Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
 
@@ -213,10 +213,10 @@
 
 
                                             <div class="form-group mrgn-top8">
-                                                <label class="control-label col-md-3">No of Exam Rooms
+                                                <label class="control-label col-md-3">No of Ex Rooms
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-5">
+                                                <div class="col-md-5 profile-frm">
                                                     <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom" [attr.disabled]="disable"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="1">1</option>
@@ -235,7 +235,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Exam Name
                                                     </label>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 profile-frm">
                                                         <input type="text" class="form-control"  [attr.disabled]="disable"
                                                                formControlName="roomName"></div>
                                                     <div class="col-md-5 pdng-lr-5 mrgn-top4">
@@ -262,9 +262,7 @@
                                             </button>
                                             <button (click)="cancel()" class="btn default"><i class="fa fa-cancel"></i> Cancel
                                             </button>
-
                                         </div>
-
                                     </div>
                                 </div>
                             </form>

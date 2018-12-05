@@ -29,6 +29,7 @@ p, h3, h4{margin:0; padding:0;}
 .padding-b-10{ padding-bottom:10px !important;}
 .padding-t-10{ padding-top:10px !important;}
 .pdngall3{padding: 3px !important;}
+.pdng-lft0{padding-left: 0px;}
 .pdng-l-r-15{padding-left: 15px; padding-right: 15px;}
 .pdng-lr-5{padding-left:5px !important; padding-right:5px !important;}
 .no-padding-rgt{ padding-right:0 !important;}
@@ -461,7 +462,7 @@ p, h3, h4{margin:0; padding:0;}
     margin: 200px auto !important;
 }
 .portlet{margin-bottom: 0px !important;}
-.form-control{height: 25px !important; padding: 2px 12px !important;}
+.profile-frm input, .profile-frm select{height: 25px !important; padding: 2px 12px !important;}
 .form-group {margin-bottom: 0px;}
 .form-control, output{font-size:12px;}
 /*.row {margin-top: 15px !important;}*/
@@ -780,7 +781,7 @@ width: 93%; !important;
 .cusm-col-3{width: 20% !important;}
 .fnt-sze10{font-size: 10px;}
 .mat-form-field-infix{border-top:0px !important; width: 100px !important;}
-.mat-form-field-wrapper{width:100px !important;}
+.mat-form-field-wrapper{width:94% !important;}
 .wc-date-container {width: 100% !important; margin-left: 0px !important;}
 .wc-day-row{display: none !important;}
 .wc-date-row{display: none !important;}
@@ -797,3 +798,8 @@ ul.ui-inputtext{width: 100%;}
 .upload-btn-wrapper{position: relative; overflow: hidden; display: inline-block; top: 14px;}
 .btn{color: #FFF; background-color: #3598dc; border-color: #3598dc; padding: 7px 12px; font-size: 14px; font-weight: 400;}
 .upload-btn-wrapper input[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; cursor: pointer; line-height: 34px;}
+.ui-menuitem{margin: 0; border-bottom: 1px solid #1212;}
+.text-danger{color:#ed6b75; font-size:12px;}
+@media (min-width: 768px){
+.receipt-modal{width: 880px !important;}
+}
