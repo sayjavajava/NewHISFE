@@ -11,6 +11,9 @@ import {Appointment} from '../../../model/Appointment';
 import {Patient} from '../../../model/patient';
 import {Subscription} from 'rxjs/Subscription';
 import {DataService} from '../../../services/DataService';
+import {DatePicker} from "angular2-datetimepicker";
+import {SelectItem} from "primeng/api";
+import {VitalSetupModel} from "../../../model/VitalSetupModel";
 
 
 @Component({
@@ -37,6 +40,9 @@ export class PatientProblemListComponent implements OnInit {
     private isRequestUnderProcess: boolean = false;
     cols: any[];
     problemList:any;
+    date: Date = new Date();
+    selectedCodeId : SelectItem[] = [];
+
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -49,6 +55,14 @@ export class PatientProblemListComponent implements OnInit {
             this.selectedPatientId = id;
         });
         this.appointmentsByServer();
+        DatePicker.prototype.ngOnInit = function() {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker =true;
+            this.date = new Date();
+        };
     }
 
     ngOnInit() {
@@ -89,6 +103,7 @@ export class PatientProblemListComponent implements OnInit {
                         this.futureAppointments = response['responseData'].futureAppointments;
                         this.pastAppointments = [];
                         this.pastAppointments = response['responseData'].pastAppointments;
+                        console.log(this.pastAppointments);
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Patient');
                     }
@@ -166,7 +181,7 @@ export class PatientProblemListComponent implements OnInit {
                             this.associatedCodes = [];
 
                             this.associatedCodes = response['responseData'].code;
-                            alert(this.associatedCodes);
+
                         }
                     },
                     (error: any) => {
@@ -201,12 +216,13 @@ export class PatientProblemListComponent implements OnInit {
             return;
         }
 
-        if (this.ppm.dateDiagnosis === '') {
+        if (this.ppm.datePrescribedDate === null) {
             this.notificationService.warn('Please enter Diagnosis Date.');
             document.getElementById('dateDiagnosisId').focus();
             return;
         }
-
+        this.ppm.datePrescribedDate=new Date(this.ppm.datePrescribedDate);
+        console.log(this.ppm);
         if (!this.isRequestUnderProcess) {
             this.isRequestUnderProcess = true;
 
@@ -252,6 +268,7 @@ export class PatientProblemListComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.problemData = response['responseData']['data'];
+                        console.log(this.problemData);
                     } else {
                         this.notificationService.error(response['responseMessage'])
                     }
@@ -300,6 +317,8 @@ export class PatientProblemListComponent implements OnInit {
                                 this.appointmentsByPatientServer(this.ppm.patientId);
                                 this.versionsByServer();
                                 this.codesByVersionFromServer(this.ppm.selectedICDVersionId);
+                                this.ppm.datePrescribedDate=new Date(this.ppm.dateDiagnosis);
+
                             } else {
                                 this.notificationService.error(response['responseMessage'], 'Problem of Patient');
                             }
@@ -342,12 +361,12 @@ export class PatientProblemListComponent implements OnInit {
             return;
         }
 
-        if (this.ppm.dateDiagnosis === '') {
-            this.notificationService.warn('Please enter Diagnose date.');
+        if (this.ppm.datePrescribedDate === null) {
+            this.notificationService.warn('Please enter Diagnosis Date.');
             document.getElementById('dateDiagnosisId').focus();
             return;
         }
-
+        this.ppm.datePrescribedDate=new Date(this.ppm.datePrescribedDate);
         if (!this.isRequestUnderProcess) {
             this.isRequestUnderProcess = true;
             if (localStorage.getItem(btoa('access_token'))) {
@@ -383,6 +402,18 @@ export class PatientProblemListComponent implements OnInit {
 
     getPageWisePatientProblem(page: number) {
         this.getPaginatedProblemsFromServer(page);
+    }
+
+    openUrl(val :string){
+
+        let url: string = '';
+        if (!/^http[s]?:\/\//.test(val)) {
+            url += 'http://';
+        }
+
+        url += val;
+        window.open(url, '_blank');
+        //   window.open("https://www.google.com", "_blank");
     }
 
 }

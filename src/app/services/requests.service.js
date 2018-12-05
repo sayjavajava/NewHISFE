@@ -139,10 +139,34 @@ var RequestsService = (function () {
         }
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };
+    RequestsService.prototype.postRequestMultipartForm = function (url, dataFile) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'multipart/form-data');
+        var formData = new FormData();
+        if (dataFile != null) {
+            formData.append('dataFile', dataFile, dataFile.name);
+        }
+        return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
+    };
     RequestsService.prototype.getEvents = function () {
         return this.http.get('showcase/resources/data/scheduleevents.json')
             .toPromise()
             .then(function (data) { return data; });
+    };
+    RequestsService.prototype.postRequestMultipartFormAndDataWithMultipleFile = function (url, data, img) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'multipart/form-data');
+        var formData = new FormData();
+        formData.append('myObject', new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+        if (img != null) {
+            for (var i = 0; i < img.length; i++) {
+                formData.append('img', img[i]);
+            }
+            //   formData.append('img', img, img.name);
+        }
+        return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };
     RequestsService = __decorate([
         core_1.Injectable(),

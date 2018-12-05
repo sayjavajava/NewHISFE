@@ -20,6 +20,7 @@ var user_type_enum_1 = require("../../../enums/user-type-enum");
 var PatientSmokeStatus_1 = require("../../../model/PatientSmokeStatus");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var Invoice_1 = require("../../../model/Invoice");
+var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var PatientDemographicComponent = (function () {
     function PatientDemographicComponent(router, route, HISUTilService, confirmationDialogService, requestService, notificationService) {
         this.router = router;
@@ -35,19 +36,38 @@ var PatientDemographicComponent = (function () {
         this.photoBack = null;
         this.doctors = [];
         this.titleList = [];
-        this.rLanguage = [];
         this.pCommunication = [];
+        this.genders = [];
         this.smokeStatus = new PatientSmokeStatus_1.PatientSmokeStatus();
         this.smokeStatusList = [];
         this.patientInvBal = new Invoice_1.Invoice();
         this.updateBtn = false;
-        this.martialStatus = [
-            { label: 'SINGLE', value: 'SINGLE', selected: false },
-            { label: 'MARRIED', value: 'MARRIED', selected: false },
-            { label: 'WIDOWED', value: 'WIDOWED', selected: false },
-            { label: 'DIVORCED', value: 'DIVORCED', selected: false },
-            { label: 'SEPARATED', value: 'SEPARATED', selected: false },
-        ];
+        this.martialStatus = [];
+        this.emergencyContactRelations = [];
+        this.countryListModified = [];
+        this.selectedCountry = '';
+        this.statesListModified = [];
+        this.selectedState = '';
+        this.citiesListModified = [];
+        this.selectedCity = '';
+        angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker = false;
+            this.settings.format = "E MMM dd yyyy";
+            this.date = new Date();
+        };
+        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+            this.patient.dob = new Date().toDateString();
+        }
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
     }
     PatientDemographicComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -59,30 +79,56 @@ var PatientDemographicComponent = (function () {
                 return;
             }
             _this.loadRecord();
+            _this.smokeStatusType = [
+                { label: 'Every Day ', value: 'Every Day ' },
+                { label: 'Every Week ', value: 'Every Week ' },
+                { label: 'Every Month ', value: 'Every Month ' },
+                { label: 'Every Year  ', value: 'Every Year' }
+            ];
             _this.titleList = [
                 { label: 'Mr', value: 'Mr' },
                 { label: 'Mrs', value: 'Mrs' },
                 { label: 'Ms', value: 'Ms' },
                 { label: 'Dr', value: 'dr' },
             ];
-            _this.rLanguage = [
-                { label: 'ENGLISH', value: 'ENGLISH' },
-                { label: 'URDU', value: 'URDU' },
-                { label: 'ARABIC', value: 'ARABIC' },
-                { label: 'CHINESE', value: 'CHINESE' },
-            ];
             _this.pCommunication = [
-                { label: 'ENGLISH', value: 'ENGLISH' },
-                { label: 'URDU', value: 'URDU' },
-                { label: 'ARABIC', value: 'ARABIC' },
-                { label: 'CHINESE', value: 'CHINESE' },
+                { label: 'CELL PHONE', value: 'CELL PHONE' },
+                { label: 'HOME PHONE', value: 'HOME PHONE' },
+                { label: 'OFFICE PHONE', value: 'OFFICE PHONE' },
+                { label: 'EMAIL', value: 'EMAIL' },
+            ];
+            _this.martialStatus = [
+                { label: 'SINGLE', value: 'SINGLE' },
+                { label: 'MARRIED', value: 'MARRIED' },
+                { label: 'WIDOWED', value: 'WIDOWED' },
+                { label: 'DIVORCED', value: 'DIVORCED' },
+                { label: 'SEPARATED', value: 'SEPARATED' },
+            ];
+            _this.genders = [
+                { label: 'MALE', value: 'MALE' },
+                { label: 'FEMALE', value: 'FEMALE' },
+                { label: 'OTHER', value: 'OTHER' },
+            ];
+            _this.emergencyContactRelations = [
+                { label: 'FATHER', value: 'FATHER' },
+                { label: 'MOTHER', value: 'MOTHER' },
+                { label: 'HUSBAND', value: 'HUSBAND' },
+                { label: 'WIFE', value: 'WIFE' },
+                { label: 'BROTHER', value: 'BROTHER' },
+                { label: 'SON', value: 'SON' },
+                { label: 'OTHER', value: 'OTHER' },
             ];
         });
-        /* <option value="SINGLE">Single</option>
-             <option value="MARRIED">Married</option>
-             <option value="WIDOWED">Widowed</option>
-             <option value="DIVORCED">Divorced</option>
-             <option value="SEPERATED">Seperated</option>*/
+        this.createCountriesList();
+        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+            this.patient.dob = new Date().toDateString();
+        }
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
     };
     PatientDemographicComponent.prototype.isValidPatientId = function () {
         if (this.id <= 0) {
@@ -100,16 +146,18 @@ var PatientDemographicComponent = (function () {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.patient = response['responseData'];
                 _this.smokeStatusList = response['responseData'].smokingStatus;
-                var savedRace_1 = response['responseData'].races;
-                _this.patient.races = new patient_1.Patient().races;
-                _this.patient.races.forEach(function (race) {
-                    savedRace_1.forEach(function (dbRaces) {
-                        if (race.value === dbRaces.nameRace) {
-                            //        if(race.nameRace === dbRaces.nameRace){
-                            race.selected = true;
-                        }
-                    });
-                });
+                _this.selectedCountry = _this.patient.country;
+                _this.selectedState = _this.patient.state;
+                _this.selectedCity = _this.patient.city;
+                if (_this.patient.dob == undefined || _this.patient.dob == null || _this.patient.dob.toString().trim() == "") {
+                    _this.patient.dob = new Date().toDateString();
+                }
+                if (_this.patient.cardIssuedDate == undefined || _this.patient.cardIssuedDate == null || _this.patient.cardIssuedDate.toString().trim() == "") {
+                    _this.patient.cardIssuedDate = new Date().toDateString();
+                }
+                if (_this.patient.cardExpiryDate == undefined || _this.patient.cardExpiryDate == null || _this.patient.cardExpiryDate.toString().trim() == "") {
+                    _this.patient.cardExpiryDate = new Date().toDateString();
+                }
             }
             else {
                 _this.notificationService.error(response['responseMessage'], 'Patient');
@@ -135,32 +183,39 @@ var PatientDemographicComponent = (function () {
     PatientDemographicComponent.prototype.updatePatient = function (insuranceForm, demographicForm, patientForm) {
         var _this = this;
         if (insuranceForm.invalid || demographicForm.invalid || patientForm.invalid) {
-            if (this.patient.selectedDoctor <= 0) {
+            /*if (this.patient.selectedDoctor <= 0) {
                 this.notificationService.error('Please select primary doctor', 'Patient');
                 document.getElementById('selectedDoctor').focus();
                 return;
-            }
-            else if (this.patient.titlePrefix === '-1') {
+            } else if (this.patient.titlePrefix === '-1') {
                 this.notificationService.error('Please select title', 'Patient');
                 document.getElementById('titlePrefix').focus();
                 return;
+            } else*/
+            if (this.patient.firstName == null || this.patient.firstName.toString().trim().length <= 0) {
+                this.notificationService.error('Please enter first name.', 'Patient');
+                document.getElementById('firstName').focus();
+                return;
             }
-            else if (this.patient.cellPhone.length <= 0) {
+            else if (this.patient.lastName == null || this.patient.lastName.toString().trim().length <= 0) {
+                this.notificationService.error('Please enter last name.', 'Patient');
+                document.getElementById('lastName').focus();
+                return;
+            }
+            else if (this.patient.cellPhone == null || this.patient.cellPhone.toString().trim().length <= 0) {
                 this.notificationService.error('Please provide cell phone number', 'Patient');
                 document.getElementById('cellPhone').focus();
                 return;
             }
-            else if (this.patient.email.length <= 0) {
+            /*else if (this.patient.email.length <= 0) {
                 this.notificationService.error('Please provide email', 'Patient');
                 document.getElementById('email').focus();
                 return;
-            }
-            else if (this.patient.userName.length <= 0) {
+            } else if (this.patient.userName.length <= 0) {
                 this.notificationService.error('Please provide user name', 'Patient');
                 document.getElementById('userName').focus();
                 return;
-            }
-            /*else if (this.patient.dob.length<=0) {
+            } else if (this.patient.dob.length<=0) {
              this.notificationService.error('Please provide user name', 'Patient');
              // document.getElementById("dob").style.color = "red";
              document.getElementById("dob").focus();
@@ -170,6 +225,15 @@ var PatientDemographicComponent = (function () {
             return;
         }
         else {
+            if (this.patient.dob.toString().length > 0) {
+                this.patient.dob = this.patient.dob.toString().substring(0, 24); // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time) -> Wed Mar 17 1993 17:03:21
+            }
+            if (this.patient.cardIssuedDate.toString().length > 0) {
+                this.patient.cardIssuedDate = this.patient.cardIssuedDate.toString().substring(0, 24);
+            }
+            if (this.patient.cardExpiryDate.toString().length > 0) {
+                this.patient.cardExpiryDate = this.patient.cardExpiryDate.toString().substring(0, 24);
+            }
             if (localStorage.getItem(btoa('access_token'))) {
                 this.patient.smokingStatus = null;
                 this.requestService.postRequestMultipartFormAndData(app_constants_1.AppConstants.PATIENT_UPDATE_URL, this.patient, this.profileImg, this.photoFront, this.photoBack).subscribe(function (response) {
@@ -332,6 +396,56 @@ var PatientDemographicComponent = (function () {
     };
     PatientDemographicComponent.prototype.goToUserDashBoard = function () {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
+    };
+    PatientDemographicComponent.prototype.createCountriesList = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_COUNTRIES)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "BRANCH_SUC_01") {
+                _this.countryList = response["responseData"].data;
+                for (var _i = 0, _a = _this.countryList; _i < _a.length; _i++) {
+                    var country = _a[_i];
+                    var pair = { label: country.name, value: country.id };
+                    _this.countryListModified.push(pair);
+                }
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "Countries List is not available");
+        });
+    };
+    PatientDemographicComponent.prototype.getStatesByCountryId = function (countryId) {
+        var _this = this;
+        this.statesList = this.citiesList = this.statesListModified = this.citiesListModified = [];
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "BRANCH_SUC_01") {
+                _this.statesList = response["responseData"].data;
+                for (var _i = 0, _a = _this.statesList; _i < _a.length; _i++) {
+                    var state = _a[_i];
+                    var pair = { label: state.name, value: state.id };
+                    _this.statesListModified.push(pair);
+                }
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "States List is not available");
+        });
+    };
+    PatientDemographicComponent.prototype.getCitiesByStateId = function (stateId) {
+        var _this = this;
+        this.citiesList = this.citiesListModified = [];
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "BRANCH_SUC_01") {
+                _this.citiesList = response["responseData"].data;
+                for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
+                    var city = _a[_i];
+                    var pair = { label: city.name, value: city.id };
+                    _this.citiesListModified.push(pair);
+                }
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "Cities List is not available");
+        });
     };
     PatientDemographicComponent = __decorate([
         core_1.Component({

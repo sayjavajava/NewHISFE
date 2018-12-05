@@ -1,0 +1,647 @@
+<patient-history-menu></patient-history-menu>
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <!-- common dive profile -->
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="portlet-title">
+                        <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-sm-8 col-xs-12">
+                            <div class="hr">
+                                <h1 class="page-title no-margin"> {{patient.firstName }} {{patient.lastName}}</h1>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date: 'MM-dd-yyyy' }})</small>
+                            </div>
+                            <div class="hr padding-b-10">
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Cell Phone:</td>
+                                            <td class="txt-left font-red">{{patient.cellPhone}}</td>
+                                            <!--<td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Address:</td>
+                                            <td class="text-left font-red">{{patient.formattedAddress}}</td>
+                                            <!--<td class="font-red">No address on file</td>-->
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Email:</td>
+                                            <td class="text-left font-red">{{patient.email}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Gender:</td>
+                                            <td class="text-left font-red">{{patient.gender}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <!--<tr>
+                                            <td class="txt-rigt">Appt:</td>
+                                            <td class="font-red">Mon. Jul. 27, 2015</td>
+                                        </tr>-->
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
+                    </div>
+                    <div class="hr no-margin">
+                        <div *ngIf="patient.primaryDoctorFirstName"  class="hr">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primary Doctor:</span> <span
+                                        class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="hr no-margin">
+                             <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
+                             <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
+                         </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- common dive profile -->
+        <!-- New Vital Tab Active -->
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr mrgn-top10">
+                    <h4 class="text-info">Vital <div class="pull-right">
+                        <!--<a href="#responsive" data-toggle="modal">
+                            <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                    data-type="success" data-allow-outside-click="true"
+                                    data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
+                            </button>
+                        </a>-->
+                        <span>
+                                 <a href="#vitalSetup" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                        data-type="success" data-allow-outside-click="true"
+                                        (click)="addVitalPopupClick()"
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Vital
+                                </button>
+                                 </a>
+                            </span>
+
+                    </div></h4>
+                </div>
+                <div class="table-scrollable tbl-brdr-radus">
+
+
+                    <p-table #dt [columns]="cols" [value]="vitalListData"  [rows]="10"  [paginator]="true" >
+
+                        <div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Global Filter"
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                   style="width:auto">
+                        </div>
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+
+                            <tr>
+                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                    <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'unit'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <!--<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+
+                                    <!--<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+
+
+
+
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-vitalListData>
+                            <tr>
+
+                                <td field="name"><strong>{{vitalListData.name}}</strong></td>
+                                <td field="unit">{{vitalListData.unit}}</td>
+                                <td field="currentValue">{{vitalListData.currentValue}}</td>
+                                <td field="standardValue">{{vitalListData.standardValue}}</td>
+                                <td field="status">{{vitalListData.status}}</td>
+
+                                <td>
+                                    <a href="#vitalSetup" data-toggle="modal"
+                                       (click)="editVital(vitalListData.id)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <button
+                                            (click)="delete(vitalListData.id)">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+
+
+
+                    <!--<table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Allergy</th>
+                            <th> Reaction</th>
+                            <th> Status</th>
+                            <th> Notes</th>
+                            <th>updated</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng" *ngFor="let allergy of allergyData" class="filter">
+                            <td>{{allergy.name}}</td>
+                            <td>{{allergy.reaction}}</td>
+                            <td>{{allergy.status}}</td>
+                            <td>{{allergy.note}}</td>
+                            <td>{{allergy.updatedOn}}</td>
+                            <td>
+                                <a href="#responsiveAllergy" data-toggle="modal"
+                                   (click)="editAllergy(allergy.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="deleteAllergy(allergy.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>-->
+                </div>
+                <!--<div class="table-scrollable tbl-brdr-radus">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Name</th>
+                            <th> Unit</th>
+                            <th> Current Value</th>
+                            <th> Standard</th>
+                            <th> Status</th>
+                             <th> Acton</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let vitalList of vitalListData" class="filter">
+                            <td>{{vitalList.name}}</td>
+                            <td>{{vitalList.unit}}</td>
+                            <td> {{vitalList.currentValue }}</td>
+                            <td>{{vitalList.standardValue}}</td>
+                            <td>{{vitalList.status}}</td>
+                            <td>
+                                <a href="#vitalSetup" data-toggle="modal"
+                                   (click)="editVital(vitalList.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="delete(vitalList.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                                 &lt;!&ndash;   href = "#{{aType.Name}}"&ndash;&gt;
+                                    <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
+                                    <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>
+                                    <a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
+
+
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>-->
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+
+       <!-- <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="vitalPages.length >= 2 && vitalCurrPage > 0">
+                            <a (click)="getPageWiseVitalActive(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="vitalPrePage">
+                            <a (click)="getPageWiseVitalActive(vitalCurrPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === vitalCurrPage}"
+                            *ngFor="let page of vitalPages">
+                            <a (click)="getPageWiseVitalActive(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="vitalNextPage">
+                            <a (click)="getPageWiseVitalActive(problemCurrPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next"
+                            *ngIf="vitalPages.length >= 2 && vitalCurrPage < vitalPages[vitalPages.length - 1]">
+                            <a (click)="getPageWiseVitalActive(vitalPages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>-->
+
+
+        <!--<div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Ongoing Problems</h4>
+                </div>
+                <div class="table-scrollable tbl-brdr-radus">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Version Name</th>
+                            <th> Problem</th>
+                            <th> Diagnosis Date</th>
+                            &lt;!&ndash; <th> Created</th>
+                             <th> Updated</th>&ndash;&gt;
+                            <th> Status</th>
+                            <th> Notes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let problemActive of problemActiveData" class="filter">
+                            <td>{{problemActive.versionName}}</td>
+                            <td>{{problemActive.codeName}}</td>
+                            <td> {{problemActive.dateDiagnosis }}</td>
+                            <td>{{problemActive.status}}</td>
+                            <td>{{problemActive.note}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>-->
+
+       <!-- <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="problemPages.length >= 2 && problemCurrPage > 0">
+                            <a (click)="getPageWiseProblemActive(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="problemPrePage">
+                            <a (click)="getPageWiseProblemActive(problemCurrPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === problemCurrPage}"
+                            *ngFor="let page of problemPages">
+                            <a (click)="getPageWiseProblemActive(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="problemNextPage">
+                            <a (click)="getPageWiseProblemActive(problemCurrPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next"
+                            *ngIf="problemPages.length >= 2 && problemCurrPage < problemPages[problemPages.length - 1]">
+                            <a (click)="getPageWiseProblemActive(problemPages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>-->
+
+
+
+
+
+
+       <!-- <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="dataTables_paginate paging_bootstrap_full_number pull-right"
+                     id="getPageWiseMedicationsByActive">
+                    <ul class="pagination" style="visibility: visible;">
+                        <li class="prev" *ngIf="medicationsPages.length >= 2 && medicationsCurrPage > 0">
+                            <a (click)="getPageWiseMedicationsByActive(0);" title="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="prev" *ngIf="medicationsPrePage">
+                            <a (click)="getPageWiseMedicationsByActive(medicationsCurrPage - 1)" title="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li [ngClass]="{active: page === medicationsCurrPage}"
+                            *ngFor="let page of medicationsPages">
+                            <a (click)="getPageWiseMedicationsByActive(page)">{{page + 1}}</a>
+                        </li>
+                        <li class="next" *ngIf="medicationsNextPage">
+                            <a (click)="getPageWiseMedicationsByActive(medicationsCurrPage + 1)" title="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="next"
+                            *ngIf="medicationsPages.length >= 2 && medicationsCurrPage < medicationsPages[medicationsPages.length - 1]">
+                            <a (click)="getPageWiseMedicationsByActive(medicationsPages.length - 1)" title="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>-->
+
+    </div>
+</div>
+
+<!-- New POP up for Vital -->
+
+<div id="vitalSetup" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="vitalSetupForm" #form="ngForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" >Vital Setup</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:190px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5">
+
+                                    <p-autoComplete
+                                            id="name" name="name"
+                                            [suggestions]="searchedVitalAnyListModified" #name="ngModel"
+                                            (completeMethod)="getSelectedVital($event)"
+                                            [(ngModel)]="selectedstr" [dropdown]="true" [size]="30"
+                                            [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
+                                    </p-autoComplete>
+
+                                </div>
+
+                                <span *ngIf="name.invalid && name.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please Select Name.
+                                </span>
+                            </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Unit</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="eg bpm"
+                                           [(ngModel)]="vitalSetupTemplate.unit" #unit="ngModel">
+                                </div>
+                               <!-- <span *ngIf="unit.invalid && unit.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid unit.
+                                </span>-->
+                            </div>
+
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Current Value<span class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" id="currentValueId" name="currentValue" class="form-control" placeholder="eg 123.."
+                                           [(ngModel)]="vitalSetupTemplate.currentValue" #currentValue="ngModel">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Standard Value</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" name="standardValue" class="form-control" placeholder="eg 92"
+                                           [(ngModel)]="vitalSetupTemplate.standardValue" #standardValue="ngModel">
+                                </div>
+                                 <span *ngIf="standardValue.invalid && standardValue.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                       Please Select  Vital.
+                               </span>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+                                <label class="mt-checkbox-outline col-md-3 pdng-lr-5">
+                                    <mat-checkbox #status="ngModel"
+                                                  name="status"
+                                                  [(ngModel)]="vitalSetupTemplate.status"
+                                                  color="primary"></mat-checkbox>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <span >
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                </span>
+                    <span [hidden]="isUpdate">
+                    <button type="button" class="btn green" name="btnSaveMD"
+                            (click)="savePatientVital(ngForm)">Save</button>
+                </span>
+                    <span [hidden]="!isUpdate">
+                    <button type="button" class="btn blue" id="save-btn-update" (click)="updateVital(ngForm)" >Update </button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--<div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Problem</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="form-group hr">
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">Appointments<span class="required"
+                                                                                                       aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+
+                                    <p-dropdown  placeholder="select appointment"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAppointmentId"
+                                                 [options]="patient.pastAppointments"
+                                                 [(ngModel)]="ppm.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+
+                                    &lt;!&ndash;<select id="selectedAppointmentId"
+                                            [(ngModel)]="ppm.appointmentId"
+                                            name="selectedAppointmentId"
+                                            class="form-control">
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
+                                        <option
+                                                *ngFor="let appointment of pastAppointments"
+                                                [(value)]="appointment.id">
+                                            {{appointment.appointmentId}},
+                                            {{"Schedule Date:"+appointment.scheduleDate}}
+                                        </option>
+                                    </select>&ndash;&gt;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">Version
+                                <span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+                                    <p-dropdown  placeholder="select Version"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="icdVersionId"
+                                                 [options]="iCDVersions" (onChange)="changedVersion(ppm.selectedICDVersionId)"
+                                                 [(ngModel)]="ppm.selectedICDVersionId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+                                    &lt;!&ndash;<select id="icdVersionId" [(ngModel)]="ppm.selectedICDVersionId"
+                                            #icdVersionId="ngModel"
+                                            name="icdVersionId"
+                                            class="form-control"
+                                            (change)="changedVersion(ppm.selectedICDVersionId)">
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
+                                        <option
+                                                *ngFor="let ver of iCDVersions"
+                                                [(value)]="ver.id">
+                                            {{ver.name}}
+                                        </option>
+                                    </select>&ndash;&gt;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Problem:<span class="required"
+                                                                                                   aria-required="true"> * </span></label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+                                    <p-dropdown  placeholder="select Version"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedVer"
+                                                 [options]="associatedCodes"
+                                                 [(ngModel)]="ppm.selectedCodeId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+                                    &lt;!&ndash;<select id="associatedCodesId"
+                                            [(ngModel)]="ppm.selectedCodeId"
+                                            #associatedCodesId="ngModel" name="selectedVer"
+                                            class="form-control">
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
+                                        <option
+                                                *ngFor="let code of associatedCodes"
+                                                [(value)]="code.id">
+                                            {{code.code}}
+                                        </option>
+                                    </select>&ndash;&gt;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis:</label>
+
+                            <div class="col-md-7 select pdng-lr-5">
+                                <angular2-date-picker  name="dateDiagnosis"
+                                                       id="dateDiagnosisId" [settings]="settings" [(ngModel)]="ppm.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <select class="form-control" [(ngModel)]="ppm.status">
+                                    <option value="ACTIVE">Active</option>
+                                    <option value="IN_ACTIVE">In_Active</option>
+                                    <option value="RESOLVED">Resolved</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Url</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <textarea class="form-control" id="problemInfoId" name="problemInfo"
+                                          rows="3"
+                                          [(ngModel)]="ppm.info">
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes:</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <address>
+                                    <textarea class="form-control"
+                                              rows="3"
+                                              [(ngModel)]="ppm.note">
+                                    </textarea>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" #closeBtn
+                        class="btn btn-default btn-outline">Close
+                </button>
+                <span [hidden]="isUpdate">
+                    <button type="button" class="btn green" (click)="savePatientProblem()">Save</button>
+                </span>
+                <span [hidden]="!isUpdate">
+                    <button type="button" class="btn green" (click)="updatePatientProblem()">Update
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--
+</div>-->

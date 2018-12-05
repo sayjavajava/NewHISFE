@@ -1,0 +1,187 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="hr">
+            <h4 class="text-info">Patient Image Processing Setup
+                <div class="pull-right">
+                    <a href="#patImgSetup" data-toggle="modal">
+                        <button class="btn mt-sweetalert btn green-meadow" >
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                    </a>
+
+
+                 <!--   <span><button class="btn btn-default btn-outline"> <i
+                            class=" icon-clock"></i> Print </button></span>-->
+                </div>
+            </h4>
+        </div>
+
+        <!--  <div class="table-scrollable">
+              <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax">
+                  <thead>
+                  <tr role="row" class="off-wite-bg">
+                      <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Name</th>
+                      <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Unit</th>
+                      <th width="15%" class="sorting_disabled col-txt-left" rowspan="1" colspan="1"> Standard Value</th>
+                      <th width="10%" class="sorting_disabled" rowspan="1" colspan="1"> Status</th>
+                      <th width="10%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Action</th>
+                  </tr>
+                  <tr role="row" *ngFor="let item of vitalSetupTemplateList; let ind=index">
+                      <td rowspan="1" colspan="1" class="col-txt-left">{{item.name}}</td>
+                      <td rowspan="1" colspan="1">{{item.unit}}</td>
+                      <td class="sorting_disabled" rowspan="1" colspan="1">{{item.standardValue}}</td>
+                      <td class="sorting_disabled" rowspan="1" colspan="1">{{item.status}}</td>
+
+                      <td rowspan="1" colspan="1" class="text-align-center">
+                          <a href="#vitalSetup" data-toggle="modal">
+                              <button class="btn btn-default btn-outline btn-sm" (click)="edit(item)"> <i class="fa fa-pencil"></i></button>
+                          </a>
+                      </td>
+                  </tr>
+                  </thead>
+              </table>
+          </div>-->
+        <div class="col-md-12 col-xs-12">
+            <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                    <tr>
+
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                            <input *ngSwitchCase="'code'" pInputText type="text" style="width: 100%"
+                                   (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                            <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
+                                   (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                            <input *ngSwitchCase="'description'" pInputText type="text" style="width: 100%"
+                                   (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+
+
+
+                        </th>
+                        <!--<th *ngFor="let col of columns">
+                            <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        </th>-->
+                    </tr>
+
+                </ng-template>
+
+                <ng-template pTemplate="body" let-item let-columns="columns">
+                    <tr>
+
+                        <!--{{car[col.field]}}-->
+                        <td> {{item.code}}</td>
+                        <td> {{item.name}}</td>
+                        <td> {{item.description}}</td>
+                        <td> {{item.status}}</td>
+
+
+                        <td>
+                            <a href="#patImgSetup" data-toggle="modal">
+                                <button class="btn btn-default btn-outline btn-sm"
+                                        (click)="edit(item)"><i class="fa fa-pencil"></i>
+
+                                </button>
+                            </a>
+                            <button class="btn btn-default btn-outline btn-sm"
+                                    (click)="deleteImage(item.id)">
+                                <i class="fa fa-remove"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div id="patImgSetup" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="SetupForm" #form="ngForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" >Patient Image Setup</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Code<span class="required" aria-required="true"></span></label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" required name="code" id="code" class="form-control" placeholder="Enter Code"
+                                           [(ngModel)]="patientImageSetupTemplate.code" #code="ngModel">
+                                </div>
+                                <span *ngIf="code.invalid && code.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter Code.
+                                </span>
+                            </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span class="required" aria-required="true"></span></label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text"  name="name" class="form-control"  placeholder="Enter text"
+                                           [(ngModel)]="patientImageSetupTemplate.name" #name="ngModel">
+                                </div>
+                                <span *ngIf="name.invalid && name.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter Name.
+                                </span>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" name="description" class="form-control" placeholder="Enter text"
+                                           [(ngModel)]="patientImageSetupTemplate.description" #description="ngModel">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+
+                                <label class="mt-checkbox-outline">
+                                    <mat-checkbox #status="ngModel"
+                                                  name="status"
+                                                  [(ngModel)]="patientImageSetupTemplate.status"
+                                                  color="primary"></mat-checkbox>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <span >
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                </span>
+                    <button type="button" class="btn blue"
+                            *ngIf="patientImageSetupTemplate.id <= 0 || patientImageSetupTemplate.id == null"
+                            (click)="savesetup(form)">Save
+                    </button>
+                    <button type="button" class="btn blue" *ngIf="patientImageSetupTemplate.id > 0"
+                            (click)="updateImage(form)">Update
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

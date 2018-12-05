@@ -18,8 +18,11 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var DataService_1 = require("../../../services/DataService");
 var patient_1 = require("../../../model/patient");
+var drug_model_1 = require("../../../model/drug.model");
+var angular2_datetimepicker_1 = require("angular2-datetimepicker");
+var common_1 = require("@angular/common");
 var PatientMedicationListComponent = (function () {
-    function PatientMedicationListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
+    function PatientMedicationListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService, datepipe) {
         var _this = this;
         this.notificationService = notificationService;
         this.requestsService = requestsService;
@@ -27,6 +30,7 @@ var PatientMedicationListComponent = (function () {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.dataService = dataService;
+        this.datepipe = datepipe;
         this.pages = [];
         this.medicationData = [];
         this.medicationModel = new medication_model_1.MedicationModel();
@@ -38,11 +42,28 @@ var PatientMedicationListComponent = (function () {
         this.text = '';
         this.drugs = [];
         this.searchedDrugNames = [];
+        this.date = new Date();
+        this.dateStarted = new Date();
+        this.dateEnded = new Date();
+        this.drug = new drug_model_1.DrugModel();
+        this.searchedDrugNamesLst = [];
+        this.searchedDrugStrengths = new drug_model_1.DrugModel();
+        this.StrengthListModified = [];
+        this.searchedDrugStrengthsAnyListModified = [];
+        this.selectedstr = [];
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
             _this.selectedPatientId = id;
         });
         this.getPaginatedMedicationFromServer(0);
         this.appointmentsByPatientFromServer(this.selectedPatientId);
+        angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker = true;
+            this.date = new Date();
+        };
     }
     PatientMedicationListComponent.prototype.ngOnInit = function () {
         this.statusType = [
@@ -59,6 +80,11 @@ var PatientMedicationListComponent = (function () {
             { label: 'Discontinued', value: 'Discontinued' },
             { label: 'Prescribed by other Dr', value: 'Prescribed by other Dr' },
             { label: 'Over the Counter', value: 'Over the Counter' },
+        ];
+        this.durationList = [
+            { label: 'Days ', value: 'Days ' },
+            { label: 'Week ', value: 'Week ' },
+            { label: 'Month ', value: 'Month ' },
         ];
     };
     PatientMedicationListComponent.prototype.appointmentsByPatientFromServer = function (selectedPatientId) {
@@ -84,14 +110,68 @@ var PatientMedicationListComponent = (function () {
         }
     };
     PatientMedicationListComponent.prototype.addMedication = function () {
-        console.log('test' + this.selectedPatientId);
         this.isUpdate = false;
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
         this.getAllDrugsFromServer();
     };
+    PatientMedicationListComponent.prototype.getRouteDrug = function (txt) {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_NAME_ROUTE + txt)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'DRUG_SUC_10') {
+                _this.routeDrug = response['responseData'];
+                //   let drug = new DrugModel();
+                console.log(_this.routeDrug);
+                _this.medicationModel.route = _this.routeDrug;
+                //    this.medicationModel.strengths=this.routeDrug.strengths;
+            }
+            else {
+                _this.notificationService.error(response['responseMessage']);
+            }
+        }),
+            function (error) {
+                _this.notificationService.error(error.error.error);
+            };
+    };
+    PatientMedicationListComponent.prototype.openUrl = function (val) {
+        var url = '';
+        if (!/^http[s]?:\/\//.test(val)) {
+            url += 'http://';
+        }
+        url += val;
+        window.open(url, '_blank');
+        //   window.open("https://www.google.com", "_blank");
+    };
+    PatientMedicationListComponent.prototype.getStrengthsDrug = function (txt) {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_NAME_STRENGTHS + txt)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'DRUG_SUC_10') {
+                _this.searchedDrugStrengths = response['responseData'];
+                _this.searchedDrugStrengthsAny = _this.searchedDrugStrengths.strengths;
+                for (var _i = 0, _a = _this.searchedDrugStrengthsAny; _i < _a.length; _i++) {
+                    var strenths = _a[_i];
+                    var pair = { label: strenths, value: strenths };
+                    _this.searchedDrugStrengthsAnyListModified.push(pair);
+                }
+                _this.selectedstr = _this.searchedDrugStrengthsAnyListModified[0].value;
+                _this.strengthLst = _this.searchedDrugStrengths.strengths;
+                _this.medicationModel.strengths = _this.searchedDrugStrengths.strengths[0];
+                _this.medicationModel.strengths = _this.searchedDrugStrengths.strengths;
+                console.log(_this.medicationModel.strengths);
+            }
+            else {
+                _this.notificationService.error(response['responseMessage']);
+            }
+        }),
+            function (error) {
+                _this.notificationService.error(error.error.error);
+            };
+    };
     PatientMedicationListComponent.prototype.saveMedication = function (mdForm) {
         var _this = this;
+        this.medicationModel.drugName = this.text;
         if (this.selectedPatientId <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;
@@ -106,23 +186,28 @@ var PatientMedicationListComponent = (function () {
             document.getElementById('drugNameId').focus();
             return;
         }
-        if (this.medicationModel.datePrescribedString === '') {
+        if (this.medicationModel.datePrescribedDate === null) {
             this.notificationService.warn('Please provide proper prescribed date and time.');
             document.getElementById('datePrescribedId').focus();
             return;
         }
-        if (this.medicationModel.dateStartedTakingString === '') {
+        if (this.medicationModel.dateStartedTakingDate === null) {
             this.notificationService.warn('Please provide proper start taking date and time.');
             document.getElementById('dateStartedTakingId').focus();
             return;
         }
-        if (this.medicationModel.dateStoppedTakingString === '') {
+        if (this.medicationModel.dateStoppedTakingDate === null) {
             this.notificationService.warn('Please provide proper stoop taking date and time.');
             document.getElementById('dateStoppedTakingId').focus();
             return;
         }
+        this.medicationModel.datePrescribedDate = new Date(this.medicationModel.datePrescribedDate);
+        this.medicationModel.dateStartedTakingDate = new Date(this.medicationModel.dateStartedTakingDate);
+        this.medicationModel.dateStoppedTakingDate = new Date(this.medicationModel.dateStoppedTakingDate);
+        this.medicationModel.strengths = this.selectedstr;
         if (localStorage.getItem(btoa('access_token'))) {
             this.medicationModel.patientId = this.selectedPatientId;
+            console.log(this.medicationModel);
             this.requestsService.postRequest(app_constants_1.AppConstants.MEDICATION_SAVE_URL, this.medicationModel)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MEDICATION_SUC_28') {
@@ -155,6 +240,7 @@ var PatientMedicationListComponent = (function () {
                 _this.currPage = response['responseData']['currPage'];
                 _this.pages = response['responseData']['pages'];
                 _this.medicationData = response['responseData']['data'];
+                console.log(_this.medicationData);
             }
             else {
                 _this.notificationService.error(response['responseMessage']);
@@ -200,6 +286,12 @@ var PatientMedicationListComponent = (function () {
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'MEDICATION_SUC_34') {
                         _this.medicationModel = response['responseData'];
+                        _this.text = _this.medicationModel.drugName;
+                        _this.medicationModel.datePrescribedDate = new Date(_this.medicationModel.datePrescribedString);
+                        _this.medicationModel.dateStartedTakingDate = new Date(_this.medicationModel.dateStartedTakingString);
+                        _this.medicationModel.dateStoppedTakingDate = new Date(_this.medicationModel.dateStoppedTakingString);
+                        _this.medicationModel.status = _this.medicationModel.status;
+                        _this.selectedstr = _this.medicationModel.strengths;
                         _this.appointmentsByPatientFromServer(_this.medicationModel.patientId);
                     }
                     else {
@@ -219,6 +311,7 @@ var PatientMedicationListComponent = (function () {
     };
     PatientMedicationListComponent.prototype.updateMedication = function (mdForm) {
         var _this = this;
+        this.medicationModel.drugName = this.text;
         if (this.selectedPatientId <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;
@@ -233,21 +326,24 @@ var PatientMedicationListComponent = (function () {
             document.getElementById('drugNameId').focus();
             return;
         }
-        if (this.medicationModel.datePrescribedString === '') {
+        if (this.medicationModel.datePrescribedDate === null) {
             this.notificationService.warn('Please provide proper prescribed date and time.');
             document.getElementById('datePrescribedId').focus();
             return;
         }
-        if (this.medicationModel.dateStartedTakingString === '') {
+        if (this.medicationModel.dateStartedTakingDate === null) {
             this.notificationService.warn('Please provide proper start taking date and time.');
             document.getElementById('dateStartedTakingId').focus();
             return;
         }
-        if (this.medicationModel.dateStoppedTakingString === '') {
+        if (this.medicationModel.dateStoppedTakingDate === null) {
             this.notificationService.warn('Please provide proper stoop taking date and time.');
             document.getElementById('dateStoppedTakingId').focus();
             return;
         }
+        this.medicationModel.datePrescribedDate = new Date(this.medicationModel.datePrescribedDate);
+        this.medicationModel.dateStartedTakingDate = new Date(this.medicationModel.dateStartedTakingDate);
+        this.medicationModel.dateStoppedTakingDate = new Date(this.medicationModel.dateStoppedTakingDate);
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.putRequest(app_constants_1.AppConstants.MEDICATION_UPDATE_URL, this.medicationModel)
                 .subscribe(function (response) {
@@ -278,13 +374,21 @@ var PatientMedicationListComponent = (function () {
                 _this.currPage = response['responseData']['currPage'];
                 _this.pages = response['responseData']['pages'];
                 _this.medicationData = response['responseData']['data'];
+                console.log("All" + _this.medicationData);
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
+    PatientMedicationListComponent.prototype.isEmpty = function (val) {
+        return (val === undefined || val == null || val.length <= 0) ? true : false;
+    };
     PatientMedicationListComponent.prototype.search = function (event) {
         var _this = this;
+        if (this.isEmpty(this.text) == false) {
+            this.getRouteDrug(this.text);
+            this.getStrengthsDrug(this.text);
+        }
         this.requestsService.getRequest(app_constants_1.AppConstants.DRUG_SEARCH_BY_NAME_URL + this.text)
             .subscribe(function (response) {
             if (response['responseCode'] === 'DRUG_SUC_10') {
@@ -327,7 +431,7 @@ var PatientMedicationListComponent = (function () {
             his_util_service_1.HISUtilService,
             router_1.Router,
             router_1.ActivatedRoute,
-            DataService_1.DataService])
+            DataService_1.DataService, common_1.DatePipe])
     ], PatientMedicationListComponent);
     return PatientMedicationListComponent;
 }());

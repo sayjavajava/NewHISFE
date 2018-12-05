@@ -12,6 +12,7 @@ import {ConformationDialogService} from "../../../services/ConformationDialogSer
 import {Invoice} from "../../../model/Invoice";
 import {SelectItem} from "primeng/api";
 import {DatePicker} from "angular2-datetimepicker";
+import any = jasmine.any;
 
 @Component({
     selector: 'patient-history',
@@ -44,6 +45,9 @@ export class PatientDemographicComponent implements OnInit {
     citiesList: any[];
     citiesListModified: SelectItem[] = [];
     selectedCity: string = '';
+    patientGroupList: any[];
+    patientGroupListModified: SelectItem[] = [];
+    smokeStatusType :any;
 
     constructor(private router: Router, private route: ActivatedRoute, private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
@@ -79,6 +83,13 @@ export class PatientDemographicComponent implements OnInit {
                 return;
             }
             this.loadRecord();
+            this.smokeStatusType = [
+                {label: 'Every Day ', value: 'Every Day '},
+                {label: 'Every Week ', value: 'Every Week '},
+                {label: 'Every Month ', value: 'Every Month '},
+                {label: 'Every Year  ', value: 'Every Year'}
+
+            ];
             this.titleList = [
                 {label: 'Mr', value: 'Mr'},
                 {label: 'Mrs', value: 'Mrs'},
@@ -115,16 +126,7 @@ export class PatientDemographicComponent implements OnInit {
         });
 
         this.createCountriesList();
-
-        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
-            this.patient.dob = new Date().toDateString();
-        }
-        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
-            this.patient.cardIssuedDate = new Date().toDateString();
-        }
-        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
-            this.patient.cardExpiryDate = new Date().toDateString();
-        }
+        this.createPatientGroupList();
     }
 
     isValidPatientId() {
@@ -149,6 +151,7 @@ export class PatientDemographicComponent implements OnInit {
                     this.selectedCountry = this.patient.country;
                     this.selectedState = this.patient.state;
                     this.selectedCity = this.patient.city;
+
                     if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
                         this.patient.dob = new Date().toDateString();
                     }
@@ -477,6 +480,22 @@ export class PatientDemographicComponent implements OnInit {
                     }
                 }, function (error) {
                     this.notificationService.error("ERROR", "Cities List is not available");
+                });
+    }
+
+    createPatientGroupList() {
+        this.requestService.getRequest(AppConstants.PATIENT_GROUP_GET_ALL)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "PATGRP_SUC_6") {
+                        this.patientGroupList = response["responseData"].data;
+                        for (let patientGroup of this.patientGroupList) {
+                            var pair: any = {label: patientGroup.name, value: patientGroup.id};
+                            this.patientGroupListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Patient Groups List is not available");
                 });
     }
 }

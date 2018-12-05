@@ -775,7 +775,7 @@ default css for mat check box
     margin-left: 14px;
 }
 .ui-panelmenu{
-width: 93%; !important;
+    width: 93%; !important;
 }
 .ui-panelmenu{width: 93%; !important;}
 .cusm-col-3{width: 20% !important;}
@@ -803,3 +803,8 @@ ul.ui-inputtext{width: 100%;}
 @media (min-width: 768px){
 .receipt-modal{width: 880px !important;}
 }
+
+.ui-autocomplete-input{width:91% !important;}
+.ui-autocomplete{width: 100% !important;}
+.ui-button-text{padding-bottom: 2px !important;}
+
