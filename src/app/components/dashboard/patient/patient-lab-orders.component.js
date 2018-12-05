@@ -31,8 +31,9 @@ var PatientLabOrdersComponent = (function () {
         this.labTest = [];
         this.dateTest = new Date();
         this.orderNotFound = false;
-        this.allOrders = [];
         this.filteredLabTest = [];
+        this.ListofAppointment = [];
+        this.LabOrderProjectionModelList = [];
         this.patient = new patient_1.Patient();
     }
     PatientLabOrdersComponent.prototype.ngOnInit = function () {
@@ -40,11 +41,20 @@ var PatientLabOrdersComponent = (function () {
         this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
+        this.allorganizationData();
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
         this.getLabOrderFromServer(0);
         //  this.addMoreTest();
+        this.cols = [
+            { field: 'name', header: 'Doctor Name' },
+            { field: 'TestDate', header: 'Test Date' },
+            { field: 'orderStatus', header: 'Order Status' },
+            { field: 'description', header: 'Description' },
+            { field: 'LabTest', header: 'Lab Test' },
+            { field: 'action', header: 'Lab Test' }
+        ];
     };
     PatientLabOrdersComponent.prototype.goToUserDashBoard = function () {
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
@@ -67,6 +77,10 @@ var PatientLabOrdersComponent = (function () {
                     _this.currPage = response['responseData']['currPage'];
                     _this.pages = response['responseData']['pages'];
                     _this.allOrders = response['responseData']['data'];
+                    _this.LabOrderProjectionModelList = _this.allOrders;
+                    //  this.ListofAppointment=response['responseData']['doctors'];
+                    var myClonedArray = Object.assign([], _this.LabOrderProjectionModelList);
+                    console.log(myClonedArray);
                 }
                 if (response['responseCode'] == 'LAB_ORDER_ERR_02') {
                     _this.notificationService.warn("Info " + response['responseMessage']);
@@ -81,6 +95,7 @@ var PatientLabOrdersComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.patient = response['responseData'];
+                console.log(_this.patient);
                 //this.patient.races = JSON.parse(response['responseData'].racesString);
             }
         }, function (error) {
@@ -106,6 +121,18 @@ var PatientLabOrdersComponent = (function () {
             'resultValue': '',
             'units': '',
             'normalRange': '',
+        });
+    };
+    PatientLabOrdersComponent.prototype.allorganizationData = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'ORG_SUC_01') {
+                _this.organizationDataList = response['responseData'];
+                _this.stdSystemFormat = _this.organizationDataList.dateFormat + ' ' + _this.organizationDataList.timeFormat;
+            }
+        }, function (error) {
+            _this.notificationService.error(error.error.error);
         });
     };
     PatientLabOrdersComponent.prototype.addMoreTest = function () {
@@ -140,6 +167,7 @@ var PatientLabOrdersComponent = (function () {
     };
     PatientLabOrdersComponent.prototype.getLabTest = function (orderId) {
         var labTestFiltered = this.allOrders.filter(function (x) { return x.id == orderId; }).map(function (x) { return x.labTests; });
+        debugger;
         this.filteredLabTest = labTestFiltered[0];
         labTestFiltered.forEach(function (msg) {
             console.log(msg);

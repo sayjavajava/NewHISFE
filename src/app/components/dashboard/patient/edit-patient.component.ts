@@ -41,6 +41,8 @@ export class EditPatientComponent implements OnInit {
     citiesList: any[];
     citiesListModified: SelectItem[] = [];
     selectedCity: string = '';
+    patientGroupList: any[];
+    patientGroupListModified: SelectItem[] = [];
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -50,6 +52,7 @@ export class EditPatientComponent implements OnInit {
                 private activatedRoute: ActivatedRoute) {
         this.populatePatient();
         this.createCountriesList();
+        this.createPatientGroupList();
 
         DatePicker.prototype.ngOnInit = function() {
             this.settings = Object.assign(this.defaultSettings, this.settings);
@@ -70,7 +73,6 @@ export class EditPatientComponent implements OnInit {
         if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
             this.patient.cardExpiryDate = new Date().toDateString();
         }
-
     };
 
     populatePatient() {
@@ -97,7 +99,7 @@ export class EditPatientComponent implements OnInit {
                             this.selectedCountry = this.patient.country;
                             this.selectedState = this.patient.state;
                             this.selectedCity = this.patient.city;
-                            console.log(this.patient.dob);
+
                             if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
                                 this.patient.dob = new Date().toDateString();
                             }
@@ -185,14 +187,14 @@ export class EditPatientComponent implements OnInit {
             return;
         } else {
             // console.log(this.patient.dob);
-            if(this.patient.dob.toString().length>0){
-                this.patient.dob = this.patient.dob.toString().substring(0,24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time)
+            if (this.patient.dob.toString().length > 0) {
+                this.patient.dob = this.patient.dob.toString().substring(0, 24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time)
             }
-            if(this.patient.cardIssuedDate.toString().length>0){
-                this.patient.cardIssuedDate = this.patient.cardIssuedDate.toString().substring(0,24);
+            if (this.patient.cardIssuedDate.toString().length > 0) {
+                this.patient.cardIssuedDate = this.patient.cardIssuedDate.toString().substring(0, 24);
             }
-            if(this.patient.cardExpiryDate.toString().length>0){
-                this.patient.cardExpiryDate = this.patient.cardExpiryDate.toString().substring(0,24);
+            if (this.patient.cardExpiryDate.toString().length > 0) {
+                this.patient.cardExpiryDate = this.patient.cardExpiryDate.toString().substring(0, 24);
             }
             console.log(this.patient.dob);
             if (localStorage.getItem(btoa('access_token'))) {
@@ -410,7 +412,7 @@ export class EditPatientComponent implements OnInit {
                 });
     }
 
-    selectPatientCity(cityId: any) {
+    /*selectPatientCity(cityId: any) {
         // this.patient.cityId = cityId;
         // console.log("Branch City ID: " + this.branchCity);
 
@@ -418,5 +420,21 @@ export class EditPatientComponent implements OnInit {
         console.log("State -> "+this.patient.stateId+ " : "+this.patient.state);
         console.log("City -> "+this.patient.cityId + " : "+this.patient.city);
         console.log("\n");
+    }*/
+
+    createPatientGroupList() {
+        this.requestsService.getRequest(AppConstants.PATIENT_GROUP_GET_ALL)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "PATGRP_SUC_6") {
+                        this.patientGroupList = response["responseData"].data;
+                        for (let patientGroup of this.patientGroupList) {
+                            var pair: any = {label: patientGroup.name, value: patientGroup.id};
+                            this.patientGroupListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Patient Groups List is not available");
+                });
     }
 }

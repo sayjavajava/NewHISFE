@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
@@ -85,11 +85,35 @@ export class VitalSetupComponent {
     }
 
 
-    edit(editModule: any){
-        if(editModule) {
+    edit(editModule: any) {
+        if (editModule) {
             this.vitalSetupTemplate = editModule;
-        }else{
+        } else {
             this.vitalSetupTemplate = new VitalSetupModel();
+        }
+    }
+
+    deleteVitalSetup(setupId: number) {
+        if (localStorage.getItem(btoa('access_token'))) {
+            if (!confirm("Are You Sure Want To Delete")) return;
+            this.requestsService.deleteRequest(
+                AppConstants.VITALS_CONFIGURATION_DELETE + setupId)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success(response['responseMessage'], 'Vital Setup Configurations');
+                            this.getVitalSetupList();
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
+                        }
+                    },
+                    (error: any) => {
+                        //console.log(error.json())
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
         }
     }
 }

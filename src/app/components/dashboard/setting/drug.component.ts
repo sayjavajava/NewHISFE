@@ -5,10 +5,9 @@ import {RequestsService} from '../../../services/requests.service';
 import {UserSharedService} from '../../../services/user.shared.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {NotificationService} from '../../../services/notification.service';
-import {NgForm} from '@angular/forms';
-import {Department} from '../../../model/department';
-import * as _ from 'lodash'
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {DrugModel} from '../../../model/drug.model';
+import {SelectItem} from "primeng/api";
 
 @Component({
     selector: 'drug',
@@ -23,6 +22,10 @@ export class DrugComponent implements OnInit {
     pages: number[] = [];
     data: DrugModel [] = [];
     cols: any[];
+    selectedCountry: SelectItem[] = [];
+    countryListModified: SelectItem[] = [];
+    countryLst:any=[];
+
     /*searchDepart: string;
      searched: boolean = false;*/
 
@@ -30,7 +33,7 @@ export class DrugComponent implements OnInit {
                 private router: Router,
                 private userSharedService: UserSharedService,
                 private HISUtilService: HISUtilService,
-                private notificationService: NotificationService) {
+                private notificationService: NotificationService,private fb: FormBuilder) {
     }
 
     ngOnInit() {
@@ -39,7 +42,7 @@ export class DrugComponent implements OnInit {
         } else {
             this.router.navigate(['/login']);
         }
-
+        this.allCountries();
 
         this.cols = [
            { field: 'drugName', header: 'Drug Name' },
@@ -63,6 +66,27 @@ export class DrugComponent implements OnInit {
         // }
     }
 
+
+    allCountries() {
+
+        this.requestsService.getRequest(AppConstants.GET_ALL_COUNTRY)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'COUNTRY_SUC_11') {
+                        this.countryLst = response['responseData'];
+                        for (let country of this.countryLst) {
+                            let pair: any = {label: country.name, value: country.id};
+                            this.countryListModified.push(pair);
+
+                        }
+
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
+    }
+
     // refreshPage() {
     //     this.searched = false;
     //     this.searchDepart = '';
@@ -82,6 +106,7 @@ export class DrugComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.data = response['responseData']['data'];
+                        console.log(this.data);
 
                     }
                 },
@@ -143,7 +168,21 @@ export class DrugComponent implements OnInit {
      );
      }*/
 
-    saveDrug() {
+  /*  createGenralForm() {
+        this.generalForm = this.fb.group({
+
+            'selectedCountry': [null],
+            'uOM': [null],
+            'strengths': [null],
+            'route': [null],
+            'companyName': [null],
+            'genericName': [null],
+            'drugName': [null],
+
+        });
+    }*/
+
+    saveDrug(data: FormData) {
 
         if (this.drug.drugName == '') {
             this.notificationService.error('Please enter Drug name.', 'Drug');
@@ -172,13 +211,22 @@ export class DrugComponent implements OnInit {
             return;
         }
 
-        if (this.drug.origin == '') {
+        /*if (this.drug.origin == '') {
             this.notificationService.error('Please enter origin.', 'Drug');
             document.getElementById('origin').focus();
             return;
+        }*/
+       if(this.selectedCountry.length==0){
+            this.notificationService.error('Please Select Make.', 'Drug');
+           document.getElementById('origin').focus();
+            return;
         }
+   //     this.drug.selectedCountry=this.selectedCountry;
+    //    let listOfCountry=this.countryLst.filter((listing: any) => listing.id === this.drug.selectedCountry);
+       // console.log(listOfCountry);
+       this.drug.selectedCountry=this.selectedCountry;
 
-
+        console.log(this.drug);
         this.requestsService.postRequest(
             AppConstants.DRUG_SAVE_URL,
             this.drug)
@@ -222,18 +270,26 @@ export class DrugComponent implements OnInit {
             return;
         }
 
-        if (this.drug.strengths.length == 0) {
+       if (this.drug.strengths.length == 0) {
             this.notificationService.error('Please enter  strength.', 'Drug');
             document.getElementById('strengths').focus();
             return;
         }
 
-        if (this.drug.origin == '') {
-            this.notificationService.error('Please enter origin.', 'Drug');
+
+        if(this.selectedCountry.length==0){
+            this.notificationService.error('Please Select Make.', 'Drug');
             document.getElementById('origin').focus();
             return;
         }
+        /*if (this.drug.origin == '') {
+            this.notificationService.error('Please enter origin.', 'Drug');
+            document.getElementById('origin').focus();
+            return;
+        }*/
+        this.drug.selectedCountry=this.selectedCountry;
 
+        console.log(this.drug);
         this.requestsService.putRequest(
             AppConstants.DRUG_UPDATE_URL,
             this.drug)
@@ -264,6 +320,8 @@ export class DrugComponent implements OnInit {
                         let drug = new DrugModel();
                         this.drug.routes = drug.routes;
                         this.drug.UOMs = drug.UOMs;
+                        this.selectedCountry=this.drug.addInfo.country;
+                        console.log(this.drug);
                     } else {
                         this.notificationService.error(response['responseMessage']);
                     }

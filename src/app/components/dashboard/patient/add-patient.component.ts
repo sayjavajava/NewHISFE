@@ -10,7 +10,6 @@ import {NgForm} from "@angular/forms";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {SelectItem} from "primeng/api";
 import {DatePicker} from "angular2-datetimepicker";
-import * as moment from 'moment';
 
 @Component({
     selector: 'add-patient',
@@ -22,9 +21,9 @@ export class AddPatientComponent implements OnInit {
     photoFront: File = null;
     photoBack: File = null;
     doctors: any = [];
-    titleList:any;
+    titleList: any;
     // rLanguage:any;
-    pCommunication :any;
+    pCommunication: any;
     emergencyContactRelations: any = [];
     maritalStatus: any = [];
     genders: any = [];
@@ -35,6 +34,9 @@ export class AddPatientComponent implements OnInit {
     citiesList: any[];
     citiesListModified: SelectItem[] = [];
     col: any[];
+
+    patientGroupList: any[];
+    patientGroupListModified: SelectItem[] = [];
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -51,7 +53,7 @@ export class AddPatientComponent implements OnInit {
                 (error: any) => {
                     this.HISUTilService.tokenExpired(error.error.error);
                 });
-        DatePicker.prototype.ngOnInit = function() {
+        DatePicker.prototype.ngOnInit = function () {
             this.settings = Object.assign(this.defaultSettings, this.settings);
             if (this.settings.defaultOpen) {
                 this.popover = true;
@@ -62,14 +64,6 @@ export class AddPatientComponent implements OnInit {
         };
     }
 
-    /*search = (text$: Observable<string>) =>
-     text$.pipe(
-     debounceTime(200),
-     distinctUntilChanged(),
-     map(term => term.length < 2 ? []
-     : this.title.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-     );*/
-
     ngOnInit() {
         this.titleService.setTitle('HIS | Add Patient');
         this.titleList = [
@@ -78,19 +72,13 @@ export class AddPatientComponent implements OnInit {
             {label: 'Ms', value: 'Ms'},
             {label: 'Dr', value: 'dr'},
         ];
-        /* this.rLanguage = [
-             {label: 'ENGLISH', value: 'ENGLISH'},
-             {label: 'URDU', value: 'URDU'},
-             {label: 'ARABIC', value: 'ARABIC'},
-             {label: 'CHINESE', value: 'CHINESE'},
-         ];*/
-        this.pCommunication =[
+        this.pCommunication = [
             {label: 'CELL PHONE', value: 'CELL PHONE'},
             {label: 'HOME PHONE', value: 'HOME PHONE'},
             {label: 'OFFICE PHONE', value: 'OFFICE PHONE'},
             {label: 'EMAIL', value: 'EMAIL'},
         ];
-        this.maritalStatus =[
+        this.maritalStatus = [
             {label: 'SINGLE', value: 'SINGLE'},
             {label: 'MARRIED', value: 'MARRIED'},
             {label: 'WIDOWED', value: 'WIDOWED'},
@@ -112,6 +100,7 @@ export class AddPatientComponent implements OnInit {
             {label: 'OTHER', value: 'OTHER'},
         ];
         this.createCountriesList();
+        this.createPatientGroupList();
         this.patient.status = true;
 
         if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
@@ -180,8 +169,8 @@ export class AddPatientComponent implements OnInit {
             return;
         } else {
             console.log(this.patient.dob);
-            if(this.patient.dob.toString().length>0){
-                this.patient.dob = this.patient.dob.toString().substring(0,24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time)
+            if (this.patient.dob.toString().length > 0) {
+                this.patient.dob = this.patient.dob.toString().substring(0, 24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time)
             }
             console.log(this.patient.dob);
 
@@ -192,8 +181,8 @@ export class AddPatientComponent implements OnInit {
                 this.patient.smokingStatus = null;
 
                 /** **
-                ** going to check the first name, last name and cellphone values are present
-                ** **/
+                 ** going to check the first name, last name and cellphone values are present
+                 ** **/
                 if (this.patient.firstName.toString().trim().length <= 0) {
                     this.notificationService.warn('Please enter first name.');
                     document.getElementById('firstName').focus();
@@ -303,7 +292,7 @@ export class AddPatientComponent implements OnInit {
                     if (response["responseCode"] === "BRANCH_SUC_01") {
                         this.countryList = response["responseData"].data;
                         for (let country of this.countryList) {
-                            var pair: any = {label: country.name, value: country.id};
+                            let pair: any = {label: country.name, value: country.id};
                             this.countryListModified.push(pair);
                         }
                     }
@@ -321,7 +310,7 @@ export class AddPatientComponent implements OnInit {
                     if (response["responseCode"] === "BRANCH_SUC_01") {
                         this.statesList = response["responseData"].data;
                         for (let state of this.statesList) {
-                            var pair: any = {label: state.name, value: state.id};
+                            let pair: any = {label: state.name, value: state.id};
                             this.statesListModified.push(pair);
                         }
                     }
@@ -339,7 +328,7 @@ export class AddPatientComponent implements OnInit {
                     if (response["responseCode"] === "BRANCH_SUC_01") {
                         this.citiesList = response["responseData"].data;
                         for (let city of this.citiesList) {
-                            var pair: any = {label: city.name, value: city.id};
+                            let pair: any = {label: city.name, value: city.id};
                             this.citiesListModified.push(pair);
                         }
                     }
@@ -351,6 +340,22 @@ export class AddPatientComponent implements OnInit {
     selectPatientCity(cityId: any) {
         this.patient.city = cityId;
         // console.log("Branch City ID: " + this.branchCity);
+    }
+
+    createPatientGroupList() {
+        this.requestsService.getRequest(AppConstants.PATIENT_GROUP_GET_ALL)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "PATGRP_SUC_6") {
+                        this.patientGroupList = response["responseData"].data;
+                        for (let patientGroup of this.patientGroupList) {
+                            let pair: any = {label: patientGroup.name, value: patientGroup.id};
+                            this.patientGroupListModified.push(pair);
+                        }
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Patient Groups List is not available");
+                });
     }
 
 }

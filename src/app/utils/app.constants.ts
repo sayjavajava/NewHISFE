@@ -113,7 +113,7 @@ export class AppConstants {
     public static TIMEZONE_FETCH_URL = '/setting/organization/timezone';
     public static FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
     public static FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
-    public static FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
+    public static FETCH_ORGANIZATION_BY_ID = '/setting/organinzation/get/';
     public static FETCH_ORG_ACCOUNT_URL = '/setting/organization/account';
     public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
 
@@ -236,6 +236,8 @@ export class AppConstants {
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+    public static VITALS_CONFIGURATION_GET_BY_ID = '/vitalSetup/get/';
+    public static VITALS_CONFIGURATION_DELETE = '/vitalSetup/delete/';
 
 
     ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
@@ -249,6 +251,7 @@ export class AppConstants {
     public static PATIENT_GROUP_SAVE_URL = '/patient/group/save';
     public static PATIENT_GROUP_UPDATE_URL = '/patient/group/update';
     public static PATIENT_GROUP_GET_URL = '/patient/group/get?patientGroupId=';
+    public static PATIENT_GROUP_GET_ALL = '/patient/group/get/all';
 
 
     ///////////////////// Drug URLs ////////////////////////////////////////
@@ -306,7 +309,45 @@ export class AppConstants {
 
     public static ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
     public static FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';
+    /////////////////////FETCH
+    public static FETCH_NAME_ROUTE = '/setting/drug/searchName?drugName=';
+
+    public static FETCH_NAME_STRENGTHS= '/setting/drug/searchStrengths?drugName=';
+
+
+    ////////////////////////////////
+    public static FETCH_VITALS_PATIENT = '/PatientVital/getPatientVital';
+    public static VITALS_PATIENT_SAVE = '/PatientVital/savePatientVital';
+    public static DELETE_VITAL = '/PatientVital/delete/';
+    public static VITAL_GET_URL = '/PatientVital/get/';
+    public static VITALS_PATIENT_UPDATE = '/PatientVital/update';
+    public static VITALS_PAGINATED_URL = '/PatientVital/';
+
+    ///////////////////////////////////////////
+    public static FETCH_PATIENT_IMAGE = '/PatientImage/getSetup';
+    public static PATIENT_IMAGE_SAVE = '/PatientImage/savePatientImageSetup';
+    public static DELETE_PATIENT_IMAGE = '/PatientImage/delete/';
+    public static UPDATE_PATIENT_IMAGE= '/PatientImage/update';
+
+
+
+
+    /*public static DOCUMENT_SAVE_URL = '/patient/document/save';
+    public static DOCUMENT_PAGINATED_URL = '/patient/document/';
+    public static DOCUMENT_GET_URL = '/patient/document/get?';
+    public static DOCUMENT_UPDATE_URL = '/patient/document/update';
+    public static DOCUMENT_DELETE_URI = '/patient/document/delete/';*/
+
+    public static FETCH_PATIENT_ORDER = '/PatientImage/getSetup';
+    public static PATIENT_IMAGE_SAVE_ORDER = '/patient/Imageorder/save';
+    public static DELETE_PATIENT_IMAGE_DELETE = '/patient/Imageorder/delete/';
+    public static UPDATE_PATIENT_IMAGE_UPDATE= '/patient/Imageorder/update';
+    public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
+    public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
+
+
     public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';
+
 
 
 }

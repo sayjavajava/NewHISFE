@@ -121,6 +121,7 @@ import {PatientAddLabOrdersComponent} from "./components/dashboard/patient/patie
 import {DataService} from "./services/DataService";
 
 import {ModalModule} from "ngx-bootstrap";
+import {FileUploadModule} from 'primeng/fileupload';
 
 import {
     CheckboxModule, DataTableModule, MegaMenuModule, OverlayPanelModule, PaginatorModule, PanelMenuModule,
@@ -157,10 +158,17 @@ import {PaymentTypeComponent} from "./components/dashboard/setting/PaymentType.c
 import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
 import {EditorModule} from "primeng/editor";
 import {ChartModule} from "primeng/chart";
+
 import {InvoiceListingComponent} from "./components/dashboard/patient/invoice-listing.component";
 import {ReceiptListingComponent} from "./components/dashboard/patient/receipt-listing.component";
 import {RefundListingComponent} from "./components/dashboard/patient/refund-listing.component";
 import {PatientInvoiceListComponent} from "./components/dashboard/patient/patient-invoice-list.component";
+import {PatientImageComponent} from "./components/dashboard/setting/PatientImageComponent";
+/*import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";*/
+import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";
+
+import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
+
 
 
 @NgModule({
@@ -228,7 +236,8 @@ import {PatientInvoiceListComponent} from "./components/dashboard/patient/patien
         PasswordModule,
         EditorModule,
         CKEditorModule,
-        ChartModule
+        ChartModule,
+        FileUploadModule,
     ],
     declarations: [
         // App Components
@@ -334,11 +343,19 @@ import {PatientInvoiceListComponent} from "./components/dashboard/patient/patien
         DrugComponent,
         CurrencyComponent,
 
+
         InvoiceListingComponent,
         ReceiptListingComponent,
         RefundListingComponent,
+        PatientInvoiceListComponent,
+        CurrencyComponent,
+        PatientImageComponent,
+        /*PatientImageOrderComponent,*/
 
-        PatientInvoiceListComponent
+        PatientImageComponent,
+        PatientImageOrderComponent,
+
+        PatientHistoryVitalComponent
     ],
     bootstrap: [AppComponent]
 })

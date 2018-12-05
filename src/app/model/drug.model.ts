@@ -1,4 +1,5 @@
 import {SelectItem} from 'primeng/api';
+import {Country} from "./Country";
 /**
  * Created by jamal on 10/24/2018.
  */
@@ -23,6 +24,11 @@ export class DrugModel {
     strengths: string[] = [];
 
     uOM: string = 'DOSING SYRINGE';
+
+ //   UOMs: SelectItem[] = [];
+    drugInfo:String='';
+   // origin: string = '';
+
     UOMs: SelectItem[] = [
         {label: 'ML', value: 'ML'},
         {label: 'DOSING CUP', value: 'DOSING CUP'},
@@ -32,10 +38,12 @@ export class DrugModel {
     ];
 
     origin: string = '';
+
     active: boolean = true;
     hasChild: boolean = false;
-
-
+    selectedCountry:any;
+    addInfo:any;
+    countryView:string;
     constructor() {
 
     }

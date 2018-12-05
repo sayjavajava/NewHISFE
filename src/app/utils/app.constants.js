@@ -106,7 +106,7 @@ var AppConstants = (function () {
     AppConstants.TIMEZONE_FETCH_URL = '/setting/organization/timezone';
     AppConstants.FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
     AppConstants.FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
-    AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
+    AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organinzation/get/';
     AppConstants.FETCH_ORG_ACCOUNT_URL = '/setting/organization/account';
     AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
     ////////////////////// Patient URLs ///////////////////////////////
@@ -117,6 +117,7 @@ var AppConstants = (function () {
     AppConstants.PATIENT_UPDATE_URL = '/patient/update';
     AppConstants.SEARCH_ALL_PATIENT_URL = '/patient/search';
     AppConstants.GET_ALL_PATIENT_URL = '/patient/';
+    AppConstants.IMPORT_PATIENTS_LIST_TO_SERVER = '/patient/importPatientRecords';
     AppConstants.UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     AppConstants.UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadInsuranceFrontImg/'; //'/patient/uploadImageFront/insurance/';
     AppConstants.UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadInsuranceBackImg/'; //'/patient/uploadImageBack/insurance/';
@@ -239,6 +240,11 @@ var AppConstants = (function () {
     AppConstants.SAVE_PAYMENTTYPE = '/PaymentType/save';
     AppConstants.DELETE_PAYMENTTYPE = '/PaymentType/delete/';
     AppConstants.UPDATE_PAYMENTTYPE = '/PaymentType/update';
+    //////////////Payment API for Receipt ///////////////////////////////////
+    AppConstants.SAVE_ADVANCE_PAYMENT = '/payment/saveAdvancePayment';
+    AppConstants.GET_INVOICE_List_BY_PAT_ID = '/payment/getPatientInvoiceListById/';
+    AppConstants.SAVE_BULK_RECEIT = '/payment/saveBulkReceit';
+    AppConstants.GET_RECEIPT_List = '/payment/getReceiptList';
     ////////////////Country/////////////////////////////
     AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
     AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';
@@ -250,6 +256,33 @@ var AppConstants = (function () {
     AppConstants.GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
     AppConstants.ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
     AppConstants.FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';
+    /////////////////////FETCH
+    AppConstants.FETCH_NAME_ROUTE = '/setting/drug/searchName?drugName=';
+    AppConstants.FETCH_NAME_STRENGTHS = '/setting/drug/searchStrengths?drugName=';
+    ////////////////////////////////
+    AppConstants.FETCH_VITALS_PATIENT = '/PatientVital/getPatientVital';
+    AppConstants.VITALS_PATIENT_SAVE = '/PatientVital/savePatientVital';
+    AppConstants.DELETE_VITAL = '/PatientVital/delete/';
+    AppConstants.VITAL_GET_URL = '/PatientVital/get/';
+    AppConstants.VITALS_PATIENT_UPDATE = '/PatientVital/update';
+    AppConstants.VITALS_PAGINATED_URL = '/PatientVital/';
+    ///////////////////////////////////////////
+    AppConstants.FETCH_PATIENT_IMAGE = '/PatientImage/getSetup';
+    AppConstants.PATIENT_IMAGE_SAVE = '/PatientImage/savePatientImageSetup';
+    AppConstants.DELETE_PATIENT_IMAGE = '/PatientImage/delete/';
+    AppConstants.UPDATE_PATIENT_IMAGE = '/PatientImage/update';
+    /*public static DOCUMENT_SAVE_URL = '/patient/document/save';
+    public static DOCUMENT_PAGINATED_URL = '/patient/document/';
+    public static DOCUMENT_GET_URL = '/patient/document/get?';
+    public static DOCUMENT_UPDATE_URL = '/patient/document/update';
+    public static DOCUMENT_DELETE_URI = '/patient/document/delete/';*/
+    AppConstants.FETCH_PATIENT_ORDER = '/PatientImage/getSetup';
+    AppConstants.PATIENT_IMAGE_SAVE_ORDER = '/patient/Imageorder/save';
+    AppConstants.DELETE_PATIENT_IMAGE_DELETE = '/patient/Imageorder/delete/';
+    AppConstants.UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
+    AppConstants.PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/'; ///all by paginated
+    AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
+    AppConstants.GET_COUNTRY_BY_NAME = '/CountryAPI/getByName/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

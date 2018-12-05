@@ -139,11 +139,11 @@ export class PatientAllergyListComponent implements OnInit {
             return;
         }
 
-        if (this.pam.appointmentId <= 0) {
+        /*if (this.pam.appointmentId <= 0) {
             this.notificationService.warn('Please select proper appoint ');
             document.getElementById('appointmentId').focus();
             return;
-        }
+        }*/
 
         if (this.pam.allergyType === '-1') {
             this.notificationService.warn('Please select type of allergy.');

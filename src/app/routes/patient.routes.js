@@ -17,6 +17,9 @@ var patient_lab_orders_component_1 = require("../components/dashboard/patient/pa
 var patient_communication_component_1 = require("../components/dashboard/patient/patient-communication.component");
 var patient_family_history_component_1 = require("../components/dashboard/patient/patient-family-history.component");
 var patient_add_lab_orders_component_1 = require("../components/dashboard/patient/patient-add-lab-orders.component");
+var patient_invoice_list_component_1 = require("../components/dashboard/patient/patient-invoice-list.component");
+/*import {PatientImageOrderComponent} from "../components/dashboard/patient/PatientImageOrderComponent";*/
+var patient_history_vital_component_1 = require("../components/dashboard/patient/patient-history-vital.component");
 exports.PatientRoutes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: patient_dashboard_component_1.PatientDashboardComponent },
@@ -25,6 +28,7 @@ exports.PatientRoutes = [
     { path: 'invoice', component: patient_invoice_component_1.PatientInvoiceComponent },
     /*{path: 'history/:id', component: PatientHistoryComponent},*/
     { path: 'invoice/:id', component: patient_invoice_component_1.PatientInvoiceComponent },
+    { path: 'invoice-list/:id', component: patient_invoice_list_component_1.PatientInvoiceListComponent },
     /* {path: 'history', component: PatientHistoryComponent}, */
     { path: 'history/:id/problem', component: patient_problem_list_component_1.PatientProblemListComponent },
     { path: ':id/history', component: patient_history_component_1.PatientHistoryComponent },
@@ -40,6 +44,7 @@ exports.PatientRoutes = [
     { path: 'create-order/:id/add/:orderId/order', component: patient_add_lab_orders_component_1.PatientAddLabOrdersComponent },
     { path: 'communication', component: patient_communication_component_1.PatientCommunicationComponent },
     { path: 'family-history', component: patient_family_history_component_1.PatientFamilyHistoryComponent },
+    { path: 'patient-vital', component: patient_history_vital_component_1.PatientHistoryVitalComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=patient.routes.js.map

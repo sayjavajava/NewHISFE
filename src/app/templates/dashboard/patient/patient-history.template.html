@@ -76,6 +76,83 @@
             </div>
         </div>
         <!-- common dive profile -->
+        <!-- New Vital Tab Active -->
+        <div class="row">
+            <div class="hr">
+                <h4 class="text-info">Active Problems
+                    <div class="pull-right">
+                        <!--<a href="#responsive" data-toggle="modal">
+                            <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                    data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                    data-type="success" data-allow-outside-click="true"
+                                    data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
+                            </button>
+                        </a>-->
+                           <!-- <span>
+                                 <a href="#vitalSetup" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                        data-type="success" data-allow-outside-click="true"
+                                        (click)="addVitalPopupClick()"
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Vital
+                                </button>
+                                 </a>
+                            </span>-->
+
+                    </div>
+                </h4>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="hr">
+                    <h4 class="text-info">Vital </h4>
+                </div>
+                <div class="table-scrollable tbl-brdr-radus">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Name</th>
+                            <th> Unit</th>
+                            <th> Current Value</th>
+                            <th> Standard</th>
+                            <th> Status</th>
+                           <!-- <th> Acton</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let vitalList of vitalListData" class="filter">
+                            <td>{{vitalList.name}}</td>
+                            <td>{{vitalList.unit}}</td>
+                            <td> {{vitalList.currentValue }}</td>
+                            <td>{{vitalList.standardValue}}</td>
+                            <td>{{vitalList.status}}</td>
+                            <!--<td>
+                                <a href="#vitalSetup" data-toggle="modal"
+                                   (click)="editVital(vitalList.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="delete(vitalList.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                                &lt;!&ndash;      href = "#{{aType.Name}}"&ndash;&gt;
+                                &lt;!&ndash;<button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>&ndash;&gt;
+                                &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
+                                &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
+
+
+
+                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+
+
+
 
         <div class="row">
             <div class="col-md-12 col-xs-12">
@@ -338,5 +415,257 @@
         </div>-->
     </div>
 </div>
+
+<!-- New POP up for Vital -->
+
+<div id="vitalSetup" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="vitalSetupForm" #form="ngForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" >Vital Setup</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name</label>
+                                <div class="col-md-9 select pdng-lr-5">
+
+                                    <p-autoComplete
+                                            id="name" name="name"
+                                            [suggestions]="searchedVitalAnyListModified" #name="ngModel"
+                                            (completeMethod)="getSelectedVital($event)"
+                                            [(ngModel)]="selectedstr" [dropdown]="true" [size]="30"
+                                            [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
+                                    </p-autoComplete>
+
+                                   <!-- <p-dropdown [(ngModel)]="selectedstr"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                required id="name" (onChange)="getSelectedVital($event.value)"
+                                                name="name" [options]="searchedVitalAnyListModified"
+                                                #name="ngModel">
+                                    </p-dropdown>-->
+
+                                   <!-- <input type="text" required name="name" id="name" class="form-control" placeholder="Enter Name"
+                                           [(ngModel)]="vitalSetupTemplate.name" #name="ngModel">-->
+                                </div>
+                            </div>
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Unit</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="eg bpm"
+                                           [(ngModel)]="vitalSetupTemplate.unit" #unit="ngModel">
+                                </div>
+                                <span *ngIf="unit.invalid && unit.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter valid unit.
+                                </span>
+                            </div>
+
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Current Value<span class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" id="currentValueId" name="currentValue" class="form-control" placeholder="eg 123.."
+                                           [(ngModel)]="vitalSetupTemplate.currentValue" #currentValue="ngModel">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Standard Value</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <input type="text" name="standardValue" class="form-control" placeholder="eg 92"
+                                           [(ngModel)]="vitalSetupTemplate.standardValue" #standardValue="ngModel">
+                                </div>
+                            </div>
+
+                            <div class="form-group hr">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+                                <label class="mt-checkbox-outline">
+                                    <mat-checkbox #status="ngModel"
+                                                  name="status"
+                                                  [(ngModel)]="vitalSetupTemplate.status"
+                                                  color="primary"></mat-checkbox>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <span >
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                </span>
+                    <span [hidden]="isUpdate">
+                    <button type="button" class="btn green" name="btnSaveMD"
+                            (click)="savePatientVital(ngForm)">Save</button>
+                </span>
+                    <span [hidden]="!isUpdate">
+                    <button type="button" class="btn blue" id="save-btn-update" (click)="updateVital(ngForm)" >Update </button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--<div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Problem</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="form-group hr">
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">Appointments<span class="required"
+                                                                                                       aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+
+                                    <p-dropdown  placeholder="select appointment"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAppointmentId"
+                                                 [options]="patient.pastAppointments"
+                                                 [(ngModel)]="ppm.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+
+                                    &lt;!&ndash;<select id="selectedAppointmentId"
+                                            [(ngModel)]="ppm.appointmentId"
+                                            name="selectedAppointmentId"
+                                            class="form-control">
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
+                                        <option
+                                                *ngFor="let appointment of pastAppointments"
+                                                [(value)]="appointment.id">
+                                            {{appointment.appointmentId}},
+                                            {{"Schedule Date:"+appointment.scheduleDate}}
+                                        </option>
+                                    </select>&ndash;&gt;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="control-label txt-size pdng-lr-5 col-md-4">Version
+                                <span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+                                    <p-dropdown  placeholder="select Version"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="icdVersionId"
+                                                 [options]="iCDVersions" (onChange)="changedVersion(ppm.selectedICDVersionId)"
+                                                 [(ngModel)]="ppm.selectedICDVersionId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+                                    &lt;!&ndash;<select id="icdVersionId" [(ngModel)]="ppm.selectedICDVersionId"
+                                            #icdVersionId="ngModel"
+                                            name="icdVersionId"
+                                            class="form-control"
+                                            (change)="changedVersion(ppm.selectedICDVersionId)">
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
+                                        <option
+                                                *ngFor="let ver of iCDVersions"
+                                                [(value)]="ver.id">
+                                            {{ver.name}}
+                                        </option>
+                                    </select>&ndash;&gt;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Problem:<span class="required"
+                                                                                                   aria-required="true"> * </span></label>
+                            <div class="col-md-7 pdng-lr-5">
+                                <div class="select2-bootstrap-prepend">
+
+                                    <p-dropdown  placeholder="select Version"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedVer"
+                                                 [options]="associatedCodes"
+                                                 [(ngModel)]="ppm.selectedCodeId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+                                    &lt;!&ndash;<select id="associatedCodesId"
+                                            [(ngModel)]="ppm.selectedCodeId"
+                                            #associatedCodesId="ngModel" name="selectedVer"
+                                            class="form-control">
+                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
+                                        <option
+                                                *ngFor="let code of associatedCodes"
+                                                [(value)]="code.id">
+                                            {{code.code}}
+                                        </option>
+                                    </select>&ndash;&gt;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis:</label>
+
+                            <div class="col-md-7 select pdng-lr-5">
+                                <angular2-date-picker  name="dateDiagnosis"
+                                                       id="dateDiagnosisId" [settings]="settings" [(ngModel)]="ppm.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <select class="form-control" [(ngModel)]="ppm.status">
+                                    <option value="ACTIVE">Active</option>
+                                    <option value="IN_ACTIVE">In_Active</option>
+                                    <option value="RESOLVED">Resolved</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Url</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <textarea class="form-control" id="problemInfoId" name="problemInfo"
+                                          rows="3"
+                                          [(ngModel)]="ppm.info">
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group hr">
+                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes:</label>
+                            <div class="col-md-7 select pdng-lr-5">
+                                <address>
+                                    <textarea class="form-control"
+                                              rows="3"
+                                              [(ngModel)]="ppm.note">
+                                    </textarea>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" #closeBtn
+                        class="btn btn-default btn-outline">Close
+                </button>
+                <span [hidden]="isUpdate">
+                    <button type="button" class="btn green" (click)="savePatientProblem()">Save</button>
+                </span>
+                <span [hidden]="!isUpdate">
+                    <button type="button" class="btn green" (click)="updatePatientProblem()">Update
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>-->
 <!--
 </div>-->

@@ -97,8 +97,8 @@ export class UpdateOrganizationComponent implements OnInit {
             {label: 'yyyy-MM-dd',value:'yyyy-MM-dd'},
             {label: 'yyyy-dd-MM',value:'yyyy-dd-MM'},
             {label: 'yyyy/MM/dd',value:'yyyy/MM/dd'},
-            {label: 'dd/MM/YYYY',value:'dd/MM/YYYY'},
-            {label: 'YYYY/dd/MM',value:'YYYY/dd/MM'},
+            {label: 'dd/MM/yyyy',value:'dd/MM/yyyy'},
+            {label: 'yyyy/dd/MM',value:'yyyy/dd/MM'},
 
         ];
 

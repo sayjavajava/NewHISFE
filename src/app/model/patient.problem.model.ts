@@ -13,7 +13,8 @@ export class PatientProblemModel {
     dateDiagnosis: string = "";
     note: string;
     status: string = "ACTIVE";
-
+    info:string;
+    datePrescribedDate: Date = new Date();
     constructor() {
     }
 
