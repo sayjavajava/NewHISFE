@@ -288,6 +288,10 @@ export class AppConstants {
     public static GET_RECEIPT_List = '/payment/getReceiptList';
 
 
+    public static REFUND_PAYMENT = '/refundApi/refundPayment';
+    public static REFUND_LIST_DATA = '/refundApi/getRefundList';
+
+
 
 
     ////////////////Country/////////////////////////////
