@@ -24,6 +24,7 @@ export class PatientInvoiceListComponent implements OnInit {
 
     invoicesAmountTotal = 0.00;
     paidAmountTotal = 0.00;
+    refundAmountTotal = 0.00;
     discountTotalOnPayment = 0.00;
     useAdvanceTotal = 0.00;
     appliedAmountTottal = 0.00;
@@ -140,6 +141,7 @@ export class PatientInvoiceListComponent implements OnInit {
 
         var invoiceAmt = 0.00;
         var paidAmt = 0.00;
+        var refundedAmt = 0.00;  // refundAmountTotal
         var discountAmount = 0.00;
         var advance = 0.00;
         var appliedAmt = 0.00;
@@ -154,6 +156,8 @@ export class PatientInvoiceListComponent implements OnInit {
             paidAmt = this.patientInvoiceList[i].paidAmount;
             this.paidAmountTotal += paidAmt ;
 
+            refundedAmt = this.patientInvoiceList[i].paidAmount;
+            this.refundAmountTotal += refundedAmt ;
 
             dueAmount = this.patientInvoiceList[i].dueAmount - discountAmount - appliedAmt;
             this.dueAmountTotal += dueAmount ;
@@ -191,6 +195,7 @@ export class PatientInvoiceListComponent implements OnInit {
     resetValue(){
         this.invoicesAmountTotal = 0.00;
         this.paidAmountTotal = 0.00;
+        this.refundAmountTotal = 0.00;
         this.discountTotalOnPayment = 0.00;
         this.useAdvanceTotal = 0.00;
         this.appliedAmountTottal = 0.00;
