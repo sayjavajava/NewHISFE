@@ -107,7 +107,9 @@ export class PatientInvoiceListComponent implements OnInit {
 
     savePayment(){
 
-        if(this.isDataInvalid){
+        this.bulkReceitRequest.useAdvanceTotal = this.useAdvanceTotal;
+
+        if(this.isDataInvalid || this.useAdvanceTotal > this.cusAdvanceBalance){
             this.notificationService.error("ERROR", "Invalid Amount Enter");
         }else{
             console.log("save payment data : " + this.patientInvoiceList);
