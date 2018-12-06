@@ -25,6 +25,8 @@ export class Branch {
     showBranchOnline ?: boolean;
     allowOnlineSchedulingInBranch ?: boolean;
     checkedBranch?: boolean;
+    label?:string;
+    value?:number;
 
 
     constructor(id?: number, branchName?: string, officeHoursStart?: number, officeHoursEnd?: number, noOfExamRooms?: number, state ?: State, city?: City, primaryDoctor ?: string, zipCode?: number, address?: string, country?: Country, officePhone?: number, fax?: string, formattedAddress?: string, checked?: boolean) {
@@ -43,5 +45,7 @@ export class Branch {
         this.fax = fax;
         this.formattedAddress = formattedAddress;
         this.checkedBranch = checked;
+        this.label = branchName;
+        this.value = id;
     }
 }

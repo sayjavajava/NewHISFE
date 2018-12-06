@@ -17,6 +17,8 @@ var Branch = (function () {
         this.fax = fax;
         this.formattedAddress = formattedAddress;
         this.checkedBranch = checked;
+        this.label = branchName;
+        this.value = id;
     }
     return Branch;
 }());
