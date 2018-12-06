@@ -103,6 +103,9 @@
                             <th width="5%" class="sorting_disabled" rowspan="1" colspan="1"> </th>
                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Inv Code #</th>
                             <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1">Invoice Amount </th>
+
+                            <th width="5%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Refunded Amount </th>
+
                             <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Paid Amount </th>
                             <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Discount </th>
                             <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Advance </th>
@@ -122,6 +125,11 @@
                             <td rowspan="1" colspan="1" class="text-align-right">
                                 <input type="number" class="form-control text-align-right" name="totalInvoiceAmount" [(ngModel)]="invc.totalInvoiceAmount" [step]="0.01" readonly>
                                 </td>
+
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                <input type="number" class="form-control text-align-right" name="refunAmount" [(ngModel)]="invc.refundAmount" [step]="0.01" readonly>
+                               </td>
+
                             <td class="sorting_disabled" rowspan="1" colspan="1">
                                 <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="invc.paidAmount" [step]="0.01" readonly>
                                 </td>
@@ -144,6 +152,9 @@
                             <td rowspan="1" colspan="1">                                                       </td>
                             <td rowspan="1" colspan="1">                                                       </td>
                             <td rowspan="1" colspan="1" class="text-align-right">   {{invoicesAmountTotal | number}}    </td>
+
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{refundAmountTotal | number}}        </td>
+
                             <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{paidAmountTotal | number}}        </td>
                             <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{discountTotalOnPayment | number}} </td>
                             <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{useAdvanceTotal | number}}        </td>

@@ -30,6 +30,7 @@ export class PaymentComponent implements OnInit {
     useAdvancedBal:boolean = false;
 
     receivedAmount : number;
+    refundAmount : number = 0.00;
     paidAmount : number = 0.00;
     patientAdvanceDeposit : number = 0.00;
     usedAdvanceDeposit : number = 0.00;
@@ -75,6 +76,7 @@ export class PaymentComponent implements OnInit {
                 this.docLastName= this.appointment.docLastName;
                 this.appointmentId = res.responseData.id;
                 this.receivedAmount = res.responseData.receivedAmount;
+                this.refundAmount = res.responseData.refundAmount;
                 console.log("Appointment ID : " + this.appointmentId );
 
                 this.getInvoiceItemsById();
