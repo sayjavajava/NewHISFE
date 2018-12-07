@@ -123,7 +123,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="testCode" id="testCode" class="form-control"
                                            placeholder="Enter Test Code"
                                            [(ngModel)]="labTestSpeciman.testCode" #testCode="ngModel">
@@ -131,21 +131,12 @@
                             </div>
 
                             <div class="form-group hr">
-<<<<<<< Updated upstream
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name
-                                    <span class="required" aria-required="true"> * </span>
-                                </label>
-=======
->>>>>>> Stashed changes
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="testName" id="testName" class="form-control"
                                            placeholder="Blood Cells"
-<<<<<<< Updated upstream
                                            placeholder="Enter Test Name"
-=======
->>>>>>> Stashed changes
                                            [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
                                 </div>
                                 <span *ngIf="testName.invalid && testName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter valid test name.</span>
@@ -154,26 +145,20 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Min Normal Range<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="minNormalRange" id="minNormalRange"
                                            class="form-control" placeholder="5"
-<<<<<<< Updated upstream
                                            class="form-control" placeholder="Enter Minimum Range of Test Result"
-=======
->>>>>>> Stashed changes
                                            [(ngModel)]="labTestSpeciman.minNormalRange" #minNormalRange="ngModel">
                                 </div>
                             </div>
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Max Normal Range<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="maxNormalRange" id="maxNormalRange" class="form-control"
                                            placeholder="2"
-<<<<<<< Updated upstream
                                            placeholder="Enter Maximum Range of Test Result"
-=======
->>>>>>> Stashed changes
                                            [(ngModel)]="labTestSpeciman.maxNormalRange" #maxNormalRange="ngModel">
                                 </div>
                                 <span *ngIf="maxNormalRange.invalid && maxNormalRange.touched"
@@ -185,7 +170,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Unit<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="unit" id="unit" class="form-control"
                                            placeholder="BPM"
                                            [(ngModel)]="labTestSpeciman.unit" #unit="ngModel">
@@ -198,7 +183,7 @@
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="description" id="description" class="form-control"
                                            placeholder="Enter description"
                                            [(ngModel)]="labTestSpeciman.description" #description="ngModel">
@@ -220,7 +205,6 @@
                         <button type="button" class="btn blue" *ngIf="labTestSpeciman.id > 0"
                                 (click)="editLabSpeciman(ngForm)">Update
                         </button>
-
                 </span>
                 </div>
             </div>
