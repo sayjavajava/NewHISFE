@@ -217,7 +217,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Drug ID:<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.drugNaturalId" size="30"
                                                    required id="drugNaturalId" pInputText
@@ -228,7 +228,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Drug Name<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5  profile-frm">
                                             <input class="form-control" type="text" placeholder=" e.g Panadol"
                                                    [(ngModel)]="drug.drugName" size="30"
                                                    required id="drugName" pInputText
@@ -244,7 +244,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Generic Name<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" placeholder=" e.g Antibotic"
                                                    [(ngModel)]="drug.genericName" size="30"
                                                    required id="genericName" pInputText
@@ -260,7 +260,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Company Name<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" placeholder=" e.g Medical Care"
                                                    [(ngModel)]="drug.companyName" size="30"
                                                    required id="companyName" pInputText
@@ -288,7 +288,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Strength<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 pdng-lr-5">
+                                        <div class="col-md-9 pdng-lr-5 profile-frm">
                                         <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                  [(ngModel)]="drug.strengths"
                                                  required id="strengths" placeholder="xxx-yy-zz-aa"
@@ -322,7 +322,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Info<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.drugInfo" placeholder=" e.g www.medicalcare.com"
                                                    size="10" id="info"

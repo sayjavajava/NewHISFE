@@ -115,14 +115,14 @@
                         <div class="row">
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Name</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="name" id="name" class="form-control" placeholder="Enter Name"
                                            [(ngModel)]="vitalSetupTemplate.name" #name="ngModel">
                                 </div>
                             </div>
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Unit</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter text"
                                            [(ngModel)]="vitalSetupTemplate.unit" #unit="ngModel">
                                 </div>
@@ -133,7 +133,7 @@
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Standard Value</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="standardValue" class="form-control" placeholder="Enter text"
                                            [(ngModel)]="vitalSetupTemplate.standardValue" #standardValue="ngModel">
                                 </div>
@@ -148,7 +148,7 @@
                                                #status="ngModel"
                                                name="status"
                                                [(ngModel)]="vitalSetupTemplate.status"><span></span></label>-->
-                                    <label class="mt-checkbox-outline">
+                                    <label class="mt-checkbox-outline mrgn-top-8">
                                                       <mat-checkbox #status="ngModel"
                                                       name="status"
                                                       [(ngModel)]="vitalSetupTemplate.status"

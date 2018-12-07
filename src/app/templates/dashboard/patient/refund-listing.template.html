@@ -57,11 +57,10 @@
                 </div>
             </div>
 
-
             <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog receipt-modal">
                     <form id="loginForm" class="login-form" #form="ngForm">
-                        <div class="modal-content" style="width: 80%">
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                 <h4 class="modal-title">Refund</h4>
@@ -70,93 +69,124 @@
                                 <div>
                                     <div>
                                         <div class="row">
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Refund Number <span class="required" aria-required="true"> * </span></label>
-                                                <div class="col-md-9 select pdng-lr-5">
-                                                    <input class="form-control"
-                                                           type="text"
-                                                           name="refundId"
-                                                           required
-                                                           [(ngModel)]="refundRequest.refundId"
-                                                           #refundId="ngModel"/>
+                                            <div class="col-md-6">
+                                                <div class="form-group hr">
+                                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Patient Name <span class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-8 select pdng-lr-5">
+                                                        <p-dropdown [(ngModel)]="refundRequest.patientId"
+                                                                    [autoWidth]="false"
+                                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                    required
+                                                                    id="route"
+                                                                    placeholder="Select Customer"
+                                                                    name="route"
+                                                                    [options]="patientList"
+                                                                    (onChange) = "getSelectedCustomer(refundRequest.patientId)"
+                                                                    #route="ngModel">
+                                                        </p-dropdown>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group hr">
+                                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Entry Date <span class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-8 pdng-lr-5 select ">
+                                                        <angular2-date-picker
+                                                                name="date"
+                                                                id="date"
+                                                                [settings]="settings"
+                                                                [(ngModel)]="refundRequest.date"
+                                                                [ngModelOptions]="{standalone:true}">
+                                                        </angular2-date-picker>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group hr">
+                                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Payment Type <span class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-8 select pdng-lr-5">
+
+                                                        <p-dropdown [options]="refundTypes"
+                                                                    [(ngModel)]="selectedRefundType"
+                                                                    optionLabel="name"
+                                                                    name="refundType"
+                                                                    (onChange) = "getSelectedRefundType(selectedRefundType)"
+                                                                    [filter]="true">
+                                                        </p-dropdown>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group hr">
+                                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Invoice <span class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-8 select pdng-lr-5">
+
+                                                        <p-dropdown [options]="refundTypes"
+                                                                    [(ngModel)]="selectedRefundType"
+                                                                    optionLabel="name"
+                                                                    name="refundType"
+                                                                    (onChange) = "getSelectedRefundType(selectedRefundType)"
+                                                                    [filter]="true">
+                                                        </p-dropdown>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group hr">
+                                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
+                                                        <input class="form-control"
+                                                               type="text"
+                                                               name="refundId"
+                                                               required
+                                                               [(ngModel)]="refundRequest.refundId"
+                                                               #refundId="ngModel"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group hr">
+                                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Description</label>
+                                                    <div class="col-md-8 select pdng-lr-5">
+                                                    <textarea class="form-control"
+                                                              rows="3"
+                                                              [(ngModel)]="refundRequest.description"
+                                                              name="desc"
+                                                              #desc="ngModel"
+                                                              placeholder="enter description of advance payment">
+
+                                                    </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="hr">
+                                                    <div class="col-md-12 text-center">
+                                                       <label class="bold">456789102</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="hr">
+                                                    <div class="col-md-12 text-center">
+                                                        <label class="bold">#456789102</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group hr">
+                                                <label class="col-md-4 control-label txt-size pdng-lr-5">Balance Amount: <span class="required" aria-required="true"> * </span></label>
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
+                                                    <input type="text" class="form-control" value="200" placeholder="" title="" readonly >
                                                 </div>
                                             </div>
 
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Entry Date <span class="required" aria-required="true"> * </span></label>
-                                                <div class="col-md-8 select ">
-                                                    <angular2-date-picker
-                                                            name="date"
-                                                            id="date"
-                                                            [settings]="settings"
-                                                            [(ngModel)]="refundRequest.date"
-                                                            [ngModelOptions]="{standalone:true}">
-                                                    </angular2-date-picker>
+                                                <div class="hr">
+                                                    <div class="col-md-12 text-center">
+                                                        <label class="bold">06-Dec-2018</label>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Patient Name <span class="required" aria-required="true"> * </span></label>
-                                                <div class="col-md-9 select pdng-lr-5">
-                                                    <p-dropdown [(ngModel)]="refundRequest.patientId"
-                                                                [autoWidth]="false"
-                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                                required
-                                                                id="route"
-                                                                placeholder="Select Customer"
-                                                                name="route"
-                                                                [options]="patientList"
-                                                                (onChange) = "getSelectedCustomer(refundRequest.patientId)"
-                                                                #route="ngModel">
-                                                    </p-dropdown>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Refund Type <span class="required" aria-required="true"> * </span></label>
-                                                <div class="col-md-9 select pdng-lr-5">
-
-                                                    <p-dropdown [options]="refundTypes"
-                                                                [(ngModel)]="selectedRefundType"
-                                                                optionLabel="name"
-                                                                name="refundType"
-                                                                (onChange) = "getSelectedRefundType(selectedRefundType)"
-                                                                [filter]="true">
-                                                    </p-dropdown>
-
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Balance Amount <span class="required" aria-required="true"> * </span></label>
-                                                <div class="col-md-9 select pdng-lr-5">
-                                                    <input class="form-control"
-                                                           type="text"
-                                                           name="selectedBalance"
-                                                           required
-                                                           [(ngModel)]="refundRequest.selectedBalance"
-                                                           #selectedBalance="ngModel"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Invoices <span class="required" aria-required="true"> * </span></label>
-                                                <div class="col-md-8">
-                                                    <p-dropdown [options]="allInvoiceList"
-                                                                [(ngModel)]="selectedInvoice"
-                                                                optionLabel="invoiceId"
-                                                                name="selectedInvoice"
-                                                                (onChange) = "getSelectedInvoice(selectedInvoice)"
-                                                                [filter]="true">
-                                                    </p-dropdown>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Payment Type <span class="required" aria-required="true"> * </span></label>
-
-                                                <div class="col-md-8">
+                                                <div class="form-group hr">
+                                                <label class="col-md-4 control-label txt-size pdng-lr-5">Payment Type <span class="required" aria-required="true"> * </span></label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown [options]="paymentTypeList"
                                                                 [(ngModel)]="selectedPaymentType"
                                                                 optionLabel="paymentTitle"
@@ -167,35 +197,7 @@
                                                 </div>
 
                                             </div>
-
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
-                                                <div class="col-md-9 select pdng-lr-5">
-                                                    <textarea class="form-control"
-                                                              rows="3"
-                                                              [(ngModel)]="refundRequest.description"
-                                                              name="desc"
-                                                              #desc="ngModel"
-                                                              placeholder="enter description of advance payment">
-
-                                                    </textarea>
-                                                </div>
                                             </div>
-
-                                            <div class="form-group hr">
-                                                <label class="col-md-3 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
-                                                <div class="col-md-9 select pdng-lr-5">
-                                                    <input class="form-control"
-                                                           type="number"
-                                                           name="refundAmount"
-                                                           placeholder="enter refund amount"
-                                                           required
-                                                           [(ngModel)]="refundRequest.refundAmount"
-                                                           #refundAmount="ngModel"/>
-                                                    <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
 

@@ -463,7 +463,7 @@ p, h3, h4{margin:0; padding:0;}
     margin: 200px auto !important;
 }
 .portlet{margin-bottom: 0px !important;}
-.form-control{height: 25px !important; padding: 2px 12px !important;}
+.profile-frm input, .profile-frm select{height: 25px !important; padding: 2px 12px !important;}
 .form-group {margin-bottom: 0px;}
 .form-control, output{font-size:12px;}
 /*.row {margin-top: 15px !important;}*/
@@ -808,3 +808,20 @@ ul.ui-inputtext{width: 100%;}
 .months-view[_ngcontent-c10] > span[_ngcontent-c10], .years-list-view[_ngcontent-c10] > span[_ngcontent-c10]{
     padding:5px 0 !important;}
 .height{height: auto !important;}
+.upload-btn-wrapper{position: relative; overflow: hidden; display: inline-block; top: 14px;}
+.btn{color: #FFF; background-color: #3598dc; border-color: #3598dc; padding: 7px 12px; font-size: 14px; font-weight: 400;}
+.upload-btn-wrapper input[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; cursor: pointer; line-height: 34px;}
+.ui-menuitem{margin: 0; border-bottom: 1px solid #1212;}
+.text-danger{color:#ed6b75; font-size:12px;}
+.ui-overlaypanel-content{background: rgb(0, 0, 0) !important; color: #fff !important;}
+.ui-overlaypanel-content p{color: #fff !important; width: 100%;}
+.ui-button-text{display: none !important;}
+.ui-overlaypanel-content p:before{content: "\e110";}
+@media (min-width: 768px){
+.receipt-modal{width: 880px !important; margin: 30px auto;}
+}
+
+.ui-autocomplete-input{width:91% !important;}
+.ui-autocomplete{width: 100% !important;}
+.ui-button-text{padding-bottom: 2px !important;}
+
