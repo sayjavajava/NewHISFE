@@ -460,5 +460,6 @@ export class PatientImageOrderComponent implements OnInit {
         }
          iframe.setAttribute("src",urlString);
       //  iframe.src = urlString;
+         // updted
     };
 }
