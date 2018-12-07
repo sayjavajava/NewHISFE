@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, TemplateRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {RequestsService} from '../../../services/requests.service';
 import {Title} from '@angular/platform-browser';
@@ -10,7 +10,6 @@ import {MatSnackBar} from "@angular/material";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {DataService} from "../../../services/DataService";
 
-
 @Component({
     selector: 'doctor-dashboard-component',
     templateUrl: '../../../templates/dashboard/doctor/doctor-dashboard.template.html',
@@ -19,28 +18,31 @@ import {DataService} from "../../../services/DataService";
 export class DoctorDashboardComponent {
 
     title: string = 'Doctor Dashboard';
-    filteredBranch: Number;
-    filteredDocotr: Number;
     error: any;
     dashboardList: Dashboard[] = [];
     branches: any = [];
     doctorsList: any = [];
     dashboardListModified: any[] = [];
     public loading = false;
-
+    roomId: number;
+    allRooms:RoomFilter[] = [];
+    showRoom :boolean =false;
+    showRoomBtn:any = 'Show';
+    showRoomDrop :boolean =false;
+    roomSelected : any[] = [];
     constructor(private requestService: RequestsService,
                 private router: Router,
                 private snackBar: MatSnackBar,
                 private notificationService: NotificationService,
                 private confirmationDialogService: ConformationDialogService,
                 private  dataService:DataService,
-                private titleService: Title) {
+                private titleService: Title,
+                ) {
         this.showDashboard();
 
     };
 
     ngOnInit() {
-
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
 
@@ -71,6 +73,7 @@ export class DoctorDashboardComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branches = response['responseData'];
+
                     }
                 },
                 (error: any) => {
@@ -118,7 +121,6 @@ export class DoctorDashboardComponent {
 
     getfilteredStatus(value: any) {
         this.dashboardListModified = this.dashboardList;
-        console.log('val:' + value);
         if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
         } else {
@@ -126,28 +128,66 @@ export class DoctorDashboardComponent {
             this.dashboardListModified = arr;
         }
     }
+    showRoomWithBranch(bId:number,roomIdd:number){
+        this.showRoom =!this.showRoom;
+        this.showRoomDrop = this.showRoom;
+        this.allRooms.length=0;
+        this.roomSelected.length =0;
+        let roomList :any[] =[];
+        let roomFiltered  = this.branches.filter((x:any)=>x.id == bId);
+        this.roomSelected.push(roomIdd)
+        roomFiltered.forEach((x:any)=>{
+            x.examRooms.forEach((y:any)=>{
+                let roomObj = new RoomFilter(y.label,y.value);
+                this.allRooms.push(roomObj);
+            })
 
+        })
+        if(this.showRoom) {
+            this.showRoomBtn = 'HIDE';
+            // this.showRoomDrop = true;
+        }else{
+            this.showRoomBtn='SHOW'   }
+    }
 
     getUpdatedStatus(statusValue: string, apptId: any, pmID:number) {
         var that = this;
         if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){
             this.confirmationDialogService
-            .confirm('Update Status', 'Are you sure you want to do this?')
+                .confirm('Update Status', 'Are you sure?')
+                .subscribe(res => {
+                    if (res == true) {
+                        this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                            .subscribe((res: Response) => {
+                                if (res['responseCode'] === "STATUS_SUC_01") {
+                                    this.snackBar.open('Status Updated', `Status has been Changed to ${statusValue} Successfully`, {duration: 3000});
+                                }
+                            }, (error: any) => {
+                                this.error = error.error.error;
+                            });
+                    }
+                });
+        }
+
+
+    }
+    getExamRoom(roomId :any,apptId:number){
+        this.confirmationDialogService
+            .confirm('Update Room', 'Are you sure ?')
             .subscribe(res => {
                 if (res == true) {
-                    this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                    this.requestService.putRequestWithParam(AppConstants.UPDATE_APPOINTMENT_ROOM + apptId,
+                        roomId)
                         .subscribe((res: Response) => {
-                            if (res['responseCode'] === "STATUS_SUC_01") {
-                                this.snackBar.open('Status Updated', `Status has been Changed to ${statusValue} Successfully`, {duration: 3000});
+                            if (res['responseCode'] === "APPT_SUC_03") {
+                                //  this.roomSelected.push(roomId);
+                                this.snackBar.open('Status Updated', `Room has been changed`, {duration: 3000});
                             }
                         }, (error: any) => {
                             this.error = error.error.error;
                         });
                 }
             });
-        }
-
-
     }
 
     patientHistory(id:any){
@@ -162,3 +202,17 @@ export class DoctorDashboardComponent {
     }
 
 }
+class RoomFilter{
+    label : string;
+    value : number;
+    id:number;
+    branchName:string;
+    constructor(label ?:string,value?: number){
+        this.label = label;
+        this.value = value;
+        this.branchName=label;
+        this.id=value;
+    }
+}
+
+

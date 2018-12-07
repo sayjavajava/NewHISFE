@@ -132,7 +132,7 @@
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Account Name
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="accountName" id="accountName" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter account name"
                                            [(ngModel)]="chartOfAccount.name" #accountName="ngModel">
                                 </div>
@@ -141,7 +141,7 @@
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text"  name="currentValue" class="form-control" placeholder="Enter description"
                                            [(ngModel)]="chartOfAccount.description" #currentValue="ngModel">
                                 </div>
@@ -151,7 +151,7 @@
                                 <span *ngIf="showBankDetailsDiv == true">
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account Title</label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input type="text"  required name="title" id="title" class="form-control" placeholder="Enter Bank Account Title"
                                                    [(ngModel)]="chartOfAccount.bankAccount.title" #title="ngModel">
                                         </div>
@@ -159,7 +159,7 @@
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account #</label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input type="text"  required name="accountNumber" id="accountNumber" class="form-control" placeholder="Enter Bank Account Number"
                                                    [(ngModel)]="chartOfAccount.bankAccount.accountNumber" #accountNumber="ngModel">
                                         </div>
@@ -167,7 +167,7 @@
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">IBAN</label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input type="text"  required name="iban" id="iban" class="form-control" placeholder="Enter IBAN"
                                                    [(ngModel)]="chartOfAccount.bankAccount.iban" #iban="ngModel">
                                         </div>
@@ -175,7 +175,7 @@
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Branch</label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input type="text"  required name="branch" id="branch" class="form-control" placeholder="Enter Bank Branch"
                                                    [(ngModel)]="chartOfAccount.bankAccount.branch" #branch="ngModel">
                                         </div>

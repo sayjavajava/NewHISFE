@@ -7,10 +7,15 @@ export class BranchDoctors {
     firstName:string;
     lastName:string;
     examRooms: ExamRooms;
+    label?:string;
+    value?:number;
 
-constructor(id?:number,branchName?:string ){
+constructor(id?:number,lastName?:string ){
      this.id=id;
-     this.branchName =branchName;
+    // this.branchName =branchName;
+    this.label = lastName;
+    this.lastName =lastName;
+
 }
 
 }

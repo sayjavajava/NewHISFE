@@ -226,6 +226,10 @@
                                                         <input type="text" class="form-control"
                                                                style="width: 170px !important;"
                                                                formControlName="roomName">
+                                                        <span  style="text-align: center" class="text-danger"
+                                                               *ngIf="!branchForm.controls.examRooms.controls[i].controls.roomName.valid && branchForm.controls.examRooms.controls[i].controls.roomName.touched">
+                                                    <span style="text-align: center" *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
+                                                </span>
                                                     </div>
 
                                                     <div class="col-md-3 pdng-lr-5">
@@ -241,10 +245,6 @@
 
                                                     </div>
                                                    <!--{{ branchForm.controls.examRooms.controls[i].controls.allowOnlineScheduling.value }}-->
-                                                    <span  style="text-align: center" class="text-danger"
-                                                          *ngIf="!branchForm.controls.examRooms.controls[i].controls.roomName.valid && branchForm.controls.examRooms.controls[i].controls.roomName.touched">
-                                                    <span style="text-align: center" *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
-                                                </span>
                                                     <!--  <span *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>-->
                                                     <!--<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>-->
                                                 </div>

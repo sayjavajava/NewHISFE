@@ -27,85 +27,85 @@
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <div class="hr"><h3 class="text-info">Doctor Dashboard</h3></div>
-                     <div class="hr padding round-table off-wite-bg">
-                         <div class="col-md-3 no-padding">
-                             <h4 class="font-green-meadow">Branch</h4>
-                             <select class="form-control" (change)="getFilteredBranch($event.target.value)">
-                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
-                                 <option *ngFor="let item of branches; let i = index;"
-                                         value={{item.branchName}} (keyup)="refresh.next()">
-                                     {{item.name}}
-                                 </option>
-                             </select>
-                         </div>
-                         <div class="col-md-1"></div>
-                         <div class="col-md-3 no-padding">
-                             <h4 class="font-green-meadow">Doctor</h4>
-                             <select class="form-control" (change)="getfilteredDoctor($event.target.value)">
-                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
-                                 <option *ngFor="let item of doctorsList; let i = index;"
-                                         value={{item.lastName}} (keyup)="refresh.next()">
-                                     {{item.firstName}} {{item.lastName}}
-                                 </option>
-                             </select>
-                         </div>
-                         <div class="col-md-1"></div>
-                      <!--   <div class="col-md-3 no-padding">
-                             <h4 class="font-green-meadow">Statuses</h4>
-                             <select class="form-control" (change)="getfilteredStatus($event.target.value)">
-                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
-                                 <option value="ARRIVED">Arrived</option>
-                                 <option value="CHECK_IN">Checked In</option>
-                                 <option value="IN_ROOM">In Room</option>
-                                 <option value="IN_SESSION">In Session</option>
-                                 <option value="COMPLETE">Complete</option>
-                                 <option value="NOT_CONFIRMED">NOT CONFIRMED</option>
-                                 <option value="RE_SCHEDULED">RE SCHEDULE</option>
-                                 <option value="CANCELLED">CANCELLED</option>
-                                 <option value="REGULAR">REGULAR</option>
+                    <div class="hr padding round-table off-wite-bg">
+                        <div class="col-md-3 no-padding">
+                            <h4 class="font-green-meadow">Branch</h4>
+                            <select class="form-control" (change)="getFilteredBranch($event.target.value)">
+                                <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                <option *ngFor="let item of branches; let i = index;"
+                                        value={{item.branchName}} (keyup)="refresh.next()">
+                                    {{item.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3 no-padding">
+                            <h4 class="font-green-meadow">Doctor</h4>
+                            <select class="form-control" (change)="getfilteredDoctor($event.target.value)">
+                                <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                <option *ngFor="let item of doctorsList; let i = index;"
+                                        value={{item.lastName}} (keyup)="refresh.next()">
+                                    {{item.firstName}} {{item.lastName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <!--   <div class="col-md-3 no-padding">
+                               <h4 class="font-green-meadow">Statuses</h4>
+                               <select class="form-control" (change)="getfilteredStatus($event.target.value)">
+                                   <option value="All">&#45;&#45; All &#45;&#45;</option>
+                                   <option value="ARRIVED">Arrived</option>
+                                   <option value="CHECK_IN">Checked In</option>
+                                   <option value="IN_ROOM">In Room</option>
+                                   <option value="IN_SESSION">In Session</option>
+                                   <option value="COMPLETE">Complete</option>
+                                   <option value="NOT_CONFIRMED">NOT CONFIRMED</option>
+                                   <option value="RE_SCHEDULED">RE SCHEDULE</option>
+                                   <option value="CANCELLED">CANCELLED</option>
+                                   <option value="REGULAR">REGULAR</option>
 
-                             </select>
-                             &lt;!&ndash;<div class="form-group">
-                                 <div class="mt-checkbox-inline">
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Arrived8" value="Arrived"> Arrived
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Checked In7" value="Checked In"> Checked In
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Arrived6" value="Arrived"> In Room
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Checked In5" value="Checked In"> In Session
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Arrived4" value="Arrived"> Complete
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Checked In3" value="Checked In"> Confirmed
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Arrived2" value="Arrived"> Not Confirmed
-                                         <span></span>
-                                     </label>
-                                     <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
-                                         <input type="checkbox" id="Checked In1" value="Checked In"> Cancelled
-                                         <span></span>
-                                     </label>
-                                 </div>
-                             </div>&ndash;&gt;
-                             &lt;!&ndash;<div class="">
-                                 <span class="slct-txts"><a href="#">Select All</a></span>
-                                 <span class="slct-txts"><a href="#">Select None</a></span>
-                             </div>&ndash;&gt;
-                         </div>-->
+                               </select>
+                               &lt;!&ndash;<div class="form-group">
+                                   <div class="mt-checkbox-inline">
+                                       <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                           <input type="checkbox" id="Arrived8" value="Arrived"> Arrived
+                                           <span></span>
+                                       </label>
+                                       <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                           <input type="checkbox" id="Checked In7" value="Checked In"> Checked In
+                                           <span></span>
+                                       </label>
+                                       <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                           <input type="checkbox" id="Arrived6" value="Arrived"> In Room
+                                           <span></span>
+                                       </label>
+                                       <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                           <input type="checkbox" id="Checked In5" value="Checked In"> In Session
+                                           <span></span>
+                                       </label>
+                                       <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                           <input type="checkbox" id="Arrived4" value="Arrived"> Complete
+                                           <span></span>
+                                       </label>
+                                       <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                           <input type="checkbox" id="Checked In3" value="Checked In"> Confirmed
+                                           <span></span>
+                                       </label>
+                                       <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                           <input type="checkbox" id="Arrived2" value="Arrived"> Not Confirmed
+                                           <span></span>
+                                       </label>
+                                       <label class="mt-checkbox mt-checkbox-outline txt-size-mrgn">
+                                           <input type="checkbox" id="Checked In1" value="Checked In"> Cancelled
+                                           <span></span>
+                                       </label>
+                                   </div>
+                               </div>&ndash;&gt;
+                               &lt;!&ndash;<div class="">
+                                   <span class="slct-txts"><a href="#">Select All</a></span>
+                                   <span class="slct-txts"><a href="#">Select None</a></span>
+                               </div>&ndash;&gt;
+                           </div>-->
                         <!--<div class="col-md-3 no-padding">
                             <div class="">
                                 <h4 class="font-green-meadow">Branch</h4>
@@ -152,7 +152,9 @@
                                 <th> Patient Name </th>
                                 <th> Scheduled at </th>
                                 <th> Doctor </th>
-                                <th> Exame Room </th>
+                                <th> Exam Room </th>
+                                <th> Show/Hide </th>
+                                <th *ngIf="showRoomDrop"> Room </th>
                                 <th> Status </th>
                                 <th> Action </th>
                             </tr>
@@ -160,15 +162,22 @@
                             <tbody>
                             <tr class="tbl-pdng" *ngFor="let item of dashboardListModified">
                                 <td>{{item.apptNaturalId}}</td>
-                                 <td><ng-container *ngIf="item.status == 'IN_SESSION'" ><div class="mt-action-dot bg-green-meadow" ></div></ng-container>
-                                <ng-container *ngIf="item.status != 'IN_SESSION'" ><div class="mt-action-dot bg-gray-meadow" ></div></ng-container>
-                             </td>
+                                <td><ng-container *ngIf="item.status == 'IN_SESSION'" ><div class="mt-action-dot bg-green-meadow" ></div></ng-container>
+                                    <ng-container *ngIf="item.status != 'IN_SESSION'" ><div class="mt-action-dot bg-gray-meadow" ></div></ng-container>
+                                </td>
                                 <td>{{item.inTime}}</td>
                                 <td>{{item.branch}}</td>
                                 <td><p> {{item.patientFirstName}} {{item.patientLastName}}</p></td>
                                 <td><span class="font-blue"> {{item.scheduleAt}}</span></td>
                                 <td>{{item.doctorFirstName}} {{item.doctorLastName}}</td>
                                 <td>{{item.examRoom}}</td>
+                                <td><button  type="button" class="btn-link"(click)="showRoomWithBranch(item.branchId,item.roomId)">{{showRoomBtn}}</button>
+                                </td>
+                                <td>
+                                    <select *ngIf="showRoomDrop" class="form-control" [ngModelOptions]="{standalone:true}" [(ngModel)]="item.roomId" (change)="getExamRoom($event.target.value,item.appointmentId)">
+                                        <option *ngFor="let r of allRooms" value="{{r.id}}">{{ r.branchName }} </option>
+                                    </select>
+                                </td>
                                 <td><select class="form-control" [ngModelOptions]="{standalone:true}" (change)="getUpdatedStatus(item.status,item.apptNaturalId,item.appointmentId)"
                                             [(ngModel)]="item.status">
 
@@ -184,16 +193,16 @@
 
                                 </select></td>
                                 <td>
-                              <!-- <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
-                                        <i class="fa fa-dollar" style="font-size:18px"></i>
-                                    </a> -->
+                                    <!-- <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
+                                              <i class="fa fa-dollar" style="font-size:18px"></i>
+                                          </a> -->
                                     <ng-container *ngIf="item.status == 'IN_SESSION'">
-                                    <a title="Patient Invoice" (click)="updateAppointmentData(item.appointmentId)">
-                                        <i class="fa fa-dollar" style="font-size:18px"></i>
-                                    </a>
-                                    <a title="Patient History" (click)="patientHistory(item.patientId)">
-                                        <i class="fa fa-hospital-o" style="font-size:18px"></i>
-                                    </a>
+                                        <a title="Patient Invoice" (click)="updateAppointmentData(item.appointmentId)">
+                                            <i class="fa fa-dollar" style="font-size:18px"></i>
+                                        </a>
+                                        <a title="Patient History" (click)="patientHistory(item.patientId)">
+                                            <i class="fa fa-hospital-o" style="font-size:18px"></i>
+                                        </a>
                                     </ng-container>
                                 </td>
                             </tr>
@@ -204,7 +213,24 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-          <!--  <patient-history-menu [greetMessage]="childmessage"></patient-history-menu>-->
+            <ng-template #template>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left">Modal</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p-dropdown placeholder="Select Room" [autoWidth]="false" name="upBranchDrp"
+                                [(ngModel)]="roomId"
+                                [options]="allRooms" (onChange)="getExamRoom($event)"
+                                [panelStyle]="{minWidth:'12em'}"
+                                [filter]="true">
+                    </p-dropdown>
+                </div>
+            </ng-template>
+
+            <!--  <patient-history-menu [greetMessage]="childmessage"></patient-history-menu>-->
 
         </div>
     </div>

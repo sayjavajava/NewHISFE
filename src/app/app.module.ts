@@ -158,18 +158,14 @@ import {PaymentTypeComponent} from "./components/dashboard/setting/PaymentType.c
 import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
 import {EditorModule} from "primeng/editor";
 import {ChartModule} from "primeng/chart";
-
 import {InvoiceListingComponent} from "./components/dashboard/patient/invoice-listing.component";
 import {ReceiptListingComponent} from "./components/dashboard/patient/receipt-listing.component";
 import {RefundListingComponent} from "./components/dashboard/patient/refund-listing.component";
 import {PatientInvoiceListComponent} from "./components/dashboard/patient/patient-invoice-list.component";
 import {PatientImageComponent} from "./components/dashboard/setting/PatientImageComponent";
-/*import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";*/
 import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";
-
 import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
 import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
-
 
 
 @NgModule({
@@ -346,18 +342,13 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         DrugComponent,
         CurrencyComponent,
 
-
         InvoiceListingComponent,
         ReceiptListingComponent,
         RefundListingComponent,
         PatientInvoiceListComponent,
         CurrencyComponent,
         PatientImageComponent,
-        /*PatientImageOrderComponent,*/
-
-        PatientImageComponent,
         PatientImageOrderComponent,
-
         PatientHistoryVitalComponent
     ],
     bootstrap: [AppComponent]

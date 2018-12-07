@@ -1,5 +1,5 @@
 /**
- * @Author Irfan Nasim
+ * @Author waqas kamran
  * @since 07-Sep-17
  * @Description Application Constants
  */
@@ -30,7 +30,7 @@ export class AppConstants {
     public static FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
     public static FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
     public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
-    public static FETCH_ALL_BRANCHES_WITH_DOCTORS= '/setting/branch/doctorsInBranch/';
+    public static FETCH_ALL_BRANCHES_WITH_DOCTORS = '/setting/branch/doctorsInBranch/';
     public static FETCH_ROOM_COUNT_OF_BRANCH = '/setting/branch/rooms/';
     public static FETCH_LIST_OF_COUNTRIES = '/setting/branch/countries/';
     public static FETCH_LIST_OF_STATES_BY_CNTRY_ID = '/setting/branch/states/';
@@ -70,6 +70,7 @@ export class AppConstants {
     public static ICD_CODE_VERSION_DELETE_URL = '/setting/icd/codeVersion/delete?associateICDCVId=';
     public static ICD_CODE_VERSION_SEARCH = '/setting/icd/codeVersion/search/';
     public static ICD_VERSION_CODES_VERSION = '/setting/icd/version/codes/?versionId=';
+    public static IMPORT_ICD_CODE_LIST_TO_SERVER = '/setting/icd/importRecords';
 
     public static ROLE_ENDPOINT = '/user/auth/addRole';
     public static PERMISSION_ENDPOINT = '/user/auth/authorities';
@@ -168,8 +169,10 @@ export class AppConstants {
     public static FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
     public static UPDATE_APPOINTMENT = '/appointment/update/';
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
+    public static UPDATE_APPOINTMENT_ROOM = '/appointment/update/room/';
     public static FETCH_APPOINTMENTS_URL = '/appointment/';
     public static FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
+    public static IMPORT_APPOINTMENT_LIST_TO_SERVER = '/appointment/importRecords';
 
     ////////////////////// Dashboard URLs ///////////////////////////////
     public static FETCH_DASHBOARD_URL = '/dashboard/';
@@ -194,12 +197,12 @@ export class AppConstants {
 
     ///////////////////Family History//////////
     public static STATUS_CREATE = '/setting/status/create';
-    public static FETCH_ALL_PAGINATED_STATUS= '/setting/status/';
+    public static FETCH_ALL_PAGINATED_STATUS = '/setting/status/';
     public static STATUS_DELETE = '/setting/status/delete/';
     public static UPDATE_STATUS_URL = '/setting/status/update/';
     public static STATUS_SEARCH = '/setting/status/search/';
     public static BRANCH_ORGANIZATION = '/setting/branch/organization';
-
+    public static FETCH_ALL_STATUSES= '/setting/status/allStatus';
 
 
     ////////////////////// Email Configuration URLs ///////////////////////////////
@@ -236,13 +239,13 @@ export class AppConstants {
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     public static FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     public static VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
-    public static VITALS_CONFIGURATION_GET_BY_ID = '/vitalSetup/get/';
     public static VITALS_CONFIGURATION_DELETE = '/vitalSetup/delete/';
 
 
     ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
     public static FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     public static LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
+    public static IMPORT_LAB_TEST_LIST_TO_SERVER = '/labTest/importRecords';
 
     ///////////////////// Patient Group URLs ////////////////////////////////////////
     public static PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/';///all by paginated , zero means first page , 1 means second page
@@ -263,9 +266,8 @@ export class AppConstants {
     public static DRUG_GET_URL = '/setting/drug/get?drugId=';
     public static DRUG_SEARCH_BY_NAME_URL = '/setting/drug/search?drugName=';
     public static DRUG_GET_ALL_URL = '/setting/drug/all';
-
     public static DRUG_GET_NATURAL_ID_URL = '/setting/drug/natural';// get natural id only
-
+    public static IMPORT_DRUGS_LIST_TO_SERVER = '/setting/drug/importRecords';
 
     ///////////////////// Currency URLs ////////////////////////////////////////
     public static CURRENCY_FETCH_ALL_PAGINATED_URI = '/setting/currency/';///all by paginated , zero means first page , 1 means second page
@@ -277,10 +279,10 @@ export class AppConstants {
 
 
     //////////////Payment Type ///////////////////////////////////
-    public static GET_ALL_PAYMENTTYPE='/PaymentType/';
+    public static GET_ALL_PAYMENTTYPE = '/PaymentType/';
     public static SAVE_PAYMENTTYPE = '/PaymentType/save';
     public static DELETE_PAYMENTTYPE = '/PaymentType/delete/';
-    public static UPDATE_PAYMENTTYPE= '/PaymentType/update';
+    public static UPDATE_PAYMENTTYPE = '/PaymentType/update';
 
 
     //////////////Payment API for Receipt ///////////////////////////////////
@@ -302,21 +304,21 @@ export class AppConstants {
     public static GET_DOCTOR_List = '/doctorPayment/role';
 
     ////////////////Country/////////////////////////////
-    public static GET_ALL_COUNTRY='/CountryAPI/';
-    public static GET_STATE_BYCOUNTRYID='/StateAPI/get/';
-    public static GET_CITY_BYSTATEID='/CityAPI/get/';
-    public static GET_ALL_DATEFORMAT='/common/';
+    public static GET_ALL_COUNTRY = '/CountryAPI/';
+    public static GET_STATE_BYCOUNTRYID = '/StateAPI/get/';
+    public static GET_CITY_BYSTATEID = '/CityAPI/get/';
+    public static GET_ALL_DATEFORMAT = '/common/';
     public static ZONE_FETCH_URL = '/common/timezoneApi';
-    public  static GET_CITY_URL='/CityAPI/';
-    public static GET_STATE_URL='/StateAPI/';
-    public static GET_ALL_COUNTRYBYID='/CountryAPI/get/';
+    public static GET_CITY_URL = '/CityAPI/';
+    public static GET_STATE_URL = '/StateAPI/';
+    public static GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
 
     public static ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
     public static FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';
     /////////////////////FETCH
     public static FETCH_NAME_ROUTE = '/setting/drug/searchName?drugName=';
 
-    public static FETCH_NAME_STRENGTHS= '/setting/drug/searchStrengths?drugName=';
+    public static FETCH_NAME_STRENGTHS = '/setting/drug/searchStrengths?drugName=';
 
 
     ////////////////////////////////
@@ -331,9 +333,7 @@ export class AppConstants {
     public static FETCH_PATIENT_IMAGE = '/PatientImage/getSetup';
     public static PATIENT_IMAGE_SAVE = '/PatientImage/savePatientImageSetup';
     public static DELETE_PATIENT_IMAGE = '/PatientImage/delete/';
-    public static UPDATE_PATIENT_IMAGE= '/PatientImage/update';
-
-
+    public static UPDATE_PATIENT_IMAGE = '/PatientImage/update';
 
 
     /*public static DOCUMENT_SAVE_URL = '/patient/document/save';
@@ -345,13 +345,7 @@ export class AppConstants {
     public static FETCH_PATIENT_ORDER = '/PatientImage/getSetup';
     public static PATIENT_IMAGE_SAVE_ORDER = '/patient/Imageorder/save';
     public static DELETE_PATIENT_IMAGE_DELETE = '/patient/Imageorder/delete/';
-    public static UPDATE_PATIENT_IMAGE_UPDATE= '/patient/Imageorder/update';
+    public static UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
     public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
     public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
-
-
-    public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';
-
-
-
 }

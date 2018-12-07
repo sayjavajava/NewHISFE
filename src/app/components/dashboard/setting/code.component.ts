@@ -37,6 +37,8 @@ export class CodeComponent implements OnInit {
         {field: 'action', header: 'Action'},
     ];
 
+    codeDataImport: File = null;
+
     loading:boolean = false;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -313,5 +315,39 @@ export class CodeComponent implements OnInit {
         }
     }
 
+    importData(event: any) {
+        console.log(event);
+        console.log("Data import method is called");
+        let fileList: FileList = event.target.files;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === 'codeDataImport') {
+                if (fileList[0].size > 0 && fileList[0].size < 4000000) {         // if (fileList[0].size < 4000000) {
+                    this.codeDataImport = fileList[0];
+                    this.requestsService.postRequestMultipartForm(AppConstants.IMPORT_ICD_CODE_LIST_TO_SERVER, this.codeDataImport)
+                        .subscribe(
+                            (response: Response) => {
+                                if (response['responseCode'] === 'SUCCESS') {
+                                    this.notificationService.success(response['responseMessage'], 'ICD Code');
+                                    this.getAllCodesFromServer();
+                                } else {
+                                    this.notificationService.error(response['responseMessage'], 'ICD Code');
+                                }
+                            }, (error: any) => {
+                                //console.log(error.json())
+                                // this.HISUtilService.tokenExpired(error.error.error);
+                                this.notificationService.error(error.error.responseMessage, 'ICD Code');
+                            }
+                        );
+                } else {
+                    this.notificationService.warn('File size must be more than 0 byte and less than 4 MB');
+                }
+            }
+        }
+    }
+
+    clearList(event: any) {
+        this.checkedVersions = [];
+        this.clientCheckedVersions = [];
+    }
 
 }
