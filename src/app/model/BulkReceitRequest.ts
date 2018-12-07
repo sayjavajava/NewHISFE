@@ -4,6 +4,7 @@ export class BulkReceitRequest {
     date: any;
     paymentTypeId : any ;
     paymentAmount : any;
+    useAdvanceTotal : any;
     useAdvance : boolean = false;
     invoiceListPaymentRequest:  any = [];
 

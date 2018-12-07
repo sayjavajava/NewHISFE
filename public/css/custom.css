@@ -29,6 +29,7 @@ p, h3, h4{margin:0; padding:0;}
 .padding-b-10{ padding-bottom:10px !important;}
 .padding-t-10{ padding-top:10px !important;}
 .pdngall3{padding: 3px !important;}
+.pdng-lft-20{padding-left:-20px;}
 .pdng-l-r-15{padding-left: 15px; padding-right: 15px;}
 .pdng-lr-5{padding-left:5px !important; padding-right:5px !important;}
 .no-padding-rgt{ padding-right:0 !important;}
@@ -41,6 +42,7 @@ p, h3, h4{margin:0; padding:0;}
 .mrgn-top8{margin-top: 8px;}
 .mrgn-top10{margin-top: 10px;}
 .mrgn-top12{margin-top: 12px;}
+.mrgn-top14{margin-top: 14px !important;}
 .mrgn-lft8{margin-left: 8px;}
 .mrgn-lft0{margin-left: 0px !important;}
 .mrgn-top14{margin-top: 14px;}
@@ -461,7 +463,7 @@ p, h3, h4{margin:0; padding:0;}
     margin: 200px auto !important;
 }
 .portlet{margin-bottom: 0px !important;}
-.form-control{height: 25px !important; padding: 2px 12px !important;}
+.profile-frm input, .profile-frm select{height: 25px !important; padding: 2px 12px !important;}
 .form-group {margin-bottom: 0px;}
 .form-control, output{font-size:12px;}
 /*.row {margin-top: 15px !important;}*/
@@ -543,13 +545,12 @@ textarea {
     float:left;
 }
 .headng-bck{
-    background:#428bca;
+    background:#428bca !important;
     padding:6px;
     float: left;
     width: 100%;
-    border-top-left-radius:6px;
-    border-top-right-radius:6px;
-    height:70px;
+    font-size: 16px;
+    /*height:70px;*/
 }
 .hadng-img{
     float:left;
@@ -563,6 +564,9 @@ textarea {
 }
 .hadng-txt{
     float:left;
+    width: 100%;
+    margin: 0px;
+    padding: 10px;
 }
 .hadng-txt h2{
     font-size:16px;
@@ -582,6 +586,8 @@ textarea {
     padding: 1px;
     float: left;
     width: 100%;
+    font-size: 14px;
+    color: #000;
 }
 .whte-bckgrnd{
     background:#fff;
@@ -592,6 +598,8 @@ textarea {
 }
 .inr-txt td{
     padding:6px;
+    color: #000;
+    font-size: 16px;
 }
 .popup-hiden{
     position: absolute;
@@ -761,7 +769,8 @@ default css for mat check box
     margin-top: -21px;
 }
 .wc-time-sec{
-    margin-top: -10px;
+    margin-top: -10px !important;
+    width: 306px !important;
 }
 .wc-details{
     margin-top: -14px;
@@ -774,7 +783,7 @@ default css for mat check box
     margin-left: 14px;
 }
 .ui-panelmenu{
-    width: 93%; !important;
+width: 93%; !important;
 }
 .ui-panelmenu{width: 93%; !important;}
 .cusm-col-3{width: 20% !important;}
@@ -787,16 +796,31 @@ default css for mat check box
 .wc-month-row{display: none !important;}
 .wc-time-sec[_ngcontent-c19] {padding: 10px 10px 8px !important;}
 .time-view[_ngcontent-c8]{padding:0px !important;}
-.wc-date-popover[_ngcontent-c8] {height: 355px !important;}
+.wc-date-popover{height: 400px !important; width: 306px !important;}
 .mat-input-wrapper, .mat-form-field-wrapper{margin-right: 0px;}
 .ui-overlaypanel {top:40% !important; left:40% !important; width: 20% !important; position: absolute !important;}
 .brnch-modl ul{list-style: none; padding-left: 0;}
 .brnch-modl li{color: blue;}
 ul.ui-inputtext{width: 100%;}
 .ui-inputgroup-addon{padding:3px 0px !important;}
+.schdld-clndr{width: 306px !important; height: 400px !important;}
+.years-view[_ngcontent-c10] > .prev[_ngcontent-c10], .years-view[_ngcontent-c10] > .next[_ngcontent-c10]{width: 30px; padding: 5px 0px !important;  cursor: pointer;font-size: 25px !important; margin-top: 14px !important;}
+.months-view[_ngcontent-c10] > span[_ngcontent-c10], .years-list-view[_ngcontent-c10] > span[_ngcontent-c10]{
+    padding:5px 0 !important;}
+.height{height: auto !important;}
 .upload-btn-wrapper{position: relative; overflow: hidden; display: inline-block; top: 14px;}
 .btn{color: #FFF; background-color: #3598dc; border-color: #3598dc; padding: 7px 12px; font-size: 14px; font-weight: 400;}
 .upload-btn-wrapper input[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; cursor: pointer; line-height: 34px;}
+.ui-menuitem{margin: 0; border-bottom: 1px solid #1212;}
+.text-danger{color:#ed6b75; font-size:12px;}
+.ui-overlaypanel-content{background: rgb(0, 0, 0) !important; color: #fff !important;}
+.ui-overlaypanel-content p{color: #fff !important; width: 100%;}
+.ui-button-text{display: none !important;}
+.ui-overlaypanel-content p:before{content: "\e110";}
+@media (min-width: 768px){
+.receipt-modal{width: 880px !important; margin: 30px auto;}
+}
+
 .ui-autocomplete-input{width:91% !important;}
 .ui-autocomplete{width: 100% !important;}
 .ui-button-text{padding-bottom: 2px !important;}

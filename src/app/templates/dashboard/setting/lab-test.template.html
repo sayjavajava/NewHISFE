@@ -127,7 +127,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="testCode" id="testCode" class="form-control"
                                            placeholder="Enter Test Code"
                                            [(ngModel)]="labTestSpeciman.testCode" #testCode="ngModel">
@@ -141,6 +141,9 @@
                                 </label>
 
                                 <div class="col-md-9 select pdng-lr-5">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name<span
+                                        class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="testName" id="testName" class="form-control"
                                            placeholder="Enter Test Name"
                                            [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
@@ -151,7 +154,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Min Normal Range<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="minNormalRange" id="minNormalRange"
                                            class="form-control" placeholder="Enter Minimum Range of Test Result"
                                            [(ngModel)]="labTestSpeciman.minNormalRange" #minNormalRange="ngModel">
@@ -160,7 +163,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Max Normal Range<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="maxNormalRange" id="maxNormalRange" class="form-control"
                                            placeholder="Enter Maximum Range of Test Result"
                                            [(ngModel)]="labTestSpeciman.maxNormalRange" #maxNormalRange="ngModel">
@@ -174,7 +177,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Unit<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="unit" id="unit" class="form-control"
                                            placeholder="BPM"
                                            [(ngModel)]="labTestSpeciman.unit" #unit="ngModel">
@@ -187,7 +190,7 @@
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="description" id="description" class="form-control"
                                            placeholder="Enter description"
                                            [(ngModel)]="labTestSpeciman.description" #description="ngModel">

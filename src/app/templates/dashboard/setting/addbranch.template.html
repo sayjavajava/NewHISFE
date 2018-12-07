@@ -26,7 +26,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Company Name
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text"   formControlName="companyName" [(ngModel)]="organization.companyName"
                                                            placeholder="enter company name e.g iPhone"
                                                            name="cname"
@@ -38,7 +38,7 @@
                                                 <label class="control-label col-md-4">Branch Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text"
                                                            placeholder="enter branch name e.g heart branch of city"
                                                            formControlName="branchName"
@@ -64,8 +64,7 @@
 
                                                     </select>
                                                 </div>
-                                            </div>
--->
+                                            </div>-->
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Country
                                                 </label>
@@ -82,8 +81,6 @@
                                                                  (onChange)="getStatesByCountryId($event.value)"
                                                                  [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
-
-
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -117,7 +114,6 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-
                                             <!--<div class="form-group">
                                                 <label class="control-label col-md-4">Zip Code
                                                 </label>
@@ -133,12 +129,10 @@
                                                     </select>
                                                 </div>
                                             </div>-->
-
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Office Phone
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input name="home phone"
                                                            placeholder="enter office phone number e.g 12456"
                                                            formControlName="officePhone" type="text"
@@ -149,20 +143,18 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Fax
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text" formControlName="fax" placeholder="enter fax number e.g 12456" data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Address
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 profile-frm">
                                                     <input type="text" placeholder="enter address" formControlName="address"
                                                            data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
-
                                             <div class="form-group">
                                                 <div style="margin-left: 33%" class="col-md-8">
                                                 <mat-radio-group formControlName="flow">
@@ -170,19 +162,15 @@
                                                     <mat-radio-button value="RCD" color="primary">Receptionist &#8680; Cashier &#8680; Doctor</mat-radio-button>
                                                     <mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
                                                     <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>
-
                                                 </mat-radio-group>
                                                 </div>
-
                                             </div>
-
                                            </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Office Start Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-
                                                 <div class="col-md-8">
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
                                                     <input class="col-md-4 time-form-control pdng-lr-5 font-siz" type="time"
@@ -191,7 +179,6 @@
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
                                                     <!--<span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>-->
-
                                                     </span>
                                                 </div>
                                             </div>
@@ -211,7 +198,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">No of Exam Rooms
+                                                <label class="control-label col-md-4">No of Ex Rooms
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
@@ -235,13 +222,17 @@
                                                 <div class="form-group" [formGroupName]="i">
                                                     <label class="control-label col-md-4">Exam Rooms
                                                     </label>
-                                                    <div class="col-md-3 no-padding-rgt">
+                                                    <div class="col-md-4 no-padding-rgt profile-frm">
                                                         <input type="text" class="form-control"
-                                                               style="width: 128px !important;"
+                                                               style="width: 170px !important;"
                                                                formControlName="roomName">
+                                                        <span  style="text-align: center" class="text-danger"
+                                                               *ngIf="!branchForm.controls.examRooms.controls[i].controls.roomName.valid && branchForm.controls.examRooms.controls[i].controls.roomName.touched">
+                                                    <span style="text-align: center" *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
+                                                </span>
                                                     </div>
 
-                                                    <div class="col-md-4 pdng-lr-5">
+                                                    <div class="col-md-3 pdng-lr-5">
                                                         <label class="mt-checkbox-outline pull-right fnt-sze10">
 
                                                             <mat-checkbox formControlName="allowOnlineScheduling" color="primary" > Online Scheduling</mat-checkbox>
@@ -254,10 +245,6 @@
 
                                                     </div>
                                                    <!--{{ branchForm.controls.examRooms.controls[i].controls.allowOnlineScheduling.value }}-->
-                                                    <span  style="text-align: center" class="text-danger"
-                                                          *ngIf="!branchForm.controls.examRooms.controls[i].controls.roomName.valid && branchForm.controls.examRooms.controls[i].controls.roomName.touched">
-                                                    <span style="text-align: center" *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
-                                                </span>
                                                     <!--  <span *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>-->
                                                     <!--<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>-->
                                                 </div>
@@ -265,8 +252,8 @@
                                         </div>
 
                                         <div class="col-md-10 no-padding">
+                                            <button (click)="cancel()" class="pull-right btn default mrgn-lft8"><i class="fa fa-cancel"></i> Cancel </button>
                                             <button (click)="addBranch(branchForm.value,'')" class="pull-right btn blue"><i class="fa fa-plus"></i> Create </button>
-                                            <button (click)="cancel()" class="pull-right btn default padding-t-10"><i class="fa fa-cancel"></i> Cancel </button>
                                         </div>
 
                                     </div>

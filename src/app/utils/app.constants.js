@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * @Author Irfan Nasim
+ * @Author waqas kamran
  * @since 07-Sep-17
  * @Description Application Constants
  */
@@ -155,6 +155,7 @@ var AppConstants = (function () {
     AppConstants.FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
     AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';
     AppConstants.DELETE_APPOINTMENT_URI = '/appointment/delete/';
+    AppConstants.UPDATE_APPOINTMENT_ROOM = '/appointment/update/room/';
     AppConstants.FETCH_APPOINTMENTS_URL = '/appointment/';
     AppConstants.FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
     ////////////////////// Dashboard URLs ///////////////////////////////
@@ -183,6 +184,7 @@ var AppConstants = (function () {
     AppConstants.UPDATE_STATUS_URL = '/setting/status/update/';
     AppConstants.STATUS_SEARCH = '/setting/status/search/';
     AppConstants.BRANCH_ORGANIZATION = '/setting/branch/organization';
+    AppConstants.FETCH_ALL_STATUSES = '/setting/status/allStatus';
     ////////////////////// Email Configuration URLs ///////////////////////////////
     AppConstants.FETCH_EMAIL_CONFIGURATIONS = '/emailConfiguration/getAll';
     AppConstants.EMAIL_CONFIGURATION_SMTPS_SAVE = '/emailConfiguration/saveSMTP';
@@ -208,6 +210,8 @@ var AppConstants = (function () {
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     AppConstants.FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     AppConstants.VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
+    AppConstants.VITALS_CONFIGURATION_GET_BY_ID = '/vitalSetup/get/';
+    AppConstants.VITALS_CONFIGURATION_DELETE = '/vitalSetup/delete/';
     ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
     AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
@@ -218,6 +222,7 @@ var AppConstants = (function () {
     AppConstants.PATIENT_GROUP_SAVE_URL = '/patient/group/save';
     AppConstants.PATIENT_GROUP_UPDATE_URL = '/patient/group/update';
     AppConstants.PATIENT_GROUP_GET_URL = '/patient/group/get?patientGroupId=';
+    AppConstants.PATIENT_GROUP_GET_ALL = '/patient/group/get/all';
     ///////////////////// Drug URLs ////////////////////////////////////////
     AppConstants.DRUG_FETCH_ALL_PAGINATED_URI = '/setting/drug/'; ///all by paginated
     AppConstants.DRUG_DELETE_URI = '/setting/drug/delete?drugId=';
@@ -245,6 +250,8 @@ var AppConstants = (function () {
     AppConstants.GET_INVOICE_List_BY_PAT_ID = '/payment/getPatientInvoiceListById/';
     AppConstants.SAVE_BULK_RECEIT = '/payment/saveBulkReceit';
     AppConstants.GET_RECEIPT_List = '/payment/getReceiptList';
+    AppConstants.REFUND_PAYMENT = '/refundApi/refundPayment';
+    AppConstants.REFUND_LIST_DATA = '/refundApi/getRefundList';
     ////////////////Country/////////////////////////////
     AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
     AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';

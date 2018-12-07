@@ -184,7 +184,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
             'orderTestDate': [null],
             'doctorSignOff': [null],
             'comments': [null],
-            'testNameId': [null],
+            'testNameId': [null,Validators.required],
             'doctorName':[null],
             'patientId' :[null,Validators.required],
             'appointmentId':[null,Validators.required],

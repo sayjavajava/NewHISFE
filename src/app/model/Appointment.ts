@@ -10,7 +10,7 @@ export class Appointment{
     scheduleDate :string;
     appointmentStartedOn : string;
     appointmentEndedOn :string;
-    scheduleDateAndTime : string | DateTimeFormat
+    scheduleDateAndTime : DateTimeFormat |Date |string
     end:string;
     draggable:boolean;
     appointmentType:any[];
@@ -19,14 +19,15 @@ export class Appointment{
     patientId:number;
     reason:string;
     status:string;
+    statusId:number;
     duration:number;
     followUpDate:Date | string;
     followUpReason:string;
     followUpReminder:boolean;
     recurringAppointment:boolean;
     recurseEvery:string;
-    firstAppointment:string;
-    lastAppointment:string;
+    firstAppointment:Date;
+    lastAppointment:Date;
     examRoom:number;
     gender:string;
     cellPhone:string;
@@ -40,17 +41,18 @@ export class Appointment{
     newPatient :string;
     serviceId:number;
     stateOfPatientBox:boolean;
+    dateSchedule :Date = new Date();
 
     constructor(id?:number,appointmentId?:string,title ?: string, branchId ?: number, doctorId ?: number,scheduleDateAndTime ?:DateTimeFormat, scheduleDate?: string, end?: string, draggable?: boolean,selectedRecurringDays ?:any[], appointmentType?: any[], notes?: string, patient?: number, reason?:
-         string, status?: string, duration?: number, followUpDate?: Date, followUpReason?: string ,followUpReminder?:boolean,recurringAppointment?:boolean,recurseEvery?:string
-        ,firstAppointment?:string,lastAppointment?:string,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string,roomId?:number,newPatient ?:string,dob?:Date,serviceId?:number,stateOfPatientBox?:boolean
+                    string, statusId?: number, duration?: number, followUpDate?: Date, followUpReason?: string ,followUpReminder?:boolean,recurringAppointment?:boolean,recurseEvery?:string
+        ,firstAppointment?:Date,lastAppointment?:Date,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string,roomId?:number,newPatient ?:string,dob?:Date,serviceId?:number,stateOfPatientBox?:boolean,dateSchedule?:Date
     ) {
         this.id = id;
         this.appointmentId = appointmentId;
         this.title = title;
         this.branchId = branchId;
         this.doctorId=doctorId;
-        this.scheduleDateAndTime = scheduleDateAndTime;
+        //   this.scheduleDateAndTime =scheduleDateAndTime;
         this.scheduleDate = scheduleDate;
         this.selectedRecurringDays=selectedRecurringDays;
         this.end = end;
@@ -59,15 +61,15 @@ export class Appointment{
         this.notes = notes;
         this.patientId = patient;
         this.reason = reason;
-        this.status = status;
+        this.statusId = statusId;
         this.duration = duration;
         this.followUpDate = followUpDate;
         this.followUpReason = followUpReason;
         this.followUpReminder=followUpReminder;
         this.recurringAppointment=recurringAppointment;
         this.recurseEvery=recurseEvery;
-        this.firstAppointment=firstAppointment;
-        this.lastAppointment=lastAppointment;
+        this.firstAppointment= new Date(firstAppointment);
+        this.lastAppointment= new Date(lastAppointment);
         this.examRoom=examRoom;
         this.gender=gender;
         this.age=age;
@@ -79,6 +81,8 @@ export class Appointment{
         this.newPatient=newPatient;
         this.dob=dob;
         this.stateOfPatientBox =stateOfPatientBox;
+        this.dateSchedule = new Date(dateSchedule);
+
 
     }
 }

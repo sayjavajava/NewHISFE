@@ -109,7 +109,7 @@
     <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <form id="loginForm"   class="login-form"   #form="ngForm">
-                <div class="modal-content" style="width: 150%">
+                <div class="modal-content" style="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Payment Type</h4>
@@ -121,10 +121,9 @@
                                 <div class="row">
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Payment Title </label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" required
                                                    [(ngModel)]="newPaymentType.paymentTitle"
-
                                                    name="paytitle" #paytitle="ngModel"/>
                                         </div>
 
@@ -157,58 +156,40 @@
                                     </div>
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Payment Type</label>
-
-                                        <div class="form-group">
-
-                                            <div class="col-md-8">
+                                            <div class="col-md-9 profile-frm pdng-lr-5">
                                                 <select class="form-control" name="pMode" (change)="onPaymentMode($event.target.value)" [(ngModel)]="newPaymentType.paymentMode">
                                                     <option *ngFor="let payType of allTypePAYMENT" value="{{payType.name}}">{{ payType.name }}</option>
                                                 </select>
-
                                             </div>
-
-
-                                        </div>
-
-
-
                                     </div>
 
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Purpose</label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text"  name="purpose"
                                                    [(ngModel)]="newPaymentType.paymentPurpose"
 
                                                    name="cstgls" #cstgls="ngModel"/>
                                         </div>
                                     </div>
-
                                     <!-- Conditional option -->
-
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Service Charges </label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" pattern="^[0-9]{1,60}$"
                                                    [(ngModel)]="newPaymentType.serviceCharges"
-
                                                    name="payserv" #payserv="ngModel"/>
                                         </div>
                                         <span *ngIf="payserv.invalid && payserv.touched"
                                               class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter Number.
                                         </span>
-
                                     </div>
-
-
-
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Max Card Charges </label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" pattern="^[0-9]{1,60}$"
                                                    [(ngModel)]="newPaymentType.maxCardCharges"
-
                                                    name="paycard" #paycard="ngModel"/>
                                         </div>
                                         <span *ngIf="paycard.invalid && paycard.touched"
@@ -216,16 +197,9 @@
                                                 Please enter Number.
                                         </span>
                                     </div>
-
-
-
-
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
-
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Who Will Pay Credit Card Charge </label>
                                         <div class="col-md-9 select pdng-lr-5">
-
-
                                             <label class="mt-checkbox-outline">
                                                 <mat-checkbox #active="ngModel"
                                                               name="active"
@@ -233,7 +207,6 @@
                                                               color="primary"></mat-checkbox>
 
                                             </label>
-
                                             <!--<label class="mt-checkbox-outline" >
                                                 <input class="mt-checkbox mt-checkbox-outline ng-dirty ng-valid ng-touched" formcontrolname="restrictBranch" type="radio"   value="true" checked>
                                                 Patient
@@ -241,23 +214,16 @@
                                             </label>-->
 
                                         </div>
-
-
                                     </div>
-
-
-
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank GL Account </label>
                                         <div class="col-md-9 select pdng-lr-5">
-
                                             <p-dropdown placeholder="{{selectedSecondCharteredAccount}}" [autoWidth]="false" [(ngModel)]="selectedSecondCharteredAccount"
                                                         [style]="{'text-align': 'left' ,'width':'100%'}"
                                                         [options]="chartofAccountListModified" (change)="getSelectedAccount(select.value)"
                                                         [panelStyle]="{minWidth:'12em'}"  [ngModelOptions]="{standalone: true}"
                                                         [filter]="true">
                                             </p-dropdown>
-
                                             <!--<select   class="form-control"  name="selectedBankLevel"  #selectedBankLevel="ngModel"   [ngModel]="newPaymentType.bankGlCharges.id"
                                                      (change)="getSelectedAccount(select.value)"
                                                      placeholder="Select GL Account">
@@ -265,25 +231,17 @@
                                                 <option *ngFor="let ca of chartOfAccountList;" [ngValue]="ca.id">
                                                     {{ca.name}}
                                                 </option>
-
                                             </select>-->
-
                                         </div>
-
                                     </div>
-
-
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Status</label>
                                         <div class="col-md-3 select pdng-lr-5">
-
-
                                             <label class="mt-checkbox-outline">
                                                 <mat-checkbox #active="ngModel"
                                                               name="active"
                                                               [(ngModel)]="newPaymentType.active"
                                                               color="primary"></mat-checkbox>
-
                                             </label>
                                             <!--<label class="mt-checkbox mt-checkbox-outline chckbox">
                                                 <input type="checkbox"
@@ -293,8 +251,6 @@
                                                        #active="ngModel"><span></span></label>-->
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                             <div class="slimScrollBar"
@@ -304,7 +260,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-
                         <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">
                             Close
                         </button>

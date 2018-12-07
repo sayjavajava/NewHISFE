@@ -1,5 +1,5 @@
 /**
- * @Author Irfan Nasim
+ * @Author waqas kamran
  * @since 07-Sep-17
  * @Description Application Constants
  */
@@ -169,6 +169,7 @@ export class AppConstants {
     public static FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
     public static UPDATE_APPOINTMENT = '/appointment/update/';
     public static DELETE_APPOINTMENT_URI = '/appointment/delete/';
+    public static UPDATE_APPOINTMENT_ROOM = '/appointment/update/room/';
     public static FETCH_APPOINTMENTS_URL = '/appointment/';
     public static FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
     public static IMPORT_APPOINTMENT_LIST_TO_SERVER = '/appointment/importRecords';
@@ -201,6 +202,7 @@ export class AppConstants {
     public static UPDATE_STATUS_URL = '/setting/status/update/';
     public static STATUS_SEARCH = '/setting/status/search/';
     public static BRANCH_ORGANIZATION = '/setting/branch/organization';
+    public static FETCH_ALL_STATUSES= '/setting/status/allStatus';
 
 
     ////////////////////// Email Configuration URLs ///////////////////////////////
@@ -289,6 +291,12 @@ export class AppConstants {
 
     public static SAVE_BULK_RECEIT = '/payment/saveBulkReceit';
     public static GET_RECEIPT_List = '/payment/getReceiptList';
+
+
+    public static REFUND_PAYMENT = '/refundApi/refundPayment';
+    public static REFUND_LIST_DATA = '/refundApi/getRefundList';
+
+
 
 
     ////////////////Country/////////////////////////////
