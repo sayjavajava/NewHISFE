@@ -153,8 +153,8 @@
                                 <th> Scheduled at </th>
                                 <th> Doctor </th>
                                 <th> Exam Room </th>
-                                <th> Room </th>
-                                <th> Room </th>
+                                <th> Show/Hide </th>
+                                <th *ngIf="showRoomDrop"> Room </th>
                                 <th> Status </th>
                                 <th> Action </th>
                             </tr>
@@ -172,14 +172,12 @@
                                 <td>{{item.doctorFirstName}} {{item.doctorLastName}}</td>
                                 <td>{{item.examRoom}}</td>
                                 <td><button  type="button" class="btn-link"(click)="showRoomWithBranch(item.branchId,item.roomId)">{{showRoomBtn}}</button>
-
                                 </td>
                                 <td>
-                                    <select *ngIf="showRoomDrop" class="form-control" [ngModelOptions]="{standalone:true}" [(ngModel)]="roomSelected" (change)="getExamRoom($event.target.value,item.appointmentId)">
+                                    <select *ngIf="showRoomDrop" class="form-control" [ngModelOptions]="{standalone:true}" [(ngModel)]="item.roomId" (change)="getExamRoom($event.target.value,item.appointmentId)">
                                         <option *ngFor="let r of allRooms" value="{{r.id}}">{{ r.branchName }} </option>
                                     </select>
                                 </td>
-
                                 <td><select class="form-control" [ngModelOptions]="{standalone:true}" (change)="getUpdatedStatus(item.status,item.apptNaturalId,item.appointmentId)"
                                             [(ngModel)]="item.status">
 

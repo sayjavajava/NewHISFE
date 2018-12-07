@@ -24,6 +24,7 @@ var PaymentComponent = (function () {
         this.invoiceList = [];
         this.show = false;
         this.useAdvancedBal = false;
+        this.refundAmount = 0.00;
         this.paidAmount = 0.00;
         this.patientAdvanceDeposit = 0.00;
         this.usedAdvanceDeposit = 0.00;
@@ -59,6 +60,7 @@ var PaymentComponent = (function () {
                 _this.docLastName = _this.appointment.docLastName;
                 _this.appointmentId = res.responseData.id;
                 _this.receivedAmount = res.responseData.receivedAmount;
+                _this.refundAmount = res.responseData.refundAmount;
                 console.log("Appointment ID : " + _this.appointmentId);
                 _this.getInvoiceItemsById();
             }, function (error) {

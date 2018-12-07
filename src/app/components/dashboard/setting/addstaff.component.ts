@@ -272,7 +272,6 @@ export class AddStaffComponent implements OnInit {
                 })
 
     }
-
     createUserForm() {
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
