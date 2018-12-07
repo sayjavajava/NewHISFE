@@ -20,40 +20,49 @@ export class NurseDashboardComponent {
     filteredBranch: Number;
     filteredDocotr: Number;
     error: any;
-    dashboardList : Dashboard[] = [];
+    dashboardList: Dashboard[] = [];
     branches: any = [];
     doctorsList: any = [];
-    dashboardListModified : any[] = [];
-
+    dashboardListModified: any[] = [];
+    roomId: number;
+    public loading = false;
+    allRooms: RoomFilter[] = [];
+    showRoom: boolean = false;
+    showRoomBtn: any = 'Show';
+    showRoomDrop: boolean = false;
+    roomSelected: any[] = [];
 
     constructor(private requestService: RequestsService,
                 private router: Router,
                 private confirmationDialogService: ConformationDialogService,
-                private snackBar:MatSnackBar,
-                private dataService:DataService,
+                private snackBar: MatSnackBar,
+                private dataService: DataService,
                 private titleService: Title) {
         this.showDashboard();
 
     };
-    ngOnInit() {
 
+    ngOnInit() {
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
 
     }
 
     showDashboard() {
+        this.loading=true;
         this.requestService.getRequest(AppConstants.FETCH_DASHBOARD_URL)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                         let dashboardListTemp = response['responseData'];
-                        this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" );
+                        this.dashboardList = dashboardListTemp.filter((x: any) => x.status == "COMPLETE" || x.status == "IN_SESSION");
                         this.dashboardListModified = this.dashboardList;
+                        this.loading=false;
                     }
                 },
                 (error: any) => {
                     this.error = error.error.error;
+                    this.loading=false;
                 })
     }
 
@@ -86,41 +95,45 @@ export class NurseDashboardComponent {
                 }
             );
     }
+
     getFilteredBranch(value: any) {
 
-        this.dashboardListModified =this.dashboardList;
-        if(value == 'All'){
+        this.dashboardListModified = this.dashboardList;
+        if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
-        }else {
+        } else {
             const arr = this.dashboardListModified.filter(x => x.branch === value);
             this.dashboardListModified = arr;
         }
     }
+
     getfilteredDoctor(value: any) {
-        this.dashboardListModified =this.dashboardList;
-        console.log('val:'+ value);
-        if(value == 'All'){
+        this.dashboardListModified = this.dashboardList;
+        console.log('val:' + value);
+        if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
-        }else {
+        } else {
             const arr = this.dashboardListModified.filter(x => x.doctorLastName == value);
             this.dashboardListModified = arr;
         }
     }
 
     getfilteredStatus(value: any) {
-        this.dashboardListModified =this.dashboardList;
-        console.log('val:'+ value);
-        if(value == 'All'){
+        this.dashboardListModified = this.dashboardList;
+        console.log('val:' + value);
+        if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
-        }else {
+        } else {
             const arr = this.dashboardListModified.filter(x => x.status == value);
             this.dashboardListModified = arr;
         }
     }
-    patientHistory(id:any){
+
+    patientHistory(id: any) {
         this.dataService.getPatientId(id);
-        this.router.navigate(['/dashboard/patient/',id,'history']);
+        this.router.navigate(['/dashboard/patient/', id, 'history']);
     }
+
     getUpdatedStatus(statusValue: string, apptId: any) {
         var that = this;
         this.confirmationDialogService
@@ -139,5 +152,59 @@ export class NurseDashboardComponent {
             });
     }
 
+    getExamRoom(roomId: any, apptId: number) {
+        this.confirmationDialogService
+            .confirm('Update Room', 'Are you sure ?')
+            .subscribe(res => {
+                if (res == true) {
+                    this.requestService.putRequestWithParam(AppConstants.UPDATE_APPOINTMENT_ROOM + apptId,
+                        roomId)
+                        .subscribe((res: Response) => {
+                            if (res['responseCode'] === "APPT_SUC_03") {
+                                //  this.roomSelected.push(roomId);
+                                this.snackBar.open('Status Updated', `Room has been changed`, {duration: 3000});
+                            }
+                        }, (error: any) => {
+                            this.error = error.error.error;
+                        });
+                }
+            });
+    }
 
+    showRoomWithBranch(bId: number, roomIdd: number) {
+        this.showRoom = !this.showRoom;
+        this.showRoomDrop = this.showRoom;
+        this.allRooms.length = 0;
+        this.roomSelected.length = 0;
+        let roomList: any[] = [];
+        let roomFiltered = this.branches.filter((x: any) => x.id == bId);
+        this.roomSelected.push(roomIdd)
+        roomFiltered.forEach((x: any) => {
+            x.examRooms.forEach((y: any) => {
+                let roomObj = new RoomFilter(y.label, y.value);
+                this.allRooms.push(roomObj);
+            })
+        })
+        if (this.showRoom) {
+            this.showRoomBtn = 'HIDE';
+            // this.showRoomDrop = true;
+        } else {
+            this.showRoomBtn = 'SHOW'
+        }
+    }
+
+}
+
+class RoomFilter {
+    label: string;
+    value: number;
+    id: number;
+    branchName: string;
+
+    constructor(label ?: string, value?: number) {
+        this.label = label;
+        this.value = value;
+        this.branchName = label;
+        this.id = value;
+    }
 }

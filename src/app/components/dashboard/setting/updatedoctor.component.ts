@@ -150,9 +150,22 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
             this.hasServices =false;
             this.selectedBranchId = eventObj.value;
             this.allDepartments();
-            let idd = '5';
+
     }
 
+    loadDepartmentByBranchOnIntialization(selectedBranchId :number){
+        this.hasServices =false;
+        this.selectedBranchId = selectedBranchId;
+        this.allDepartments();
+    }
+    loadServicesByDepartment(deptId: number) {
+        if (deptId) {
+            this.selectedDepartment[0] = deptId;
+            this.getDeptServices(deptId);
+        }else{
+            this.servicesList = [];
+        }
+    }
 
     allDepartments() {
         this.requestService.getRequest(AppConstants.FETCH_ALL_DEPARTMENT_BY_BRANCH +this.selectedBranchId)
@@ -329,6 +342,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     if (user.expiryDate != null) {
                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                     }
+                    if(user.primaryBranchId){
+                        this.loadDepartmentByBranchOnIntialization(user.primaryBranchId);
+                    }
                    // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
                     console.log('med service '+ user.doctorMedicalSrvcList.length);
                     user.doctorServiceComission.forEach((x:any)=>{
@@ -363,8 +379,11 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                             this.selectedDepartment[0] = docDeptId;
                             break;
                         }
-                        this.selectedDepartmentObj.push(user.docDepartmentId);
+                        /*this.selectedDepartmentObj.push(user.docDepartmentId);
+                        console.log( 'depart doc'+this.selectedDepartmentObj[0].value)*/
                     }
+                    this.selectedDepartmentObj.push(user.docDepartmentId);
+                    console.log( 'depart doc'+this.selectedDepartmentObj +'deprt id '+ user.docDepartmentId)
                     this.staffBranches = user.staffBranches;
                     this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
                //   this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
@@ -491,11 +510,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     }
 
     selectDoctorDepartment(deptIdObj: any) {
-        /*console.log("Doc Dept:"+itemId);
-        if (itemId) {
-            this.selectedDepartment[0] = itemId;
-        }
-*/
         let deptId = deptIdObj.value;
         if (deptId) {
             this.selectedDepartment[0] = deptId;
@@ -666,7 +680,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         }
         this.visitingBranches = this.branchesList;
         this.visitingBranches = this.visitingBranches.filter(br=> br.id != event.target.value);
-
 
         /*if (value === undefined) {
             console.log('i am esss');

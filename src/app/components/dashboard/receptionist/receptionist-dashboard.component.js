@@ -32,6 +32,12 @@ var ReceptionistDashboardComponent = (function () {
         this.doctorsList = [];
         this.checkInTest = false;
         this.dashboardListModified = [];
+        this.loading = false;
+        this.allRooms = [];
+        this.showRoom = false;
+        this.showRoomBtn = 'Show';
+        this.showRoomDrop = false;
+        this.roomSelected = [];
         this.showDashboard();
     }
     ;
@@ -41,6 +47,7 @@ var ReceptionistDashboardComponent = (function () {
     };
     ReceptionistDashboardComponent.prototype.showDashboard = function () {
         var _this = this;
+        this.loading = true;
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_DASHBOARD_URL)
             .subscribe(function (response) {
             if (response['responseCode'] === 'DASHBOARD_SUC_01') {
@@ -48,9 +55,11 @@ var ReceptionistDashboardComponent = (function () {
                 var dashboardListTemp = response['responseData'];
                 _this.dashboardList = dashboardListTemp.filter(function (x) { return x.status == "CHECK_IN" || x.status == "CONFIRMED" || x.NOT_CONFIRMED == "NOT_CONFIRMED"; });
                 _this.dashboardListModified = _this.dashboardList;
+                _this.loading = false;
             }
         }, function (error) {
             _this.error = error.error.error;
+            _this.loading = false;
         });
     };
     ReceptionistDashboardComponent.prototype.getBranchesFromServer = function () {
@@ -126,16 +135,16 @@ var ReceptionistDashboardComponent = (function () {
                 });
             }
         });
-        if (statusValue === 'CHECK_IN') {
-            this.requestService.getRequest(app_constants_1.AppConstants.INVOICE_CHECK_IN + pmID)
-                .subscribe(function (res) {
-                if (res['responseCode'] === "INVOICE_ERR_01") {
-                    _this.snackBar.open('Error', "Invoice Not Generated", { duration: 3000 });
-                }
-            }, function (error) {
-                _this.error = error.error.error;
-            });
-        }
+        /*if(statusValue === 'CHECK_IN'){
+            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
+                .subscribe((res: Response) => {
+                    if (res['responseCode'] === "INVOICE_ERR_01") {
+                        this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
+                    }
+                }, (error: any) => {
+                    this.error = error.error.error;
+                });
+        }*/
     };
     ReceptionistDashboardComponent.prototype.patientHistory = function (id) {
         this.dataService.getPatientId(id);
@@ -143,6 +152,47 @@ var ReceptionistDashboardComponent = (function () {
     };
     ReceptionistDashboardComponent.prototype.updateAppointmentData = function (id) {
         this.router.navigate(['/dashboard/patient/invoice', id]);
+    };
+    ReceptionistDashboardComponent.prototype.showRoomWithBranch = function (bId, roomIdd) {
+        var _this = this;
+        this.showRoom = !this.showRoom;
+        this.showRoomDrop = this.showRoom;
+        this.allRooms.length = 0;
+        // this.roomSelected.length =0;
+        var roomList = [];
+        var roomFiltered = this.branches.filter(function (x) { return x.id == bId; });
+        //  this.roomSelected.push(roomIdd)
+        roomFiltered.forEach(function (x) {
+            x.examRooms.forEach(function (y) {
+                var roomObj = new RoomFilter(y.label, y.value);
+                _this.allRooms.push(roomObj);
+            });
+        });
+        if (this.showRoom) {
+            this.showRoomBtn = 'HIDE';
+            // this.showRoomDrop = true;
+        }
+        else {
+            this.showRoomBtn = 'SHOW';
+        }
+    };
+    ReceptionistDashboardComponent.prototype.getExamRoom = function (roomId, apptId) {
+        var _this = this;
+        this.confirmationDialogService
+            .confirm('Update Room', 'Are you sure ?')
+            .subscribe(function (res) {
+            if (res == true) {
+                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.UPDATE_APPOINTMENT_ROOM + apptId, roomId)
+                    .subscribe(function (res) {
+                    if (res['responseCode'] === "APPT_SUC_03") {
+                        //  this.roomSelected.push(roomId);
+                        _this.snackBar.open('Status Updated', "Room has been changed", { duration: 3000 });
+                    }
+                }, function (error) {
+                    _this.error = error.error.error;
+                });
+            }
+        });
     };
     ReceptionistDashboardComponent = __decorate([
         core_1.Component({
@@ -160,4 +210,13 @@ var ReceptionistDashboardComponent = (function () {
     return ReceptionistDashboardComponent;
 }());
 exports.ReceptionistDashboardComponent = ReceptionistDashboardComponent;
+var RoomFilter = (function () {
+    function RoomFilter(label, value) {
+        this.label = label;
+        this.value = value;
+        this.branchName = label;
+        this.id = value;
+    }
+    return RoomFilter;
+}());
 //# sourceMappingURL=receptionist-dashboard.component.js.map

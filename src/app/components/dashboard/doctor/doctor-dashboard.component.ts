@@ -9,9 +9,6 @@ import {NotificationService} from "../../../services/notification.service";
 import {MatSnackBar} from "@angular/material";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {DataService} from "../../../services/DataService";
-import {BsModalRef} from "ngx-bootstrap";
-import { BsModalService } from 'ngx-bootstrap/modal';
-
 
 @Component({
     selector: 'doctor-dashboard-component',
@@ -28,11 +25,10 @@ export class DoctorDashboardComponent {
     dashboardListModified: any[] = [];
     public loading = false;
     roomId: number;
-    allRooms :RoomFilter[] = [];
+    allRooms:RoomFilter[] = [];
     showRoom :boolean =false;
     showRoomBtn:any = 'Show';
     showRoomDrop :boolean =false;
-    modalRef: BsModalRef;
     roomSelected : any[] = [];
     constructor(private requestService: RequestsService,
                 private router: Router,
@@ -41,7 +37,7 @@ export class DoctorDashboardComponent {
                 private confirmationDialogService: ConformationDialogService,
                 private  dataService:DataService,
                 private titleService: Title,
-                private modalService: BsModalService) {
+                ) {
         this.showDashboard();
 
     };
@@ -206,16 +202,17 @@ export class DoctorDashboardComponent {
     }
 
 }
-
-class RoomFilter {
+class RoomFilter{
     label : string;
     value : number;
     id:number;
     branchName:string;
-    constructor(label :string,value: number){
+    constructor(label ?:string,value?: number){
         this.label = label;
         this.value = value;
         this.branchName=label;
         this.id=value;
     }
 }
+
+

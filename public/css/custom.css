@@ -545,7 +545,7 @@ textarea {
     float:left;
 }
 .headng-bck{
-    /*background:#428bca;*/
+    background:#428bca !important;
     padding:6px;
     float: left;
     width: 100%;

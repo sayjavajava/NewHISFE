@@ -13,6 +13,7 @@ export class MenuComponent implements OnInit{
     userPermissions: any[];
     showMenuBar: boolean = false;
     items:items[] =[];
+    collapseMenu : boolean =true;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private titleService: Title) {
@@ -59,6 +60,10 @@ export class MenuComponent implements OnInit{
         let userType: string = atob(localStorage.getItem(btoa('user_type')))
         if(userType === 'admin' || userType==='manager')
             this.showMenuBar = true;
+    }
+    changeMenu(){
+       // console.log('Change menu');
+        this.collapseMenu = !this.collapseMenu;
     }
 }
 

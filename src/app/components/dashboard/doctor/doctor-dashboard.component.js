@@ -19,9 +19,8 @@ var notification_service_1 = require("../../../services/notification.service");
 var material_1 = require("@angular/material");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var DataService_1 = require("../../../services/DataService");
-var modal_1 = require("ngx-bootstrap/modal");
 var DoctorDashboardComponent = (function () {
-    function DoctorDashboardComponent(requestService, router, snackBar, notificationService, confirmationDialogService, dataService, titleService, modalService) {
+    function DoctorDashboardComponent(requestService, router, snackBar, notificationService, confirmationDialogService, dataService, titleService) {
         this.requestService = requestService;
         this.router = router;
         this.snackBar = snackBar;
@@ -29,7 +28,6 @@ var DoctorDashboardComponent = (function () {
         this.confirmationDialogService = confirmationDialogService;
         this.dataService = dataService;
         this.titleService = titleService;
-        this.modalService = modalService;
         this.title = 'Doctor Dashboard';
         this.dashboardList = [];
         this.branches = [];
@@ -197,8 +195,7 @@ var DoctorDashboardComponent = (function () {
             notification_service_1.NotificationService,
             ConformationDialogService_1.ConformationDialogService,
             DataService_1.DataService,
-            platform_browser_1.Title,
-            modal_1.BsModalService])
+            platform_browser_1.Title])
     ], DoctorDashboardComponent);
     return DoctorDashboardComponent;
 }());
