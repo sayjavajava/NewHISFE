@@ -168,8 +168,7 @@ import {PatientImageComponent} from "./components/dashboard/setting/PatientImage
 import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";
 
 import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
-
-
+import {GalleriaModule} from 'primeng/components/galleria/galleria';
 
 @NgModule({
     providers: [
@@ -238,6 +237,7 @@ import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patie
         CKEditorModule,
         ChartModule,
         FileUploadModule,
+        GalleriaModule
     ],
     declarations: [
         // App Components
