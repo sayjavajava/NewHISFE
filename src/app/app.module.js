@@ -150,6 +150,7 @@ var PatientImageComponent_1 = require("./components/dashboard/setting/PatientIma
 /*import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";*/
 var PatientImageOrderComponent_1 = require("./components/dashboard/patient/PatientImageOrderComponent");
 var patient_history_vital_component_1 = require("./components/dashboard/patient/patient-history-vital.component");
+var doctor_payment_listing_component_1 = require("./components/dashboard/patient/doctor-payment-listing.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -246,6 +247,7 @@ var AppModule = (function () {
                 patient_component_1.PatientComponent,
                 edit_patient_component_1.EditPatientComponent,
                 patient_invoice_component_1.PatientInvoiceComponent,
+                doctor_payment_listing_component_1.DoctorPaymentListingComponent,
                 patient_history_component_1.PatientHistoryComponent,
                 patient_demographic_component_1.PatientDemographicComponent,
                 patient_appointment_component_1.PatientAppointmentComponent,

@@ -168,6 +168,7 @@ import {PatientImageComponent} from "./components/dashboard/setting/PatientImage
 import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";
 
 import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
+import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
 
 
 
@@ -262,6 +263,8 @@ import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patie
         PatientComponent,
         EditPatientComponent,
         PatientInvoiceComponent,
+
+        DoctorPaymentListingComponent,
 
         PatientHistoryComponent,
         PatientDemographicComponent,
