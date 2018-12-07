@@ -5,7 +5,7 @@ import {RequestsService} from '../../../services/requests.service';
 import {UserSharedService} from '../../../services/user.shared.service';
 import {AppConstants} from '../../../utils/app.constants';
 import {NotificationService} from '../../../services/notification.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {DrugModel} from '../../../model/drug.model';
 import {SelectItem} from "primeng/api";
 
@@ -24,7 +24,8 @@ export class DrugComponent implements OnInit {
     cols: any[];
     selectedCountry: SelectItem[] = [];
     countryListModified: SelectItem[] = [];
-    countryLst:any=[];
+    countryLst: any = [];
+    drugDataImport: File = null;
 
     /*searchDepart: string;
      searched: boolean = false;*/
@@ -38,7 +39,8 @@ export class DrugComponent implements OnInit {
 
     ngOnInit() {
         if (window.localStorage.getItem(btoa('access_token'))) {
-            this.getPageWiseDrugFromServer(0);
+            // this.getPageWiseDrugFromServer(0);
+            this.getAllDrugsFromServer();
         } else {
             this.router.navigate(['/login']);
         }
@@ -117,6 +119,23 @@ export class DrugComponent implements OnInit {
             );
     }
 
+    getAllDrugsFromServer() {
+        this.requestsService.getRequest(AppConstants.DRUG_FETCH_ALL_PAGINATED_URI + "all")
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'DRUG_SUC_10') {
+                        this.data = response['responseData']['data'];
+                        console.log(this.data);
+
+                    }
+                },
+                (error: any) => {
+                    //console.log(error.json())
+                    this.notificationService.error(error.error.error);
+                }
+            );
+    }
+
     deleteDrug(drugId: number) {
         if (window.localStorage.getItem(btoa('access_token'))) {
             if (!confirm('Are Your Source You Want To Delete')) return;
@@ -126,9 +145,11 @@ export class DrugComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'DRUG_SUC_6') {
                             this.notificationService.success(response['responseMessage'], 'Drug');
-                            this.getPageWiseDrugFromServer(0);
+                            // this.getPageWiseDrugFromServer(0);
+                            this.getAllDrugsFromServer();
                         } else {
-                            this.getPageWiseDrugFromServer(0);
+                            // this.getPageWiseDrugFromServer(0);
+                            this.getAllDrugsFromServer();
                             this.notificationService.error(response['responseMessage'], 'Drug');
                         }
                     },
@@ -234,7 +255,8 @@ export class DrugComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'DRUG_SUC_1') {
                         this.notificationService.success(response['responseMessage'], 'Drug');
-                        this.getPageWiseDrugFromServer(0);
+                        // this.getPageWiseDrugFromServer(0);
+                        this.getAllDrugsFromServer();
                         this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Drug');
@@ -297,7 +319,8 @@ export class DrugComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'DRUG_SUC_11') {
                         this.notificationService.success(response['responseMessage'], 'Drug');
-                        this.getPageWiseDrugFromServer(0);
+                        // this.getPageWiseDrugFromServer(0);
+                        this.getAllDrugsFromServer();
                         this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Drug');
@@ -347,5 +370,36 @@ export class DrugComponent implements OnInit {
             (error: any) => {
                 this.notificationService.error(error.error.error);
             };
+    }
+
+    importData(event: any) {
+        console.log(event);
+        console.log("Data import method is called");
+        let fileList: FileList = event.target.files;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === 'drugsDataImport') {
+                if (fileList[0].size > 0 && fileList[0].size < 4000000) {         // if (fileList[0].size < 4000000) {
+                    this.drugDataImport = fileList[0];
+                    this.requestsService.postRequestMultipartForm(AppConstants.IMPORT_DRUGS_LIST_TO_SERVER, this.drugDataImport)
+                        .subscribe(
+                            (response: Response) => {
+                                if (response['responseCode'] === 'SUCCESS') {
+                                    this.notificationService.success(response['responseMessage'], 'Drug');
+                                    // this.getPageWiseDrugFromServer(0);
+                                    this.getAllDrugsFromServer();
+                                } else {
+                                    this.notificationService.error(response['responseMessage'], 'Drug');
+                                }
+                            }, (error: any) => {
+                                //console.log(error.json())
+                                this.HISUtilService.tokenExpired(error.error.error);
+                                this.notificationService.error(error.error.responseMessage, 'Drug');
+                            }
+                        );
+                } else {
+                    this.notificationService.warn('File size must be more than 0 byte and less than 4 MB');
+                }
+            }
+        }
     }
 }

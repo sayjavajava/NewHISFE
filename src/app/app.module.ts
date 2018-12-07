@@ -162,10 +162,9 @@ import {InvoiceListingComponent} from "./components/dashboard/patient/invoice-li
 import {ReceiptListingComponent} from "./components/dashboard/patient/receipt-listing.component";
 import {RefundListingComponent} from "./components/dashboard/patient/refund-listing.component";
 import {PatientInvoiceListComponent} from "./components/dashboard/patient/patient-invoice-list.component";
-/*import {PatientImageComponent} from "./components/dashboard/setting/PatientImageComponent";
-import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";*/
+import {PatientImageComponent} from "./components/dashboard/setting/PatientImageComponent";
+import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";
 import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
-
 
 
 @NgModule({
@@ -345,8 +344,8 @@ import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patie
         RefundListingComponent,
         PatientInvoiceListComponent,
         CurrencyComponent,
-        /*PatientImageComponent,
-        PatientImageOrderComponent,*/
+        PatientImageComponent,
+        PatientImageOrderComponent,
         PatientHistoryVitalComponent
     ],
     bootstrap: [AppComponent]
