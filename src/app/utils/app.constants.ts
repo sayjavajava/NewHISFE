@@ -298,6 +298,10 @@ export class AppConstants {
 
 
 
+    public static SAVE_DOCTOR_PAYMENT = '/doctorPayment/save';
+    public static GET_DOCTOR_PAYMENT_List = '/doctorPayment/getPaymentList';
+
+    public static GET_DOCTOR_List = '/doctorPayment/role';
 
     ////////////////Country/////////////////////////////
     public static GET_ALL_COUNTRY = '/CountryAPI/';
@@ -343,5 +347,7 @@ export class AppConstants {
     public static DELETE_PATIENT_IMAGE_DELETE = '/patient/Imageorder/delete/';
     public static UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
     public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
+    public static FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
+    /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*//*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
     public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
 }

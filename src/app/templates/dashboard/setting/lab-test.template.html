@@ -135,20 +135,16 @@
                             </div>
 
                             <div class="form-group hr">
-
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name
-                                    <span class="required" aria-required="true"> * </span>
-                                </label>
-
-                                <div class="col-md-9 select pdng-lr-5">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text" required name="testName" id="testName" class="form-control"
-                                           placeholder="Enter Test Name"
-                                           [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
+                                <div class="col-md-9 select pdng-lr-5 txt-size pdng-lr-5">
+                                    <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                        <input type="text" required name="testName" id="testName" class="form-control"
+                                               placeholder="Enter Test Name"
+                                               [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
+                                    </div>
+                                    <span *ngIf="testName.invalid && testName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter valid test name.</span>
                                 </div>
-                                <span *ngIf="testName.invalid && testName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter valid test name.</span>
                             </div>
 
                             <div class="form-group hr">
