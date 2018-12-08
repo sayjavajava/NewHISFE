@@ -12,6 +12,7 @@ export class PatientImageOrderModel {
     doctorComment:string;
     status: string = "ACTIVE";
     patientImageId:string;
+    orderObj:any;
 
 
     constructor() {
