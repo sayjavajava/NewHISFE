@@ -1,7 +1,7 @@
 "use strict";
 /* Deployment Profiles */
-/* Local Or Default */
 Object.defineProperty(exports, "__esModule", { value: true });
+/* Local Or Default */
 var AppConfig = (function () {
     function AppConfig() {
     }

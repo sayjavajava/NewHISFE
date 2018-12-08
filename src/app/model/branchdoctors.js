@@ -1,11 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var BranchDoctors = (function () {
-    function BranchDoctors(id, lastName) {
+    function BranchDoctors(id, branchName) {
         this.id = id;
-        // this.branchName =branchName;
-        this.label = lastName;
-        this.lastName = lastName;
+        this.branchName = branchName;
     }
     return BranchDoctors;
 }());

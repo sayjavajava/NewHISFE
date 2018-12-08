@@ -50,7 +50,6 @@ var PatientDemographicComponent = (function () {
         this.selectedState = '';
         this.citiesListModified = [];
         this.selectedCity = '';
-        this.patientGroupListModified = [];
         angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
             this.settings = Object.assign(this.defaultSettings, this.settings);
             if (this.settings.defaultOpen) {
@@ -121,7 +120,15 @@ var PatientDemographicComponent = (function () {
             ];
         });
         this.createCountriesList();
-        this.createPatientGroupList();
+        if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
+            this.patient.dob = new Date().toDateString();
+        }
+        if (this.patient.cardIssuedDate == undefined || this.patient.cardIssuedDate == null || this.patient.cardIssuedDate.toString().trim() == "") {
+            this.patient.cardIssuedDate = new Date().toDateString();
+        }
+        if (this.patient.cardExpiryDate == undefined || this.patient.cardExpiryDate == null || this.patient.cardExpiryDate.toString().trim() == "") {
+            this.patient.cardExpiryDate = new Date().toDateString();
+        }
     };
     PatientDemographicComponent.prototype.isValidPatientId = function () {
         if (this.id <= 0) {
@@ -438,22 +445,6 @@ var PatientDemographicComponent = (function () {
             }
         }, function (error) {
             this.notificationService.error("ERROR", "Cities List is not available");
-        });
-    };
-    PatientDemographicComponent.prototype.createPatientGroupList = function () {
-        var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_GROUP_GET_ALL)
-            .subscribe(function (response) {
-            if (response["responseCode"] === "PATGRP_SUC_6") {
-                _this.patientGroupList = response["responseData"].data;
-                for (var _i = 0, _a = _this.patientGroupList; _i < _a.length; _i++) {
-                    var patientGroup = _a[_i];
-                    var pair = { label: patientGroup.name, value: patientGroup.id };
-                    _this.patientGroupListModified.push(pair);
-                }
-            }
-        }, function (error) {
-            this.notificationService.error("ERROR", "Patient Groups List is not available");
         });
     };
     PatientDemographicComponent = __decorate([

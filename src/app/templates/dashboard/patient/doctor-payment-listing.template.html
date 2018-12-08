@@ -1,0 +1,167 @@
+<div class="page-container">
+    <div class="page-content-wrapper">
+
+        <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="hr">
+                        <h3 class="text-info">Doctor Payment Listing
+                            <div class="pull-right">
+                                <a href="#responsive" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow">
+                                        <i class="fa fa-plus"></i> Add
+                                    </button>
+                                </a>
+                            </div>
+
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-scrollable tbl-brdr-radus">
+                        <p-table #dt [columns]="cols" [value]="paymentList" [paginator]="true" [rows]="10">
+                            <ng-template sortable="true" pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                                        {{col.header}}
+                                        <p-sortIcon [field]="col.field"
+                                                    ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order">
+                                        </p-sortIcon>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                        <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-paymentList let-sNo="rowIndex">
+                                <tr>
+                                    <!--<td field="serialNo">{{sNo+1}}</td>-->
+                                    <td field="paymentId"> {{paymentList.paymentId}} </td>
+                                    <td field="patientName">  </td>
+                                    <td field="doctorName"> {{paymentList.doctorName}} </td>
+                                    <td field="paymentTypeTitle"> {{paymentList.paymentTypeTitle}} </td>
+                                    <td field="amount"> {{paymentList.amount}} </td>
+                                   <!-- <td field="paymentType">  </td>-->
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog receipt-modal">
+                    <form id="loginForm" class="login-form" #form="ngForm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Add Payment</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group hr">
+                                           <label class="col-md-3 control-label txt-size pdng-lr-5">Payment Id <span class="required" aria-required="true"> * </span></label>
+                                             <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                                <input class="form-control" type="text"
+                                                   name="paymentId"
+                                                   required
+                                                   [(ngModel)]="doctorPayment.paymentId"
+                                                   #paymentId="ngModel"/>
+                                        </div>
+                                        </div>
+                                        <div class="form-group hr">
+                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Entry Date <span class="required" aria-required="true"> * </span></label>
+                                            <div class="col-md-9 select pdng-lr-5">
+                                                <angular2-date-picker
+                                                        name="date"
+                                                        id="date"
+                                                        [settings]="settings"
+                                                        [(ngModel)]="doctorPayment.date"
+                                                        [ngModelOptions]="{standalone:true}">
+                                                </angular2-date-picker>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group hr">
+                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Current Balance <span class="required" aria-required="true"> * </span></label>
+                                            <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                                <input class="form-control"
+                                                       type="text"
+                                                       name="currentBalance"
+                                                       disabled
+                                                       [(ngModel)]="selectedDoctorBalance"
+                                                       />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group hr">
+                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Payment Type <span class="required" aria-required="true"> * </span></label>
+                                            <div class="col-md-9 pdng-lr-5">
+                                                 <p-dropdown [options]="paymentTypeList"
+                                                             [(ngModel)]="selectedPaymentType"
+                                                             optionLabel="paymentTitle"
+                                                             name="paymentTitle"
+                                                             (onChange) = "getSelectedPaymentType(selectedPaymentType)"
+                                                             [filter]="true">
+                                                 </p-dropdown>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group hr">
+                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Doctor Name <span class="required" aria-required="true"> * </span></label>
+                                            <div class="col-md-9 select pdng-lr-5">
+                                                <p-dropdown [(ngModel)]="selectedDoctor"
+                                                            placeholder="Select Doctor"
+                                                            [options]="doctorsList"
+                                                            optionLabel="firstName"
+                                                            name="doctor"
+                                                            [filter]="true"
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            (onChange) = "getSelectedDoctor(selectedDoctor)"
+                                                            >
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group hr">
+                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
+                                            <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                                <input class="form-control"
+                                                       type="text"
+                                                       name="amount"
+                                                       placeholder="enter advance amount"
+                                                       required
+                                                       [(ngModel)]="doctorPayment.amount"
+                                                       #amount="ngModel"/>
+                                                <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+                                            </div>
+                                            <span *ngIf="amount.invalid && amount.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter valid amount.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline"> Close </button>
+                                <button type="button" class="btn blue" (click)="saveDoctorPayment(form)"> Save  </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

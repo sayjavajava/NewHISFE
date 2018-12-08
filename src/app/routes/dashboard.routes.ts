@@ -18,6 +18,7 @@ import {PatientInvoiceComponent} from "../components/dashboard/patient/patient-i
 import {InvoiceListingComponent} from "../components/dashboard/patient/invoice-listing.component";
 import {ReceiptListingComponent} from "../components/dashboard/patient/receipt-listing.component";
 import {RefundListingComponent} from "../components/dashboard/patient/refund-listing.component";
+import {DoctorPaymentListingComponent} from "../components/dashboard/patient/doctor-payment-listing.component";
 
 
 export const DashboardRoutes: Routes = [      
@@ -30,6 +31,9 @@ export const DashboardRoutes: Routes = [
     {path: 'invoice', component: PatientInvoiceComponent },
     {path: 'invoice-listing', component: InvoiceListingComponent },
     {path: 'receipt-listing', component: ReceiptListingComponent },
+
+    {path: 'doc-payment-listing', component: DoctorPaymentListingComponent },
+
     {path: 'refund', component: RefundListingComponent },
 
     {path: 'nurse', component: NurseDashboardComponent},

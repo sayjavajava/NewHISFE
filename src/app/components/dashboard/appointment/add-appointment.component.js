@@ -26,7 +26,6 @@ var branch_1 = require("../../../model/branch");
 var his_util_service_1 = require("../../../services/his-util.service");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
 var angular2_datetimepicker_1 = require("angular2-datetimepicker");
-var util_1 = require("util");
 var AddAppointmentComponent = (function () {
     function AddAppointmentComponent(modal, dialog, fb, hisCoreUtilService, notificationService, router, requestsService, renderer) {
         var _this = this;
@@ -47,7 +46,6 @@ var AddAppointmentComponent = (function () {
         this.popup = false;
         this.page = 0;
         this.startDate = new Date(2018, 1, 1);
-        this.dateSchedule = new Date();
         this.view = 'month';
         this.newPatient = false;
         this.viewDate = new Date();
@@ -65,10 +63,6 @@ var AddAppointmentComponent = (function () {
         this.serviceDuration = 0;
         this.maxNo = false;
         this.amt = 0;
-        this.statusesList = [];
-        this.isRecurringFlag = false;
-        this.lastAppointmentRecurring = new Date();
-        this.fastAppointmentRecurring = new Date();
         this.stateOfPatientBox = false;
         this.status = [
             { id: 1, name: 'CONFIRMED' },
@@ -130,16 +124,11 @@ var AddAppointmentComponent = (function () {
                 this.popover = true;
             }
             this.settings.timePicker = true;
-            // this.settings.format = 'dd-MM-yyyy'
             this.date = new Date();
         };
     }
     AddAppointmentComponent.prototype.ngAfterViewInit = function () {
-        this.getAllAppointments();
-    };
-    AddAppointmentComponent.prototype.getAllAppointments = function () {
         var _this = this;
-        this.events.length = 0;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_URL)
             .subscribe(function (response) {
             console.log('making border...');
@@ -149,51 +138,23 @@ var AddAppointmentComponent = (function () {
                     _this.events.push({
                         id: apt.id,
                         /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
-                        title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/ '        <div class="headng-bck">\n' + apt.scheduleDateAndTime + '<br/>' +
+                        title: '<div  class="outr-div popup-hiden">\n' +
+                            '        <div class="headng-bck">\n' +
                             '\n' +
-                            /*'            <div class="hadng-txt">\n' +
-                            '                <h2>apt.scheduleDateAndTime</h2>\n' +
-                            '                <p>apt.branchName</p>\n' +
-                            '            </div>\n' +*/
-                            /* '        </div> ' +*/
+                            '            <div class="hadng-txt">\n' +
+                            '                <h2>Chrissy Bright</h2>\n' +
+                            '                <p>Female - 09/10/1971</p>\n' +
+                            '            </div>\n' +
+                            '        </div> ' +
                             '</div>' +
-                            '            <div class="">\n' +
-                            '                <table width="182" border="0">\n' +
-                            '\n' +
-                            '            <tr class="gry-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Branch</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.branchName + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Patient Name</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.patient + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Duration</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.duration + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Doctor</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.docFirstName + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Service</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.serviceName + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Room</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.examName + '</td>\n' +
-                            '                </tr>\n' +
-                            '            </table>\n' +
-                            '                \n' +
-                            '            </div>\n',
-                        /*   '<br/>' + '' + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,*/
+                            '<br/>' + '' + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,
+                        /*title:    ` ${apt.id} , ${apt.scheduleDate} <br/>,${apt.branchName}` ,*/
                         start: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                         end: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
-                        /*color: {
+                        color: {
                             primary: apt.color,
                             secondary: apt.color
-                        },*/
+                        },
                         colorHash: apt.color,
                         draggable: true,
                         notes: apt.notes,
@@ -206,7 +167,7 @@ var AddAppointmentComponent = (function () {
                         //cellPhone:apt.patient.profile.cellPhone,
                         //selectWorkingDays:this.selectedRecurringDays,
                         appointmentType: apt.appointmentType,
-                        followUpDate: apt.followUpDateResponse,
+                        followUpDate: new Date(apt.followUpDate),
                         followUpReason: apt.followUpReason,
                         recurseEvery: apt.recurseEvery,
                         neverEnds: false,
@@ -222,8 +183,6 @@ var AddAppointmentComponent = (function () {
                         doctorId: apt.doctorId,
                         serviceId: apt.serviceId,
                         patientId: apt.patientId,
-                        appointmentId: apt.appointmentId,
-                        statusId: apt.statusId
                     });
                     _this.refresh.next();
                 }
@@ -234,7 +193,109 @@ var AddAppointmentComponent = (function () {
         });
     };
     AddAppointmentComponent.prototype.ngOnInit = function () {
-        this.allStatusesOfOrganization();
+        var startTime = new Date('August 8 2018 08:20');
+        var endTime = new Date('August 8 2018 08:25');
+        this.renderer.setProperty(this.nameInputRef.nativeElement, 'innerHTML', 'waqas');
+        /*        this.requestsService.getRequest(
+                    AppConstants.FETCH_APPOINTMENTS_URL)
+                    .subscribe(
+                        (response: Response) => {
+                            console.log('making border...');
+                            if (response['responseCode'] === 'APPT_SUC_01') {
+                                for (let apt of response['responseData']) {
+                                    this.events.push({
+                                        id: apt.id,
+                                        /!* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*!/
+                                      /!*  title: apt.patient + '<br/>' + " " + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,*!/
+                                       title:`<div class="outr-div" style="margin-left: 0px !important;">
+            <div class="headng-bck">
+                <div class="hadng-img">
+                    <img src="patient.jpg" />
+                </div>
+                    <div class="hadng-txt">
+                        <h2>Chrissy Bright</h2>
+                        <p>Female - 09/10/1971</p>
+                    </div>
+            </div>
+            <div class="">
+                <table width="212" border="0">
+          <tr class="gry-bckgrnd inr-txt">
+            <td style="width:30%">Provider</td>
+            <td style="width:50%">Waqas Kamran</td>
+          </tr>
+          <tr class="whte-bckgrnd inr-txt">
+            <td style="width:30%">Patient's Provider</td>
+            <td style="width:50%">Waqas Kamran</td>
+          </tr>
+          <tr class="gry-bckgrnd inr-txt">
+            <td style="width:30%">Location</td>
+            <td style="width:50%">Exam 1</td>
+          </tr>
+          <tr class="whte-bckgrnd inr-txt">
+            <td style="width:30%">Time</td>
+            <td style="width:50%">09:00 AM for 30 minutes</td>
+          </tr>
+          <tr class="gry-bckgrnd inr-txt">
+            <td style="width:30%">Date</td>
+            <td style="width:50%">Thursday July 19</td>
+          </tr>
+          <tr class="whte-bckgrnd inr-txt">
+            <td style="width:30%">Created</td>
+            <td style="width:50%">4:57:23 PM, 7/10/2018</td>
+          </tr>
+        </table>
+        
+            </div>
+        </div>`,
+        
+                                        start: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
+                                        end: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
+                                        color: {
+                                            primary: apt.color,
+                                            secondary: apt.color
+                                        },
+                                        colorHash: apt.color,
+                                        draggable: true,
+                                        notes: apt.notes,
+                                        // patientId: apt.patientId,
+                                        reason: apt.reason,
+                                        status: apt.status,
+                                        duration: apt.duration,
+                                        age: apt.age,
+                                        type: apt.appointmentType,
+                                        //cellPhone:apt.patient.profile.cellPhone,
+                                        //selectWorkingDays:this.selectedRecurringDays,
+                                        appointmentType: apt.appointmentType,
+                                        followUpDate: new Date(apt.followUpDate),
+                                        followUpReason: apt.followUpReason,
+                                        recurseEvery: apt.recurseEvery,
+                                        neverEnds: false,
+                                        followUpReminder: apt.followUpReminder,
+                                        arrangeFollowUpReminder: false,
+                                        firstAppointment: apt.firstAppointmentOn,
+                                        lastAppointment: apt.lastAppointmentOn,
+                                        recurringAppointment: false,
+                                        branch: apt.branchName,
+                                        examRoom: apt.examName,
+                                        branchId: apt.branchId,
+                                        roomId: apt.roomId,
+                                        doctorId: apt.doctorId,
+                                        serviceId: apt.serviceId,
+                                        patientId: apt.patientId,
+                                        appointmentId :apt.appointmentId
+        
+        
+                                    });
+                                    this.refresh.next();
+                                }
+        
+                            }
+        
+                        },
+                        (error: any) => {
+                            //  this.hisUtilService.tokenExpired(error.error.error);
+                        }
+                    );*/
     };
     Object.defineProperty(AddAppointmentComponent.prototype, "selectedOptions", {
         get: function () {
@@ -298,7 +359,6 @@ var AddAppointmentComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branches = response['responseData'];
-                console.log('branches first' + _this.branches[0].label);
             }
         }, function (error) {
         });
@@ -339,19 +399,6 @@ var AddAppointmentComponent = (function () {
             //console.log('i am branch call');
             if (response['responseCode'] === 'MED_SER_SUC_01') {
                 _this.servicesListWithDoctors = response['responseData'];
-                //console.log(this.servicesList);
-            }
-        }, function (error) {
-            _this.error = error.error.error;
-        });
-    };
-    AddAppointmentComponent.prototype.allStatusesOfOrganization = function () {
-        var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_STATUSES)
-            .subscribe(function (response) {
-            //console.log('i am branch call');
-            if (response['responseCode'] === 'STATUS_SUC_05') {
-                _this.statusesList = response['responseData'];
                 //console.log(this.servicesList);
             }
         }, function (error) {
@@ -450,11 +497,11 @@ var AddAppointmentComponent = (function () {
         });
         this.refresh.next();
     };
-    AddAppointmentComponent.prototype.getSearchedBranch = function (brObj) {
-        this.searchedBranch = brObj.value;
+    AddAppointmentComponent.prototype.getSearchedBranch = function (value) {
+        this.searchedBranch = value;
     };
-    AddAppointmentComponent.prototype.getSearchedDoctor = function (docObj) {
-        this.searchedDoctor = docObj.value;
+    AddAppointmentComponent.prototype.getSearchedDoctor = function (value) {
+        this.searchedDoctor = value;
     };
     AddAppointmentComponent.prototype.searchAppointment = function () {
         var _this = this;
@@ -527,41 +574,30 @@ var AddAppointmentComponent = (function () {
     AddAppointmentComponent.prototype.findIndexToUpdate = function (type) {
         return type.name === this;
     };
-    AddAppointmentComponent.prototype.getExamRoom = function (eventObj) {
+    AddAppointmentComponent.prototype.getExamRoom = function (event) {
+        var roomId;
         this.disbaleDoctor = false;
-        console.log('br objj' + eventObj.value);
-        /*  var sp = event.split(': ');
-          if (sp.length > 1)
-              roomId = sp[1];
-          else
-              roomId = sp[0];*/
-        var roomId = eventObj.value;
+        var sp = event.split(': ');
+        if (sp.length > 1)
+            roomId = sp[1];
+        else
+            roomId = sp[0];
         var filteredData2 = this.branchDoctor.filter(function (x) { return x.id == roomId; });
         var filterDoctor = this.branchDoctor.filter(function (x) { return x.id == roomId; });
-        if (filteredData2.length != 0) {
-            this.examRooms = filteredData2[0].examRooms;
-        }
-        var filteredDoctorsWithValue = [];
-        var branchDocobj2 = null;
+        this.examRooms = filteredData2[0].examRooms;
         filterDoctor.forEach(function (x) {
-            branchDocobj2 = new DoctorService(x.firstName + x.lastName, x.doctorId);
-            filteredDoctorsWithValue.push(branchDocobj2);
+            x.doctorId;
+            console.log('doctors', x.doctorId + x.lastName);
         });
-        //  filteredDoctorsWithValue.forEach(x=>{console.log('xv' , x.label , x.value)})
-        this.filteredDoctor = filteredDoctorsWithValue.slice();
+        this.filteredDoctor = filterDoctor.slice();
     };
     AddAppointmentComponent.prototype.selectServices = function (item) {
-        var list = this.servicesListWithDoctors.filter(function (x) { return x.doctorId == item.value; });
+        var list = this.servicesListWithDoctors.filter(function (x) { return x.doctorId == item; });
         this.filteredServices = list.slice();
-    };
-    AddAppointmentComponent.prototype.isRecurring = function () {
-        this.isRecurringFlag = !this.isRecurringFlag;
     };
     AddAppointmentComponent.prototype.saveAppointment = function (event, form) {
         var _this = this;
         var self = this;
-        var dateTes = convert(this.dateSchedule);
-        console.log('appt schedulae date ' + event.firstAppointment);
         this.Type.map(function (x) { return x.checked = false; });
         if (form.valid) {
             if (this.selectedType.length == 0) {
@@ -578,14 +614,13 @@ var AddAppointmentComponent = (function () {
                 self.notificationService.error('Patient Name and Cell Phone are mandatory', 'Invalid Form');
             }
             if (this.eventsRequest.length != 0) {
-                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, this.serviceDuration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox, this.dateSchedule);
+                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, this.serviceDuration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox);
                 this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'APPT_SUC_02') {
                         self.notificationService.success('created successfully', 'Appointment');
                         self.router.navigate(['/dashboard/appointment/manage']);
                         _this.eventsRequest.length = 0;
-                        _this.selectedType.length = 0;
                         _this.hisCoreUtilService.hidePopupWithCloseButtonId('closeAppt');
                         /*  $('#exampleModalCenter2').modal('close');*/
                     }
@@ -593,7 +628,6 @@ var AddAppointmentComponent = (function () {
                         _this.eventsRequest.length = 0;
                         _this.selectedType.length = 0;
                         self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
-                        _this.hisCoreUtilService.hidePopupWithCloseButtonId('closeAppt');
                     }
                     else {
                         _this.eventsRequest.length = 0;
@@ -613,9 +647,8 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.updateAppointment = function (event) {
         var self = this;
-        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
+        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.status, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
         this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_APPOINTMENT + event.id, obj).subscribe(function (response) {
-            console.log('event idd appt:' + event.appointmentId);
             if (response['responseCode'] === 'APPT_SUC_03') {
                 self.notificationService.success('Updated successfully', 'Appointment');
                 self.router.navigate(['/dashboard/appointment/manage']);
@@ -627,16 +660,9 @@ var AddAppointmentComponent = (function () {
         });
     };
     AddAppointmentComponent.prototype.getSelectedService = function (item) {
-        var _this = this;
-        var list = this.servicesListWithDoctors.filter(function (x) { return x.mServiceId == item.value; });
-        list.forEach(function (x) {
-            console.log('services test' + x.doctorId + 'teta' + x.duration);
-            if (!util_1.isNullOrUndefined(x))
-                _this.serviceDuration = x.duration ? x.duration : '';
-        });
-    };
-    AddAppointmentComponent.prototype.refreshAllAppointments = function () {
-        this.getAllAppointments();
+        var list = this.servicesListWithDoctors.filter(function (x) { return x.mServiceId == item; });
+        if (list[0].duration != null)
+            this.serviceDuration = list[0].duration;
     };
     __decorate([
         core_2.ViewChild('modalContent'),
@@ -646,6 +672,10 @@ var AddAppointmentComponent = (function () {
         core_2.ViewChild('addModal'),
         __metadata("design:type", ngx_bootstrap_1.ModalDirective)
     ], AddAppointmentComponent.prototype, "addModal", void 0);
+    __decorate([
+        core_2.ViewChild('tit'),
+        __metadata("design:type", core_1.ElementRef)
+    ], AddAppointmentComponent.prototype, "nameInputRef", void 0);
     AddAppointmentComponent = __decorate([
         core_1.Component({
             selector: 'add-appointment-component',
@@ -657,15 +687,4 @@ var AddAppointmentComponent = (function () {
     return AddAppointmentComponent;
 }());
 exports.AddAppointmentComponent = AddAppointmentComponent;
-var DoctorService = (function () {
-    function DoctorService(label, value) {
-        this.label = label;
-        this.value = value;
-    }
-    return DoctorService;
-}());
-function convert(str) {
-    var date = new Date(str), mnth = ("0" + (date.getMonth() + 1)).slice(-2), day = ("0" + date.getDate()).slice(-2);
-    return [date.getFullYear(), mnth, day].join("-");
-}
 //# sourceMappingURL=add-appointment.component.js.map

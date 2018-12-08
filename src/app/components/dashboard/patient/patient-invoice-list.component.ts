@@ -156,7 +156,7 @@ export class PatientInvoiceListComponent implements OnInit {
             paidAmt = this.patientInvoiceList[i].paidAmount;
             this.paidAmountTotal += paidAmt ;
 
-            refundedAmt = this.patientInvoiceList[i].paidAmount;
+            refundedAmt = this.patientInvoiceList[i].refundAmount;
             this.refundAmountTotal += refundedAmt ;
 
             dueAmount = this.patientInvoiceList[i].dueAmount - discountAmount - appliedAmt;

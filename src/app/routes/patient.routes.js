@@ -19,7 +19,6 @@ var patient_family_history_component_1 = require("../components/dashboard/patien
 var patient_add_lab_orders_component_1 = require("../components/dashboard/patient/patient-add-lab-orders.component");
 var patient_invoice_list_component_1 = require("../components/dashboard/patient/patient-invoice-list.component");
 /*import {PatientImageOrderComponent} from "../components/dashboard/patient/PatientImageOrderComponent";*/
-var PatientImageOrderComponent_1 = require("../components/dashboard/patient/PatientImageOrderComponent");
 var patient_history_vital_component_1 = require("../components/dashboard/patient/patient-history-vital.component");
 exports.PatientRoutes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -45,8 +44,6 @@ exports.PatientRoutes = [
     { path: 'create-order/:id/add/:orderId/order', component: patient_add_lab_orders_component_1.PatientAddLabOrdersComponent },
     { path: 'communication', component: patient_communication_component_1.PatientCommunicationComponent },
     { path: 'family-history', component: patient_family_history_component_1.PatientFamilyHistoryComponent },
-    /*{path: 'image-order', component: PatientImageOrderComponent},*/
-    { path: 'image-order', component: PatientImageOrderComponent_1.PatientImageOrderComponent },
     { path: 'patient-vital', component: patient_history_vital_component_1.PatientHistoryVitalComponent },
     { path: '**', redirectTo: '404' }
 ];

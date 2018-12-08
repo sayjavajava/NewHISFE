@@ -123,20 +123,7 @@ var UpdatedoctorComponent = (function () {
         this.hasServices = false;
         this.selectedBranchId = eventObj.value;
         this.allDepartments();
-    };
-    UpdatedoctorComponent.prototype.loadDepartmentByBranchOnIntialization = function (selectedBranchId) {
-        this.hasServices = false;
-        this.selectedBranchId = selectedBranchId;
-        this.allDepartments();
-    };
-    UpdatedoctorComponent.prototype.loadServicesByDepartment = function (deptId) {
-        if (deptId) {
-            this.selectedDepartment[0] = deptId;
-            this.getDeptServices(deptId);
-        }
-        else {
-            this.servicesList = [];
-        }
+        var idd = '5';
     };
     UpdatedoctorComponent.prototype.allDepartments = function () {
         var _this = this;
@@ -301,9 +288,6 @@ var UpdatedoctorComponent = (function () {
                 if (user.expiryDate != null) {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                 }
-                if (user.primaryBranchId) {
-                    _this.loadDepartmentByBranchOnIntialization(user.primaryBranchId);
-                }
                 // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
                 console.log('med service ' + user.doctorMedicalSrvcList.length);
                 user.doctorServiceComission.forEach(function (x) {
@@ -338,11 +322,8 @@ var UpdatedoctorComponent = (function () {
                         _this.selectedDepartment[0] = docDeptId;
                         break;
                     }
-                    /*this.selectedDepartmentObj.push(user.docDepartmentId);
-                    console.log( 'depart doc'+this.selectedDepartmentObj[0].value)*/
+                    _this.selectedDepartmentObj.push(user.docDepartmentId);
                 }
-                _this.selectedDepartmentObj.push(user.docDepartmentId);
-                console.log('depart doc' + _this.selectedDepartmentObj + 'deprt id ' + user.docDepartmentId);
                 _this.staffBranches = user.staffBranches;
                 _this.staffBranches = _this.staffBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
                 //   this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
@@ -458,6 +439,11 @@ var UpdatedoctorComponent = (function () {
         }
     };
     UpdatedoctorComponent.prototype.selectDoctorDepartment = function (deptIdObj) {
+        /*console.log("Doc Dept:"+itemId);
+        if (itemId) {
+            this.selectedDepartment[0] = itemId;
+        }
+*/
         var deptId = deptIdObj.value;
         if (deptId) {
             this.selectedDepartment[0] = deptId;
