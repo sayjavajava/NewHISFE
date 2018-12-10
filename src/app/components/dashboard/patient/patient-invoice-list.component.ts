@@ -45,6 +45,7 @@ export class PatientInvoiceListComponent implements OnInit {
         });
         this.getAllPaymentTypes();
         this.getAllPatient();
+        this.getPaymentId();
     }
     ngOnInit(): void {
 
@@ -53,9 +54,21 @@ export class PatientInvoiceListComponent implements OnInit {
         this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
     }
 
+    getPaymentId(){
+        this.requestsService.getRequest(AppConstants.GET_PAYMENT_ID )
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.bulkReceitRequest.paymentId = response['responseData'];
+                    }
+                }
+            );
+    }
+
+
     getAllPaymentTypes()
     {
-        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENTTYPE )
+        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENT_TYPE )
             .subscribe(
                 (response: Response)=>{
                     if (response["responseCode"] === "PAYMENT_SUC_11")
@@ -64,7 +77,7 @@ export class PatientInvoiceListComponent implements OnInit {
                         console.log("------------"+this.paymentTypeList);
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
+            //        this.notificationService.error("ERROR", "States List is not available");
                 });
     }
 
@@ -78,7 +91,7 @@ export class PatientInvoiceListComponent implements OnInit {
                         this.patientList = response["responseData"].data;
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
+        //            this.notificationService.error("ERROR", "States List is not available");
                 });
     }
 
@@ -102,7 +115,7 @@ export class PatientInvoiceListComponent implements OnInit {
                         this.getTotalOfAllInvice();
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
+             //       this.notificationService.error("ERROR", "Patient Invoices List is not available");
                 });
     }
 

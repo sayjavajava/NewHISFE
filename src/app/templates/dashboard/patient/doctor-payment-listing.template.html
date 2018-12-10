@@ -8,7 +8,7 @@
                         <h3 class="text-info">Doctor Payment Listing
                             <div class="pull-right">
                                 <a href="#responsive" data-toggle="modal">
-                                    <button class="btn mt-sweetalert btn green-meadow">
+                                    <button class="btn mt-sweetalert btn green-meadow" (click)="getPaymentId()">
                                         <i class="fa fa-plus"></i> Add
                                     </button>
                                 </a>
@@ -72,7 +72,7 @@
                                              <div class="col-md-9 select pdng-lr-5 profile-frm">
                                                 <input class="form-control" type="text"
                                                    name="paymentId"
-                                                   required
+                                                   disabled
                                                    [(ngModel)]="doctorPayment.paymentId"
                                                    #paymentId="ngModel"/>
                                         </div>

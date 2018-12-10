@@ -161,7 +161,18 @@ export class ReceptionistDashboardComponent {
         this.router.navigate(['/dashboard/patient/',id,'history']);
     }
     updateAppointmentData(id: any) {
-        this.router.navigate(['/dashboard/patient/invoice', id]);
+
+        this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + id)
+            .subscribe((res: Response) => {
+                if (res['responseCode'] === "INVOICE_ERR_01") {
+                    this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
+                }else{
+                    this.router.navigate(['/dashboard/patient/invoice', id]);
+                }
+            }, (error: any) => {
+                this.error = error.error.error;
+            });
+
 
     }
     showRoomWithBranch(bId:number,roomIdd:number){

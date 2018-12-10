@@ -8,7 +8,7 @@
                         <h3 class="text-info">Receipt Listing
                             <div class="pull-right">
                                 <a href="#responsive" data-toggle="modal">
-                                    <button class="btn mt-sweetalert btn green-meadow">
+                                    <button class="btn mt-sweetalert btn green-meadow" (click)="getPaymentId()">
                                         <i class="fa fa-plus"></i> Add
                                     </button>
                                 </a>
@@ -49,7 +49,8 @@
                                     <td field="discountAmount"> {{receiptList.discountAmount}} </td>
                                     <td field="advanceUsedAmount"> {{receiptList.advanceUsedAmount}} </td>
                                     <td field="paymontAmount"> {{receiptList.paymontAmount}} </td>
-                                    <td field="paymentType">  </td>
+                                    <td field="transactionType"> {{receiptList.transactionType}}  </td>
+                                    <td field="paymentType"> {{receiptList.paymentType}}  </td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -76,7 +77,7 @@
                                              <div class="col-md-9 select pdng-lr-5 profile-frm">
                                                 <input class="form-control" type="text"
                                                    name="paymentId"
-                                                   required
+                                                   disabled
                                                    [(ngModel)]="addAdvance.paymentId"
                                                    #paymentId="ngModel"/>
                                         </div>
@@ -130,6 +131,24 @@
                                                  </p-dropdown>
                                             </div>
                                         </div>
+
+                                        <div class="form-group hr">
+                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
+                                            <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                                <input class="form-control"
+                                                       type="text"
+                                                       name="amount"
+                                                       placeholder="enter advance amount"
+                                                       required
+                                                       [(ngModel)]="addAdvance.amount"
+                                                       #amount="ngModel"/>
+                                                <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+                                            </div>
+                                            <!--<span *ngIf="amount.invalid && amount.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter valid amount.
+                                            </span>-->
+                                        </div>
+
                                         <div class="form-group hr mrgn-btm10">
                                             <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
                                             <div class="col-md-9 select pdng-lr-5">
@@ -143,22 +162,7 @@
                                                 </textarea>
                                             </div>
                                         </div>
-                                        <div class="form-group hr">
-                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
-                                            <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                                <input class="form-control"
-                                                       type="text"
-                                                       name="amount"
-                                                       placeholder="enter advance amount"
-                                                       required
-                                                       [(ngModel)]="addAdvance.amount"
-                                                       #amount="ngModel"/>
-                                                <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
-                                            </div>
-                                            <span *ngIf="amount.invalid && amount.touched" class="col-md-9 select pdng-lr-5 text-danger">
-                                                Please enter valid amount.
-                                            </span>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>

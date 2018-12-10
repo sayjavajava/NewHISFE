@@ -285,9 +285,15 @@ export class AppConstants {
     public static UPDATE_PAYMENTTYPE = '/PaymentType/update';
 
 
+    public static GET_ALL_PAYMENT_TYPE = '/PaymentType/getListPaymentType';
+
+
+
     //////////////Payment API for Receipt ///////////////////////////////////
     public static SAVE_ADVANCE_PAYMENT = '/payment/saveAdvancePayment';
     public static GET_INVOICE_List_BY_PAT_ID = '/payment/getPatientInvoiceListById/';
+
+    public static GET_PAYMENT_ID = '/payment/getPaymentId';
 
     public static SAVE_BULK_RECEIT = '/payment/saveBulkReceit';
     public static GET_RECEIPT_List = '/payment/getReceiptList';
@@ -295,6 +301,8 @@ export class AppConstants {
 
     public static REFUND_PAYMENT = '/refundApi/refundPayment';
     public static REFUND_LIST_DATA = '/refundApi/getRefundList';
+
+    public static GET_REFUND_ID = '/refundApi/getRefundId';
 
 
 
@@ -350,4 +358,6 @@ export class AppConstants {
     public static FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
     /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*//*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
     public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
+
+
 }
