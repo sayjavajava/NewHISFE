@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {AfterContentInit, Component, OnInit} from "@angular/core";
 import {RequestsService} from "../../../services/requests.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {InvoicesList} from "../../../model/InvoicesList";
@@ -9,7 +9,7 @@ import {AppConstants} from "../../../utils/app.constants";
     selector: 'invoice-listing-template',
     templateUrl: '../../../templates/dashboard/patient/invoice-listing.template.html',
 })
-export class InvoiceListingComponent {
+export class InvoiceListingComponent implements OnInit{
     invoiceList : InvoicesList[];
     //invoiceList: any[];
     selectedInvoiceId: any;
@@ -17,24 +17,47 @@ export class InvoiceListingComponent {
     currency: string = "";
     totalAmount: number;
 
+
+
     constructor(private router: Router, private titleService: Title, private route: ActivatedRoute, private requestsService: RequestsService) {
-        this.currency = "USD";
+    //    this.currency = "USD";
+
     }
 
     ngOnInit() {
+        this.getDefaultCurrency();
+
         this.titleService.setTitle('HIS | Invoice Listing');
-        this.cols = [
-            {field: "serialNo", header: "Serial No."},
-            {field: "invoiceId", header: "Invoice No."},
-            {field: "patientName", header: "Patient Name"},
-            {field: "invoiceAmount", header: "Invoice Amount (" + (this.currency) + ")"},
-            {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
-            {field: "taxAmount", header: "Tax (" + (this.currency) + ")"},
-            {field: "totalAmount", header: "Total Amount (" + (this.currency) + ")"},
-            {field: "status", header: "Status"},
-            {field: "action", header: "Action"},
-        ];
+
         this.getAllInvoicesList();
+    }
+
+
+    getDefaultCurrency() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.currency=response['responseData'].currency;
+                    }
+
+                    this.cols = [
+                        {field: "serialNo", header: "Serial No."},
+                        {field: "invoiceId", header: "Invoice No."},
+                        {field: "patientName", header: "Patient Name"},
+                        {field: "invoiceAmount", header: "Invoice Amount (" + (this.currency) + ")"},
+                        {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
+                        {field: "taxAmount", header: "Tax (" + (this.currency) + ")"},
+                        {field: "totalAmount", header: "Total Amount (" + (this.currency) + ")"},
+                        {field: "status", header: "Status"},
+                        {field: "action", header: "Action"},
+                    ];
+                },
+                (error: any) => {
+                    //    this.notificationService.error(error.error.error);
+                })
     }
 
     getAllInvoicesList()

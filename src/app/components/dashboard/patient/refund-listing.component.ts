@@ -41,7 +41,9 @@ export class RefundListingComponent {
                 private notificationService: NotificationService,
                 private HISUtilService: HISUtilService)
     {
-        this.currency = "USD";
+    //    this.currency = "USD";
+
+        this.getDefaultCurrency();
 
         this.getAllPaymentTypes();
         this.getAllPatient();
@@ -50,15 +52,32 @@ export class RefundListingComponent {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Refunds Listing');
-        this.cols = [
-            {field: "serialNo", header: "Serial #"},
-            {field: "date", header: "Date"},
-            {field: "refundId", header: "Voucher #"},
-            {field: "patientName", header: "Patient Name"},
-            {field: "paymentType", header: "Payment)"},
-            {field: "refundType", header: "Refund Type"},
-            {field: "refundAmount", header: "Refund Amount (" + this.currency + ")"},
-        ];
+    }
+
+
+
+    getDefaultCurrency() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.currency=response['responseData'].currency;
+                    }
+                    this.cols = [
+                        {field: "serialNo", header: "Serial #"},
+                        {field: "date", header: "Date"},
+                        {field: "refundId", header: "Voucher #"},
+                        {field: "patientName", header: "Patient Name"},
+                        {field: "paymentType", header: "Payment)"},
+                        {field: "refundType", header: "Refund Type"},
+                        {field: "refundAmount", header: "Refund Amount (" + this.currency + ")"},
+                    ];
+                },
+                (error: any) => {
+                    //    this.notificationService.error(error.error.error);
+                })
     }
 
 

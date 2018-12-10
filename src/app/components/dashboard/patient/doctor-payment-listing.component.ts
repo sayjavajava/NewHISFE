@@ -39,26 +39,43 @@ export class DoctorPaymentListingComponent {
                 private notificationService: NotificationService,
                 private HISUtilService: HISUtilService)
     {
-        this.currency = "USD";
-
-
+    //    this.currency = "USD";
+       this.getDefaultCurrency();
        this.getAllPaymentTypes();
        this.getAllPaymentListing();
        this.getDoctorsList();
     }
 
     ngOnInit() {
-        this.titleService.setTitle('HIS | Receipt Listing');
-        this.cols = [
-         /*   {field: "serialNo", header: "Serial #"},*/
-            {field: "paymentId", header: "Voucher #"},
-            {field: "createdOn", header: "Voucher Date"},
-            {field: "doctorName", header: "Doctor Name"},
-            {field: "paymentTypeTitle", header: "Payment Method"},
-            {field: "amount", header: "Payment"},
-          /*  {field: "paymentType", header: "Action"},*/
-        ];
+        this.titleService.setTitle('HIS | Receipt Listing')
+
     }
+
+
+    getDefaultCurrency() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.currency=response['responseData'].currency;
+                    }
+                    this.cols = [
+                        /*   {field: "serialNo", header: "Serial #"},*/
+                        {field: "paymentId", header: "Voucher #"},
+                        {field: "createdOn", header: "Voucher Date"},
+                        {field: "doctorName", header: "Doctor Name"},
+                        {field: "paymentTypeTitle", header: "Payment Method"},
+                        {field: "amount", header: "Payment (" + (this.currency) + ")"},
+                        /*  {field: "paymentType", header: "Action"},*/
+                    ];
+                },
+                (error: any) => {
+                    //    this.notificationService.error(error.error.error);
+                })
+    }
+
 
     getDoctorsList() {
         this.requestsService.getRequest(

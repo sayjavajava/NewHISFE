@@ -33,7 +33,8 @@ export class ReceiptListingComponent {
                 private notificationService: NotificationService,
                 private HISUtilService: HISUtilService)
     {
-        this.currency = "USD";
+    //    this.currency = "USD";
+       this.getDefaultCurrency();
 
        this.getAllPatient();
        this.getAllPaymentTypes();
@@ -42,16 +43,33 @@ export class ReceiptListingComponent {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Receipt Listing');
-        this.cols = [
-         /*   {field: "serialNo", header: "Serial #"},*/
-            {field: "paymentId", header: "Payment #"},
-            {field: "patientName", header: "Patient Name"},
-            {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
-            {field: "advanceUsedAmount", header: "Advance Utilized (" + (this.currency) + ")"},
-            {field: "paymontAmount", header: "Payment Amount (" + (this.currency) + ")"},
-            {field: "transactionType", header: "Transaction Type"},
-            {field: "paymentType", header: "Payment Type"},
-        ];
+
+    }
+
+
+    getDefaultCurrency() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.currency=response['responseData'].currency;
+                    }
+                    this.cols = [
+                        /*   {field: "serialNo", header: "Serial #"},*/
+                        {field: "paymentId", header: "Payment #"},
+                        {field: "patientName", header: "Patient Name"},
+                        {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
+                        {field: "advanceUsedAmount", header: "Advance Utilized (" + (this.currency) + ")"},
+                        {field: "paymontAmount", header: "Payment Amount (" + (this.currency) + ")"},
+                        {field: "transactionType", header: "Transaction Type"},
+                        {field: "paymentType", header: "Payment Type"},
+                    ];
+                },
+                (error: any) => {
+                    //    this.notificationService.error(error.error.error);
+                })
     }
 
 
