@@ -18,8 +18,9 @@ import 'rxjs/add/operator/toPromise';
 export class UpdateOrganizationComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService) {
-        this.allTimezone();
+
         this.allBranches();
+        this.allTimezone();
         this.getOrganizationAccount();
     }
 
