@@ -33,10 +33,10 @@
                                     <td field="serialNo">{{sNo+1}}</td>
                                     <td field="invoiceId"> {{invoiceList.invoiceId}} </td>
                                     <td field="patientName"> {{invoiceList.patientName}} </td>
-                                    <td field="invoiceAmount"> {{invoiceList.invoiceAmount}} </td>
-                                    <td field="discountAmount"> {{invoiceList.discountAmount}} </td>
-                                    <td field="taxAmount"> {{invoiceList.taxAmount}} </td>
-                                    <td field="totalAmount"> {{invoiceList.invoiceAmount}} </td>
+                                    <td field="invoiceAmount" class="text-align-right"> {{invoiceList.invoiceAmount | number :'.2-2'}} </td>
+                                    <td field="discountAmount" class="text-align-right"> {{invoiceList.discountAmount | number :'.2-2'}} </td>
+                                    <td field="taxAmount" class="text-align-right"> {{invoiceList.taxAmount | number :'.2-2'}} </td>
+                                    <td field="totalAmount" class="text-align-right"> {{invoiceList.invoiceAmount | number :'.2-2'}} </td>
                                     <td field="status"> {{invoiceList.status}} </td>
                                     <td field="action">
                                         <!--<ng-container>

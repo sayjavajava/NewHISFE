@@ -26,7 +26,6 @@ export class DoctorPaymentListingComponent {
     paymentTypeList: any[];
     receiptList: any[];
 
-
     paymentList: any[];
     doctorId : any;
     selectedDoctor : any;
@@ -53,7 +52,7 @@ export class DoctorPaymentListingComponent {
         this.cols = [
          /*   {field: "serialNo", header: "Serial #"},*/
             {field: "paymentId", header: "Voucher #"},
-            {field: "patientName", header: "Voucher Date"},
+            {field: "createdOn", header: "Voucher Date"},
             {field: "doctorName", header: "Doctor Name"},
             {field: "paymentTypeTitle", header: "Payment Method"},
             {field: "amount", header: "Payment"},
@@ -73,9 +72,20 @@ export class DoctorPaymentListingComponent {
             );
     }
 
+    getPaymentId(){
+        this.requestsService.getRequest(AppConstants.GET_PAYMENT_ID )
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.doctorPayment.paymentId = response['responseData'];
+                    }
+                }
+            );
+    }
+
     getAllPaymentTypes()
     {
-        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENTTYPE )
+        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENT_TYPE )
             .subscribe(
                 (response: Response)=>{
                     if (response["responseCode"] === "PAYMENT_SUC_11")

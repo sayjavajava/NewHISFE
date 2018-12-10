@@ -261,6 +261,7 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         PatientComponent,
         EditPatientComponent,
         PatientInvoiceComponent,
+        DoctorPaymentListingComponent,
 
         PatientHistoryComponent,
         PatientDemographicComponent,

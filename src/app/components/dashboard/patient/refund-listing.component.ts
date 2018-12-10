@@ -72,16 +72,25 @@ export class RefundListingComponent {
                         this.refundList = response["responseData"];
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "Refund List is not available");
+        //            this.notificationService.error("ERROR", "Refund List is not available");
                 });
     }
 
 
-
+    getRefundId(){
+        this.requestsService.getRequest(AppConstants.GET_REFUND_ID )
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.refundRequest.refundId = response['responseData'];
+                    }
+                }
+            );
+    }
 
     getAllPaymentTypes()
     {
-        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENTTYPE )
+        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENT_TYPE )
             .subscribe(
                 (response: Response)=>{
                     if (response["responseCode"] === "PAYMENT_SUC_11")
@@ -94,7 +103,7 @@ export class RefundListingComponent {
                         }
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
+            //        this.notificationService.error("ERROR", "States List is not available");
                 });
     }
 
@@ -108,7 +117,7 @@ export class RefundListingComponent {
                         this.patientList = response["responseData"].data;
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
+             //       this.notificationService.error("ERROR", "States List is not available");
                 });
     }
 
@@ -153,7 +162,7 @@ export class RefundListingComponent {
                         this.refundRequest.selectedBalance= this.cusAdvanceBalance;
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "Invoice List is not available");
+        //            this.notificationService.error("ERROR", "Invoice List is not available");
                 });
     }
 
@@ -161,6 +170,11 @@ export class RefundListingComponent {
         this.refundRequest.refundType = selectedRefundTyp.name;
         if(selectedRefundTyp.name == "Advance"){
             this.refundRequest.selectedBalance = this.cusAdvanceBalance;
+        }else{
+            if(this.allInvoiceList.length > 0){
+                this.refundRequest.invoiceId=this.allInvoiceList[0].id;
+                this.refundRequest.selectedBalance=this.allInvoiceList[0].invoiceAmount;
+            }
         }
     }
 

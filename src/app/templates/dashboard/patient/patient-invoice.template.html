@@ -10,11 +10,10 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="sub-total">
                         <ul>
-                            <li>
+                            <!--<li>
                                 <span>File Number:</span>
                                 <span class="text-align-left">10002</span>
-                            </li>
-
+                            </li>-->
                             <li>
                                 <span>Invoice Id:</span>
                                 <span class="text-align-left">{{invoicePrefix}}</span>
@@ -159,12 +158,12 @@
                                 <td rowspan="1" colspan="1">{{invc.code}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{invc.quantity | number}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.unitFee | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.discountRate| number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.taxRate | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'1.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'1.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.unitFee | number:'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.discountRate| number:'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number:'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.taxRate | number:'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">
                                         <button *ngIf="!completed" (click)="editInvoic(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
                                         <button *ngIf="!completed" (click)="removeInvoic(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
@@ -186,23 +185,23 @@
                     <ul>
                         <li>
                             <span>Total Amount:</span>
-                            <span>{{grandTotal | number}}</span>
+                            <span>{{grandTotal | number :'.2-2'}}</span>
                         </li>
                         <li>
                             <span>Total Discount:</span>
-                            <span class="amount-border-botom">{{grandTotalDiscount | number}}</span>
+                            <span class="amount-border-botom">{{grandTotalDiscount | number :'.2-2'}}</span>
                         </li>
                         <li>
                                 <span>Gross Total:</span>
-                                <span>{{(grandTotal - grandTotalDiscount)  | number}}</span>
+                                <span>{{(grandTotal - grandTotalDiscount)  | number :'.2-2'}}</span>
                             </li>
                         <li>
                             <span>Total Tax:</span>
-                            <span>{{grandTotalTax | number}}</span>
+                            <span>{{grandTotalTax | number :'.2-2'}}</span>
                         </li>
                         <li>
                             <span>Grand Total:</span>
-                            <span class="amount-border-botom amount-border-top">{{grandTotalWithTax | number}}</span>
+                            <span class="amount-border-botom amount-border-top">{{grandTotalWithTax | number :'.2-2'}}</span>
                         </li>
                     </ul>
                     <!-- <ul>

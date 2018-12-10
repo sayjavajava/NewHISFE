@@ -4,7 +4,7 @@ export class DoctorPaymentRequest {
     date: any;
     doctorId: any ;
     paymentTypeId : any ;
-    amount : any;
+    amount : any =0.0;
 
 
 

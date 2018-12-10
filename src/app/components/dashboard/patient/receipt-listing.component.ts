@@ -49,9 +49,21 @@ export class ReceiptListingComponent {
             {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
             {field: "advanceUsedAmount", header: "Advance Utilized (" + (this.currency) + ")"},
             {field: "paymontAmount", header: "Payment Amount (" + (this.currency) + ")"},
+            {field: "transactionType", header: "Transaction Type"},
             {field: "paymentType", header: "Payment Type"},
         ];
+    }
 
+
+    getPaymentId(){
+        this.requestsService.getRequest(AppConstants.GET_PAYMENT_ID )
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.addAdvance.paymentId = response['responseData'];
+                    }
+                }
+            );
     }
 
 
@@ -70,6 +82,7 @@ export class ReceiptListingComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS')
                     {
+                        this.getAllReceiptListing();
                         this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                     } else {
                         this.notificationService.error(response['responseMessage']);
@@ -118,12 +131,16 @@ export class ReceiptListingComponent {
 
     getAllPaymentTypes()
     {
-        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENTTYPE )
+        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENT_TYPE)
             .subscribe(
                 (response: Response)=>{
                     if (response["responseCode"] === "PAYMENT_SUC_11")
                     {
                         this.paymentTypeList = response["responseData"].data;
+
+                        if(this.paymentTypeList.length > 0){
+                            this.addAdvance.paymentTypeId= this.paymentTypeList[0].id;
+                        }
                     }
                 }/*, function (error) {
                     this.notificationService.error("ERROR", "Payment Type List is not available");

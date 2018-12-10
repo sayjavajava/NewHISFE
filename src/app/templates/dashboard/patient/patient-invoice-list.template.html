@@ -64,19 +64,19 @@
                     <div class="col-md-7">
                         <p class="text-right">Receipt Transaction ID:</p>
                     </div>
-                    <div class="col-md-5 text-right no-padding-rgt"># <b>53</b></div>
+                    <div class="col-md-5 text-right no-padding-rgt"> <b>{{bulkReceitRequest.paymentId}}</b></div>
                 </div>
                 <div class="hr">
                     <div class="col-md-7">
                         <p class="text-right">Due Invoices Balance SAR:</p>
                     </div>
-                    <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{dueAmountOnAllInvc}}</b></div>
+                    <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{dueAmountOnAllInvc | number :'.2-2'}}</b></div>
                 </div>
                 <div class="hr">
                     <div class="col-md-7">
                         <p class="text-right">Advance Balance:</p>
                     </div>
-                    <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{cusAdvanceBalance}}</b></div>
+                    <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{cusAdvanceBalance | number :'.2-2'}}</b></div>
                 </div>
                 <div class="text-center">
                     <input type="checkbox"
@@ -151,15 +151,15 @@
                         <tr role="row" class="filter" >
                             <td rowspan="1" colspan="1">                                                       </td>
                             <td rowspan="1" colspan="1">                                                       </td>
-                            <td rowspan="1" colspan="1" class="text-align-right">   {{invoicesAmountTotal | number}}    </td>
+                            <td rowspan="1" colspan="1" class="text-align-right">   {{invoicesAmountTotal | number :'.2-2'}}    </td>
 
-                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{refundAmountTotal | number}}        </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{refundAmountTotal | number :'.2-2'}}        </td>
 
-                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{paidAmountTotal | number}}        </td>
-                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{discountTotalOnPayment | number}} </td>
-                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{useAdvanceTotal | number}}        </td>
-                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{appliedAmountTottal | number}}    </td>
-                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{dueAmountTotal  | number}}         </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{paidAmountTotal | number :'.2-2'}}        </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{discountTotalOnPayment | number :'.2-2'}} </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{useAdvanceTotal | number :'.2-2'}}        </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{appliedAmountTottal | number :'.2-2'}}    </td>
+                            <td class="sorting_disabled text-align-right" rowspan="1" colspan="1">   {{dueAmountTotal  | number :'.2-2'}}         </td>
                         </tr>
 
                         </thead>
@@ -178,19 +178,19 @@
                     <ul>
                         <li>
                             <span> Amount Due:</span>
-                            <span>{{dueAmountOnSelectedInvc | number}}</span>
+                            <span>{{dueAmountOnSelectedInvc | number :'.2-2'}}</span>
                         </li>
                         <li>
                             <span>Applied Amount:</span>
-                            <span>{{appliedAmountOnSelectedInvc | number}}</span>
+                            <span>{{appliedAmountOnSelectedInvc | number :'.2-2'}}</span>
                         </li>
                         <li>
                             <span>Advance Amount:</span>
-                            <span>{{advancedAmountOnSelectedInvc | number}}</span>
+                            <span>{{advancedAmountOnSelectedInvc | number :'.2-2'}}</span>
                         </li>
                         <li>
                             <span>Discount Amount:</span>
-                            <span>{{discountAmountOnSelectedInvc | number}}</span>
+                            <span>{{discountAmountOnSelectedInvc | number :'.2-2'}}</span>
                         </li>
 
                     </ul>
@@ -199,7 +199,7 @@
             </div>
             <div class="col-md-12 mrgn-top14">
                 <div class="pull-right">
-                    <button class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel </button>
+                    <button class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Back </button>
                     <span>
                         <button class="btn btn-default btn-outline btn-sm" (click)="savePayment()"> Save </button>
                     </span>
