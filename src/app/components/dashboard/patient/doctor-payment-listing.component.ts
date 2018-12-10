@@ -52,7 +52,7 @@ export class DoctorPaymentListingComponent {
         this.cols = [
          /*   {field: "serialNo", header: "Serial #"},*/
             {field: "paymentId", header: "Voucher #"},
-            {field: "patientName", header: "Voucher Date"},
+            {field: "createdOn", header: "Voucher Date"},
             {field: "doctorName", header: "Doctor Name"},
             {field: "paymentTypeTitle", header: "Payment Method"},
             {field: "amount", header: "Payment"},

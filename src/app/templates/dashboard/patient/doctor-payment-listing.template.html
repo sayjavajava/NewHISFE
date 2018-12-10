@@ -41,10 +41,10 @@
                                 <tr>
                                     <!--<td field="serialNo">{{sNo+1}}</td>-->
                                     <td field="paymentId"> {{paymentList.paymentId}} </td>
-                                    <td field="patientName">  </td>
+                                    <td field="createdOn"> {{paymentList.createdOn | date : 'dd-MM-yyyy'}} </td>
                                     <td field="doctorName"> {{paymentList.doctorName}} </td>
                                     <td field="paymentTypeTitle"> {{paymentList.paymentTypeTitle}} </td>
-                                    <td field="amount"> {{paymentList.amount}} </td>
+                                    <td field="amount" class="text-align-right"> {{paymentList.amount | number :'.2-2'}} </td>
                                    <!-- <td field="paymentType">  </td>-->
                                 </tr>
                             </ng-template>
@@ -93,7 +93,7 @@
                                         <div class="form-group hr">
                                             <label class="col-md-3 control-label txt-size pdng-lr-5">Current Balance <span class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                                <input class="form-control"
+                                                <input class="form-control text-align-right"
                                                        type="text"
                                                        name="currentBalance"
                                                        disabled
@@ -136,7 +136,7 @@
                                         <div class="form-group hr">
                                             <label class="col-md-3 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                                <input class="form-control"
+                                                <input class="form-control text-align-right"
                                                        type="text"
                                                        name="amount"
                                                        placeholder="enter advance amount"
