@@ -18,6 +18,11 @@
                             </button>
                             <span><button class="btn btn-default btn-outline"> <i
                                     class=" icon-clock"></i> Print </button></span>
+                            <div class="upload-btn-wrapper">
+                                <button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>
+                                <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                       id="drugsDataImport" name="drugsDataImport" value="" placeholder="" (change)="importData($event)">
+                            </div>
                         </div>
                     </h4>
                 </div>
@@ -44,12 +49,19 @@
 
                         <p-table #dt [columns]="cols" [value]="data"  [rows]="10"  [paginator]="true" >
 
-                            <div style="text-align: right">
+                            <!--<div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                                 <input type="text" pInputText size="50" placeholder="Global Filter"
                                        (input)="dt.filterGlobal($event.target.value, 'contains')"
                                        style="width:auto">
-                            </div>
+                            </div>-->
+                            <ng-template pTemplate="caption">
+                                <div style="text-align: right">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search Against Drug Name, Company Name, Generic Name, Route, or Strength"
+                                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
                             <ng-template sortable="true" pTemplate="header" let-columns>
 
                                 <tr>
@@ -59,7 +71,7 @@
                                         <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                                     </th>
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
 
                                         <input *ngSwitchCase="'drugName'" pInputText type="text" style="width: 100%"
@@ -86,7 +98,7 @@
 
 
                                     </th>
-                                </tr>
+                                </tr>-->
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-data>
                                 <tr>
@@ -217,7 +229,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Drug ID:<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.drugNaturalId" size="30"
                                                    required id="drugNaturalId" pInputText
@@ -228,7 +240,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Drug Name<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5  profile-frm">
                                             <input class="form-control" type="text" placeholder=" e.g Panadol"
                                                    [(ngModel)]="drug.drugName" size="30"
                                                    required id="drugName" pInputText
@@ -244,7 +256,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Generic Name<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" placeholder=" e.g Antibotic"
                                                    [(ngModel)]="drug.genericName" size="30"
                                                    required id="genericName" pInputText
@@ -260,7 +272,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Company Name<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" placeholder=" e.g Medical Care"
                                                    [(ngModel)]="drug.companyName" size="30"
                                                    required id="companyName" pInputText
@@ -288,7 +300,7 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Strength<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 pdng-lr-5">
+                                        <div class="col-md-9 pdng-lr-5 profile-frm">
                                         <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                  [(ngModel)]="drug.strengths"
                                                  required id="strengths" placeholder="xxx-yy-zz-aa"
@@ -317,12 +329,10 @@
                                         </span>
                                         </div>
                                     </div>
-
-
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Info<span
                                                 class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-9 select pdng-lr-5">
+                                        <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text"
                                                    [(ngModel)]="drug.drugInfo" placeholder=" e.g www.medicalcare.com"
                                                    size="10" id="info"

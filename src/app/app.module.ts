@@ -158,19 +158,17 @@ import {PaymentTypeComponent} from "./components/dashboard/setting/PaymentType.c
 import {StatusesComponent} from "./components/dashboard/setting/statuses.component";
 import {EditorModule} from "primeng/editor";
 import {ChartModule} from "primeng/chart";
-
 import {InvoiceListingComponent} from "./components/dashboard/patient/invoice-listing.component";
 import {ReceiptListingComponent} from "./components/dashboard/patient/receipt-listing.component";
 import {RefundListingComponent} from "./components/dashboard/patient/refund-listing.component";
 import {PatientInvoiceListComponent} from "./components/dashboard/patient/patient-invoice-list.component";
 import {PatientImageComponent} from "./components/dashboard/setting/PatientImageComponent";
-/*import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";*/
 import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";
-
 import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
 import {PanelModule} from "primeng/panel";
 
-
+import {GalleriaModule} from 'primeng/components/galleria/galleria';
+import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
 
 @NgModule({
     providers: [
@@ -239,6 +237,7 @@ import {PanelModule} from "primeng/panel";
         CKEditorModule,
         ChartModule,
         FileUploadModule,
+        GalleriaModule
     ],
     declarations: [
         // App Components
@@ -263,6 +262,7 @@ import {PanelModule} from "primeng/panel";
         PatientComponent,
         EditPatientComponent,
         PatientInvoiceComponent,
+
 
         PatientHistoryComponent,
         PatientDemographicComponent,
@@ -351,12 +351,9 @@ import {PanelModule} from "primeng/panel";
         PatientInvoiceListComponent,
         CurrencyComponent,
         PatientImageComponent,
-        /*PatientImageOrderComponent,*/
-
-        PatientImageComponent,
         PatientImageOrderComponent,
-
-        PatientHistoryVitalComponent
+        PatientHistoryVitalComponent,
+        DoctorPaymentListingComponent
     ],
     bootstrap: [AppComponent]
 })

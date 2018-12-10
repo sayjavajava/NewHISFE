@@ -106,22 +106,32 @@
 
                     <p-table #dt [columns]="cols" [value]="vitalListData"  [rows]="10"  [paginator]="true" >
 
-                        <div style="text-align: right">
+
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Name/Unit/Current Value/Standard Value"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
+
+                       <!-- <div style="text-align: right">
                             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                            <input type="text" pInputText size="50" placeholder="Global Filter"
+                            <input type="text" pInputText size="50" placeholder="Name/Unit/Current Value/Standard Value"
                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
                                    style="width:auto">
-                        </div>
+                        </div>-->
                         <ng-template sortable="true" pTemplate="header" let-columns>
 
                             <tr>
                                 <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
 
                                     {{col.header}}
-                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    <p-sortIcon *ngIf="col.field != 'status'"
+                                                [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                                 </th>
                             </tr>
-                            <tr>
+                           <!-- <tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
 
                                     <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
@@ -130,20 +140,20 @@
                                     <input *ngSwitchCase="'unit'" pInputText type="text" style="width: 100%"
                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
 
-                                    <!--<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                    &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
 
                                     <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
 
-                                    <!--<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+                                    &lt;!&ndash;<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
 
 
 
 
                                 </th>
-                            </tr>
+                            </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-vitalListData>
                             <tr>
@@ -428,7 +438,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Unit</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="eg bpm"
+                                    <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="eg bpm" readonly
                                            [(ngModel)]="vitalSetupTemplate.unit" #unit="ngModel">
                                 </div>
                                <!-- <span *ngIf="unit.invalid && unit.touched" class="col-md-9 select pdng-lr-5 text-danger">
@@ -448,7 +458,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Standard Value</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" name="standardValue" class="form-control" placeholder="eg 92"
+                                    <input type="text" name="standardValue" class="form-control" placeholder="eg 92" readonly
                                            [(ngModel)]="vitalSetupTemplate.standardValue" #standardValue="ngModel">
                                 </div>
                                  <span *ngIf="standardValue.invalid && standardValue.touched" class="col-md-9 select pdng-lr-5 text-danger">

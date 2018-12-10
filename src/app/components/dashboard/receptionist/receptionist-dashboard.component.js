@@ -151,7 +151,18 @@ var ReceptionistDashboardComponent = (function () {
         this.router.navigate(['/dashboard/patient/', id, 'history']);
     };
     ReceptionistDashboardComponent.prototype.updateAppointmentData = function (id) {
-        this.router.navigate(['/dashboard/patient/invoice', id]);
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.INVOICE_CHECK_IN + id)
+            .subscribe(function (res) {
+            if (res['responseCode'] === "INVOICE_ERR_01") {
+                _this.snackBar.open('Error', "Invoice Not Generated", { duration: 3000 });
+            }
+            else {
+                _this.router.navigate(['/dashboard/patient/invoice', id]);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
     };
     ReceptionistDashboardComponent.prototype.showRoomWithBranch = function (bId, roomIdd) {
         var _this = this;

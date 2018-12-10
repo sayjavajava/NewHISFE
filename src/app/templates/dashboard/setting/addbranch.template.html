@@ -163,6 +163,11 @@
                                                     <mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
                                                     <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>
                                                 </mat-radio-group>
+                                                    <span class="text-danger"
+                                                          *ngIf="!branchForm.controls['flow'].valid && branchForm.controls['flow'].touched">
+                                                            <span *ngIf="branchForm.controls['flow'].errors.required"> name is required </span>
+
+                                                    </span>
                                                 </div>
                                             </div>
                                            </div>
@@ -178,7 +183,7 @@
                                                            formControlName="officeHoursStart" value="{{officeHoursStart}}">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
-                                                    <!--<span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>-->
+                                                            <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -226,6 +231,10 @@
                                                         <input type="text" class="form-control"
                                                                style="width: 170px !important;"
                                                                formControlName="roomName">
+                                                        <span  style="text-align: center" class="text-danger"
+                                                               *ngIf="!branchForm.controls.examRooms.controls[i].controls.roomName.valid && branchForm.controls.examRooms.controls[i].controls.roomName.touched">
+                                                    <span style="text-align: center" *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
+                                                </span>
                                                     </div>
 
                                                     <div class="col-md-3 pdng-lr-5">
@@ -241,10 +250,6 @@
 
                                                     </div>
                                                    <!--{{ branchForm.controls.examRooms.controls[i].controls.allowOnlineScheduling.value }}-->
-                                                    <span  style="text-align: center" class="text-danger"
-                                                          *ngIf="!branchForm.controls.examRooms.controls[i].controls.roomName.valid && branchForm.controls.examRooms.controls[i].controls.roomName.touched">
-                                                    <span style="text-align: center" *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>
-                                                </span>
                                                     <!--  <span *ngIf="branchForm.controls.examRooms.controls[i].controls.roomName.errors.required"> Room Name is required  </span>-->
                                                     <!--<div class="col-md-1"><i (click)="deleteField(i)" class="fa fa-close font-red"></i></div>-->
                                                 </div>

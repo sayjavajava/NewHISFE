@@ -15,6 +15,11 @@
                                     (click)="refreshCodesTable()"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
+                            <div class="upload-btn-wrapper">
+                                <button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>
+                                <input #fileInput type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                       id="codeDataImport" name="codeDataImport" value="" placeholder="" (change)="importData($event)">
+                            </div>
                         </div>
                     </h4>
                 </div>
@@ -25,6 +30,13 @@
                         <ngx-loading [show]="loading"></ngx-loading>
                         <!--table prime-->
                         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="5">
+                            <ng-template pTemplate="caption">
+                                <div style="text-align: right">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Code/Problem"
+                                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
                                     <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -34,7 +46,7 @@
                                         </p-sortIcon>
                                     </th>
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <th *ngFor="let col of cols" [ngSwitch]="col.field">
                                         <input *ngSwitchCase="'code'" pInputText type="text" style="width: 100%"
                                                (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
@@ -43,7 +55,7 @@
                                                (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     </th>
 
-                                </tr>
+                                </tr>-->
                             </ng-template>
                             <ng-template pTemplate="body" let-item>
                                 <tr>
@@ -82,9 +94,7 @@
                                                 <i class="fa fa-remove"></i>
                                             </button>
                                         </span>
-                                        <a href="{{item.infoURL}}" target="_blank" placeholder="Click to see information" >
-                                            Information
-                                        </a>
+                                        <a href="{{item.infoURL}}" target="_blank" placeholder="Click to see information" > Information </a>
                                     </td>
                                 </tr>
                             </ng-template>

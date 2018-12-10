@@ -5,7 +5,7 @@
             <h4 class="text-info">Patient Image Processing Setup
                 <div class="pull-right">
                     <a href="#patImgSetup" data-toggle="modal">
-                        <button class="btn mt-sweetalert btn green-meadow" >
+                        <button class="btn mt-sweetalert btn green-meadow"  (click)="onAddPopupLoadImage()" >
                             <i class="fa fa-plus"></i> Add
                         </button>
                     </a>
@@ -47,16 +47,18 @@
                 <ng-template pTemplate="caption">
                     <div style="text-align: right">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        <input type="text" pInputText size="50" placeholder="Code/Name/Description" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
                             {{col.header}}
+                            <p-sortIcon *ngIf="col.field != 'status' && col.field != 'Action'"
+                                        [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                         </th>
                     </tr>
-                    <tr>
+                    <!--<tr>
 
                         <th *ngFor="let col of columns" [ngSwitch]="col.field">
 
@@ -73,10 +75,10 @@
 
 
                         </th>
-                        <!--<th *ngFor="let col of columns">
+                        &lt;!&ndash;<th *ngFor="let col of columns">
                             <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                        </th>-->
-                    </tr>
+                        </th>&ndash;&gt;
+                    </tr>-->
 
                 </ng-template>
 
@@ -125,23 +127,23 @@
                     <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Code<span class="required" aria-required="true"></span></label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Code<span class="required" aria-required="true">*</span></label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" required name="code" id="code" class="form-control" placeholder="Enter Code"
+                                    <input type="text" required name="code" id="code" class="form-control" placeholder="e.g XRAY"
                                            [(ngModel)]="patientImageSetupTemplate.code" #code="ngModel">
                                 </div>
                                 <span *ngIf="code.invalid && code.touched" class="col-md-9 select pdng-lr-5 text-danger">
-                                        Please enter Code.
+                                        Please Enter Code.
                                 </span>
                             </div>
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span class="required" aria-required="true"></span></label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span class="required" aria-required="true">*</span></label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text"  name="name" class="form-control"  placeholder="Enter text"
+                                    <input type="text"  name="name" class="form-control"  placeholder="e.g CITI Scan"
                                            [(ngModel)]="patientImageSetupTemplate.name" #name="ngModel">
                                 </div>
                                 <span *ngIf="name.invalid && name.touched" class="col-md-9 select pdng-lr-5 text-danger">
-                                        Please enter Name.
+                                        Please Enter Name.
                                 </span>
                             </div>
 

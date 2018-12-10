@@ -32,9 +32,9 @@ var AdminProfileComponent = (function () {
     };
     AdminProfileComponent.prototype.createAccountForm = function () {
         this.accountForm = this.fb.group({
-            'firstName': [null],
+            'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'userId': [null],
-            'lastName': [null],
+            'lastName': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'userName': [null],
             'userEmail': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'cellPhone': [null],

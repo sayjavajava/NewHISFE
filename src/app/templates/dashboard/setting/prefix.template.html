@@ -8,6 +8,12 @@
 
                 <div class="table-scrollable">
                     <p-table #dt [columns]="cols" [value]="prefixTemplateList" [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Module/Prefix/Start Value/Current Value" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
                         <ng-template sortable="true" pTemplate="header" let-columns>
                             <tr>
                                 <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
@@ -21,14 +27,14 @@
                                 </th>
 
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                     <input *ngSwitchCase="'module'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     <input *ngSwitchCase="'startValue'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     <input *ngSwitchCase="'currentValue'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                 </th>
-                            </tr>
+                            </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-prefixTemplateList>
                             <tr>

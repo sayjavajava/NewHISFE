@@ -83,7 +83,7 @@ var PaymentComponent = (function () {
     };
     PaymentComponent.prototype.getAllPaymentTypes = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.GET_ALL_PAYMENTTYPE)
+        this.requestsService.getRequest(app_constants_1.AppConstants.GET_ALL_PAYMENT_TYPE)
             .subscribe(function (response) {
             if (response["responseCode"] === "PAYMENT_SUC_11") {
                 _this.paymentTypeList = response["responseData"].data;

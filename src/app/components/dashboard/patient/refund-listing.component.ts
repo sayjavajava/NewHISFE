@@ -41,7 +41,9 @@ export class RefundListingComponent {
                 private notificationService: NotificationService,
                 private HISUtilService: HISUtilService)
     {
-        this.currency = "USD";
+    //    this.currency = "USD";
+
+        this.getDefaultCurrency();
 
         this.getAllPaymentTypes();
         this.getAllPatient();
@@ -50,15 +52,32 @@ export class RefundListingComponent {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Refunds Listing');
-        this.cols = [
-            {field: "serialNo", header: "Serial #"},
-            {field: "date", header: "Date"},
-            {field: "refundId", header: "Voucher #"},
-            {field: "patientName", header: "Patient Name"},
-            {field: "paymentType", header: "Payment)"},
-            {field: "refundType", header: "Refund Type"},
-            {field: "refundAmount", header: "Refund Amount (" + this.currency + ")"},
-        ];
+    }
+
+
+
+    getDefaultCurrency() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.currency=response['responseData'].currency;
+                    }
+                    this.cols = [
+                        {field: "serialNo", header: "Serial #"},
+                        {field: "date", header: "Date"},
+                        {field: "refundId", header: "Voucher #"},
+                        {field: "patientName", header: "Patient Name"},
+                        {field: "paymentType", header: "Payment)"},
+                        {field: "refundType", header: "Refund Type"},
+                        {field: "refundAmount", header: "Refund Amount (" + this.currency + ")"},
+                    ];
+                },
+                (error: any) => {
+                    //    this.notificationService.error(error.error.error);
+                })
     }
 
 
@@ -72,16 +91,25 @@ export class RefundListingComponent {
                         this.refundList = response["responseData"];
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "Refund List is not available");
+        //            this.notificationService.error("ERROR", "Refund List is not available");
                 });
     }
 
 
-
+    getRefundId(){
+        this.requestsService.getRequest(AppConstants.GET_REFUND_ID )
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.refundRequest.refundId = response['responseData'];
+                    }
+                }
+            );
+    }
 
     getAllPaymentTypes()
     {
-        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENTTYPE )
+        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENT_TYPE )
             .subscribe(
                 (response: Response)=>{
                     if (response["responseCode"] === "PAYMENT_SUC_11")
@@ -94,7 +122,7 @@ export class RefundListingComponent {
                         }
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
+            //        this.notificationService.error("ERROR", "States List is not available");
                 });
     }
 
@@ -108,7 +136,7 @@ export class RefundListingComponent {
                         this.patientList = response["responseData"].data;
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
+             //       this.notificationService.error("ERROR", "States List is not available");
                 });
     }
 
@@ -153,7 +181,7 @@ export class RefundListingComponent {
                         this.refundRequest.selectedBalance= this.cusAdvanceBalance;
                     }
                 }, function (error) {
-                    this.notificationService.error("ERROR", "Invoice List is not available");
+        //            this.notificationService.error("ERROR", "Invoice List is not available");
                 });
     }
 
@@ -161,6 +189,11 @@ export class RefundListingComponent {
         this.refundRequest.refundType = selectedRefundTyp.name;
         if(selectedRefundTyp.name == "Advance"){
             this.refundRequest.selectedBalance = this.cusAdvanceBalance;
+        }else{
+            if(this.allInvoiceList.length > 0){
+                this.refundRequest.invoiceId=this.allInvoiceList[0].id;
+                this.refundRequest.selectedBalance=this.allInvoiceList[0].invoiceAmount;
+            }
         }
     }
 

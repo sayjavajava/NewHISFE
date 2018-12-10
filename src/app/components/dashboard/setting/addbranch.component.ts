@@ -129,7 +129,7 @@ export class AddBranchComponent implements OnInit {
     createBranchMandatoryForm() {
         this.branchForm = this.fb.group({
             "companyName": [null],
-            "flow": [null],
+            "flow": [null,Validators.compose([Validators.required])],
             "branchName": [null, Validators.compose([Validators.required, Validators.minLength(4)])],
             "countryId": [null],
             "stateId": [null],
@@ -140,9 +140,9 @@ export class AddBranchComponent implements OnInit {
             "officePhone": [null],
             "fax": [null],
             "formattedAddress": [null],
-            "officeHoursStart": [this.officeHoursStart, Validators.required],
-            "officeHoursEnd": [this.officeHoursEnd, Validators.required],
-            "noOfExamRooms": [null, Validators.required],
+            "officeHoursStart": [this.officeHoursStart, Validators.compose([Validators.required])],
+            "officeHoursEnd": [this.officeHoursEnd, Validators.compose([Validators.required])],
+            "noOfExamRooms": [null, Validators.compose([Validators.required])],
             "examRooms": this.fb.array([this.createExamRoom()]),
         });
         this.examRooms.push(this.createExamRoom());
@@ -268,7 +268,7 @@ export class AddBranchComponent implements OnInit {
     createExamRoom(): FormGroup {
 
         return this.fb.group({
-            "roomName": [null, Validators.required],
+            "roomName": [null, Validators.compose([Validators.required])],
             "allowOnlineScheduling": "",
         });
     }

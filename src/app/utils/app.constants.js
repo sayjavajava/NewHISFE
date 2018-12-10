@@ -70,6 +70,7 @@ var AppConstants = (function () {
     AppConstants.ICD_CODE_VERSION_DELETE_URL = '/setting/icd/codeVersion/delete?associateICDCVId=';
     AppConstants.ICD_CODE_VERSION_SEARCH = '/setting/icd/codeVersion/search/';
     AppConstants.ICD_VERSION_CODES_VERSION = '/setting/icd/version/codes/?versionId=';
+    AppConstants.IMPORT_ICD_CODE_LIST_TO_SERVER = '/setting/icd/importRecords';
     AppConstants.ROLE_ENDPOINT = '/user/auth/addRole';
     AppConstants.PERMISSION_ENDPOINT = '/user/auth/authorities';
     AppConstants.PERMISSION_BY_ROLE = '/user/auth/permission';
@@ -158,6 +159,7 @@ var AppConstants = (function () {
     AppConstants.UPDATE_APPOINTMENT_ROOM = '/appointment/update/room/';
     AppConstants.FETCH_APPOINTMENTS_URL = '/appointment/';
     AppConstants.FETCH_MEDICALSERVICES_WITH_DOCTORS = '/appointment/doctor/services';
+    AppConstants.IMPORT_APPOINTMENT_LIST_TO_SERVER = '/appointment/importRecords';
     ////////////////////// Dashboard URLs ///////////////////////////////
     AppConstants.FETCH_DASHBOARD_URL = '/dashboard/';
     AppConstants.CHANGE_APPT_STATUS = '/dashboard/changestatus/';
@@ -210,11 +212,11 @@ var AppConstants = (function () {
     ////////////////////// Vital Setup Configuration URLs ///////////////////////////////
     AppConstants.FETCH_VITALS_CONFIGURATIONS = '/vitalSetup/getSetup';
     AppConstants.VITALS_CONFIGURATION_SAVE = '/vitalSetup/saveVitalSetup';
-    AppConstants.VITALS_CONFIGURATION_GET_BY_ID = '/vitalSetup/get/';
     AppConstants.VITALS_CONFIGURATION_DELETE = '/vitalSetup/delete/';
     ////////////////////// Lab Test speciman Setup Configuration URLs ///////////////////////////////
     AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
+    AppConstants.IMPORT_LAB_TEST_LIST_TO_SERVER = '/labTest/importRecords';
     ///////////////////// Patient Group URLs ////////////////////////////////////////
     AppConstants.PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/'; ///all by paginated , zero means first page , 1 means second page
     AppConstants.PATIENT_GROUP_DELETE_URI = '/patient/group/delete?patientGroupId=';
@@ -233,6 +235,7 @@ var AppConstants = (function () {
     AppConstants.DRUG_SEARCH_BY_NAME_URL = '/setting/drug/search?drugName=';
     AppConstants.DRUG_GET_ALL_URL = '/setting/drug/all';
     AppConstants.DRUG_GET_NATURAL_ID_URL = '/setting/drug/natural'; // get natural id only
+    AppConstants.IMPORT_DRUGS_LIST_TO_SERVER = '/setting/drug/importRecords';
     ///////////////////// Currency URLs ////////////////////////////////////////
     AppConstants.CURRENCY_FETCH_ALL_PAGINATED_URI = '/setting/currency/'; ///all by paginated , zero means first page , 1 means second page
     AppConstants.CURRENCY_DELETE_URI = '/setting/currency/delete?currencyId=';
@@ -245,13 +248,19 @@ var AppConstants = (function () {
     AppConstants.SAVE_PAYMENTTYPE = '/PaymentType/save';
     AppConstants.DELETE_PAYMENTTYPE = '/PaymentType/delete/';
     AppConstants.UPDATE_PAYMENTTYPE = '/PaymentType/update';
+    AppConstants.GET_ALL_PAYMENT_TYPE = '/PaymentType/getListPaymentType';
     //////////////Payment API for Receipt ///////////////////////////////////
     AppConstants.SAVE_ADVANCE_PAYMENT = '/payment/saveAdvancePayment';
     AppConstants.GET_INVOICE_List_BY_PAT_ID = '/payment/getPatientInvoiceListById/';
+    AppConstants.GET_PAYMENT_ID = '/payment/getPaymentId';
     AppConstants.SAVE_BULK_RECEIT = '/payment/saveBulkReceit';
     AppConstants.GET_RECEIPT_List = '/payment/getReceiptList';
     AppConstants.REFUND_PAYMENT = '/refundApi/refundPayment';
     AppConstants.REFUND_LIST_DATA = '/refundApi/getRefundList';
+    AppConstants.GET_REFUND_ID = '/refundApi/getRefundId';
+    AppConstants.SAVE_DOCTOR_PAYMENT = '/doctorPayment/save';
+    AppConstants.GET_DOCTOR_PAYMENT_List = '/doctorPayment/getPaymentList';
+    AppConstants.GET_DOCTOR_List = '/doctorPayment/role';
     ////////////////Country/////////////////////////////
     AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
     AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';
@@ -288,8 +297,9 @@ var AppConstants = (function () {
     AppConstants.DELETE_PATIENT_IMAGE_DELETE = '/patient/Imageorder/delete/';
     AppConstants.UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
     AppConstants.PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/'; ///all by paginated
+    AppConstants.FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
+    /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/ /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
     AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
-    AppConstants.GET_COUNTRY_BY_NAME = '/CountryAPI/getByName/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

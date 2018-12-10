@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
@@ -16,7 +16,9 @@ export class LabTestComponent {
     data: LabTestSpecimanModel[];
     labTestSpeciman: LabTestSpecimanModel = new LabTestSpecimanModel();
     id: number;
-    cols:any;
+    cols: any;
+    labTestDataImport: File = null;
+
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -25,15 +27,16 @@ export class LabTestComponent {
     }
 
     ngOnInit() {
-        document.title = 'HIS | Lab Test Speciman Template';
+        document.title = 'HIS | Lab Test Specimen Template';
         if (localStorage.getItem(btoa('access_token'))) {
             this.getAllTestSpecimanList();
         }
         this.cols = [
             { field: 'testCode', header: 'Test Code' },
-            { field: 'testName', header: 'Name' },
+            { field: 'testName', header: 'Test Name' },
             { field: 'minNormalRange', header: 'MIN Range' },
             { field: 'maxNormalRange', header: 'MAX Range' },
+            { field: 'unit', header: 'Unit' },
             { field: 'description', header: 'Description' },
             { field: 'action', header: 'Action' },
 
@@ -50,11 +53,11 @@ export class LabTestComponent {
                         this.data = response['responseData'];
                        // this.cars = response['responseData'];
                     } else {
-                        this.notificationService.error(response['responseMessage'], 'Lab Test Speciman Configurations');
+                        this.notificationService.error(response['responseMessage'], 'Lab Test Specimen Configurations');
                     }
                 },
                 (error: any) => {
-                    this.notificationService.error(Response['responseMessage'], 'Lab Test Speciman Configurations');
+                    this.notificationService.error(Response['responseMessage'], 'Lab Test Specimen Configurations');
                 }
             );
         } else {
@@ -71,9 +74,9 @@ export class LabTestComponent {
                         if (response['responseCode'] === 'SUCCESS') {
                             this.data = response['responseData'];
                             document.getElementById('close-btn-Prefix').click();
-                            this.notificationService.success(response['responseMessage'], 'Lab Test Speciman');
+                            this.notificationService.success(response['responseMessage'], 'Lab Test Specimen');
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Lab Test Speciman');
+                            this.notificationService.error(response['responseMessage'], 'Lab Test Specimen');
                         }
                     },
                     (error: any) => {
@@ -89,8 +92,38 @@ export class LabTestComponent {
     edit(editConfiguration: any){
         if(editConfiguration){
             this.labTestSpeciman = editConfiguration;
-        }else{
+        } else {
             this.labTestSpeciman = new LabTestSpecimanModel();
+        }
+    }
+
+    importData(event: any) {
+        console.log(event);
+        console.log("Data import method is called");
+        let fileList: FileList = event.target.files;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === 'labTestDataImport') {
+                if (fileList[0].size > 0 && fileList[0].size < 4000000) {         // if (fileList[0].size < 4000000) {
+                    this.labTestDataImport = fileList[0];
+                    this.requestsService.postRequestMultipartForm(AppConstants.IMPORT_LAB_TEST_LIST_TO_SERVER, this.labTestDataImport)
+                        .subscribe(
+                            (response: Response) => {
+                                if (response['responseCode'] === 'SUCCESS') {
+                                    this.notificationService.success(response['responseMessage'], 'Lab Test Specimen');
+                                    this.getAllTestSpecimanList();
+                                } else {
+                                    this.notificationService.error(response['responseMessage'], 'Lab Test Specimen');
+                                }
+                            }, (error: any) => {
+                                //console.log(error.json())
+                                this.HISUtilService.tokenExpired(error.error.error);
+                                this.notificationService.error(error.error.responseMessage, 'Lab Test Specimen');
+                            }
+                        );
+                } else {
+                    this.notificationService.warn('File size must be more than 0 byte and less than 4 MB');
+                }
+            }
         }
     }
 

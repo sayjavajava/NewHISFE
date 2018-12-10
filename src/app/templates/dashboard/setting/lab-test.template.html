@@ -6,11 +6,13 @@
                     <h4 class="text-info">Lab Tests
                         <div class="pull-right">
                             <a href="#labTestSpeciman" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow" (click)="edit()"><i
-                                        class="fa fa-plus"></i>
-                                    Lab Test
-                                </button>
+                                <button class="btn mt-sweetalert btn green-meadow" (click)="edit()"><i class="fa fa-plus"></i> Lab Test</button>
                             </a>
+                            <div class="upload-btn-wrapper">
+                                <button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>
+                                <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                       id="labTestDataImport" name="labTestDataImport" value="" placeholder="" (change)="importData($event)">
+                            </div>
                         </div>
                     </h4>
                 </div>
@@ -54,6 +56,12 @@
 
         <!--Data Table-->
         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Test Code/Test Name/MIN Range/MAX Range/Unit " (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+            </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
@@ -67,14 +75,15 @@
                     </th>
 
                 </tr>
-                <tr>
+                <!--<tr>
                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                         <input *ngSwitchCase="'testCode'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         <input *ngSwitchCase="'testName'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         <input *ngSwitchCase="'minNormalRange'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         <input *ngSwitchCase="'maxNormalRange'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        <input *ngSwitchCase="'unit'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                     </th>
-                </tr>
+                </tr>-->
 
             </ng-template>
 
@@ -83,10 +92,11 @@
 
                     <!--{{car[col.field]}}-->
                     <td> {{item.testCode}}</td>
-                    <td>  {{item.testName}}</td>
-                    <td>  {{item.minNormalRange}}</td>
-                    <td>  {{item.maxNormalRange}}</td>
-                    <td>  {{item.description}}</td>
+                    <td> {{item.testName}}</td>
+                    <td> {{item.minNormalRange}}</td>
+                    <td> {{item.maxNormalRange}}</td>
+                    <td> {{item.unit}}</td>
+                    <td> {{item.description}}</td>
 
                     <td>
                         <a href="#labTestSpeciman" data-toggle="modal">
@@ -123,71 +133,62 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="testCode" id="testCode" class="form-control"
-                                           placeholder="Enter Test Code"
+                                           placeholder="e.g BloodTest001"
                                            [(ngModel)]="labTestSpeciman.testCode" #testCode="ngModel">
+                                    <span *ngIf="testCode.invalid && testCode.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter  test Code.</span>
                                 </div>
                             </div>
 
                             <div class="form-group hr">
-<<<<<<< Updated upstream
+
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-=======
->>>>>>> Stashed changes
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name<span
-                                        class="required" aria-required="true"> * </span></label>
+
                                 <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="testName" id="testName" class="form-control"
-                                           placeholder="Blood Cells"
-<<<<<<< Updated upstream
-                                           placeholder="Enter Test Name"
-=======
->>>>>>> Stashed changes
+                                           placeholder="e.g Blood Test"
                                            [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
                                 </div>
-                                <span *ngIf="testName.invalid && testName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter valid test name.</span>
+                                <span *ngIf="testName.invalid && testName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter  test name.</span>
                             </div>
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Min Normal Range<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="minNormalRange" id="minNormalRange"
-                                           class="form-control" placeholder="5"
-<<<<<<< Updated upstream
-                                           class="form-control" placeholder="Enter Minimum Range of Test Result"
-=======
->>>>>>> Stashed changes
+                                           class="form-control" placeholder="e.g 10"
                                            [(ngModel)]="labTestSpeciman.minNormalRange" #minNormalRange="ngModel">
+                                    <span *ngIf="minNormalRange.invalid && minNormalRange.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                        Please enter  Value.
+                                </span>
                                 </div>
                             </div>
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Max Normal Range<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="maxNormalRange" id="maxNormalRange" class="form-control"
-                                           placeholder="2"
-<<<<<<< Updated upstream
-                                           placeholder="Enter Maximum Range of Test Result"
-=======
->>>>>>> Stashed changes
+                                           placeholder="e.g 20" required
                                            [(ngModel)]="labTestSpeciman.maxNormalRange" #maxNormalRange="ngModel">
                                 </div>
                                 <span *ngIf="maxNormalRange.invalid && maxNormalRange.touched"
                                       class="col-md-9 select pdng-lr-5 text-danger">
-                                        Please enter valid Value.
+                                        Please enter  Value.
                                 </span>
                             </div>
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Unit<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="unit" id="unit" class="form-control"
-                                           placeholder="BPM"
+                                           placeholder="BPM" required
                                            [(ngModel)]="labTestSpeciman.unit" #unit="ngModel">
                                 </div>
                                 <span *ngIf="unit.invalid && unit.touched"
@@ -198,7 +199,7 @@
 
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" name="description" id="description" class="form-control"
                                            placeholder="Enter description"
                                            [(ngModel)]="labTestSpeciman.description" #description="ngModel">
@@ -208,10 +209,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                 <span>
-                    <button type="button" data-dismiss="modal" id="close-btn-Prefix"
-                            class="btn btn-default btn-outline">Close </button>
-                </span>
+                    <span>
+                        <button type="button" data-dismiss="modal" id="close-btn-Prefix"
+                                class="btn btn-default btn-outline">Close </button>
+                    </span>
                     <span>
                         <button type="button" class="btn blue"
                                  *ngIf="labTestSpeciman.id <= 0 || labTestSpeciman.id == null"
@@ -220,9 +221,9 @@
                         <button type="button" class="btn blue" *ngIf="labTestSpeciman.id > 0"
                                 (click)="editLabSpeciman(ngForm)">Update
                         </button>
-
-                </span>
+                    </span>
                 </div>
+            </div>
             </div>
         </form>
     </div>

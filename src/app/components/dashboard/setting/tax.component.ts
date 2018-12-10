@@ -20,13 +20,13 @@ export class TaxComponent implements OnInit {
     isSearchedTax: boolean = false;
     searchTax: string = '';
     cols: any[] = [
-        {field: 'name', header: 'name'},
-        {field: 'rate', header: 'rate'},
-        {field: 'fromDate', header: 'fromDate'},
-        {field: 'toDate', header: 'toDate'},
-        {field: 'description', header: 'description'},
-        {field: 'status', header: 'status'},
-        {field: 'ction', header: 'Action'},
+        {field: 'name', header: 'Name'},
+        {field: 'rate', header: 'Rate'},
+        {field: 'fromDate', header: 'From Date'},
+        {field: 'toDate', header: 'To Date'},
+        {field: 'description', header: 'Description'},
+        {field: 'status', header: 'Status'},
+        {field: 'action', header: 'Action'},
     ];
     loading: boolean = false;
     constructor(private notificationService: NotificationService,

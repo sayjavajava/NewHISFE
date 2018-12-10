@@ -116,6 +116,13 @@
                         </thead>
                     </table>-->
                     <p-table #dt [columns]="cols" [value]="branchesList" [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Search Against Name, Country, City, or Rooms"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
                         <ng-template sortable="true" pTemplate="header" let-columns>
                             <tr>
                                 <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
@@ -128,24 +135,13 @@
                                     </p-sortIcon>
                                 </th>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                     <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                    <!--<input *ngSwitchCase="'doctorsList'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+                                    &lt;!&ndash;<input *ngSwitchCase="'doctorsList'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
                                     <input *ngSwitchCase="'country'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     <input *ngSwitchCase="'city'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     <input *ngSwitchCase="'rooms'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                </th>
-                            </tr>
-                            <!--<tr>
-                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;'>
-                                    {{col.header}}
-                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th *ngFor="let col of columns">
-                                    <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"  style='width: -webkit-fill-available;'>
                                 </th>
                             </tr>-->
                         </ng-template>
@@ -219,7 +215,6 @@
 </div>
 
 <!--show doctors modal-->
-Office Start Time
 <div id="popupTest" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -259,9 +254,7 @@ Office Start Time
                 <button type="button" data-dismiss="modal"
                         id="close-btn-branch"
                         name="close-btn-branch"
-                        class="btn btn-default btn-outline"
-                >Close
-                </button>
+                        class="btn btn-default btn-outline">Close</button>
             </div>
         </div>
     </div>

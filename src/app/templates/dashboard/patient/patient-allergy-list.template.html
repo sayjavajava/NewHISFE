@@ -102,22 +102,31 @@
 
                     <p-table #dt [columns]="cols" [value]="allergyData"  [rows]="10"  [paginator]="true" >
 
-                        <div style="text-align: right">
+
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Allergy/Reaction/Notes"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
+                        <!--<div style="text-align: right">
                             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                            <input type="text" pInputText size="50" placeholder="Global Filter"
+                            <input type="text" pInputText size="50" placeholder="Allergy/Reaction/Notes"
                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
                                    style="width:auto">
-                        </div>
+                        </div>-->
                         <ng-template sortable="true" pTemplate="header" let-columns>
 
                             <tr>
                                 <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
 
                                     {{col.header}}
-                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    <p-sortIcon *ngIf="col.field != 'origin' && col.field != 'status'"
+                                                [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                                 </th>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
 
                                     <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
@@ -126,20 +135,20 @@
                                     <input *ngSwitchCase="'reaction'" pInputText type="text" style="width: 100%"
                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
 
-                                    <!--<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+                                    &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
 
-                                   <!-- <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+                                   &lt;!&ndash; <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
 
-                                    <!--<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">-->
+                                    &lt;!&ndash;<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
 
 
 
 
                                 </th>
-                            </tr>
+                            </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-allergyData>
                             <tr>

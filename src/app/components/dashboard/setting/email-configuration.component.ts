@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NotificationService} from "../../../services/notification.service";
 import {RequestsService} from "../../../services/requests.service";
 import {HISUtilService} from "../../../services/his-util.service";
@@ -112,5 +112,18 @@ export class EmailConfigurationComponent {
         }
     }
 
+    changeDefault(server: any) {
+        if (server == 'SMTPS') {
+            if(this.amazonSES.systemDefault){
+                this.amazonSES.systemDefault = false;
+            }
+        } else if (server == 'AmazonSES') {
+            if(this.smtps.systemDefault){
+                this.smtps.systemDefault = false;
+            }
+        }
+        // console.log('SMTPS: ' + this.smtps.systemDefault);
+        // console.log('AmazonSES: ' + this.amazonSES.systemDefault);
+    }
 
 }

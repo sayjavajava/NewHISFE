@@ -66,6 +66,9 @@ export class HeaderComponent implements OnInit {
                                 {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/patient/reports']},
                                 {label: 'Invoice Listing',icon: 'far fa-file-invoice',routerLink: ['/dashboard/invoice-listing']},
                                 {label: 'Receipt Listing',icon: 'fas fa-file-invoice',routerLink: ['/dashboard/receipt-listing']},
+
+                                {label: 'Doctor Payment',icon: 'fas fa-file-invoice',routerLink: ['/dashboard/doc-payment-listing']},
+
                                 {label: 'Refunds Listing',icon: 'icon-user-follow',routerLink: ['/dashboard/refund']},
                                 {label: 'Invoices',icon: 'icon-user-following',routerLink: ['/dashboard/invoice']},
                                 {label: 'Receipt',icon: 'fa fa-book',routerLink: ['/dashboard/patient/payment']}

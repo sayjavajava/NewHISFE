@@ -49,7 +49,7 @@ export class ManagePatientComponent implements OnInit {
             {field: 'pastAppointments', header: 'Last Appt.'},
             {field: 'futureAppointments', header: 'Next Appt.'},
             {field: "status", header: "Status"},
-            {field: "id", header: "Action"}
+            {field: "action", header: "Action"}
         ];
     }
 
@@ -102,7 +102,7 @@ export class ManagePatientComponent implements OnInit {
 
     deletePatient(patientId: number) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm("Are Your Source You Want To Delete")) return;
+            if (!confirm("Are You Sure Want To Delete?")) return;
             this.requestsService.deleteRequest(
                 AppConstants.PATIENT_DELETE_URI + patientId)
                 .subscribe(
@@ -179,6 +179,7 @@ export class ManagePatientComponent implements OnInit {
                         (response: Response) => {
                             if (response['responseCode'] === 'SUCCESS') {
                                 this.notificationService.success(response['responseMessage'], 'Patient');
+                                this.getAllPatientsFromServer();
                             } else {
                                 this.notificationService.error(response['responseMessage'], 'Patient');
                             }

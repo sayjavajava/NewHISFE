@@ -33,7 +33,8 @@ export class ReceiptListingComponent {
                 private notificationService: NotificationService,
                 private HISUtilService: HISUtilService)
     {
-        this.currency = "USD";
+    //    this.currency = "USD";
+       this.getDefaultCurrency();
 
        this.getAllPatient();
        this.getAllPaymentTypes();
@@ -42,16 +43,45 @@ export class ReceiptListingComponent {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Receipt Listing');
-        this.cols = [
-         /*   {field: "serialNo", header: "Serial #"},*/
-            {field: "paymentId", header: "Payment #"},
-            {field: "patientName", header: "Patient Name"},
-            {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
-            {field: "advanceUsedAmount", header: "Advance Utilized (" + (this.currency) + ")"},
-            {field: "paymontAmount", header: "Payment Amount (" + (this.currency) + ")"},
-            {field: "paymentType", header: "Payment Type"},
-        ];
 
+    }
+
+
+    getDefaultCurrency() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.currency=response['responseData'].currency;
+                    }
+                    this.cols = [
+                        /*   {field: "serialNo", header: "Serial #"},*/
+                        {field: "paymentId", header: "Payment #"},
+                        {field: "patientName", header: "Patient Name"},
+                        {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
+                        {field: "advanceUsedAmount", header: "Advance Utilized (" + (this.currency) + ")"},
+                        {field: "paymontAmount", header: "Payment Amount (" + (this.currency) + ")"},
+                        {field: "transactionType", header: "Transaction Type"},
+                        {field: "paymentType", header: "Payment Type"},
+                    ];
+                },
+                (error: any) => {
+                    //    this.notificationService.error(error.error.error);
+                })
+    }
+
+
+    getPaymentId(){
+        this.requestsService.getRequest(AppConstants.GET_PAYMENT_ID )
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.addAdvance.paymentId = response['responseData'];
+                    }
+                }
+            );
     }
 
 
@@ -70,6 +100,7 @@ export class ReceiptListingComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS')
                     {
+                        this.getAllReceiptListing();
                         this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                     } else {
                         this.notificationService.error(response['responseMessage']);
@@ -118,12 +149,16 @@ export class ReceiptListingComponent {
 
     getAllPaymentTypes()
     {
-        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENTTYPE )
+        this.requestsService.getRequest(AppConstants.GET_ALL_PAYMENT_TYPE)
             .subscribe(
                 (response: Response)=>{
                     if (response["responseCode"] === "PAYMENT_SUC_11")
                     {
                         this.paymentTypeList = response["responseData"].data;
+
+                        if(this.paymentTypeList.length > 0){
+                            this.addAdvance.paymentTypeId= this.paymentTypeList[0].id;
+                        }
                     }
                 }/*, function (error) {
                     this.notificationService.error("ERROR", "Payment Type List is not available");

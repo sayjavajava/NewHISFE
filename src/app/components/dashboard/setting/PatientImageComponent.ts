@@ -48,13 +48,13 @@ export class PatientImageComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.data = response['responseData'];
-                        // console.log("Length : " + this.prefixTemplateList.length);
+
                     } else {
-                        this.notificationService.error(response['responseMessage'], ' Setup ');
+                        this.notificationService.error(response['responseMessage'], '   ');
                     }
                 },
                 (error: any) => {
-                    this.notificationService.error(Response['responseMessage'], ' Setup ');
+                    this.notificationService.error(Response['responseMessage'], '  ');
                 }
             );
         } else {
@@ -62,18 +62,30 @@ export class PatientImageComponent {
         }
     }
 
-
+    onAddPopupLoadImage(){
+        this.patientImageSetupTemplate = new PatientImageModel();
+    }
     savesetup(formData: NgForm) {
         if (localStorage.getItem(btoa('access_token'))) {
+            if (this.patientImageSetupTemplate.code == null || this.patientImageSetupTemplate.code=="") {
+                this.notificationService.warn('Please enter Order.');
+                return;
+            }
+
+            if (this.patientImageSetupTemplate.name == "" || this.patientImageSetupTemplate.name == null) {
+                this.notificationService.warn('Please provide Name ');
+                return;
+            }
+
             this.requestsService.postRequest(AppConstants.PATIENT_IMAGE_SAVE , this.patientImageSetupTemplate)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
                             this.data = response['responseData'];
                             document.getElementById('close-btn-Prefix').click();
-                            this.notificationService.success(response['responseMessage'], 'Setup');
+                            this.notificationService.success(response['responseMessage'], '');
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
+                            this.notificationService.error(response['responseMessage'], '');
                         }
                     },
                     (error: any) => {
@@ -113,7 +125,7 @@ export class PatientImageComponent {
                     },
                     (error: any) => {
 
-                        this.notificationService.error(error.error, 'Patient Image  Delete')
+                        this.notificationService.error(error.error, 'Patient Image  Delete ')
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
                 );

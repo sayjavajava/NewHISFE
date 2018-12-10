@@ -6,11 +6,11 @@ export class PaymentRequest
     id: number;
     invoiceId: string;
     description: string;
-    paidAmount : number;
-    invoiceAmount : number;
-    patientAdvanceDeposit : number; // Patient Advanced amount/balance
-    usedAdvanceDeposit : number;    // use from advanced amount
-    discountAmount : number;
+    paidAmount : number=0.00;
+    invoiceAmount : number=0.00;
+    patientAdvanceDeposit : number=0.00; // Patient Advanced amount/balance
+    usedAdvanceDeposit : number=0.00;    // use from advanced amount
+    discountAmount : number=0.00;
     paymentTypeId: any;
 
     useAdvancedBal:boolean ;

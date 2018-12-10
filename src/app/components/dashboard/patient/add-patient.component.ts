@@ -168,11 +168,11 @@ export class AddPatientComponent implements OnInit {
             this.notificationService.error('Please provide required values', 'Patient');
             return;
         } else {
-            console.log(this.patient.dob);
-            if (this.patient.dob.toString().length > 0) {
+            // console.log(this.patient.dob);
+            if (this.patient.dob != null && this.patient.dob.toString().length > 0) {
                 this.patient.dob = this.patient.dob.toString().substring(0, 24);        // Wed Mar 17 1993 17:03:21 GMT+0500 (Pakistan Standard Time)
             }
-            console.log(this.patient.dob);
+            // console.log(this.patient.dob);
 
             // let dateObj = moment(this.patient.dob , "EEE MMM dd YYYY HH:mm:ss 'GMT'Z");
             // console.log(dateObj.toDate());

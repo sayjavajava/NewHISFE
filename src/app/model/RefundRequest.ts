@@ -5,10 +5,10 @@ export class RefundRequest{
     patientId: any ;
     refundType : any ;      //  Advance , Invoice
     invoiceId : any ;
-    selectedBalance: any;
+    selectedBalance: any=0.00;
     paymentTypeId : any ;
     description: any;
-    refundAmount: any;
+    refundAmount: any =0.00;
 
     constructor() {
 

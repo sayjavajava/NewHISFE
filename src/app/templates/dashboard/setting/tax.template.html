@@ -19,11 +19,11 @@
                 </div>
                 <ngx-loading [show]="loading"></ngx-loading>
                 <div class="table-scrollable">
-                    <p-table #dt [rows]="5" [value]="dataTaxes" [paginator]="true" [columns]="cols">
+                    <p-table #dt [rows]="5" [value]="dataTaxes" [paginator]="true" [columns]="cols">zz
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                <input type="text" pInputText size="50" placeholder="Global Filter"
+                                <input type="text" pInputText size="50" placeholder="Search here..."
                                        (input)="dt.filterGlobal($event.target.value, 'contains')"
                                        style="width:auto">
                             </div>
@@ -39,7 +39,7 @@
                                     </p-sortIcon>
                                 </th>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <th *ngFor="let col of cols" [ngSwitch]="col.field">
                                     <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
@@ -48,7 +48,7 @@
                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                 </th>
 
-                            </tr>
+                            </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
                             <tr>

@@ -118,21 +118,21 @@ var UpdateOrganizationComponent = (function () {
         this.proForm = this.fb.group({
             'companyEmail': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'companyName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
-            'officePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-            'specialty': [null],
-            'selectedCountry': [null],
+            'officePhone': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
+            'specialty': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'selectedCountry': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'selectedState': [null],
             'selectedCity': [null],
             'fax': [null],
             'currency': [null],
             'formName': ['PROFILE'],
-            'address': [null],
+            'address': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'website': [null, forms_1.Validators.pattern('^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$')],
         });
     };
     UpdateOrganizationComponent.prototype.createGenralForm = function () {
         this.generalForm = this.fb.group({
-            'defaultBranch': [null],
+            'defaultBranch': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'durationOfExam': [null],
             'durationFollowUp': [null],
             'prefixSerialPatient': [null],
@@ -141,9 +141,9 @@ var UpdateOrganizationComponent = (function () {
             'prefixSerialDepartment': [null],
             'prefixSerialAppointment': [null],
             'prefixSerialInvoices': [null],
-            'selectedTimeZoneFormat': [null],
-            'dateFormat': [null],
-            'timeFormat': [null],
+            'selectedTimeZoneFormat': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'dateFormat': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'timeFormat': [null, forms_1.Validators.compose([forms_1.Validators.required])],
         });
     };
     UpdateOrganizationComponent.prototype.createAccountForm = function () {
@@ -153,11 +153,11 @@ var UpdateOrganizationComponent = (function () {
             'lastName': [null],
             'userName': [null],
             'userEmail': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
-            'cellPhone': [null],
+            'cellPhone': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-            'selectedCountry': [null],
+            'selectedCountry': [null, , forms_1.Validators.compose([forms_1.Validators.required])],
             'selectedState': [null],
             'selectedCity': [null],
             'currency': [null],
