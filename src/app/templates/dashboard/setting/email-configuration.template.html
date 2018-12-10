@@ -1,6 +1,6 @@
 <div class="page-content-wrapper">
     <div class="page-content">
-        <h3 class="hr text-info">New Patient</h3>
+        <h3 class="hr text-info">Email Configuration</h3>
         <div class="portlet-body">
             <ul class="nav nav-tabs">
                 <li class="active">
@@ -17,22 +17,22 @@
                         <div class="col-md-6 bdr-btm">
                             <form id="smtpsForm" class="form-horizontal" #smtpsForm="ngForm">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4"> Host </label>
+                                    <label class="control-label col-md-4"> Host
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="host"
-                                               [(ngModel)]="smtps.smtpHost"
-                                               name="host"
-                                               #host="ngModel">
+                                        <input type="text" class="form-control" id="host" [(ngModel)]="smtps.smtpHost" name="host" #host="ngModel" required>
+                                        <div *ngIf="host.invalid" style="color: red">Host is required</div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4"> Email </label>
+                                    <label class="control-label col-md-4"> Email
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="smtpEmail"
-                                               [(ngModel)]="smtps.senderEmail"
-                                               name="smtpEmail"
-                                               #smtpEmail="ngModel">
+                                        <input type="text" class="form-control" id="smtpEmail" [(ngModel)]="smtps.senderEmail" name="smtpEmail" #smtpEmail="ngModel" required>
+                                        <div *ngIf="smtpEmail.invalid" style="color: red">Email is required</div>
                                     </div>
                                 </div>
 
@@ -47,22 +47,28 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4"> Password </label>
+                                    <label class="control-label col-md-4"> Password
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="smtps.smptPassword"
                                                name="smtpPassword"
                                                #smtpPassword="ngModel">
+                                        <div *ngIf="smtpPassword.invalid" style="color: red">Password is required</div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4"> Port </label>
+                                    <label class="control-label col-md-4"> Port
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="smtps.smtpPort"
                                                name="smtpPort"
                                                #smtpPort="ngModel">
+                                        <div *ngIf="smtpPort.invalid" style="color: red">Port is required</div>
                                     </div>
                                 </div>
 
@@ -80,7 +86,7 @@
                                     </div>-->
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox-outline">
-                                            <mat-checkbox name="isDefault" [(ngModel)]="smtps.systemDefault" color="primary"> </mat-checkbox>
+                                            <mat-checkbox name="isDefault" [(ngModel)]="smtps.systemDefault" color="primary" (change)="changeDefault('SMTPS')"> </mat-checkbox>
                                             <span></span>
                                         </label>
                                     </div>
@@ -105,29 +111,38 @@
                         <div class="col-md-6 bdr-btm">
                             <form id="sesForm" class="form-horizontal" #sesForm="ngForm">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4"> Access Key </label>
+                                    <label class="control-label col-md-4"> Access Key
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                                #accessKey="ngModel"  id="accessKey"
                                                name="accessKey" [(ngModel)]="amazonSES.sesAccessKey">
+                                        <div *ngIf="accessKey.invalid" style="color: red">Access Key is required</div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4"> Secret Key </label>
+                                    <label class="control-label col-md-4"> Secret Key
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                                #secretKey="ngModel"  id="secretKey"
                                                name="secretKey" [(ngModel)]="amazonSES.sesSecretKey">
+                                        <div *ngIf="secretKey.invalid" style="color: red">Secret Key is required</div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4"> Email </label>
+                                    <label class="control-label col-md-4"> Email
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                                #emailId="ngModel"  id="emailId"
                                                name="emailId" [(ngModel)]="amazonSES.senderEmail">
+                                        <div *ngIf="emailId.invalid" style="color: red">Email is required</div>
                                     </div>
                                 </div>
 
@@ -152,7 +167,7 @@
                                     </div>-->
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox-outline">
-                                            <mat-checkbox name="default" [(ngModel)]="amazonSES.systemDefault" color="primary"> </mat-checkbox>
+                                            <mat-checkbox name="default" [(ngModel)]="amazonSES.systemDefault" color="primary" (change)="changeDefault('AmazonSES')"> </mat-checkbox>
                                             <span></span>
                                         </label>
                                     </div>

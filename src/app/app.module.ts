@@ -167,6 +167,7 @@ import {PatientImageOrderComponent} from "./components/dashboard/patient/Patient
 import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
 
 import {GalleriaModule} from 'primeng/components/galleria/galleria';
+import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
 
 @NgModule({
     providers: [
@@ -349,7 +350,9 @@ import {GalleriaModule} from 'primeng/components/galleria/galleria';
         CurrencyComponent,
         PatientImageComponent,
         PatientImageOrderComponent,
-        PatientHistoryVitalComponent
+        PatientHistoryVitalComponent,
+
+        DoctorPaymentListingComponent,
     ],
     bootstrap: [AppComponent]
 })

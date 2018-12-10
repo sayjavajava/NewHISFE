@@ -28,16 +28,38 @@
         <ngx-loading [show]="loading"></ngx-loading>
         <!--table-->
         <p-table #dt [columns]="cols" [value]="dataMD" [paginator]="true" [rows]="5">
+            <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Search Against Name, Code, Fee, Tax, or Cost"
+                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+            </ng-template>
             <ng-template sortable="true" pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
-                        {{col.header}}
-                        <p-sortIcon *ngIf="col.field != 'branch' && col.field != 'department' && col.field != 'status' && col.field != 'action'"
-                                    [field]="col.field" ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order">
-                        </p-sortIcon>
+                        <span *ngSwitchCase="'name'"> {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        <span *ngSwitchCase="'code'"> {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        <span *ngSwitchCase="'branch'"> {{col.header}} </span>
+                        <span *ngSwitchCase="'department'"> {{col.header}} </span>
+                        <span *ngSwitchCase="'fee'"> {{col.header + " ("+this.currency+")" }}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        <span *ngSwitchCase="'tax'"> {{col.header + " ("+this.currency+")" }}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        <span *ngSwitchCase="'cost'"> {{col.header + " ("+this.currency+")" }}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        <span *ngSwitchCase="'status'"> {{col.header}} </span>
+                        <span *ngSwitchCase="'action'"> {{col.header}} </span>
                     </th>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                         <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         <input *ngSwitchCase="'code'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
@@ -45,7 +67,7 @@
                         <input *ngSwitchCase="'tax'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         <input *ngSwitchCase="'cost'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                     </th>
-                </tr>
+                </tr>-->
             </ng-template>
 
             <!--<ng-template pTemplate="header" let-columns>
@@ -106,12 +128,12 @@
                             </button>
                         </a>
                     </td>
-                    <td>{{item.fee | number :'.2-2'}}</td>
-                    <td>{{item.fee}}</td>
-                    <td>{{item.cost | number :'.2-2'}}</td>
+                    <td>{{item.fee | number :'.0-2'}}</td>
+                    <td>{{item.fee | number :'.0-2'}}</td>
+                    <!--<td>{{item.calculateTax() | number :'.2-2'}}</td>-->
+                    <td>{{item.cost | number :'.0-2'}}</td>
                     <td>
-                        <span
-                                [ngClass]="{'bg-green-meadow': item.status === true, 'bg-red-meadow': item.status === false}"
+                        <span [ngClass]="{'bg-green-meadow': item.status === true, 'bg-red-meadow': item.status === false}"
                                 class="mt-action-dot">
                         </span>
                     </td>

@@ -27,6 +27,8 @@ export class MedicalServiceComponent implements OnInit {
     cols:any;
     searchMSModel: MedicalServiceSearchModel = new MedicalServiceSearchModel();
     loading: boolean = false;
+    organizationDataList: any;
+    currency:string;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -36,6 +38,7 @@ export class MedicalServiceComponent implements OnInit {
     ngOnInit() {
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
+        this.organizationData();
 
         document.title = 'HIS | Medical Services';
         if (localStorage.getItem(btoa('access_token'))) {
@@ -44,9 +47,9 @@ export class MedicalServiceComponent implements OnInit {
                 { field: 'code', header: 'Code' },
                 { field: 'branch', header: 'Branch' },
                 { field: 'department', header: 'Department' },
-                { field: 'fee', header: 'Fee' },
-                { field: 'tax', header: 'Tax' },
-                { field: 'cost', header: 'Cost' },
+                { field: 'fee', header: 'Fee'},
+                { field: 'tax', header: 'Tax'},
+                { field: 'cost', header: 'Cost'},
                 { field: 'status', header: 'Status' },
                 { field: 'action', header: 'Action' }
             ];
@@ -171,6 +174,23 @@ export class MedicalServiceComponent implements OnInit {
 
                 }
             )
+    }
+
+    organizationData() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+                        this.currency = this.organizationDataList.currency;
+                        console.log(this.organizationDataList);
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
     }
 
 

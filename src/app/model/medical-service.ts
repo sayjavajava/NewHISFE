@@ -1,6 +1,7 @@
 import {Department} from './department';
 import {Tax} from './Tax';
 import {BranchPart} from './BranchPart';
+
 export class MedicalService {
     id: number = 0;
     name: string = '';
@@ -25,4 +26,9 @@ export class MedicalService {
 
     constructor() {
     }
+
+    /*calculateTax() {
+        if (this.fee == 0 || this.cost == 0 || this.tax.rate == 0) return 0;
+        return (this.tax.rate * this.fee / 100);
+    }*/
 }

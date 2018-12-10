@@ -49,12 +49,19 @@
 
                         <p-table #dt [columns]="cols" [value]="data"  [rows]="10"  [paginator]="true" >
 
-                            <div style="text-align: right">
+                            <!--<div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                                 <input type="text" pInputText size="50" placeholder="Global Filter"
                                        (input)="dt.filterGlobal($event.target.value, 'contains')"
                                        style="width:auto">
-                            </div>
+                            </div>-->
+                            <ng-template pTemplate="caption">
+                                <div style="text-align: right">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search Against Drug Name, Company Name, Generic Name, Route, or Strength"
+                                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
                             <ng-template sortable="true" pTemplate="header" let-columns>
 
                                 <tr>
@@ -64,7 +71,7 @@
                                         <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                                     </th>
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
 
                                         <input *ngSwitchCase="'drugName'" pInputText type="text" style="width: 100%"
@@ -91,7 +98,7 @@
 
 
                                     </th>
-                                </tr>
+                                </tr>-->
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-data>
                                 <tr>
