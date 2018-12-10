@@ -261,7 +261,7 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         PatientComponent,
         EditPatientComponent,
         PatientInvoiceComponent,
-        DoctorPaymentListingComponent,
+
 
         PatientHistoryComponent,
         PatientDemographicComponent,
@@ -352,8 +352,7 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         PatientImageComponent,
         PatientImageOrderComponent,
         PatientHistoryVitalComponent,
-
-        DoctorPaymentListingComponent,
+        DoctorPaymentListingComponent
     ],
     bootstrap: [AppComponent]
 })

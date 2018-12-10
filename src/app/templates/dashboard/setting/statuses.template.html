@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
-                    <h4 class="text-info">Statuses
+                    <h4 class="text-info">Status
                         <div class="pull-right">
                             <a href="#statusModal" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow" (click)="addStatus()">
@@ -45,8 +45,7 @@
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                <input type="text" pInputText size="50" placeholder="Search Against Name Abbreviation"
-                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                <input type="text" pInputText size="50" placeholder="Name/Abbreviation" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                             </div>
                         </ng-template>
                         <ng-template sortable="true" pTemplate="header" let-columns>
@@ -186,7 +185,7 @@
                                             class="required" aria-required="true"> * </span></label>
                                     <div class="col-md-8 select pdng-lr-5">
                                         <input class="form-control" type="text" required
-                                               [(ngModel)]="status.name"  placeholder="name e.g under process or confirmed"
+                                               [(ngModel)]="status.name"  placeholder="e.g under process or confirmed"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                name="stName" #stName="ngModel"/>
                                     </div>
@@ -201,7 +200,7 @@
                                         </label>
 
                                         <div class="col-md-8 select pdng-lr-5">
-                                            <input class="form-control"  placeholder="abbreviation e.g short name "
+                                            <input class="form-control"  placeholder="e.g short name "
                                                       type="text" [(ngModel)]="status.abbreviation"
                                                       name="abbrevation" #abbrevation="ngModel"/>
                                         </div>

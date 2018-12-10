@@ -121,7 +121,7 @@
             <ng-template pTemplate="caption">
                 <div style="text-align: right">
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder="Search against Department Name or Description" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    <input type="text" pInputText size="50" placeholder="Department Name/Deparment Description" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -220,7 +220,7 @@
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" required
-                                                   [(ngModel)]="selectedDepartment.name" placeholder="enter name e.g heart department"
+                                                   [(ngModel)]="selectedDepartment.name" placeholder="e.g Cardiology"
                                                    name="dptName" #dptName="ngModel"/>
                                             <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
                                         </div>
@@ -256,7 +256,7 @@
                                         <div class="col-md-9 select pdng-lr-5">
                                             <textarea class="form-control" rows="3"
                                                       [(ngModel)]="selectedDepartment.description"
-                                                      name="desc" #desc="ngModel" placeholder="enter description of department e.g heart department">
+                                                      name="desc" #desc="ngModel" placeholder="e.g this Department deals with hearts only">
                                             </textarea>
                                         </div>
                                     </div>

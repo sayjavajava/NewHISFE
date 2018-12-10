@@ -131,7 +131,7 @@
                     <ng-template pTemplate="caption">
                         <div style="text-align: right">
                             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            <input type="text" pInputText size="50" placeholder="Name/Relation" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -146,22 +146,22 @@
                             <th>Action</th>
                         </tr>
 
-                        <tr>
+                       <!-- <tr>
 
                             <th *ngFor="let col of cols" [ngSwitch]="col.field">
                                 <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">
-                                <!--<div *ngSwitchCase="'year'">
+                                &lt;!&ndash;<div *ngSwitchCase="'year'">
                                     Value < {{yearFilter}}
                                     <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
                                     <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider>
-                                </div>-->
+                                </div>&ndash;&gt;
                                 <p-dropdown *ngSwitchCase="'relation'" [options]="relationsList2" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
-                                <!--<input *ngSwitchCase="'relation'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">-->
-                                <!--<input *ngSwitchCase="'status'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">-->
-                                <!--<p-multiSelect *ngSwitchCase="'status'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>-->
+                                &lt;!&ndash;<input *ngSwitchCase="'relation'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">&ndash;&gt;
+                                &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">&ndash;&gt;
+                                &lt;!&ndash;<p-multiSelect *ngSwitchCase="'status'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>&ndash;&gt;
                             </th>
 
-                        </tr>
+                        </tr>-->
                     </ng-template>
                     <!--<ng-template pTemplate="body" let-rowData>
                         <tr [pSelectableRow]="rowData">

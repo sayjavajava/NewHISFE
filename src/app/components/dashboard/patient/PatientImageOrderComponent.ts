@@ -95,6 +95,12 @@ export class PatientImageOrderComponent implements OnInit {
         this.selectedOrder=this.orderListModified[0].value;
         this.uploadedFiles.length=0;
         this.showUpload=true;
+        if($('Div').hasClass('ui-fileupload-content')){
+            $('Div').removeClass('ui-fileupload-content');
+        }
+      //  $(".k-widget.k-upload").find("ul").remove();
+     //   $("ui-widget-content").removeClass("ui-fileupload-row");
+      //  document.getElementsByClassName('appBanner').style.visibility='hidden';
      //   this.demo
        /* let element = document.getElementsByClassName("ui-fileupload-content ui-widget-content ui-corner-bottom").style.visibility='hidden';;
         element.style.display = element.style.display === 'none' ? 'block' : 'none';*/
@@ -113,7 +119,7 @@ export class PatientImageOrderComponent implements OnInit {
 
         this.notificationService.success("File Uploaded");
        // event.target.clear();
-         form.clear();
+        form.clear();
     }
 
     saveOrder() {
@@ -127,7 +133,7 @@ export class PatientImageOrderComponent implements OnInit {
             this.patientImageTemplate.patientId = this.selectedPatientId;
 
             this.patientImageTemplate.patientImageId=this.selectedOrder.toString();
-            debugger;
+
             if (this.patientImageTemplate.patientImageId == null || this.patientImageTemplate.patientImageId=="") {
                 this.notificationService.warn('Please provide Order.');
                 return;
@@ -149,6 +155,7 @@ export class PatientImageOrderComponent implements OnInit {
                 return;
             }
                 console.log(this.patientImageTemplate);
+                this.closeBtn.nativeElement.click();
                 this.requestsService.postRequestMultipartFormAndDataWithMultipleFile(
                     AppConstants.PATIENT_IMAGE_SAVE_ORDER,
                     this.patientImageTemplate,this.uploadedFiles
@@ -170,7 +177,7 @@ export class PatientImageOrderComponent implements OnInit {
                         this.isRequestUnderProcess = false;
                     }
                 );
-                console.log(this.isRequestUnderProcess);
+
 
         } else {
             this.router.navigate(['/login']);
@@ -188,7 +195,7 @@ export class PatientImageOrderComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.orderData = response['responseData']['data'];
-                        debugger;
+
                         console.log(this.orderData);
                     } else {
                         this.notificationService.error(response['responseMessage'], 'No Record Found');
@@ -214,9 +221,9 @@ export class PatientImageOrderComponent implements OnInit {
                             if (response['responseCode'] === 'DOC_SUC_42') {
                                 this.patientImageTemplate = response['responseData'];
                                // this.showEdit=false;
-                                debugger;
+
                                 this.selectedOrder=this.patientImageTemplate.orderObj.code;
-                                this.isUpdate = false;
+                                this.isUpdate = true;
                             } else {
                                 this.notificationService.error(response['responseMessage'], 'Image of Patient');
                                 this.isUpdate = true;
@@ -373,12 +380,12 @@ export class PatientImageOrderComponent implements OnInit {
 
 
     getImageTest(Id:any){
-        debugger;
+
         if(this.showImage=true){
             this.showImage=false;
         }
         this.labTestFiltered = this.orderData.filter((x:any) =>x.id == Id);
-        debugger;
+
          this.filteredLabTestUrl = this.labTestFiltered[0].url;
          this.selectedId=this.labTestFiltered[0].id;
         /*for (let patientImg of this.filteredLabTestUrl) {
@@ -410,7 +417,7 @@ export class PatientImageOrderComponent implements OnInit {
 
         var link = document.getElementById("abc");
         this.images=[];
-        debugger;
+
         if(ext=="gif" || ext=="png" || ext=="jpeg" || ext=="tiff" || ext=="jpg" || ext=="GIF" || ext=="PNG" || ext=="JPEG" || ext=="TIFF" || ext=="JPG" ){
             let labTestFilteredimgUrl = this.orderData.filter((x:any) =>x.id == this.selectedId);
 
@@ -422,7 +429,7 @@ export class PatientImageOrderComponent implements OnInit {
                         var urlpath=test.url[j];
                         var extPath=filename.substr(filename.length - 3);
                         if(extPath=="gif" || extPath=="png" || extPath=="jpeg" || extPath=="tiff" || extPath=="jpg" || extPath=="GIF" || extPath=="PNG" || extPath=="JPEG" || extPath=="TIFF" || ext=="JPG" ){
-                        debugger;
+
                         this.images.push({source: test.url[j]});
                     }
             }

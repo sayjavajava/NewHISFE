@@ -5,8 +5,8 @@
             <h4 class="text-info">Vital Setup
                 <div class="pull-right">
                     <a href="#vitalSetup" data-toggle="modal">
-                        <button class="btn mt-sweetalert btn green-meadow" >
-                            <i class="fa fa-plus"></i> Add
+                        <button class="btn mt-sweetalert btn green-meadow" (click)="onAddPopupLoadVital()" >
+                            <i class="fa fa-plus" ></i> Add
                         </button>
                     </a>
 
@@ -16,8 +16,8 @@
                             (click)="getBranchFromServer(0)"
                             data-confirm-button-class="btn-success"> Refresh
                     </button>-->
-                    <span><button class="btn btn-default btn-outline"> <i
-                            class=" icon-clock"></i> Print </button></span>
+                    <!--<span><button class="btn btn-default btn-outline"> <i
+                            class=" icon-clock"></i> Print </button></span>-->
                 </div>
             </h4>
         </div>
@@ -52,8 +52,7 @@
                 <ng-template pTemplate="caption">
                     <div style="text-align: right">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Search Against Name, Unit or Standard Value"
-                               (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        <input type="text" pInputText size="50" placeholder="Name/Unit/Standard Value" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
@@ -115,16 +114,19 @@
                     <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span
+                                        class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text" required name="name" id="name" class="form-control" placeholder="Enter Name"
+                                    <input type="text" required name="name" id="name" class="form-control" placeholder="e.g Sample " required
                                            [(ngModel)]="vitalSetupTemplate.name" #name="ngModel">
+                                    <span *ngIf="name.invalid && name.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter name.</span>
                                 </div>
                             </div>
                             <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Unit</label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Unit<span
+                                        class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter text"
+                                    <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter text" required
                                            [(ngModel)]="vitalSetupTemplate.unit" #unit="ngModel">
                                 </div>
                                 <span *ngIf="unit.invalid && unit.touched" class="col-md-9 select pdng-lr-5 text-danger">
@@ -135,8 +137,9 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Standard Value</label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text" name="standardValue" class="form-control" placeholder="Enter text"
+                                    <input type="number" id="standardValue" name="standardValue" class="form-control" placeholder="e.g 80-120" required
                                            [(ngModel)]="vitalSetupTemplate.standardValue" #standardValue="ngModel">
+
                                 </div>
                             </div>
 
@@ -166,9 +169,21 @@
                  <span >
                     <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
                 </span>
-                    <span >
+
+                    <button type="button" class="btn blue"
+                            *ngIf="vitalSetupTemplate.id <= 0 || vitalSetupTemplate.id == null"
+                            (click)="editVitalSetup(ngForm)">Save
+                    </button>
+                    <button type="button" class="btn blue" *ngIf="vitalSetupTemplate.id > 0"
+                            (click)="editVitalSetup(ngForm)">Update
+                    </button>
+
+
+
+
+                   <!-- <span>
                     <button type="button" class="btn blue" id="save-btn-update" (click)="editVitalSetup(ngForm)" >Update </button>
-                </span>
+                </span>-->
                 </div>
             </div>
         </form>

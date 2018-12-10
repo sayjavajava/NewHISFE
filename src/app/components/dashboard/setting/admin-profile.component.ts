@@ -27,9 +27,9 @@ export class AdminProfileComponent implements OnInit {
     }
     createAccountForm() {
         this.accountForm = this.fb.group({
-            'firstName': [null],
+            'firstName': [null,Validators.compose([Validators.required])],
             'userId':[null],
-            'lastName': [null],
+            'lastName': [null,Validators.compose([Validators.required])],
             'userName': [null],
             'userEmail': [null,Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'cellPhone': [null],

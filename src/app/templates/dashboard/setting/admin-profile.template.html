@@ -10,23 +10,32 @@
                             <div class="row">
                                 <div class="col-md-7">
                                     <div class="form-group">
-                                        <label class="control-label col-md-4">First Name
+                                        <label class="control-label col-md-4">First Name<span class="required" aria-required="true"> * </span>
                                         </label>
                                         <div class="col-md-8 profile-frm">
                                             <input type="text" formControlName="firstName"
                                                    [(ngModel)]="organization.firstName"
                                                    class="form-control">
                                             <input type="hidden" formControlName="userId" [(ngModel)]="organization.id" >
+                                            <span class="text-danger"
+                                                  *ngIf="!accountForm.controls['firstName'].valid && accountForm.controls['firstName'].touched">
+                                                  <span *ngIf="accountForm.controls['firstName'].errors.required">First Name is required </span>
+                                            </span>
                                         </div>
                                         <input  formControlName="formName" value="ACCOUNT" type="hidden" />
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-4">Last Name
+                                        <label class="control-label col-md-4">Last Name<span class="required" aria-required="true"> * </span>
                                         </label>
                                         <div class="col-md-8 profile-frm">
                                             <input type="text" formControlName="lastName"
                                                    [(ngModel)]="organization.lastName"
-                                                   class="form-control"></div>
+                                                   class="form-control">
+                                            <span class="text-danger"
+                                                  *ngIf="!accountForm.controls['lastName'].valid && accountForm.controls['lastName'].touched">
+                                                  <span *ngIf="accountForm.controls['lastName'].errors.required">Last Name is required </span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-4">Email <span class="required" aria-required="true"> * </span>
@@ -48,7 +57,7 @@
                                         <div class="col-md-8 profile-frm">
                                             <input type="text" formControlName="userName"
                                                    [(ngModel)]="organization.username"
-                                                   class="form-control"></div>
+                                                   class="form-control" readonly></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-4">Cell Phone

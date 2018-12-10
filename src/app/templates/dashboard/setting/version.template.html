@@ -71,7 +71,7 @@
             <ng-template pTemplate="caption">
                 <div style="text-align: right">
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder="Search here..."
+                    <input type="text" pInputText size="50" placeholder="Name/Description"
                            (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                 </div>
             </ng-template>
@@ -80,10 +80,10 @@
                 <tr>
                     <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                         {{col.header}}
-                        <p-sortIcon
-                                [field]="col.field" ariaLabel="Sort"
-                                ariaLabelDesc="Sort in descending order"
-                                ariaLabelAsc="Sort in ascending order">
+                        <p-sortIcon *ngIf="col.field != 'Action' && col.field != 'status'"
+                                [field]="col.field" ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order">
                         </p-sortIcon>
                     </th>
                 </tr>

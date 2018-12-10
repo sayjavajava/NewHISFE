@@ -163,6 +163,11 @@
                                                     <mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
                                                     <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>
                                                 </mat-radio-group>
+                                                    <span class="text-danger"
+                                                          *ngIf="!branchForm.controls['flow'].valid && branchForm.controls['flow'].touched">
+                                                            <span *ngIf="branchForm.controls['flow'].errors.required"> name is required </span>
+
+                                                    </span>
                                                 </div>
                                             </div>
                                            </div>
@@ -178,7 +183,7 @@
                                                            formControlName="officeHoursStart" value="{{officeHoursStart}}">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
-                                                    <!--<span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>-->
+                                                            <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
                                                     </span>
                                                 </div>
                                             </div>

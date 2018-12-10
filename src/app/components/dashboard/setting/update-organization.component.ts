@@ -114,15 +114,15 @@ export class UpdateOrganizationComponent implements OnInit {
         this.proForm = this.fb.group({
                 'companyEmail':  [null,Validators.compose([ Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'companyName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
-                'officePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-                'specialty': [null],
-                'selectedCountry': [null],
+                'officePhone': [null, Validators.compose([Validators.required,Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
+                'specialty': [null,Validators.compose([Validators.required])],
+                'selectedCountry': [null,Validators.compose([Validators.required])],
                 'selectedState': [null],
                 'selectedCity': [null],
                 'fax': [null],
                 'currency':[null],
                 'formName': ['PROFILE'],
-                'address': [null],
+                'address': [null,Validators.compose([Validators.required])],
                 'website': [null, Validators.pattern('^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$')],
             }
         );
@@ -130,7 +130,7 @@ export class UpdateOrganizationComponent implements OnInit {
 
     createGenralForm() {
         this.generalForm = this.fb.group({
-            'defaultBranch': [null],
+            'defaultBranch': [null,Validators.compose([Validators.required])],
             'durationOfExam': [null],
             'durationFollowUp': [null],
             'prefixSerialPatient': [null],
@@ -139,9 +139,9 @@ export class UpdateOrganizationComponent implements OnInit {
             'prefixSerialDepartment': [null],
             'prefixSerialAppointment': [null],
             'prefixSerialInvoices': [null],
-            'selectedTimeZoneFormat':[null],
-            'dateFormat':[null],
-            'timeFormat':[null],
+            'selectedTimeZoneFormat':[null,Validators.compose([Validators.required])],
+            'dateFormat':[null,Validators.compose([Validators.required])],
+            'timeFormat':[null,Validators.compose([Validators.required])],
         });
     }
 
@@ -152,11 +152,11 @@ export class UpdateOrganizationComponent implements OnInit {
             'lastName': [null],
             'userName': [null],
             'userEmail': [null,Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
-            'cellPhone': [null],
+            'cellPhone': [null,Validators.compose([Validators.required])],
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-            'selectedCountry': [null],
+            'selectedCountry': [null,,Validators.compose([Validators.required])],
             'selectedState': [null],
             'selectedCity': [null],
             'currency':[null],

@@ -81,33 +81,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="portlet-body">
-                    <ul class="nav nav-tabs">
-                        <!--<li class="active">
-                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Uploaded Documents </a>
-                        </li>-->
-                        <div class="pull-right">
-                            <!--<a href="#responsive" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
-                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                        data-type="success" data-allow-outside-click="true"
-                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
-                                </button>
-                            </a>-->
-                            <span>
-                                <a href="#responsive" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
-                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                        data-type="success" data-allow-outside-click="true"
-                                        (click)="addProblemPopupClick()"
-                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Order
-                                </button>
-                                 </a>
-                            </span>
-
-                        </div>
-
-
-                    </ul>
                     <!--<div class="tab-content">
                         <div class="hr">
                             <div class="tab-pane col-md-12 fade active in" id="tab_1_1">
@@ -187,8 +160,29 @@
                             </div>
                         </div>-->
 
-                        <div class="hr">
-                            <h4 class="text-info">Uploaded Documents</h4>
+                        <div class="hr mrgn-top10 mrgn-btm10">
+                            <h4 class="text-info">Uploaded Documents
+                                <div class="pull-right">
+                                    <!--<a href="#responsive" data-toggle="modal">
+                                        <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                                data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                                data-type="success" data-allow-outside-click="true"
+                                                data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
+                                        </button>
+                                    </a>-->
+                                    <span>
+                                <a href="#responsive" data-toggle="modal">
+                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                        data-type="success" data-allow-outside-click="true"
+                                        (click)="addProblemPopupClick()"
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Order
+                                </button>
+                                 </a>
+                            </span>
+
+                                </div>
+                            </h4>
                             <div class="table-scrollable tbl-brdr-radus">
                                 <table class="table table-hover table-light">
                                     <thead>
@@ -230,7 +224,6 @@
                                                     (click)="deleteOrder(order.id)">
                                                 <i class="fa fa-remove"></i>
                                             </button>
-
                                         </td>
                                     </tr>
                                     </tbody>
@@ -242,8 +235,6 @@
                     <div class="clearfix margin-bottom-20"></div>
                 </div>
             </div>
-
-        </div>
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
@@ -277,6 +268,8 @@
                 </div>
             </div>
         </div>
+        </div>
+
 
 
 </div>
@@ -290,7 +283,7 @@
                 <h4 class="modal-title">Image Order </h4>
             </div>
             <div class="modal-body">
-                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:380px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="form-group hr">
                             <label class="control-label txt-size pdng-lr-5 col-md-4">Order<span class="required" aria-required="true"> * </span>
@@ -309,28 +302,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group hr">
+                        <div class="form-group hr mrgn-btm10">
                             <label class="control-label txt-size pdng-lr-5 col-md-4">Description
                                 <!--<span class="required" aria-required="true"> * </span>-->
                             </label>
                             <div class="col-md-8 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-
-
-                                    <input type="text" class="form-control"
-                                           [(ngModel)]="patientImageTemplate.description">
+                                    <textarea type="text" rows="2" class="form-control"
+                                              [(ngModel)]="patientImageTemplate.description"></textarea>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group hr">
+                        <div class="form-group hr mrgn-btm10">
                             <label class="col-md-4 control-label txt-size pdng-lr-5">Doctor Comment:<span class="required"
                                                                                                    aria-required="true"> * </span></label>
                             <div class="col-md-8 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-
-
-                                    <textarea class="form-control" [(ngModel)]="patientImageTemplate.doctorComment"   style="height: 50em; "></textarea>
+                                    <textarea class="form-control" rows="2" [(ngModel)]="patientImageTemplate.doctorComment"></textarea>
 
                                 </div>
                             </div>
@@ -347,24 +336,20 @@
                             </div>
                         </div>
 
-                            <div class="form-group" *ngIf="isUpdate">
+                            <div class="form-group mrgn-btm10" *ngIf="isUpdate && showUpload">
                                 <label class="col-md-4 pdng-lr-5 control-label txt-size">Upload File<span class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-8 select pdng-lr-5">
                                     <p-fileUpload #form  name="demo[]"   customUpload="true"  (uploadHandler)="uploadImgOnChange($event,form)" (onUpload)="onUpload($event)"
                                                   multiple="multiple"  maxFileSize="4000000"
+                                                  invalidFileSizeMessageSummary="{0} has wrong size, "
+                                                  invalidFileSizeMessageDetail="it exceeds {0}."
                                                   chooseLabel="Select file"
                                                   uploadLabel="Upload it!"
-                                                  cancelLabel="Abort"
-                                                  auto="false"
-                                                  showUploadButton="false"
-                                                  showCancelButton="false">
+                                                  cancelLabel="Abort">
 
                                     </p-fileUpload>
-
                                 </div>
                             </div>
-
-
                         <!--<div class="form-group" *ngIf="!isUpdate && !showUpload">
                             <label class="col-md-4 pdng-lr-5 control-label txt-size">Upload File<span class="required" aria-required="true"> * </span></label>
                             <div class="col-md-8 select pdng-lr-5">

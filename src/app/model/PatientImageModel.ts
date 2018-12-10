@@ -4,7 +4,7 @@ export class PatientImageModel{
     code:string;
     name: string = '';
     description: string = '';
-    status: boolean = false;
+    status: boolean = true;
     constructor() {
     }
 }
