@@ -21,33 +21,34 @@
 
                     <!--(onLazyLoad)="loadLazy($event)"[loading]="loading"  -->
                     <p-table #dt [columns]="cols" [value]="paymentlst"  [rows]="10"  [paginator]="true" >
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Search Against Code or Problem"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
                         <ng-template sortable="true" pTemplate="header" let-columns>
-
                             <tr>
                                 <th sortable="true" *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
                                     <span *ngSwitchCase="'paymentTitle'"> {{col.header}}
-                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                        <p-sortIcon [field]="col.field" ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"></p-sortIcon>
                                     </span>
                                     <span *ngSwitchCase="'paymentGlAccount'"> {{col.header}}
-                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                        <p-sortIcon [field]="col.field" ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"></p-sortIcon>
                                     </span>
                                     <span *ngSwitchCase="'serviceCharges'"> {{col.header + "("+this.currency+")" }}
-                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                        <p-sortIcon [field]="col.field" ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"></p-sortIcon>
                                     </span>
                                     <span *ngSwitchCase="'maxCardCharges'"> {{col.header + "("+this.currency+")"}}
-                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                        <p-sortIcon [field]="col.field" ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"></p-sortIcon>
                                     </span>
-                                    <span *ngSwitchCase="'active'"> {{col.header}}
-
-                                    </span>
-
-                                    <span *ngSwitchCase="'Action'"> {{col.header}}
-
-                                    </span>
+                                    <span *ngSwitchCase="'active'"> {{col.header}} </span>
+                                    <span *ngSwitchCase="'Action'"> {{col.header}} </span>
 
                                 </th>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
 
                                     <input *ngSwitchCase="'paymentTitle'" pInputText type="text" style="width: 100%"
@@ -64,17 +65,17 @@
 
 
                                 </th>
-                            </tr>
+                            </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-paymentlst>
                             <tr>
                                 <td field="paymentTitle"> {{paymentlst.paymentTitle}} </td>
                                 <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount.name}} </td>
 
-                                <td field="serviceCharges" > {{ paymentlst.serviceCharges | number : '1.2-2'  }} </td>
-                                <td field="maxCardCharges"> {{paymentlst.maxCardCharges | number : '1.2-2'}} </td>
+                                <td field="serviceCharges" > {{ paymentlst.serviceCharges}} </td>
+                                <td field="maxCardCharges"> {{paymentlst.maxCardCharges}} </td>
 
-                                <td field="active"> <span class="font-blue"> {{paymentlst.active || uppercase }} </span> </td>
+                                <td field="active"> <span class="font-blue"> {{paymentlst.active}} </span> </td>
                                 <td>
                                     <a href="#responsive" data-toggle="modal">
                                         <button class="btn btn-default btn-outline btn-sm"
@@ -157,9 +158,9 @@
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Payment Type</label>
                                             <div class="col-md-9 profile-frm pdng-lr-5">
-                                                <select class="form-control" name="pMode" (change)="onPaymentMode($event.target.value)" [(ngModel)]="newPaymentType.paymentMode">
+                                                <!--<select class="form-control" name="pMode" (change)="onPaymentMode($event.target.value)" [(ngModel)]="newPaymentType.paymentMode">
                                                     <option *ngFor="let payType of allTypePAYMENT" value="{{payType.name}}">{{ payType.name }}</option>
-                                                </select>
+                                                </select>-->
                                             </div>
                                     </div>
 
@@ -168,7 +169,6 @@
                                         <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text"  name="purpose"
                                                    [(ngModel)]="newPaymentType.paymentPurpose"
-
                                                    name="cstgls" #cstgls="ngModel"/>
                                         </div>
                                     </div>
@@ -201,8 +201,8 @@
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Who Will Pay Credit Card Charge </label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <label class="mt-checkbox-outline">
-                                                <mat-checkbox #active="ngModel"
-                                                              name="active"
+                                                <mat-checkbox #isPatient="ngModel"
+                                                              name="isPatient"
                                                               [(ngModel)]="newPaymentType.isPatient"
                                                               color="primary"></mat-checkbox>
 
@@ -264,7 +264,7 @@
                             Close
                         </button>
                         <button type="button" class="btn blue"
-                                *ngIf="newPaymentType.id <= 0 || newPaymentType.id == null"
+                                *ngIf="newPaymentType.id == null || newPaymentType.id <= 0"
                                 (click)="savePaymentType(form)">Save
                         </button>
                         <button type="button" class="btn blue" *ngIf="newPaymentType.id > 0"

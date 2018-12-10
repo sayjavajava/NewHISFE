@@ -35,10 +35,10 @@ export class VersionComponent implements OnInit {
         document.title = 'HIS | Manage ICD';
         if (localStorage.getItem(btoa('access_token'))) {
             this.cols = [
-                {field: 'name', header: 'name'},
-                {field: 'description', header: 'description'},
-                {field: 'status', header: 'status'},
-                {field: 'Action', header: 'Action'}
+                {field: 'name', header: 'Name'},
+                {field: 'description', header: 'Description'},
+                {field: 'status', header: 'Status'},
+                {field: 'action', header: 'Action'}
             ];
 
             this.getAllVersionsFromServer();

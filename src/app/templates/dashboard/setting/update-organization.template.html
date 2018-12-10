@@ -31,18 +31,24 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm">
-                                                    <input type="text" formControlName="companyName"
-                                                           class="form-control"></div>
-                                                <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
-                                                <span *ngIf="proForm.controls['companyName'].errors.minlength"> minimum 4 charachters</span>
-                                                <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
-                                                </span>
+                                                    <input type="text" formControlName="companyName" class="form-control">
+                                                    <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
+                                                        <span *ngIf="proForm.controls['companyName'].errors.minlength"> Minimum 4 characters</span>
+                                                        <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
+                                                    </span>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Specialty
+                                                    <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.specialty" [options]="specialtyList" formControlName="specialty"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    <p-dropdown
+                                                            [autoWidth]="false" required
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            [(ngModel)]="organization.specialty"
+                                                            [options]="specialtyList" formControlName="specialty"
+                                                            [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
                                                 </div>
                                             </div>
@@ -243,22 +249,20 @@
                                             <h4 class="hr" style="margin-left: 19%;"> Contact</h4>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Email
-                                                    <span class="required" aria-required="true"> </span>
+                                                    <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm">
-                                                    <input type="email" formControlName="companyEmail"
-                                                           class="form-control">
-
+                                                    <input type="email" formControlName="companyEmail" class="form-control">
                                                     <span class="text-danger"
                                                           *ngIf="!proForm.controls['companyEmail'].valid && proForm.controls['companyEmail'].touched">
-                                                   <span *ngIf="proForm.controls['companyEmail'].errors.required">Email is required </span>
-                                                   <span *ngIf="proForm.controls['companyEmail'].errors.pattern">Email is not valid</span>
+                                                       <span *ngIf="proForm.controls['companyEmail'].errors.required">Email is required </span>
+                                                       <span *ngIf="proForm.controls['companyEmail'].errors.pattern">Email is not valid</span>
                                                    </span>
                                                 </div>
-                                                <span class="text-danger"
+                                                <!--<span class="text-danger"
                                                       *ngIf="proForm.controls['companyEmail'].invalid && proForm.controls['companyEmail'].touched">
                                                     <span *ngIf="proForm.controls['companyEmail'].errors">Please enter valid Email.</span>
-                                                 </span>
+                                                 </span>-->
                                                 <input  formControlName="formName" value="PROFILE" type="hidden" />
                                             </div>
                                             <div class="form-group">
@@ -273,19 +277,21 @@
                                                 <label class="control-label col-md-4">Address<span class="required" aria-required="true"> </span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm">
-                                                    <input type="text" formControlName="address"
-                                                           class="form-control">
+                                                    <input type="text" formControlName="address" class="form-control">
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Office Phone
+                                                    <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm">
-                                                    <input  type="text" formControlName="officePhone"
-                                                            class="form-control">
-                                                    <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
-                                                        <span *ngIf="proForm.controls['homePhone'].errors.pattern">Phone Number is not valid</span></span>
+                                                    <input type="tel" formControlName="officePhone" class="form-control">
+                                                    <span class="text-danger"
+                                                          *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
+                                                       <span *ngIf="proForm.controls['officePhone'].errors.required">Office Phone is required </span>
+                                                       <span *ngIf="proForm.controls['officePhone'].errors.pattern">Office Phone is not valid</span>
+                                                   </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -293,6 +299,7 @@
                                     <div class="hr">
                                         <div class="col-md-12 text-center">
                                             <button type="button" class="btn blue" (click)="saveProfile(proForm.value,'profile')"> Update</button>
+                                            <button (click)="cancel()" class="btn default"><i class="fa fa-default"></i> Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -324,9 +331,8 @@
                                                 </select>-->
                                                 <span class="text-danger"
                                                       *ngIf="!generalForm.controls['defaultBranch'].valid && generalForm.controls['defaultBranch'].touched">
-                                                  <span *ngIf="generalForm.controls['defaultBranch'].errors.required">Default Branch is required </span>
-
-                                        </span>
+                                                    <span *ngIf="generalForm.controls['defaultBranch'].errors.required">Default Branch is required </span>
+                                                </span>
                                             </div>
                                             <div class="col-md-4">Default Branch on Calendar</div>
                                         </div>
@@ -358,7 +364,6 @@
 
                                             <div class="col-md-4">Default duration of a free folow-up exam in days</div>
                                         </div>-->
-
                                         <!--<div class="form-group">
                                             <label class="control-label col-md-3">Prefix Serial Patient
                                                 <span class="required" aria-required="true"> * </span>
@@ -444,7 +449,9 @@
                                             </div>
                                         </div>-->
                                         <div class="form-group">
-                                            <label  class="control-label col-md-3">Time Zone </label>
+                                            <label  class="control-label col-md-3">Time Zone
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
                                             <div class="col-md-9">
                                                 <!--<p-dropdown
                                                         [autoWidth]="false"
@@ -455,7 +462,8 @@
                                                         [panelStyle]="{minWidth:'12em'}"
                                                         [filter]="true" (change)="getSelected($event.target.value)" >
                                                 </p-dropdown>-->
-                                                <p-dropdown placeholder="{{selectedTimeZoneFormat}}" [autoWidth]="false" [(ngModel)]="selectedTimeZoneFormat"
+                                                <p-dropdown placeholder="{{selectedTimeZoneFormat}}" [autoWidth]="false"
+                                                            [(ngModel)]="selectedTimeZoneFormat"
                                                             [style]="{'text-align': 'left' ,'width':'100%'}"
                                                             [options]="timeZoneListModified"
                                                             formControlName="selectedTimeZoneFormat" [panelStyle]="{minWidth:'12em'}"
@@ -468,10 +476,16 @@
                                                         {{tz.name + ' ' + tz.zoneTime}}
                                                     </option>
                                                 </select>-->
+                                                <span class="text-danger"
+                                                      *ngIf="!generalForm.controls['selectedTimeZoneFormat'].valid && generalForm.controls['selectedTimeZoneFormat'].touched">
+                                                    <span *ngIf="generalForm.controls['selectedTimeZoneFormat'].errors.required">Time Zone is required </span>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label  class="control-label col-md-3">Date Format </label>
+                                            <label  class="control-label col-md-3">Date Format
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
                                             <div class="col-md-9">
                                                 <!--
                                                 <p-dropdown name="customizedselect" [options]="countrycodes" [(ngModel)]="selectedCountry"
@@ -485,21 +499,39 @@
                 </ng-template>
             </p-dropdown>
                                                 -->
-                                                <p-dropdown   [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.dateFormat" [options]="dateType" formControlName="dateFormat"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                <p-dropdown [autoWidth]="false"
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            [(ngModel)]="organization.dateFormat" [options]="dateType"
+                                                            formControlName="dateFormat"
+                                                            [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
                                                <!-- <p-dropdown placeholder="Select Date Format" [autoWidth]="false"  class="form-control" formControlName="dateFormat"
                                                              [panelStyle]="{minWidth:'10em'}"  [options]="dateFormatLst">
 
 
                                                 </p-dropdown>-->
+                                                <span class="text-danger"
+                                                      *ngIf="!generalForm.controls['dateFormat'].valid && generalForm.controls['dateFormat'].touched">
+                                                    <span *ngIf="generalForm.controls['dateFormat'].errors.required">Date Format is required </span>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label  class="control-label col-md-3">Time  Format </label>
+                                            <label  class="control-label col-md-3">Time  Format
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
                                             <div class="col-md-9">
 
-                                                <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.timeFormat" [options]="timeType" formControlName="timeFormat"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                <p-dropdown [autoWidth]="false"
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            [(ngModel)]="organization.timeFormat" [options]="timeType"
+                                                            formControlName="timeFormat"
+                                                            [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
+                                                <span class="text-danger"
+                                                      *ngIf="!generalForm.controls['timeFormat'].valid && generalForm.controls['timeFormat'].touched">
+                                                    <span *ngIf="generalForm.controls['timeFormat'].errors.required">Time Zone is required </span>
+                                                </span>
 
                                             </div>
                                         </div>

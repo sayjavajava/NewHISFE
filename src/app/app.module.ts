@@ -351,7 +351,9 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         CurrencyComponent,
         PatientImageComponent,
         PatientImageOrderComponent,
-        PatientHistoryVitalComponent
+        PatientHistoryVitalComponent,
+
+        DoctorPaymentListingComponent,
     ],
     bootstrap: [AppComponent]
 })

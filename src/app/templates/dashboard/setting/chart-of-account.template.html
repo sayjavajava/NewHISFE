@@ -16,6 +16,13 @@
 
                 <div class="table-scrollable">
                     <p-table #dt [columns]="cols" [value]="chartOfAccountList" [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Search Against any field"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
                         <ng-template sortable="true" pTemplate="header" let-columns>
                             <tr>
                                 <th *ngFor="let col of columns" [pSortableColumn]="col.field" style='width: -webkit-fill-available;' [ngSwitch]="col.field">
@@ -26,7 +33,7 @@
                                 </th>
 
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                     <input *ngSwitchCase="'code'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
@@ -34,7 +41,7 @@
                                     <input *ngSwitchCase="'description'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     <input *ngSwitchCase="'balance'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                 </th>
-                            </tr>
+                            </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-chartOfAccountList>
                             <tr>
@@ -150,17 +157,21 @@
                             <ng-container *ngIf="showBankDetailsDiv == true">
                                 <span *ngIf="showBankDetailsDiv == true">
                                     <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account Title</label>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account Title
+                                            <span class="required" aria-required="true"> * </span>
+                                        </label>
                                         <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                            <input type="text"  required name="title" id="title" class="form-control" placeholder="Enter Bank Account Title"
+                                            <input type="text" required name="title" id="title" class="form-control" placeholder="Enter Bank Account Title"
                                                    [(ngModel)]="chartOfAccount.bankAccount.title" #title="ngModel">
                                         </div>
                                     </div>
 
                                     <div class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account #</label>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account #
+                                            <span class="required" aria-required="true"> * </span>
+                                        </label>
                                         <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                            <input type="text"  required name="accountNumber" id="accountNumber" class="form-control" placeholder="Enter Bank Account Number"
+                                            <input type="text" required name="accountNumber" id="accountNumber" class="form-control" placeholder="Enter Bank Account Number"
                                                    [(ngModel)]="chartOfAccount.bankAccount.accountNumber" #accountNumber="ngModel">
                                         </div>
                                     </div>

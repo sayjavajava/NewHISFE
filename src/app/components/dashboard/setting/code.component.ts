@@ -29,11 +29,11 @@ export class CodeComponent implements OnInit {
     selectAll: boolean = false;
     clientCheckedVersions: ICDVersionModel [] = [];
     cols: any = [
-        {field: 'code', header: 'code'},
-        {field: 'problem', header: 'problem'},
-        {field: 'version', header: 'version'},
-        {field: 'description', header: 'description'},
-        {field: 'status', header: 'status'},
+        {field: 'code', header: 'Code'},
+        {field: 'problem', header: 'Problem'},
+        {field: 'version', header: 'Version'},
+        {field: 'description', header: 'Description'},
+        {field: 'status', header: 'Status'},
         {field: 'action', header: 'Action'},
     ];
 

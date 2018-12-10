@@ -103,11 +103,35 @@ export class ChartOfAccountComponent {
                 document.getElementById("accountName").focus();
                 return;
             }
+            if (this.chartOfAccount.parentType == "Bank") {
+                if (this.chartOfAccount.bankAccount.title == null || this.chartOfAccount.bankAccount.title.trim().length <= 0) {
+                    this.notificationService.error('Please provide Bank Account Title', "Chart Of Account");
+                    document.getElementById('title').focus();
+                    return;
+                }
+                if (this.chartOfAccount.bankAccount.accountNumber == null || this.chartOfAccount.bankAccount.accountNumber.trim().length <= 0) {
+                    this.notificationService.error('Please provide Bank Account Number', "Chart Of Account");
+                    document.getElementById('accountNumber').focus();
+                    return;
+                }
+            }
         } else {
             if (this.chartOfAccount.name.trim().length <= 0) {
                 this.notificationService.warn('Please provide account name');
-                document.getElementById('name').focus();
+                document.getElementById('accountName').focus();
                 return;
+            }
+            if (this.chartOfAccount.parentType == "Bank") {
+                if (this.chartOfAccount.bankAccount.title == null || this.chartOfAccount.bankAccount.title.trim().length <= 0) {
+                    this.notificationService.warn('Please provide Bank Account Title');
+                    document.getElementById('title').focus();
+                    return;
+                }
+                if (this.chartOfAccount.bankAccount.accountNumber == null || this.chartOfAccount.bankAccount.accountNumber.trim().length <= 0) {
+                    this.notificationService.warn('Please provide Bank Account Number');
+                    document.getElementById('accountNumber').focus();
+                    return;
+                }
             }
             if (localStorage.getItem(btoa("access_token"))) {
                 this.chartOfAccount.code = this.code;

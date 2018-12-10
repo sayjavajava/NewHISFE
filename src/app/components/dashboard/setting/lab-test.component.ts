@@ -33,7 +33,7 @@ export class LabTestComponent {
         }
         this.cols = [
             { field: 'testCode', header: 'Test Code' },
-            { field: 'testName', header: 'Name' },
+            { field: 'testName', header: 'Test Name' },
             { field: 'minNormalRange', header: 'MIN Range' },
             { field: 'maxNormalRange', header: 'MAX Range' },
             { field: 'unit', header: 'Unit' },
@@ -68,7 +68,7 @@ export class LabTestComponent {
 
     editLabSpeciman(formData: NgForm) {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.postRequest(AppConstants.IMPORT_LAB_TEST_LIST_TO_SERVER , this.labTestSpeciman)
+            this.requestsService.postRequest(AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE , this.labTestSpeciman)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
