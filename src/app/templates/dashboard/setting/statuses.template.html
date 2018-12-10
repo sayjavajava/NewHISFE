@@ -66,7 +66,13 @@
                                 <td field="name">{{data.name}}</td>
                                 <td field="abbreviation">{{data.abbreviation}}</td>
                                 <td field="colorHash"><input type="color" value="{{data.colorHash}}" disabled></td>
-                                <td field="active"><p-inputSwitch [(ngModel)]="data.active">{{data.active}}</p-inputSwitch></td>
+                                <!--<td field="active"><p-inputSwitch [(ngModel)]="data.active">{{data.active}}</p-inputSwitch></td>-->
+                                <td><span
+                                        [ngClass]="{'bg-green-meadow': data.active == true, 'bg-red-meadow': data.active ==false}"
+                                        class="mt-action-dot">
+                                       <!-- [ngClass]="{'bg-green-meadow': data.active == true, 'bg-red-meadow': data.active == false}"-->
+
+                        </span></td>
                                 <td field="action">
                                     <ng-container>
                                         <a href="#responsive" data-toggle="modal">
@@ -166,7 +172,7 @@
         <form id="statusForm" class="status-form" #form="ngForm">
             <div class="modal-content" style="width: 80%">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <button type="button" id="stClose" class="close" data-dismiss="modal" aria-label="false"></button>
                     <h4 class="modal-title">Add Status</h4>
                 </div>
                 <div class="modal-body">
@@ -178,15 +184,15 @@
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Name <span
                                             class="required" aria-required="true"> * </span></label>
                                     <div class="col-md-8 select pdng-lr-5">
-                                        <input class="form-control" type="text" required
+                                        <input class="form-control" type="text" required  [disabled]="changeStatusName"
                                                [(ngModel)]="status.name"  placeholder="name e.g under process or confirmed"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                name="stName" #stName="ngModel"/>
-                                    </div>
-                                    <span *ngIf="stName.invalid && stName.touched"
-                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                        <span *ngIf="stName.invalid && stName.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger font-siz">
                                                 Please enter valid name.
                                         </span>
+                                    </div>
                                 </div>
 
                                 <div class="form-group hr">
@@ -198,15 +204,13 @@
                                                       type="text" [(ngModel)]="status.abbreviation"
                                                       name="abbrevation" #abbrevation="ngModel"/>
                                         </div>
-
-
                                 </div>
 
                                 <div class="form-group hr">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Color
                                       </label>
                                     <div class="col-md-8 select pdng-lr-5">
-                                        <input [(colorPicker)]="color" [value]="color"
+                                        <input class="form-control" [(colorPicker)]="color" [value]="color"
                                                [ngModelOptions]="{standalone:true}"
                                                [style.background]="color"  placeholder="e.g color red ,blue"
                                                (keyup)="refresh.next()" [(ngModel)]="status.colorHash"/>
@@ -238,10 +242,10 @@
                         Close
                     </button>
                     <button type="button" class="btn blue"
-                            *ngIf="selectedStatus.id <= 0 || selectedStatus.id == null"
+                            *ngIf="status.id <= 0 || status.id == null"
                             (click)="saveStatus(form)">Save
                     </button>
-                    <button type="button" class="btn blue" *ngIf="selectedStatus.id > 0"
+                    <button type="button" class="btn blue" *ngIf="status.id > 0"
                             (click)="updateStatus(form)">Update
                     </button>
                 </div>

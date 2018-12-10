@@ -44,7 +44,7 @@ export class Appointment{
     dateSchedule :Date = new Date();
 
     constructor(id?:number,appointmentId?:string,title ?: string, branchId ?: number, doctorId ?: number,scheduleDateAndTime ?:DateTimeFormat, scheduleDate?: string, end?: string, draggable?: boolean,selectedRecurringDays ?:any[], appointmentType?: any[], notes?: string, patient?: number, reason?:
-                    string, statusId?: number, duration?: number, followUpDate?: Date, followUpReason?: string ,followUpReminder?:boolean,recurringAppointment?:boolean,recurseEvery?:string
+         string, statusId?: number, duration?: number, followUpDate?: Date, followUpReason?: string ,followUpReminder?:boolean,recurringAppointment?:boolean,recurseEvery?:string
         ,firstAppointment?:Date,lastAppointment?:Date,examRoom?:number,age?:string,cellPhone?:string,gender?:string,email?:string,color ?:string,roomId?:number,newPatient ?:string,dob?:Date,serviceId?:number,stateOfPatientBox?:boolean,dateSchedule?:Date
     ) {
         this.id = id;
@@ -52,7 +52,7 @@ export class Appointment{
         this.title = title;
         this.branchId = branchId;
         this.doctorId=doctorId;
-        //   this.scheduleDateAndTime =scheduleDateAndTime;
+     //   this.scheduleDateAndTime =scheduleDateAndTime;
         this.scheduleDate = scheduleDate;
         this.selectedRecurringDays=selectedRecurringDays;
         this.end = end;
@@ -63,7 +63,7 @@ export class Appointment{
         this.reason = reason;
         this.statusId = statusId;
         this.duration = duration;
-        this.followUpDate = followUpDate;
+        this.followUpDate = new Date(followUpDate);
         this.followUpReason = followUpReason;
         this.followUpReminder=followUpReminder;
         this.recurringAppointment=recurringAppointment;

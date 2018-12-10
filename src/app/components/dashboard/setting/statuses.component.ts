@@ -24,18 +24,20 @@ export class StatusesComponent implements OnInit {
     currPage: number;
     pages: number[] = [];
 
-    status:Status = new Status();
-    color:string;
+    status: Status = new Status();
+    color: string;
     @ViewChild('statusModal') addModal: ModalDirective;
-    data : Status[];
+    data: Status[];
     selectedStatus = new Status();
     patientId: number;
-    searchStatus:any;
+    searchStatus: any;
     error: any;
-    pageNo:number =0;
-    patient :Patient =new Patient();
+    pageNo: number = 0;
+    patient: Patient = new Patient();
     cols: any[];
-    constructor(private router: Router, private requestsService: RequestsService,
+    changeStatusName : boolean =false;
+
+    constructor(private router: Router, private requestsService: RequestsService,private hisCoreUtilService: HISUtilService,
                 private notificationService: NotificationService, private confirmationDialogService: ConformationDialogService) {
         this.cols = [
             {field: "name", header: "Name"},
@@ -48,12 +50,12 @@ export class StatusesComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllStatusesFromServer(0);
-
     }
 
     getAllStatusesFromServer(page: number) {
         if (page > 0) {
-            page = page;}
+            page = page;
+        }
         this.requestsService.getRequest(
             AppConstants.FETCH_ALL_PAGINATED_STATUS + page)
             .subscribe(
@@ -63,7 +65,7 @@ export class StatusesComponent implements OnInit {
                         this.prePage = response['responseData']['prePage'];
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
-                        this.data= response['responseData']['data'];
+                        this.data = response['responseData']['data'];
 
                     }
                 },
@@ -74,18 +76,18 @@ export class StatusesComponent implements OnInit {
     }
 
     saveStatus(data: NgForm) {
-
         if (data.valid) {
-            this.status.colorHash =this.color;
+            this.status.colorHash = this.color;
             this.requestsService.postRequest(
                 AppConstants.STATUS_CREATE,
                 this.status)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'STATUS_SUC_01') {
-                            this.addModal.hide();
+                            this.hisCoreUtilService.hidePopupWithCloseButtonId('stClose');
                             this.getAllStatusesFromServer(this.currPage);
                             this.notificationService.success(response['responseMessage'], 'Status');
+
                         }
                         if (response['responseCode'] === 'STATUS_ERR_05') {
                             this.notificationService.warn('Status already Exists');
@@ -102,23 +104,32 @@ export class StatusesComponent implements OnInit {
     }
 
     onUpdatePopupLoad(status: Status) {
-        this.status = status;
-        this.addModal.show();
+        if (status.name == "CANCELLED" || status.name == "CHECK_IN" || status.name == "CONFIRMED" || status.name == "PENDING" || status.name == "COMPLETED" || status.name == "IN_SESSION") {
+           // this.notificationService.warn(`sorry you can't change ${status.name} status`);
+            this.status = status;
+            this.addModal.show();
+            this.changeStatusName = true;
+        } else {
+            this.changeStatusName = false;
+            this.status = status;
+            this.addModal.show();
+        }
+
     }
 
     updateStatus(form: NgForm) {
         if (form.valid) {
-            this.status.colorHash =this.color;
+            this.status.colorHash = this.color;
             this.requestsService.putRequest(
-                AppConstants.UPDATE_FAMILY_HISTORY_URL + this.selectedStatus.id,
-                this.selectedStatus)
+                AppConstants.UPDATE_STATUS_URL + this.status.id,
+                this.status)
                 .subscribe(
                     (response: Response) => {
-                        if (response['responseCode'] === 'FAM_HISTORY_SUC_03') {
-                            this.notificationService.success(response['responseMessage'], 'Family History');
+                        if (response['responseCode'] === 'STATUS_SUC_01') {
+                            this.notificationService.success(response['responseMessage'], 'status ');
                             this.getAllStatusesFromServer(this.currPage);
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Family History');
+                            this.notificationService.error(response['responseMessage'], 'status');
                         }
                     },
                     (error: any) => {
@@ -126,17 +137,16 @@ export class StatusesComponent implements OnInit {
                     }
                 );
         } else {
-            this.notificationService.error('Required fields missing', 'Clinical Department');
+            this.notificationService.error('Required fields missing', 'Status');
         }
     }
-
 
 
     deleteStatus(id: number) {
         this.confirmationDialogService
             .confirm('Delete', 'Are you sure you want to delete?')
             .subscribe(res => {
-                if (res ==true) {
+                if (res == true) {
                     this.requestsService.deleteRequest(AppConstants.STATUS_DELETE + id).subscribe((data: Response) => {
                         if (data['responseCode'] === 'STATUS_SUC_04') {
                             this.notificationService.success('Status has been Deleted Successfully');
@@ -149,16 +159,18 @@ export class StatusesComponent implements OnInit {
                 }
             });
     }
-    closeAddStatusModal(){
+
+    closeAddStatusModal() {
         this.addModal.hide();
     }
 
-
-    addStatus() {
+    addStatus(){
+        this.changeStatusName =false;
         this.addModal.show();
         this.status = new Status();
     }
-    searchSatatusesFromServer(){
+
+    searchSatatusesFromServer() {
         this.requestsService.getRequest(AppConstants.STATUS_SEARCH + this.pageNo + '?statusName=' + this.searchStatus)
             .subscribe(//branch search
                 (response: Response) => {

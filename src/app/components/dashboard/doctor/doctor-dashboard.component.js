@@ -94,7 +94,6 @@ var DoctorDashboardComponent = (function () {
     };
     DoctorDashboardComponent.prototype.getfilteredDoctor = function (value) {
         this.dashboardListModified = this.dashboardList;
-        console.log('val:' + value);
         if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
         }
@@ -125,12 +124,14 @@ var DoctorDashboardComponent = (function () {
         roomFiltered.forEach(function (x) {
             x.examRooms.forEach(function (y) {
                 var roomObj = new RoomFilter(y.label, y.value);
+                //let foot = {label:y.label,value:y.value}
                 _this.allRooms.push(roomObj);
+                var label = roomObj.label;
+                // console.log(label)
             });
         });
         if (this.showRoom) {
             this.showRoomBtn = 'HIDE';
-            // this.showRoomDrop = true;
         }
         else {
             this.showRoomBtn = 'SHOW';

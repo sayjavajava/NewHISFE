@@ -34,6 +34,25 @@ var ManageAppointmentComponent = (function () {
     ManageAppointmentComponent.prototype.ngOnInit = function () {
         this.titleService.setTitle('HIS | Manage Appointments');
         this.getAllPaginatedAppointmentsFromServer(0);
+        this.cols = [
+            { field: 'patientFirstName', header: 'Patient' },
+            { field: 'examName', header: 'Exam Room' },
+            { field: 'branchName', header: 'Branch' },
+            { field: 'appointmentType', header: 'Type' },
+            { field: 'scheduleDate', header: 'Started On' },
+            { field: 'appointmentEndedOn', header: 'Ended On' },
+            { field: 'duration', header: 'Duration' },
+            { field: 'Status', header: 'status' },
+            { field: 'status', header: 'Action' }
+        ];
+        /*        <th width="15%"> Patient</th>
+                    <th width="15%"> Exam Room</th>
+                <th width="10%"> Branch</th>
+                    <th width="10%"> Type</th>
+                    <th width="15%"> Started On</th>
+                <th width="10%"> Ended On</th>
+                <th width="10%"> Status</th>
+                    <th width="10%"> Action</th>*/
     };
     ManageAppointmentComponent.prototype.getPageWisePatients = function (page) {
         this.getAllPaginatedAppointmentsFromServer(page);

@@ -168,6 +168,7 @@ import {PatientImageComponent} from "./components/dashboard/setting/PatientImage
 import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";
 
 import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
+import {PanelModule} from "primeng/panel";
 
 
 
@@ -228,7 +229,7 @@ import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patie
         MultiSelectModule,
         AutoCompleteModule,
         DataTableModule,
-        PaginatorModule,
+        PaginatorModule,PanelModule,
         PanelMenuModule,MegaMenuModule,ChipsModule,SliderModule,TableModule,
         SharedModule,
         EditorModule,

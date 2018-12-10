@@ -1,39 +1,42 @@
 
+<style type="text/css">
+ .checkbox-sm .form-control {
+        height: 18px !important}
+ .bc-bg{
+     background-color: red;
+     color: green;
+ }
+</style>
 <div class="page-content-wrapper">
-    <!-- <div #showPopApt class="outr-div popup-hiden">
-         <div class="headng-bck">
+    <!--<div #showPopApt class="outr-div popup-hiden">
+          <div class="headng-bck">
+              <div class="hadng-txt">
+                  <h2 #tit>Chrissy Bright</h2>
+                  <p>Female - 09/10/1971</p>
+              </div>
+          </div>
+          <div class="">
+              <table width="230" border="0">
 
-             <div class="hadng-txt">
-                 <h2 #tit>Chrissy Bright</h2>
-                 <p>Female - 09/10/1971</p>
-             </div>
-         </div>
-         <div class="">
-             <table width="212" border="0">
-
-                 <tr class="gry-bckgrnd inr-txt">
-                     <td style="width:30%">Location</td>
-                     <td style="width:50%">Exam 1</td>
-                 </tr>
-                 <tr class="whte-bckgrnd inr-txt">
-                     <td style="width:30%">Time</td>
-                     <td style="width:50%">09:00 AM for 30 minutes</td>
-                 </tr>
-                 <tr class="gry-bckgrnd inr-txt">
-                     <td style="width:30%">Date</td>
-                     <td style="width:50%">Thursday July 19</td>
-                 </tr>
-                 <tr class="whte-bckgrnd inr-txt">
-                     <td style="width:30%">Created</td>
-                     <td style="width:50%">4:57:23 PM, 7/10/2018</td>
-                 </tr>
-             </table>
-
-         </div>
-     </div>
- -->
-
-
+                  <tr class="gry-bckgrnd inr-txt">
+                      <td style="width:30%">Location</td>
+                      <td style="width:50%">Exam 1</td>
+                  </tr>
+                  <tr class="whte-bckgrnd inr-txt">
+                      <td style="width:30%">Time</td>
+                      <td style="width:50%">09:00 AM for 30 minutes</td>
+                  </tr>
+                  <tr class="gry-bckgrnd inr-txt">
+                      <td style="width:30%">Date</td>
+                      <td style="width:50%">Thursday July 19</td>
+                  </tr>
+                  <tr class="whte-bckgrnd inr-txt">
+                      <td style="width:30%">Created</td>
+                      <td style="width:50%">4:57:23 PM, 7/10/2018</td>
+                  </tr>
+              </table>
+          </div>
+      </div>-->
 
     <div class="page-content">
         <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
@@ -88,14 +91,16 @@
                                                                         type="text"
                                                                         class="form-control"
                                                                         [ngModelOptions]="{standalone:true}"
-                                                                        [(ngModel)]="modalData?.event.age" placeholder="age"
+                                                                        [(ngModel)]="modalData?.event.age"
+                                                                        placeholder="age"
                                                                         (keyup)="refresh.next()">
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <select class="form-control" name="statusDrp"
                                                                         [ngModelOptions]="{standalone:true}"
                                                                         [(ngModel)]="modalData?.event.gender">
-                                                                    <option value="0" disabled  selected> Please select  </option>
+                                                                    <option value="0" disabled selected> Please select
+                                                                    </option>
                                                                     <option value="Male"> Male</option>
                                                                     <option value="Female">Female</option>
                                                                 </select>
@@ -136,7 +141,11 @@
                                                                                 {{item.email}}
                                                                             </option>
                                                                         </select>-->
-                                                                        <p-dropdown placeholder="Select Patient" [autoWidth]="false" [required]="true"  [(ngModel)]="modalData?.event.patientId" name="patientEditDrp"
+                                                                        <p-dropdown placeholder="Select Patient"
+                                                                                    [autoWidth]="false"
+                                                                                    [required]="true"
+                                                                                    [(ngModel)]="modalData?.event.patientId"
+                                                                                    name="patientEditDrp"
                                                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                                     [options]="patients"
                                                                                     [panelStyle]="{minWidth:'12em'}"
@@ -199,23 +208,28 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group hr">
                                                                 <label class="control-label col-md-4">Branch <span
-                                                                        class="required" aria-required="true"> * </span> </label>
+                                                                        class="required" aria-required="true"> * </span>
+                                                                </label>
                                                                 <div class="col-md-8">
-                                                                   <!-- <select #selectedBranch class="form-control"
-                                                                            (change)="getExamRoom(selectedBranch.value)"
-                                                                            name="upBranchDrp" #upBranchDrp="ngModel"
-                                                                            name="branchDrp"
-                                                                            [ngModelOptions]="{standalone:true}"
-                                                                            [(ngModel)]="modalData?.event.branchId">
+                                                                    <!-- <select #selectedBranch class="form-control"
+                                                                             (change)="getExamRoom(selectedBranch.value)"
+                                                                             name="upBranchDrp" #upBranchDrp="ngModel"
+                                                                             name="branchDrp"
+                                                                             [ngModelOptions]="{standalone:true}"
+                                                                             [(ngModel)]="modalData?.event.branchId">
 
-                                                                        <option *ngFor="let item of branches;"
-                                                                                [ngValue]="item.id" (keyup)="refresh.next()">
-                                                                            {{item.name}}
-                                                                        </option>
-                                                                    </select>-->
-                                                                    <p-dropdown placeholder="Select Branch" [autoWidth]="false" name="upBranchDrp" [required]="true"
-                                                                                [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="modalData?.event.branchId"
-                                                                                [options]="branches" (onChange)="getExamRoom($event)"
+                                                                         <option *ngFor="let item of branches;"
+                                                                                 [ngValue]="item.id" (keyup)="refresh.next()">
+                                                                             {{item.name}}
+                                                                         </option>
+                                                                     </select>-->
+                                                                    <p-dropdown placeholder="Select Branch"
+                                                                                [autoWidth]="false" name="upBranchDrp"
+                                                                                [required]="true"
+                                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                                [(ngModel)]="modalData?.event.branchId"
+                                                                                [options]="branches"
+                                                                                (onChange)="getExamRoom($event)"
                                                                                 [panelStyle]="{minWidth:'12em'}"
                                                                                 [filter]="true">
                                                                     </p-dropdown>
@@ -232,7 +246,8 @@
                                                                             [ngModelOptions]="{standalone:true}"
                                                                             [(ngModel)]="modalData?.event.roomId">
                                                                         <option *ngFor="let item of examRooms;"
-                                                                                value={{item.id}} (keyup)="refresh.next()">
+                                                                                value={{item.id}}
+                                                                                (keyup)="refresh.next()">
                                                                             {{item.roomName}}
                                                                         </option>
                                                                     </select>
@@ -255,8 +270,12 @@
                                                                         </option>
                                                                     </select>-->
                                                                     <p-dropdown placeholder="Select Doctor"
-                                                                                [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="modalData?.event.doctorId" name="sDoctor"
-                                                                                [options]="filteredDoctor" (onChange)="selectServices($event)" [disabled]="disbaleDoctor"
+                                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                                [(ngModel)]="modalData?.event.doctorId"
+                                                                                name="sDoctor"
+                                                                                [options]="filteredDoctor"
+                                                                                (onChange)="selectServices($event)"
+                                                                                [disabled]="disbaleDoctor"
                                                                                 [panelStyle]="{minWidth:'12em'}"
                                                                                 [filter]="true">
                                                                     </p-dropdown>
@@ -269,8 +288,10 @@
                                                             </div>
 
                                                             <div class="form-group hr">
-                                                                <label class="control-label col-md-4">Medical Service <span
-                                                                        class="required" aria-required="true"> * </span></label>
+                                                                <label class="control-label col-md-4">Medical Service
+                                                                    <span
+                                                                            class="required"
+                                                                            aria-required="true"> * </span></label>
                                                                 <div class="col-md-8">
                                                                     <!--<select class="form-control" name="service" #service="ngModel"  required [disabled]="disbaleDoctor"
                                                                             [(ngModel)]="modalData?.event.serviceId">
@@ -279,9 +300,13 @@
                                                                             {{item.mServiceName}}
                                                                         </option>
                                                                     </select>-->
-                                                                    <p-dropdown placeholder="Select Service" [disabled]="disbaleDoctor"
-                                                                                [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="modalData?.event.serviceId" name="mService"
-                                                                                [options]="filteredServices" (onChange)="selectServices($event)"
+                                                                    <p-dropdown placeholder="Select Service"
+                                                                                [disabled]="disbaleDoctor"
+                                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                                [(ngModel)]="modalData?.event.serviceId"
+                                                                                name="mService"
+                                                                                [options]="filteredServices"
+                                                                                (onChange)="selectServices($event)"
                                                                                 [panelStyle]="{minWidth:'12em'}"
                                                                                 [filter]="true">
                                                                     </p-dropdown>
@@ -316,9 +341,11 @@
                                                                             {{item.name}}
                                                                         </option>
                                                                     </select>-->
-                                                                    <p-dropdown placeholder="Select Status" [autoWidth]="false" name="statusDrpdnUp"
+                                                                    <p-dropdown placeholder="Select Status"
+                                                                                [autoWidth]="false" name="statusDrpdnUp"
                                                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                                                [options]="statusesList" [(ngModel)]="modalData?.event.statusId"
+                                                                                [options]="statusesList"
+                                                                                [(ngModel)]="modalData?.event.statusId"
                                                                                 [panelStyle]="{minWidth:'12em'}"
                                                                                 [filter]="true">
                                                                     </p-dropdown>
@@ -355,7 +382,8 @@
                                                                    (keyup)="refresh.next()"> Recurring Appointment
                                                             <span></span>
                                                         </label>-->
-                                                        <div *ngIf="isRecurringFlag" class="hr off-wite-bg round-table ">
+                                                       <!-- <div *ngIf="isRecurringFlag"
+                                                             class="hr off-wite-bg round-table" style="padding: 10px" >
 
                                                             <div class="form-group hr">
                                                                 <label class="control-label col-md-2 col-xs-12"> Working
@@ -379,7 +407,8 @@
                                                             <div class="hr">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group hr">
-                                                                        <label class="control-label col-md-4">Recurs every
+                                                                        <label class="control-label col-md-4">Recurs
+                                                                            every
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <input
@@ -400,7 +429,8 @@
                                                                         </label>
                                                                         <div class="col-md-8">
                                                                             <mwl-demo-utils-date-time-picker
-                                                                                    [(ngModel)]="modalData?.event.firstAppointment" name="firstAppt"
+                                                                                    [(ngModel)]="modalData?.event.firstAppointment"
+                                                                                    name="firstAppt"
                                                                                     (ngModelChange)="refresh.next()"
                                                                                     placeholder="Not set">
                                                                             </mwl-demo-utils-date-time-picker>
@@ -414,7 +444,8 @@
                                                                         </label>
                                                                         <div class="col-md-8">
                                                                             <mwl-demo-utils-date-time-picker
-                                                                                    [(ngModel)]="modalData?.event.lastAppointment" name="lastAppt"
+                                                                                    [(ngModel)]="modalData?.event.lastAppointment"
+                                                                                    name="lastAppt"
                                                                                     (ngModelChange)="refresh.next()"
                                                                                     placeholder="Not set">
                                                                             </mwl-demo-utils-date-time-picker>
@@ -424,12 +455,14 @@
                                                                 </div>
                                                             </div>
 
-                                                        </div>
+                                                        </div>-->
                                                         <label class="mt-checkbox mt-checkbox-outline col-md-12">
                                                             <input type="checkbox"
-                                                                   [(ngModel)]="modalData?.event.followUpReminder" name="foolowuP"
+                                                                   [(ngModel)]="modalData?.event.followUpReminder"
+                                                                   name="foolowuP"
                                                                    [ngModelOptions]="{standalone:true}"
-                                                                   (keyup)="refresh.next()"> Arrange a Follow-up Reminder
+                                                                   (keyup)="refresh.next()"> Arrange a Follow-up
+                                                            Reminder
                                                             <span></span>
                                                         </label>
                                                         <div class="hr off-wite-bg round-table">
@@ -437,25 +470,30 @@
                                                                 around this date.</p>
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr">
-                                                                    <label class="control-label col-md-4">Follow Up
+                                                                    <label class="control-label col-md-3 no-padding">Follow Up
                                                                         Date</label>
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md-9">
                                                                         <!--    <mwl-demo-utils-date-time-picker
                                                                                     [ngModelOptions]="{standalone:true}" name="followUpDate"
                                                                                     [(ngModel)]="modalData?.event.followUpDate"
                                                                                     (ngModelChange)="refresh.next()"
                                                                                     placeholder="Not set">
                                                                             </mwl-demo-utils-date-time-picker>-->
-                                                                        <angular2-date-picker style="margin-left: 0px !important; background-color: red !important" class="schdld-clndr" [(ngModel)]="modalData?.event.followUpDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
+                                                                        <angular2-date-picker
+                                                                                style="margin-left: 0px !important; background-color: red !important"
+                                                                                class="schdld-clndr"
+                                                                                [(ngModel)]="modalData?.event.followUpDate"
+                                                                                [ngModelOptions]="{standalone:true}"></angular2-date-picker>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr">
-                                                                    <label class="control-label col-md-4">Reason
+                                                                    <label class="control-label col-md-3">Reason
                                                                     </label>
-                                                                    <div class="col-md-8">
-                                                                        <input type="text" name="name" data-required="1" [ngModelOptions]="{standalone:true}"
+                                                                    <div class="col-md-9">
+                                                                        <input type="text" name="name" data-required="1"
+                                                                               [ngModelOptions]="{standalone:true}"
                                                                                [(ngModel)]="modalData?.event.followUpReason"
                                                                                (ngModelChange)="refresh.next()"
                                                                                value="" class="form-control"></div>
@@ -496,7 +534,7 @@
                         <!--<button type="button" class="btn btn-secondary" data-dismiss="modal"></button>
                         <button type="button" class="btn btn-primary">Save changes</button>Close-->
                         <div class="mrgn-btm10 pull-right">
-                            <button type="button" class="close" data-dismiss="modal"  name="cancel"
+                            <button type="button" class="close" data-dismiss="modal" name="cancel"
                                     (click)="eventsRequest.splice(index, 1); refresh.next()"
                                     class="btn btn-sm blue btn-outline filter-submit margin-bottom">
                                 Cancel
@@ -518,13 +556,13 @@
         </div>
 
         <!--search-->
-        <div class="row">
+       <!-- <div class="row">
             <div class="col-md-12">
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="col-md-5">
                         <div class="form-group font-siz11">
                             <label>Branch</label>
-                            <!--<select class="form-control" (change)="getSearchedBranch($event.target.value)">
+                            &lt;!&ndash;<select class="form-control" (change)="getSearchedBranch($event.target.value)">
                                 &lt;!&ndash;[ngModelOptions]="{standalone:true}"&ndash;&gt;
                                 &lt;!&ndash;[(ngModel)]="event.branch"&ndash;&gt;
                                 <option value="0">&#45;&#45; Select &#45;&#45;</option>
@@ -532,7 +570,7 @@
                                         value={{item.id}} (keyup)="refresh.next()">
                                     {{item.name}}
                                 </option>
-                            </select>-->
+                            </select>&ndash;&gt;
                             <p-dropdown placeholder="Select Branch"
                                         [style]="{'text-align': 'left' ,'width':'100%'}"
                                         [options]="branches" (onChange)="getSearchedBranch($event)"
@@ -541,7 +579,7 @@
                             </p-dropdown>
                         </div>
                     </div>
-                    <!--  <div class="col-md-3">
+                    &lt;!&ndash;  <div class="col-md-3">
                           <div class="form-group font-siz11">
                               <label>Department:</label>
                               <select class="form-control">
@@ -552,11 +590,11 @@
                                   <option>Dermatology</option>
                               </select>
                           </div>
-                      </div>-->
+                      </div>&ndash;&gt;
                     <div class="col-md-5">
                         <div class="form-group font-siz11">
                             <label>Doctor:</label>
-                            <!--<select class="form-control" (change)="getSearchedDoctor($event.target.value)">
+                            &lt;!&ndash;<select class="form-control" (change)="getSearchedDoctor($event.target.value)">
                                 &lt;!&ndash;[ngModelOptions]="{standalone:true}"&ndash;&gt;
                                 &lt;!&ndash;[(ngModel)]="event.branch"&ndash;&gt;
                                 <option value="0">&#45;&#45; Select &#45;&#45;</option>
@@ -564,7 +602,7 @@
                                         value={{item.id}} (keyup)="refresh.next()">
                                     {{item.firstName}} {{item.lastName}}
                                 </option>
-                            </select>-->
+                            </select>&ndash;&gt;
                             <p-dropdown placeholder="Select Doctor"
                                         [style]="{'text-align': 'left' ,'width':'100%'}"
                                         [options]="doctorsList" (onChange)="getSearchedDoctor($event)"
@@ -573,7 +611,7 @@
                             </p-dropdown>
                         </div>
                     </div>
-                    <!--  <div class="col-md-2">
+                    &lt;!&ndash;  <div class="col-md-2">
                           <div class="form-group font-siz11">
                               <label>Service:</label>
                               <select class="form-control">
@@ -584,22 +622,25 @@
                                   <option>Offer (28Nov-7Dec) One 5</option>
                               </select>
                           </div>
-                      </div>-->
+                      </div>&ndash;&gt;
                     <div class="col-md-1">
                         <div class="form-group mrgn-top24">
-                            <button type="button" class="pull-right btn blue aptSearch" (click)="searchAppointment()">Search</button>
-                            <!--<button type="button" class="pull-right btn blue aptSearch" (click)="refreshAllAppointments()">Refresh</button>-->
-                            <!--<button pButton type="button" label="Primary" class="ui-button-rounded"></button>-->
+                            <button type="button" class="pull-right btn blue aptSearch" (click)="searchAppointment()">
+                                Search
+                            </button>
+                            &lt;!&ndash;<button type="button" class="pull-right btn blue aptSearch" (click)="refreshAllAppointments()">Refresh</button>&ndash;&gt;
+                            &lt;!&ndash;<button pButton type="button" label="Primary" class="ui-button-rounded"></button>&ndash;&gt;
                         </div>
                     </div>
                     <div class="col-md-1">
                         <div class="form-group mrgn-top14">
-                            <button type="button" (click)="getAllAppointments()" class="pull-right btn green">Refresh</button>
+                            <button type="button" (click)="getAllAppointments()" class="pull-right btn green">Refresh
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="row text-center mrgn-top10">
             <div class="col-md-12">
@@ -709,12 +750,12 @@
     </div>
 
 
-
     <div bsModal #addModal="bs-modal" class="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog schedle-appint-modal">
             <div class="modal-content" *ngFor="let event of eventsRequest; let index = index">
                 <div class="modal-header off-wite-bg">
-                    <button type="button" class="close" id="closeAppt" data-dismiss="modal" aria-label="Close" (click)="closeAddModal()"></button>
+                    <button type="button" class="close" id="closeAppt" data-dismiss="modal" aria-label="Close"
+                            (click)="closeAddModal()"></button>
                     <h4 class="modal-title bold"> Schedule Appointment </h4>
                 </div>
                 <div class="modal-body schedule-body">
@@ -736,7 +777,7 @@
                                                 <div class="form-group">
                                                     <div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
                                                         <label>
-                                                            <input type="checkbox"  [disabled]="!item.checked && maxNo"
+                                                            <input type="checkbox" [disabled]="!item.checked && maxNo"
                                                                    [ngModelOptions]="{standalone:true}"
                                                                    value="{{item.name}}"
                                                                    (change)="selectType(loginForm,$event.target.checked)"
@@ -746,61 +787,50 @@
                                                     </div>
 
                                                     <div>
-                                                        <input type="checkbox" name="newPatient" (change)="createNewPatient()" [(ngModel)]="stateOfPatientBox"  [ngModelOptions]="{standalone:true}" > New Patient
+                                                        <input type="checkbox" name="newPatient"
+                                                               (change)="createNewPatient()"
+                                                               [(ngModel)]="stateOfPatientBox"
+                                                               [ngModelOptions]="{standalone:true}">New Patient
                                                     </div>
                                                     <div class="text-danger" *ngIf="maxNo">
-                                                        <p> Please Choose  Regular OR Walk-IN</p>
+                                                        <p> Please Choose Regular OR Walk-IN</p>
                                                     </div>
                                                 </div>
 
                                                 <div *ngIf="newPatient"
                                                      class="hr padding round-table off-wite-bg mrgn-btm10">
                                                     <div class="hr">
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <input type="text" value="" class="form-control" [ngModelOptions]="{standalone:true}"
-                                                                       placeholder="First Name" [(ngModel)]="event.newPatient"
-                                                                       (keyup)="refresh.next()">
-                                                            </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group hr">
+                                                                <label class="col-md-4 control-label">First Name</label>
+                                                                <div class="col-md-8 mrgn-top8">
 
-                                                            <!-- <div class="col-md-2">
-                                                                 <select class="form-control" name="statusDrp"
-                                                                         [ngModelOptions]="{standalone:true}"
-                                                                         [(ngModel)]="event.gender">
-                                                                     <option [ngValue]="undefined" disabled  selected>  select </option>
-                                                                     <option value="Male" selected> Male</option>
-                                                                     <option value="Female">Female</option>
-                                                                 </select>
-                                                             </div>-->
-                                                            <!--<div class="col-md-3">
-                                                                <input
-                                                                        type="text"
-                                                                        placeholder="Email"
-                                                                        [ngModelOptions]="{standalone:true}"
-                                                                        class="form-control"
-                                                                        [(ngModel)]="event.email"
-                                                                        (keyup)="refresh.next()">
-                                                            </div>-->
-                                                            <div class="col-md-2">
-                                                                <input
-                                                                        type="text"
-                                                                        placeholder="cell Phone"
-                                                                        class="form-control"
-                                                                        [ngModelOptions]="{standalone:true}"
-                                                                        [(ngModel)]="event.cellPhone"
-                                                                        (keyup)="refresh.next()">
+                                                                    <input type="text" value="" class="form-control"
+                                                                           [ngModelOptions]="{standalone:true}"
+                                                                           placeholder="First Name"
+                                                                           [(ngModel)]="event.newPatient"
+                                                                           (keyup)="refresh.next()">
+
+
                                                             </div>
-                                                            <!--<div class="col-md-2">
-                                                                <input type="date" class="form-control form-control-inline input-medium"
-                                                                       [(ngModel)]="event.dob" id="dob"
-                                                                       [ngModelOptions]="{standalone:true}"
-                                                                       (ngModelChange)="event.dob = $event"
-                                                                       name="dob" #dob="ngModel">
-                                                                <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"
-                                                                     class="alert alert-danger">
-                                                                    please provide valid Date of Birth
-                                                                </div>
-                                                            </div>-->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group hr">
+                                                                <label class="col-md-4 control-label">Cell Phonme</label>
+                                                                <div class="col-md-8 mrgn-top8">
+
+                                                                    <input
+                                                                            type="text"
+                                                                            placeholder="cell Phone"
+                                                                            class="form-control"
+                                                                            [ngModelOptions]="{standalone:true}"
+                                                                            [(ngModel)]="event.cellPhone"
+                                                                            (keyup)="refresh.next()">
+
+
+                                                            </div>
+                                                        </div>
 
                                                         </div>
 
@@ -811,7 +841,8 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group hr">
                                                             <label class="col-md-3 control-label">Patient <span
-                                                                    class="required" aria-required="true"> * </span></label>
+                                                                    class="required"
+                                                                    aria-required="true"> * </span></label>
                                                             <div class="col-md-9">
                                                                 <div class="ptn-apontmt-sch">
                                                                     <!--<select class="form-control" name="patientDrp"
@@ -828,7 +859,10 @@
                                                                         </option>
                                                                     </select>-->
 
-                                                                    <p-dropdown placeholder="Select Patient" [autoWidth]="false" [required]="true"  [(ngModel)]="event.patientId" name="patientDrp"
+                                                                    <p-dropdown placeholder="Select Patient"
+                                                                                [autoWidth]="false" [required]="true"
+                                                                                [(ngModel)]="event.patientId"
+                                                                                name="patientDrp"
                                                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                                 [options]="patients"
                                                                                 [panelStyle]="{minWidth:'12em'}"
@@ -853,7 +887,8 @@
                                                         <div class="form-group hr">
                                                             <label class="col-md-3 control-label">Reason:</label>
                                                             <div class="col-md-9 col-xs-12">
-                                                        <textarea placeholder="malaria" name ="reason"
+                                                        <textarea placeholder="malaria" name="reason" style="height: 66px !important;
+    margin-bottom: 13px;"
                                                                   rows="3"
                                                                   class="form-control"
                                                                   [(ngModel)]="event.reason"
@@ -879,13 +914,18 @@
                                                                 </div>
                                                             </div>-->
                                                             <div class="col-md-9 col-xs-12">
-                                                                <angular2-date-picker style="margin-left: 0px !important; background-color: red !important" class="schdld-clndr" [(ngModel)]="dateSchedule" [ngModelOptions]="{standalone:true}" [settings]="settings"></angular2-date-picker>
+                                                                <angular2-date-picker
+                                                                        style="margin-left: 0px !important; background-color: red !important"
+                                                                        class="schdld-clndr" [(ngModel)]="dateSchedule"
+                                                                        [ngModelOptions]="{standalone:true}"
+                                                                        [settings]="settings"></angular2-date-picker>
                                                             </div>
                                                         </div>
                                                         <div class="form-group hr">
                                                             <label class="col-md-3 control-label">Notes:</label>
                                                             <div class="col-md-9 col-xs-12">
-                                                               <textarea placeholder="note"
+                                                               <textarea placeholder="note"  style="height: 66px !important;
+    margin-bottom: 13px;"
                                                                          rows="3" name="name"
                                                                          [ngModelOptions]="{standalone:true}"
                                                                          class="form-control"
@@ -897,7 +937,8 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-4">Branch <span
-                                                                    class="required" aria-required="true"> * </span></label>
+                                                                    class="required"
+                                                                    aria-required="true"> * </span></label>
                                                             <div class="col-md-8">
                                                                 <!--<select #selectedBranch class="form-control" required
                                                                         (change)="getExamRoom(selectedBranch.value)"
@@ -908,10 +949,13 @@
                                                                             [ngValue]="item.id" (keyup)="refresh.next()">
                                                                         {{item.branchName}}
                                                                     </option>
-                                                                </select>-->
-                                                                <p-dropdown placeholder="Select Branch" [autoWidth]="false" name="branchDrp"
-                                                                            [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="event.branchId"
-                                                                            [options]="brFiltered" (onChange)="getExamRoom($event)"
+                                                                </select>--> <!--brFiltered-->
+                                                                <p-dropdown placeholder="Select Branch"
+                                                                            [autoWidth]="false" name="branchDrp"
+                                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                            [(ngModel)]="event.branchId"
+                                                                            [options]="brFiltered"
+                                                                            (onChange)="getExamRoom($event)"
                                                                             [panelStyle]="{minWidth:'12em'}"
                                                                             [filter]="true">
                                                                 </p-dropdown>
@@ -925,10 +969,12 @@
                                                         </div>
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-4">Room <span
-                                                                    class="required" aria-required="true"> * </span></label>
+                                                                    class="required"
+                                                                    aria-required="true"> * </span></label>
                                                             <div class="col-md-8">
-                                                                <select  class="form-control" name="roomDrp" required  #roomDrp="ngModel"
-                                                                         [(ngModel)]="event.roomId">
+                                                                <select class="form-control" name="roomDrp" required
+                                                                        #roomDrp="ngModel"
+                                                                        [(ngModel)]="event.roomId">
                                                                     <option *ngFor="let item of examRooms;"
                                                                             value={{item.id}} (keyup)="refresh.next()">
                                                                         {{item.roomName}}
@@ -956,9 +1002,14 @@
                                                                              {{item.firstName}} {{item.lastName}}
                                                                          </option>
                                                                      </select>-->
-                                                                    <p-dropdown placeholder="Select Doctor" [autoWidth]="false" [required]="true" [disabled]="disbaleDoctor" name="drDrp" #drDrp="ngModel"
-                                                                                [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="event.doctorId"
-                                                                                [options]="filteredDoctor" (onChange)="selectServices($event)"
+                                                                    <p-dropdown placeholder="Select Doctor"
+                                                                                [autoWidth]="false" [required]="true"
+                                                                                [disabled]="disbaleDoctor" name="drDrp"
+                                                                                #drDrp="ngModel"
+                                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                                [(ngModel)]="event.doctorId"
+                                                                                [options]="filteredDoctor"
+                                                                                (onChange)="selectServices($event)"
                                                                                 [panelStyle]="{minWidth:'12em'}"
                                                                                 [filter]="true">
                                                                     </p-dropdown>
@@ -972,7 +1023,8 @@
 
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-4">Service <span
-                                                                    class="required" aria-required="true"> * </span></label>
+                                                                    class="required"
+                                                                    aria-required="true"> * </span></label>
                                                             <div class="col-md-8">
                                                                 <!-- <select class="form-control" name="service" #service="ngModel"  required [disabled]="disbaleDoctor" (change)="getSelectedService($event.target.value)"
                                                                          [(ngModel)]="event.serviceId">
@@ -982,9 +1034,13 @@
                                                                          {{item.mServiceName}}
                                                                      </option>
                                                                  </select>-->
-                                                                <p-dropdown placeholder="Select Service" [autoWidth]="false" [required]="true" [disabled]="disbaleDoctor" name="service"
-                                                                            [style]="{'text-align': 'left' ,'width':'100%'}" [(ngModel)]="event.serviceId"
-                                                                            [options]="filteredServices" (onChange)="getSelectedService($event)"
+                                                                <p-dropdown placeholder="Select Service"
+                                                                            [autoWidth]="false" [required]="true"
+                                                                            [disabled]="disbaleDoctor" name="service"
+                                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                            [(ngModel)]="event.serviceId"
+                                                                            [options]="filteredServices"
+                                                                            (onChange)="getSelectedService($event)"
                                                                             [panelStyle]="{minWidth:'12em'}"
                                                                             [filter]="true">
                                                                 </p-dropdown>
@@ -1012,7 +1068,8 @@
                                                         </div>-->
                                                         <div class="form-group">
                                                             <label class="control-label col-md-4"> Status <span
-                                                                    class="required" aria-required="true"> * </span></label>
+                                                                    class="required"
+                                                                    aria-required="true"> * </span></label>
                                                             <div class="col-md-8">
                                                                 <!--<select class="form-control" name="statusDrpdn"  #statusDrpdn="ngModel"  required
                                                                         [(ngModel)]="event.status">
@@ -1023,9 +1080,11 @@
                                                                         {{item.name}}
                                                                     </option>
                                                                 </select>-->
-                                                                <p-dropdown placeholder="Select Status" [autoWidth]="false" name="statusDrpdn"
+                                                                <p-dropdown placeholder="Select Status"
+                                                                            [autoWidth]="false" name="statusDrpdn"
                                                                             [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                                            [options]="statusesList" [(ngModel)]="event.statusId"
+                                                                            [options]="statusesList"
+                                                                            [(ngModel)]="event.statusId"
                                                                             [panelStyle]="{minWidth:'12em'}"
                                                                             [filter]="true">
                                                                 </p-dropdown>
@@ -1037,11 +1096,12 @@
                                                         </div>
                                                         <div class="form-group hr">
                                                             <label class="col-md-4 control-label">Duration <span
-                                                                    class="required" aria-required="true"> * </span></label>
+                                                                    class="required"
+                                                                    aria-required="true"> * </span></label>
                                                             <div class="col-md-6 col-xs-12">
                                                                 <input
                                                                         type="number" required
-                                                                        name="duration" #duration ="ngModel"
+                                                                        name="duration" #duration="ngModel"
                                                                         [ngModelOptions]="{standalone:true}"
                                                                         class="form-control"
                                                                         [(ngModel)]="serviceDuration"
@@ -1059,11 +1119,12 @@
                                                 </div>
                                                 <div class="hr">
                                                     <label class="mt-checkbox mt-checkbox-outline col-md-12">
-                                                        <input type="checkbox" [(ngModel)]="event.recurringAppointment" (change)="isRecurring()" name="recurringAppt"
+                                                        <input type="checkbox" [(ngModel)]="event.recurringAppointment"
+                                                               (change)="isRecurring()" name="recurringAppt"
                                                                (keyup)="refresh.next()"> Recurring Appointment
                                                         <span></span>
                                                     </label>
-                                                    <div *ngIf="isRecurringFlag" class="hr off-wite-bg round-table ">
+                                                    <div *ngIf="isRecurringFlag" class="hr off-wite-bg round-table checkbox-sm" style="padding: 10px">
 
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-2 col-xs-12"> Working
@@ -1074,7 +1135,7 @@
                                                                 <div *ngFor="let item of recurringDays" class="">
 
                                                                     <div class=" col-md-1 col-width14 col-xs-3">
-                                                                        <input type="checkbox" name="working"
+                                                                        <input class="checkbox-sm" type="checkbox" name="working"
                                                                                class="form-control spinner"
                                                                                value="{{item.id}}"
                                                                                (change)="selectRecurringDays($event,item)">
@@ -1103,31 +1164,44 @@
                                                         <div class="hr">
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr">
-                                                                    <label class="control-label col-md-4">First
+                                                                    <label class="control-label col-md-3 no-padding">First
                                                                         Appointment
                                                                     </label>
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md-9 mrgn-top8">
                                                                         <!--<mwl-demo-utils-date-time-picker
                                                                                 [(ngModel)]="event.firstAppointment" name="firstAppt"
                                                                                 (ngModelChange)="refresh.next()"
                                                                                 placeholder="Not set">
                                                                         </mwl-demo-utils-date-time-picker>-->
-                                                                        <angular2-date-picker style="margin-left: 0px !important; background-color: red !important" class="schdld-clndr" [(ngModel)]="event.firstAppointment" name="firstAppt" [settings]="settings"></angular2-date-picker>
+                                                                        <angular2-date-picker
+                                                                                style="margin-left: 0px !important; background-color: red !important"
+                                                                                class="schdld-clndr"
+                                                                                [(ngModel)]="event.firstAppointment"
+                                                                                name="firstAppt"
+                                                                                [settings]="settings"></angular2-date-picker>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr">
-                                                                    <label class="control-label col-md-4">Last
+                                                                    <label class="control-label col-md-3 no-padding">Last
                                                                         Appointment
                                                                     </label>
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md-9 mrgn-top8">
                                                                         <!--<mwl-demo-utils-date-time-picker
                                                                                 [(ngModel)]="event.lastAppointment" name="lastAppt"
                                                                                 (ngModelChange)="refresh.next()"
                                                                                 placeholder="Not set">
                                                                         </mwl-demo-utils-date-time-picker>-->
-                                                                        <angular2-date-picker style="margin-left: 0px !important; background-color: red !important" class="schdld-clndr" [(ngModel)]="event.lastAppointment" name="lastAppt" [settings]="settings"></angular2-date-picker>
+                                                                        <angular2-date-picker
+                                                                                style="margin-left: 0px !important; background-color: red !important"
+                                                                                class="schdld-clndr"
+                                                                                [(ngModel)]="event.lastAppointment"
+                                                                                name="lastAppt"
+                                                                                [settings]="settings"></angular2-date-picker>
+
+
+
 
 
                                                                     </div>
@@ -1137,18 +1211,18 @@
 
                                                     </div>
                                                     <label class="mt-checkbox mt-checkbox-outline col-md-12">
-                                                        <input type="checkbox" name="followUpReminder" [(ngModel)]="event.followUpReminder"
+                                                        <input type="checkbox" name="followUpReminder"
+                                                               [(ngModel)]="event.followUpReminder"
                                                                [ngModelOptions]="{standalone:true}"
                                                                (keyup)="refresh.next()"> Arrange a Follow-up Reminder
                                                         <span></span>
                                                     </label>
-                                                    <div class="hr off-wite-bg round-table">
-                                                        <p>Patient will be reminded to make a follow up appointment
+                                                    <div class="hr off-wite-bg round-table" style="padding: 10px;">
+                                                        <p class="padding-b-10">Patient will be reminded to make a follow up appointment
                                                             around this date.</p>
                                                         <div class="col-md-6">
                                                             <div class="form-group hr">
-                                                                <label class="control-label col-md-3">Follow Up
-                                                                    Date</label>
+                                                                <label class="control-label col-md-3 no-padding">Follow Up Date</label>
                                                                 <!--<div class="col-md-8">
                                                                     <mwl-demo-utils-date-time-picker
                                                                             [ngModelOptions]="{standalone:true}"
@@ -1158,16 +1232,24 @@
                                                                             placeholder="Not set">
                                                                     </mwl-demo-utils-date-time-picker>
                                                                 </div>-->
-                                                                <div class="col-md-8"><angular2-date-picker style="margin-left: 0px !important; background-color: red !important" class="schdld-clndr" [(ngModel)]="event.followUpDate" [ngModelOptions]="{standalone:true}" [settings]="settings"></angular2-date-picker></div>
+                                                                <div class="col-md-9">
+                                                                    <angular2-date-picker
+                                                                            style="margin-left: 0px !important; background-color: red !important"
+                                                                            class="schdld-clndr"
+                                                                            [(ngModel)]="event.followUpDate"
+                                                                            [ngModelOptions]="{standalone:true}"
+                                                                            [settings]="settings"></angular2-date-picker>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group hr">
-                                                                <label class="control-label col-md-4">Reason
+                                                                <label class="control-label col-md-3">Reason
                                                                 </label>
-                                                                <div class="col-md-8">
+                                                                <div class="col-md-9">
                                                                     <input type="text"
-                                                                           data-required="1"  [(ngModel)]="event.followUpReason"
+                                                                           data-required="1"
+                                                                           [(ngModel)]="event.followUpReason"
                                                                            (ngModelChange)="refresh.next()"
                                                                            [ngModelOptions]="{standalone:true}"
                                                                            name="followReason"
@@ -1209,7 +1291,8 @@
                              class="btn red"> Delete
                      </button>-->
 
-                    <button type="button" [disabled]="!loginForm.valid" (click)="saveAppointment(event,loginForm)" name="saveBtn"
+                    <button type="button" [disabled]="!loginForm.valid" (click)="saveAppointment(event,loginForm)"
+                            name="saveBtn"
                             class="btn btn-sm green btn-outline filter-submit margin-bottom">
                         Save
                     </button>

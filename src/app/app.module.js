@@ -150,6 +150,7 @@ var PatientImageComponent_1 = require("./components/dashboard/setting/PatientIma
 /*import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";*/
 var PatientImageOrderComponent_1 = require("./components/dashboard/patient/PatientImageOrderComponent");
 var patient_history_vital_component_1 = require("./components/dashboard/patient/patient-history-vital.component");
+var panel_1 = require("primeng/panel");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -212,7 +213,7 @@ var AppModule = (function () {
                 multiselect_1.MultiSelectModule,
                 autocomplete_1.AutoCompleteModule,
                 primeng_1.DataTableModule,
-                primeng_1.PaginatorModule,
+                primeng_1.PaginatorModule, panel_1.PanelModule,
                 primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule,
                 shared_1.SharedModule,
                 editor_1.EditorModule,

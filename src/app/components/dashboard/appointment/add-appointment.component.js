@@ -142,23 +142,26 @@ var AddAppointmentComponent = (function () {
         this.events.length = 0;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_URL)
             .subscribe(function (response) {
-            console.log('making border...');
+            console.log('');
             if (response['responseCode'] === 'APPT_SUC_01') {
                 for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
                     var apt = _a[_i];
                     _this.events.push({
                         id: apt.id,
                         /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
-                        title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/ '        <div class="headng-bck">\n' + apt.scheduleDateAndTime + '<br/>' +
+                        title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/ '<div class="headng-bck">\n' +
+                            ' <div class="hadng-txt">\n' +
+                            '<table width="236" border="0">\n' +
                             '\n' +
-                            /*'            <div class="hadng-txt">\n' +
-                            '                <h2>apt.scheduleDateAndTime</h2>\n' +
-                            '                <p>apt.branchName</p>\n' +
-                            '            </div>\n' +*/
+                            '<tr class="" width="236">\n' +
+                            '    <td style="width:20%;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
+                            '    <td style="width:80%;"><h2>Patient Name</h2></td>\n' +
+                            '</tr>\n' +
+                            '  </table>\n' +
+                            '            </div>\n' +
                             /* '        </div> ' +*/
-                            '</div>' +
-                            '            <div class="">\n' +
-                            '                <table width="182" border="0">\n' +
+                            '<div class="bc-bg">\n' +
+                            '                <table width="236" border="0">\n' +
                             '\n' +
                             '            <tr class="gry-bckgrnd inr-txt">\n' +
                             '                    <td style="width:30%">Branch</td>\n' +
@@ -181,11 +184,20 @@ var AddAppointmentComponent = (function () {
                             '                    <td style="width:70%">\n' + apt.serviceName + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td style="width:30%">Service</td>\n' +
+                            '                    <td style="width:70%">\n' + apt.serviceName + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td style="width:30%">Service</td>\n' +
+                            '                    <td style="width:70%">\n' + apt.serviceName + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
                             '                    <td style="width:30%">Room</td>\n' +
                             '                    <td style="width:70%">\n' + apt.examName + '</td>\n' +
                             '                </tr>\n' +
                             '            </table>\n' +
                             '                \n' +
+                            '            </div>\n' +
                             '            </div>\n',
                         /*   '<br/>' + '' + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,*/
                         start: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
@@ -259,7 +271,12 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.closeAddModal = function () {
         this.eventsRequest.length = 0;
+        this.selectedType.length = 0;
         this.refresh.next();
+        this.maxNo = false;
+        this.amt = 0;
+        if (this.Type.length != 0)
+            this.Type.map(function (x) { x.checked = false; });
         this.addModal.hide();
     };
     AddAppointmentComponent.prototype.selectType = function (form, checked) {
@@ -269,6 +286,7 @@ var AddAppointmentComponent = (function () {
         else
             this.amt--;
         this.amt === 2 ? this.maxNo = true : this.maxNo = false;
+        console.log('amount' + this.amt);
         (_a = this.selectedType).push.apply(_a, this.selectedOptions);
         var _a;
     };
@@ -298,7 +316,6 @@ var AddAppointmentComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branches = response['responseData'];
-                console.log('branches first' + _this.branches[0].label);
             }
         }, function (error) {
         });
@@ -370,7 +387,6 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.dayClicked = function (_a) {
         var date = _a.date, events = _a.events;
-        console.log("day cliked in months");
         if (date_fns_1.isSameMonth(date, this.viewDate)) {
             if ((date_fns_1.isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
                 events.length === 0) {
@@ -514,7 +530,6 @@ var AddAppointmentComponent = (function () {
         });
     };
     AddAppointmentComponent.prototype.selectRecurringDays = function (event, item) {
-        console.log(this.examRooms.lenght);
         if (event.target.checked) {
             this.selectedRecurringDays.push(item.name);
         }

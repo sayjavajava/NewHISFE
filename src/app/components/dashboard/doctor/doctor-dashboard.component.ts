@@ -110,7 +110,6 @@ export class DoctorDashboardComponent {
 
     getfilteredDoctor(value: any) {
         this.dashboardListModified = this.dashboardList;
-        console.log('val:' + value);
         if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
         } else {
@@ -139,13 +138,15 @@ export class DoctorDashboardComponent {
         roomFiltered.forEach((x:any)=>{
             x.examRooms.forEach((y:any)=>{
                 let roomObj = new RoomFilter(y.label,y.value);
+                //let foot = {label:y.label,value:y.value}
                 this.allRooms.push(roomObj);
+                let {label} =roomObj;
+               // console.log(label)
             })
 
         })
         if(this.showRoom) {
             this.showRoomBtn = 'HIDE';
-            // this.showRoomDrop = true;
         }else{
             this.showRoomBtn='SHOW'   }
     }

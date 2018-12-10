@@ -22,6 +22,7 @@ var MenuComponent = (function () {
         this.showMenuBar = false;
         this.items = [];
         this.collapseMenu = true;
+        this.collapsed = false;
     }
     ;
     MenuComponent.prototype.ngOnInit = function () {
@@ -63,7 +64,7 @@ var MenuComponent = (function () {
             this.showMenuBar = true;
     };
     MenuComponent.prototype.changeMenu = function () {
-        // console.log('Change menu');
+        console.log('Change menu');
         this.collapseMenu = !this.collapseMenu;
     };
     MenuComponent = __decorate([

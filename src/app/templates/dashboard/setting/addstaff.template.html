@@ -390,7 +390,7 @@
                                     <label class="control-label col-md-4">Password
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="password" formControlName="password" pPassword
                                                class="form-control" placeholder="enter password  e.g  xxxJames_Gosling_1235">
                                         <span class="font-siz" class="text-danger"
@@ -405,7 +405,7 @@
                                     <label class="control-label col-md-4">Confirm Password
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="password" formControlName="confirmPassword" placeholder="enter confirm password  e.g  xxxJames_Gosling_1235" class="form-control">
                                         <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['confirmPassword'].valid && userForm.controls['confirmPassword'].touched">{{confirmPasswordError}}</span>
@@ -415,7 +415,7 @@
                                     <label class="control-label col-md-4">Username
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" formControlName="userName" placeholder="enter user name  e.g James Gosling" class="form-control">
                                         <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
@@ -432,7 +432,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Home Phone
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input formControlName="homePhone" type="text" placeholder="enter home phone number  e.g 1235"
                                                class="form-control">
                                         <span class="text-danger"
@@ -445,7 +445,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Cell Phone
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input formControlName="cellPhone" type="text" placeholder="enter cell phone number  e.g 1235"
                                                class="form-control">
                                         <span class="text-danger"
