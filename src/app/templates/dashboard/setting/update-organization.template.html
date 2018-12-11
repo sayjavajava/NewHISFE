@@ -31,18 +31,23 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm">
-                                                    <input type="text" formControlName="companyName"
-                                                           class="form-control"></div>
-                                                <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
-                                                <span *ngIf="proForm.controls['companyName'].errors.minlength"> minimum 4 charachters</span>
-                                                <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
-                                                </span>
+                                                    <input type="text" formControlName="companyName" class="form-control">
+                                                    <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
+                                                            <span *ngIf="proForm.controls['companyName'].errors.minlength"> Minimum 4 characters</span>
+                                                    <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
+                                                    </span>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Specialty<span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}"  [(ngModel)]="organization.specialty" [options]="specialtyList" formControlName="specialty"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    <p-dropdown
+                                                            [autoWidth]="false" required
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            [(ngModel)]="organization.specialty"
+                                                            [options]="specialtyList" formControlName="specialty"
+                                                            [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
                                                 </div>
                                                 <span class="text-danger" *ngIf="!proForm.controls['specialty'].valid && proForm.controls['specialty'].touched">
@@ -70,7 +75,7 @@
                                                     </p-dropdown>
 
                                                     <span class="text-danger" *ngIf="!proForm.controls['selectedCountry'].valid && proForm.controls['selectedCountry'].touched">
-                                                    <span *ngIf="proForm.controls['selectedCountry'].errors.required">Please Provide Country</span>
+                                                        <span *ngIf="proForm.controls['selectedCountry'].errors.required">Please Provide Country</span>
                                                     </span>
 
                                                 </div>
@@ -246,6 +251,7 @@
                                                         forms </p>
                                                 </div>
                                             </div>
+                                            <br/>
                                             <h4 class="hr" style="margin-left: 19%;"> Contact</h4>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Email
@@ -268,7 +274,7 @@
                                                 <input  formControlName="formName" value="PROFILE" type="hidden" />
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Fax
+                                                <label class="control-label col-md-4">Fax   <span class="required" aria-required="true">*</span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm">
                                                     <input type="text" formControlName="fax"
@@ -290,10 +296,11 @@
                                                 <label class="control-label col-md-4">Office Phone<span class="required" aria-required="true">*</span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm">
-                                                    <input  type="text" formControlName="officePhone"
-                                                            class="form-control">
+                                                    <input type="tel" formControlName="officePhone" class="form-control">
                                                     <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
-                                                        <span *ngIf="proForm.controls['officePhone'].errors.pattern">Phone Number is not valid</span></span>
+                                                       <span *ngIf="proForm.controls['officePhone'].errors.required">Office Phone is required </span>
+                                                       <span *ngIf="proForm.controls['officePhone'].errors.pattern">Office Phone is not valid</span>
+                                                   </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -301,6 +308,7 @@
                                     <div class="hr">
                                         <div class="col-md-12 text-center">
                                             <button type="button" class="btn blue" (click)="saveProfile(proForm.value,'profile')"> Update</button>
+                                            <button (click)="cancel()" class="btn default"><i class="fa fa-default"></i> Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -473,7 +481,7 @@
 
                                                 <span class="text-danger"
                                                       *ngIf="!generalForm.controls['selectedTimeZoneFormat'].valid && generalForm.controls['selectedTimeZoneFormat'].touched">
-                                                  <span *ngIf="generalForm.controls['selectedTimeZoneFormat'].errors.required">Time Zone Format is required </span>
+                                                  <span *ngIf="generalForm.controls['selectedTimeZoneFormat'].errors.required">Time Zone is required </span>
                                                 </span>
                                                 <!--<select class="form-control"
                                                         (change)="getSelected($event.target.value)"
@@ -513,7 +521,7 @@
 
                                                 <span class="text-danger"
                                                       *ngIf="!generalForm.controls['dateFormat'].valid && generalForm.controls['dateFormat'].touched">
-                                                  <span *ngIf="generalForm.controls['dateFormat'].errors.required">Time Zone Format is required </span>
+                                                    <span *ngIf="generalForm.controls['dateFormat'].errors.required">Date Format is required </span>
                                                 </span>
                                             </div>
                                         </div>
