@@ -14,6 +14,7 @@ export class MenuComponent implements OnInit{
     showMenuBar: boolean = false;
     items:items[] =[];
     collapseMenu : boolean =true;
+    collapsed : boolean =false;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private titleService: Title) {
@@ -62,7 +63,7 @@ export class MenuComponent implements OnInit{
             this.showMenuBar = true;
     }
     changeMenu(){
-       // console.log('Change menu');
+       console.log('Change menu');
         this.collapseMenu = !this.collapseMenu;
     }
 }

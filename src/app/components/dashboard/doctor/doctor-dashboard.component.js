@@ -34,6 +34,11 @@ var DoctorDashboardComponent = (function () {
         this.doctorsList = [];
         this.dashboardListModified = [];
         this.loading = false;
+        this.allRooms = [];
+        this.showRoom = false;
+        this.showRoomBtn = 'Show';
+        this.showRoomDrop = false;
+        this.roomSelected = [];
         this.showDashboard();
     }
     ;
@@ -89,7 +94,6 @@ var DoctorDashboardComponent = (function () {
     };
     DoctorDashboardComponent.prototype.getfilteredDoctor = function (value) {
         this.dashboardListModified = this.dashboardList;
-        console.log('val:' + value);
         if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
         }
@@ -100,7 +104,6 @@ var DoctorDashboardComponent = (function () {
     };
     DoctorDashboardComponent.prototype.getfilteredStatus = function (value) {
         this.dashboardListModified = this.dashboardList;
-        console.log('val:' + value);
         if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
         }
@@ -109,12 +112,37 @@ var DoctorDashboardComponent = (function () {
             this.dashboardListModified = arr;
         }
     };
+    DoctorDashboardComponent.prototype.showRoomWithBranch = function (bId, roomIdd) {
+        var _this = this;
+        this.showRoom = !this.showRoom;
+        this.showRoomDrop = this.showRoom;
+        this.allRooms.length = 0;
+        this.roomSelected.length = 0;
+        var roomList = [];
+        var roomFiltered = this.branches.filter(function (x) { return x.id == bId; });
+        this.roomSelected.push(roomIdd);
+        roomFiltered.forEach(function (x) {
+            x.examRooms.forEach(function (y) {
+                var roomObj = new RoomFilter(y.label, y.value);
+                //let foot = {label:y.label,value:y.value}
+                _this.allRooms.push(roomObj);
+                var label = roomObj.label;
+                // console.log(label)
+            });
+        });
+        if (this.showRoom) {
+            this.showRoomBtn = 'HIDE';
+        }
+        else {
+            this.showRoomBtn = 'SHOW';
+        }
+    };
     DoctorDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId, pmID) {
         var _this = this;
         var that = this;
         if (statusValue === 'IN_SESSION' || statusValue === 'COMPLETE') {
             this.confirmationDialogService
-                .confirm('Update Status', 'Are you sure you want to do this?')
+                .confirm('Update Status', 'Are you sure?')
                 .subscribe(function (res) {
                 if (res == true) {
                     _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
@@ -128,6 +156,24 @@ var DoctorDashboardComponent = (function () {
                 }
             });
         }
+    };
+    DoctorDashboardComponent.prototype.getExamRoom = function (roomId, apptId) {
+        var _this = this;
+        this.confirmationDialogService
+            .confirm('Update Room', 'Are you sure ?')
+            .subscribe(function (res) {
+            if (res == true) {
+                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.UPDATE_APPOINTMENT_ROOM + apptId, roomId)
+                    .subscribe(function (res) {
+                    if (res['responseCode'] === "APPT_SUC_03") {
+                        //  this.roomSelected.push(roomId);
+                        _this.snackBar.open('Status Updated', "Room has been changed", { duration: 3000 });
+                    }
+                }, function (error) {
+                    _this.error = error.error.error;
+                });
+            }
+        });
     };
     DoctorDashboardComponent.prototype.patientHistory = function (id) {
         console.log('patient history' + id);
@@ -155,4 +201,13 @@ var DoctorDashboardComponent = (function () {
     return DoctorDashboardComponent;
 }());
 exports.DoctorDashboardComponent = DoctorDashboardComponent;
+var RoomFilter = (function () {
+    function RoomFilter(label, value) {
+        this.label = label;
+        this.value = value;
+        this.branchName = label;
+        this.id = value;
+    }
+    return RoomFilter;
+}());
 //# sourceMappingURL=doctor-dashboard.component.js.map

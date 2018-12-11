@@ -65,7 +65,7 @@
                                     </label>
                                     <div class="col-md-8 profile-frm">
                                         <input type="text" formControlName="firstName"
-                                               placeholder="e.g Muhammad" data-required="1"
+                                               placeholder="enter first name e.g  James" data-required="1"
                                                class="form-control">
                                         <span class="text-danger"
                                               *ngIf="userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched">{{firstNameError}}</span>
@@ -79,7 +79,7 @@
                                     </label>
                                     <div class="col-md-8 profile-frm">
                                         <input formControlName="lastName" type="text"
-                                               placeholder="e.g Bilal"
+                                               placeholder="enter last name e.g  Gosling"
                                                class="form-control">
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                                     <div class="col-md-8 profile-frm">
                                         <input type="email" formControlName="email"
                                                class="form-control"
-                                               placeholder="e.g saudia@gmail.com">
+                                               placeholder="enter email address or id e.g  zzz@gmail.com">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">
                                                   <span *ngIf="userForm.controls['email'].errors.required">Email is required </span>
@@ -155,7 +155,7 @@
                                                        (onChange)="sortServices($event)"
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
-                                                       [panelStyle]="{minWidth:''}">
+                                                       [panelStyle]="{minWidth:'12em'}">
                                             <ng-template let-br pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
                                             </ng-template>
@@ -195,16 +195,11 @@
                                           *ngIf="departmentFlag">
                                             {{departmentError}}
                                         </span>
-                                   <!-- <span class="text-danger"
+                                    <span class="text-danger"
                                           *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">
                                                   <span *ngIf="userForm.controls['departmentControl'].errors.required">Department is required </span>
 
-                                            </span>-->
-                                    <span class="text-danger"
-                                          *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">
-                                                  <span *ngIf="userForm.controls['departmentControl'].errors.required">Primary Branch is required </span>
-
-                                        </span>
+                                            </span>
 
                                 </div>
 
@@ -397,7 +392,7 @@
                                     </label>
                                     <div class="col-md-8 profile-frm">
                                         <input type="password" formControlName="password" pPassword
-                                               class="form-control" placeholder="e.g  xx_abcd_1235">
+                                               class="form-control" placeholder="enter password  e.g  xxxJames_Gosling_1235">
                                         <span class="font-siz" class="text-danger"
                                               *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">
                                             <span class="font-siz"
@@ -411,7 +406,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm">
-                                        <input type="password" formControlName="confirmPassword" placeholder="e.g  xx_abcd_1235" class="form-control">
+                                        <input type="password" formControlName="confirmPassword" placeholder="enter confirm password  e.g  xxxJames_Gosling_1235" class="form-control">
                                         <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['confirmPassword'].valid && userForm.controls['confirmPassword'].touched">{{confirmPasswordError}}</span>
                                     </div>
@@ -421,11 +416,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm">
-                                        <input type="text" formControlName="userName" placeholder="e.g  M@Bilal" class="form-control">
+                                        <input type="text" formControlName="userName" placeholder="enter user name  e.g James Gosling" class="form-control">
                                         <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
                                            <span class="font-siz"
-                                                 *ngIf="userForm.controls['userName'].errors.minlength">minimum 4 charachters</span>
+                                                 *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
                                            <span class="font-siz" *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
                                           <span class="font-siz" *ngIf="userForm.controls['userName'].errors.pattern">User name not valid</span>
                                         </span>
@@ -438,7 +433,7 @@
                                     <label class="control-label col-md-4">Home Phone
                                     </label>
                                     <div class="col-md-8 profile-frm">
-                                        <input formControlName="homePhone" type="text" placeholder="e.g 1235"
+                                        <input formControlName="homePhone" type="text" placeholder="enter home phone number  e.g 1235"
                                                class="form-control">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['homePhone'].valid && userForm.controls['homePhone'].touched">
@@ -451,7 +446,7 @@
                                     <label class="control-label col-md-4">Cell Phone
                                     </label>
                                     <div class="col-md-8 profile-frm">
-                                        <input formControlName="cellPhone" type="text" placeholder="e.g 1235678"
+                                        <input formControlName="cellPhone" type="text" placeholder="enter cell phone number  e.g 1235"
                                                class="form-control">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['cellPhone'].valid && userForm.controls['cellPhone'].touched">
@@ -720,7 +715,7 @@
 
                         </div>
                     </div>
-                    <div class="hr mrgn-top10">
+                    <div class="hr">
                         <div class="col-md-12 text-center">
                             <button (click)="addData(userForm.value)" class="btn blue"><i class="fa fa-plus"></i>
                                 Create

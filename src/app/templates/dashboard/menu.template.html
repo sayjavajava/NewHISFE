@@ -4,7 +4,7 @@
         <div class="menu-toggler sidebar-toggler menu-stng" (click)="changeMenu()">
             <span></span>
         </div>
-        <p-panelMenu *ngIf="collapseMenu" [transitionOptions]="'0ms'" [model]="items" [style]="{'width':''}"></p-panelMenu>
+        <p-panelMenu *ngIf="collapseMenu" [transitionOptions]="'0ms'" [model]="items"   [style]="{'width':''}"></p-panelMenu>
         <!--<ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true"
             data-slide-speed="200">
             <li class="sidebar-toggler-wrapper hide">
@@ -12,5 +12,6 @@
             </li>
 
         </ul>-->
+       <!-- <button (click)="collapsed = !collapsed">Toggle</button>-->
     </div>
     </div>

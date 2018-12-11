@@ -77,7 +77,6 @@ export class DepartmentComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
-
                     }
                 },
                 (error: any) => {
@@ -172,7 +171,7 @@ export class DepartmentComponent implements OnInit {
         if(x.listOfBranches != null){
             this.branchesInDepartment = x.listOfBranches;
 
-        };
+        }
 
       });
        overlaypanel.toggle(event);
@@ -235,9 +234,9 @@ export class DepartmentComponent implements OnInit {
     }
 
     onUpdatePopupLoad(department: Department,id:number) {
-        this.selectedDepartment = department;
+         this.selectedDepartment = department;
          let brList = this.data.filter((x:any)=>x.id == id);
-        this.selectedBranches =[];
+         this.selectedBranches =[];
          brList.forEach((x:any)=> {
             if (x.listOfBranches != null)
                 x.listOfBranches.forEach((x:any)=>{

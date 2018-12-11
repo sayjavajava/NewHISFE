@@ -108,7 +108,7 @@ var AddBranchComponent = (function () {
     AddBranchComponent.prototype.createBranchMandatoryForm = function () {
         this.branchForm = this.fb.group({
             "companyName": [null],
-            "flow": [null],
+            "flow": [null, forms_1.Validators.compose([forms_1.Validators.required])],
             "branchName": [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             "countryId": [null],
             "stateId": [null],
@@ -119,9 +119,9 @@ var AddBranchComponent = (function () {
             "officePhone": [null],
             "fax": [null],
             "formattedAddress": [null],
-            "officeHoursStart": [this.officeHoursStart, forms_1.Validators.required],
-            "officeHoursEnd": [this.officeHoursEnd, forms_1.Validators.required],
-            "noOfExamRooms": [null, forms_1.Validators.required],
+            "officeHoursStart": [this.officeHoursStart, forms_1.Validators.compose([forms_1.Validators.required])],
+            "officeHoursEnd": [this.officeHoursEnd, forms_1.Validators.compose([forms_1.Validators.required])],
+            "noOfExamRooms": [null, forms_1.Validators.compose([forms_1.Validators.required])],
             "examRooms": this.fb.array([this.createExamRoom()]),
         });
         this.examRooms.push(this.createExamRoom());
@@ -236,7 +236,7 @@ var AddBranchComponent = (function () {
     };
     AddBranchComponent.prototype.createExamRoom = function () {
         return this.fb.group({
-            "roomName": [null, forms_1.Validators.required],
+            "roomName": [null, forms_1.Validators.compose([forms_1.Validators.required])],
             "allowOnlineScheduling": "",
         });
     };

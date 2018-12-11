@@ -24,7 +24,7 @@
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                <input type="text" pInputText size="50" placeholder="Search Against Code or Problem"
+                                <input type="text" pInputText size="50" placeholder="Search here..."
                                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                             </div>
                         </ng-template>
@@ -44,7 +44,7 @@
                                         <p-sortIcon [field]="col.field" ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"></p-sortIcon>
                                     </span>
                                     <span *ngSwitchCase="'active'"> {{col.header}} </span>
-                                    <span *ngSwitchCase="'Action'"> {{col.header}} </span>
+                                    <span *ngSwitchCase="'action'"> {{col.header}} </span>
 
                                 </th>
                             </tr>
@@ -70,12 +70,10 @@
                         <ng-template pTemplate="body" let-rowData let-paymentlst>
                             <tr>
                                 <td field="paymentTitle"> {{paymentlst.paymentTitle}} </td>
-                                <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount.name}} </td>
-
+                                <td field="paymentGlAccount"> {{paymentlst.paymentGlAccountName}} </td>
                                 <td field="serviceCharges" > {{ paymentlst.serviceCharges}} </td>
                                 <td field="maxCardCharges"> {{paymentlst.maxCardCharges}} </td>
-
-                                <td field="active"> <span class="font-blue"> {{paymentlst.active}} </span> </td>
+                                <td field="active"><span class="font-blue"> {{paymentlst.active?"Active":"Inactive"}} </span></td>
                                 <td>
                                     <a href="#responsive" data-toggle="modal">
                                         <button class="btn btn-default btn-outline btn-sm"

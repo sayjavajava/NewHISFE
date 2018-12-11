@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RequestsService} from '../../../services/requests.service';
@@ -8,7 +8,13 @@ import {AppConstants} from '../../../utils/app.constants';
 import {Organization} from '../../../model/organization';
 import {SelectItem} from "primeng/api";
 import {DateFormatENUM} from "../../../enums/DateFormatEnum";
+import {Country} from "../../../model/Country";
+import {City} from "../../../model/City";
+import {State} from "../../../model/State";
 import 'rxjs/add/operator/toPromise';
+import {async} from "@angular/core/testing";
+import {count} from "rxjs/operators";
+import any = jasmine.any;
 
 
 @Component({
@@ -18,8 +24,9 @@ import 'rxjs/add/operator/toPromise';
 export class UpdateOrganizationComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService) {
-        this.allTimezone();
+
         this.allBranches();
+        this.allTimezone();
         this.getOrganizationAccount();
     }
 
@@ -156,7 +163,7 @@ export class UpdateOrganizationComponent implements OnInit {
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-            'selectedCountry': [null,,Validators.compose([Validators.required])],
+            'selectedCountry': [null,Validators.compose([Validators.required])],
             'selectedState': [null],
             'selectedCity': [null],
             'currency':[null],

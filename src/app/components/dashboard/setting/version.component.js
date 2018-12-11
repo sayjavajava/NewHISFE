@@ -31,9 +31,9 @@ var VersionComponent = (function () {
         document.title = 'HIS | Manage ICD';
         if (localStorage.getItem(btoa('access_token'))) {
             this.cols = [
-                { field: 'name', header: 'name' },
-                { field: 'description', header: 'description' },
-                { field: 'status', header: 'status' },
+                { field: 'name', header: 'Name' },
+                { field: 'description', header: 'Description' },
+                { field: 'status', header: 'Sstatus' },
                 { field: 'Action', header: 'Action' }
             ];
             this.getAllVersionsFromServer();

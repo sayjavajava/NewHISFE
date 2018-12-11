@@ -21,6 +21,8 @@ var MenuComponent = (function () {
         this.titleService = titleService;
         this.showMenuBar = false;
         this.items = [];
+        this.collapseMenu = true;
+        this.collapsed = false;
     }
     ;
     MenuComponent.prototype.ngOnInit = function () {
@@ -60,6 +62,10 @@ var MenuComponent = (function () {
         var userType = atob(localStorage.getItem(btoa('user_type')));
         if (userType === 'admin' || userType === 'manager')
             this.showMenuBar = true;
+    };
+    MenuComponent.prototype.changeMenu = function () {
+        console.log('Change menu');
+        this.collapseMenu = !this.collapseMenu;
     };
     MenuComponent = __decorate([
         core_1.Component({

@@ -1,10 +1,10 @@
 <div class="page-content-wrapper">
-    <div class="page-content" style="margin-top: 50px;margin-left: 0px !important;">
+    <div class="page-content" style="margin-top: 65px;margin-left: 0px !important;">
         <!--<div class="portlet-body">-->
 
         <div class="row">
             <div class="col-md-12">
-                <h4 class="text-info">
+                <h4 class="text-info mrgn-btm8">
                     <b>Patient Invoice</b>
                 </h4>
                 <div class="col-md-6 col-sm-6">
@@ -62,16 +62,13 @@
                     </table>
                 </div>
             </div>
-            
 
             <div class="col-md-4 mrgn-top8">
-                
                 <div class="form-group">
                     <label><b> Payment Type </b></label>
                     <!--<select class="form-control">
                         <option>Cash</option>
                     </select>-->
-
                     <p-dropdown [options]="paymentTypeList"
                                 [(ngModel)]="selectedPaymentType"
                                 optionLabel="paymentTitle"
@@ -96,25 +93,25 @@
                         </label>
                 </div>
 
-                <div class="form-group mrgn-top4" *ngIf="useAdvancedBal">
+                <div class="form-group hr" *ngIf="useAdvancedBal">
                     <label class="col-md-4 no-padding-lft">Advance Used :</label>
-                    <div class="col-md-6 no-padding-rgt">
+                    <div class="col-md-8 no-padding-rgt profile-frm">
                         <input type="number" class="form-control text-align-right" name="usedAdvanceDeposit" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
                     </div>
                 </div>
 
 
                 
-                <div class="form-group mrgn-top4">
+                <div class="form-group hr mrgn-top8">
                     <label class="col-md-4 no-padding-lft">Applied Amount</label>
-                    <div class="col-md-6 no-padding-rgt">
+                    <div class="col-md-8 no-padding-rgt profile-frm">
                         <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
                     </div>
                 </div>
 
-                <div class="form-group mrgn-top4">
+                <div class="form-group hr mrgn-top8">
                     <label class="col-md-4 no-padding-lft">Discount Amount</label>
-                    <div class="col-md-6 no-padding-rgt">
+                    <div class="col-md-8 no-padding-rgt profile-frm">
                         <input type="number" class="form-control text-align-right" name="discountAmount" [(ngModel)]="discountAmount" [step]="0.01">
                     </div>
                 </div>
@@ -130,7 +127,7 @@
                                 <span> <b>Total Paid Amount</b> </span>
                                 <span> <b>{{receivedAmount | number :'.2-2'}}</b> </span>
                             </li>
-                            <li class="sar-total">
+                            <li class="sar-total mrgn-top4">
                                 <span> <b>Total Refunded Amount</b> </span>
                                 <span> <b>{{refundAmount | number :'.2-2'}}</b> </span>
                             </li>

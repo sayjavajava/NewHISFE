@@ -136,23 +136,26 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
             AppConstants.FETCH_APPOINTMENTS_URL)
             .subscribe(
                 (response: Response) => {
-                    console.log('making border...');
+                    console.log('');
                     if (response['responseCode'] === 'APPT_SUC_01') {
                         for (let apt of response['responseData']) {
                             this.events.push({
                                 id: apt.id,
                                 /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
                                 title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/
-                                '        <div class="headng-bck">\n' + apt.scheduleDateAndTime +'<br/>' +
+                                '<div class="headng-bck">\n' +
+                                ' <div class="hadng-txt">\n' +
+                                '<table width="236" border="0">\n' +
                                 '\n' +
-                                /*'            <div class="hadng-txt">\n' +
-                                '                <h2>apt.scheduleDateAndTime</h2>\n' +
-                                '                <p>apt.branchName</p>\n' +
-                                '            </div>\n' +*/
+                                '<tr class="" width="236">\n' +
+                                '    <td style="width:20%;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
+                                '    <td style="width:80%;"><h2>Patient Name</h2></td>\n' +
+                                '</tr>\n' +
+                            '  </table>\n' +
+                                '            </div>\n' +
                                 /* '        </div> ' +*/
-                                '</div>' +
-                                '            <div class="">\n' +
-                                '                <table width="182" border="0">\n' +
+                                '<div class="bc-bg">\n' +
+                                '                <table width="236" border="0">\n' +
                                 '\n' +
                                 '            <tr class="gry-bckgrnd inr-txt">\n' +
                                 '                    <td style="width:30%">Branch</td>\n' +
@@ -175,11 +178,20 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td style="width:30%">Service</td>\n' +
+                                '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td style="width:30%">Service</td>\n' +
+                                '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
                                 '                    <td style="width:30%">Room</td>\n' +
                                 '                    <td style="width:70%">\n'+apt.examName+'</td>\n' +
                                 '                </tr>\n' +
                                 '            </table>\n' +
                                 '                \n' +
+                                '            </div>\n' +
                                 '            </div>\n' ,
                                 /*   '<br/>' + '' + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,*/
                                 start: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
@@ -282,7 +294,12 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
 
     closeAddModal() {
         this.eventsRequest.length = 0;
+        this.selectedType.length = 0;
         this.refresh.next();
+        this.maxNo =false;
+        this.amt =0;
+        if(this.Type.length !=0)
+        this.Type.map((x:any)=>{x.checked = false});
         this.addModal.hide();
 
     }
@@ -294,6 +311,7 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         else
             this.amt--
         this.amt === 2 ? this.maxNo = true : this.maxNo = false;
+        console.log('amount' + this.amt);
         this.selectedType.push(...this.selectedOptions);
     }
 
@@ -358,7 +376,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branches = response['responseData'];
-                        console.log('branches first'+ this.branches[0].label)
                     }
                 },
                 (error: any) => {
@@ -455,7 +472,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
     }
 
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
-        console.log("day cliked in months");
         if (isSameMonth(date, this.viewDate)) {
             if (
                 (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -615,7 +631,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
     }
 
     selectRecurringDays(event: any, item: any) {
-        console.log(this.examRooms.lenght);
         if (event.target.checked) {
             this.selectedRecurringDays.push(item.name);
         }

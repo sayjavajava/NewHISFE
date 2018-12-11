@@ -22,6 +22,7 @@
                     </h4>
                 </div>
                 <div class="">
+
                     <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                         <div class="col-md-4">
                             <div class="form-group font-siz11">
@@ -38,6 +39,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="table-scrollable">
                         <table class="table table-striped table-hover table-checkable dataTable no-footer"
                                id="datatable_ajax" role="grid">
@@ -56,6 +58,7 @@
                                     <a href="#responsive" data-toggle="modal">
                                         <button class="btn btn-default btn-outline btn-sm"
                                                 (click)="onUpdatePopupLoad(item)"><i class="fa fa-pencil"></i>
+
                                         </button>
                                     </a>
                                     <span [hidden]="item.hasChild">
@@ -64,6 +67,7 @@
                                             <i class="fa fa-remove"></i>
                                         </button>
                                     </span>
+
                                 </td>
                             </tr>
                             </thead>
@@ -113,6 +117,7 @@
                 <button class="btn mt-sweetalert btn green-meadow" (click)="onAddPopupLoad()">
                     <i class="fa fa-plus"></i> Add
                 </button>
+
             </a>
             </div></h4>
         </div>
@@ -121,7 +126,7 @@
             <ng-template pTemplate="caption">
                 <div style="text-align: right">
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder="Department Name/Deparment Description" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -143,13 +148,16 @@
                         <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                     </th>-->
                 </tr>
-                <!--<tr>
+
+
+
+                <tr>
                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                         <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         <input *ngSwitchCase="'description'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         <input *ngSwitchCase="'listOfBranches'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                     </th>
-                </tr>-->
+                </tr>
                 <!--<tr>
                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                         <input *ngSwitchCase="'Name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
@@ -170,8 +178,10 @@
                     </td>
                 </tr>
             </ng-template>-->
+
             <ng-template pTemplate="body" let-item let-columns="columns">
                 <tr>
+
                     <!--{{car[col.field]}}-->
                     <td> {{item.name}}</td>
                     <td>  {{item.description}}</td>
@@ -184,23 +194,29 @@
                                 <i class="fa fa"></i>Branch
                             </button>
                         </a>--> <!--(click)="op.toggle($event)" -->
-                        <button class="padding-10" type="text" pButton (click)="getBranchesWithDepartment(item.id,op,$event)"> <i class="fa fa-university"></i> </button>
+                        <button type="text" pButton label="" (click)="getBranchesWithDepartment(item.id,op,$event)"><i class="fa fa-university"></i> </button>
                     </td>
+
                     <td>
                         <a href="#responsive" data-toggle="modal">
                             <button class="btn btn-default btn-outline btn-sm"
                                     (click)="onUpdatePopupLoad(item,item.id)"><i class="fa fa-pencil"></i>
+
                             </button>
                         </a>
                         <button class="btn btn-default btn-outline btn-sm"
                                 (click)="deleteDepartment(item.id)">
                             <i class="fa fa-remove"></i>
                         </button>
+
                     </td>
+
                 </tr>
             </ng-template>
         </p-table>
         </div>
+
+
     </div>
     <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -213,26 +229,29 @@
                     <div class="modal-body">
                         <div class="slimScrollDiv"
                              style="position: relative; overflow: hidden; width: auto;">
-                            <div class="scroller" style="width: auto; height: 190px;">
+                            <div class="scroller" style="width: auto; height: 240px;">
                                 <div class="row">
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5 profile-frm">
                                             <input class="form-control" type="text" required
-                                                   [(ngModel)]="selectedDepartment.name" placeholder="e.g Cardiology"
+                                                   [(ngModel)]="selectedDepartment.name" placeholder="enter name e.g heart department"
                                                    name="dptName" #dptName="ngModel"/>
                                             <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
-                                        </div>
-                                        <span *ngIf="dptName.invalid && dptName.touched"
-                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                            <span *ngIf="dptName.invalid && dptName.touched"
+                                                  class="col-md-9 select pdng-lr-5 text-danger font-siz">
                                                 Please enter valid name.
                                         </span>
+                                        </div>
+
                                     </div>
+
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Branch <span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
+
                                             <!--<input class="form-control" type="text" required
                                                    [(ngModel)]="selectedDepartment.name"
                                                    name="dptName" #dptName="ngModel"/>-->
@@ -242,21 +261,25 @@
                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
                                                            [options]="branchesList" [(ngModel)]="selectedBranches"
                                                            [ngModelOptions]="{standalone:true}">
+
                                             </p-multiSelect>  
                                             <!--selectedDepartment.branchId-->
                                             <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
-                                        </div>
-                                        <span *ngIf="brName.invalid && brName.touched"
-                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                            <span *ngIf="brName.invalid && brName.touched"
+                                                  class="col-md-9 select pdng-lr-5 text-danger font-siz">
                                                 Please Select Branch
                                         </span>
+                                        </div>
+
                                     </div>
+
                                     <div class="form-group hr mrgn-top4">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <textarea class="form-control" rows="3"
                                                       [(ngModel)]="selectedDepartment.description"
-                                                      name="desc" #desc="ngModel" placeholder="e.g this Department deals with hearts only">
+                                                      name="desc" #desc="ngModel" placeholder="enter description of department e.g heart department">
+
                                             </textarea>
                                         </div>
                                     </div>
@@ -275,6 +298,7 @@
                                                           name="status"
                                                           [(ngModel)]="selectedDepartment.active"
                                                           color="primary"></mat-checkbox>
+
                                         </label>
                                     </div>
                                 </div>
@@ -302,9 +326,10 @@
         </div>
     </div>
 </div>
+
 <!--show -->
 <p-overlayPanel [showCloseIcon] = "true" #op>
-    <p class="font-red glyphicon" *ngIf="branchesInDepartment.length <= 0">No Branch is Associated</p>
+    <p class="font-red" *ngIf="branchesInDepartment.length <= 0">No Branch is Associated</p>
     <span *ngFor="let br of branchesInDepartment">
         <label class="brnch-modl"><ul><li>{{br.name}}</li></ul></label>
     </span>
@@ -319,7 +344,7 @@
             </div>
             <div class="modal-body">
                 <p class="font-red" *ngIf="branchesInDepartment.length <= 0">No Branch is Associated</p>
-                <div class="scroller" style="height:190px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:150px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <address>
                             <div class="form-group">
@@ -349,7 +374,8 @@
                 <button type="button" data-dismiss="modal"
                         id="close-btn-branch"
                         name="close-btn-branch"
-                        class="btn btn-default btn-outline">Close
+                        class="btn btn-default btn-outline"
+                >Close
                 </button>
             </div>
         </div>

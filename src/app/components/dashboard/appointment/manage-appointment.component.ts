@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Title} from "@angular/platform-browser";
 import {RequestsService} from "../../../services/requests.service";
 import {Router} from "@angular/router";
@@ -21,11 +21,8 @@ export class ManageAppointmentComponent implements OnInit {
     data: any;
     searchData:string;
     searchFlag:boolean=false;
+    cols:any;
     selectedMedicalService: MedicalService = new MedicalService();
-    appointmentDataImport: File = null;
-
-    @ViewChild('fileInput')
-    fileInputVariable: ElementRef;
 
     constructor(private requestsService: RequestsService,
                 private router: Router,
@@ -37,8 +34,28 @@ export class ManageAppointmentComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle('HIS | Manage Appointments');
-        //this.getAllPaginatedAppointmentsFromServer(0);
-        this.getAllAppointmentsFromServer();
+        this.getAllPaginatedAppointmentsFromServer(0);
+
+        this.cols = [
+            { field: 'patientFirstName', header: 'Patient' },
+            { field: 'examName', header: 'Exam Room' },
+            { field: 'branchName', header: 'Branch' },
+            { field: 'appointmentType', header: 'Type' },
+            { field: 'scheduleDate', header: 'Started On' },
+            { field: 'appointmentEndedOn', header: 'Ended On' },
+            { field: 'duration', header: 'Duration' },
+            { field: 'Status', header: 'status' },
+            { field: 'status', header: 'Action' }
+        ];
+
+/*        <th width="15%"> Patient</th>
+            <th width="15%"> Exam Room</th>
+        <th width="10%"> Branch</th>
+            <th width="10%"> Type</th>
+            <th width="15%"> Started On</th>
+        <th width="10%"> Ended On</th>
+        <th width="10%"> Status</th>
+            <th width="10%"> Action</th>*/
     }
 
     getPageWisePatients(page: number) {
@@ -62,26 +79,10 @@ export class ManageAppointmentComponent implements OnInit {
                     }
                 },
                 (error: any) => {
-                    //  this.hisUtilService.tokenExpired(error.error.error);
+                  //  this.hisUtilService.tokenExpired(error.error.error);
                 }
             );
     }
-
-    getAllAppointmentsFromServer() {
-        this.requestsService.getRequest(AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'APPT_SUC_01') {
-                        this.data = response['responseData']['data'];
-                    }
-                },
-                (error: any) => {
-                    this.notificationService.error('ERROR', 'Unable to fetch appointments from Server');
-                    //  this.hisUtilService.tokenExpired(error.error.error);
-                }
-            );
-    }
-
     searchAppointment(page: any) {
         this.searchFlag = true;
         this.requestsService.getRequest(
@@ -103,7 +104,7 @@ export class ManageAppointmentComponent implements OnInit {
                          }*/
                         this.data = response['responseData'];
                     }
-                },
+                    },
                 (error: any) => {
                 }
             );
@@ -132,39 +133,6 @@ export class ManageAppointmentComponent implements OnInit {
                     // this.router.navigate(['/home']);
                 }
             });
-    }
-
-    importData(event: any) {
-        console.log(event);
-        console.log("Data import method is called");
-        let fileList: FileList = event.target.files;
-        if (fileList != null && fileList.length > 0) {
-            if (event.target.name === 'appointmentDataImport') {
-                if (fileList[0].size > 0 && fileList[0].size < 4000000) {         // if (fileList[0].size < 4000000) {
-                    this.appointmentDataImport = fileList[0];
-                    this.requestsService.postRequestMultipartForm(AppConstants.IMPORT_APPOINTMENT_LIST_TO_SERVER, this.appointmentDataImport)
-                        .subscribe(
-                            (response: Response) => {
-                                if (response['responseCode'] === 'SUCCESS') {
-                                    this.notificationService.success(response['responseMessage'], 'Manage Appointments');
-                                    // (<HTMLInputElement> document.getElementById("appointmentDataImport")).value = "";
-                                    (this.fileInputVariable.nativeElement as HTMLInputElement).files = null;
-                                    //this.getAllPaginatedAppointmentsFromServer(0);
-                                    this.getAllAppointmentsFromServer();
-                                } else {
-                                    this.notificationService.error(response['responseMessage'], 'Manage Appointments');
-                                }
-                            }, (error: any) => {
-                                //console.log(error.json())
-                                // this.HISUtilService.tokenExpired(error.error.error);
-                                this.notificationService.error(error.error.responseMessage, 'Manage Appointments');
-                            }
-                        );
-                } else {
-                    this.notificationService.warn('File size must be more than 0 byte and less than 4 MB');
-                }
-            }
-        }
     }
 
 }

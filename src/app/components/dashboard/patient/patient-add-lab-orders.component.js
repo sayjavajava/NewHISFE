@@ -163,7 +163,7 @@ var PatientAddLabOrdersComponent = (function () {
             'orderTestDate': [null],
             'doctorSignOff': [null],
             'comments': [null],
-            'testNameId': [null],
+            'testNameId': [null, forms_1.Validators.required],
             'doctorName': [null],
             'patientId': [null, forms_1.Validators.required],
             'appointmentId': [null, forms_1.Validators.required],

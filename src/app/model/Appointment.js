@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Appointment = (function () {
-    function Appointment(id, appointmentId, title, branchId, doctorId, scheduleDateAndTime, scheduleDate, end, draggable, selectedRecurringDays, appointmentType, notes, patient, reason, status, duration, followUpDate, followUpReason, followUpReminder, recurringAppointment, recurseEvery, firstAppointment, lastAppointment, examRoom, age, cellPhone, gender, email, color, roomId, newPatient, dob, serviceId, stateOfPatientBox) {
+    function Appointment(id, appointmentId, title, branchId, doctorId, scheduleDateAndTime, scheduleDate, end, draggable, selectedRecurringDays, appointmentType, notes, patient, reason, statusId, duration, followUpDate, followUpReason, followUpReminder, recurringAppointment, recurseEvery, firstAppointment, lastAppointment, examRoom, age, cellPhone, gender, email, color, roomId, newPatient, dob, serviceId, stateOfPatientBox, dateSchedule) {
+        this.dateSchedule = new Date();
         this.id = id;
         this.appointmentId = appointmentId;
         this.title = title;
         this.branchId = branchId;
         this.doctorId = doctorId;
-        this.scheduleDateAndTime = scheduleDateAndTime;
+        //   this.scheduleDateAndTime =scheduleDateAndTime;
         this.scheduleDate = scheduleDate;
         this.selectedRecurringDays = selectedRecurringDays;
         this.end = end;
@@ -16,15 +17,15 @@ var Appointment = (function () {
         this.notes = notes;
         this.patientId = patient;
         this.reason = reason;
-        this.status = status;
+        this.statusId = statusId;
         this.duration = duration;
-        this.followUpDate = followUpDate;
+        this.followUpDate = new Date(followUpDate);
         this.followUpReason = followUpReason;
         this.followUpReminder = followUpReminder;
         this.recurringAppointment = recurringAppointment;
         this.recurseEvery = recurseEvery;
-        this.firstAppointment = firstAppointment;
-        this.lastAppointment = lastAppointment;
+        this.firstAppointment = new Date(firstAppointment);
+        this.lastAppointment = new Date(lastAppointment);
         this.examRoom = examRoom;
         this.gender = gender;
         this.age = age;
@@ -36,6 +37,7 @@ var Appointment = (function () {
         this.newPatient = newPatient;
         this.dob = dob;
         this.stateOfPatientBox = stateOfPatientBox;
+        this.dateSchedule = new Date(dateSchedule);
     }
     return Appointment;
 }());

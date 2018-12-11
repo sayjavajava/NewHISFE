@@ -147,9 +147,10 @@ var receipt_listing_component_1 = require("./components/dashboard/patient/receip
 var refund_listing_component_1 = require("./components/dashboard/patient/refund-listing.component");
 var patient_invoice_list_component_1 = require("./components/dashboard/patient/patient-invoice-list.component");
 var PatientImageComponent_1 = require("./components/dashboard/setting/PatientImageComponent");
-/*import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";*/
 var PatientImageOrderComponent_1 = require("./components/dashboard/patient/PatientImageOrderComponent");
 var patient_history_vital_component_1 = require("./components/dashboard/patient/patient-history-vital.component");
+var panel_1 = require("primeng/panel");
+var galleria_1 = require("primeng/components/galleria/galleria");
 var doctor_payment_listing_component_1 = require("./components/dashboard/patient/doctor-payment-listing.component");
 var AppModule = (function () {
     function AppModule() {
@@ -213,7 +214,7 @@ var AppModule = (function () {
                 multiselect_1.MultiSelectModule,
                 autocomplete_1.AutoCompleteModule,
                 primeng_1.DataTableModule,
-                primeng_1.PaginatorModule,
+                primeng_1.PaginatorModule, panel_1.PanelModule,
                 primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule,
                 shared_1.SharedModule,
                 editor_1.EditorModule,
@@ -223,6 +224,7 @@ var AppModule = (function () {
                 ng2_ckeditor_1.CKEditorModule,
                 chart_1.ChartModule,
                 fileupload_1.FileUploadModule,
+                galleria_1.GalleriaModule
             ],
             declarations: [
                 // App Components
@@ -247,7 +249,6 @@ var AppModule = (function () {
                 patient_component_1.PatientComponent,
                 edit_patient_component_1.EditPatientComponent,
                 patient_invoice_component_1.PatientInvoiceComponent,
-                doctor_payment_listing_component_1.DoctorPaymentListingComponent,
                 patient_history_component_1.PatientHistoryComponent,
                 patient_demographic_component_1.PatientDemographicComponent,
                 patient_appointment_component_1.PatientAppointmentComponent,
@@ -330,10 +331,9 @@ var AppModule = (function () {
                 patient_invoice_list_component_1.PatientInvoiceListComponent,
                 currency_component_1.CurrencyComponent,
                 PatientImageComponent_1.PatientImageComponent,
-                /*PatientImageOrderComponent,*/
-                PatientImageComponent_1.PatientImageComponent,
                 PatientImageOrderComponent_1.PatientImageOrderComponent,
-                patient_history_vital_component_1.PatientHistoryVitalComponent
+                patient_history_vital_component_1.PatientHistoryVitalComponent,
+                doctor_payment_listing_component_1.DoctorPaymentListingComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

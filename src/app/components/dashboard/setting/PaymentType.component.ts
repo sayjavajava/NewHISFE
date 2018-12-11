@@ -56,11 +56,11 @@ export class PaymentTypeComponent implements OnInit {
 
         this.cols = [
             { field: 'paymentTitle', header: 'Payment Title' },
-            { field: 'paymentGlAccount', header: 'GL Account' },
+            { field: 'paymentGlAccountName', header: 'GL Account' },
             { field: 'serviceCharges', header: 'Charges' },
             { field: 'maxCardCharges', header: 'Max Card Charges' },
             { field: 'active', header: 'Status' },
-            { field: 'Action', header: 'Action' }
+            { field: 'action', header: 'Action' }
         ];
 
 
@@ -376,17 +376,17 @@ export class PaymentTypeComponent implements OnInit {
                 this.newPaymentType.serviceCharges='';
                 this.newPaymentType.maxCardCharges=''
                 this.newPaymentType.payCredit=false;
-                this.newPaymentType.bankGlCharges=null;
+                // this.newPaymentType.bankGlCharges=null;
 
             }if(this.newPaymentType.paymentMode==="Card"){
                 var charteredofSecondAccount = this.chartOfAccountList.filter(x=>x.id==this.selectedSecondCharteredAccount);
-                this.newPaymentType.bankGlCharges=charteredofSecondAccount[0];
+                // this.newPaymentType.bankGlCharges=charteredofSecondAccount[0];
             }else{
 
                 this.newPaymentType.serviceCharges='';
                 this.newPaymentType.maxCardCharges=''
                 this.newPaymentType.payCredit=false;
-                this.newPaymentType.bankGlCharges=null;
+                // this.newPaymentType.bankGlCharges=null;
             }
 
             if (form.valid) {

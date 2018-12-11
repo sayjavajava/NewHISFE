@@ -165,6 +165,7 @@ import {PatientInvoiceListComponent} from "./components/dashboard/patient/patien
 import {PatientImageComponent} from "./components/dashboard/setting/PatientImageComponent";
 import {PatientImageOrderComponent} from "./components/dashboard/patient/PatientImageOrderComponent";
 import {PatientHistoryVitalComponent} from "./components/dashboard/patient/patient-history-vital.component";
+import {PanelModule} from "primeng/panel";
 
 import {GalleriaModule} from 'primeng/components/galleria/galleria';
 import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
@@ -226,7 +227,7 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         MultiSelectModule,
         AutoCompleteModule,
         DataTableModule,
-        PaginatorModule,
+        PaginatorModule,PanelModule,
         PanelMenuModule,MegaMenuModule,ChipsModule,SliderModule,TableModule,
         SharedModule,
         EditorModule,
