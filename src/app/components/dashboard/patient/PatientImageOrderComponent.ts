@@ -95,9 +95,9 @@ export class PatientImageOrderComponent implements OnInit {
         this.selectedOrder=this.orderListModified[0].value;
         this.uploadedFiles.length=0;
         this.showUpload=true;
-        if($('Div').hasClass('ui-fileupload-content')){
+        /*if($('Div').hasClass('ui-fileupload-content')){
             $('Div').removeClass('ui-fileupload-content');
-        }
+        }*/
       //  $(".k-widget.k-upload").find("ul").remove();
      //   $("ui-widget-content").removeClass("ui-fileupload-row");
       //  document.getElementsByClassName('appBanner').style.visibility='hidden';

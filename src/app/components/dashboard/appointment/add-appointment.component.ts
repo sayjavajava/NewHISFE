@@ -73,7 +73,7 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
     filteredServices: any;
     brFiltered: Branch[] = [];
     doctorsList: any[];
-    patients: any = [];
+    patients: any[] = [];
     selectedType: any = [];
     updateSelectedType: any = [];
     appointmentType: any = [];
@@ -148,10 +148,10 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 '<table width="236" border="0">\n' +
                                 '\n' +
                                 '<tr class="" width="236">\n' +
-                                '    <td style="width:20%;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
-                                '    <td style="width:80%;"><h2>Patient Name</h2></td>\n' +
+                                '    <td style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
+                                '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>Patient Name</h2></td>\n' +
                                 '</tr>\n' +
-                            '  </table>\n' +
+                                '  </table>\n' +
                                 '            </div>\n' +
                                 /* '        </div> ' +*/
                                 '<div class="bc-bg">\n' +
@@ -299,7 +299,7 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         this.maxNo =false;
         this.amt =0;
         if(this.Type.length !=0)
-        this.Type.map((x:any)=>{x.checked = false});
+            this.Type.map((x:any)=>{x.checked = false});
         this.addModal.hide();
 
     }

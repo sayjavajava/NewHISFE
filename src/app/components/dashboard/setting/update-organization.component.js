@@ -76,8 +76,8 @@ var UpdateOrganizationComponent = (function () {
         this.selectedCity = [];
         this.selectedTimeZoneFormat = [];
         this.timeZoneListModified = [];
-        this.allTimezone();
         this.allBranches();
+        this.allTimezone();
         this.getOrganizationAccount();
     }
     UpdateOrganizationComponent.prototype.ngOnInit = function () {

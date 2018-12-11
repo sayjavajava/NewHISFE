@@ -154,8 +154,8 @@ var AddAppointmentComponent = (function () {
                             '<table width="236" border="0">\n' +
                             '\n' +
                             '<tr class="" width="236">\n' +
-                            '    <td style="width:20%;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
-                            '    <td style="width:80%;"><h2>Patient Name</h2></td>\n' +
+                            '    <td style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
+                            '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>Patient Name</h2></td>\n' +
                             '</tr>\n' +
                             '  </table>\n' +
                             '            </div>\n' +
