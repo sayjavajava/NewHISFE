@@ -8,6 +8,7 @@ import {ConformationDialogService} from "../../../services/ConformationDialogSer
 import {MatSnackBar} from "@angular/material";
 import {Component} from "@angular/core";
 import {DataService} from "../../../services/DataService";
+import {isDateSelectable} from "@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools";
 
 @Component({
     selector: 'nurse-dashboard-component',
@@ -55,8 +56,9 @@ export class NurseDashboardComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                         let dashboardListTemp = response['responseData'];
-                        this.dashboardList = dashboardListTemp.filter((x: any) => x.status == "COMPLETE" || x.status == "IN_SESSION");
-                        this.dashboardListModified = this.dashboardList;
+                       /* this.dashboardList = dashboardListTemp.filter((x: any) => x.status == "COMPLETE" || x.status == "IN_SESSION");
+                        this.dashboardListModified = this.dashboardList;*/
+                        this.dashboardListModified = dashboardListTemp;
                         this.loading=false;
                     }
                 },

@@ -119,7 +119,7 @@
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                <input type="text" pInputText size="50" placeholder="Search Against Name, Country, City, or Rooms"
+                                <input type="text" pInputText size="50" placeholder="name,country,city,rooms"
                                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                             </div>
                         </ng-template>
@@ -148,17 +148,18 @@
                         <ng-template pTemplate="body" let-rowData let-branchesList>
                             <tr>
                                 <td field="name"> {{branchesList.name}} </td>
+                                <td field="country"> {{branchesList.country}} </td>
+                                <td field="city"> {{branchesList.city}} </td>
                                 <td field="doctorsList">
-                                    <a href="#popupTest" data-toggle="modal">
+                                    <!--<a href="#popupTest" data-toggle="modal">
                                         <button class="btn mt-sweetalert btn green-meadow"
-                                                (click)="getbranchesWithDoctors(branchesList.id)"
+                                                (click)="getbranchesWithDoctors(branchesList.id,op,$event)"
                                                 data-confirm-button-class="btn-success">
                                             <i class="fa fa"></i>Doctors
                                         </button>
-                                    </a>
+                                    </a>-->
+                                    <button type="text" pButton label="" (click)="getbranchesWithDoctors(branchesList.id,op,$event)"><i class="fa fa-university"></i> </button>
                                 </td>
-                                <td field="country"> {{branchesList.country}} </td>
-                                <td field="city"> {{branchesList.city}} </td>
                                 <td field="rooms">{{branchesList.rooms}}</td>
                                 <td field="id">
                                     <ng-container>
@@ -214,6 +215,13 @@
     </div>
 </div>
 
+<!--show -->
+<p-overlayPanel [showCloseIcon] = "true" #op>
+    <p class="font-red" *ngIf="doctorsInBranch.length <= 0">No Doctor is Associated</p>
+    <span *ngFor="let br of doctorsInBranch">
+        <label class="brnch-modl"><ul><li>{{br.firstName}} {{br.lastName}}</li></ul></label>
+    </span>
+</p-overlayPanel>
 <!--show doctors modal-->
 <div id="popupTest" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">

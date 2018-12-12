@@ -137,7 +137,6 @@ export class AddStaffComponent implements OnInit {
     }
     addComission(service :any,item ?:any){
      // serviceComission:{id:number,checked:boolean,comission:''}[];
-
         let list = this.serviceComission.filter((x:any)=>x.id == item.value);
         if(list !=null){
          list.forEach(x=>{
@@ -186,7 +185,7 @@ export class AddStaffComponent implements OnInit {
         let sortedList = this.allServicesList.filter((x:any)=>{
             if(x.branches.length >0)
             x.branches.id ==brId});
-        console.log('servicesList' + sortedList[0]);
+           console.log('servicesList' + sortedList[0]);
     }
 
     allServices() {

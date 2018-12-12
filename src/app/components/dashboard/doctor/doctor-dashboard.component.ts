@@ -41,7 +41,6 @@ export class DoctorDashboardComponent {
         this.showDashboard();
 
     };
-
     ngOnInit() {
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
@@ -55,8 +54,9 @@ export class DoctorDashboardComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                         let dashboardListTemp = response['responseData'];
-                        this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" || x.status=="CHECK_IN" );
-                        this.dashboardListModified = this.dashboardList;
+                        /*this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" || x.status=="CHECK_IN" );
+                        this.dashboardListModified = this.dashboardList;*/
+                        this.dashboardListModified = dashboardListTemp;
                         this.loading=false;
                     }
                 },

@@ -155,7 +155,7 @@ var AddAppointmentComponent = (function () {
                             '\n' +
                             '<tr class="" width="236">\n' +
                             '    <td style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
-                            '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>Patient Name</h2></td>\n' +
+                            '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>' + apt.patient + '</h2></td>\n' +
                             '</tr>\n' +
                             '  </table>\n' +
                             '            </div>\n' +
@@ -168,7 +168,7 @@ var AddAppointmentComponent = (function () {
                             '                    <td style="width:70%">\n' + apt.branchName + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Patient Name</td>\n' +
+                            '                    <td style="width:30%">Patient</td>\n' +
                             '                    <td style="width:70%">\n' + apt.patient + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +

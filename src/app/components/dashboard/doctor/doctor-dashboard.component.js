@@ -53,8 +53,9 @@ var DoctorDashboardComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                 var dashboardListTemp = response['responseData'];
-                _this.dashboardList = dashboardListTemp.filter(function (x) { return x.status == "COMPLETE" || x.status == "IN_SESSION" || x.status == "CHECK_IN"; });
-                _this.dashboardListModified = _this.dashboardList;
+                /*this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" || x.status=="CHECK_IN" );
+                this.dashboardListModified = this.dashboardList;*/
+                _this.dashboardListModified = dashboardListTemp;
                 _this.loading = false;
             }
         }, function (error) {

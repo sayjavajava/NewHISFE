@@ -170,10 +170,8 @@ export class DepartmentComponent implements OnInit {
         this.branchesListResponse.forEach((x:any)=>{
         if(x.listOfBranches != null){
             this.branchesInDepartment = x.listOfBranches;
-
         }
-
-      });
+        });
        overlaypanel.toggle(event);
     }
 
