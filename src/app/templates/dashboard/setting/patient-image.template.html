@@ -84,33 +84,26 @@
 
                 <ng-template pTemplate="body" let-item let-columns="columns">
                     <tr>
-
                         <!--{{car[col.field]}}-->
                         <td> {{item.code}}</td>
                         <td> {{item.name}}</td>
                         <td> {{item.description}}</td>
                         <td> {{item.status}}</td>
-
-
                         <td>
                             <a href="#patImgSetup" data-toggle="modal">
                                 <button class="btn btn-default btn-outline btn-sm"
                                         (click)="edit(item)"><i class="fa fa-pencil"></i>
-
                                 </button>
                             </a>
                             <button class="btn btn-default btn-outline btn-sm"
                                     (click)="deleteImage(item.id)">
                                 <i class="fa fa-remove"></i>
                             </button>
-
                         </td>
-
                     </tr>
                 </ng-template>
             </p-table>
         </div>
-
         <div class="clearfix"></div>
     </div>
 </div>
