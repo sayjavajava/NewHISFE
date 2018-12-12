@@ -14,43 +14,40 @@
 
                 <div class="tab-pane fade active in" id="tab_1_1">
                     <div class="row">
-                        <div class="col-md-6 bdr-btm">
+                        <div class="col-md-6">
                             <form id="smtpsForm" class="form-horizontal" #smtpsForm="ngForm">
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Host
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control" id="host" [(ngModel)]="smtps.smtpHost" name="host" #host="ngModel" required>
                                         <div *ngIf="host.invalid" style="color: red">Host is required</div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Email
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control" id="smtpEmail" [(ngModel)]="smtps.senderEmail" name="smtpEmail" #smtpEmail="ngModel" required>
                                         <div *ngIf="smtpEmail.invalid" style="color: red">Email is required</div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Test Receiver </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="smtps.testReceiverEmail"
                                                name="smtpTestEmail"
                                                #smtpTestEmail="ngModel">
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Password
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="smtps.smptPassword"
                                                name="smtpPassword"
@@ -58,12 +55,11 @@
                                         <div *ngIf="smtpPassword.invalid" style="color: red">Password is required</div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Port
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="smtps.smtpPort"
                                                name="smtpPort"
@@ -71,8 +67,7 @@
                                         <div *ngIf="smtpPort.invalid" style="color: red">Port is required</div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6">Is Default </label>
                                     <!--<div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
@@ -93,69 +88,63 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="hr mrgn-top14">
+                                    <div class="hr">
                                         <button data-repeater-create="" class="btn blue"
                                                 (click)="saveSMTPSConfiguration(sesForm,smtpsForm)"> Save
                                         </button>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="tab-pane fade" id="tab_1_2">
                     <div class="row">
-                        <div class="col-md-6 bdr-btm">
+                        <div class="col-md-6">
                             <form id="sesForm" class="form-horizontal" #sesForm="ngForm">
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Access Key
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control"
                                                #accessKey="ngModel"  id="accessKey"
                                                name="accessKey" [(ngModel)]="amazonSES.sesAccessKey">
                                         <div *ngIf="accessKey.invalid" style="color: red">Access Key is required</div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Secret Key
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control"
                                                #secretKey="ngModel"  id="secretKey"
                                                name="secretKey" [(ngModel)]="amazonSES.sesSecretKey">
                                         <div *ngIf="secretKey.invalid" style="color: red">Secret Key is required</div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Email
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control"
                                                #emailId="ngModel"  id="emailId"
                                                name="emailId" [(ngModel)]="amazonSES.senderEmail">
                                         <div *ngIf="emailId.invalid" style="color: red">Email is required</div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4"> Test Receiver </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm">
                                         <input type="text" class="form-control" name="testReceiverEmail" id="testReceiverEmail"
                                                #testReceiverEmail="ngModel"
                                                [(ngModel)]="amazonSES.testReceiverEmail">
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6">Is Default </label>
                                     <!--<div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
@@ -174,7 +163,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="hr mrgn-top14">
+                                    <div class="hr">
                                         <button data-repeater-create="" class="btn blue"
                                                 (click)="saveSESConfiguration(sesForm,smtpsForm)"> Save
                                         </button>

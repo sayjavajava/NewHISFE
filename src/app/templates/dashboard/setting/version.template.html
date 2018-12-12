@@ -137,33 +137,34 @@
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Name
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" [(ngModel)]="iCDVersionModel.name"
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                    <input class="form-control" type="text" [(ngModel)]="iCDVersionModel.name"
                                            required name="nameName" id="nameNameId"
                                            pInputText size="30"
                                            pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                            placeholder="Enter Name e.g icd-001"
                                            #nameName="ngModel">
-                                </div>
-                                <span *ngIf="nameName.invalid && nameName.touched"
-                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                    <span *ngIf="nameName.invalid && nameName.touched"
+                                           class="col-md-9 select pdng-lr-5 text-danger">
                                     Please enter valid code.
                             </span>
+                                </div>
+
                             </div>
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
                                 <div class="col-md-9 select pdng-lr-5">
-                                    <textarea
+                                    <textarea class="form-control"
                                             [(ngModel)]="iCDVersionModel.description"
-                                            name="description" cols="27" rows="3"
+                                            name="description" rows="3"
                                             placeholder="Enter text e.g description of above version"
                                             #description="ngModel">
                                     </textarea>
-                                </div>
-                                <span *ngIf="description.invalid && description.touched"
-                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                    <span *ngIf="description.invalid && description.touched"
+                                                     class="text-danger">
                                     Please enter valid description.
                             </span>
+                                </div>
                             </div>
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>

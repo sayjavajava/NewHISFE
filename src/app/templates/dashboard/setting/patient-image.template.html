@@ -9,14 +9,10 @@
                             <i class="fa fa-plus"></i> Add
                         </button>
                     </a>
-
-
-                 <!--   <span><button class="btn btn-default btn-outline"> <i
-                            class=" icon-clock"></i> Print </button></span>-->
+                 <!--   <span><button class="btn btn-default btn-outline"> <i class=" icon-clock"></i> Print </button></span>-->
                 </div>
             </h4>
         </div>
-
         <!--  <div class="table-scrollable">
               <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax">
                   <thead>
@@ -42,7 +38,7 @@
                   </thead>
               </table>
           </div>-->
-        <div class="col-md-12 col-xs-12">
+        <div class="hr">
             <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
                 <ng-template pTemplate="caption">
                     <div style="text-align: right">
@@ -59,27 +55,18 @@
                         </th>
                     </tr>
                     <!--<tr>
-
                         <th *ngFor="let col of columns" [ngSwitch]="col.field">
-
                             <input *ngSwitchCase="'code'" pInputText type="text" style="width: 100%"
                                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-
                             <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
                                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-
                             <input *ngSwitchCase="'description'" pInputText type="text" style="width: 100%"
                                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-
-
-
-
                         </th>
                         &lt;!&ndash;<th *ngFor="let col of columns">
                             <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                         </th>&ndash;&gt;
                     </tr>-->
-
                 </ng-template>
 
                 <ng-template pTemplate="body" let-item let-columns="columns">
@@ -117,11 +104,11 @@
                     <h4 class="modal-title" >Patient Image Setup</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:190px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Code<span class="required" aria-required="true">*</span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="code" id="code" class="form-control" placeholder="e.g XRAY"
                                            [(ngModel)]="patientImageSetupTemplate.code" #code="ngModel">
                                 </div>
@@ -129,9 +116,9 @@
                                         Please Enter Code.
                                 </span>
                             </div>
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span class="required" aria-required="true">*</span></label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text"  name="name" class="form-control"  placeholder="e.g CITI Scan"
                                            [(ngModel)]="patientImageSetupTemplate.name" #name="ngModel">
                                 </div>
@@ -139,28 +126,24 @@
                                         Please Enter Name.
                                 </span>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <input type="text" name="description" class="form-control" placeholder="Enter text"
-                                           [(ngModel)]="patientImageSetupTemplate.description" #description="ngModel">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                    <textarea rows="3" type="text" name="description" class="form-control" placeholder="Enter text"
+                                              [(ngModel)]="patientImageSetupTemplate.description" #description="ngModel"></textarea>
                                 </div>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
-
+                            <div class="col-md-9 pdng-lr-5">
                                 <label class="mt-checkbox-outline">
                                     <mat-checkbox #status="ngModel"
                                                   name="status"
                                                   [(ngModel)]="patientImageSetupTemplate.status"
                                                   color="primary"></mat-checkbox>
-
                                 </label>
-
                             </div>
-
+                            </div>
                         </div>
                     </div>
                 </div>

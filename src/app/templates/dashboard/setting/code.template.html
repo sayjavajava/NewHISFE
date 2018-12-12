@@ -23,85 +23,82 @@
                         </div>
                     </h4>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ngx-loading [show]="loading"></ngx-loading>
+                <!--table prime-->
+                <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="5">
+                    <ng-template pTemplate="caption">
+                        <div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Code/Problem"
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{col.header}}
+                                <p-sortIcon *ngIf="col.field == 'code' || col.field == 'problem'" [field]="col.field"
+                                            ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order">
+                                </p-sortIcon>
+                            </th>
+                        </tr>
+                        <!--<tr>
+                            <th *ngFor="let col of cols" [ngSwitch]="col.field">
+                                <input *ngSwitchCase="'code'" pInputText type="text" style="width: 100%"
+                                       (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
 
+                                <input *ngSwitchCase="'problem'" pInputText type="text" style="width: 100%"
+                                       (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            </th>
 
-                <div class="col-md-12 col-xs-12">
-                    <div class="hr">
-                        <ngx-loading [show]="loading"></ngx-loading>
-                        <!--table prime-->
-                        <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="5">
-                            <ng-template pTemplate="caption">
-                                <div style="text-align: right">
-                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                    <input type="text" pInputText size="50" placeholder="Code/Problem"
-                                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                                </div>
-                            </ng-template>
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                        {{col.header}}
-                                        <p-sortIcon *ngIf="col.field == 'code' || col.field == 'problem'" [field]="col.field"
-                                                    ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order">
-                                        </p-sortIcon>
-                                    </th>
-                                </tr>
-                                <!--<tr>
-                                    <th *ngFor="let col of cols" [ngSwitch]="col.field">
-                                        <input *ngSwitchCase="'code'" pInputText type="text" style="width: 100%"
-                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        </tr>-->
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td>{{item.code}}</td>
+                            <td>{{item.problem}}</td>
+                            <td rowspan="1" colspan="1"
+                                [hidden]="!versionCountUnique">
+                                {{item.checkedVersionCount}}
+                            </td>
+                            <td rowspan="1" colspan="1" [hidden]="versionCountUnique">
+                                <a href="#popupVersion" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow"
+                                            title="Click to view details"
+                                            (click)="getCheckedVersionsByCodeId(item.id)"
+                                            data-confirm-button-class="btn-success">
+                                        <i class="fa fa"></i>{{item.checkedVersionCount}}
+                                    </button>
+                                </a>
+                            </td>
+                            <td>{{item.description}}</td>
 
-                                        <input *ngSwitchCase="'problem'" pInputText type="text" style="width: 100%"
-                                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                    </th>
-
-                                </tr>-->
-                            </ng-template>
-                            <ng-template pTemplate="body" let-item>
-                                <tr>
-                                    <td>{{item.code}}</td>
-                                    <td>{{item.problem}}</td>
-                                    <td rowspan="1" colspan="1"
-                                        [hidden]="!versionCountUnique">
-                                        {{item.checkedVersionCount}}
-                                    </td>
-                                    <td rowspan="1" colspan="1" [hidden]="versionCountUnique">
-                                        <a href="#popupVersion" data-toggle="modal">
-                                            <button class="btn mt-sweetalert btn green-meadow"
-                                                    title="Click to view details"
-                                                    (click)="getCheckedVersionsByCodeId(item.id)"
-                                                    data-confirm-button-class="btn-success">
-                                                <i class="fa fa"></i>{{item.checkedVersionCount}}
-                                            </button>
-                                        </a>
-                                    </td>
-                                    <td>{{item.description}}</td>
-
-                                    <td class="sorting_disabled" rowspan="1" colspan="1">
-                                        {{item.status === true ? 'Active' : 'In-Active'}}
-                                    </td>
-                                    <td rowspan="1" colspan="1">
-                                        <a href="#popupCode" data-toggle="modal">
-                                            <button class="btn btn-default btn-outline btn-sm"
-                                                    (click)="editICDCode(item)">
-                                                <i class="fa fa-pencil"></i>
-                                            </button>
-                                        </a>
-                                        <span [hidden]="item.hasChild">
+                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                                {{item.status === true ? 'Active' : 'In-Active'}}
+                            </td>
+                            <td rowspan="1" colspan="1">
+                                <a href="#popupCode" data-toggle="modal">
+                                    <button class="btn btn-default btn-outline btn-sm"
+                                            (click)="editICDCode(item)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </a>
+                                <span [hidden]="item.hasChild">
                                             <button
                                                     class="btn btn-default btn-outline btn-sm"
                                                     (click)="deleteICD(item.id)">
                                                 <i class="fa fa-remove"></i>
                                             </button>
                                         </span>
-                                        <a href="{{item.infoURL}}" target="_blank" placeholder="Click to see information" > Information </a>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
-                </div>
-
+                                <a href="{{item.infoURL}}" target="_blank" placeholder="Click to see information" > Information </a>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -118,9 +115,9 @@
                     <h4 class="modal-title" [hidden]="!(this.isCodeUpdate)">Update Code</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:220px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:270px" data-always-visible="1" data-rail-visible1="1">
                         <!-- Multi select by ng-->
-                        <div class="form-group hr">
+                        <div class="form-group hr mrgn-btm08">
                                 <label class="control-label col-md-3 pdng-lr-5 txt-size">Versions</label>
                                 <div class="col-md-9 pdng-lr-5">
                                     <p-multiSelect
@@ -128,34 +125,32 @@
                                             [style]="{'text-align': 'left' ,'width':'100%'}"
                                             [options]="icdVersions" (onChange)="changeSelectedChecked()"
                                             [ngModelOptions]="{standalone:true}" [(ngModel)]="clientCheckedVersions"
-                                            [panelStyle]="{minWidth:'12em'}">
-
+                                            [panelStyle]="{minWidth:''}">
                                     </p-multiSelect>
                                 </div>
                         </div>
                         <!-- Multi select by ng-->
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Code
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-9 pdng-lr-5">
+                                <div class="col-md-9 pdng-lr-5 profile-frm">
                                     <input type="text" pInputText
                                            [(ngModel)]="iCDModel.code" id="code"
                                            placeholder="Enter Code e.g" name="code"
                                            required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                            #code="ngModel" class="form-control">
-                                </div>
-                                <span *ngIf="code.invalid && code.touched"
-                                      class="text-danger col-md-9 pdng-l-r-15">
+                                    <span *ngIf="code.invalid && code.touched"
+                                         class="text-danger">
                                     Please enter valid code.
                                 </span>
+                                </div>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Problem
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" pInputText
                                            [(ngModel)]="iCDModel.problem" id="problem"
                                            placeholder="Enter problem" name="problem"
@@ -167,23 +162,21 @@
                                 </span>
                                 </div>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Info URL
                                 </label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" pInputText
                                            [(ngModel)]="iCDModel.infoURL"
                                            placeholder="Enter info URL" name="infoURL" id="infoURL"
                                            #infoURL="ngModel" class="form-control">
-                                </div>
-                                <span *ngIf="infoURL.invalid && infoURL.touched"
-                                      class="col-md-9 select pdng-lr-5 text-danger">
+                                    <span *ngIf="infoURL.invalid && infoURL.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
                                     Please enter valid code.
                                 </span>
+                                </div>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
                                 <div class="col-md-9 select pdng-lr-5">
                                 <textarea rows="3"
@@ -193,7 +186,7 @@
                                 </textarea>
                                 </div>
                             </div>
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
                                 <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
                                     <!--<label class="mt-checkbox mt-checkbox-outline">
