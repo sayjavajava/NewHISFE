@@ -1,5 +1,6 @@
 /* here you can put your own css to customize and override the theme */
 p, h3, h4{margin:0; padding:0;}
+label{margin-bottom: 0 !important;}
 .login-bg{ background:url(../images/bg/4.jpg); background-size:cover;}
 .login-footer{ width:100%;text-align: center; max-width:360px; margin:10px auto;}
 .login-footer p{ color:#fff;}
@@ -34,10 +35,11 @@ p, h3, h4{margin:0; padding:0;}
 .pdng-lr-5{padding-left:5px !important; padding-right:5px !important;}
 .no-padding-rgt{ padding-right:0 !important;}
 .no-padding-lft{ padding-left:0 !important;}
-.control-label { line-height: 35px; padding-top:0px !important; font-size: 12px !important;}
+.control-label { line-height: 26px; padding-top:0px !important; font-size: 12px !important;}
 .label-control2 { line-height: 35px; padding-top:0px !important; font-size: 12px !important;}
 .patient-profile .control-label { line-height: 18px;}
 .mrgn-btm10{margin-bottom: 10px !important;}
+.mrgn-btm08{margin-bottom: 8px !important;}
 .mrgn-top4{margin-top: 4px;}
 .mrgn-top8{margin-top: 8px;}
 .mrgn-top10{margin-top: 10px;}
@@ -117,7 +119,7 @@ p, h3, h4{margin:0; padding:0;}
 .padding{padding: 5px !important;}
 .paddingall8{padding: 8px;}
 .pdng-btm20{ padding-bottom:20px !important;}
-.txt-size{line-height: 30px !important; margin-top: 0px !important; padding-top: 0 !important; text-align: right;}
+.txt-size{line-height: 26px !important; margin-top: 0px !important; padding-top: 0 !important; text-align: right; margin-bottom: 0px;}
 .tol-tip{position: relative; right: 0; top: 5px; width: 10%;}
 .tol-tip i{margin-left: 10px;}
 .txt-size-label{text-align: right;}
@@ -263,7 +265,7 @@ p, h3, h4{margin:0; padding:0;}
 .openday-btn{position: absolute; bottom: -200px; right:0;}
 .pagintn-txt p{ margin-top:5px; color:#d5d4da; font-size:13px;}
 .profile-brdr{border: 1px solid #f2f2f2; background: #fff;}
-.pdng-all{padding: 12px 20px 15px;}
+.pdng-all{padding: 8px 20px;}
 .cod-higt{max-height: 120px; height: 100%; overflow-y: auto; overflow-x:hidden;}
 .width460{width: 460px !important;}
 .bordered {
@@ -465,7 +467,7 @@ p, h3, h4{margin:0; padding:0;}
 .portlet{margin-bottom: 0px !important;}
 .profile-frm input, .profile-frm select{height: 25px !important; padding: 2px 12px !important;}
 /*.form-control{height: 25px !important; padding: 2px 12px !important;}*/
-.form-group {margin-bottom: 0px;}
+/*.form-group {margin-bottom: 0px;}*/
 .form-control, output{font-size:12px;}
 /*.row {margin-top: 15px !important;}*/
 .mt-checkbox, .mt-radio{font-size: 12px !important;}
@@ -802,7 +804,7 @@ width: 93%; !important;
 .cusm-col-3{width: 20% !important;}
 .fnt-sze10{font-size: 10px;}
 .mat-form-field-infix{border-top:0px !important; width: 100px !important;}
-.mat-form-field-wrapper{width:100px !important;}
+.mat-form-field-wrapper{width:88% !important;}
 .wc-date-container {width: 100% !important; margin-left: 0px !important;}
 .wc-day-row{display: none !important;}
 .wc-date-row{display: none !important;}

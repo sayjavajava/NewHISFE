@@ -10,7 +10,7 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Role <span class="required"
                                                                                      aria-required="true"> * </span></label>
                                     <div class="col-md-8">
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>-->
 
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
 
                                     <label class="control-label col-md-4">First Name
                                         <span class="required" aria-required="true"> * </span>
@@ -74,7 +74,7 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Last Name
                                     </label>
                                     <div class="col-md-8 profile-frm">
@@ -83,8 +83,7 @@
                                                class="form-control">
                                     </div>
                                 </div>
-
-                                <div class="form-group" ngClass="displayFieldCss">
+                                <div class="form-group mrgn-btm08" ngClass="displayFieldCss">
                                     <label class="control-label col-md-4">Primary Branch <span class="required"
                                                                                                aria-required="true"> * </span>
                                     </label>
@@ -103,8 +102,7 @@
                                         </span>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Email Address
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -119,7 +117,7 @@
                                             </span>
                                     </div>
                                 </div>
-                                <div class="form-group" ngClass="displayFieldCss">
+                                <div class="form-group mrgn-btm08" ngClass="displayFieldCss">
                                     <label class="control-label col-md-4">Visiting Branches
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
@@ -155,7 +153,7 @@
                                                        (onChange)="sortServices($event)"
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
-                                                       [panelStyle]="{minWidth:'12em'}">
+                                                       [panelStyle]="{minWidth:''}">
                                             <ng-template let-br pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
                                             </ng-template>
@@ -164,9 +162,8 @@
                                         <!-- <p-multiSelect [options]="branchesList" formControlName="restrictBranch"  [panelStyle]="{minWidth:'12em'}">   </p-multiSelect>-->
                                     </div>
                                 </div>
-
                                 <!--nurse department container-->
-                                <div *ngIf="nurseDepartment" class="form-group">
+                                <div *ngIf="nurseDepartment" class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 no-padding">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -202,10 +199,8 @@
                                             </span>
 
                                 </div>
-
-
                                 <!--doctor department container-->
-                                <div *ngIf="doctorDepartment" class="form-group">
+                                <div *ngIf="doctorDepartment" class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -224,8 +219,7 @@
 
                                     </div>
                                 </div>
-
-                                <div *ngIf="services" class="form-group">
+                                <div *ngIf="services" class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Services
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
@@ -278,15 +272,14 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!--                                <div *ngIf="allowdiscount" class="form-group">
-                                                                    <label class="control-label col-md-4">Allow Discount
-                                                                    </label>
-                                                                    <div class="col-md-8">
-                                                                        <input formControlName="allowDiscount" type="checkbox" class="form-control">
-                                                                    </div>
-                                                                </div>-->
-                                <div *ngIf="dutywithdoctor" class="form-group">
+                                <!--<div *ngIf="allowdiscount" class="form-group">
+                                    <label class="control-label col-md-4">Allow Discount
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input formControlName="allowDiscount" type="checkbox" class="form-control">
+                                    </div>
+                                </div>-->
+                                <div *ngIf="dutywithdoctor" class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Duty with Doctor
                                     </label>
                                     <div class="col-md-8">
@@ -317,8 +310,6 @@
                                         </p-multiSelect>
                                     </div>
                                 </div>
-
-
                                 <!--<div *ngIf="dutytimmingshift2" class="form-group">
                                     <label class="control-label col-md-4 col-xs-12"> Duty Timing (Shift 2):
                                     </label>
@@ -386,7 +377,7 @@
                                     </div>
                                 </div>-->
 
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Password
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -401,7 +392,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Confirm Password
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -411,7 +402,7 @@
                                               *ngIf="!userForm.controls['confirmPassword'].valid && userForm.controls['confirmPassword'].touched">{{confirmPasswordError}}</span>
                                     </div>
                                 </div>
-                                <div class="form-group" ngClass="displayFieldCss('userName')">
+                                <div class="form-group mrgn-btm08" ngClass="displayFieldCss('userName')">
                                     <label class="control-label col-md-4">Username
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -428,8 +419,7 @@
                                         </app-field-error-display>-->
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Home Phone
                                     </label>
                                     <div class="col-md-8 profile-frm">
@@ -442,7 +432,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4">Cell Phone
                                     </label>
                                     <div class="col-md-8 profile-frm">
@@ -456,7 +446,6 @@
                                         </span>
                                     </div>
                                 </div>
-
                                 <!--   <div class="form-group">
                                        <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
                                        <div class="col-md-8 col-xs-6">
@@ -560,7 +549,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div *ngIf="dutytimmingshift1" class="form-group">
+                            <div *ngIf="dutytimmingshift1" class="form-group mrgn-btm08">
                                 <label class="control-label col-md-4 col-xs-12"> Duty (Shift 1):
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
@@ -606,8 +595,7 @@
                                 <span class="text-danger"
                                       *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
                             </div>
-
-                            <div *ngIf="dutytimmingshift2" class="form-group">
+                            <div *ngIf="dutytimmingshift2" class="form-group mrgn-btm08">
                                 <label class="control-label col-md-4 col-xs-12"> Duty (Shift 2):
                                 </label>
                                 <div class="col-md-8  col-xs-12">
@@ -639,9 +627,7 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div *ngIf="vacation" class="form-group">
+                            <div *ngIf="vacation" class="form-group mrgn-btm08">
                                 <label class="control-label col-md-4 col-xs-12 mrgn-top-8"> Vacation:
                                 </label>
                                 <div class="col-md-8 col-xs-12">
@@ -676,7 +662,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="vacationweek" class="form-group">
+                            <div *ngIf="vacationweek" class="form-group mrgn-btm08">
                                 <label class="control-label col-md-4 col-xs-12"> Working Days:
                                 </label>
                                 <!--<div class="col-md-8 col-xs-12 text-center">
@@ -709,10 +695,8 @@
                                     <owl-date-time #dt1></owl-date-time>&ndash;&gt;
                                     <angular2-date-picker [(ngModel)]="date" [ngModelOptions]="{standalone:true}"
                                                           [settings]="settings"></angular2-date-picker>
-
-                                </div>
+                              </div>
                             </div>-->
-
                         </div>
                     </div>
                     <div class="hr">
@@ -725,15 +709,10 @@
 
                         </div>
                     </div>
-
-
                 </form>
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
-
     <!--<p>Form value: {{ userForm.value | json }}</p>-->
-
-
 </div>

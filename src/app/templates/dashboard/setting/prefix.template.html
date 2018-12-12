@@ -94,17 +94,17 @@
                 <div class="modal-body">
                     <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Module</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" disabled
                                            [(ngModel)]="prefixTemplate.module"
                                            required name="nameName" id="nameNameId" class="form-control" placeholder="Enter Name" #nameName="ngModel">
                                 </div>
                             </div>
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Prefix</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" [(ngModel)]="prefixTemplate.name"
                                            name="title" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter text" #title="ngModel">
                                 </div>
@@ -112,19 +112,17 @@
                                         Please enter valid prefix.
                                 </span>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Start From</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" disabled
                                            [(ngModel)]="prefixTemplate.startValue"
                                            name="startValue" class="form-control" placeholder="Enter text" #startValue="ngModel">
                                 </div>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Current Value</label>
-                                <div class="col-md-9 select pdng-lr-5">
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" disabled
                                            [(ngModel)]="prefixTemplate.currentValue"
                                            name="currentValue" class="form-control" placeholder="Enter text" #currentValue="ngModel">
