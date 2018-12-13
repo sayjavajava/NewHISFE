@@ -90,7 +90,7 @@ export class ManagePatientComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'PATIENT_SUC_11') {
-                        this.data = response['responseData']['data'];
+                        this.data = response['responseData'];
                         console.log(this.data);
                     }
                 },
@@ -193,6 +193,24 @@ export class ManagePatientComponent implements OnInit {
             }
         }
     }
+
+    // printReport(patientId: any) {
+    //     console.log(patientId);
+    //     this.requestsService.getRequest(AppConstants.PRINT_PATIENT_PAYMENT_INVOICE + "/" + patientId)
+    //         .subscribe(
+    //             (response: Response) => {
+    //                 console.log(" Added : " + response);
+    //                 if (response['responseCode'] === 'SUCCESS') {
+    //                     this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+    //                     this.notificationService.success('Patient Payment Invoice Downloaded Successfully' + response["responseData"]);
+    //                     // this.refundList = response["responseData"];
+    //                 } else {
+    //                     this.notificationService.error('ERROR', 'Failed to generate Invoice: '+response["responseData"]);
+    //                 }
+    //             }, function (error) {
+    //                    this.notificationService.error('ERROR', 'Error occurred while getting invoice date ');
+    //             });
+    // }
 
     patientHistory(id:any){
         console.log('patient history'+ id);

@@ -301,9 +301,7 @@ export class AppConstants {
 
     public static REFUND_PAYMENT = '/refundApi/refundPayment';
     public static REFUND_LIST_DATA = '/refundApi/getRefundList';
-
     public static GET_REFUND_ID = '/refundApi/getRefundId';
-
 
 
     public static SAVE_DOCTOR_PAYMENT = '/doctorPayment/save';
@@ -359,5 +357,11 @@ export class AppConstants {
     /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*//*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
     public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
 
+    /*****************************REPORT PRINT*************************************/
+    public static PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';
+    public static PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
+    public static PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
+
+    //
 
 }

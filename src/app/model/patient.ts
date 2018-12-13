@@ -31,7 +31,7 @@ export class Patient {
     pastAppointments: any = [];
     futureAppointments: any[];
     /////// DEMOGRAPHY
-    patientId: number;
+    patientId: string;
     patientSSN: string = "";
     dob: any;
     gender: string = "";

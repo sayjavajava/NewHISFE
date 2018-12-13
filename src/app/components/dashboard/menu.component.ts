@@ -39,22 +39,23 @@ export class MenuComponent implements OnInit{
                     itemsList.push(ob2)
                     gInd = new items('Genaral','','fa fa-cog',itemsList);
                    }
-                if(x.indicatior == 'S'){
+                if(x.indicatior == 'C'){
                     let ob3 = new items(x.name,x.routeUrl);
                     gList.push(ob3)
-                    sInd = new items('Other','','',gList);
+                    sInd = new items('Clinical','','',gList);
                 }
-                if(x.indicatior == 'C'){
+                if(x.indicatior == 'A'){
                     let ob3  = new items(x.name,x.routeUrl);
                     mList.push(ob3)
-                    mInd = new items('Content','','fa fa-code-fork',mList);
+                    mInd = new items('Administration','','fa fa-code-fork',mList);
                 }
 
             })
 
             this.items.push(gInd);
-            this.items.push(mInd);
             this.items.push(sInd);
+            this.items.push(mInd);
+
 
         }
         this.titleService.setTitle('HIS | Dashboard');

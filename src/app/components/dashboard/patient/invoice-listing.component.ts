@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {InvoicesList} from "../../../model/InvoicesList";
 import {Title} from "@angular/platform-browser";
 import {AppConstants} from "../../../utils/app.constants";
+import {NotificationService} from "../../../services/notification.service";
+import {HISUtilService} from "../../../services/his-util.service";
 
 @Component({
     selector: 'invoice-listing-template',
@@ -19,7 +21,10 @@ export class InvoiceListingComponent implements OnInit{
 
 
 
-    constructor(private router: Router, private titleService: Title, private route: ActivatedRoute, private requestsService: RequestsService) {
+    constructor(private router: Router, private titleService: Title, private route: ActivatedRoute,
+                private requestsService: RequestsService,
+                private HISUtilService: HISUtilService,
+                private notificationService: NotificationService) {
     //    this.currency = "USD";
 
     }
@@ -73,5 +78,22 @@ export class InvoiceListingComponent implements OnInit{
                 })
     }
 
+    printReport(invoiceId: any) {
+        console.log(invoiceId);
+        this.requestsService.getRequest(AppConstants.PRINT_PATIENT_PAYMENT_INVOICE + "/" + invoiceId)
+            .subscribe(
+                (response: Response) => {
+                    console.log(" Added : " + response);
+                    if (response['responseCode'] === 'SUCCESS') {
+                        // this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                        this.notificationService.success('Payment Invoice Downloaded Successfully' + response["responseData"]);
+                        // this.refundList = response["responseData"];
+                    } else {
+                        this.notificationService.error('ERROR', 'Failed to generate Invoice: '+response["responseData"]);
+                    }
+                }, function (errorMsg: any) {
+                    this.notificationService.error('ERROR', 'Error occurred while getting invoice data: ' + errorMsg);
+                });
+    }
 
 }

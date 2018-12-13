@@ -23,15 +23,24 @@
                 <div class="col-md-12">
                     <div class="table-scrollable tbl-brdr-radus">
                         <p-table #dt [columns]="cols" [value]="refundList" [paginator]="true" [rows]="10">
+                            <ng-template pTemplate="caption">
+                                <div style="text-align: right">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search here..."
+                                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
                             <ng-template sortable="true" pTemplate="header" let-columns>
                                 <tr>
                                     <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
                                         {{col.header}}
-                                        <p-sortIcon  ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"> </p-sortIcon>
+                                        <p-sortIcon *ngIf="col.field != 'action'"  ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"> </p-sortIcon>
                                     </th>
                                 </tr>
                                 <tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field" class="profile-frm">
+                                <!--<tr>
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                         <input *ngSwitchCase="'date'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                         <input *ngSwitchCase="'refundId'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                         <input *ngSwitchCase="'patientName'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
@@ -39,17 +48,22 @@
                                         <input *ngSwitchCase="'refundType'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                         <input *ngSwitchCase="'refundAmount'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     </th>
-                                </tr>
+                                </tr>-->
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-refundList let-sNo="rowIndex">
                                 <tr>
                                     <td field="serialNo">{{sNo+1}}</td>
-                                    <td field="date"> {{refundList.date | date : 'dd-MM-yyyy'}} </td>
+                                    <td field="date"> {{refundList.date | date : 'dd-MMM-yyyy'}} </td>
                                     <td field="refundId"> {{refundList.refundId}} </td>
                                     <td field="patientName"> {{refundList.patientName}} </td>
                                     <td field="paymentType"> {{refundList.paymentType}} </td>
                                     <td field="refundType"> {{refundList.refundType}} </td>
                                     <td field="refundAmount" class="text-align-right"> {{refundList.refundAmount | number : '.2-2'}} </td>
+                                    <td>
+                                        <button (click)="printReport(refundList.refundId)" class="btn btn-default btn-outline btn-sm" title="Download Receipt">
+                                            <i class="fa fa-download"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </ng-template>
                         </p-table>
