@@ -73,6 +73,7 @@ export class RefundListingComponent {
                         {field: "paymentType", header: "Payment)"},
                         {field: "refundType", header: "Refund Type"},
                         {field: "refundAmount", header: "Refund Amount (" + this.currency + ")"},
+                        {field: "action", header: "Action"},
                     ];
                 },
                 (error: any) => {
@@ -227,5 +228,26 @@ export class RefundListingComponent {
                 }, function (error) {
                     //    this.error('ERROR', 'Refund amount failed');
                 });
+    }
+
+    printReport(refundId: any) {
+        console.log(refundId);
+        this.requestsService.getRequest(AppConstants.PRINT_REFUND_RECEIPT + "/" + refundId)
+            .subscribe(
+                (response: Response) => {
+                    console.log(" Added : " + response);
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                        this.notificationService.success('Refund Receipt Downloaded Successfully' + response["responseData"]);
+                        // this.refundList = response["responseData"];
+                    }
+                }, function (error) {
+                    //    this.error('ERROR', 'Refund amount failed');
+                });
+    }
+
+    saveAndPrintReceipt() {
+        this.refundPayment();
+        this.printReport(this.refundRequest.refundId);
     }
 }
