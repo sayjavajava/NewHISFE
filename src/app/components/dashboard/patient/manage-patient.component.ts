@@ -90,7 +90,7 @@ export class ManagePatientComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'PATIENT_SUC_11') {
-                        this.data = response['responseData']['data'];
+                        this.data = response['responseData'];
                         console.log(this.data);
                     }
                 },
