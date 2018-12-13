@@ -64,6 +64,8 @@
                                                     ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"></p-sortIcon>
                                     </th>
                                 </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field" class="profile-frm">
                                 <!--<tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                         <input *ngSwitchCase="'patientId'" pInputText type="text" style="width: 100%"
@@ -99,13 +101,13 @@
                                     <td field="cellPhone" class="c-text-left">{{data.cellPhone}}</td>
                                     <td field="pastAppointments" class="c-text-left">{{data.pastAppointments}}</td>
                                     <td field="futureAppointments" class="c-text-left">{{data.futureAppointments}}</td>
-                                    <td field="status">{{data.status === true ? 'Active' : 'Inactive'}}</td>
+                                    <td field="status">{{data.status ? 'Active' : 'Inactive'}}</td>
                                     <td class="sorting_disabled">
                                         <a routerLink="/dashboard/patient/edit/{{data.id}}">
-                                            <button class="btn btn-default btn-outline btn-sm"> <i class="fa fa-pencil"></i> </button>
+                                            <button class=""> <i class="fa fa-pencil"></i> </button>
                                         </a>
                                         <span [hidden]="data.hasChild">
-                                            <button class="btn btn-default btn-outline btn-sm" (click)="deletePatient(data.id)"> <i class="fa fa-remove"></i> </button>
+                                            <button class="" (click)="deletePatient(data.id)"> <i class="fa fa-remove"></i> </button>
                                         </span>
                                     </td>
                                 </tr>

@@ -62,9 +62,8 @@
                     </table>
                 </div>
             </div>
-
             <div class="col-md-4 mrgn-top8">
-                <div class="form-group">
+                <div class="form-group mrgn-btm08">
                     <label><b> Payment Type </b></label>
                     <!--<select class="form-control">
                         <option>Cash</option>
@@ -76,8 +75,7 @@
                                 [filter]="true">
                     </p-dropdown>
                 </div>
-
-                <div class="form-group">
+                <div class="form-group mrgn-btm08">
                     <!-- <div class="col-md-2">
                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                             <input type="checkbox" class="form-control"
@@ -92,35 +90,29 @@
                             <span></span>
                         </label>
                 </div>
-
-                <div class="form-group hr" *ngIf="useAdvancedBal">
+                <div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
                     <label class="col-md-4 no-padding-lft">Advance Used :</label>
                     <div class="col-md-8 no-padding-rgt profile-frm">
                         <input type="number" class="form-control text-align-right" name="usedAdvanceDeposit" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
                     </div>
                 </div>
-
-
-                
-                <div class="form-group hr mrgn-top8">
+                <div class="form-group hr mrgn-btm08">
                     <label class="col-md-4 no-padding-lft">Applied Amount</label>
                     <div class="col-md-8 no-padding-rgt profile-frm">
                         <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
                     </div>
                 </div>
-
-                <div class="form-group hr mrgn-top8">
+                <div class="form-group hr mrgn-btm08">
                     <label class="col-md-4 no-padding-lft">Discount Amount</label>
                     <div class="col-md-8 no-padding-rgt profile-frm">
                         <input type="number" class="form-control text-align-right" name="discountAmount" [(ngModel)]="discountAmount" [step]="0.01">
                     </div>
                 </div>
-
-                <div class="form-group  pull-right mrgn-top8">
+                <div class="form-group  pull-right mrgn-btm08">
                     <button  class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel</button>
                     <button  class="btn btn-default btn-outline btn-sm" (click)="savePayment()"> Payment </button>
                 </div>
-                <div class="form-group hr mrgn-top8">
+                <div class="form-group hr">
                     <div class="sub-total">
                         <ul>
                             <li class="sar-total">
@@ -138,9 +130,7 @@
                         </ul>
                     </div>
                 </div>
-            
             </div>
-
             <div class="col-md-4 pull-right mrgn-top8">
                 <div class="hedng-bck-clr padding-10 sub-total">
                     <ul>
@@ -168,9 +158,7 @@
                         </ul> -->
                 </div>
             </div>
-            
         </div>
-
         <!--</div>-->
     </div>
 </div>

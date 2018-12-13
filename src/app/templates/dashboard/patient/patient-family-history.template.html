@@ -185,12 +185,12 @@
                             <td>  {{item.status}}</td>
                             <td>
                                 <a href="#responsive" data-toggle="modal">
-                                    <button class="btn btn-default btn-outline btn-sm"
+                                    <button class=""
                                             (click)="onUpdatePopupLoad(item)"><i class="fa fa-pencil"></i>
 
                                     </button>
                                 </a>
-                                <button class="btn btn-default btn-outline btn-sm"
+                                <button class=""
                                         (click)="deletePatientFamilyHistory(item.id)">
                                     <i class="fa fa-remove"></i>
                                 </button>
@@ -256,26 +256,25 @@
                     <h4 class="modal-title">Add Family Data</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="slimScrollDiv"
-                         style="position: relative; overflow: hidden; width: auto;">
-                        <div class="scroller" style="overflow: hidden; width: auto;">
+                    <div class="slimScrollDiv">
+                        <div class="scroller" style="height: 250px">
                             <div class="row">
-                                <div class="form-group hr">
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
                                             class="required" aria-required="true"> * </span></label>
-                                    <div class="col-md-9 select pdng-lr-5">
+                                    <div class="col-md-9 select pdng-lr-5 profile-frm">
                                         <input class="form-control" type="text" required
                                                [(ngModel)]="selectedFamily.name"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                name="dptName" #dptName="ngModel"/>
-                                    </div>
-                                    <span *ngIf="dptName.invalid && dptName.touched"
-                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                        <span *ngIf="dptName.invalid && dptName.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter valid name.
                                         </span>
-                                </div>
+                                    </div>
 
-                                <div class="form-group hr">
+                                </div>
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Relation
                                         </label>
                                     <div class="col-md-9 select pdng-lr-5">
@@ -295,7 +294,6 @@
                                     </div>
 
                                 </div>
-
                                 <!--<div class="form-group hr">
                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Ethnic Group
                                       </label>
@@ -315,13 +313,11 @@
                                     </div>
 
                                 </div>-->
-
-                                <div class="form-group hr">
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-3 control-label txt-size pdng-lr-5">Status
                                     </label>
                                     <div class="col-md-9 select pdng-lr-5">
-
-                                           <!-- <select class="form-control" name="statusDrp"
+                                        <!-- <select class="form-control" name="statusDrp"
                                                     [ngModelOptions]="{standalone:true}"
                                                     [(ngModel)]="selectedFamily.status" >
                                                 <option value="SINGLE"> SINGLE</option>
@@ -331,8 +327,6 @@
                                                      [options]="statusType"
                                                      [(ngModel)]="selectedFamily.status"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
-
-
                                     </div>
                                 </div>
                             </div>

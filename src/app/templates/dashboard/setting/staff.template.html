@@ -127,9 +127,9 @@
             </div>
         </div>-->
 
-        <div class="col-md-12">
+        <div class="hr mrgn-btm08">
             <!--<h4 class="text-info">Staff</h4>-->
-        <div class="pull-right mrgn-btm10">
+        <div class="pull-right">
             <a routerLink="/dashboard/setting/staff/add">
                 <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
                         data-message="Success Icon" data-type="success" data-allow-outside-click="true"
@@ -187,12 +187,12 @@
                         <td>  {{item.email}}</td>
                         <td>
                             <a href="#responsive" data-toggle="modal">
-                                <button class="btn btn-default btn-outline btn-sm"
+                                <button class=""
                                         (click)="updateUser(item.userType,item.pId,item.uId)"><i class="fa fa-pencil"></i>
 
                                 </button>
                             </a>
-                            <button class="btn btn-default btn-outline btn-sm"
+                            <button class=""
                                     (click)="deleteUser(item.uId)">
                                 <i class="fa fa-remove"></i>
                             </button>
