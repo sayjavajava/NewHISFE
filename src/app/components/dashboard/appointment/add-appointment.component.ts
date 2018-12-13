@@ -118,13 +118,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
 
     ];
 
-    Patient = [
-        {id: 1, name: 'noumi'},
-        {id: 2, name: 'tariq24'},
-        {id: 3, name: 'usman23'},
-        {id: 4, name: 'test45'},
-
-    ];
 
     ngAfterViewInit(): void {
         this.getAllAppointments();
@@ -166,8 +159,8 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 '                    <td style="width:70%">\n'+apt.patient +'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Duration</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.duration +'</td>\n' +
+                                '                    <td style="width:30%">Schedule Date</td>\n' +
+                                '                    <td style="width:70%">\n'+apt.scheduleDate +'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
                                 '                    <td style="width:30%">Doctor</td>\n' +
@@ -178,12 +171,12 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Service</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
+                                '                    <td style="width:30%">Duration</td>\n' +
+                                '                    <td style="width:70%">\n'+apt.duration +'min'+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Service</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
+                                '                    <td style="width:30%">Status</td>\n' +
+                                '                    <td style="width:70%">\n'+apt.status+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
                                 '                    <td style="width:30%">Room</td>\n' +
@@ -668,9 +661,9 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
     }
 
     selectServices(item: any) {
+        this.filteredServices = [];
         let list = this.servicesListWithDoctors.filter((x: any) => x.doctorId == item.value);
         this.filteredServices = [...list];
-
     }
     isRecurring(){
         this.isRecurringFlag =!this.isRecurringFlag;
@@ -738,9 +731,10 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
 
     updateAppointment(event: any) {
         var self = this;
+        console.log('up apptment'+ event.start)
         let obj = new Appointment(event.id,event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
             event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
-            event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
+            event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId,this.stateOfPatientBox,event.start);
         this.requestsService.putRequest(AppConstants.UPDATE_APPOINTMENT + event.id,
             obj).subscribe(
             (response: Response) => {

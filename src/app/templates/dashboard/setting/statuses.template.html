@@ -185,12 +185,12 @@
                 <div class="modal-body">
                     <div class="slimScrollDiv"
                          style="position: relative; overflow: hidden; width: auto;">
-                        <div class="scroller" style="overflow: hidden; width: auto;">
+                        <div class="scroller" style="overflow: hidden; width: auto; height: 120px;">
                             <div class="row">
-                                <div class="form-group hr">
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Name <span
                                             class="required" aria-required="true"> * </span></label>
-                                    <div class="col-md-8 select pdng-lr-5">
+                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
                                         <input class="form-control" type="text" required  [disabled]="changeStatusName"
                                                [(ngModel)]="status.name"  placeholder="name e.g under process or confirmed"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
@@ -201,22 +201,20 @@
                                         </span>
                                     </div>
                                 </div>
-
-                                <div class="form-group hr">
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Abbreviation
                                         </label>
 
-                                        <div class="col-md-8 select pdng-lr-5">
+                                        <div class="col-md-8 profile-frm select pdng-lr-5">
                                             <input class="form-control"  placeholder="abbreviation e.g short name "
                                                       type="text" [(ngModel)]="status.abbreviation"
                                                       name="abbrevation" #abbrevation="ngModel"/>
                                         </div>
                                 </div>
-
-                                <div class="form-group hr">
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Color
                                       </label>
-                                    <div class="col-md-8 select pdng-lr-5">
+                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
                                         <input class="form-control" [(colorPicker)]="color" [value]="color"
                                                [ngModelOptions]="{standalone:true}"
                                                [style.background]="color"  placeholder="e.g color red ,blue"
@@ -224,8 +222,7 @@
                                     </div>
 
                                 </div>
-
-                                <div class="form-group hr" *ngIf="status.id >0">
+                                <div class="form-group hr mrgn-btm08" *ngIf="status.id >0">
                                     <label class="col-md-3 pdng-lr-5 control-label txt-size">Status</label>
                                     <div class="col-md-3 select pdng-lr-5">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">

@@ -85,12 +85,6 @@ var AddAppointmentComponent = (function () {
             { id: 2, name: 'Walk-In', checked: false }
             /* {id: 4, name: 'NewPatient', checked: false},*/
         ];
-        this.Patient = [
-            { id: 1, name: 'noumi' },
-            { id: 2, name: 'tariq24' },
-            { id: 3, name: 'usman23' },
-            { id: 4, name: 'test45' },
-        ];
         this.recurringDays = [
             { name: 'Monday' },
             { name: 'Tuesday' },
@@ -172,8 +166,8 @@ var AddAppointmentComponent = (function () {
                             '                    <td style="width:70%">\n' + apt.patient + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Duration</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.duration + '</td>\n' +
+                            '                    <td style="width:30%">Schedule Date</td>\n' +
+                            '                    <td style="width:70%">\n' + apt.scheduleDate + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
                             '                    <td style="width:30%">Doctor</td>\n' +
@@ -184,12 +178,12 @@ var AddAppointmentComponent = (function () {
                             '                    <td style="width:70%">\n' + apt.serviceName + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Service</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.serviceName + '</td>\n' +
+                            '                    <td style="width:30%">Duration</td>\n' +
+                            '                    <td style="width:70%">\n' + apt.duration + 'min' + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30%">Service</td>\n' +
-                            '                    <td style="width:70%">\n' + apt.serviceName + '</td>\n' +
+                            '                    <td style="width:30%">Status</td>\n' +
+                            '                    <td style="width:70%">\n' + apt.status + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
                             '                    <td style="width:30%">Room</td>\n' +
@@ -566,6 +560,7 @@ var AddAppointmentComponent = (function () {
         this.filteredDoctor = filteredDoctorsWithValue.slice();
     };
     AddAppointmentComponent.prototype.selectServices = function (item) {
+        this.filteredServices = [];
         var list = this.servicesListWithDoctors.filter(function (x) { return x.doctorId == item.value; });
         this.filteredServices = list.slice();
     };
@@ -628,7 +623,8 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.updateAppointment = function (event) {
         var self = this;
-        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
+        console.log('up apptment' + event.start);
+        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox, event.start);
         this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_APPOINTMENT + event.id, obj).subscribe(function (response) {
             console.log('event idd appt:' + event.appointmentId);
             if (response['responseCode'] === 'APPT_SUC_03') {

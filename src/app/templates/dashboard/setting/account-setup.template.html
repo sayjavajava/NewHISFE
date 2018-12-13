@@ -27,7 +27,9 @@
                         <div class="tab-pane fade active in" id="tab_1_1">
                             <!--<form id="assetsForm" class="form-horizontal" >-->
                             <div class="row">
-                                <label class="control-label col-md-2"> Cash </label>
+                            <div class="col-md-6">
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Cash </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.cash">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -46,9 +48,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Bank </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Bank </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.bank">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -63,9 +64,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Inventory </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Inventory </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.inventory">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -80,9 +80,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Account Receivable </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Account Receivable </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accountReceivable">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -97,9 +96,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Plant & Equipment </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Plant & Equipment </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.palntEquipment">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -114,9 +112,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Furniture & Fixture </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Furniture & Fixture </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.furnitureFixture">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -131,10 +128,12 @@
                                     </p-dropdown>
                                 </div>
                             </div>
+                            </div>
+                            </div>
                             <div class="row">
-                                <div class="col-md-5">
-                                    <div class="hr mrgn-top14">
-                                        <button data-repeater-create="" class="btn blue pull-right" (click)="updateAssetsConfig()"> Save </button>
+                                <div class="col-md-12">
+                                    <div class="hr mrgn-top14 text-center">
+                                        <button data-repeater-create="" class="btn blue" (click)="updateAssetsConfig()"> Save </button>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +142,9 @@
 
                         <div class="tab-pane" id="tab_1_2">
                             <div class="row">
-                                <label class="control-label col-md-2"> Account Payable </label>
+                                <div class="col-md-6">
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Account Payable </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accountPayable">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -158,9 +159,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Tax Payable </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Tax Payable </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.taxPayable">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -175,9 +175,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Accured Salary </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Accured Salary </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.accuredSalary">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -192,9 +191,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Loan </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Loan </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.loan">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -209,9 +207,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Other Payable </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Other Payable </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.otherPayable">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -222,19 +219,26 @@
                                     <p-dropdown placeholder="Select Account" [autoWidth]="false"
                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="otherPayable"
                                                 [(ngModel)]="accountConfig.otherPayable" [options]="liabilitiesAccountList"
-                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                [panelStyle]="{minWidth:''}" [filter]="true">
                                     </p-dropdown>
                                 </div>
                             </div>
+                            </div>
+                            </div>
                             <div class="row mrgn-top14">
-                                <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateLiabilityConfig()"> Save  </button>
-                                </div></div>
-
+                                <div class="col-md-12">
+                                    <div class="hr text-center">
+                                    <button data-repeater-create="" class="btn blue" (click)="updateLiabilityConfig()"> Save  </button>
+                                   </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="tab-pane" id="tab_1_3">
                             <div class="row">
-                                <label class="control-label col-md-2"> Income </label>
+                                <div class="col-md-6">
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Income </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.income">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -249,9 +253,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <label class="control-label col-md-2"> Other Income </label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="control-label col-md-4"> Other Income </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.otherIncome">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -266,15 +269,20 @@
                                     </p-dropdown>
                                 </div>
                             </div>
+                            </div>
+                            </div>
                             <div class="row mrgn-top14">
-                                <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateRevenueConfig()"> Save  </button>
-                                </div></div>
-
+                                <div class="col-md-12">
+                                    <div class="hr text-center"> <button data-repeater-create="" class="btn blue" (click)="updateRevenueConfig()"> Save  </button>
+                                </div>
+                              </div>
+                            </div>
                         </div>
-
                         <div class="tab-pane" id="tab_1_4">
                             <div class="row">
-                                <label class="control-label col-md-2"> Cost of Sale </label>
+                            <div class="col-md-6">
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-4"> Cost of Sale </label>
                                 <div class="col-md-8">
                                     <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.costOfSale">
                                         <option value=-1 [disabled]="true">Select Account Type</option>
@@ -288,16 +296,21 @@
                                                 [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
                                 </div>
+                              </div>
+                            </div>
                             </div>
                             <div class="row mrgn-top14">
-                                <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateCOSConfig()"> Save </button>
-                                </div></div>
-
+                                <div class="col-md-12">
+                                    <div class="hr text-center"><button data-repeater-create="" class="btn blue" (click)="updateCOSConfig()"> Save </button>
+                                </div>
+                            </div>
+                          </div>
                         </div>
-
                         <div class="tab-pane" id="tab_1_5">
                             <div class="row">
-                                <label class="control-label col-md-2"> General Expenses </label>
+                            <div class="col-md-6">
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-4"> General Expenses </label>
                                 <div class="col-md-8">
                                    <!-- <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.generalExpense">
                                         <option value=-1 >Select Account Type</option>
@@ -311,12 +324,15 @@
                                                 [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
                                 </div>
+                              </div>
+                            </div>
                             </div>
                             <div class="row mrgn-top14">
-                                <div class="col-md-5"> <button data-repeater-create="" class="btn blue pull-right" (click)="updateExpenseConfig()"> Save </button>
-                                </div></div>
-
-                        </div>
+                                <div class="col-md-12">
+                                    <div class="text-center hr"><button data-repeater-create="" class="btn blue" (click)="updateExpenseConfig()"> Save </button></div>
+                                </div>
+                              </div>
+                      </div>
                     </div>
                 </div>
             </div>

@@ -114,7 +114,7 @@ export class AppConstants {
     public static TIMEZONE_FETCH_URL = '/setting/organization/timezone';
     public static FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
     public static FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
-    public static FETCH_ORGANIZATION_BY_ID = '/setting/organinzation/get/';
+    public static FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
     public static FETCH_ORG_ACCOUNT_URL = '/setting/organization/account';
     public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
 

@@ -9,26 +9,24 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-8">
-
-                                <div class="form-group hr">
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="control-label col-md-2">SMS Subject:
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-10">
+                                    <div class="col-md-10 profile-frm">
                                         <input type="text"
                                                class="form-control" required
                                                name="subject" id="subject"
                                                placeholder="Enter Subject"
                                                [(ngModel)]="smsTemplate.subject"
                                                #subject="ngModel"><!--pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
-
-                                    </div>
-                                    <span *ngIf="subject.invalid && subject.touched"
-                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                        <span *ngIf="subject.invalid && subject.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter valid subject.
                                     </span>
+                                    </div>
                                 </div>
-                                <div class="form-group hr">
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="control-label col-md-2">SMS Type:
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
@@ -47,16 +45,14 @@
                                         </p-dropdown>
                                     </div>
                                 </div>
-
-                                <div class="form-group hr">
+                                <div class="form-group hr no-margin">
                                     <label class="control-label col-md-2">Active: </label>
-                                   <div class="col-md-10" style="padding-top: 10px !important;">
+                                   <div class="col-md-10" style="">
                                        <!--   <div class="col-md-1">
                                              <input type="checkbox" class="mt-checkbox mt-checkbox-outline"
                                                     name="active" id="active"
                                                     [(ngModel)]="smsTemplate.active">
                                          </div>-->
-
                                     <label class="mt-checkbox-outline">
                                         <mat-checkbox #status="ngModel"
                                                       name="active"
@@ -65,14 +61,15 @@
 
                                     </label></div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
                                 <div class="col-md-8">
-                                    <textarea data-provide="markdown" rows="10" cols="90"
-                                              required name="emailTemplate" maxlength="3999" minlength="1"
+                                    <div class="form-group mrgn-btm08">
+                                        <label class="col-md-2 control-label"></label>
+                                        <div class="col-md-10">
+                                    <textarea style="width: 100%; padding: 10px;" data-provide="markdown" rows="10" cols=""
+                                              required name="emailTemplate" maxlength="" minlength=""
                                               [(ngModel)]="smsTemplate.smsTemplate"
                                               #emailTemplate="ngModel">
                                     </textarea>
@@ -80,6 +77,8 @@
                                           class="col-md-9 select pdng-lr-5 text-danger">
                                         Please enter some data in email template
                                     </span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="bordered pdng-all">
@@ -97,7 +96,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
 
                         <div class="hr">

@@ -49,6 +49,7 @@ export class PatientImageOrderComponent implements OnInit {
     selectedId:string;
     patientImageTemplate: PatientImageOrderModel = new PatientImageOrderModel();
     showUpload:boolean=false;
+    showDiv:boolean =false;
     @ViewChild('closeBtn') closeBtn: ElementRef;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -64,11 +65,7 @@ export class PatientImageOrderComponent implements OnInit {
         this.getPatientImageSetupList();
         this.getPatientByIdFromServer(this.selectedPatientId);
 
-
-
     }
-
-
     ngOnInit(): void {
 
         this.statusType = [
@@ -408,9 +405,14 @@ export class PatientImageOrderComponent implements OnInit {
 
 
     openDiv(val :string){
+
+       // $('#popupTest').modal('toggle');
+        this.closeBtn.nativeElement.click();
+      //  this.showDiv=true;
         if(this.showImage==true){
             this.showImage=false;
         }
+
         var filename = val.substring(val.lastIndexOf('/')+1);
 
         var ext=filename.substr(filename.length - 3);

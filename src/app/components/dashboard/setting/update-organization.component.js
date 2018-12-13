@@ -157,7 +157,7 @@ var UpdateOrganizationComponent = (function () {
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-            'selectedCountry': [null, , forms_1.Validators.compose([forms_1.Validators.required])],
+            'selectedCountry': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             'selectedState': [null],
             'selectedCity': [null],
             'currency': [null],

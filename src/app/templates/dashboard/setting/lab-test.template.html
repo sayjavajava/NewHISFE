@@ -127,10 +127,10 @@
                     <h4 class="modal-title">Lab Test</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:330px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
-
-                            <div class="form-group hr">
+                            <div class="col-md-12">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code<span
                                         class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
@@ -140,23 +140,18 @@
                                     <span *ngIf="testCode.invalid && testCode.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter  test Code.</span>
                                 </div>
                             </div>
-
-                            <div class="form-group hr">
-
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Test Name
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-
-                                <div class="col-md-9 select pdng-lr-5">
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="testName" id="testName" class="form-control"
                                            placeholder="e.g Blood Test"
                                            [(ngModel)]="labTestSpeciman.testName" #testName="ngModel">
+                                    <span *ngIf="testName.invalid && testName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter  test name.</span>
                                 </div>
-                                <span *ngIf="testName.invalid && testName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter  test name.</span>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Min Normal Range<span
                                         class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
@@ -169,7 +164,7 @@
                                 </span>
                                 </div>
                             </div>
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Max Normal Range<span
                                         class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
@@ -182,8 +177,7 @@
                                         Please enter  Value.
                                 </span>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Unit<span
                                         class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
@@ -196,15 +190,15 @@
                                         Please enter unit.
                                 </span>
                             </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                                <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text" name="description" id="description" class="form-control"
+                                <div class="col-md-9 select pdng-lr-5">
+                                    <textarea rows="3" type="text" name="description" id="description" class="form-control"
                                            placeholder="Enter description"
-                                           [(ngModel)]="labTestSpeciman.description" #description="ngModel">
+                                              [(ngModel)]="labTestSpeciman.description" #description="ngModel"></textarea>
                                 </div>
                             </div>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -223,7 +217,6 @@
                         </button>
                     </span>
                 </div>
-            </div>
             </div>
         </form>
     </div>
