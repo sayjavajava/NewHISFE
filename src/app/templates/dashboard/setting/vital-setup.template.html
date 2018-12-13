@@ -9,7 +9,6 @@
                             <i class="fa fa-plus" ></i> Add
                         </button>
                     </a>
-
                     <!--<button class="btn mt-sweetalert btn blue"
                             data-title="Sweet Alerts with Icons" data-message="Success Icon"
                             data-type="success" data-allow-outside-click="true"
@@ -47,7 +46,7 @@
                         </thead>
                     </table>
                 </div>-->
-        <div class="col-md-12 col-xs-12">
+        <div class="hr">
             <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
                 <ng-template pTemplate="caption">
                     <div style="text-align: right">
@@ -111,7 +110,7 @@
                     <h4 class="modal-title" >Vital Setup</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:170px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span
@@ -152,16 +151,15 @@
                                                #status="ngModel"
                                                name="status"
                                                [(ngModel)]="vitalSetupTemplate.status"><span></span></label>-->
-                                    <label class="mt-checkbox-outline mrgn-top-8">
+                                <div class="col-md-9 pdng-lr-5">
+                                <label class="mt-checkbox-outline mrgn-top-8">
                                                       <mat-checkbox #status="ngModel"
                                                       name="status"
                                                       [(ngModel)]="vitalSetupTemplate.status"
                                                       color="primary"></mat-checkbox>
-
                                     </label>
-
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

@@ -127,7 +127,7 @@
             </div>
         </div>-->
 
-        <div class="col-md-12">
+        <div class="hr">
             <!--<h4 class="text-info">Staff</h4>-->
         <div class="pull-right mrgn-btm10">
             <a routerLink="/dashboard/setting/staff/add">
@@ -137,8 +137,7 @@
                 </button>
             </a></div>
         </div>
-        <div class="col-md-12 col-xs-12">
-
+        <div class="hr">
             <!--<ngx-loading [show]="loading"></ngx-loading>-->
             <p-table #dt [columns]="cols" [value]="data" [paginator]="true"  [rows]="5">
                 <ng-template pTemplate="caption">
@@ -154,7 +153,6 @@
                             <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                         </div>
                     </ng-template>-->
-
                     <tr>
                         <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
                             {{col.header}}
