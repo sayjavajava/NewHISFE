@@ -423,8 +423,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             return;
         }
 
-
-
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
             document.getElementById('name').focus();
@@ -436,7 +434,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             document.getElementById('currentValueId').focus();
             return;
         }
-
 
         if (this.vitalSetupTemplate.standardValue == '' || this.vitalSetupTemplate.standardValue == null) {
             this.notificationService.warn('Please Select Vital');
@@ -482,10 +479,30 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     }
 
 
+    /*getPaginatedPatientVitalList(page:number) {
+        if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL
+            ).subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.vitalListData = response['responseData'];
+                        console.log(this.vitalListData);
 
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(Response['responseMessage'], 'Vital Setup Configurations');
+                }
+            );
+        } else {
+            this.router.navigate(['/login']);
+        }
+    }*/
 
     private getPaginatedPatientVitalList(page: number) {
-        debugger;
+
         //   this.selectedPatientId=this.vitalSetupTemplate.patientId;
 
         this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)

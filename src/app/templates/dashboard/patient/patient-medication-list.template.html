@@ -193,9 +193,9 @@
                             <td>{{medication.frequency}}</td>
                             <td>{{medication.duration}}</td>
                             <td>{{medication.pharmacyNote}}</td>
-                            &lt;!&ndash;<td>{{medication.orderStatus}}</td>&ndash;&gt;
+                            <!--<td>{{medication.orderStatus}}</td>-->
                             <td>{{medication.datePrescribedString}}</td>
-                            &lt;!&ndash;<td>{{medication.updatedOn}}</td>&ndash;&gt;
+                            <!--<td>{{medication.updatedOn}}</td>-->
                             <td>
                                 <a href="#responsiveMedication" data-toggle="modal"
                                    (click)="editMedication(medication.id)">
@@ -205,10 +205,10 @@
                                         (click)="deleteMedication(medication.id)">
                                     <i class="fa fa-remove"></i>
                                 </button>
-                          &lt;!&ndash;      href = "#{{aType.Name}}"&ndash;&gt;
+                          <!--      href = "#{{aType.Name}}"-->
                                 <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
-                               &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
-                                &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
+                               <!-- <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>-->
+                                <!--<a href="#{{medication.pharmacyNote}}" target="_blank">-->
 
 
 
@@ -216,11 +216,11 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>-->
+                </div>
             </div>
         </div>
         <div class="clearfix"></div>
-        <!--<div class="row">
+        <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -252,7 +252,7 @@
                 </div>
                 <p></p>
             </div>
-        </div>-->
+        </div>
 
 
         <div class="clearfix">
@@ -264,7 +264,7 @@
 </div>
 
 <div id="responsiveMedication" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog receipt-modal">
         <form id="mdForm" #mdForm="ngForm">
 
             <div class="modal-content">
@@ -281,9 +281,10 @@
                 </span>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:515px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:380px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
-                            <div class="form-group hr">
+                            <div class="col-md-6">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="control-label txt-size pdng-lr-5 col-md-4">
                                     Appointments<span class="required" aria-required="true"> * </span>
                                 </label>
@@ -332,22 +333,40 @@
                                     </div>
                                 </div>
                             </div>
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Route</label>
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
+                                        <input type="text" readonly
+                                               class="form-control"
+                                               name="route"
+                                               id="routeId"
+                                               [(ngModel)]="medicationModel.route">
 
-                            <div class="form-group hr">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                    Drug name:<span class="required" aria-required="true"> * </span>
-                                </label>
-                                <div class="col-md-7 select pdng-lr-5">
-
-                                    <p-autoComplete
-                                            id="drugName" name="drugName"
-                                            [suggestions]="searchedDrugNames"
-                                            (completeMethod)="search($event)"
-                                            [(ngModel)]="text" [dropdown]="true" [size]="30"
-                                            [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
-                                    </p-autoComplete>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                        Frequency
+                                    </label>
+                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
+                                        <input type="text"
+                                               class="form-control"
+                                               name="frequency"
+                                               id="frequencyId"
+                                               [(ngModel)]="medicationModel.frequency">
+                                    </div>
+                                </div>
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                        Duration
+                                    </label>
+                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
+                                        <input type="text"
+                                               class="form-control"
+                                               name="duration"
+                                               id="durationId"
+                                               [(ngModel)]="medicationModel.duration">
+                                    </div>
 
                             <!--<div class="form-group hr">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">
@@ -385,8 +404,9 @@
                             </div>
 
                             <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
-                                <div class="col-md-7 select pdng-lr-5">
+                                <div class="col-md-8 select pdng-lr-5 profile-frm">
                                     <!--<select class="form-control"
                                             name="status" [ngModelOptions]="{standalone:true}"
                                             id="statusId"
@@ -439,8 +459,6 @@
 
                                 </div>
                             </div>-->
-
-
                             <!--<div class="form-group hr">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">
                                     Datetime Prescribed <span class="required" aria-required="true"> * </span>
@@ -465,9 +483,8 @@
                                            [(ngModel)]="medicationModel.datePrescribedString">
                                 </div>
                             </div>-->
-
-                            <div class="form-group hr">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Started Taking:</label>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-4 control-label txt-size pdng-lr-5">Start Date Taking:</label>
                                 <!--<div class="col-md-9 col-xs-12">
                                     <div class=" col-md-12 col-xs-12 pull-left no-padding">
                                         <mwl-demo-utils-date-time-picker
@@ -478,13 +495,11 @@
                                         </mwl-demo-utils-date-time-picker>
                                     </div>
                                 </div>-->
-                                <div class="col-md-7 select pdng-lr-5">
+                                <div class="col-md-8 select pdng-lr-5">
                                     <angular2-date-picker  name="dateStartedTaking"
                                                            id="dateStartedTakingId" [settings]="settings" [(ngModel)]="medicationModel.dateStartedTakingDate" [ngModelOptions]="{standalone:true}" ></angular2-date-picker>
                                 </div>
                             </div>
-
-
                             <!--<div class="form-group hr">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">
                                     Datetime Started Taking<span class="required" aria-required="true"> * </span>
@@ -513,25 +528,15 @@
 
                                 </div>
                             </div>-->
-
-                            <div class="form-group hr">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Stopped Taking:</label>
-                                <!--<div class="col-md-9 col-xs-12">
-                                    <div class=" col-md-12 col-xs-12 pull-left no-padding">
-                                        <mwl-demo-utils-date-time-picker
-                                                [(ngModel)]="event.start" name="name"
-                                                [ngModelOptions]="{standalone:true}"
-                                                (ngModelChange)="refresh.next()"
-                                                placeholder="Not set">
-                                        </mwl-demo-utils-date-time-picker>
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes</label>
+                                    <div class="col-md-8 select pdng-lr-5">
+                                <textarea class="form-control"
+                                          rows="3" id="noteId" name="note"
+                                          [(ngModel)]="medicationModel.note">
+                                </textarea>
                                     </div>
-                                </div>-->
-                                <div class="col-md-7 select pdng-lr-5">
-                                    <angular2-date-picker  name="dateStoppedTaking"
-                                                           id="dateStoppedTakingId" [settings]="settings" [(ngModel)]="medicationModel.dateStoppedTakingDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
                                 </div>
-                            </div>
-
                             <!--<div class="form-group hr">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">
                                     Datetime Stopped Taking<span class="required" aria-required="true"> * </span>
@@ -544,22 +549,22 @@
                                            [(ngModel)]="medicationModel.dateStoppedTakingString">
                                 </div>
                             </div>-->
-
-                            <div class="form-group hr">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">Route</label>
-                                <div class="col-md-7 pdng-lr-5">
-
-                                    <input type="text" readonly
-                                           class="form-control"
-                                           name="route"
-                                           id="routeId"
-                                           [(ngModel)]="medicationModel.route">
-
-                                </div>
                             </div>
-
-
-
+                            <div class="col-md-6">
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                        Drug name:<span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8 select pdng-lr-5">
+                                        <p-autoComplete
+                                                id="drugName" name="drugName"
+                                                [suggestions]="searchedDrugNames"
+                                                (completeMethod)="search($event)"
+                                                [(ngModel)]="text" [dropdown]="true" [size]=""
+                                                [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
+                                        </p-autoComplete>
+                                    </div>
+                                </div>
                             <!--date fields -->
                            <!-- <div class="form-group hr">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">
@@ -586,20 +591,12 @@
                                            [(ngModel)]="medicationModel.dispensePackage">
                                 </div>
                             </div>-->
-
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                <!-- <label class="col-md-4 control-label txt-size pdng-lr-5">Strength<span
                                         class="required" aria-required="true"> * </span></label>-->
 
                                 <label class="col-md-4 pdng-lr-5 control-label txt-size">Strength</label>
-                                <div class="col-md-7 pdng-lr-5">
-
-
-
-
-
-
+                                <div class="col-md-8 pdng-lr-5">
                                     <p-dropdown placeholder={{selectedstr}}  [(ngModel)]="selectedstr"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
                                                 required id="strengths"
                                                 name="strengths" [options]="searchedDrugStrengthsAnyListModified"
@@ -613,6 +610,14 @@
                                 </div>
 
                             </div>
+                            <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Indication</label>
+                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
+                                        <input type="text" class="form-control"
+                                               name="indication"
+                                               id="indicationId"
+                                               [(ngModel)]="medicationModel.indication">
+                                    </div>
 
 
                             <div class="form-group hr">
@@ -639,18 +644,22 @@
                                            id="durationId"
                                            [(ngModel)]="medicationModel.duration">
                                 </div>
-
-                            </div>
-
-                            <div class="form-group hr">
+                            <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">Duration Period</label>
-                                <div class="col-md-7 select pdng-lr-5">
+                                <div class="col-md-8 select pdng-lr-5">
                                     <p-dropdown  placeholder="select Duration" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="durationList"
                                                  [options]="durationList"
                                                  [(ngModel)]="medicationModel.durationPeriod"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
                                 </div>
                             </div>
+                            <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Prescribed:</label>
+                                    <!--<div class="col-md-9 col-xs-12">
+                                        <div class=" col-md-12 col-xs-12 pull-left no-padding">
+                                            <mwl-demo-utils-date-time-picker
+                                                    [(ngModel)]="event.start" name="name"
+                                                    [ngModelOptions]="{standalone:true}"
 
                             <div class="form-group hr">
                                 <label class="col-md-4 pdng-lr-5 control-label txt-size">Sig</label>
@@ -658,6 +667,15 @@
                                 <input class="form-control" id="pharmacyNoteId" name="pharmacyNote"
                                           rows="3" placeholder="e.g www.www.com"
                                           [(ngModel)]="medicationModel.pharmacyNote">
+                                                    (ngModelChange)="refresh.next()"
+                                                    placeholder="Not set">
+                                            </mwl-demo-utils-date-time-picker>
+                                        </div>
+                                    </div>-->
+                                    <div class="col-md-8 select pdng-lr-5">
+                                        <angular2-date-picker  name="datePrescribed"
+                                                               id="datePrescribedId" [settings]="settings" [(ngModel)]="medicationModel.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
+                                    </div>
                                 </div>
                             </div>
 
@@ -668,9 +686,31 @@
                                           rows="3" id="noteId" name="note" placeholder="e.g Sample"
                                           [(ngModel)]="medicationModel.note">
                                 </textarea>
+                            <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Stopped Date Taking:</label>
+                                    <!--<div class="col-md-9 col-xs-12">
+                                        <div class=" col-md-12 col-xs-12 pull-left no-padding">
+                                            <mwl-demo-utils-date-time-picker
+                                                    [(ngModel)]="event.start" name="name"
+                                                    [ngModelOptions]="{standalone:true}"
+                                                    (ngModelChange)="refresh.next()"
+                                                    placeholder="Not set">
+                                            </mwl-demo-utils-date-time-picker>
+                                        </div>
+                                    </div>-->
+                                    <div class="col-md-8 select pdng-lr-5">
+                                        <angular2-date-picker  name="dateStoppedTaking"
+                                                               id="dateStoppedTakingId" [settings]="settings" [(ngModel)]="medicationModel.dateStoppedTakingDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
+                                    </div>
+                                </div>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-4 pdng-lr-5 control-label txt-size">Sig</label>
+                                <div class="col-md-8 select pdng-lr-5 ">
+                                <textarea class="form-control" id="pharmacyNoteId" name="pharmacyNote"
+                                          rows="3"
+                                          [(ngModel)]="medicationModel.pharmacyNote"></textarea>
                                 </div>
                             </div>
-
                            <!-- <div class="form-group hr">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">Order Status</label>
                                 <div class="col-md-7 select pdng-lr-5">
@@ -679,10 +719,9 @@
                                                  [options]="orderStatusList"
                                                  [(ngModel)]="medicationModel.orderStatus"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
-
                                 </div>
                             </div>-->
-
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -160,9 +160,9 @@
                             </div>
                         </div>-->
 
-                        <div class="hr mrgn-top10 mrgn-btm10">
-                            <h4 class="text-info">Uploaded Documents
-                                <div class="pull-right">
+                        <div class="hr">
+                            <h4 class="text-info ">Uploaded Documents
+                                <div class="pull-right mrgn-btm10">
                                     <!--<a href="#responsive" data-toggle="modal">
                                         <button class="btn mt-sweetalert btn green-meadow pdngall3"
                                                 data-title="Sweet Alerts with Icons" data-message="Success Icon"
@@ -268,21 +268,21 @@
                                         </button>
                                         </a></td>
 
-                                            &lt;!&ndash;<a href="{{order.url}}" target="_blank">Download</a>&ndash;&gt;
+                                            <!--<a href="{{order.url}}" target="_blank">Download</a>-->
 
                                         <td>{{order.doctorComment}}</td>
                                         <td>{{order.description}}</td>
-                                        <td>&lt;!&ndash;(click)="editOrder(order.id)"&ndash;&gt;
+                                        <td><!--(click)="editOrder(order.id)"-->
                                             <a href="#responsive" data-toggle="modal" >
                                                 <button class="btn btn-default btn-outline btn-sm"
                                                         (click)="editOrder(order.id)"><i class="fa fa-pencil"></i>
 
                                                 </button>
-                                            </a>&lt;!&ndash;<a
+                                            </a><!--<a
                                                     (click)="editOrder(order.id)">
                                                 <i class="fa fa-pencil"></i>
-                                            </a>&ndash;&gt;
-                                            &lt;!&ndash;{{order.id}}&ndash;&gt;
+                                            </a>-->
+                                            <!--{{order.id}}-->
                                            <button
 
                                                     (click)="deleteOrder(order.id)">
@@ -292,7 +292,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                            </div>-->
+                            </div>
                         </div>
 
                     </div>
@@ -300,7 +300,7 @@
                 </div>
             </div>
         <div class="clearfix"></div>
-        <!--<div class="row">
+        <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -331,7 +331,6 @@
                     </ul>
                 </div>
             </div>
-        </div>-->
         </div>
 
 
@@ -350,9 +349,9 @@
                 <div class="scroller" style="height:380px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="form-group hr">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">Order<span class="required" aria-required="true"> * </span>
+                            <label class="control-label txt-size pdng-lr-5 col-md-3">Order<span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-8 pdng-lr-5">
+                            <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
 
 
@@ -367,10 +366,10 @@
                             </div>
                         </div>
                         <div class="form-group hr mrgn-btm10">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">Description
+                            <label class="control-label txt-size pdng-lr-5 col-md-3">Description
                                 <!--<span class="required" aria-required="true"> * </span>-->
                             </label>
-                            <div class="col-md-8 pdng-lr-5">
+                            <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
                                     <textarea type="text" rows="2" class="form-control"
                                               [(ngModel)]="patientImageTemplate.description"></textarea>
@@ -379,9 +378,9 @@
                             </div>
                         </div>
                         <div class="form-group hr mrgn-btm10">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Doctor Comment:<span class="required"
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Doctor Comment:<span class="required"
                                                                                                    aria-required="true"> * </span></label>
-                            <div class="col-md-8 pdng-lr-5">
+                            <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
                                     <textarea class="form-control" rows="2" [(ngModel)]="patientImageTemplate.doctorComment"></textarea>
 
@@ -389,9 +388,9 @@
                             </div>
                         </div>
                         <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
 
-                            <div class="col-md-8 select pdng-lr-5">
+                            <div class="col-md-9 select pdng-lr-5">
                                 <p-dropdown  placeholder={{patientImageTemplate.status}} [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="statusType"
                                              [options]="statusType"
                                              [(ngModel)]="patientImageTemplate.status"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
@@ -401,8 +400,8 @@
                         </div>
 
                             <div class="form-group mrgn-btm10" *ngIf="isUpdate && showUpload">
-                                <label class="col-md-4 pdng-lr-5 control-label txt-size">Upload File<span class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-8 select pdng-lr-5">
+                                <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File<span class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5">
                                     <p-fileUpload #form  name="demo[]"   customUpload="true"  (uploadHandler)="uploadImgOnChange($event,form)" (onUpload)="onUpload($event)"
                                                   multiple="multiple"  maxFileSize="4000000"
                                                   invalidFileSizeMessageSummary="{0} has wrong size, "
@@ -513,7 +512,7 @@
             </div>
         </div>
     </div>
-</div>-->
+</div>
 
 <div  *ngIf="!showImage" id="Doc" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
@@ -563,7 +562,7 @@
                                                     <a href="{{lbRT}}" target="{{lbRT}}">Download</a>
                                                     </td>
                                                 <td class="sorting_disabled">
-                                                <a  id="closeGalleria" data-toggle="modal" data-dismiss="modal" >
+                                                <a  id="abc" data-toggle="modal" >
                                                     <button class="btn btn-default btn-outline btn-sm"
                                                             (click)="openDiv(lbRT)"><i class="fa fa-pencil"></i>
 

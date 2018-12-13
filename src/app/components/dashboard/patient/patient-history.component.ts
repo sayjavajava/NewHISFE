@@ -209,7 +209,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
 
                         }
 
-                        this.selectedstr = this.searchedVitalAnyListModified[0].value;
+                        // this.selectedstr = this.searchedVitalAnyListModified[0].value;
 
                         // console.log("Length : " + this.prefixTemplateList.length);
                     } else {

@@ -108,7 +108,7 @@
                                                        [options]="branchesList"
                                                        [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
-                                                       [panelStyle]="{minWidth:'12em'}">
+                                                       [panelStyle]="{minWidth:''}">
                                             <ng-template let-br pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
                                             </ng-template>
@@ -314,7 +314,7 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="workingDays" [(ngModel)]="selectedWorkingDays"
                                                        [ngModelOptions]="{standalone:true}"
-                                                       [panelStyle]="{minWidth:'12em'}">
+                                                       [panelStyle]="{minWidth:''}">
                                             <ng-template let-dy pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{dy.label}}
                                                 </div>

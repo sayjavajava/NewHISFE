@@ -24,10 +24,10 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Branch Name
+                                                <label class="control-label col-md-4 pdng-lr-5">Branch Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="branchName"
                                                            class="form-control">
                                                     <span class="text-danger"
@@ -55,9 +55,9 @@
                                             </div>-->
 
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Country
+                                                <label class="control-label col-md-4 pdng-lr-5">Country
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 ">
                                                     <p-dropdown  placeholder="{{selectedCountry}}" [autoWidth]="false" [(ngModel)]="selectedCountry"
                                                                  formControlName="selectedCountry" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getStatesByCountryId($event.value)"
@@ -76,9 +76,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">State
+                                                <label class="control-label col-md-4 pdng-lr-5">State
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedState}}" [autoWidth]="false" [(ngModel)]="selectedState"
                                                                  formControlName="selectedState" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getCitiesByStateId($event.value)"
@@ -92,9 +92,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">City
+                                                <label class="control-label col-md-4 pdng-lr-5">City
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedCity}}" [autoWidth]="false" [(ngModel)]="selectedCity"
                                                                  formControlName="city" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="selectBranchCity($event.value)"
@@ -124,25 +124,25 @@
                                             </div>-->
 
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Address
+                                                <label class="control-label col-md-4 pdng-lr-5">Address
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <textarea formControlName="address" class="form-control"
                                                               rows="5"></textarea></div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Office Phone
+                                                <label class="control-label col-md-4 pdng-lr-5">Office Phone
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input name="home phone" formControlName="officePhone" type="text"
                                                            value="(876) 785-6757"
                                                            class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Fax
+                                                <label class="control-label col-md-4 pdng-lr-5">Fax
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="fax" data-required="1" value=""
                                                            class="form-control"></div>
                                             </div>
@@ -155,13 +155,12 @@
                                                            class="form-control"></div>
                                             </div>-->
                                             <div class="form-group mrgn-btm08">
-                                                <div style="margin-left: 33%" class="col-md-8">
+                                                <div style="margin-left: 33%" class="col-md-8 pdng-lr-5">
                                                     <mat-radio-group formControlName="flow">
                                                         <mat-radio-button value="RCND" color="primary">Receptionist &#8680; Cashier &#8680; Nurses &#8680; Doctor</mat-radio-button>
                                                         <mat-radio-button value="RCD" color="primary">Receptionist &#8680; Cashier &#8680; Doctor</mat-radio-button>
                                                         <mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
                                                         <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>
-
                                                     </mat-radio-group>
                                                 </div>
 
@@ -169,10 +168,10 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-3"> Office St. Time
+                                                <label class="control-label col-md-3 pdng-lr-5"> Office St. Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-5">
+                                                <div class="col-md-5 pdng-lr-5">
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
                                                     <input class="col-md-9" type="time"
                                                            formControlName="officeHoursStart"
@@ -185,11 +184,11 @@
 
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-3"> Office End Time
+                                                <label class="control-label col-md-3 pdng-lr-5"> Office End Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
 
-                                                <div class="col-md-5">
+                                                <div class="col-md-5 pdng-lr-5">
 
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
 
@@ -204,10 +203,10 @@
                                         </span>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-3">No of Ex Rooms
+                                                <label class="control-label col-md-3 pdng-lr-5">No of Ex Rooms
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-5 profile-frm">
+                                                <div class="col-md-5 pdng-lr-5 profile-frm">
                                                     <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom" [attr.disabled]="disable"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="1">1</option>
@@ -222,9 +221,9 @@
                                              *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
                                             <div class="col-md-6" [formGroupName]="i">
                                                 <div class="form-group mrgn-btm08">
-                                                    <label class="control-label col-md-3">Exam Name
+                                                    <label class="control-label col-md-3 pdng-lr-5">Exam Name
                                                     </label>
-                                                    <div class="col-md-4 profile-frm">
+                                                    <div class="col-md-4 profile-frm pdng-lr-5">
                                                         <input type="text" class="form-control"  [attr.disabled]="disable"
                                                                formControlName="roomName"></div>
                                                     <div class="col-md-5 pdng-lr-5 mrgn-top4">

@@ -114,7 +114,12 @@
                             </div>
                         </ng-template>
 
-
+                        <!--<ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50"  style="width:auto">
+                            </div>
+                        </ng-template>-->
 
                         <ng-template pTemplate="header" let-columns>
                             <tr>
@@ -130,7 +135,82 @@
 
                         </ng-template>
 
+                       <!-- <ng-template sortable="true" pTemplate="header" let-columns>
 
+                            <tr>
+                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                    {{col.header}}
+                                    <p-sortIcon  *ngIf="col.field != 'status' || col.field != 'action'"
+                                            [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                          &lt;!&ndash;  <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                    <input *ngSwitchCase="'versionName'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'codeName'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+
+                                    &lt;!&ndash; <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+
+                                    &lt;!&ndash;<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+
+
+
+
+                                </th>
+                            </tr>&ndash;&gt;
+                        </ng-template>-->
+                      <!--  <ng-template pTemplate="header">
+                            <tr>
+                                &lt;!&ndash; <th *ngFor="let col of columns">
+                                     {{col.header}}
+                                 </th>&ndash;&gt;
+                                <th>Name</th>
+                                <th>Relation</th>
+                                &lt;!&ndash; <th>Ethnic Group</th>&ndash;&gt;
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                            <tr>
+
+                                <th *ngFor="let col of cols" [ngSwitch]="col.field">
+                                    <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">
+                                    &lt;!&ndash;<div *ngSwitchCase="'year'">
+                                        Value < {{yearFilter}}
+                                        <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+                                        <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider>
+                                    </div>&ndash;&gt;
+                                    <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">
+                                    &lt;!&ndash;<p-dropdown *ngSwitchCase="'relation'" [options]="relationsList2" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>&ndash;&gt;
+                                    &lt;!&ndash;<input *ngSwitchCase="'relation'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">&ndash;&gt;
+                                    &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width: 100%">&ndash;&gt;
+                                    &lt;!&ndash;<p-multiSelect *ngSwitchCase="'status'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>&ndash;&gt;
+                                </th>
+
+                            </tr>
+                        </ng-template>-->
+                        <!--<ng-template pTemplate="body" let-rowData>
+                            <tr [pSelectableRow]="rowData">
+                                <td *ngFor="let rowData of data">
+                                   &lt;!&ndash; {{rowData[col.brand]}}&ndash;&gt;
+                                    {{rowData.name}}
+                                    {{rowData.relation}}
+                                    {{rowData.ethnicGroup}}
+                                    {{rowData.status}}
+
+                                </td>
+                            </tr>
+                        </ng-template>-->
                         <ng-template pTemplate="body" let-problem let-columns="columns">
                             <tr>
 
@@ -158,13 +238,45 @@
                         </ng-template>
 
                     </p-table>
+                    <!--<table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Version</th>
+                            <th> Code</th>
+                            <th> Diagnosis Date</th>
+                            <th> Notes</th>
+                            <th> Status</th>
+                            <th> Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng" *ngFor="let problem of problemData; let i = index;" class="filter">
+                            <td>{{problem.versionName}}</td>
+                            <td>{{problem.codeName}}</td>
+                            <td>{{problem.dateDiagnosis}}</td>
+                            <td>{{problem.note}}</td>
+                            <td>{{problem.status}}</td>
+                            <td>
+                                <a href="#responsive" data-toggle="modal"
+                                   (click)="editPatientProblem(problem.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="deletePatientProblem(problem.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
 
+                                <button (click)="openUrl(problem.info)"><i class="fa fa-globe"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>-->
                 </div>
             </div>
         </div>
         <div class="clearfix"></div>
 
-      <!--  <div class="row">
+        <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -196,7 +308,7 @@
                 </div>
                 <p></p>
             </div>
-        </div>-->
+        </div>
 
     </div>
 </div>
@@ -215,12 +327,13 @@
             <div class="modal-body">
                 <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
-                        <div class="form-group hr">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">Appointments<span class="required"
-                                                                                                       aria-required="true"> * </span>
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="control-label txt-size pdng-lr-5 col-md-3">Appointments<span class="required" aria-required="true"> * </span>
                             </label>
+                            <div class="col-md-9 pdng-lr-5">
                             <div class="col-md-7 pdng-lr-5" *ngIf="!isUpdate">
                                 <div class="select2-bootstrap-prepend">
+                                    <p-dropdown  placeholder="select appointment"
 
 
                                     <p-dropdown  placeholder="Select Appointment"
@@ -275,11 +388,11 @@
 
 
                         </div>
-                        <div class="form-group hr">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">Version
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="control-label txt-size pdng-lr-5 col-md-3">Version
                                 <span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-7 pdng-lr-5">
+                            <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
 
                                     <p-dropdown  placeholder="select Version"
@@ -304,10 +417,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Problem:<span class="required"
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Problem:<span class="required"
                                                                                                    aria-required="true"> * </span></label>
-                            <div class="col-md-7 pdng-lr-5">
+                            <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
 
                                     <p-dropdown  placeholder="{{ppm.problemName}}"
@@ -331,18 +444,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis:</label>
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Date Diagnosis:</label>
 
-                            <div class="col-md-7 select pdng-lr-5">
+                            <div class="col-md-9 select pdng-lr-5">
                                 <angular2-date-picker  name="dateDiagnosis"
                                                        id="dateDiagnosisId" [settings]="settings" [(ngModel)]="ppm.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
                             </div>
                         </div>
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
-                            <div class="col-md-7 select pdng-lr-5">
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+                            <div class="col-md-9 select pdng-lr-5 profile-frm">
                                 <select class="form-control" [(ngModel)]="ppm.status">
                                     <option value="ACTIVE">Active</option>
                                     <option value="IN_ACTIVE">In_Active</option>
@@ -350,19 +462,16 @@
                                 </select>
                             </div>
                         </div>
-
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Url</label>
-                            <div class="col-md-7 select pdng-lr-5">
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 pdng-lr-5 control-label txt-size">Url</label>
+                            <div class="col-md-9 select pdng-lr-5 profile-frm">
                                 <input type="text" class="form-control" id="problemInfoId" name="problemInfo"
                                            [(ngModel)]="ppm.info">
                             </div>
                         </div>
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes:</label>
-                            <div class="col-md-7 select pdng-lr-5">
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 pdng-lr-5 control-label txt-size">Notes:</label>
+                            <div class="col-md-9 select pdng-lr-5">
                                 <address>
                                     <textarea class="form-control"
                                               rows="3"

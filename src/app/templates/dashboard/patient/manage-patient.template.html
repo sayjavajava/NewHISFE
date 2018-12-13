@@ -49,6 +49,13 @@
 
                     <div class="table-scrollable">
                         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10" exportFilename="patients">
+                            <ng-template pTemplate="caption">
+                                <div style="text-align: right">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search here..."
+                                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
                             <ng-template sortable="true" pTemplate="header" let-columns>
                                 <tr>
                                     <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -58,6 +65,8 @@
                                     </th>
                                 </tr>
                                 <tr>
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field" class="profile-frm">
+                                <!--<tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                         <input *ngSwitchCase="'patientId'" pInputText type="text" style="width: 100%"
                                                (input)="dt.filter($event.target.value, col.field, 'contain')">
@@ -70,7 +79,7 @@
                                         <input *ngSwitchCase="'cellPhone'" pInputText type="text" style="width: 100%"
                                                (input)="dt.filter($event.target.value, col.field, 'contain')">
                                     </th>
-                                </tr>
+                                </tr>-->
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-data let-a="rowIndex">
                                 <tr>
@@ -92,13 +101,13 @@
                                     <td field="cellPhone" class="c-text-left">{{data.cellPhone}}</td>
                                     <td field="pastAppointments" class="c-text-left">{{data.pastAppointments}}</td>
                                     <td field="futureAppointments" class="c-text-left">{{data.futureAppointments}}</td>
-                                    <td field="status">{{data.status === true ? 'Active' : 'Inactive'}}</td>
+                                    <td field="status">{{data.status ? 'Active' : 'Inactive'}}</td>
                                     <td class="sorting_disabled">
                                         <a routerLink="/dashboard/patient/edit/{{data.id}}">
-                                            <button class="btn btn-default btn-outline btn-sm"> <i class="fa fa-pencil"></i> </button>
+                                            <button class=""> <i class="fa fa-pencil"></i> </button>
                                         </a>
                                         <span [hidden]="data.hasChild">
-                                            <button class="btn btn-default btn-outline btn-sm" (click)="deletePatient(data.id)"> <i class="fa fa-remove"></i> </button>
+                                            <button class="" (click)="deletePatient(data.id)"> <i class="fa fa-remove"></i> </button>
                                         </span>
                                     </td>
                                 </tr>

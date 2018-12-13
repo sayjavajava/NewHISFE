@@ -50,7 +50,7 @@
                         </button>
                     </div>
                     <div class="modal-body schedule-body">
-                        <div class="scroller" style="height:1350px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="scroller" style="height:1120px" data-always-visible="1" data-rail-visible1="1">
                             <div class="row">
                                 <form id="updateForm" class="login-form" #updateForm="ngForm">
                                     <div class=" col-md-12">
@@ -125,7 +125,7 @@
                                                     </div>
                                                     <div class="hr padding round-table off-wite-bg">
                                                         <div class="col-md-6">
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="col-md-3 control-label">Patient <span
                                                                         class="required" aria-required="true"> * </span></label>
                                                                 <div class="col-md-9">
@@ -165,7 +165,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="col-md-3 control-label">Reason </label>
                                                                 <div class="col-md-9 col-xs-12">
                                                         <textarea
@@ -176,7 +176,7 @@
                                                                 (keyup)="refresh.next()"></textarea>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="col-md-3 control-label">Scheduled:</label>
                                                                 <div class="col-md-9 col-xs-12">
                                                                     <div class=" col-md-12 col-xs-12 pull-left no-padding">
@@ -193,7 +193,7 @@
                                                                     <angular2-date-picker style="margin-left: 0px !important; background-color: red !important" class="schdld-clndr" [(ngModel)]="dateSchedule" [ngModelOptions]="{standalone:true}" [settings]="settings"></angular2-date-picker>
                                                                 </div>-->
                                                             </div>
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="col-md-3 control-label">Notes:</label>
                                                                 <div class="col-md-9 col-xs-12">
                                                                <textarea
@@ -206,7 +206,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="control-label col-md-4">Branch <span
                                                                         class="required" aria-required="true"> * </span>
                                                                 </label>
@@ -239,9 +239,9 @@
                                                                    </span>-->
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="control-label col-md-4">Room:</label>
-                                                                <div class="col-md-8">
+                                                                <div class="col-md-8 profile-frm">
                                                                     <select class="form-control" name="exmDrp" #exmDrp
                                                                             [ngModelOptions]="{standalone:true}"
                                                                             [(ngModel)]="modalData?.event.roomId">
@@ -253,8 +253,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="control-label col-md-4">Doctor <span
                                                                         class="required" aria-required="true"> * </span></label>
                                                                 <div class="col-md-8">
@@ -286,8 +285,7 @@
 
                                                                 </div>
                                                             </div>
-
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="control-label col-md-4">Medical Service
                                                                     <span
                                                                             class="required"
@@ -316,7 +314,6 @@
                                                                   </span>-->
                                                                 </div>
                                                             </div>
-
                                                             <!--<div class="form-group hr">
                                                                 <label class="control-label col-md-4">Color
                                                                 </label>
@@ -327,7 +324,7 @@
                                                                            (keyup)="refresh.next()" [(ngModel)]="modalData?.event.colorHash"/>
                                                                 </div>
                                                             </div>-->
-                                                            <div class="form-group">
+                                                            <div class="form-group mrgn-btm08">
                                                                 <label class="control-label col-md-4">Status <span
                                                                         class="required" aria-required="true"> * </span></label>
                                                                 <div class="col-md-8">
@@ -351,12 +348,10 @@
                                                                     </p-dropdown>
                                                                 </div>
                                                             </div>
-
-
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="col-md-4 control-label">Duration <span
                                                                         class="required" aria-required="true"> * </span></label>
-                                                                <div class="col-md-6 col-xs-12">
+                                                                <div class="col-md-6 col-xs-12 profile-frm">
                                                                     <input
                                                                             type="number"
                                                                             name="upDuration" #upDuration
@@ -759,7 +754,7 @@
                     <h4 class="modal-title bold"> Schedule Appointment </h4>
                 </div>
                 <div class="modal-body schedule-body">
-                    <div class="scroller" style="height:1350px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:750px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <form id="loginForm" class="login-form" #loginForm="ngForm">
                                 <div class=" col-md-12">
@@ -785,40 +780,35 @@
                                                             {{item.name}}
                                                         </label>
                                                     </div>
-
                                                     <div>
-                                                        <input type="checkbox" name="newPatient"
+                                                        <label><input type="checkbox" name="newPatient"
                                                                (change)="createNewPatient()"
                                                                [(ngModel)]="stateOfPatientBox"
-                                                               [ngModelOptions]="{standalone:true}">New Patient
+                                                                      [ngModelOptions]="{standalone:true}">New Patient</label>
                                                     </div>
                                                     <div class="text-danger" *ngIf="maxNo">
                                                         <p> Please Choose Regular OR Walk-IN</p>
                                                     </div>
                                                 </div>
-
                                                 <div *ngIf="newPatient"
-                                                     class="hr padding round-table off-wite-bg mrgn-btm10">
-                                                    <div class="hr">
+                                                     class="hr round-table off-wite-bg mrgn-btm8">
+                                                    <div class="">
                                                         <div class="col-md-6">
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr no-margin">
                                                                 <label class="col-md-4 control-label">First Name</label>
-                                                                <div class="col-md-8 mrgn-top8">
-
+                                                                <div class="col-md-8 profile-frm">
                                                                     <input type="text" value="" class="form-control"
                                                                            [ngModelOptions]="{standalone:true}"
                                                                            placeholder="First Name"
                                                                            [(ngModel)]="event.newPatient"
                                                                            (keyup)="refresh.next()">
-
-
                                                             </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group hr">
-                                                                <label class="col-md-4 control-label">Cell Phonme</label>
-                                                                <div class="col-md-8 mrgn-top8">
+                                                            <div class="form-group hr no-margin">
+                                                                <label class="col-md-4 control-label">Cell Phone</label>
+                                                                <div class="col-md-8 profile-frm">
 
                                                                     <input
                                                                             type="text"
@@ -831,15 +821,12 @@
 
                                                             </div>
                                                         </div>
-
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                                 <div class="hr padding round-table off-wite-bg">
                                                     <div class="col-md-6">
-                                                        <div class="form-group hr">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="col-md-3 control-label">Patient <span
                                                                     class="required"
                                                                     aria-required="true"> * </span></label>
@@ -884,24 +871,21 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group hr">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="col-md-3 control-label">Reason:</label>
                                                             <div class="col-md-9 col-xs-12">
-                                                        <textarea placeholder="malaria" name="reason" style="height: 66px !important;
-    margin-bottom: 13px;"
+                                                        <textarea placeholder="malaria" name="reason" style="height: 66px !important;"
                                                                   rows="3"
                                                                   class="form-control"
                                                                   [(ngModel)]="event.reason"
-                                                                  (keyup)="refresh.next()"
-
-                                                        ></textarea>
+                                                                  (keyup)="refresh.next()"></textarea>
                                                             </div>
                                                             <!--      <span *ngIf="dptName.invalid && dptName.touched"
                                                                         class="col-md-9 select pdng-lr-5 text-danger">
                                                       Please enter valid name.
                                               </span>-->
                                                         </div>
-                                                        <div class="form-group hr">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="col-md-3 control-label">Scheduled:</label>
                                                             <!--<div class="col-md-9 col-xs-12">
                                                                 <div class=" col-md-12 col-xs-12 pull-left no-padding">
@@ -921,7 +905,7 @@
                                                                         [settings]="settings"></angular2-date-picker>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group hr">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="col-md-3 control-label">Notes:</label>
                                                             <div class="col-md-9 col-xs-12">
                                                                <textarea placeholder="note"  style="height: 66px !important;
@@ -935,7 +919,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group hr">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="control-label col-md-4">Branch <span
                                                                     class="required"
                                                                     aria-required="true"> * </span></label>
@@ -967,11 +951,11 @@
 
                                                             </div>
                                                         </div>
-                                                        <div class="form-group hr">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="control-label col-md-4">Room <span
                                                                     class="required"
                                                                     aria-required="true"> * </span></label>
-                                                            <div class="col-md-8">
+                                                            <div class="col-md-8 profile-frm">
                                                                 <select class="form-control" name="roomDrp" required
                                                                         #roomDrp="ngModel"
                                                                         [(ngModel)]="event.roomId">
@@ -989,7 +973,7 @@
                                                             </div>
                                                         </div>
                                                         <div matTooltip="please select branch first">
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="control-label col-md-4">Doctor <span
                                                                         class="required" aria-required="true"> * </span></label>
                                                                 <div class="col-md-8">
@@ -1020,8 +1004,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="form-group hr">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="control-label col-md-4">Service <span
                                                                     class="required"
                                                                     aria-required="true"> * </span></label>
@@ -1066,7 +1049,7 @@
                                                                        (colorPickerChange)="color=$event"/>&ndash;&gt;
                                                             </div>
                                                         </div>-->
-                                                        <div class="form-group">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="control-label col-md-4"> Status <span
                                                                     class="required"
                                                                     aria-required="true"> * </span></label>
@@ -1094,11 +1077,11 @@
                                                                   </span>-->
                                                             </div>
                                                         </div>
-                                                        <div class="form-group hr">
+                                                        <div class="form-group hr mrgn-btm08">
                                                             <label class="col-md-4 control-label">Duration <span
                                                                     class="required"
                                                                     aria-required="true"> * </span></label>
-                                                            <div class="col-md-6 col-xs-12">
+                                                            <div class="col-md-6 col-xs-12 profile-frm">
                                                                 <input
                                                                         type="number" required
                                                                         name="duration" #duration="ngModel"
@@ -1117,8 +1100,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="hr">
-                                                    <label class="mt-checkbox mt-checkbox-outline col-md-12">
+                                                <div class="hr mrgn-btm08">
+                                                    <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-btm08">
                                                         <input type="checkbox" [(ngModel)]="event.recurringAppointment"
                                                                (change)="isRecurring()" name="recurringAppt"
                                                                (keyup)="refresh.next()"> Recurring Appointment
@@ -1163,7 +1146,7 @@
                                                         </div>-->
                                                         <div class="hr">
                                                             <div class="col-md-6">
-                                                                <div class="form-group hr">
+                                                                <div class="form-group hr mrgn-btm08">
                                                                     <label class="control-label col-md-3 no-padding">First
                                                                         Appointment
                                                                     </label>
@@ -1183,7 +1166,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <div class="form-group hr">
+                                                                <div class="form-group hr mrgn-btm08">
                                                                     <label class="control-label col-md-3 no-padding">Last
                                                                         Appointment
                                                                     </label>
@@ -1199,18 +1182,13 @@
                                                                                 [(ngModel)]="event.lastAppointment"
                                                                                 name="lastAppt"
                                                                                 [settings]="settings"></angular2-date-picker>
-
-
-
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                     </div>
-                                                    <label class="mt-checkbox mt-checkbox-outline col-md-12">
+                                                    <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-btm08">
                                                         <input type="checkbox" name="followUpReminder"
                                                                [(ngModel)]="event.followUpReminder"
                                                                [ngModelOptions]="{standalone:true}"
@@ -1243,10 +1221,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group hr">
+                                                            <div class="form-group hr mrgn-btm08">
                                                                 <label class="control-label col-md-3">Reason
                                                                 </label>
-                                                                <div class="col-md-9">
+                                                                <div class="col-md-9 profile-frm">
                                                                     <input type="text"
                                                                            data-required="1"
                                                                            [(ngModel)]="event.followUpReason"
@@ -1255,10 +1233,7 @@
                                                                            name="followReason"
                                                                            value="" class="form-control"></div>
                                                             </div>
-
-
                                                         </div>
-
                                                         <!--  <div class="form-group hr">
                                                               <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
                                                                       class="required" aria-required="true"> * </span></label>
@@ -1272,9 +1247,7 @@
                                                           Please enter valid name.
                                                   </span>
                                                           </div>-->
-
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -1283,7 +1256,6 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -1293,8 +1265,7 @@
 
                     <button type="button" [disabled]="!loginForm.valid" (click)="saveAppointment(event,loginForm)"
                             name="saveBtn"
-                            class="btn btn-sm green btn-outline filter-submit margin-bottom">
-                        Save
+                            class="btn btn-sm green btn-outline filter-submit margin-bottom">Save
                     </button>
                     <!--<button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index,1);refresh.next()"
                             class="btn btn-default btn-outline"> Cancel
@@ -1308,5 +1279,4 @@
             </div>
         </div>
     </div>
-
 </div>
