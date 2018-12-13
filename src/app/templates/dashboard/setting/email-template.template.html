@@ -18,9 +18,9 @@
                         </div>
                     </h4>
                 </div>
-                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
-                    <div class="col-md-3">
-                        <div class="form-group font-siz11">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro mrgn-btm10">
+                    <div class="col-md-3 pdng-lr-5">
+                        <div class="form-group font-siz11 profile-frm">
                             <label>Title</label>
                             <input type="text"
                                    class="form-control"
@@ -29,9 +29,9 @@
                             (keydown.enter)="searchByTitle(0)">
                         </div>
                     </div>
-                    <div class="col-md-1">
-                        <div class="form-group mrgn-top24">
-                            <button type="button"
+                    <div class="col-md-1 pdng-lr-5">
+                        <div class="form-group mrgn-top20">
+                            <button style="padding: 2px 10px !important;" type="button"
                                     class="btn blue"
                             (click)="searchByTitle(0)">
                                 Search
@@ -59,11 +59,11 @@
                             </td>
                             <td rowspan="1" colspan="1">
                                 <a routerLink="/dashboard/setting/email-template/edit/{{item.id}}">
-                                    <button class="btn btn-default btn-outline btn-sm">
+                                    <button class="">
                                         <i class="fa fa-pencil"></i>
                                     </button>
                                 </a>
-                                <button class="btn btn-default btn-outline btn-sm"
+                                <button class=""
                                         (click)="deleteEmailTemplate(item.id)">
                                     <i class="fa fa-remove">
                                     </i>

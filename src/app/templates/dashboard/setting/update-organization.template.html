@@ -27,10 +27,10 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Company Name
+                                                <label class="control-label col-md-4 pdng-lr-5">Company Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="companyName" class="form-control">
                                                     <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
                                                             <span *ngIf="proForm.controls['companyName'].errors.minlength"> Minimum 4 characters</span>
@@ -39,9 +39,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Specialty<span class="required" aria-required="true"> * </span>
+                                                <label class="control-label col-md-4 pdng-lr-5">Specialty<span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown
                                                             [autoWidth]="false" required
                                                             [style]="{'text-align': 'left' ,'width':'100%'}"
@@ -55,9 +55,9 @@
                                                 </span>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Website
+                                                <label class="control-label col-md-4 pdng-lr-5">Website
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="website" class="form-control">
                                                 </div>
                                                 <span class="text-danger" *ngIf="!proForm.controls['website'].valid && proForm.controls['website'].touched">
@@ -65,9 +65,9 @@
                                         </span>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Country<span class="required" aria-required="true"> * </span>
+                                                <label class="control-label col-md-4 pdng-lr-5">Country<span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedCountry}}" [autoWidth]="false" [(ngModel)]="selectedCountry"
                                                                  formControlName="selectedCountry" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getStatesById($event.value)"
@@ -81,18 +81,18 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Currency
+                                                <label class="control-label col-md-4 pdng-lr-5">Currency
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="currency" [(ngModel)]="currency" readonly
                                                            class="form-control">
                                                 </div>
 
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">State
+                                                <label class="control-label col-md-4 pdng-lr-5">State
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedState}}" [autoWidth]="false" [(ngModel)]="selectedState"
                                                                  formControlName="selectedState" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getCitiesById($event.value)"
@@ -102,9 +102,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">City
+                                                <label class="control-label col-md-4 pdng-lr-5">City
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedCity}}" [autoWidth]="false" [(ngModel)]="selectedCity"
                                                                  formControlName="selectedCity" [style]="{'text-align': 'left' ,'width':'100%'}"
 
@@ -243,9 +243,9 @@
                                                 </div>
                                             </div>-->
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Practice Business Logo
+                                                <label class="control-label col-md-4 pdng-lr-5">Practice Business Logo
                                                 </label>
-                                                <div class="col-md-5">
+                                                <div class="col-md-5 pdng-lr-5">
                                                     <input type="file" id="exampleInputFile">
                                                     <p class="help-block"> Will be attached to emails & offical
                                                         forms </p>
@@ -253,13 +253,12 @@
                                             </div>
                                             <h4 class="hr" style="margin-left: 19%;"> Contact</h4>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Email
+                                                <label class="control-label col-md-4 pdng-lr-5">Email
                                                     <span class="required" aria-required="true">*</span>
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="email" formControlName="companyEmail"
                                                            class="form-control">
-
                                                     <span class="text-danger"
                                                           *ngIf="!proForm.controls['companyEmail'].valid && proForm.controls['companyEmail'].touched">
                                                    <span *ngIf="proForm.controls['companyEmail'].errors.required">Email is required </span>
@@ -273,9 +272,9 @@
                                                 <input  formControlName="formName" value="PROFILE" type="hidden" />
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Fax   <span class="required" aria-required="true">*</span>
+                                                <label class="control-label col-md-4 pdng-lr-5">Fax   <span class="required" aria-required="true">*</span>
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="fax"
                                                            class="form-control">
 
@@ -283,18 +282,18 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Address<span class="required" aria-required="true">*</span>
+                                                <label class="control-label col-md-4 pdng-lr-5">Address<span class="required" aria-required="true">*</span>
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="address"
                                                            class="form-control">
 
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4">Office Phone<span class="required" aria-required="true">*</span>
+                                                <label class="control-label col-md-4 pdng-lr-5">Office Phone<span class="required" aria-required="true">*</span>
                                                 </label>
-                                                <div class="col-md-8 profile-frm">
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="tel" formControlName="officePhone" class="form-control">
                                                     <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
                                                        <span *ngIf="proForm.controls['officePhone'].errors.required">Office Phone is required </span>
@@ -318,10 +317,10 @@
                                 <div class="col-md-6">
                                     <form [formGroup]="generalForm"  class="form-horizontal">
                                         <div class="form-group mrgn-btm08">
-                                            <label class="control-label col-md-3">Default Branch
+                                            <label class="control-label col-md-4 pdng-lr-5">Default Branch
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
-                                            <div class="col-md-5">
+                                            <div class="col-md-4 pdng-lr-5">
                                                 <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                             [style]="{'text-align': 'left' ,'width':'100%'}"
                                                             [options]="branchesList"
@@ -343,7 +342,7 @@
 
                                         </span>
                                             </div>
-                                            <div class="col-md-4">Default Branch on Calendar</div>
+                                            <div class="col-md-4 font-siz pdng-lr-5">Default Branch on Calendar</div>
                                         </div>
                                         <!--<div class="form-group">
                                             <label class="control-label col-md-3">Duration of Exam
@@ -459,8 +458,8 @@
                                             </div>
                                         </div>-->
                                         <div class="form-group mrgn-btm08">
-                                            <label  class="control-label col-md-3">Time Zone <span class="required" aria-required="true">*</span></label>
-                                            <div class="col-md-9">
+                                            <label  class="control-label col-md-4 pdng-lr-5">Time Zone <span class="required" aria-required="true">*</span></label>
+                                            <div class="col-md-8 pdng-lr-5">
                                                 <!--<p-dropdown
                                                         [autoWidth]="false"
                                                         [style]="{'text-align': 'left' ,'width':'100%'}"
@@ -492,8 +491,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group mrgn-btm08">
-                                            <label  class="control-label col-md-3">Date Format<span class="required" aria-required="true">*</span></label>
-                                            <div class="col-md-9">
+                                            <label  class="control-label col-md-4 pdng-lr-5">Date Format<span class="required" aria-required="true">*</span></label>
+                                            <div class="col-md-8 pdng-lr-5">
                                                 <!--
                                                 <p-dropdown name="customizedselect" [options]="countrycodes" [(ngModel)]="selectedCountry"
                         filter="filter" [autoWidth]="false" [style]="{'width':'150px'}">
@@ -525,9 +524,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group mrgn-btm08">
-                                            <label  class="control-label col-md-3">Time  Format<span class="required" aria-required="true">*</span></label>
-                                            <div class="col-md-9">
-
+                                            <label  class="control-label col-md-4 pdng-lr-5">Time  Format<span class="required" aria-required="true">*</span></label>
+                                            <div class="col-md-8 pdng-lr-5">
                                                 <p-dropdown
                                                         [autoWidth]="false"
                                                         [style]="{'text-align': 'left' ,'width':'100%'}"

@@ -185,7 +185,7 @@
                     <td> {{item.name}}</td>
                     <td>  {{item.description}}</td>
                    <!-- <td>  {{item.description}}</td>-->
-                    <td field="doctorsList">
+                    <td field="doctorsList" class="doctorslist">
                         <!--<a href="#popupTest" data-toggle="modal">
                             <button class="btn mt-sweetalert btn green-meadow"
                                     (click)="getBranchesWithDepartment(item.id)"
@@ -198,12 +198,12 @@
 
                     <td>
                         <a href="#responsive" data-toggle="modal">
-                            <button class="btn btn-default btn-outline btn-sm"
+                            <button class=""
                                     (click)="onUpdatePopupLoad(item,item.id)"><i class="fa fa-pencil"></i>
 
                             </button>
                         </a>
-                        <button class="btn btn-default btn-outline btn-sm"
+                        <button class=""
                                 (click)="deleteDepartment(item.id)">
                             <i class="fa fa-remove"></i>
                         </button>
@@ -228,7 +228,7 @@
                     <div class="modal-body">
                         <div class="slimScrollDiv"
                              style="position: relative; overflow: hidden; width: auto;">
-                            <div class="scroller" style="width: auto; height: 240px;">
+                            <div class="scroller" style="width: auto; height: 270px;">
                                 <div class="row">
                                     <div class="form-group hr mrgn-btm08">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
@@ -256,7 +256,7 @@
                                             <!--<p-dropdown  placeholder="Select Branch" required #brName="ngModel" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="brName" [(ngModel)]="selectedDepartment.branchId" [options]="branchesList"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                             </p-dropdown>-->
                                             <p-multiSelect placeholder="select branches" required #brName="ngModel"
-                                                           [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                           [style]="{'text-align': 'left', 'width':'100%'}"
                                                            [options]="branchesList" [(ngModel)]="selectedBranches"
                                                            [ngModelOptions]="{standalone:true}">
 
@@ -341,7 +341,7 @@
             </div>
             <div class="modal-body">
                 <p class="font-red" *ngIf="branchesInDepartment.length <= 0">No Branch is Associated</p>
-                <div class="scroller" style="height:150px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:270px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <address>
                             <div class="form-group">

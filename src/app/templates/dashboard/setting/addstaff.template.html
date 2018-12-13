@@ -11,9 +11,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Role <span class="required"
+                                    <label class="control-label col-md-4 pdng-lr-5">Role <span class="required"
                                                                                      aria-required="true"> * </span></label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<select class="form-control" (change)="goTo($event.target.value)" formControlName="changeUser">
                                             <option *ngFor="let r of allStaffTypes" value="{{r.name}}">{{ r.name }}</option>
                                         </select>
@@ -60,10 +60,10 @@
 
                                 <div class="form-group mrgn-btm08">
 
-                                    <label class="control-label col-md-4">First Name
+                                    <label class="control-label col-md-4 pdng-lr-5">First Name
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" formControlName="firstName"
                                                placeholder="enter first name e.g  James" data-required="1"
                                                class="form-control">
@@ -75,19 +75,19 @@
 
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Last Name
+                                    <label class="control-label col-md-4 pdng-lr-5">Last Name
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input formControlName="lastName" type="text"
                                                placeholder="enter last name e.g  Gosling"
                                                class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08" ngClass="displayFieldCss">
-                                    <label class="control-label col-md-4">Primary Branch <span class="required"
+                                    <label class="control-label col-md-4 pdng-lr-5">Primary Branch <span class="required"
                                                                                                aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     [options]="branchesList" (onChange)="selectedBranch($event)"
@@ -103,10 +103,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Email Address
+                                    <label class="control-label col-md-4 pdng-lr-5">Email Address
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="email" formControlName="email"
                                                class="form-control"
                                                placeholder="enter email address or id e.g  zzz@gmail.com">
@@ -118,11 +118,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08" ngClass="displayFieldCss">
-                                    <label class="control-label col-md-4">Visiting Branches
+                                    <label class="control-label col-md-4 pdng-lr-5">Visiting Branches
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <!--<div class="">-->
-                                    <div class="col-md-8 profile-frm" id="not-due">
+                                    <div class="col-md-8 profile-frm pdng-lr-5" id="not-due">
                                         <!--<div class="checkbox-box hr cod-higt">
                                             <address class="row">
                                                 &lt;!&ndash;<div *ngFor="let item of branchesList" class="col-md-6">
@@ -164,10 +164,10 @@
                                 </div>
                                 <!--nurse department container-->
                                 <div *ngIf="nurseDepartment" class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 no-padding">Department
+                                    <label class="control-label col-md-4 pdng-lr-5">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8" id="not-due">
+                                    <div class="col-md-8 pdng-lr-5" id="not-due">
                                         <!-- <address class="row">
                                              <label class="col-md-6" *ngFor="let item of departmentList">
                                                  <input type="checkbox" formControlName="departmentControl"
@@ -201,10 +201,10 @@
                                 </div>
                                 <!--doctor department container-->
                                 <div *ngIf="doctorDepartment" class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Department
+                                    <label class="control-label col-md-4 pdng-lr-5">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<select class="form-control" (change)="selectDoctorDepartment($event.target.value)" formControlName="departmentControl">
                                             <option value="" selected="selected">Select Department</option>
                                             <option *ngFor="let item of departmentList" value="{{item.id}}">{{item.name}}</option>
@@ -220,10 +220,10 @@
                                     </div>
                                 </div>
                                 <div *ngIf="services" class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Services
+                                    <label class="control-label col-md-4 pdng-lr-5">Services
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <div class="checkbox-box">
                                             <!-- <p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
                                                             [options]="servicesList" [(ngModel)]="selectedServices" (onChange)="addComission($event)"
@@ -280,9 +280,9 @@
                                     </div>
                                 </div>-->
                                 <div *ngIf="dutywithdoctor" class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Duty with Doctor
+                                    <label class="control-label col-md-4 pdng-lr-5">Duty with Doctor
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<div class="checkbox-box" id="not-due">
                                             <address><label class="mt-checkbox mt-checkbox-outline">
                                                 <div *ngFor="let item of doctorsList">
@@ -378,10 +378,10 @@
                                 </div>-->
 
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Password
+                                    <label class="control-label col-md-4 pdng-lr-5">Password
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="password" formControlName="password" pPassword
                                                class="form-control" placeholder="enter password  e.g  xxxJames_Gosling_1235">
                                         <span class="font-siz" class="text-danger"
@@ -393,20 +393,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Confirm Password
+                                    <label class="control-label col-md-4 pdng-lr-5">Confirm Password
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="password" formControlName="confirmPassword" placeholder="enter confirm password  e.g  xxxJames_Gosling_1235" class="form-control">
                                         <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['confirmPassword'].valid && userForm.controls['confirmPassword'].touched">{{confirmPasswordError}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08" ngClass="displayFieldCss('userName')">
-                                    <label class="control-label col-md-4">Username
+                                    <label class="control-label col-md-4 pdng-lr-5">Username
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" formControlName="userName" placeholder="enter user name  e.g James Gosling" class="form-control">
                                         <span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
@@ -420,9 +420,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Home Phone
+                                    <label class="control-label col-md-4 pdng-lr-5">Home Phone
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input formControlName="homePhone" type="text" placeholder="enter home phone number  e.g 1235"
                                                class="form-control">
                                         <span class="text-danger"
@@ -433,9 +433,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Cell Phone
+                                    <label class="control-label col-md-4 pdng-lr-5">Cell Phone
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input formControlName="cellPhone" type="text" placeholder="enter cell phone number  e.g 1235"
                                                class="form-control">
                                         <span class="text-danger"
@@ -549,35 +549,35 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div *ngIf="dutytimmingshift1" class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 col-xs-12"> Duty (Shift 1):
+                            <!--<div *ngIf="dutytimmingshift1" class="form-group mrgn-btm08">
+                                <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Duty (Shift 1):
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-8 col-xs-12">
+                                <div class="col-md-8 col-xs-12 pdng-lr-5">
 
                                     <div class="mrgn-top8 row">
                                         <div class="width6 pull-left col-md-1">
-                                            <!-- <label
+                                            &lt;!&ndash; <label
                                                  class="mrgn-top8 mt-checkbox-outline chckbox">
                                              <input type="checkbox" formControlName="shift1"
                                                     class="">
-                                             <span></span></label>-->
+                                             <span></span></label>&ndash;&gt;
                                             <label>
 
                                                 <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
-                                                <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+                                                &lt;!&ndash; <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>&ndash;&gt;
 
                                                 <span></span>
                                             </label>
                                         </div>
-                                        <!-- <span class="col-md-2 width12"><button type="button"
+                                        &lt;!&ndash; <span class="col-md-2 width12"><button type="button"
                                                                                 (click)="firstShiftFrom()">From</button></span>
                                          <input class="col-md-4" type="time" value="{{firstShiftFromTime}}">
                                          &emsp;
                                          <span class="col-md-2 width12"><button type="button"
                                                                                 (click)="firstShiftTo()">To</button></span>
                                          <input class="col-md-4" type="time" value="{{firstShiftToTime}}">
--->
+&ndash;&gt;
                                         <div class="col-md-2">
                                             <button type="button" (click)="firstShiftFrom()">From</button>
                                         </div>
@@ -596,18 +596,18 @@
                                       *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
                             </div>
                             <div *ngIf="dutytimmingshift2" class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 col-xs-12"> Duty (Shift 2):
+                                <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Duty (Shift 2):
                                 </label>
-                                <div class="col-md-8  col-xs-12">
+                                <div class="col-md-8  col-xs-12 pdng-lr-5">
                                     <div class="mrgn-top8 row">
                                         <div class="width6 col-md-1 pull-left col-md-1">
-                                            <!--<label class="mrgn-top10 mt-checkbox-outline chckbox">
+                                            &lt;!&ndash;<label class="mrgn-top10 mt-checkbox-outline chckbox">
                                                 <input type="checkbox" class=""
-                                                       formControlName="shift2"><span></span></label>-->
+                                                       formControlName="shift2"><span></span></label>&ndash;&gt;
                                             <label class="mt-checkbox-outline">
 
                                                 <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
-                                                <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+                                                &lt;!&ndash; <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>&ndash;&gt;
 
                                                 <span></span>
                                             </label>
@@ -628,14 +628,14 @@
                                 </div>
                             </div>
                             <div *ngIf="vacation" class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 col-xs-12 mrgn-top-8"> Vacation:
+                                <label class="control-label col-md-4 col-xs-12 mrgn-top-8 pdng-lr-5"> Vacation:
                                 </label>
-                                <div class="col-md-8 col-xs-12">
-                                    <!--<div class="width6 pull-left no-padding mrgn-top24">
+                                <div class="col-md-8 col-xs-12 pdng-lr-5">
+                                    &lt;!&ndash;<div class="width6 pull-left no-padding mrgn-top24">
                                         <label class="mt-checkbox-outline chckbox">
                                             <input type="checkbox" formControlName="vacation"
                                                    class=""><span></span></label>
-                                    </div>-->
+                                    </div>&ndash;&gt;
                                     <div class="row">
                                         <div class="width6 pull-left col-md-1">
                                             <label>
@@ -661,9 +661,94 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>-->
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-4 col-xs-12"> Duty (Shift 1):
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-8 col-xs-12">
+                                    <div class="pull-left no-padding col-md-1"><label
+                                            class="mt-checkbox-outline chckbox">
+                                        <!--<input type="checkbox" formControlName="shift1" class="">-->
+                                        <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
+                                        <span></span></label>
+                                    </div>
+                                    <div class="col-md-2 pdng-lr-5">
+                                        <button type="button" (click)="firstShiftFrom()">From</button>
+                                    </div>
+                                    <div class="col-md-4 pdng-lr-5">
+                                        <input type="time" style="width: 100%" value="{{firstShiftFromTime}}">
+                                    </div>
+                                    <div class="col-md-1 pdng-lr-5">
+                                        <button type="button" (click)="firstShiftTo()">To</button>
+                                    </div>
+                                    <div class="col-md-4 pdng-lr-5">
+                                        <input type="time" style="width: 100%" value="{{firstShiftToTime}}">
+                                    </div>
+                                </div>
+                                <span class="text-danger"
+                                      *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
+                            </div>
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-4 col-xs-12"> Duty (Shift 2):
+                                </label>
+                                <div class="col-md-8  col-xs-12">
+                                    <div class="col-md-1 pull-left no-padding"><label
+                                            class="mt-checkbox-outline chckbox">
+                                        <!--<input type="checkbox" class=""
+                                               formControlName="shift2">-->
+                                        <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
+                                        <span></span></label></div>
+                                    <div class="col-md-2 pdng-lr-5">
+                                        <button type="button" (click)="secondShiftFrom()">From</button>
+                                    </div>
+                                    <div class="col-md-4 pdng-lr-5">
+                                        <input type="time" style="width: 100%" value="{{secondShiftFromTime}}">
+                                    </div>
+                                    <div class="col-md-1 pdng-lr-5">
+                                        <button type="button" (click)="secondShiftTo()">To</button>
+                                    </div>
+                                    <div class="col-md-4 pdng-lr-5">
+                                        <input type="time" style="width:100%" value="{{secondShiftToTime}}">
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-4 col-xs-12"> Vacation:
+                                </label>
+                                <div class="col-md-8  col-xs-12">
+                                    <div class="pull-left col-md-1 no-padding-lft"><label
+                                            class="mt-checkbox-outline chckbox">
+                                        <!--<input type="checkbox" formControlName="vacation"
+                                               class="">-->
+                                        <mat-checkbox formControlName="vacation" color="primary"></mat-checkbox>
+                                        <span></span></label></div>
+                                    <!--<div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
+                                        From
+                                    </div>-->
+                                    <div class=" col-md-6 col-xs-5 pull-left">
+                                        <mat-form-field style="width: 118%">
+                                            <input matInput [matDatepicker]="from" placeholder="From"
+                                                   formControlName="dateFrom">
+                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                            <mat-datepicker #from></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>&emsp;
+
+                                    <div class=" col-md-5 col-xs-5 pull-left mrgn-top-20">
+                                        <mat-form-field style="width: 120%">
+                                            <input matInput [matDatepicker]="to" placeholder="To"
+                                                   formControlName="dateTo">
+                                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                                            <mat-datepicker #to></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
                             </div>
                             <div *ngIf="vacationweek" class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 col-xs-12"> Working Days:
+                                <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Working Days:
                                 </label>
                                 <!--<div class="col-md-8 col-xs-12 text-center">
                                     <div *ngFor="let item of workingDays" class="">
@@ -675,18 +760,17 @@
                                         </div>
                                     </div>
                                 </div>-->
-                                <div class="col-md-8">
+                                <div class="col-md-8 pdng-lr-5">
                                     <p-multiSelect placeholder="select days"
                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
                                                    [options]="workingDays" [(ngModel)]="selectedWorkingDays"
                                                    [ngModelOptions]="{standalone:true}"
-                                                   [panelStyle]="{minWidth:'12em'}">
+                                                   [panelStyle]="{minWidth:''}">
                                         <ng-template let-dy pTemplate="item">
                                             <div style="font-size:14px;float:right;margin-top:4px">{{dy.label}}</div>
                                         </ng-template>
                                     </p-multiSelect>
                                 </div>
-
                             </div>
                             <!--<div class="form-group">
                                 <div class="col-md-4"></div>

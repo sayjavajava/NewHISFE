@@ -75,11 +75,11 @@
                         </span></td>
                                 <td field="action">
                                     <ng-container>
-                                        <a href="#statusModal" data-toggle="modal">
-                                            <button class="btn btn-default btn-outline btn-sm" (click)="onUpdatePopupLoad(data)"> <i class="fa fa-pencil"></i> </button>
+                                        <a href="#responsive" data-toggle="modal">
+                                            <button class="" (click)="onUpdatePopupLoad(data)"> <i class="fa fa-pencil"></i> </button>
                                         </a>
                                         <span [hidden]="data.hasChild">
-                                            <button class="btn btn-default btn-outline btn-sm" (click)="deleteStatus(data.id)"> <i class="fa fa-remove"></i> </button>
+                                            <button class="" (click)="deleteStatus(data.id)"> <i class="fa fa-remove"></i> </button>
                                         </span>
                                     </ng-container>
                                 </td>
@@ -178,12 +178,12 @@
                 <div class="modal-body">
                     <div class="slimScrollDiv"
                          style="position: relative; overflow: hidden; width: auto;">
-                        <div class="scroller" style="overflow: hidden; width: auto; height: 120px;">
+                        <div class="scroller" style="overflow: hidden; width: auto; height: 160px;">
                             <div class="row">
                                 <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Name <span
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
                                             class="required" aria-required="true"> * </span></label>
-                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
+                                    <div class="col-md-9 select pdng-lr-5 profile-frm">
                                         <input class="form-control" type="text" required  [disabled]="changeStatusName"
                                                [(ngModel)]="status.name"  placeholder="name e.g under process or confirmed"
                                                required pattern="^[a-zA-Z 0-9_-]{1,60}$"
@@ -195,19 +195,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Abbreviation
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Abbreviation
                                         </label>
 
-                                        <div class="col-md-8 profile-frm select pdng-lr-5">
+                                        <div class="col-md-9 profile-frm select pdng-lr-5">
                                             <input class="form-control"  placeholder="abbreviation e.g short name "
                                                       type="text" [(ngModel)]="status.abbreviation"
                                                       name="abbrevation" #abbrevation="ngModel"/>
                                         </div>
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Color
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Color
                                       </label>
-                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
+                                    <div class="col-md-9 select pdng-lr-5 profile-frm">
                                         <input class="form-control" [(colorPicker)]="color" [value]="color"
                                                [ngModelOptions]="{standalone:true}"
                                                [style.background]="color"  placeholder="e.g color red ,blue"

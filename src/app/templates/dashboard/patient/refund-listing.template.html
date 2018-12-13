@@ -37,6 +37,8 @@
                                         <p-sortIcon *ngIf="col.field != 'action'"  ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"> </p-sortIcon>
                                     </th>
                                 </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field" class="profile-frm">
                                 <!--<tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                         <input *ngSwitchCase="'date'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
@@ -215,7 +217,6 @@
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline"> Close </button>
                                 <button type="button" class="btn blue" (click)="refundPayment()"> Save </button>
-                                <!--<button type="button" class="btn green-meadow" (click)="saveAndPrintReceipt()"> Save & Print </button>-->
                             </div>
                         </div>
                     </form>
