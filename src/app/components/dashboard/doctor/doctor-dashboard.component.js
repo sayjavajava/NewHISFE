@@ -59,9 +59,13 @@ var DoctorDashboardComponent = (function () {
                 _this.dashboardListModified = _this.dashboardList;
                 _this.loading = false;
             }
+            else {
+                _this.loading = false;
+            }
         }, function (error) {
-            _this.error = error.error.error;
+            setTimeout(function () { this.loading = false; }, 3000);
             _this.loading = false;
+            _this.error = error.error.error;
         });
     };
     DoctorDashboardComponent.prototype.getBranchesFromServer = function () {

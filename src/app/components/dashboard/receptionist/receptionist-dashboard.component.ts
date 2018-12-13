@@ -57,6 +57,11 @@ export class ReceptionistDashboardComponent {
                         this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="CHECK_IN" || x.status=="CONFIRMED" || x.NOT_CONFIRMED=="NOT_CONFIRMED");
                         this.dashboardListModified = this.dashboardList;
                         this.loading =false;
+
+                    }else {
+                        this.loading =false
+
+
                     }
                 },
                 (error: any) => {

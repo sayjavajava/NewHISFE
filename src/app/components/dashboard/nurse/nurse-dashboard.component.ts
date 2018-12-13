@@ -60,6 +60,9 @@ export class NurseDashboardComponent {
                         this.dashboardListModified = this.dashboardList;*/
                         this.dashboardListModified = dashboardListTemp;
                         this.loading=false;
+
+                    }else {
+                        this.loading =false
                     }
                 },
                 (error: any) => {

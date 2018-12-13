@@ -58,13 +58,17 @@ export class DoctorDashboardComponent {
                         this.dashboardListModified = this.dashboardList;*/
                         this.dashboardList = dashboardListTemp;
                         this.dashboardListModified = this.dashboardList;
-                        this.loading=false;
+                        this.loading =false
+                    }else {
+                      this.loading =false
 
                     }
                 },
                 (error: any) => {
-                    this.error = error.error.error;
-                    this.loading = false;
+                    setTimeout(function(){ this.loading=false }, 3000);
+                    this.loading=false;
+                    this.error = error.error.error
+
                 })
     }
 

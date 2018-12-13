@@ -49,6 +49,13 @@
 
                     <div class="table-scrollable">
                         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10" exportFilename="patients">
+                            <ng-template pTemplate="caption">
+                                <div style="text-align: right">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search here..."
+                                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
                             <ng-template sortable="true" pTemplate="header" let-columns>
                                 <tr>
                                     <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -57,7 +64,7 @@
                                                     ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order"></p-sortIcon>
                                     </th>
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                         <input *ngSwitchCase="'patientId'" pInputText type="text" style="width: 100%"
                                                (input)="dt.filter($event.target.value, col.field, 'contain')">
@@ -70,7 +77,7 @@
                                         <input *ngSwitchCase="'cellPhone'" pInputText type="text" style="width: 100%"
                                                (input)="dt.filter($event.target.value, col.field, 'contain')">
                                     </th>
-                                </tr>
+                                </tr>-->
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-data let-a="rowIndex">
                                 <tr>

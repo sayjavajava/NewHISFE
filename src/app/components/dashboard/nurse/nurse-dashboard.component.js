@@ -56,6 +56,9 @@ var NurseDashboardComponent = (function () {
                 _this.dashboardListModified = dashboardListTemp;
                 _this.loading = false;
             }
+            else {
+                _this.loading = false;
+            }
         }, function (error) {
             _this.error = error.error.error;
             _this.loading = false;

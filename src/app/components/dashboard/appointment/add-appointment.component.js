@@ -66,6 +66,8 @@ var AddAppointmentComponent = (function () {
         this.maxNo = false;
         this.amt = 0;
         this.statusesList = [];
+        this.newPatientValidaor = true;
+        this.patientDisable = false;
         this.isRecurringFlag = false;
         this.lastAppointmentRecurring = new Date();
         this.fastAppointmentRecurring = new Date();
@@ -288,10 +290,14 @@ var AddAppointmentComponent = (function () {
         if (this.stateOfPatientBox) {
             this.patientChecked = true;
             this.newPatient = true;
+            this.newPatientValidaor = false;
+            this.patientDisable = true;
         }
         else {
             this.patientChecked = false;
             this.newPatient = false;
+            this.newPatientValidaor = true;
+            this.patientDisable = false;
         }
     };
     AddAppointmentComponent.prototype.moveMouse = function (action, event) {

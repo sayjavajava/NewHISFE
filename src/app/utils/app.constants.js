@@ -300,6 +300,10 @@ var AppConstants = (function () {
     AppConstants.FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
     /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/ /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
     AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
+    /*****************************REPORT PRINT*************************************/
+    AppConstants.PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';
+    AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
+    AppConstants.PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

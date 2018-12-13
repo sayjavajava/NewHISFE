@@ -65,6 +65,7 @@ export class ReceiptListingComponent {
                         {field: "paymontAmount", header: "Payment Amount (" + (this.currency) + ")"},
                         {field: "transactionType", header: "Transaction Type"},
                         {field: "paymentType", header: "Payment Type"},
+                        {field: "action", header: "Action"},
                     ];
                 },
                 (error: any) => {
@@ -98,18 +99,15 @@ export class ReceiptListingComponent {
         this.requestsService.postRequest(AppConstants.SAVE_ADVANCE_PAYMENT , this.addAdvance)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseCode'] === 'SUCCESS')
-                    {
+                    if (response['responseCode'] === 'SUCCESS') {
                         this.getAllReceiptListing();
                         this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                     } else {
                         this.notificationService.error(response['responseMessage']);
                     }
-                }
-            ),
-            (error: any) => {
+                }, (error: any) => {
                 this.notificationService.error(error.error.error);
-            }
+            });
     }
 
     getAllReceiptListing(){
@@ -138,7 +136,7 @@ export class ReceiptListingComponent {
              (response: Response)=>{
                  if (response["responseCode"] === "PATIENT_SUC_11")
                  {
-                     this.patientList = response["responseData"].data;
+                     this.patientList = response["responseData"];
                  }
              }
           /*   , function (error) {
@@ -171,5 +169,25 @@ export class ReceiptListingComponent {
 
     }
 
+    printReport(paymentId: any) {
+        console.log(paymentId);
+        this.requestsService.getRequest(AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT + "/" + paymentId)
+            .subscribe(
+                (response: Response) => {
+                    console.log(" Added : " + response);
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                        this.notificationService.success('Payment Receipt Downloaded Successfully' + response["responseData"]);
+                        // this.refundList = response["responseData"];
+                    }
+                }, function (error) {
+                    //    this.error('ERROR', 'Refund amount failed');
+                });
+    }
+
+    saveAndPrintReceipt(formData: any) {
+        this.saveAdvance(formData);
+        this.printReport(this.addAdvance.paymentId);
+    }
 
 }

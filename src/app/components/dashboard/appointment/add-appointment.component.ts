@@ -95,6 +95,8 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         action: string;
         event: CalendarEvent;
     };
+    newPatientValidaor : boolean = true;
+    patientDisable:boolean =false;
     isRecurringFlag :boolean = false;
     lastAppointmentRecurring : Date =new Date();
     fastAppointmentRecurring : Date =new Date();
@@ -312,10 +314,14 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         if (this.stateOfPatientBox) {
             this.patientChecked = true;
             this.newPatient = true;
+            this.newPatientValidaor =false;
+            this.patientDisable = true;
         }
         else {
             this.patientChecked = false;
             this.newPatient = false;
+            this.newPatientValidaor =true;
+            this.patientDisable = false;
         }
     }
 
