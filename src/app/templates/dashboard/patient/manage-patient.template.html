@@ -99,7 +99,7 @@
                                     <td field="cellPhone" class="c-text-left">{{data.cellPhone}}</td>
                                     <td field="pastAppointments" class="c-text-left">{{data.pastAppointments}}</td>
                                     <td field="futureAppointments" class="c-text-left">{{data.futureAppointments}}</td>
-                                    <td field="status">{{data.status === true ? 'Active' : 'Inactive'}}</td>
+                                    <td field="status">{{data.status ? 'Active' : 'Inactive'}}</td>
                                     <td class="sorting_disabled">
                                         <a routerLink="/dashboard/patient/edit/{{data.id}}">
                                             <button class="btn btn-default btn-outline btn-sm"> <i class="fa fa-pencil"></i> </button>
