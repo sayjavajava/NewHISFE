@@ -90,16 +90,16 @@
                     <div class="tab-content">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group hr">
-                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Name</label>
-                                    <div class="col-md-9 select pdng-lr-5">
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Name</label>
+                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
                                         <input type="text" class="form-control"
                                                [(ngModel)]="dm.name">
                                     </div>
                                 </div>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Type</label>
-                                    <div class="col-md-9 select pdng-lr-5">
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Type</label>
+                                    <div class="col-md-8 select pdng-lr-5">
                                        <!-- <select class="form-control" [ngModelOptions]="{standalone:true}"
                                                 id="typeId" name="type"
                                                 [(ngModel)]="dm.type">
@@ -112,22 +112,22 @@
                                         </p-dropdown>
                                     </div>
                                 </div>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File</label>
-                                    <div class="col-md-9 select pdng-lr-5">
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Upload File</label>
+                                    <div class="col-md-8 select pdng-lr-5">
                                         <input type="file"
                                                id="documentId"
                                                name="documentName"
                                                (change)="uploadImgOnChange($event)">
                                     </div>
                                 </div>
-                                <div class="form-group hr">
-                                    <label class="col-md-3 pdng-lr-5 control-label txt-size">Description</label>
-                                    <div class="col-md-9 select pdng-lr-5">
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Description</label>
+                                    <div class="col-md-8 select pdng-lr-5">
                                         <address class="no-margin">
-                                                <textarea rows="5" cols="80"
+                                                <textarea style="width: 100%" rows="5" cols=""
                                                           id="descriptionId"
-                                                          name="description" maxlength="3000"
+                                                          name="description" maxlength=""
                                                           [(ngModel)]="dm.description">
                                                 </textarea>
                                         </address>

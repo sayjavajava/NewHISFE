@@ -21,7 +21,7 @@ label{margin-bottom: 0 !important;}
 .page-header.navbar .hor-menu .navbar-nav>li>a{ padding: 20px;}
 .hedr-menu-top li{list-style:none;}
 .dropdown-nav{ background:#0153a7 !important; color:#fff !important;}
-.hedr-menu-top li a:hover{ background:#004b97 !important;}
+.hedr-menu-top li a:hover{ /*background:#004b97 !important;*/}
 .hr h4, .hr h3, .hr h2{font-weight: 500;}
 .no-padding{ padding:0 !important;}
 .no-margin{ margin:0 !important;}
@@ -127,7 +127,7 @@ label{margin-bottom: 0 !important;}
 .selct-file-btn{border-radius: 10px; padding: 0; background: #f6f6f6; border-color: #ddd;}
 .selct-file-btn input{display:inline-block !important;}
 .selct-file-btn h3{font-size: 14px; font-weight: bold; color: #ccc;}
-.round-table{border-radius: 3px !important; border: 1px solid #ddd; /*padding: 10px;*/}
+.round-table{border-radius: 3px !important; border: 1px solid #ddd; padding: 10px;}
 .round-bck{border: 1px solid #82b8dd; border-radius: 3px !important; background: #abd8f7;}
 .tbl-brdrs th, .tbl-brdrs td, .tbl-brdrs tr, .tbl-brdrs>thead>tr>th, .tbl-brdrs>thead>tr>td{border:none;}
 .font-siz{font-size:12px !important;}
@@ -464,7 +464,7 @@ label{margin-bottom: 0 !important;}
     width: 900px !important;
     margin: 200px auto !important;
 }
-.portlet{margin-bottom: 0px !important;}
+/*.portlet{margin-bottom: 0px !important;}*/
 .profile-frm input, .profile-frm select{height: 25px !important; padding: 2px 12px !important;}
 /*.form-control{height: 25px !important; padding: 2px 12px !important;}*/
 /*.form-group {margin-bottom: 0px;}*/
@@ -824,7 +824,7 @@ ul.ui-inputtext{width: 100%;}
     padding:5px 0 !important;}
 .height{height: auto !important;}
 .upload-btn-wrapper{position: relative; overflow: hidden; display: inline-block; top: 14px;}
-.btn{color: #FFF; background-color: #3598dc; border-color: #3598dc; padding: 7px 12px; font-size: 14px; font-weight: 400;}
+.btn{color: #FFF; background-color: #3598dc; border-color: #3598dc; padding: 7px 12px !important; font-size: 14px; font-weight: 400;}
 .upload-btn-wrapper input[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; cursor: pointer; line-height: 34px;}
 .ui-menuitem{margin: 0; border-bottom: 1px solid #1212;}
 .text-danger{color:#ed6b75; font-size:12px;}
@@ -835,11 +835,11 @@ ul.ui-inputtext{width: 100%;}
 @media (min-width: 768px){
 .receipt-modal{width: 880px !important; margin: 30px auto;}
 }
-{
+/*{
     width: 100%;
     height: 310px;
-}
-.ui-autocomplete-input{width:91% !important;}
+}*/
+.ui-autocomplete-input{width:87% !important;}
 .ui-autocomplete{width: 100% !important;}
 /*.ui-button-text{padding-bottom: 2px !important;}*/
 .slide-br-img ul{}
@@ -848,10 +848,19 @@ ul.ui-inputtext{width: 100%;}
 
 
 .profile-frm input, .profile-frm select{height: 25px;}
-.ui-button{margin: 0; color: #007ad9 !important; background: none !important;  border:none !important;}
-.ui-button span{display: none !important;}
+/*.ui-button{margin: 0; color: #007ad9 !important; background: none !important;  border:none !important;}*/
+/*.ui-button span{display: none !important;}*/
 .ui-overlaypanel-content span label{width:100%; border-bottom: 1px solid gray;}
 .ui-overlaypanel-content{background: #000000 !important;  color: #fff !important; border: 1px solid #fff;}
 .ui-overlaypanel-content ul li{color: #fff !important;}
 /*.btn-group-sm>.btn, .btn-sm {padding: 0px 5px;}*/
 .bc-bg{background:#428bca !important;}
+.custm-tst-input span input{/*width: 100% !important;*/}
+.ui-multiselect-items-wrapper{max-height: 135px !important;}
+.ui-fileupload-content, .ui-dropdown-items-wrapper{height: 120px; overflow-y: scroll;}
+.ui-button-icon-only {height: 29px !important;}
+.wc-date-popover[_ngcontent-c8] {position: fixed !important; top: 73px !important; left: 320px !important;}
+.next[_ngcontent-c8], .prev[_ngcontent-c8] {width: 30px !important;  padding: 40px 0px !important; cursor: pointer; font-size: 30px !important;}
+.years-list-view[_ngcontent-c8] > span[_ngcontent-c8] {padding: 5px 0px !important;}
+.doctorslist button span{display: none !important;}
+.doctorslist button{background: none !important; color: #007ad9 !important; border: none !important;}

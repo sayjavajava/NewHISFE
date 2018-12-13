@@ -313,9 +313,6 @@
 </div>
 
 <!--Start Modal-->
-
-
-
 <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -324,16 +321,13 @@
                 <h4 class="modal-title">Problem</h4>
             </div>
             <div class="modal-body">
-                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:340px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
-                        <div class="form-group hr">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">Appointments<span class="required"
-                                                                                                       aria-required="true"> * </span>
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="control-label txt-size pdng-lr-5 col-md-3">Appointments<span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-7 pdng-lr-5">
+                            <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-
-
                                     <p-dropdown  placeholder="select appointment"
                                                  [autoWidth]="false"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAppointmentId"
@@ -357,11 +351,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group hr">
-                            <label class="control-label txt-size pdng-lr-5 col-md-4">Version
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="control-label txt-size pdng-lr-5 col-md-3">Version
                                 <span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-7 pdng-lr-5">
+                            <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
 
                                     <p-dropdown  placeholder="select Version"
@@ -386,10 +380,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Problem:<span class="required"
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Problem:<span class="required"
                                                                                                    aria-required="true"> * </span></label>
-                            <div class="col-md-7 pdng-lr-5">
+                            <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
 
                                     <p-dropdown  placeholder="select Version"
@@ -413,18 +407,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Date Diagnosis:</label>
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Date Diagnosis:</label>
 
-                            <div class="col-md-7 select pdng-lr-5">
+                            <div class="col-md-9 select pdng-lr-5">
                                 <angular2-date-picker  name="dateDiagnosis"
                                                        id="dateDiagnosisId" [settings]="settings" [(ngModel)]="ppm.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
                             </div>
                         </div>
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
-                            <div class="col-md-7 select pdng-lr-5">
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+                            <div class="col-md-9 select pdng-lr-5 profile-frm">
                                 <select class="form-control" [(ngModel)]="ppm.status">
                                     <option value="ACTIVE">Active</option>
                                     <option value="IN_ACTIVE">In_Active</option>
@@ -432,19 +425,16 @@
                                 </select>
                             </div>
                         </div>
-
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Url</label>
-                            <div class="col-md-7 select pdng-lr-5">
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 pdng-lr-5 control-label txt-size">Url</label>
+                            <div class="col-md-9 select pdng-lr-5 profile-frm">
                                 <input type="text" class="form-control" id="problemInfoId" name="problemInfo"
                                            [(ngModel)]="ppm.info">
                             </div>
                         </div>
-
-                        <div class="form-group hr">
-                            <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes:</label>
-                            <div class="col-md-7 select pdng-lr-5">
+                        <div class="form-group hr mrgn-btm08">
+                            <label class="col-md-3 pdng-lr-5 control-label txt-size">Notes:</label>
+                            <div class="col-md-9 select pdng-lr-5">
                                 <address>
                                     <textarea class="form-control"
                                               rows="3"

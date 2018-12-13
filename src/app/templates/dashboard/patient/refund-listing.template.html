@@ -31,7 +31,7 @@
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                    <th *ngFor="let col of columns" [ngSwitch]="col.field" class="profile-frm">
                                         <input *ngSwitchCase="'date'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                         <input *ngSwitchCase="'refundId'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                         <input *ngSwitchCase="'patientName'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
