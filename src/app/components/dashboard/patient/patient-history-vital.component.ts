@@ -271,10 +271,12 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     getSelectedVital(name: any) {
 
         let vitalSelectedObj = this.vitalList.filter(x => x.name == this.selectedstr.toString());
+        debugger;
+        if(vitalSelectedObj.length>0){
         this.vitalSetupTemplate.unit = vitalSelectedObj[0].unit;
         this.vitalSetupTemplate.standardValue = vitalSelectedObj[0].standardValue;
         this.vitalSetupTemplate.status = vitalSelectedObj[0].status;
-
+        }
 
     }
 
@@ -288,18 +290,18 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
         debugger;
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
-            document.getElementById('name').focus();
+
             return;
         }
 
         if (this.vitalSetupTemplate.currentValue == '' || this.vitalSetupTemplate.currentValue == null) {
             this.notificationService.warn('Please Enter Current Value');
-            document.getElementById('currentValueId').focus();
+
             return;
         }
         if (this.vitalSetupTemplate.standardValue == '' || this.vitalSetupTemplate.standardValue == null) {
-            this.notificationService.warn('Please Select Vital');
-            document.getElementById('name').focus();
+            this.notificationService.warn('Please Select standard Value');
+
             return;
         }
 
@@ -480,27 +482,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     }
 
 
-    /*getPaginatedPatientVitalList(page:number) {
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL
-            ).subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'SUCCESS') {
-                        this.vitalListData = response['responseData'];
-                        console.log(this.vitalListData);
-
-                    } else {
-                        this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
-                    }
-                },
-                (error: any) => {
-                    this.notificationService.error(Response['responseMessage'], 'Vital Setup Configurations');
-                }
-            );
-        } else {
-            this.router.navigate(['/login']);
-        }
-    }*/
 
 
     private getPaginatedPatientVitalList(page: number) {

@@ -50,7 +50,11 @@ export class PatientImageOrderComponent implements OnInit {
     patientImageTemplate: PatientImageOrderModel = new PatientImageOrderModel();
     showUpload:boolean=false;
     showDiv:boolean =false;
+    display: boolean = false;
+    selectedindex:number=0;
+    cols:any[];
     @ViewChild('closeBtn') closeBtn: ElementRef;
+
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -84,6 +88,16 @@ export class PatientImageOrderComponent implements OnInit {
             {label: 'TEST',value:'TEST'},
 
         ];
+
+        this.cols = [
+            { field: 'orderName', header: 'Order Name' },
+            { field: 'download', header: 'Download' },
+            { field: 'comment', header: 'Doctor Comment' },
+            { field: 'description', header: 'Description' },
+            { field: 'action', header: ' Action' },
+
+        ];
+
         this.getPageWiseOrderFromServer(0);
         this.isUpdate = true;
     }
@@ -121,6 +135,10 @@ export class PatientImageOrderComponent implements OnInit {
         this.notificationService.success("File Uploaded");
        // event.target.clear();
         form.clear();
+    }
+
+    showDialog() {
+        this.display = true;
     }
 
     saveOrder() {
@@ -214,15 +232,17 @@ export class PatientImageOrderComponent implements OnInit {
 
     editOrder(Id: number) {
 
+
         if (Id > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
-                this.requestsService.getRequest(AppConstants.FETCH_PATIENT_ORDER_ID + 'orderId=' + Id)
+                this.requestsService.getRequest(AppConstants.FETCH_PATIENT_ORDER_ID + Id)
                     .subscribe(
                         response => {
                             if (response['responseCode'] === 'DOC_SUC_42') {
                                 this.patientImageTemplate = response['responseData'];
-                               // this.showEdit=false;
-
+                                this.isUpdate=true;
+                              //  alert();
+                              //  debugger;
                                 this.selectedOrder=this.patientImageTemplate.orderObj.code;
                                 this.isUpdate = true;
                             } else {
@@ -232,7 +252,7 @@ export class PatientImageOrderComponent implements OnInit {
                         },
                         (error: any) => {
                             this.HISUtilService.tokenExpired(error.error.error);
-                            this.isUpdate = true;
+                        //    this.isUpdate = true;
                         });
             } else {
                 this.router.navigate(['/login']);
@@ -410,18 +430,20 @@ export class PatientImageOrderComponent implements OnInit {
 
     openDiv(val :string){
 
-       // $('#popupTest').modal('toggle');
-        this.closeBtn.nativeElement.click();
-      //  this.showDiv=true;
+
+        debugger;
+
         if(this.showImage==true){
             this.showImage=false;
         }
-
+       // this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+    //    document.getElementById('close-btn-Prefix').click();
+    //    this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
         var filename = val.substring(val.lastIndexOf('/')+1);
 
         var ext=filename.substr(filename.length - 3);
 
-        var link = document.getElementById("abc");
+        var link = document.getElementById("closeGalleria");
         this.images=[];
 
         if(ext=="gif" || ext=="png" || ext=="jpeg" || ext=="tiff" || ext=="jpg" || ext=="GIF" || ext=="PNG" || ext=="JPEG" || ext=="TIFF" || ext=="JPG" ){
@@ -430,19 +452,32 @@ export class PatientImageOrderComponent implements OnInit {
 
             for(let i = 0; i < labTestFilteredimgUrl.length; i++) {
                 let test = labTestFilteredimgUrl[i];
+            //   var filenameInt = test;
+                debugger;
+           //     filenameInt=filenameInt.url;
+            //    var ext=filenameInt.substr(filenameInt.length - 3);
+            //    if(filename===filenameInt){
+            //       this.selectedindex=i;
+            //   }
                     for(let j=0;j < test.url.length; j++) {
 
                         var urlpath=test.url[j];
                         var extPath=filename.substr(filename.length - 3);
+                        var fileNameInt=urlpath.substring(val.lastIndexOf('/')+1);
+                        if(filename===fileNameInt){
+                                   this.selectedindex=j;
+                        }
                         if(extPath=="gif" || extPath=="png" || extPath=="jpeg" || extPath=="tiff" || extPath=="jpg" || extPath=="GIF" || extPath=="PNG" || extPath=="JPEG" || extPath=="TIFF" || ext=="JPG" ){
 
                         this.images.push({source: test.url[j]});
+
                     }
             }
             console.log(this.images);
             link.setAttribute("href", "#responsiveGalleria2");
             this.showImage=true;
-
+            this.showDialog();
+           // this.HISUtilService.hidePopupWithCloseButtonId("closeGalleria");
         }
         }else if(ext=="pdf" || ext=="txt" || ext=="PDF" || ext=="TXT" ){
             this.showImage=false;
@@ -456,6 +491,7 @@ export class PatientImageOrderComponent implements OnInit {
             var src = document.getElementById('MyFrame');
             src.setAttribute("src",this.url);
             this.images=[];
+
 
         }else{
             this.downloadURL(val);

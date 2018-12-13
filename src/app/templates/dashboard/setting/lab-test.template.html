@@ -6,7 +6,7 @@
                     <h4 class="text-info">Lab Tests
                         <div class="pull-right">
                             <a href="#labTestSpeciman" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow" (click)="edit()"><i class="fa fa-plus"></i> Lab Test</button>
+                                <button class="btn mt-sweetalert btn green-meadow" (click)="addPopupClick()"><i class="fa fa-plus"></i> Lab Test</button>
                             </a>
                             <div class="upload-btn-wrapper">
                                 <button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>
@@ -90,7 +90,7 @@
             <ng-template pTemplate="body" let-item let-columns="columns">
                 <tr>
 
-                    <!--{{car[col.field]}}-->
+                    <td> {{item.specimanId}}</td>
                     <td> {{item.testCode}}</td>
                     <td> {{item.testName}}</td>
                     <td> {{item.minNormalRange}}</td>
@@ -100,13 +100,13 @@
 
                     <td>
                         <a href="#labTestSpeciman" data-toggle="modal">
-                            <button class="btn btn-default btn-outline btn-sm" (click)="edit(item)"><i
+                            <button class="btn btn-default btn-outline btn-sm" (click)="editLab(item)"><i
                                     class="fa fa-pencil"></i></button>
                         </a>
-                       <!-- <button class="btn btn-default btn-outline btn-sm"
-                                (click)="deletePatientFamilyHistory(item.id)">
+                        <button class="btn btn-default btn-outline btn-sm"
+                                (click)="deleteLab(item.id)">
                             <i class="fa fa-remove"></i>
-                        </button>-->
+                        </button>
 
                     </td>
 
@@ -130,14 +130,20 @@
                     <div class="scroller" style="height:330px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="col-md-12">
+
+                                <div class="form-group hr">
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Lab Code</label>
+                                    <div class="col-md-9 select pdng-lr-5"> <b>{{labTestSpeciman.specimanId}}</b> </div>
+                                </div>
+
                             <div class="form-group hr mrgn-btm08">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code<span
-                                        class="required" aria-required="true"> * </span></label>
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Code<!--<span
+                                        class="required" aria-required="true"> * </span>--></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <input type="text" required name="testCode" id="testCode" class="form-control"
                                            placeholder="e.g BloodTest001"
                                            [(ngModel)]="labTestSpeciman.testCode" #testCode="ngModel">
-                                    <span *ngIf="testCode.invalid && testCode.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter  test Code.</span>
+                                    <!--<span *ngIf="testCode.invalid && testCode.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter  test Code.</span>-->
                                 </div>
                             </div>
                             <div class="form-group hr mrgn-btm08">
@@ -213,7 +219,7 @@
                                  (click)="editLabSpeciman(ngForm)">Save
                         </button>
                         <button type="button" class="btn blue" *ngIf="labTestSpeciman.id > 0"
-                                (click)="editLabSpeciman(ngForm)">Update
+                                (click)="updateLab(ngForm)">Update
                         </button>
                     </span>
                 </div>

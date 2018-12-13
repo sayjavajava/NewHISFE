@@ -105,7 +105,73 @@
                         </div>
                     </h4>
                 </div>
+
                 <div class="table-scrollable tbl-brdr-radus">
+                    <p-table #dt [columns]="cols" [value]="medicationData" [paginator]="true"  [rows]="5">
+
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Medication/Strengths/Frequency/Duration/SIG"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
+
+
+
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                    {{col.header}}
+                                    <p-sortIcon *ngIf="col.field != 'status'"
+                                                [field]="col.field" ariaLabel="Activate to sort"
+                                                ariaLabelDesc="Activate to sort in descending order"
+                                                ariaLabelAsc="Activate to sort in ascending order">
+                                    </p-sortIcon>
+                                </th>
+                            </tr>
+
+                        </ng-template>
+
+
+                        <ng-template pTemplate="body" let-medication let-columns="columns">
+                            <tr>
+
+                                <!--{{car[col.field]}}-->
+                                <td>{{medication.appointmentDate}}</td>
+                                <td>{{medication.drugName}}</td>
+                                <td>{{medication.strengths}}</td>
+                                <td>{{medication.frequency}}</td>
+                                <td>{{medication.duration}}</td>
+                                <td>{{medication.pharmacyNote}}</td>
+                               <!-- <td>{{medication.orderStatus}}</td>-->
+                                <td>{{medication.datePrescribedString}}</td>
+                               <!--<td>{{medication.updatedOn}}</td>-->
+                                <td>
+                                    <a href="#responsiveMedication" data-toggle="modal"
+                                       (click)="editMedication(medication.id)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <button
+                                            (click)="deleteMedication(medication.id)">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+
+                                    <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
+                                  <!--  &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
+                                    &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;-->
+
+
+
+                                </td>
+
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+
+                </div>
+                <!--<div class="table-scrollable tbl-brdr-radus">
                     <table class="table table-hover table-light">
                         <thead>
                         <tr class="hedng-bck-clr tbl-pdng">
@@ -127,9 +193,9 @@
                             <td>{{medication.frequency}}</td>
                             <td>{{medication.duration}}</td>
                             <td>{{medication.pharmacyNote}}</td>
-                            <!--<td>{{medication.orderStatus}}</td>-->
+                            &lt;!&ndash;<td>{{medication.orderStatus}}</td>&ndash;&gt;
                             <td>{{medication.datePrescribedString}}</td>
-                            <!--<td>{{medication.updatedOn}}</td>-->
+                            &lt;!&ndash;<td>{{medication.updatedOn}}</td>&ndash;&gt;
                             <td>
                                 <a href="#responsiveMedication" data-toggle="modal"
                                    (click)="editMedication(medication.id)">
@@ -139,10 +205,10 @@
                                         (click)="deleteMedication(medication.id)">
                                     <i class="fa fa-remove"></i>
                                 </button>
-                          <!--      href = "#{{aType.Name}}"-->
+                          &lt;!&ndash;      href = "#{{aType.Name}}"&ndash;&gt;
                                 <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
-                               <!-- <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>-->
-                                <!--<a href="#{{medication.pharmacyNote}}" target="_blank">-->
+                               &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
+                                &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
 
 
 
@@ -150,11 +216,11 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>
+                </div>-->
             </div>
         </div>
         <div class="clearfix"></div>
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -186,7 +252,7 @@
                 </div>
                 <p></p>
             </div>
-        </div>
+        </div>-->
 
 
         <div class="clearfix">
@@ -221,7 +287,7 @@
                                 <label class="control-label txt-size pdng-lr-5 col-md-4">
                                     Appointments<span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-7 pdng-lr-5">
+                                <div class="col-md-7 pdng-lr-5" *ngIf="!isUpdateAppoint">
                                     <div class="select2-bootstrap-prepend">
                                        <!-- <select [ngModelOptions]="{standalone:true}"
                                                 name="appointment"
@@ -239,6 +305,29 @@
                                         <p-dropdown  placeholder="select appointment" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="apt"
                                                      [options]="patient.pastAppointments"
                                                      [(ngModel)]="medicationModel.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-7 pdng-lr-5" *ngIf="isUpdateAppoint">
+                                    <div class="select2-bootstrap-prepend">
+                                        <!-- <select [ngModelOptions]="{standalone:true}"
+                                                 name="appointment"
+                                                 id="appointmentId"
+                                                 [(ngModel)]="medicationModel.appointmentId"
+                                                 class="form-control">
+                                             <option value="-1">-&#45;&#45; Select Appointment -&#45;&#45;</option>
+                                             <option
+                                                     *ngFor="let pastApp of pastAppointments"
+                                                     [value]="pastApp.id">
+                                                 {{pastApp.appointmentId}},
+                                                 {{"Schedule Date:"+pastApp.scheduleDate}}
+                                             </option>
+                                         </select>-->
+                                        <p-dropdown  placeholder="select appointment" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="apt"
+                                                     [options]="patient.pastAppointments"
+                                                     [(ngModel)]="medicationModel.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true" [disabled]="medicationModel.appointmentId">
                                         </p-dropdown>
                                     </div>
                                 </div>
@@ -289,7 +378,7 @@
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">Indication</label>
                                 <div class="col-md-7 select pdng-lr-5">
                                     <input type="text" class="form-control"
-                                           name="indication"
+                                           name="indication" placeholder="e.g muscle"
                                            id="indicationId"
                                            [(ngModel)]="medicationModel.indication">
                                 </div>
@@ -532,7 +621,7 @@
                                 </label>
                                 <div class="col-md-7 select pdng-lr-5">
                                     <input type="text"
-                                           class="form-control"
+                                           class="form-control" placeholder="e.g 2"
                                            name="frequency"
                                            id="frequencyId"
                                            [(ngModel)]="medicationModel.frequency">
@@ -546,7 +635,7 @@
                                 <div class="col-md-7 select pdng-lr-5">
                                     <input type="text"
                                            class="form-control"
-                                           name="duration"
+                                           name="duration"  placeholder="e.g 2"
                                            id="durationId"
                                            [(ngModel)]="medicationModel.duration">
                                 </div>
@@ -567,7 +656,7 @@
                                 <label class="col-md-4 pdng-lr-5 control-label txt-size">Sig</label>
                                 <div class="col-md-7 select pdng-lr-5">
                                 <input class="form-control" id="pharmacyNoteId" name="pharmacyNote"
-                                          rows="3"
+                                          rows="3" placeholder="e.g www.www.com"
                                           [(ngModel)]="medicationModel.pharmacyNote">
                                 </div>
                             </div>
@@ -576,7 +665,7 @@
                                 <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes</label>
                                 <div class="col-md-7 select pdng-lr-5">
                                 <textarea class="form-control"
-                                          rows="3" id="noteId" name="note"
+                                          rows="3" id="noteId" name="note" placeholder="e.g Sample"
                                           [(ngModel)]="medicationModel.note">
                                 </textarea>
                                 </div>

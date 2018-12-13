@@ -122,6 +122,7 @@ import {DataService} from "./services/DataService";
 
 import {ModalModule} from "ngx-bootstrap";
 import {FileUploadModule} from 'primeng/fileupload';
+import {DialogModule} from 'primeng/dialog';
 
 import {
     CheckboxModule, DataTableModule, MegaMenuModule, OverlayPanelModule, PaginatorModule, PanelMenuModule,
@@ -237,7 +238,8 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         CKEditorModule,
         ChartModule,
         FileUploadModule,
-        GalleriaModule
+        GalleriaModule,
+        DialogModule
     ],
     declarations: [
         // App Components

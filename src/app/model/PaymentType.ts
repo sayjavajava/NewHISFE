@@ -4,21 +4,20 @@ export class PaymentType {
     id: number;
     paymentTitle: string;
     paymentGlAccount:GeneralLedgerModel = new GeneralLedgerModel();
-    paymentGlAccountId: number;
-    paymentGlAccountName: string;
     paymentMode: string;
     paymentPurpose: string;
     active: boolean;
-    serviceCharges: string;
-    maxCardCharges: string;
-    payCredit: boolean;
+    serviceCharges: number;
+    maxCardCharges: number;
+    payCredit:string='';
     bankGlCharges:GeneralLedgerModel = new GeneralLedgerModel();
-    isPatient: boolean;
-
+    isPatient: boolean=true;
+    patient:boolean=false;
+    patientRefunds:any[];
+    staffPayment:any[];
+    ReceiptPaymentType:any[];
     constructor() {
 
     }
 
-    paymentType() {
-    }
 }

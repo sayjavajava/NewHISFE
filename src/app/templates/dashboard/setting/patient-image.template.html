@@ -126,7 +126,7 @@
                             <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span class="required" aria-required="true">*</span></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text"  name="name" class="form-control"  placeholder="e.g CITI Scan"
+                                    <input type="text" id="name" name="name" class="form-control"  placeholder="e.g CITI Scan" required
                                            [(ngModel)]="patientImageSetupTemplate.name" #name="ngModel">
                                 </div>
                                 <span *ngIf="name.invalid && name.touched" class="col-md-9 select pdng-lr-5 text-danger">

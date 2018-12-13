@@ -78,6 +78,12 @@ export class VitalSetupComponent {
                 this.notificationService.warn('Please enter Unit');
                 return;
             }
+
+            if (this.vitalSetupTemplate.unit == "" || this.vitalSetupTemplate.unit == null) {
+                this.notificationService.warn('Please enter Unit');
+                return;
+            }
+
             this.requestsService.postRequest(AppConstants.VITALS_CONFIGURATION_SAVE , this.vitalSetupTemplate)
                 .subscribe(
                     (response: Response) => {
