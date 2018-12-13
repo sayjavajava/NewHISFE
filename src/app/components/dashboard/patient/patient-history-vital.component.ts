@@ -285,7 +285,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             return;
         }
 
-        debugger;
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
             document.getElementById('name').focus();
@@ -308,7 +307,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             document.getElementById('name').focus();
             return;
         }
-        debugger;
+        
         this.vitalSetupTemplate.name = this.selectedstr.toString();
 
         if (localStorage.getItem(btoa('access_token'))) {
@@ -348,9 +347,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
 
         this.isUpdate = true;
 
-
-        debugger;
-
         if (Id > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.getRequest(AppConstants.VITAL_GET_URL + Id)
@@ -358,11 +354,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         response => {
                             if (response['responseCode'] === 'SUCCESS') {
                                 this.vitalSetupTemplate = response['responseData'];
-                                debugger;
                                 this.selectedPatientId=this.vitalSetupTemplate.patient.id;
-
-
-                                debugger;
                             }
                         },
                         (error: any) => {
@@ -402,7 +394,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         }
                     },
                     (error: any) => {
-
                         this.notificationService.error(error.error.error)
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
@@ -421,8 +412,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             return;
         }
 
-
-
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
             document.getElementById('name').focus();
@@ -434,7 +423,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             document.getElementById('currentValueId').focus();
             return;
         }
-
 
         if (this.vitalSetupTemplate.standardValue == '' || this.vitalSetupTemplate.standardValue == null) {
             this.notificationService.warn('Please Select Vital');
@@ -479,7 +467,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
 
     }
 
-
     /*getPaginatedPatientVitalList(page:number) {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL
@@ -502,9 +489,8 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
         }
     }*/
 
-
     private getPaginatedPatientVitalList(page: number) {
-        debugger;
+        
         //   this.selectedPatientId=this.vitalSetupTemplate.patientId;
 
         this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)
