@@ -191,11 +191,11 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 /*   '<br/>' + '' + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,*/
                                 start: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                                 end: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
-                                /*color: {
-                                    primary: apt.color,
-                                    secondary: apt.color
-                                },*/
-                                colorHash: apt.color,
+                                color: {
+                                    primary: apt.hashColor,
+                                    secondary: apt.hashColor
+                                },
+                              /*  colorHash: apt.colo,*/
                                 draggable: true,
                                 notes: apt.notes,
                                 // patientId: apt.patientId,

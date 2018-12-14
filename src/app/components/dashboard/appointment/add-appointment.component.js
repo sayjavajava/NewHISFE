@@ -198,11 +198,11 @@ var AddAppointmentComponent = (function () {
                         /*   '<br/>' + '' + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,*/
                         start: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                         end: date_fns_1.addMinutes(date_fns_1.startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
-                        /*color: {
-                            primary: apt.color,
-                            secondary: apt.color
-                        },*/
-                        colorHash: apt.color,
+                        color: {
+                            primary: apt.hashColor,
+                            secondary: apt.hashColor
+                        },
+                        /*  colorHash: apt.colo,*/
                         draggable: true,
                         notes: apt.notes,
                         // patientId: apt.patientId,
