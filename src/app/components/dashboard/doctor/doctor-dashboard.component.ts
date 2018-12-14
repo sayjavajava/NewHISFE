@@ -41,7 +41,6 @@ export class DoctorDashboardComponent {
         this.showDashboard();
 
     };
-
     ngOnInit() {
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
@@ -55,14 +54,21 @@ export class DoctorDashboardComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                         let dashboardListTemp = response['responseData'];
-                        this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" || x.status=="CHECK_IN" );
+                        /*this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" || x.status=="CHECK_IN" ); un-comment 2 lines for
+                        this.dashboardListModified = this.dashboardList;*/
+                        this.dashboardList = dashboardListTemp;
                         this.dashboardListModified = this.dashboardList;
-                        this.loading=false;
+                        this.loading =false
+                    }else {
+                      this.loading =false
+
                     }
                 },
                 (error: any) => {
-                    this.error = error.error.error;
-                    this.loading = false;
+                    setTimeout(function(){ this.loading=false }, 3000);
+                    this.loading=false;
+                    this.error = error.error.error
+
                 })
     }
 
@@ -98,13 +104,13 @@ export class DoctorDashboardComponent {
     }
 
     getFilteredBranch(value: any) {
-
-        this.dashboardListModified = this.dashboardList;
-        if (value == 'All') {
+       this.dashboardListModified =this.dashboardList;
+        if(value == 'All'){
             this.dashboardListModified = this.dashboardList;
-        } else {
+        }else {
             const arr = this.dashboardListModified.filter(x => x.branch === value);
             this.dashboardListModified = arr;
+
         }
     }
 

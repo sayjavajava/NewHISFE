@@ -84,7 +84,8 @@ export class StatusesComponent implements OnInit {
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'STATUS_SUC_01') {
-                            this.hisCoreUtilService.hidePopupWithCloseButtonId('stClose');
+                            this.hisCoreUtilService.hidePopupWithCloseButtonId('closeButton');
+                           // this.addModal.hide();
                             this.getAllStatusesFromServer(this.currPage);
                             this.notificationService.success(response['responseMessage'], 'Status');
 

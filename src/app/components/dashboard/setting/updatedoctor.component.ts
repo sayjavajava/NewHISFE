@@ -246,7 +246,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
             let sc = new ServiceComission(item.value,ser.target.checked,'');
             this.serviceComission.push(sc)
         }else{
-            this.serviceComission.splice(this.serviceComission.findIndex(it => it.id = item.id),1)
+                this.serviceComission.splice(this.serviceComission.findIndex(it => it.id = item.id),1)
             console.log('fatt..'+ this.serviceComission.length);
         }
     }

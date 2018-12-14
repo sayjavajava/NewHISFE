@@ -179,19 +179,22 @@
                                                             <div class="form-group hr mrgn-btm08">
                                                                 <label class="col-md-3 control-label">Scheduled:</label>
                                                                 <div class="col-md-9 col-xs-12">
-                                                                    <div class=" col-md-12 col-xs-12 pull-left no-padding">
+                                                                    <!--<div class=" col-md-12 col-xs-12 pull-left no-padding">
                                                                         <mwl-demo-utils-date-time-picker
                                                                                 [(ngModel)]="modalData?.event.start"
                                                                                 [ngModelOptions]="{standalone:true}"
                                                                                 (ngModelChange)="refresh.next()"
                                                                                 placeholder="Not set">
                                                                         </mwl-demo-utils-date-time-picker>
-
-                                                                    </div>
+[(ngModel)]="dateSchedule"
+                                                                    </div>-->
+                                                                    <angular2-date-picker
+                                                                            style="margin-left: 0px !important; background-color: red !important"
+                                                                            class="schdld-clndr" [(ngModel)]="modalData?.event.start"
+                                                                            [ngModelOptions]="{standalone:true}"
+                                                                            [settings]="settings"></angular2-date-picker>
                                                                 </div>
-                                                                <!--<div class="col-md-9 col-xs-12">
-                                                                    <angular2-date-picker style="margin-left: 0px !important; background-color: red !important" class="schdld-clndr" [(ngModel)]="dateSchedule" [ngModelOptions]="{standalone:true}" [settings]="settings"></angular2-date-picker>
-                                                                </div>-->
+
                                                             </div>
                                                             <div class="form-group hr mrgn-btm08">
                                                                 <label class="col-md-3 control-label">Notes:</label>
@@ -314,6 +317,7 @@
                                                                   </span>-->
                                                                 </div>
                                                             </div>
+
                                                             <!--<div class="form-group hr">
                                                                 <label class="control-label col-md-4">Color
                                                                 </label>
@@ -803,6 +807,9 @@
                                                                            [(ngModel)]="event.newPatient"
                                                                            (keyup)="refresh.next()">
                                                             </div>
+
+
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -818,6 +825,9 @@
                                                                             [(ngModel)]="event.cellPhone"
                                                                             (keyup)="refresh.next()">
 
+
+                                                                </div>
+                                                            </div>
 
                                                             </div>
                                                         </div>
@@ -847,7 +857,7 @@
                                                                     </select>-->
 
                                                                     <p-dropdown placeholder="Select Patient"
-                                                                                [autoWidth]="false" [required]="true"
+                                                                                [autoWidth]="false" [required]="newPatientValidaor" [disabled]="patientDisable"
                                                                                 [(ngModel)]="event.patientId"
                                                                                 name="patientDrp"
                                                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
@@ -1256,6 +1266,7 @@
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

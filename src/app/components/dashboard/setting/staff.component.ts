@@ -21,6 +21,7 @@ export class StaffComponent implements OnInit {
     prePage: number;
     currPage: number;
     pages: number[] = [];
+    public loading = false;
     data: any[];
     error: any;
     pageNo: number = 0;
@@ -108,28 +109,22 @@ export class StaffComponent implements OnInit {
     }
 
     getUserFromServer() {
-       /* if (page > 0) {
-            page = page;
-
-        }*/
+        this.loading =true;
         this.requestService.getRequest(
         //    AppConstants.FETCH_ALL_USERS + page)
+
                  AppConstants.FETCH_ALL_USERS)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'USER_SUC_01') {
-                       /* this.nextPage = response['responseData']['nextPage'];
-                        this.prePage = response['responseData']['prePage'];
-                        this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];*/
                         this.data = response['responseData'];
-                      //  let data = response['responseData']['data'];
-
-
+                        this.loading =false;
                     }
                 },
                 (error: any) => {
                     //  this.HISUtilService.tokenExpired(error.error.error);
+                    setTimeout(function(){ this.loading=true }, 3000);
+                    this.loading=false;
                     this.error = error.error.error;
                 }
             );

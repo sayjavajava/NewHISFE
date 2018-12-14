@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {AppConstants} from "../../../utils/app.constants";
 import {SearchBranch} from "../../../model/searchBranch";
+import {OverlayPanel} from "primeng/primeng";
 
 @Component({
     selector: "branch-component",
@@ -28,10 +29,7 @@ export class BranchComponent implements OnInit {
     responseUser: any[];
     defaultSelectedBranch: any;
     doctorsInBranch: any = [];
-
     cols: any[];
-
-
     constructor(private requestService: RequestsService, private router: Router,
                 private notificationService: NotificationService, private fb: FormBuilder,
                 private matDialog: MatDialog, private confirmationDialogService: ConformationDialogService) {
@@ -53,9 +51,9 @@ export class BranchComponent implements OnInit {
         // this.getBranchFromServer(0);
         this.cols = [
             {field: "name", header: "Name"},
-            {field: "doctorsList", header: "Doctors"},
             {field: 'country', header: 'Country'},
             {field: 'city', header: 'City'},
+            {field: "doctorsList", header: "Doctors"},
             {field: "rooms", header: "Rooms"},
             {field: "action", header: "Action"}
         ];
@@ -78,7 +76,7 @@ export class BranchComponent implements OnInit {
         // console.log(this.branchesList);
     }
 
-    getbranchesWithDoctors(id: number) {
+    getbranchesWithDoctors(id: number, overlaypanel?: OverlayPanel,event?:any) {
         this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTORS + id)
             .subscribe(
                 (response: Response) => {
@@ -86,13 +84,25 @@ export class BranchComponent implements OnInit {
                         this.doctorsInBranch = response["responseData"];
                         // console.log("doctor:" + this.doctorsInBranch);
                         //    this.defaultSelectedBranch= this.branchesList[0].id;
+
                     }
+                    overlaypanel.toggle(event);
                     //     this.searchForm.controls['branch'].setValue(this.defaultSelectedBranch,{onlySelf: true});
                 },
                 (error: any) => {
                     this.error = error.error.error;
                 })
     }
+    /*getDoctorsWithBranch(id?: number, overlaypanel?: OverlayPanel,event?:any) {
+        this.branchesInDepartment =[];
+        this.branchesListResponse = this.data.filter((x:any)=>x.id == id);
+        this.branchesListResponse.forEach((x:any)=>{
+            if(x.listOfBranches != null){
+                this.branchesInDepartment = x.listOfBranches;
+            }
+        });
+        overlaypanel.toggle(event);
+    }*/
 
     allDepartments() {
         this.requestService.getRequest(AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_URI)

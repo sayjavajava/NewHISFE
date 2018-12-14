@@ -172,8 +172,11 @@ export class MedicalServiceComponent implements OnInit {
                         this.loading = false;
                     }
 
-                }
-            )
+                },(error: any) => {
+                    setTimeout(function(){ this.loading = true}, 3000);
+                    this.loading= false;
+                })
+
     }
 
     organizationData() {

@@ -43,20 +43,20 @@ var MenuComponent = (function () {
                     itemsList_1.push(ob2);
                     gInd_1 = new items_1.items('Genaral', '', 'fa fa-cog', itemsList_1);
                 }
-                if (x.indicatior == 'S') {
-                    var ob3 = new items_1.items(x.name, x.routeUrl);
-                    gList_1.push(ob3);
-                    sInd_1 = new items_1.items('Other', '', '', gList_1);
-                }
                 if (x.indicatior == 'C') {
                     var ob3 = new items_1.items(x.name, x.routeUrl);
+                    gList_1.push(ob3);
+                    sInd_1 = new items_1.items('Clinical', '', '', gList_1);
+                }
+                if (x.indicatior == 'A') {
+                    var ob3 = new items_1.items(x.name, x.routeUrl);
                     mList_1.push(ob3);
-                    mInd_1 = new items_1.items('Content', '', 'fa fa-code-fork', mList_1);
+                    mInd_1 = new items_1.items('Administration', '', 'fa fa-code-fork', mList_1);
                 }
             });
             this.items.push(gInd_1);
-            this.items.push(mInd_1);
             this.items.push(sInd_1);
+            this.items.push(mInd_1);
         }
         this.titleService.setTitle('HIS | Dashboard');
         var userType = atob(localStorage.getItem(btoa('user_type')));

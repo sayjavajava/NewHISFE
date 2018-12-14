@@ -46,14 +46,14 @@
                                     <label class="control-label col-md-3">Branch
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-9">   
                                         <p-multiSelect
                                                 placeholder="select branches"
                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                [options]="ms.branches" name="brList"
-                                                [(ngModel)]="selectedBranches" optionLabel="name"
+                                                [options]="branchesList" name="brList"
+                                                [(ngModel)]="selectedBranches"
                                                 (onChange)="onBranchSelection()"
-                                                [panelStyle]="{minWidth:'12em'}">
+                                                >
                                         </p-multiSelect>
                                     </div>
                                 </div>
@@ -65,10 +65,11 @@
                                         <p-multiSelect
                                                 placeholder="select department"
                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                (onChange)="changeSelectedCheckedDepartment()" optionLabel="name"
+                                                (onChange)="changeSelectedCheckedDepartment()" name="dpList"
                                                 [options]="ms.departments" [(ngModel)]="selectedDepartments"
-                                                name="dptList" [panelStyle]="{minWidth:'12em'}">
+                                               >
                                         </p-multiSelect>
+                                       <!-- [(ngModel)]="selectedDepartments"-->
 
                                     </div>
                                 </div>

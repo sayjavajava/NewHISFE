@@ -107,7 +107,7 @@ var AppConstants = (function () {
     AppConstants.TIMEZONE_FETCH_URL = '/setting/organization/timezone';
     AppConstants.FETCH_ALL_ORGANIZATION_URL_PAGINATED = '/setting/organization/';
     AppConstants.FETCH_ALL_ORGANIZATION_URL = '/setting/organization/all';
-    AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organinzation/get/';
+    AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
     AppConstants.FETCH_ORG_ACCOUNT_URL = '/setting/organization/account';
     AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
     ////////////////////// Patient URLs ///////////////////////////////
@@ -300,6 +300,10 @@ var AppConstants = (function () {
     AppConstants.FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
     /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/ /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
     AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
+    /*****************************REPORT PRINT*************************************/
+    AppConstants.PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';
+    AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
+    AppConstants.PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

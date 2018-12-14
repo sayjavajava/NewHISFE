@@ -137,13 +137,14 @@
                 </button>
             </a></div>
         </div>
-        <div class="hr">
-            <!--<ngx-loading [show]="loading"></ngx-loading>-->
+        <div class="col-md-12 col-xs-12">
+
+            <ngx-loading [show]="loading"></ngx-loading>
             <p-table #dt [columns]="cols" [value]="data" [paginator]="true"  [rows]="5">
                 <ng-template pTemplate="caption">
                     <div style="text-align: right">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Name/Primary Branch/Email/userName " (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        <input type="text" pInputText size="50" placeholder="name,primary,branch,email,userName " (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>
                 </ng-template>
                 <ng-template sortable="true" pTemplate="header" let-columns>
@@ -153,6 +154,7 @@
                             <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                         </div>
                     </ng-template>-->
+
                     <tr>
                         <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
                             {{col.header}}
