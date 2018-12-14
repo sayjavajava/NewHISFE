@@ -157,7 +157,7 @@ var PatientHistoryComponent = (function () {
                         var pair = { label: vital.name, value: vital.name };
                         _this.searchedVitalAnyListModified.push(pair);
                     }
-                    _this.selectedstr = _this.searchedVitalAnyListModified[0].value;
+                    // this.selectedstr = this.searchedVitalAnyListModified[0].value;
                     // console.log("Length : " + this.prefixTemplateList.length);
                 }
                 else {
