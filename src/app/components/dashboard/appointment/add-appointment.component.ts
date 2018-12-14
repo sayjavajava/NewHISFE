@@ -73,7 +73,7 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
     filteredServices: any;
     brFiltered: Branch[] = [];
     doctorsList: any[];
-    patients: any = [];
+    patients: any[] = [];
     selectedType: any = [];
     updateSelectedType: any = [];
     appointmentType: any = [];
@@ -95,6 +95,8 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         action: string;
         event: CalendarEvent;
     };
+    newPatientValidaor : boolean = true;
+    patientDisable:boolean =false;
     isRecurringFlag :boolean = false;
     lastAppointmentRecurring : Date =new Date();
     fastAppointmentRecurring : Date =new Date();
@@ -118,13 +120,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
 
     ];
 
-    Patient = [
-        {id: 1, name: 'noumi'},
-        {id: 2, name: 'tariq24'},
-        {id: 3, name: 'usman23'},
-        {id: 4, name: 'test45'},
-
-    ];
 
     ngAfterViewInit(): void {
         this.getAllAppointments();
@@ -148,10 +143,10 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 '<table width="236" border="0">\n' +
                                 '\n' +
                                 '<tr class="" width="236">\n' +
-                                '    <td style="width:20%;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
-                                '    <td style="width:80%;"><h2>Patient Name</h2></td>\n' +
+                                '    <td style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
+                                '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>'+ apt.patient +'</h2></td>\n' +
                                 '</tr>\n' +
-                            '  </table>\n' +
+                                '  </table>\n' +
                                 '            </div>\n' +
                                 /* '        </div> ' +*/
                                 '<div class="bc-bg">\n' +
@@ -162,12 +157,12 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 '                    <td style="width:70%">\n'+apt.branchName +'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Patient Name</td>\n' +
+                                '                    <td style="width:30%">Patient</td>\n' +
                                 '                    <td style="width:70%">\n'+apt.patient +'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Duration</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.duration +'</td>\n' +
+                                '                    <td style="width:30%">Schedule Date</td>\n' +
+                                '                    <td style="width:70%">\n'+apt.scheduleDate +'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
                                 '                    <td style="width:30%">Doctor</td>\n' +
@@ -178,12 +173,12 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Service</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
+                                '                    <td style="width:30%">Duration</td>\n' +
+                                '                    <td style="width:70%">\n'+apt.duration +'min'+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Service</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
+                                '                    <td style="width:30%">Status</td>\n' +
+                                '                    <td style="width:70%">\n'+apt.status+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
                                 '                    <td style="width:30%">Room</td>\n' +
@@ -196,11 +191,11 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 /*   '<br/>' + '' + apt.scheduleDateAndTime + '<br/>' + " " + apt.branchName,*/
                                 start: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentConvertedTime),
                                 end: addMinutes(startOfDay(new Date(apt.scheduleDate)), apt.appointmentEndedConvertedTime),
-                                /*color: {
-                                    primary: apt.color,
-                                    secondary: apt.color
-                                },*/
-                                colorHash: apt.color,
+                                color: {
+                                    primary: apt.hashColor,
+                                    secondary: apt.hashColor
+                                },
+                              /*  colorHash: apt.colo,*/
                                 draggable: true,
                                 notes: apt.notes,
                                 // patientId: apt.patientId,
@@ -299,7 +294,7 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         this.maxNo =false;
         this.amt =0;
         if(this.Type.length !=0)
-        this.Type.map((x:any)=>{x.checked = false});
+            this.Type.map((x:any)=>{x.checked = false});
         this.addModal.hide();
 
     }
@@ -319,10 +314,14 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         if (this.stateOfPatientBox) {
             this.patientChecked = true;
             this.newPatient = true;
+            this.newPatientValidaor =false;
+            this.patientDisable = true;
         }
         else {
             this.patientChecked = false;
             this.newPatient = false;
+            this.newPatientValidaor =true;
+            this.patientDisable = false;
         }
     }
 
@@ -668,9 +667,9 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
     }
 
     selectServices(item: any) {
+        this.filteredServices = [];
         let list = this.servicesListWithDoctors.filter((x: any) => x.doctorId == item.value);
         this.filteredServices = [...list];
-
     }
     isRecurring(){
         this.isRecurringFlag =!this.isRecurringFlag;
@@ -738,9 +737,10 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
 
     updateAppointment(event: any) {
         var self = this;
+        console.log('up apptment'+ event.start)
         let obj = new Appointment(event.id,event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
             event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
-            event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId);
+            event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId,this.stateOfPatientBox,event.start);
         this.requestsService.putRequest(AppConstants.UPDATE_APPOINTMENT + event.id,
             obj).subscribe(
             (response: Response) => {

@@ -59,7 +59,7 @@
                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
                                                 [options]="ms.branches" name="brList"
                                                 [(ngModel)]="selectedBranches" optionLabel="name"
-                                                (onChange)="onBranchSelection()"
+                                                (onChange)="onBranchSelection($event)"
                                                 [panelStyle]="{minWidth:'12em'}">
                                         </p-multiSelect>
                                     </div>
@@ -86,7 +86,7 @@
                                         <p-multiSelect
                                                 placeholder="select department"
                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                (onChange)="changeSelectedCheckedDepartment()" optionLabel="name"
+                                                optionLabel="name"
                                                 [options]="ms.departments" [(ngModel)]="selectedDepartments"
                                                 name="dptList" [panelStyle]="{minWidth:'12em'}">
 

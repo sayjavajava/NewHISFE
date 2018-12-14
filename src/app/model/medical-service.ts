@@ -23,6 +23,7 @@ export class MedicalService {
     hasChild: boolean = false;
     value: number = 0;
     label: string = '';
+    selectedBranchesMS: number[]=[];
 
     constructor() {
     }

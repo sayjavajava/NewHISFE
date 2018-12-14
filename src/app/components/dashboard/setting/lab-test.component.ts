@@ -18,7 +18,7 @@ export class LabTestComponent {
     id: number;
     cols: any;
     labTestDataImport: File = null;
-
+    code: any
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -32,6 +32,7 @@ export class LabTestComponent {
             this.getAllTestSpecimanList();
         }
         this.cols = [
+            { field: 'specimanId', header: 'Lab Code'},
             { field: 'testCode', header: 'Test Code' },
             { field: 'testName', header: 'Test Name' },
             { field: 'minNormalRange', header: 'MIN Range' },
@@ -51,6 +52,8 @@ export class LabTestComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.data = response['responseData'];
+                        debugger;
+                        console.log(this.data);
                        // this.cars = response['responseData'];
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Lab Test Specimen Configurations');
@@ -68,28 +71,56 @@ export class LabTestComponent {
 
     editLabSpeciman(formData: NgForm) {
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.postRequest(AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE , this.labTestSpeciman)
-                .subscribe(
-                    (response: Response) => {
-                        if (response['responseCode'] === 'SUCCESS') {
-                            this.data = response['responseData'];
-                            document.getElementById('close-btn-Prefix').click();
-                            this.notificationService.success(response['responseMessage'], 'Lab Test Specimen');
-                        } else {
-                            this.notificationService.error(response['responseMessage'], 'Lab Test Specimen');
-                        }
-                    },
-                    (error: any) => {
-                        this.HISUtilService.tokenExpired(error.error.error);
+
+
+                if (this.labTestSpeciman.testName == null || this.labTestSpeciman.testName.trim().length <= 0) {
+                    this.notificationService.error("Please provide Test name");
+                    return;
+                }
+                if (this.labTestSpeciman.maxNormalRange == "" || this.labTestSpeciman.maxNormalRange == null) {
+
+                        this.notificationService.error('Please provide Max Normal Range');
+
+                        return;
                     }
-                );
+
+                if (this.labTestSpeciman.minNormalRange == "" || this.labTestSpeciman.minNormalRange == null) {
+
+                    this.notificationService.error('Please provide Min Normal Range');
+
+                    return;
+                }
+                if (this.labTestSpeciman.unit == "" || this.labTestSpeciman.unit == null) {
+
+                    this.notificationService.error('Please provide Unit');
+
+                    return;
+                }
+                this.requestsService.postRequest(AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE, this.labTestSpeciman)
+                    .subscribe(
+                        (response: Response) => {
+                            if (response['responseCode'] === 'SUCCESS') {
+                                this.data = response['responseData'];
+                                document.getElementById('close-btn-Prefix').click();
+                                this.notificationService.success(response['responseMessage'], 'Lab Test Specimen');
+                            } else {
+                                this.notificationService.error(response['responseMessage'], 'Lab Test Specimen');
+                            }
+                        },
+                        (error: any) => {
+                            this.HISUtilService.tokenExpired(error.error.error);
+                        }
+                    );
+
+
         } else {
             this.router.navigate(['/login']);
         }
+
     }
 
 
-    edit(editConfiguration: any){
+    editLab(editConfiguration: any){
         if(editConfiguration){
             this.labTestSpeciman = editConfiguration;
         } else {
@@ -127,5 +158,58 @@ export class LabTestComponent {
         }
     }
 
+
+
+    deleteLab(Id: number) {
+        if (window.localStorage.getItem(btoa('access_token'))) {
+            if (!confirm('Are Your Source You Want To Delete')) return;
+            this.requestsService.deleteRequest(
+                AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_DELETE + Id)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success('LAB Test Speciman has been Deleted Successfully');
+
+                            this.getAllTestSpecimanList();
+                        } else {
+
+                            this.notificationService.error('ERROR', 'LAB Test Speciman is not deleted ');
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error(error.error, error)
+                    }
+                );
+        } else {
+            this.router.navigate(['/login']);
+        }
+    }
+
+    addPopupClick(){
+        this.labTestSpeciman = new LabTestSpecimanModel();
+    }
+    updateLab() {
+
+        this.requestsService.putRequest(
+            AppConstants.LAB_TEST_UPDATE_URL,
+            this.labTestSpeciman)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.notificationService.success('Lab Test Speciman has been Updated Successfully');
+                        this.getAllTestSpecimanList();
+                        document.getElementById('close-btn-Prefix').click();
+                     //   this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                    } else {
+                        this.notificationService.error('Lab Test Speciman is not Updated ');
+                    }
+                },
+                (error: any) => {
+                    //console.log(error.json())
+                    this.notificationService.error(error.error.error);
+
+                }
+            );
+    }
 
 }

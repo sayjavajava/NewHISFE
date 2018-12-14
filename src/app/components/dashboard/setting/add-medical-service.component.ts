@@ -71,10 +71,13 @@ export class AddMedicalServiceComponent implements OnInit {
             );
     }
 
-    onBranchSelection() {
-
+    onBranchSelection(branchObj :any) {
+        if(this.selectedBranches.length >0)
+        this.selectedBranches.forEach((x:any)=>{this.ms.selectedBranches = x.id})
+       // this.ms.selectedBranches.push(branchObj.id);
         this.ms.selectedDepartments = [];
         this.ms.departments = [];
+        if(this.ms.selectedBranches.length != 0){
         this.requestsService.getRequest(
             AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.ms.selectedBranches)
             .subscribe(
@@ -93,7 +96,7 @@ export class AddMedicalServiceComponent implements OnInit {
                     this.HISUtilService.tokenExpired(error.error.error);
                 }
             );
-    }
+    }}
 
 
     allorganizationData() {
@@ -139,7 +142,7 @@ export class AddMedicalServiceComponent implements OnInit {
                 }
             }
 
-            if (foundBranch <= 0) {
+            if (this.ms.selectedBranches.length <= 0) {
                 this.notificationService.warn('Please select at least one branch.');
                 document.getElementById('branchId').focus();
                 return;
@@ -152,7 +155,7 @@ export class AddMedicalServiceComponent implements OnInit {
                 }
             }
 
-            if (foundDepartment <= 0) {
+            if (this.selectedDepartments.length <= 0) {
                 this.notificationService.warn('Please select at least one Department.');
                 document.getElementById('departmentId').focus();
                 return;
@@ -164,6 +167,7 @@ export class AddMedicalServiceComponent implements OnInit {
                 return;
             }
 
+           this.selectedBranches.forEach((x:any)=>{this.ms.selectedBranchesMS.push(x.id)});
             this.requestsService.postRequest(
                 AppConstants.SAVE_MEDICAL_SERVICES_URL,
                 this.ms)

@@ -136,7 +136,7 @@ export class ReceiptListingComponent {
              (response: Response)=>{
                  if (response["responseCode"] === "PATIENT_SUC_11")
                  {
-                     this.patientList = response["responseData"].data;
+                     this.patientList = response["responseData"];
                  }
              }
           /*   , function (error) {

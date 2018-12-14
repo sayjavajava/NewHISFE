@@ -19,7 +19,10 @@ export class EditMedicalServiceComponent implements OnInit {
     selectedBranches: any[] = [];
     selectedDepartments: any[] = [];
     organizationDataList: any;
-    currency:string;
+    currency: string;
+    branchesList: any = [];
+    error: any;
+
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -30,6 +33,8 @@ export class EditMedicalServiceComponent implements OnInit {
 
     ngOnInit() {
         this.ms.tax.id = -1;
+        this.selectedDepartments = [];
+        this.selectedBranches = [];
         this.activatedRoute.params.subscribe(
             params => {
                 this.requestsService.getRequest(
@@ -38,23 +43,28 @@ export class EditMedicalServiceComponent implements OnInit {
                     response => {
                         if (response['responseCode'] === 'MED_SER_SUC_01') {
                             this.ms = response['responseData'];
-                            console.log('total branchs:' + JSON.stringify(this.ms.branches));
                             this.selectedBranches = [];
-                            this.selectedDepartments = [];
-                            for (let checked of this.ms.checkedBranches) {
+                            // this.selectedDepartments = [];
+                            /*for (let checked of this.ms.checkedBranches) {
                                 this.selectedBranches.push(checked.id);
-                            }
-                            console.log(this.selectedBranches)
+                            }*/
+                            this.ms.checkedBranches.forEach((x: any) => {
+                                this.selectedBranches.push(x.id);
+                            })
 
-                            for (let checked of this.ms.checkedDepartments) {
+
+                            /*for (let checked of this.ms.checkedDepartments) {
                                 this.selectedDepartments.push(checked.id);
-                            }
-                            console.log(this.selectedDepartments);
+                            }*/
+                            this.ms.checkedDepartments.forEach((x: any) => {
+                                this.selectedDepartments.push(x.id);
+                            })
 
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Medical Service Policies');
                             this.router.navigate(['404-not-found'])
                         }
+                        this.allBranches();
                     },
                     (error: any) => {
 
@@ -62,6 +72,20 @@ export class EditMedicalServiceComponent implements OnInit {
             });
         this.allorganizationData();
         this.getTaxesFromServer();
+    }
+
+    allBranches() {
+        this.requestsService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'BR_SUC_01') {
+                        this.branchesList = response['responseData'];
+                    }
+                    // this.userForm.controls['primaryBranch'].setValue(this.branchesList[0].id)
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
     }
 
     getTaxesFromServer() {
@@ -89,8 +113,8 @@ export class EditMedicalServiceComponent implements OnInit {
                     if (response['responseCode'] === 'ORG_SUC_01') {
 
                         this.organizationDataList = response['responseData'];
-                        this.currency=this.organizationDataList.currency;
-                        console.log(this.organizationDataList);
+                        this.currency = this.organizationDataList.currency;
+                     //   console.log(this.organizationDataList);
                     }
                 },
                 (error: any) => {

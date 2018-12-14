@@ -246,7 +246,9 @@ export class AppConstants {
     public static FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     public static LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
     public static IMPORT_LAB_TEST_LIST_TO_SERVER = '/labTest/importRecords';
-
+  // public static DRUG_DELETE_URI = '/setting/drug/delete?drugId=';
+    public static LAB_TEST_SPECIMAN_CONFIGURATION_DELETE = '/labTest/delete?specimanId=';
+    public static LAB_TEST_UPDATE_URL = '/labTest/update';
     ///////////////////// Patient Group URLs ////////////////////////////////////////
     public static PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/';///all by paginated , zero means first page , 1 means second page
     public static PATIENT_GROUP_DELETE_URI = '/patient/group/delete?patientGroupId=';
@@ -355,7 +357,7 @@ export class AppConstants {
     public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
     public static FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
     /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*//*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
-    public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
+    public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get?orderId=';
 
     /*****************************REPORT PRINT*************************************/
     public static PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';

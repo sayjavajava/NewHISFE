@@ -137,7 +137,6 @@ export class AddStaffComponent implements OnInit {
     }
     addComission(service :any,item ?:any){
      // serviceComission:{id:number,checked:boolean,comission:''}[];
-
         let list = this.serviceComission.filter((x:any)=>x.id == item.value);
         if(list !=null){
          list.forEach(x=>{
@@ -182,12 +181,18 @@ export class AddStaffComponent implements OnInit {
     }
 
     sortServices(branchObj:any){
-        let brId =  branchObj.value;
+        //uncomment and check branches from server to filter service by  visit branches
+       /* let brId =  branchObj.value;
+        console.log(this.allServicesList)
         let sortedList = this.allServicesList.filter((x:any)=>{
-            if(x.branches.length >0)
-            x.branches.id ==brId});
-        console.log('servicesList' + sortedList[0]);
-    }
+            if(x.branches !=null || x.branches != "undefined"){
+                x.branches.id ==brId
+
+            }
+        })*/
+            }
+
+
 
     allServices() {
         this.requestsService.getRequest(
