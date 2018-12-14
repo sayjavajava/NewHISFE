@@ -198,10 +198,10 @@ export class PaymentTypeComponent implements OnInit {
         }else{
 
         }
-        this.bankGlDiv = false;
+     /*   this.bankGlDiv = false;
         this.maxCardChargesDiv = false;
         this.payCreditDiv = false;
-        this.serviceChargesDiv = false;
+        this.serviceChargesDiv = false;*/
 
     }
 
@@ -241,9 +241,6 @@ export class PaymentTypeComponent implements OnInit {
 
         }
 
-
-        /*var isPatient=objPaymentType.isPatient;
-        alert(isPatient);*/
 
         this.newPaymentType = objPaymentType;
         this.selectedCharteredAccount=this.newPaymentType.paymentGlAccount[0];
@@ -298,8 +295,6 @@ export class PaymentTypeComponent implements OnInit {
                     if (response['responseCode'] === 'ORG_SUC_01') {
 
                         this.organizationDataList = response['responseData'];
-
-
                         this.currency=this.organizationDataList.currency;
 
                     }
