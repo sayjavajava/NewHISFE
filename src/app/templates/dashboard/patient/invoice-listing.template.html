@@ -47,9 +47,9 @@
                                     <td field="status"> {{invoiceList.status}} </td>
                                     <td field="action">
                                         <span *ngIf="invoiceList.status == 'CLOSE'">
-                                            <!--<button (click)="printReport(invoiceList.invoiceId)" class="btn btn-default btn-outline btn-sm" title="Download Invoice ">
+                                            <button (click)="printReport(invoiceList.invoiceId)" class="btn btn-default btn-outline btn-sm" title="Download Invoice ">
                                                 <i class="fa fa-download"></i>
-                                            </button>-->
+                                            </button>
                                         </span>
                                         <!--<ng-container>
                                             <a href="#chartOfAccount" data-toggle="modal">
