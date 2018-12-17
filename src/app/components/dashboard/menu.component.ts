@@ -40,12 +40,12 @@ export class MenuComponent implements OnInit{
                     gInd = new items('Genaral','','fa fa-cog',itemsList);
                    }
                 if(x.indicatior == 'C'){
-                    let ob3 = new items(x.name,x.routeUrl);
+                    let ob3 = new items(x.name,x.routeUrl,x.permissionIcon);
                     gList.push(ob3)
-                    sInd = new items('Clinical','','',gList);
+                    sInd = new items('Clinical','','fa fa-cog',gList);
                 }
                 if(x.indicatior == 'A'){
-                    let ob3  = new items(x.name,x.routeUrl);
+                    let ob3  = new items(x.name,x.routeUrl,x.permissionIcon);
                     mList.push(ob3)
                     mInd = new items('Administration','','fa fa-code-fork',mList);
                 }

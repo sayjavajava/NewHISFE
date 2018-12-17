@@ -20,7 +20,7 @@ var material_1 = require("@angular/material");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var DataService_1 = require("../../../services/DataService");
 var DoctorDashboardComponent = (function () {
-    function DoctorDashboardComponent(requestService, router, snackBar, notificationService, confirmationDialogService, dataService, titleService) {
+    function DoctorDashboardComponent(requestService, router, snackBar, notificationService, confirmationDialogService, dataService, titleService, requestsService) {
         this.requestService = requestService;
         this.router = router;
         this.snackBar = snackBar;
@@ -28,6 +28,7 @@ var DoctorDashboardComponent = (function () {
         this.confirmationDialogService = confirmationDialogService;
         this.dataService = dataService;
         this.titleService = titleService;
+        this.requestsService = requestsService;
         this.title = 'Doctor Dashboard';
         this.dashboardList = [];
         this.branches = [];
@@ -39,7 +40,9 @@ var DoctorDashboardComponent = (function () {
         this.showRoomBtn = 'Show';
         this.showRoomDrop = false;
         this.roomSelected = [];
+        this.statusesList = [];
         this.showDashboard();
+        this.allStatusesOfOrganization();
     }
     ;
     DoctorDashboardComponent.prototype.ngOnInit = function () {
@@ -86,6 +89,19 @@ var DoctorDashboardComponent = (function () {
                 _this.doctorsList = response['responseData'];
             }
         }, function (error) {
+        });
+    };
+    DoctorDashboardComponent.prototype.allStatusesOfOrganization = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_STATUSES)
+            .subscribe(function (response) {
+            //console.log('i am branch call');
+            if (response['responseCode'] === 'STATUS_SUC_05') {
+                _this.statusesList = response['responseData'];
+                //console.log(this.servicesList);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
         });
     };
     DoctorDashboardComponent.prototype.getFilteredBranch = function (value) {
@@ -146,22 +162,22 @@ var DoctorDashboardComponent = (function () {
     DoctorDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId, pmID) {
         var _this = this;
         var that = this;
-        if (statusValue === 'IN_SESSION' || statusValue === 'COMPLETE') {
-            this.confirmationDialogService
-                .confirm('Update Status', 'Are you sure?')
-                .subscribe(function (res) {
-                if (res == true) {
-                    _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
-                        .subscribe(function (res) {
-                        if (res['responseCode'] === "STATUS_SUC_01") {
-                            _this.snackBar.open('Status Updated', "Status has been Changed to " + statusValue + " Successfully", { duration: 3000 });
-                        }
-                    }, function (error) {
-                        _this.error = error.error.error;
-                    });
-                }
-            });
-        }
+        /* if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){*/
+        this.confirmationDialogService
+            .confirm('Update Status', 'Are you sure?')
+            .subscribe(function (res) {
+            if (res == true) {
+                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                    .subscribe(function (res) {
+                    if (res['responseCode'] === "STATUS_SUC_01") {
+                        _this.snackBar.open('Status Updated', "Status has been Changed   Successfully", { duration: 3000 });
+                    }
+                }, function (error) {
+                    _this.error = error.error.error;
+                });
+            }
+        });
+        /*  }*/
     };
     DoctorDashboardComponent.prototype.getExamRoom = function (roomId, apptId) {
         var _this = this;
@@ -187,7 +203,6 @@ var DoctorDashboardComponent = (function () {
         this.router.navigate(['/dashboard/patient/', id, 'history']);
     };
     DoctorDashboardComponent.prototype.updateAppointmentData = function (id) {
-        console.log("From doctor-dashboard.component---> Appointment id : " + id);
         this.router.navigate(['/dashboard/patient/invoice', id]);
     };
     DoctorDashboardComponent = __decorate([
@@ -202,7 +217,8 @@ var DoctorDashboardComponent = (function () {
             notification_service_1.NotificationService,
             ConformationDialogService_1.ConformationDialogService,
             DataService_1.DataService,
-            platform_browser_1.Title])
+            platform_browser_1.Title,
+            requests_service_1.RequestsService])
     ], DoctorDashboardComponent);
     return DoctorDashboardComponent;
 }());

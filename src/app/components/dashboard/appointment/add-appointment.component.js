@@ -138,7 +138,6 @@ var AddAppointmentComponent = (function () {
         this.events.length = 0;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_APPOINTMENTS_URL)
             .subscribe(function (response) {
-            console.log('');
             if (response['responseCode'] === 'APPT_SUC_01') {
                 for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
                     var apt = _a[_i];
@@ -147,10 +146,9 @@ var AddAppointmentComponent = (function () {
                         /* title: `${apt.patient}  ' ' ${apt.scheduleDateAndTime}  ' '  ${apt.branchName}`,*/
                         title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/ '<div class="headng-bck">\n' +
                             ' <div class="hadng-txt">\n' +
-                            '<table width="236" border="0">\n' +
-                            '\n' +
+                            '<table width="236" border="0">\n' + '\n' +
                             '<tr class="" width="236">\n' +
-                            '    <td style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="/public/images/patient.jpg"></td>\n' +
+                            '    <td   id="imageDiv" style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="' + apt.profileImgURL + '"></td>\n' +
                             '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>' + apt.patient + '</h2></td>\n' +
                             '</tr>\n' +
                             '  </table>\n' +
@@ -163,7 +161,7 @@ var AddAppointmentComponent = (function () {
                             '                    <td style="width:30%">Branch</td>\n' +
                             '                    <td style="width:70%">\n' + apt.branchName + '</td>\n' +
                             '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '            <tr class="whte-bckgrnd inr-txt week-st">\n' +
                             '                    <td style="width:30%">Patient</td>\n' +
                             '                    <td style="width:70%">\n' + apt.patient + '</td>\n' +
                             '                </tr>\n' +

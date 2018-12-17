@@ -19,27 +19,31 @@ export class ReceptionistDashboardComponent {
 
     title: string = 'Receptionist Dashboard';
     error: any;
-    dashboardList : Dashboard[] = [];
+    dashboardList: Dashboard[] = [];
     branches: any = [];
     doctorsList: any = [];
-    checkInTest:boolean=false;
-    dashboardListModified : any[] = [];
+    checkInTest: boolean = false;
+    dashboardListModified: any[] = [];
     roomId: number;
     public loading = false;
-    allRooms:RoomFilter[] = [];
-    showRoom :boolean =false;
-    showRoomBtn:any = 'Show';
-    showRoomDrop :boolean =false;
-    roomSelected : any[] = [];
+    allRooms: RoomFilter[] = [];
+    showRoom: boolean = false;
+    showRoomBtn: any = 'Show';
+    showRoomDrop: boolean = false;
+    roomSelected: any[] = [];
+    statusesList :any=[];
+
     constructor(private requestService: RequestsService,
                 private router: Router,
                 private confirmationDialogService: ConformationDialogService,
-                private snackBar:MatSnackBar,
-                private dataService:DataService,
+                private snackBar: MatSnackBar,
+                private dataService: DataService,
                 private titleService: Title) {
         this.showDashboard();
+        this.allStatusesOfOrganization();
 
     };
+
     ngOnInit() {
         this.getBranchesFromServer();
         this.getDoctorsFromServer();
@@ -47,27 +51,56 @@ export class ReceptionistDashboardComponent {
     }
 
     showDashboard() {
-        this.loading =true;
+        this.loading = true;
         this.requestService.getRequest(AppConstants.FETCH_DASHBOARD_URL)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DASHBOARD_SUC_01') {
-                       // this.dashboardList = response['responseData'];
+                        // this.dashboardList = response['responseData'];
                         let dashboardListTemp = response['responseData'];
-                        this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="CHECK_IN" || x.status=="CONFIRMED" || x.NOT_CONFIRMED=="NOT_CONFIRMED");
+                        this.dashboardList = dashboardListTemp.filter((x: any) => x.status == "CHECK_IN" || x.status == "CONFIRMED" || x.NOT_CONFIRMED == "NOT_CONFIRMED");
                         this.dashboardListModified = this.dashboardList;
-                        this.loading =false;
+                        this.loading = false;
 
-                    }else {
-                        this.loading =false
+                    } else {
+                        this.loading = false
 
 
                     }
                 },
                 (error: any) => {
                     this.error = error.error.error;
-                    this.loading =false;
+                    this.loading = false;
                 })
+    }
+
+    getUpdatedStatus(statusValue: number, apptId: any, pmID: number) {
+        var that = this;
+        /* if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){*/
+        this.confirmationDialogService
+            .confirm('Update Status', 'Are you sure?')
+            .subscribe(res => {
+                if (res == true) {
+                    this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                        .subscribe((res: Response) => {
+                            if (res['responseCode'] === "STATUS_SUC_01") {
+                                this.snackBar.open('Status Updated', `Status has been Changed   Successfully`, {duration: 3000});
+                            }
+                        }, (error: any) => {
+                            this.error = error.error.error;
+                        });
+                }
+            });
+        /*if(statusValue === 'CHECK_IN'){
+            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
+                .subscribe((res: Response) => {
+                    if (res['responseCode'] === "INVOICE_ERR_01") {
+                        this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
+                    }
+                }, (error: any) => {
+                    this.error = error.error.error;
+                });
+        }*/
     }
 
     getBranchesFromServer() {
@@ -99,79 +132,66 @@ export class ReceptionistDashboardComponent {
                 }
             );
     }
+
     getFilteredBranch(value: any) {
 
-        this.dashboardListModified =this.dashboardList;
-        if(value == 'All'){
+        this.dashboardListModified = this.dashboardList;
+        if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
-        }else {
+        } else {
             const arr = this.dashboardListModified.filter(x => x.branch === value);
             this.dashboardListModified = arr;
         }
     }
+
     getfilteredDoctor(value: any) {
-        this.dashboardListModified =this.dashboardList;
-        if(value == 'All'){
+        this.dashboardListModified = this.dashboardList;
+        if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
-        }else {
+        } else {
             const arr = this.dashboardListModified.filter(x => x.doctorLastName == value);
             this.dashboardListModified = arr;
         }
     }
 
     getfilteredStatus(value: any) {
-        this.dashboardListModified =this.dashboardList;
-        console.log('val:'+ value);
-        if(value == 'All'){
+        this.dashboardListModified = this.dashboardList;
+        console.log('val:' + value);
+        if (value == 'All') {
             this.dashboardListModified = this.dashboardList;
-        }else {
+        } else {
             const arr = this.dashboardListModified.filter(x => x.status == value);
             this.dashboardListModified = arr;
         }
     }
 
-    getUpdatedStatus(statusValue: string, apptId: any, pmID:number) {
-        var that = this;
-        this.confirmationDialogService
-            .confirm(`Update Status to ${statusValue}`, 'Are you sure ?')
-            .subscribe(res => {
-                if (res == true) {
-                    this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
-                        .subscribe((res: Response) => {
-                        if(statusValue =="CHECK_IN"){
-                            this.checkInTest =true;
-                        }else this.checkInTest =false;
-                            if (res['responseCode'] === "STATUS_SUC_01") {
-                                this.snackBar.open('Status Updated', 'Status has been Updated Successfully', {duration: 3000});
-                            }
-                        }, (error: any) => {
-                            this.error = error.error.error;
-                        });
-                }
-            });
-
-        /*if(statusValue === 'CHECK_IN'){
-            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
-                .subscribe((res: Response) => {
-                    if (res['responseCode'] === "INVOICE_ERR_01") {
-                        this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
+    allStatusesOfOrganization() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_STATUSES)
+            .subscribe(
+                (response: Response) => {
+                    //console.log('i am branch call');
+                    if (response['responseCode'] === 'STATUS_SUC_05') {
+                        this.statusesList = response['responseData'];
+                        //console.log(this.servicesList);
                     }
-                }, (error: any) => {
+                },
+                (error: any) => {
                     this.error = error.error.error;
-                });
-        }*/
-    }
-    patientHistory(id:any){
-        this.dataService.getPatientId(id);
-        this.router.navigate(['/dashboard/patient/',id,'history']);
-    }
-    updateAppointmentData(id: any) {
+                })
 
+    }
+
+    patientHistory(id: any) {
+        this.dataService.getPatientId(id);
+        this.router.navigate(['/dashboard/patient/', id, 'history']);
+    }
+
+    updateAppointmentData(id: any) {
         this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + id)
             .subscribe((res: Response) => {
                 if (res['responseCode'] === "INVOICE_ERR_01") {
                     this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
-                }else{
+                } else {
                     this.router.navigate(['/dashboard/patient/invoice', id]);
                 }
             }, (error: any) => {
@@ -180,28 +200,31 @@ export class ReceptionistDashboardComponent {
 
 
     }
-    showRoomWithBranch(bId:number,roomIdd:number){
-        this.showRoom =!this.showRoom;
+
+    showRoomWithBranch(bId: number, roomIdd: number) {
+        this.showRoom = !this.showRoom;
         this.showRoomDrop = this.showRoom;
-        this.allRooms.length=0;
-       // this.roomSelected.length =0;
-        let roomList :any[] =[];
-        let roomFiltered  = this.branches.filter((x:any)=>x.id == bId);
-      //  this.roomSelected.push(roomIdd)
-        roomFiltered.forEach((x:any)=>{
-            x.examRooms.forEach((y:any)=>{
-                let roomObj = new RoomFilter(y.label,y.value);
+        this.allRooms.length = 0;
+        // this.roomSelected.length =0;
+        let roomList: any[] = [];
+        let roomFiltered = this.branches.filter((x: any) => x.id == bId);
+        //  this.roomSelected.push(roomIdd)
+        roomFiltered.forEach((x: any) => {
+            x.examRooms.forEach((y: any) => {
+                let roomObj = new RoomFilter(y.label, y.value);
                 this.allRooms.push(roomObj);
             })
 
         })
-        if(this.showRoom) {
+        if (this.showRoom) {
             this.showRoomBtn = 'HIDE';
             // this.showRoomDrop = true;
-        }else{
-            this.showRoomBtn='SHOW'   }
+        } else {
+            this.showRoomBtn = 'SHOW'
+        }
     }
-    getExamRoom(roomId :any,apptId:number){
+
+    getExamRoom(roomId: any, apptId: number) {
         this.confirmationDialogService
             .confirm('Update Room', 'Are you sure ?')
             .subscribe(res => {
@@ -222,15 +245,17 @@ export class ReceptionistDashboardComponent {
 
 
 }
-class RoomFilter{
-    label : string;
-    value : number;
-    id:number;
-    branchName:string;
-    constructor(label ?:string,value?: number){
+
+class RoomFilter {
+    label: string;
+    value: number;
+    id: number;
+    branchName: string;
+
+    constructor(label ?: string, value?: number) {
         this.label = label;
         this.value = value;
-        this.branchName=label;
-        this.id=value;
+        this.branchName = label;
+        this.id = value;
     }
 }

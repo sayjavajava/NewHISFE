@@ -38,7 +38,9 @@ var ReceptionistDashboardComponent = (function () {
         this.showRoomBtn = 'Show';
         this.showRoomDrop = false;
         this.roomSelected = [];
+        this.statusesList = [];
         this.showDashboard();
+        this.allStatusesOfOrganization();
     }
     ;
     ReceptionistDashboardComponent.prototype.ngOnInit = function () {
@@ -64,6 +66,35 @@ var ReceptionistDashboardComponent = (function () {
             _this.error = error.error.error;
             _this.loading = false;
         });
+    };
+    ReceptionistDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId, pmID) {
+        var _this = this;
+        var that = this;
+        /* if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){*/
+        this.confirmationDialogService
+            .confirm('Update Status', 'Are you sure?')
+            .subscribe(function (res) {
+            if (res == true) {
+                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                    .subscribe(function (res) {
+                    if (res['responseCode'] === "STATUS_SUC_01") {
+                        _this.snackBar.open('Status Updated', "Status has been Changed   Successfully", { duration: 3000 });
+                    }
+                }, function (error) {
+                    _this.error = error.error.error;
+                });
+            }
+        });
+        /*if(statusValue === 'CHECK_IN'){
+            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
+                .subscribe((res: Response) => {
+                    if (res['responseCode'] === "INVOICE_ERR_01") {
+                        this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
+                    }
+                }, (error: any) => {
+                    this.error = error.error.error;
+                });
+        }*/
     };
     ReceptionistDashboardComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
@@ -116,38 +147,18 @@ var ReceptionistDashboardComponent = (function () {
             this.dashboardListModified = arr;
         }
     };
-    ReceptionistDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId, pmID) {
+    ReceptionistDashboardComponent.prototype.allStatusesOfOrganization = function () {
         var _this = this;
-        var that = this;
-        this.confirmationDialogService
-            .confirm("Update Status to " + statusValue, 'Are you sure ?')
-            .subscribe(function (res) {
-            if (res == true) {
-                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
-                    .subscribe(function (res) {
-                    if (statusValue == "CHECK_IN") {
-                        _this.checkInTest = true;
-                    }
-                    else
-                        _this.checkInTest = false;
-                    if (res['responseCode'] === "STATUS_SUC_01") {
-                        _this.snackBar.open('Status Updated', 'Status has been Updated Successfully', { duration: 3000 });
-                    }
-                }, function (error) {
-                    _this.error = error.error.error;
-                });
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_STATUSES)
+            .subscribe(function (response) {
+            //console.log('i am branch call');
+            if (response['responseCode'] === 'STATUS_SUC_05') {
+                _this.statusesList = response['responseData'];
+                //console.log(this.servicesList);
             }
+        }, function (error) {
+            _this.error = error.error.error;
         });
-        /*if(statusValue === 'CHECK_IN'){
-            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
-                .subscribe((res: Response) => {
-                    if (res['responseCode'] === "INVOICE_ERR_01") {
-                        this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
-                    }
-                }, (error: any) => {
-                    this.error = error.error.error;
-                });
-        }*/
     };
     ReceptionistDashboardComponent.prototype.patientHistory = function (id) {
         this.dataService.getPatientId(id);

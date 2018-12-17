@@ -30,6 +30,7 @@ export class DoctorDashboardComponent {
     showRoomBtn:any = 'Show';
     showRoomDrop :boolean =false;
     roomSelected : any[] = [];
+    statusesList :any[]=[];
     constructor(private requestService: RequestsService,
                 private router: Router,
                 private snackBar: MatSnackBar,
@@ -37,8 +38,10 @@ export class DoctorDashboardComponent {
                 private confirmationDialogService: ConformationDialogService,
                 private  dataService:DataService,
                 private titleService: Title,
+                private requestsService: RequestsService
                 ) {
         this.showDashboard();
+        this.allStatusesOfOrganization();
 
     };
     ngOnInit() {
@@ -102,6 +105,21 @@ export class DoctorDashboardComponent {
                 }
             );
     }
+    allStatusesOfOrganization() {
+        this.requestsService.getRequest(AppConstants.FETCH_ALL_STATUSES)
+            .subscribe(
+                (response: Response) => {
+                    //console.log('i am branch call');
+                    if (response['responseCode'] === 'STATUS_SUC_05') {
+                        this.statusesList = response['responseData'];
+                        //console.log(this.servicesList);
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+
+    }
 
     getFilteredBranch(value: any) {
        this.dashboardListModified =this.dashboardList;
@@ -157,9 +175,9 @@ export class DoctorDashboardComponent {
             this.showRoomBtn='SHOW'   }
     }
 
-    getUpdatedStatus(statusValue: string, apptId: any, pmID:number) {
+    getUpdatedStatus(statusValue: number, apptId: any, pmID:number) {
         var that = this;
-        if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){
+       /* if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){*/
             this.confirmationDialogService
                 .confirm('Update Status', 'Are you sure?')
                 .subscribe(res => {
@@ -167,14 +185,14 @@ export class DoctorDashboardComponent {
                         this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
                             .subscribe((res: Response) => {
                                 if (res['responseCode'] === "STATUS_SUC_01") {
-                                    this.snackBar.open('Status Updated', `Status has been Changed to ${statusValue} Successfully`, {duration: 3000});
+                                    this.snackBar.open('Status Updated', `Status has been Changed   Successfully`, {duration: 3000});
                                 }
                             }, (error: any) => {
                                 this.error = error.error.error;
                             });
                     }
                 });
-        }
+      /*  }*/
 
 
     }
@@ -203,7 +221,6 @@ export class DoctorDashboardComponent {
         this.router.navigate(['/dashboard/patient/',id,'history']);
     }
     updateAppointmentData(id: any) {
-        console.log("From doctor-dashboard.component---> Appointment id : " + id);
         this.router.navigate(['/dashboard/patient/invoice', id]);
 
     }

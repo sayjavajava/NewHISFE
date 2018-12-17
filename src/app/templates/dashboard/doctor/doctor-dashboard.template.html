@@ -178,25 +178,35 @@
                                         <option *ngFor="let r of allRooms" value="{{r.id}}">{{ r.branchName }} </option>
                                     </select>
                                 </td>
-                                <td><select class="form-control" [ngModelOptions]="{standalone:true}" (change)="getUpdatedStatus(item.status,item.apptNaturalId,item.appointmentId)"
+                                <td>
+                                    <!--<select class="form-control" [ngModelOptions]="{standalone:true}" (change)="getUpdatedStatus(item.status,item.apptNaturalId,item.appointmentId)"
                                             [(ngModel)]="item.status">
 
-                                    <!--<option value="IN_ROOM">IN ROOM</option>
+                                    &lt;!&ndash;<option value="IN_ROOM">IN ROOM</option>
                                     <option value="CONFIRMED">CONFIRMED</option>
                                     <option value="NOT_CONFIRMED">NOT_CONFIRMED</option>
                                     <option value="RE_SCHEDULED">RE_SCHEDULED</option>
                                     <option value="CANCELLED">CANCELLED</option>
-                                    <option value="REGULAR">REGULAR</option>-->
+                                    <option value="REGULAR">REGULAR</option>&ndash;&gt;
                                     <option value="CHECK_IN">CHECK_IN</option>
                                     <option value="IN_SESSION">IN SESSION</option>
                                     <option value="COMPLETE">COMPLETE</option>
+-->
+                                    <select class="form-control" (change)="getUpdatedStatus(item.statusId,item.apptNaturalId,item.appointmentId)" [(ngModel)]="item.statusId" name="itemSt">
+                                        <option *ngFor="let item of statusesList; let i = index;"
+                                                value={{item.id}} (keyup)="refresh.next()">
+                                            {{item.name}}
+                                        </option>
+                                    </select>
 
-                                </select></td>
+
+                                </td>
                                 <td>
                                     <!-- <a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
                                               <i class="fa fa-dollar" style="font-size:18px"></i>
                                           </a> -->
-                                    <ng-container *ngIf="item.status == 'IN_SESSION'">
+                                    <!--*ngIf="item.status == 'IN_SESSION'"-->
+                                    <ng-container>
                                         <a title="Patient Invoice" (click)="updateAppointmentData(item.appointmentId)">
                                             <i class="fa fa-dollar" style="font-size:18px"></i>
                                         </a>
