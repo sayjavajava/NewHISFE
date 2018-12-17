@@ -19,9 +19,10 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var DataService_1 = require("../../../services/DataService");
 var patient_1 = require("../../../model/patient");
 var PatientDocumentsComponent = (function () {
-    function PatientDocumentsComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
+    function PatientDocumentsComponent(notificationService, route, requestsService, HISUtilService, router, activatedRoute, dataService) {
         var _this = this;
         this.notificationService = notificationService;
+        this.route = route;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
@@ -33,11 +34,12 @@ var PatientDocumentsComponent = (function () {
         this.dm = new document_1.DocumentModel();
         this.uploadedImage = null;
         this.isRequestUnderProcess = false;
-        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
-            _this.selectedPatientId = id;
+        /*this.dataService.currentPatientId.subscribe(id => {
+            this.selectedPatientId = id;
+        });*/
+        this.route.params.subscribe(function (params) {
+            _this.selectedPatientId = params['id'];
         });
-        this.getPageWiseDocumentsFromServer(0);
-        this.getPatientByIdFromServer(this.selectedPatientId);
     }
     PatientDocumentsComponent.prototype.ngOnInit = function () {
         this.reportType = [
@@ -45,6 +47,15 @@ var PatientDocumentsComponent = (function () {
             { label: 'HEALTH_CERTIFICATE', value: 'HEALTH_CERTIFICATE' },
             { label: 'REPORT', value: 'REPORT' },
             { label: 'TEST', value: 'TEST' },
+        ];
+        this.getPageWiseDocumentsFromServer(0);
+        this.getPatientByIdFromServer(this.selectedPatientId);
+        this.cols = [
+            { field: 'createdOn', header: 'Uploaded on' },
+            { field: 'url', header: 'Download' },
+            { field: 'name', header: 'Name' },
+            { field: 'description', header: 'Description' },
+            { field: 'action', header: 'Action' }
         ];
     };
     PatientDocumentsComponent.prototype.uploadImgOnChange = function (event) {
@@ -241,7 +252,7 @@ var PatientDocumentsComponent = (function () {
             selector: 'patient-document',
             templateUrl: '../../../templates/dashboard/patient/patient-documents.template.html',
         }),
-        __metadata("design:paramtypes", [notification_service_1.NotificationService,
+        __metadata("design:paramtypes", [notification_service_1.NotificationService, router_1.ActivatedRoute,
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router,

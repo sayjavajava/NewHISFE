@@ -16,14 +16,14 @@ export class PatientHistoryMenuComponent implements OnInit,OnDestroy {
 
     id:any;
     subscription :Subscription;
-    constructor(private router: Router,private route:ActivatedRoute,private dataService:DataService) {
+        constructor(private router: Router,private route:ActivatedRoute,private dataService:DataService) {
         this.subscription =this.dataService.currentPatientId.subscribe(id=>{this.id=id})
     }
     ngOnInit(): void {
-        /*this.route.params.subscribe(params => {
+        this.route.params.subscribe(params => {
             this.id = params['id'];
 
-        });*/
+        });
     }
 
 }

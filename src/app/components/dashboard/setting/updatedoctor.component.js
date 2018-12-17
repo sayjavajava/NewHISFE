@@ -341,7 +341,10 @@ var UpdatedoctorComponent = (function () {
                     /*this.selectedDepartmentObj.push(user.docDepartmentId);
                     console.log( 'depart doc'+this.selectedDepartmentObj[0].value)*/
                 }
-                _this.selectedDepartmentObj.push(user.docDepartmentId);
+                if (user.docDepartmentId) {
+                    _this.selectedDepartmentObj.push(user.docDepartmentId);
+                    _this.getDeptServices(user.docDepartmentId);
+                }
                 console.log('depart doc' + _this.selectedDepartmentObj + 'deprt id ' + user.docDepartmentId);
                 _this.staffBranches = user.staffBranches;
                 _this.staffBranches = _this.staffBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });

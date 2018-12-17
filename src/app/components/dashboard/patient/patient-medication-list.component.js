@@ -48,7 +48,9 @@ var PatientMedicationListComponent = (function () {
         this.drug = new drug_model_1.DrugModel();
         this.searchedDrugNamesLst = [];
         this.searchedDrugStrengths = new drug_model_1.DrugModel();
+        this.cols = [];
         this.StrengthListModified = [];
+        this.isUpdateAppoint = false;
         this.searchedDrugStrengthsAnyListModified = [];
         this.selectedstr = [];
         this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
@@ -86,6 +88,24 @@ var PatientMedicationListComponent = (function () {
             { label: 'Week ', value: 'Week ' },
             { label: 'Month ', value: 'Month ' },
         ];
+        /*<th> Appointment Date/Time</th>
+        <th> Medication</th>
+        <th>Strengths</th>
+        <th>Frequency</th>
+        <th> Duration</th>
+        <th> SIG </th>
+        <th> Start Date</th>
+        <th>Action</th>*/
+        this.cols = [
+            { field: 'appointmentDate', header: 'Appointment Date/Time' },
+            { field: 'drugName', header: 'Medication' },
+            { field: 'strengths', header: 'Strengths' },
+            { field: 'frequency', header: 'Frequency' },
+            { field: 'duration', header: 'Duration' },
+            { field: 'pharmacyNote', header: 'SIG' },
+            { field: 'datePrescribedString', header: 'Start Date' },
+            { field: 'status', header: 'Action' },
+        ];
     };
     PatientMedicationListComponent.prototype.appointmentsByPatientFromServer = function (selectedPatientId) {
         var _this = this;
@@ -111,6 +131,7 @@ var PatientMedicationListComponent = (function () {
     };
     PatientMedicationListComponent.prototype.addMedication = function () {
         this.isUpdate = false;
+        this.isUpdateAppoint = false;
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
         this.getAllDrugsFromServer();
@@ -278,6 +299,7 @@ var PatientMedicationListComponent = (function () {
     PatientMedicationListComponent.prototype.editMedication = function (medicationId) {
         var _this = this;
         this.isUpdate = true;
+        this.isUpdateAppoint = false;
         this.medicationModel = new medication_model_1.MedicationModel();
         this.getAllDrugsFromServer();
         if (medicationId > 0) {
@@ -291,6 +313,7 @@ var PatientMedicationListComponent = (function () {
                         _this.medicationModel.dateStartedTakingDate = new Date(_this.medicationModel.dateStartedTakingString);
                         _this.medicationModel.dateStoppedTakingDate = new Date(_this.medicationModel.dateStoppedTakingString);
                         _this.medicationModel.status = _this.medicationModel.status;
+                        _this.isUpdateAppoint = true;
                         _this.selectedstr = _this.medicationModel.strengths;
                         _this.appointmentsByPatientFromServer(_this.medicationModel.patientId);
                     }

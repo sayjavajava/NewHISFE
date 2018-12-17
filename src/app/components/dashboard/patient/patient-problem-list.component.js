@@ -20,9 +20,10 @@ var patient_1 = require("../../../model/patient");
 var DataService_1 = require("../../../services/DataService");
 var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var PatientProblemListComponent = (function () {
-    function PatientProblemListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
+    function PatientProblemListComponent(notificationService, route, requestsService, HISUtilService, router, activatedRoute, dataService) {
         var _this = this;
         this.notificationService = notificationService;
+        this.route = route;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
@@ -39,8 +40,8 @@ var PatientProblemListComponent = (function () {
         this.isRequestUnderProcess = false;
         this.date = new Date();
         this.selectedCodeId = [];
-        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
-            _this.selectedPatientId = id;
+        this.route.params.subscribe(function (params) {
+            _this.selectedPatientId = params['id'];
         });
         this.appointmentsByServer();
         angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
@@ -62,6 +63,7 @@ var PatientProblemListComponent = (function () {
         this.cols = [
             { field: 'versionName', header: 'Version' },
             { field: 'codeName', header: 'Code' },
+            { field: 'problemName', header: 'Name' },
             { field: 'dateDiagnosis', header: 'Diagnosis Date' },
             { field: 'note', header: 'Notes' },
             { field: 'status', header: 'Status' },
@@ -150,6 +152,14 @@ var PatientProblemListComponent = (function () {
                 if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                     _this.associatedCodes = [];
                     _this.associatedCodes = response['responseData'].code;
+                    debugger;
+                    for (var i = 0; i < _this.associatedCodes.length; i++) {
+                        var problems = _this.associatedCodes[i];
+                        var pair = { label: problems.problem, value: problems.id };
+                        _this.selectedCodeId.push(pair);
+                    }
+                    console.log(_this.associatedCodes);
+                    debugger;
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
@@ -164,22 +174,22 @@ var PatientProblemListComponent = (function () {
         }
         if (this.ppm.appointmentId <= 0) {
             this.notificationService.warn('Please select appoint.');
-            document.getElementById('selectedAppointmentId').focus();
+            //  document.getElementById('selectedAppointmentId').focus();
             return;
         }
         if (this.ppm.selectedICDVersionId <= 0) {
             this.notificationService.warn('Please select Version.');
-            document.getElementById('icdVersionId').focus();
+            //   document.getElementById('icdVersionId').focus();
             return;
         }
         if (this.ppm.selectedCodeId <= 0) {
             this.notificationService.warn('Please select Code.');
-            document.getElementById('associatedCodesId').focus();
+            //   document.getElementById('associatedCodesId').focus();
             return;
         }
         if (this.ppm.datePrescribedDate === null) {
             this.notificationService.warn('Please enter Diagnosis Date.');
-            document.getElementById('dateDiagnosisId').focus();
+            //    document.getElementById('dateDiagnosisId').focus();
             return;
         }
         this.ppm.datePrescribedDate = new Date(this.ppm.datePrescribedDate);
@@ -265,8 +275,11 @@ var PatientProblemListComponent = (function () {
                         _this.ppm = response['responseData'];
                         _this.appointmentsByPatientServer(_this.ppm.patientId);
                         _this.versionsByServer();
+                        debugger;
                         _this.codesByVersionFromServer(_this.ppm.selectedICDVersionId);
                         _this.ppm.datePrescribedDate = new Date(_this.ppm.dateDiagnosis);
+                        // this.selectedCodeId=this.ppm.codeName;
+                        debugger;
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Problem of Patient');
@@ -291,22 +304,22 @@ var PatientProblemListComponent = (function () {
         }
         if (this.ppm.appointmentId <= 0) {
             this.notificationService.warn('Please select appoint.');
-            document.getElementById('selectedAppointmentId').focus();
+            //    document.getElementById('selectedAppointmentId').focus();
             return;
         }
         if (this.ppm.selectedICDVersionId <= 0) {
             this.notificationService.warn('Please select Version.');
-            document.getElementById('icdVersionId').focus();
+            //     document.getElementById('icdVersionId').focus();
             return;
         }
         if (this.ppm.selectedCodeId <= 0) {
             this.notificationService.warn('Please select Code.');
-            document.getElementById('associatedCodesId').focus();
+            //    document.getElementById('associatedCodesId').focus();
             return;
         }
         if (this.ppm.datePrescribedDate === null) {
             this.notificationService.warn('Please enter Diagnosis Date.');
-            document.getElementById('dateDiagnosisId').focus();
+            //      document.getElementById('dateDiagnosisId').focus();
             return;
         }
         this.ppm.datePrescribedDate = new Date(this.ppm.datePrescribedDate);
@@ -361,7 +374,7 @@ var PatientProblemListComponent = (function () {
             selector: 'patient-problem-list',
             templateUrl: '../../../templates/dashboard/patient/patient-problem-list.template.html',
         }),
-        __metadata("design:paramtypes", [notification_service_1.NotificationService,
+        __metadata("design:paramtypes", [notification_service_1.NotificationService, router_1.ActivatedRoute,
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router,

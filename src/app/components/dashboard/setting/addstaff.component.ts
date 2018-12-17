@@ -101,7 +101,8 @@ export class AddStaffComponent implements OnInit {
     date: Date = new Date();
     comissionValue : any;
     //serviceComission:{id:number,checked:boolean,comission:''}[]=[];
-    serviceComission:ServiceComission[] =[]
+    serviceComission:ServiceComission[] =[];
+
     constructor(private router: Router, private  fb: FormBuilder, private requestsService: RequestsService, private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
         this.allRoles();
@@ -244,6 +245,11 @@ export class AddStaffComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                         this.departmentList = response['responseData'];
+                        if(this.departmentList){
+                            let [first] = this.departmentList;
+                            if(this.doctorDepartment)
+                               this.getDeptServices(first.id);
+                        }
                     }
                 },
                 (error: any) => {
@@ -252,9 +258,10 @@ export class AddStaffComponent implements OnInit {
     }
 
     selectedBranch(eventObj: any) {
-        this.hasServices =false;
+        this.hasServices = false;
         this.selectedBranchId = eventObj.value;
         this.allDepartments();
+
     }
 
     getDeptServices(deptId: any) {
@@ -734,7 +741,7 @@ export class AddStaffComponent implements OnInit {
     }
 
     public goTo(typeObj: any) {
-        console.log('typesss:' + typeObj.name + '' + typeObj.value);
+        console.log('typesss:' +'' + typeObj.value);
         const value = typeObj.value ? typeObj.value : 'RECEPTIONIST';
         this.selectedDepartment.length = 0;
         this.selectedServices.length = 0;

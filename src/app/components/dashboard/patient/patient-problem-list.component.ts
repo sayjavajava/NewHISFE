@@ -44,15 +44,16 @@ export class PatientProblemListComponent implements OnInit {
     selectedCodeId : SelectItem[] = [];
 
 
-    constructor(private notificationService: NotificationService,
+    constructor(private notificationService: NotificationService,private route:ActivatedRoute,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private dataService: DataService) {
 
-        this.subscription = this.dataService.currentPatientId.subscribe(id => {
-            this.selectedPatientId = id;
+
+        this.route.params.subscribe(params => {
+            this.selectedPatientId = params['id'];
         });
         this.appointmentsByServer();
         DatePicker.prototype.ngOnInit = function() {

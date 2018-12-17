@@ -49,6 +49,13 @@
                                 </option>
                             </select>
                         </div>
+                        <div class="pull-right">
+                            <a routerLink="/dashboard/appointment/add">
+                                <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
+                                        data-message="Success Icon" data-type="success" data-allow-outside-click="true"
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Appointment
+                                </button>
+                            </a></div>
                         <div class="col-md-1"></div>
                         <!--   <div class="col-md-3 no-padding">
                                <h4 class="font-green-meadow">Statuses</h4>
@@ -152,9 +159,9 @@
                                 <th> Patient Name </th>
                                 <th> Scheduled at </th>
                                 <th> Doctor </th>
-                                <th> Exam Room </th>
-                                <th> Show/Hide </th>
-                                <th *ngIf="showRoomDrop"> Room </th>
+                                <th> Exame Room </th>
+                                <th> Status </th>
+                                <th> Rooms </th>
                                 <th> Status </th>
                                 <th> Action </th>
                             </tr>

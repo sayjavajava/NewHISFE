@@ -45,6 +45,7 @@ var UpdateBranchComponent = (function () {
                 if (response["responseCode"] === "BRANCH_SUC_01") {
                     if (!util_1.isNullOrUndefined(response["responseData"])) {
                         _this.noOfRoom = response["responseData"].data;
+                        debugger;
                     }
                     if (_this.noOfRoom < 1) {
                         _this.noOfRoom = 1;
@@ -141,6 +142,7 @@ var UpdateBranchComponent = (function () {
     UpdateBranchComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
+            debugger;
             this.requestService.findById(app_constants_1.AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(function (branch) {
                 _this.branchForm.patchValue({
                     branchName: branch.branchName,
@@ -180,9 +182,11 @@ var UpdateBranchComponent = (function () {
                      );*/
                 _this.branchForm.controls["zipCode"].patchValue(branch.zipCode);
                 _this.allRoomCount();
-                branch.examRooms = _this.noOfRoom;
+                _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
+                //   branch.examRooms = this.noOfRoom;
+                debugger;
                 _this.addFields(branch.rooms);
-                // this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
+                _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
             }, function (error) {
                 //console.log(error.json());
                 _this.error = error.error.error_description;
@@ -329,8 +333,19 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent.prototype.addFields = function (no) {
         this.removeAllFields();
+        debugger;
         this.examRooms = this.branchForm.get("examRooms");
         for (var i = 0; i < no; i++) {
+            debugger;
+            this.examRooms.push(this.createExamRoom());
+        }
+    };
+    UpdateBranchComponent.prototype.addValuesFields = function (no) {
+        this.removeAllFields();
+        debugger;
+        this.examRooms = this.branchForm.get("examRooms");
+        for (var i = 0; i < no; i++) {
+            debugger;
             this.examRooms.push(this.createExamRoom());
         }
     };

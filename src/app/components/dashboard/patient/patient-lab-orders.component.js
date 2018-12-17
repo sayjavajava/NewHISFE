@@ -53,7 +53,7 @@ var PatientLabOrdersComponent = (function () {
             { field: 'orderStatus', header: 'Order Status' },
             { field: 'description', header: 'Description' },
             { field: 'LabTest', header: 'Lab Test' },
-            { field: 'action', header: 'Lab Test' }
+            { field: 'action', header: 'Action' }
         ];
     };
     PatientLabOrdersComponent.prototype.goToUserDashBoard = function () {

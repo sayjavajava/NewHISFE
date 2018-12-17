@@ -32,6 +32,7 @@ export class NurseDashboardComponent {
     showRoomBtn: any = 'Show';
     showRoomDrop: boolean = false;
     roomSelected: any[] = [];
+    statusesList :any =[];
 
     constructor(private requestService: RequestsService,
                 private router: Router,
@@ -40,6 +41,7 @@ export class NurseDashboardComponent {
                 private dataService: DataService,
                 private titleService: Title) {
         this.showDashboard();
+        this.allStatusesOfOrganization();
 
     };
 
@@ -69,6 +71,49 @@ export class NurseDashboardComponent {
                     this.error = error.error.error;
                     this.loading=false;
                 })
+    }
+    getUpdatedStatus(statusValue: number, apptId: any, pmID: number) {
+        var that = this;
+        /* if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){*/
+        this.confirmationDialogService
+            .confirm('Update Status', 'Are you sure?')
+            .subscribe(res => {
+                if (res == true) {
+                    this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                        .subscribe((res: Response) => {
+                            if (res['responseCode'] === "STATUS_SUC_01") {
+                                this.snackBar.open('Status Updated', `Status has been Changed   Successfully`, {duration: 3000});
+                            }
+                        }, (error: any) => {
+                            this.error = error.error.error;
+                        });
+                }
+            });
+        /*if(statusValue === 'CHECK_IN'){
+            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
+                .subscribe((res: Response) => {
+                    if (res['responseCode'] === "INVOICE_ERR_01") {
+                        this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
+                    }
+                }, (error: any) => {
+                    this.error = error.error.error;
+                });
+        }*/
+    }
+    allStatusesOfOrganization() {
+        this.requestService.getRequest(AppConstants.FETCH_ALL_STATUSES)
+            .subscribe(
+                (response: Response) => {
+                    //console.log('i am branch call');
+                    if (response['responseCode'] === 'STATUS_SUC_05') {
+                        this.statusesList = response['responseData'];
+                        //console.log(this.servicesList);
+                    }
+                },
+                (error: any) => {
+                    this.error = error.error.error;
+                })
+
     }
 
     getBranchesFromServer() {
@@ -139,23 +184,6 @@ export class NurseDashboardComponent {
         this.router.navigate(['/dashboard/patient/', id, 'history']);
     }
 
-    getUpdatedStatus(statusValue: string, apptId: any) {
-        var that = this;
-        this.confirmationDialogService
-            .confirm('Delete', 'Are you sure you want to do this?')
-            .subscribe(res => {
-                if (res == true) {
-                    this.requestService.putRequestWithParam(AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
-                        .subscribe((res: Response) => {
-                            if (res['responseCode'] === "STATUS_SUC_01") {
-                                this.snackBar.open('Status Updated', 'Status has been Updated Successfully', {duration: 3000});
-                            }
-                        }, (error: any) => {
-                            this.error = error.error.error;
-                        });
-                }
-            });
-    }
 
     getExamRoom(roomId: any, apptId: number) {
         this.confirmationDialogService

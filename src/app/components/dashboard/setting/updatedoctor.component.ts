@@ -382,7 +382,10 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         /*this.selectedDepartmentObj.push(user.docDepartmentId);
                         console.log( 'depart doc'+this.selectedDepartmentObj[0].value)*/
                     }
-                    this.selectedDepartmentObj.push(user.docDepartmentId);
+                    if(user.docDepartmentId) {
+                        this.selectedDepartmentObj.push(user.docDepartmentId);
+                        this.getDeptServices(user.docDepartmentId);
+                    }
                     console.log( 'depart doc'+this.selectedDepartmentObj +'deprt id '+ user.docDepartmentId)
                     this.staffBranches = user.staffBranches;
                     this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);

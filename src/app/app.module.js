@@ -113,6 +113,7 @@ var patient_add_lab_orders_component_1 = require("./components/dashboard/patient
 var DataService_1 = require("./services/DataService");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
 var fileupload_1 = require("primeng/fileupload");
+var dialog_1 = require("primeng/dialog");
 var primeng_1 = require("primeng/primeng");
 var togglebutton_1 = require("primeng/togglebutton");
 var admin_profile_component_1 = require("./components/dashboard/setting/admin-profile.component");
@@ -224,7 +225,8 @@ var AppModule = (function () {
                 ng2_ckeditor_1.CKEditorModule,
                 chart_1.ChartModule,
                 fileupload_1.FileUploadModule,
-                galleria_1.GalleriaModule
+                galleria_1.GalleriaModule,
+                dialog_1.DialogModule
             ],
             declarations: [
                 // App Components

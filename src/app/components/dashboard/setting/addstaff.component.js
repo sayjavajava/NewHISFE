@@ -148,12 +148,15 @@ var AddStaffComponent = (function () {
         });
     };
     AddStaffComponent.prototype.sortServices = function (branchObj) {
-        var brId = branchObj.value;
-        var sortedList = this.allServicesList.filter(function (x) {
-            if (x.branches.length > 0)
-                x.branches.id == brId;
-        });
-        console.log('servicesList' + sortedList[0]);
+        //uncomment and check branches from server to filter service by  visit branches
+        /* let brId =  branchObj.value;
+         console.log(this.allServicesList)
+         let sortedList = this.allServicesList.filter((x:any)=>{
+             if(x.branches !=null || x.branches != "undefined"){
+                 x.branches.id ==brId
+ 
+             }
+         })*/
     };
     AddStaffComponent.prototype.allServices = function () {
         var _this = this;
@@ -193,6 +196,11 @@ var AddStaffComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                 _this.departmentList = response['responseData'];
+                if (_this.departmentList) {
+                    var first = _this.departmentList[0];
+                    if (_this.doctorDepartment)
+                        _this.getDeptServices(first.id);
+                }
             }
         }, function (error) {
             _this.error = error.error.error;
@@ -635,7 +643,7 @@ var AddStaffComponent = (function () {
         }
     };
     AddStaffComponent.prototype.goTo = function (typeObj) {
-        console.log('typesss:' + typeObj.name + '' + typeObj.value);
+        console.log('typesss:' + '' + typeObj.value);
         var value = typeObj.value ? typeObj.value : 'RECEPTIONIST';
         this.selectedDepartment.length = 0;
         this.selectedServices.length = 0;

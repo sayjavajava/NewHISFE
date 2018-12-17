@@ -37,7 +37,9 @@ var NurseDashboardComponent = (function () {
         this.showRoomBtn = 'Show';
         this.showRoomDrop = false;
         this.roomSelected = [];
+        this.statusesList = [];
         this.showDashboard();
+        this.allStatusesOfOrganization();
     }
     ;
     NurseDashboardComponent.prototype.ngOnInit = function () {
@@ -51,13 +53,59 @@ var NurseDashboardComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                 var dashboardListTemp = response['responseData'];
-                _this.dashboardList = dashboardListTemp.filter(function (x) { return x.status == "COMPLETE" || x.status == "IN_SESSION"; });
-                _this.dashboardListModified = _this.dashboardList;
+                /* this.dashboardList = dashboardListTemp.filter((x: any) => x.status == "COMPLETE" || x.status == "IN_SESSION");
+                 this.dashboardListModified = this.dashboardList;*/
+                _this.dashboardListModified = dashboardListTemp;
+                _this.loading = false;
+            }
+            else {
                 _this.loading = false;
             }
         }, function (error) {
             _this.error = error.error.error;
             _this.loading = false;
+        });
+    };
+    NurseDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId, pmID) {
+        var _this = this;
+        var that = this;
+        /* if(statusValue === 'IN_SESSION' || statusValue === 'COMPLETE' ){*/
+        this.confirmationDialogService
+            .confirm('Update Status', 'Are you sure?')
+            .subscribe(function (res) {
+            if (res == true) {
+                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
+                    .subscribe(function (res) {
+                    if (res['responseCode'] === "STATUS_SUC_01") {
+                        _this.snackBar.open('Status Updated', "Status has been Changed   Successfully", { duration: 3000 });
+                    }
+                }, function (error) {
+                    _this.error = error.error.error;
+                });
+            }
+        });
+        /*if(statusValue === 'CHECK_IN'){
+            this.requestService.getRequest(AppConstants.INVOICE_CHECK_IN + pmID)
+                .subscribe((res: Response) => {
+                    if (res['responseCode'] === "INVOICE_ERR_01") {
+                        this.snackBar.open('Error', `Invoice Not Generated`, {duration: 3000});
+                    }
+                }, (error: any) => {
+                    this.error = error.error.error;
+                });
+        }*/
+    };
+    NurseDashboardComponent.prototype.allStatusesOfOrganization = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_STATUSES)
+            .subscribe(function (response) {
+            //console.log('i am branch call');
+            if (response['responseCode'] === 'STATUS_SUC_05') {
+                _this.statusesList = response['responseData'];
+                //console.log(this.servicesList);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
         });
     };
     NurseDashboardComponent.prototype.getBranchesFromServer = function () {
@@ -115,24 +163,6 @@ var NurseDashboardComponent = (function () {
     NurseDashboardComponent.prototype.patientHistory = function (id) {
         this.dataService.getPatientId(id);
         this.router.navigate(['/dashboard/patient/', id, 'history']);
-    };
-    NurseDashboardComponent.prototype.getUpdatedStatus = function (statusValue, apptId) {
-        var _this = this;
-        var that = this;
-        this.confirmationDialogService
-            .confirm('Delete', 'Are you sure you want to do this?')
-            .subscribe(function (res) {
-            if (res == true) {
-                _this.requestService.putRequestWithParam(app_constants_1.AppConstants.CHANGE_APPT_STATUS + apptId, statusValue)
-                    .subscribe(function (res) {
-                    if (res['responseCode'] === "STATUS_SUC_01") {
-                        _this.snackBar.open('Status Updated', 'Status has been Updated Successfully', { duration: 3000 });
-                    }
-                }, function (error) {
-                    _this.error = error.error.error;
-                });
-            }
-        });
     };
     NurseDashboardComponent.prototype.getExamRoom = function (roomId, apptId) {
         var _this = this;

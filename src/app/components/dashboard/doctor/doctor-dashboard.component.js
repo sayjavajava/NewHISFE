@@ -56,13 +56,19 @@ var DoctorDashboardComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'DASHBOARD_SUC_01') {
                 var dashboardListTemp = response['responseData'];
-                _this.dashboardList = dashboardListTemp.filter(function (x) { return x.status == "COMPLETE" || x.status == "IN_SESSION" || x.status == "CHECK_IN"; });
+                /*this.dashboardList = dashboardListTemp.filter((x:any)=>x.status =="COMPLETE" || x.status=="IN_SESSION" || x.status=="CHECK_IN" ); un-comment 2 lines for
+                this.dashboardListModified = this.dashboardList;*/
+                _this.dashboardList = dashboardListTemp;
                 _this.dashboardListModified = _this.dashboardList;
                 _this.loading = false;
             }
+            else {
+                _this.loading = false;
+            }
         }, function (error) {
-            _this.error = error.error.error;
+            setTimeout(function () { this.loading = false; }, 3000);
             _this.loading = false;
+            _this.error = error.error.error;
         });
     };
     DoctorDashboardComponent.prototype.getBranchesFromServer = function () {

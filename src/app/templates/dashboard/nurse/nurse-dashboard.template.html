@@ -27,6 +27,13 @@
                                 </option>
                             </select>
                         </div>
+                        <div class="pull-right">
+                            <a routerLink="/dashboard/appointment/add">
+                                <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
+                                        data-message="Success Icon" data-type="success" data-allow-outside-click="true"
+                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Appointment
+                                </button>
+                            </a></div>
                         <div class="col-md-1"></div>
                        <!-- <div class="col-md-3 no-padding">
                             <h4 class="font-green-meadow">Statuses</h4>
@@ -62,6 +69,8 @@
                                 <th> Doctor </th>
                                 <th> Exame Room </th>
                                 <th> Status </th>
+                                <th> Rooms </th>
+                                <th> Status </th>
                                 <th> Action </th>
                             </tr>
                             <ngx-loading [show]="loading"></ngx-loading>
@@ -85,19 +94,27 @@
                                         <option *ngFor="let r of allRooms" value="{{r.id}}">{{ r.branchName }} </option>
                                     </select>
                                 </td>
-                                <td><select class="form-control" (change)="getUpdatedStatus($event.target.value,item.apptNaturalId)" [ngModelOptions]="{standalone:true}"
+                                <td>
+                                    <!--<select class="form-control" (change)="getUpdatedStatus($event.target.value,item.apptNaturalId,item.appointmentId)" [ngModelOptions]="{standalone:true}"
                                             [(ngModel)]="item.status">
-                                    <option value="IN_SESSION">IN SESSION</option>
+                                 &lt;!&ndash;   <option value="IN_SESSION">IN SESSION</option>
                                     <option value="COMPLETE">COMPLETE</option>
-                                    <!--<option value="IN_ROOM">IN ROOM</option>
+                                    <option value="IN_ROOM">IN ROOM</option>
+                                    <option value="RE_SCHEDULED">RE_SCHEDULED</option>
+                                    <option value="REGULAR">REGULAR</option>&ndash;&gt;
+                                    <option value="CANCELLED">CANCEL</option>
+                                    <option value="CHECK_IN">CHECK_IN</option>
                                     <option value="CONFIRMED">CONFIRMED</option>
                                     <option value="NOT_CONFIRMED">NOT_CONFIRMED</option>
-                                    <option value="RE_SCHEDULED">RE_SCHEDULED</option>
-                                    <option value="CANCELLED">CANCELLED</option>
-                                    <option value="CHECK_IN">CHECK_IN</option>
-                                    <option value="REGULAR">REGULAR</option>-->
-                                </select></td>
-                                <td><ng-container *ngIf="item.status == 'IN_SESSION'">
+                                </select>-->
+                                    <select class="form-control" (change)="getUpdatedStatus(item.statusId,item.apptNaturalId,item.appointmentId)" [(ngModel)]="item.statusId" name="itemSt">
+                                        <option *ngFor="let item of statusesList; let i = index;"
+                                                value={{item.id}} (keyup)="refresh.next()">
+                                            {{item.name}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td><ng-container > <!--*ngIf="item.status == 'IN_SESSION'"-->
                                     <!--<a title="Patient Invoice" routerLink="/dashboard/patient/invoice">
                                         <i class="fa fa-dollar" style="font-size:18px"></i>
                                     </a>-->

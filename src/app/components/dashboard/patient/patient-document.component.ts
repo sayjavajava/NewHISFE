@@ -29,20 +29,23 @@ export class PatientDocumentsComponent implements OnInit {
     private subscription: Subscription;
     reportType:any;
     cols: any[];
-    constructor(private notificationService: NotificationService,
+    constructor(private notificationService: NotificationService,private route:ActivatedRoute,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private dataService: DataService) {
 
-        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+
+        /*this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
+        });*/
+        this.route.params.subscribe(params => {
+            this.selectedPatientId = params['id'];
+
         });
 
 
-        this.getPageWiseDocumentsFromServer(0);
-        this.getPatientByIdFromServer(this.selectedPatientId);
     }
 
 
@@ -54,7 +57,8 @@ export class PatientDocumentsComponent implements OnInit {
             {label: 'TEST',value:'TEST'},
 
         ];
-
+        this.getPageWiseDocumentsFromServer(0);
+        this.getPatientByIdFromServer(this.selectedPatientId);
 
 
         this.cols = [

@@ -24,10 +24,10 @@ var PatientHistoryMenuComponent = (function () {
         this.subscription.unsubscribe();
     };
     PatientHistoryMenuComponent.prototype.ngOnInit = function () {
-        /*this.route.params.subscribe(params => {
-            this.id = params['id'];
-
-        });*/
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.id = params['id'];
+        });
     };
     PatientHistoryMenuComponent = __decorate([
         core_1.Component({

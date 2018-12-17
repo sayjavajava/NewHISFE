@@ -51,6 +51,8 @@ var PatientAddLabOrdersComponent = (function () {
         this.LabReadListObj = [];
         this.showDoctor = false;
         this.selectedAppointmentId = [];
+        this.isUpdate = false;
+        this.isError = false;
         this.createLabTest();
         angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
             this.settings = Object.assign(this.defaultSettings, this.settings);
@@ -112,9 +114,9 @@ var PatientAddLabOrdersComponent = (function () {
             this.patchOrderData();
         }
         this.statusType = [
-            { label: 'ORDERED ENTERED', value: 'ORDEREDENTERED' },
-            { label: 'IN_PROGRESS', value: 'INPROGRESS' },
-            { label: 'RESULT RECEIVED', value: 'RESULTRECEIVED' },
+            { label: 'ORDERED', value: 'ORDERED' },
+            { label: 'IN_PROGRESS', value: 'IN_PROGRESS' },
+            { label: 'COMPLETED', value: 'COMPLETED' },
         ];
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS).subscribe(function (response) {
             if (response['responseCode'] === 'SUCCESS') {
@@ -143,6 +145,7 @@ var PatientAddLabOrdersComponent = (function () {
                     console.log(_this.patient);
                     var apptId = response['responseData']['pastAppointments'];
                     _this.appointmentList = response['responseData']['pastAppointments'];
+                    debugger;
                     //   this.doctorAppointment=apptId[]
                     console.log(apptId);
                     _this.appointmentId = apptId[0].id;
@@ -207,6 +210,7 @@ var PatientAddLabOrdersComponent = (function () {
                 comments: res.comments,
                 labTest: res.labTests,
             });
+            _this.isUpdate = true;
         }, function (error) {
             //console.log(error.json());
             _this.error = error.error.error_description;
@@ -316,13 +320,18 @@ var PatientAddLabOrdersComponent = (function () {
         this.selectedTest.minNormalRange = this.singleObj.minNormalRange;
         this.selectedTest.id = this.singleObj.id;
         this.selectedTest.resultValue = this.resultValue;
-        debugger;
-        this.LabReadList.push(this.selectedTest);
-        this.show = false;
-        this.showEdit = false;
-        this.clearField();
-        var arr = this.filteredTestSingle.filter(function (listing) { return listing.id === _this.selectedTest.id; });
-        this.filteredTestSingle.splice(arr[0], 1);
+        if (this.resultValue.length > 0) {
+            debugger;
+            this.LabReadList.push(this.selectedTest);
+            this.show = false;
+            this.showEdit = false;
+            this.clearField();
+            var arr = this.filteredTestSingle.filter(function (listing) { return listing.id === _this.selectedTest.id; });
+            this.filteredTestSingle.splice(arr[0], 1);
+        }
+        else {
+            this.isError = true;
+        }
     };
     PatientAddLabOrdersComponent.prototype.updateLabtoGrid = function (event) {
         debugger;

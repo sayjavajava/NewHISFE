@@ -1,7 +1,4 @@
 "use strict";
-/**
- * Created by jamal on 8/13/2018.
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 var PatientProblemModel = (function () {
     function PatientProblemModel() {
