@@ -46,10 +46,10 @@
                                     <td field="totalAmount" class="text-align-right"> {{invoiceList.invoiceAmount | number :'.2-2'}} </td>
                                     <td field="status"> {{invoiceList.status}} </td>
                                     <td field="action">
-                                        <span *ngIf="invoiceList.status == 'PAID'">
-                                            <button (click)="printReport(invoiceList.invoiceId)" class="btn btn-default btn-outline btn-sm" title="Download Invoice ">
+                                        <span *ngIf="invoiceList.status == 'CLOSE'">
+                                            <!--<button (click)="printReport(invoiceList.invoiceId)" class="btn btn-default btn-outline btn-sm" title="Download Invoice ">
                                                 <i class="fa fa-download"></i>
-                                            </button>
+                                            </button>-->
                                         </span>
                                         <!--<ng-container>
                                             <a href="#chartOfAccount" data-toggle="modal">
@@ -62,6 +62,9 @@
                             </ng-template>
                         </p-table>
                     </div>
+                    <!--<div>
+                        <a href="{{href}}" [hidden]="true" id="pdfDownload" target="_blank" download=""></a>
+                    </div>-->
                 </div>
             </div>
             <div class="clearfix"></div>

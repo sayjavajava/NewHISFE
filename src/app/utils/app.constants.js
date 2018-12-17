@@ -301,12 +301,12 @@ var AppConstants = (function () {
     AppConstants.UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
     AppConstants.PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/'; ///all by paginated
     AppConstants.FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
-    /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/ /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
     AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get?orderId=';
     /*****************************REPORT PRINT*************************************/
     AppConstants.PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';
     AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
     AppConstants.PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
+    AppConstants.PRINT_PATIENT_INVOICE_DETAILS = '/reportPrint/patientInvoice';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

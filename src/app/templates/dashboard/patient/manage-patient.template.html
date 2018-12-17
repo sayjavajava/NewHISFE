@@ -66,20 +66,20 @@
                                 </tr>
                                 <tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field" class="profile-frm">
-                                <!--<tr>
-                                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                        <input *ngSwitchCase="'patientId'" pInputText type="text" style="width: 100%"
-                                               (input)="dt.filter($event.target.value, col.field, 'contain')">
-                                        <input *ngSwitchCase="'firstName'" pInputText type="text" style="width: 100%"
-                                               (input)="dt.filter($event.target.value, col.field, 'contain')">
-                                        <input *ngSwitchCase="'email'" pInputText type="text" style="width: 100%"
-                                               (input)="dt.filter($event.target.value, col.field, 'contain')">
-                                        <input *ngSwitchCase="'gender'" pInputText type="text" style="width: 100%"
-                                               (input)="dt.filter($event.target.value, col.field, 'contain')">
-                                        <input *ngSwitchCase="'cellPhone'" pInputText type="text" style="width: 100%"
-                                               (input)="dt.filter($event.target.value, col.field, 'contain')">
-                                    </th>
-                                </tr>-->
+                                        <!--<tr>
+                                            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                                <input *ngSwitchCase="'patientId'" pInputText type="text" style="width: 100%"
+                                                       (input)="dt.filter($event.target.value, col.field, 'contain')">
+                                                <input *ngSwitchCase="'firstName'" pInputText type="text" style="width: 100%"
+                                                       (input)="dt.filter($event.target.value, col.field, 'contain')">
+                                                <input *ngSwitchCase="'email'" pInputText type="text" style="width: 100%"
+                                                       (input)="dt.filter($event.target.value, col.field, 'contain')">
+                                                <input *ngSwitchCase="'gender'" pInputText type="text" style="width: 100%"
+                                                       (input)="dt.filter($event.target.value, col.field, 'contain')">
+                                                <input *ngSwitchCase="'cellPhone'" pInputText type="text" style="width: 100%"
+                                                       (input)="dt.filter($event.target.value, col.field, 'contain')">
+                                            </th>
+                                        </tr>-->
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-data let-a="rowIndex">
                                 <tr>
@@ -99,8 +99,8 @@
                                     <td field="email" class="c-text-left" style="word-break: break-all;">{{data.email}}</td>
                                     <td field="gender" class="c-text-left">{{data.gender}}</td>
                                     <td field="cellPhone" class="c-text-left">{{data.cellPhone}}</td>
-                                    <td field="pastAppointments" class="c-text-left">{{data.pastAppointments}}</td>
-                                    <td field="futureAppointments" class="c-text-left">{{data.futureAppointments}}</td>
+                                    <td field="lastAppointment" class="c-text-left">{{data.lastAppointment}}</td>
+                                    <td field="nextAppointment" class="c-text-left">{{data.nextAppointment}}</td>
                                     <td field="status">{{data.status ? 'Active' : 'Inactive'}}</td>
                                     <td class="sorting_disabled">
                                         <a routerLink="/dashboard/patient/edit/{{data.id}}">

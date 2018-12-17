@@ -356,14 +356,14 @@ export class AppConstants {
     public static UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
     public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
     public static FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
-    /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*//*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
     public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get?orderId=';
 
     /*****************************REPORT PRINT*************************************/
     public static PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';
     public static PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
     public static PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
-
-    //
+    public static PRINT_PATIENT_INVOICE_DETAILS = '/reportPrint/patientInvoice';
 
 }
+
+
