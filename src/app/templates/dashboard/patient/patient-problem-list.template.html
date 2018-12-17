@@ -80,7 +80,7 @@
         <div class="row mrgn-top10">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
-                    <h4 class="text-info">Patient Problems
+                    <h4 class="text-info">Active Problems
                         <div class="pull-right">
                             <!--<a href="#responsive" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow pdngall3"
@@ -217,7 +217,6 @@
                                 <!--{{car[col.field]}}-->
                                 <td> {{problem.versionName}}</td>
                                 <td> {{problem.codeName}}</td>
-                                <td> {{problem.problemName}}</td>
                                  <td>{{problem.dateDiagnosis}}</td>
                                 <td> {{problem.note}} </td>
                                 <td> {{problem.status}} </td>
@@ -314,9 +313,6 @@
 </div>
 
 <!--Start Modal-->
-
-
-
 <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -325,18 +321,14 @@
                 <h4 class="modal-title">Problem</h4>
             </div>
             <div class="modal-body">
-                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:340px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="form-group hr mrgn-btm08">
                             <label class="control-label txt-size pdng-lr-5 col-md-3">Appointments<span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-9 pdng-lr-5">
-                            <div class="col-md-7 pdng-lr-5" *ngIf="!isUpdate">
                                 <div class="select2-bootstrap-prepend">
                                     <p-dropdown  placeholder="select appointment"
-
-
-                                    <p-dropdown  placeholder="Select Appointment"
                                                  [autoWidth]="false"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAppointmentId"
                                                  [options]="patient.pastAppointments"
@@ -358,35 +350,6 @@
                                     </select>-->
                                 </div>
                             </div>
-
-                            <div class="col-md-7 pdng-lr-5" *ngIf="isUpdate">
-                                <div class="select2-bootstrap-prepend">
-
-
-                                    <p-dropdown  placeholder="{{ppm.appointmentId}}"
-                                                 [autoWidth]="false"
-                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAppointmentId"
-                                                 [options]="patient.pastAppointments"
-                                                 [(ngModel)]="ppm.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true" [disabled]="ppm.appointmentId">
-                                    </p-dropdown>
-
-
-                                    <!--<select id="selectedAppointmentId"
-                                            [(ngModel)]="ppm.appointmentId"
-                                            name="selectedAppointmentId"
-                                            class="form-control">
-                                        <option value="-1">-&#45;&#45; Please select -&#45;&#45;</option>
-                                        <option
-                                                *ngFor="let appointment of pastAppointments"
-                                                [(value)]="appointment.id">
-                                            {{appointment.appointmentId}},
-                                            {{"Schedule Date:"+appointment.scheduleDate}}
-                                        </option>
-                                    </select>-->
-                                </div>
-                            </div>
-
-
                         </div>
                         <div class="form-group hr mrgn-btm08">
                             <label class="control-label txt-size pdng-lr-5 col-md-3">Version
@@ -423,10 +386,10 @@
                             <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
 
-                                    <p-dropdown  placeholder="{{ppm.problemName}}"
+                                    <p-dropdown  placeholder="select Version"
                                                  [autoWidth]="false"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedVer"
-                                                 [options]="selectedCodeId"
+                                                 [options]="associatedCodes"
                                                  [(ngModel)]="ppm.selectedCodeId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
 

@@ -183,71 +183,7 @@
 
                                 </div>
                             </h4>
-
-                            <!-- New Table Added -->
                             <div class="table-scrollable tbl-brdr-radus">
-                                <p-table #dt [columns]="cols" [value]="orderData" [paginator]="true"  [rows]="5">
-
-                                    <ng-template pTemplate="caption">
-                                        <div style="text-align: right">
-                                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                            <input type="text" pInputText size="50" placeholder="Order Name/Doctor Comment/Description"
-                                                   (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                                        </div>
-                                    </ng-template>
-
-
-
-                                    <ng-template pTemplate="header" let-columns>
-                                        <tr>
-                                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                                {{col.header}}
-                                                <p-sortIcon *ngIf="col.field != 'action' && col.field !='download'"
-                                                            [field]="col.field" ariaLabel="Activate to sort"
-                                                            ariaLabelDesc="Activate to sort in descending order"
-                                                            ariaLabelAsc="Activate to sort in ascending order">
-                                                </p-sortIcon>
-                                            </th>
-                                        </tr>
-
-                                    </ng-template>
-
-
-                                    <ng-template pTemplate="body" let-order let-columns="columns">
-                                        <tr>
-
-                                            <!--{{car[col.field]}}-->
-                                            <td> {{order.orderObj.name}}</td>
-                                            <td><a href="#popupTest" data-toggle="modal">
-                                                <button class="btn mt-sweetalert btn green-meadow" (click)="getImageTest(order.id)"
-                                                        data-confirm-button-class="btn-success">
-                                                    <i class="fa fa"></i> Show Test
-                                                </button>
-                                            </a></td>
-                                            <td>{{order.doctorComment}}</td>
-                                            <td> {{order.description}} </td>
-                                            <!--<td> {{problem.status}} </td>-->
-                                            <td>
-                                                <a href="#responsive" data-toggle="modal"
-                                                   (click)="editOrder(order.id)">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <button
-                                                        (click)="deleteOrder(order.id)">
-                                                    <i class="fa fa-remove"></i>
-                                                </button>
-
-
-                                            </td>
-
-                                        </tr>
-                                    </ng-template>
-
-                                </p-table>
-
-                            </div>
-
-                          <!--  <div class="table-scrollable tbl-brdr-radus">
                                 <table class="table table-hover table-light">
                                     <thead>
                                     <tr class="hedng-bck-clr tbl-pdng">
@@ -331,6 +267,7 @@
                     </ul>
                 </div>
             </div>
+        </div>
         </div>
 
 
@@ -443,10 +380,10 @@
                 <button type="button" data-dismiss="modal" #closeBtn
                         class="btn btn-default btn-outline">Close
                 </button>
-                <span *ngIf="!isUpdate">
+                <span [hidden]="!isUpdate">
                     <button type="button" class="btn green" (click)="saveOrder()">Save</button>
                 </span>
-                <span *ngIf="isUpdate">
+                <span [hidden]="isUpdate">
                     <button type="button" class="btn green" (click)="updateOrderByPatient()">Update
                     </button>
                 </span>
@@ -456,49 +393,7 @@
 </div>
 
 
-<p-dialog *ngIf="showImage" id="responsiveGalleria2"  [modal]="true" [responsive]="true" [width]="1024" [minWidth]="520" [minY]="170"
-          [maximizable]="true" [baseZIndex]="10000" header="View Image Order" [(visible)]="display" >
-
-
-    <!--<div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
-        <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
-            <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
-                [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="clickImage($event,image,i)">
-                <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
-            </li>
-        </ul>
-        <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}" *ngIf="showFilmstrip">
-            <ul class="ui-galleria-filmstrip" style="transition:left 1s" [style.left.px]="stripLeft">
-                <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)"
-                    [style.width.px]="frameWidth" [style.height.px]="frameHeight" [style.transition]="'opacity 0.75s ease'">
-                    <div class="ui-galleria-frame-content">
-                        <img [src]="image.source" [alt]="image.alt" [title]="image.title" class="ui-galleria-frame-image"
-                             [style.width.px]="frameWidth" [style.height.px]="frameHeight">
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="ui-galleria-nav-prev pi pi-fw pi-chevron-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2" *ngIf="activeIndex !== 0"></div>
-        <div class="ui-galleria-nav-next pi pi-fw pi-chevron-right" (click)="clickNavRight()" [style.bottom.px]="frameHeight/2"></div>
-        <div class="ui-galleria-caption" *ngIf="showCaption&&images" style="display:block">
-            <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
-        </div>
-    </div>-->
-
-      <div class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1" >
-            <p-galleria [images]="images" panelWidth="1024" panelHeight="520" activeIndex="1"></p-galleria>
-          <!--<p-footer>
-              <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-              <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
-          </p-footer>-->
-        </div>
-
-
-</p-dialog>
-
-
-
-<!--<div *ngIf="showImage" id="responsiveGalleria2" class="modal fade" tabindex="-1" aria-hidden="true">
+<div *ngIf="showImage" id="responsiveGalleria2" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
         <div class="modal-content">
             <div class="modal-header">
@@ -563,7 +458,7 @@
                                                     </td>
                                                 <td class="sorting_disabled">
                                                 <a  id="abc" data-toggle="modal" >
-                                                    <button class="btn btn-default btn-outline btn-sm"
+                                                    <button class=""
                                                             (click)="openDiv(lbRT)"><i class="fa fa-pencil"></i>
 
                                                     </button>

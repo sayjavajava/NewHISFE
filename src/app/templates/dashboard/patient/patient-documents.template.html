@@ -152,63 +152,7 @@
                             </div>
                         </div>
 
-
-
-                        <div class="table-scrollable tbl-brdr-radus">
-                            <p-table #dt [columns]="cols" [value]="documentData" [paginator]="true"  [rows]="5">
-
-                                <ng-template pTemplate="caption">
-                                    <div style="text-align: right">
-                                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                        <input type="text" pInputText size="50" placeholder="Order Name/Doctor Comment/Description"
-                                               (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                                    </div>
-                                </ng-template>
-
-
-
-                                <ng-template pTemplate="header" let-columns>
-                                    <tr>
-                                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                            {{col.header}}
-                                            <p-sortIcon *ngIf="col.field != 'action' && col.field !='download'"
-                                                        [field]="col.field" ariaLabel="Activate to sort"
-                                                        ariaLabelDesc="Activate to sort in descending order"
-                                                        ariaLabelAsc="Activate to sort in ascending order">
-                                            </p-sortIcon>
-                                        </th>
-                                    </tr>
-
-                                </ng-template>
-
-
-                                <ng-template pTemplate="body" let-doc let-columns="columns">
-                                    <tr>
-
-                                        <td>{{doc.createdOn}}</td>
-                                        <td><a href="{{doc.url}}" target="_blank">Download</a></td>
-                                        <td>{{doc.name}}</td>
-                                        <td>{{doc.description}}</td>
-                                        <td>
-                                            <a
-                                                    (click)="editDocument(doc.id)">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <button
-
-                                                (click)="deleteDocument(doc.id)">
-                                            <i class="fa fa-remove"></i>
-                                        </button>
-                                        </td>
-
-                                    </tr>
-                                </ng-template>
-
-                            </p-table>
-
-                        </div>
-
-                        <!--<div class="hr">
+                        <div class="hr">
                             <h4 class="text-info">Uploaded Documents</h4>
                             <div class="table-scrollable tbl-brdr-radus">
                                 <table class="table table-hover table-light">
@@ -232,17 +176,17 @@
                                                     (click)="editDocument(doc.id)">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            &lt;!&ndash;<button
+                                            <!--<button
                                            delete code is reaming , this code is delete only entry from table  , and will not delete from amazon , but we want to delete from amazon
                                                     (click)="deleteDocument(doc.id)">
                                                 <i class="fa fa-remove"></i>
-                                            </button>&ndash;&gt;
+                                            </button>-->
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>-->
+                        </div>
 
                     </div>
                     <div class="clearfix margin-bottom-20"></div>
@@ -251,7 +195,7 @@
 
         </div>
         <div class="clearfix"></div>
-        <!--<div class="row">
+        <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
@@ -282,7 +226,7 @@
                     </ul>
                 </div>
             </div>
-        </div>-->
+        </div>
 
 
     </div>

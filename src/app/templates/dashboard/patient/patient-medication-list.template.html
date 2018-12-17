@@ -105,73 +105,7 @@
                         </div>
                     </h4>
                 </div>
-
                 <div class="table-scrollable tbl-brdr-radus">
-                    <p-table #dt [columns]="cols" [value]="medicationData" [paginator]="true"  [rows]="5">
-
-                        <ng-template pTemplate="caption">
-                            <div style="text-align: right">
-                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                <input type="text" pInputText size="50" placeholder="Medication/Strengths/Frequency/Duration/SIG"
-                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                            </div>
-                        </ng-template>
-
-
-
-                        <ng-template pTemplate="header" let-columns>
-                            <tr>
-                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                    {{col.header}}
-                                    <p-sortIcon *ngIf="col.field != 'status'"
-                                                [field]="col.field" ariaLabel="Activate to sort"
-                                                ariaLabelDesc="Activate to sort in descending order"
-                                                ariaLabelAsc="Activate to sort in ascending order">
-                                    </p-sortIcon>
-                                </th>
-                            </tr>
-
-                        </ng-template>
-
-
-                        <ng-template pTemplate="body" let-medication let-columns="columns">
-                            <tr>
-
-                                <!--{{car[col.field]}}-->
-                                <td>{{medication.appointmentDate}}</td>
-                                <td>{{medication.drugName}}</td>
-                                <td>{{medication.strengths}}</td>
-                                <td>{{medication.frequency}}</td>
-                                <td>{{medication.duration}}</td>
-                                <td>{{medication.pharmacyNote}}</td>
-                               <!-- <td>{{medication.orderStatus}}</td>-->
-                                <td>{{medication.datePrescribedString}}</td>
-                               <!--<td>{{medication.updatedOn}}</td>-->
-                                <td>
-                                    <a href="#responsiveMedication" data-toggle="modal"
-                                       (click)="editMedication(medication.id)">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <button
-                                            (click)="deleteMedication(medication.id)">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
-
-                                    <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
-                                  <!--  &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
-                                    &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;-->
-
-
-
-                                </td>
-
-                            </tr>
-                        </ng-template>
-
-                    </p-table>
-
-                </div>
-                <!--<div class="table-scrollable tbl-brdr-radus">
                     <table class="table table-hover table-light">
                         <thead>
                         <tr class="hedng-bck-clr tbl-pdng">
@@ -288,7 +222,7 @@
                                 <label class="control-label txt-size pdng-lr-5 col-md-4">
                                     Appointments<span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-7 pdng-lr-5" *ngIf="!isUpdateAppoint">
+                                <div class="col-md-8 pdng-lr-5">
                                     <div class="select2-bootstrap-prepend">
                                        <!-- <select [ngModelOptions]="{standalone:true}"
                                                 name="appointment"
@@ -306,29 +240,6 @@
                                         <p-dropdown  placeholder="select appointment" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="apt"
                                                      [options]="patient.pastAppointments"
                                                      [(ngModel)]="medicationModel.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                        </p-dropdown>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-7 pdng-lr-5" *ngIf="isUpdateAppoint">
-                                    <div class="select2-bootstrap-prepend">
-                                        <!-- <select [ngModelOptions]="{standalone:true}"
-                                                 name="appointment"
-                                                 id="appointmentId"
-                                                 [(ngModel)]="medicationModel.appointmentId"
-                                                 class="form-control">
-                                             <option value="-1">-&#45;&#45; Select Appointment -&#45;&#45;</option>
-                                             <option
-                                                     *ngFor="let pastApp of pastAppointments"
-                                                     [value]="pastApp.id">
-                                                 {{pastApp.appointmentId}},
-                                                 {{"Schedule Date:"+pastApp.scheduleDate}}
-                                             </option>
-                                         </select>-->
-                                        <p-dropdown  placeholder="select appointment" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="apt"
-                                                     [options]="patient.pastAppointments"
-                                                     [(ngModel)]="medicationModel.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true" [disabled]="medicationModel.appointmentId">
                                         </p-dropdown>
                                     </div>
                                 </div>
@@ -368,6 +279,7 @@
                                                [(ngModel)]="medicationModel.duration">
                                     </div>
 
+                                </div>
                             <!--<div class="form-group hr">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">
                                     PRN
@@ -393,17 +305,6 @@
                                 </div>
                             </div>-->
 
-                            <div class="form-group hr">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">Indication</label>
-                                <div class="col-md-7 select pdng-lr-5">
-                                    <input type="text" class="form-control"
-                                           name="indication" placeholder="e.g muscle"
-                                           id="indicationId"
-                                           [(ngModel)]="medicationModel.indication">
-                                </div>
-                            </div>
-
-                            <div class="form-group hr">
                             <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
                                 <div class="col-md-8 select pdng-lr-5 profile-frm">
@@ -421,29 +322,7 @@
                                 </div>
                             </div>
                             <!-- date fields -->
-
                             <!-- New Calendar -->
-
-                            <div class="form-group hr">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Prescribed:</label>
-                                <!--<div class="col-md-9 col-xs-12">
-                                    <div class=" col-md-12 col-xs-12 pull-left no-padding">
-                                        <mwl-demo-utils-date-time-picker
-                                                [(ngModel)]="event.start" name="name"
-                                                [ngModelOptions]="{standalone:true}"
-
-                                                (ngModelChange)="refresh.next()"
-                                                placeholder="Not set">
-                                        </mwl-demo-utils-date-time-picker>
-                                    </div>
-                                </div>-->
-                                <div class="col-md-7 select pdng-lr-5">
-                                    <angular2-date-picker  name="datePrescribed"
-                                                           id="datePrescribedId" [settings]="settings" [(ngModel)]="medicationModel.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
-                                </div>
-                            </div>
-
-
                             <!--<div class="form-group hr">
                                 <label class="col-md-4 control-label">Datetime Prescribed:</label>
                                 <div class="col-md-7 col-xs-5">
@@ -618,31 +497,6 @@
                                                id="indicationId"
                                                [(ngModel)]="medicationModel.indication">
                                     </div>
-
-
-                            <div class="form-group hr">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                    Frequency
-                                </label>
-                                <div class="col-md-7 select pdng-lr-5">
-                                    <input type="text"
-                                           class="form-control" placeholder="e.g 2"
-                                           name="frequency"
-                                           id="frequencyId"
-                                           [(ngModel)]="medicationModel.frequency">
-                                </div>
-                            </div>
-
-                            <div class="form-group hr">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                    Duration
-                                </label>
-                                <div class="col-md-7 select pdng-lr-5">
-                                    <input type="text"
-                                           class="form-control"
-                                           name="duration"  placeholder="e.g 2"
-                                           id="durationId"
-                                           [(ngModel)]="medicationModel.duration">
                                 </div>
                             <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-4 control-label txt-size pdng-lr-5">Duration Period</label>
@@ -661,12 +515,6 @@
                                                     [(ngModel)]="event.start" name="name"
                                                     [ngModelOptions]="{standalone:true}"
 
-                            <div class="form-group hr">
-                                <label class="col-md-4 pdng-lr-5 control-label txt-size">Sig</label>
-                                <div class="col-md-7 select pdng-lr-5">
-                                <input class="form-control" id="pharmacyNoteId" name="pharmacyNote"
-                                          rows="3" placeholder="e.g www.www.com"
-                                          [(ngModel)]="medicationModel.pharmacyNote">
                                                     (ngModelChange)="refresh.next()"
                                                     placeholder="Not set">
                                             </mwl-demo-utils-date-time-picker>
@@ -677,15 +525,6 @@
                                                                id="datePrescribedId" [settings]="settings" [(ngModel)]="medicationModel.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group hr">
-                                <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes</label>
-                                <div class="col-md-7 select pdng-lr-5">
-                                <textarea class="form-control"
-                                          rows="3" id="noteId" name="note" placeholder="e.g Sample"
-                                          [(ngModel)]="medicationModel.note">
-                                </textarea>
                             <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Stopped Date Taking:</label>
                                     <!--<div class="col-md-9 col-xs-12">
