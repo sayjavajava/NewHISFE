@@ -558,6 +558,8 @@ textarea {
     border:1px solid #428bca !important;
     margin-left: -20px !important;
     margin-top: -120px;
+    margin-bottom: -20px;
+    /*padding-bottom: -20px;*/
     /*height:70px;*/
 }
 .hadng-img{
@@ -604,6 +606,12 @@ textarea {
     padding:1px;
     float: left;
     width: 100%;
+}
+.week-st{
+    color: red;
+    font-size: 14px;
+    padding-top: 16px;
+    padding-left: 44px;
 }
 .inr-txt td{
     padding:6px;

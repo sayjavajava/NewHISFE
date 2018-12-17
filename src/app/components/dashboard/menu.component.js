@@ -44,12 +44,12 @@ var MenuComponent = (function () {
                     gInd_1 = new items_1.items('Genaral', '', 'fa fa-cog', itemsList_1);
                 }
                 if (x.indicatior == 'C') {
-                    var ob3 = new items_1.items(x.name, x.routeUrl);
+                    var ob3 = new items_1.items(x.name, x.routeUrl, x.permissionIcon);
                     gList_1.push(ob3);
-                    sInd_1 = new items_1.items('Clinical', '', 'fa fa-code-fork', gList_1);
+                    sInd_1 = new items_1.items('Clinical', '', 'fa fa-cog', gList_1);
                 }
                 if (x.indicatior == 'A') {
-                    var ob3 = new items_1.items(x.name, x.routeUrl);
+                    var ob3 = new items_1.items(x.name, x.routeUrl, x.permissionIcon);
                     mList_1.push(ob3);
                     mInd_1 = new items_1.items('Administration', '', 'fa fa-code-fork', mList_1);
                 }
