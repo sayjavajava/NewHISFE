@@ -42,7 +42,7 @@ export class MenuComponent implements OnInit{
                 if(x.indicatior == 'C'){
                     let ob3 = new items(x.name,x.routeUrl);
                     gList.push(ob3)
-                    sInd = new items('Clinical','','',gList);
+                    sInd = new items('Clinical','','fa fa-code-fork',gList);
                 }
                 if(x.indicatior == 'A'){
                     let ob3  = new items(x.name,x.routeUrl);

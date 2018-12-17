@@ -93,68 +93,66 @@
         </div>
         <div class="clearfix"></div>
     </div>
-</div>
-
-
-<div id="chartOfAccount" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <form id="chartOfAccountForm" #accountForm="ngForm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title" >Add Account</h4>
-                </div>
-                <div class="modal-body" id="addAccDiv" style="height:250px !important;">
-                    <div class="scroller" style="height:250px !important" data-always-visible="1" data-rail-visible1="1">
-                        <div class="row">
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Account Code</label>
-                                <div class="col-md-9 select pdng-lr-5"> <b>{{code}}</b> </div>
-                            </div>
-
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Parent Type</label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <p-dropdown placeholder="Select Parent Type" [autoWidth]="false" (onChange)="parentTypeSelected($event.value)"
-                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedParentType"
-                                                [(ngModel)]="selectedParentType" [options]="parentTypes"
-                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                    </p-dropdown>
+    <div id="chartOfAccount" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="chartOfAccountForm" #accountForm="ngForm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title" >Add Account</h4>
+                    </div>
+                    <div class="modal-body" id="addAccDiv">
+                        <div class="scroller" data-always-visible="1" data-rail-visible1="1" style="height: 190px;">
+                            <div class="row">
+                                <div class="form-group hr">
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Account Code</label>
+                                    <div class="col-md-9 select pdng-lr-5"> <b>{{code}}</b>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Account Type</label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <p-dropdown placeholder="Select Account Type" [autoWidth]="false" (onChange)="accountTypeSelected($event.value)"
-                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAccountType"
-                                                [(ngModel)]="selectedAccountType" [options]="accountTypes"
-                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                    </p-dropdown>
+                                <div class="form-group hr">
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Parent Type</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        <p-dropdown placeholder="Select Parent Type" [autoWidth]="false" (onChange)="parentTypeSelected($event.value)"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedParentType"
+                                                    [(ngModel)]="selectedParentType" [options]="parentTypes"
+                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
+                                    </div>
                                 </div>
-                            </div>
 
-
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Account Name
-                                    <span class="required" aria-required="true"> * </span>
-                                </label>
-                                <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text" name="accountName" id="accountName" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter account name"
-                                           [(ngModel)]="chartOfAccount.name" #accountName="ngModel">
+                                <div class="form-group hr">
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Account Type</label>
+                                    <div class="col-md-9 select pdng-lr-5">
+                                        <p-dropdown placeholder="Select Account Type" [autoWidth]="false" (onChange)="accountTypeSelected($event.value)"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAccountType"
+                                                    [(ngModel)]="selectedAccountType" [options]="accountTypes"
+                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
+                                    </div>
                                 </div>
-                               <span *ngIf="accountName.invalid && accountName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter valid account name.</span>
-                            </div>
 
-                            <div class="form-group hr">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                                <div class="col-md-9 select pdng-lr-5 profile-frm">
+
+                                <div class="form-group hr">
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Account Name
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                        <input type="text" name="accountName" id="accountName" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter account name"
+                                               [(ngModel)]="chartOfAccount.name" #accountName="ngModel">
+                                    </div>
+                                    <span *ngIf="accountName.invalid && accountName.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter valid account name.</span>
+                                </div>
+
+                                <div class="form-group hr">
+                                    <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
+                                    <div class="col-md-9 select pdng-lr-5 profile-frm">
                                     <textarea type="text" rows="1" name="currentValue" class="form-control" placeholder="Enter description"
                                               [(ngModel)]="chartOfAccount.description" #currentValue="ngModel"></textarea>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <ng-container *ngIf="showBankDetailsDiv == true">
+                                <ng-container *ngIf="showBankDetailsDiv == true">
                                 <span *ngIf="showBankDetailsDiv == true">
                                     <div class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank Account Title
@@ -192,22 +190,26 @@
                                         </div>
                                     </div>
                                 </span>
-                            </ng-container>
+                                </ng-container>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
+                    <div class="modal-footer">
                     <span>
                         <button type="button" data-dismiss="modal" id="close-btn-Prefix" (click)="clearAccountSetUp()"
                                 class="btn btn-default btn-outline">Close </button>
                     </span>
-                    <span>
+                        <span>
                         <button type="button" class="btn blue" id="save-btn-update"
                                 (click)="editAccountSetUp(accountForm)">Save/Update </button>
                     </span>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
+
+
+

@@ -65,7 +65,7 @@
                                     <td>{{invc.invoiceId}}</td>
                                     <td>{{invc.patientName}}</td>
                                     <td>{{(invc.invoiceAmount - invc.paidAmount >= 0 ? invc.invoiceAmount - invc.paidAmount : 0.00)  | number :'.2-2'}}</td>
-                                    <td>{{invc.invoiceAmount | number :'.2-2'}}</td>
+                                    <td>{{invc.invoiceAmount - invc.discountAmount + invc.taxAmount | number :'.2-2'}}</td>
                                     <td>{{invc.status}}</td>
                                     <td>
                                         <a title="Patient Invoice" (click)="runPayment(invc.id)" *ngIf="invc.status=='PENDING'">
