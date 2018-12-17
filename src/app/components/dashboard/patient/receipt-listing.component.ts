@@ -169,20 +169,38 @@ export class ReceiptListingComponent {
 
     }
 
-    printReport(paymentId: any) {
-        console.log(paymentId);
-        this.requestsService.getRequest(AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT + "/" + paymentId)
-            .subscribe(
-                (response: Response) => {
-                    console.log(" Added : " + response);
-                    if (response['responseCode'] === 'SUCCESS') {
-                        this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-                        this.notificationService.success('Payment Receipt Downloaded Successfully' + response["responseData"]);
-                        // this.refundList = response["responseData"];
-                    }
-                }, function (error) {
-                    //    this.error('ERROR', 'Refund amount failed');
-                });
+    printReport(receiptObject: any) {
+        let transactionType = receiptObject.transactionType;
+        let paymentId = receiptObject.paymentId;
+        console.log(transactionType);
+        if (transactionType.trim().toUpperCase() == "ADVANCE") {
+            this.requestsService.getRequest(AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT + "/" + paymentId)
+                .subscribe(
+                    (response: Response) => {
+                        console.log(" Added : " + response);
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                            this.notificationService.success('Payment Receipt Downloaded Successfully');
+                            // this.refundList = response["responseData"];
+                        }
+                    }, function (error) {
+                        //    this.error('ERROR', 'Refund amount failed');
+                    });
+        } else if (transactionType.trim().toUpperCase() == "INVOICE") {
+            this.requestsService.getRequest(AppConstants.PRINT_PATIENT_PAYMENT_INVOICE + "/" + paymentId)
+                .subscribe(
+                    (response: Response) => {
+                        console.log(" Added : " + response);
+                        if (response['responseCode'] === 'SUCCESS') {
+                            let pdfFilePath = response["responseData"];
+                            this.notificationService.success('Payment Invoice Downloaded Successfully: ');
+                        } else {
+                            this.notificationService.error('ERROR', 'Failed to generate Invoice: ');
+                        }
+                    }, function (errorMsg: any) {
+                        this.notificationService.error('ERROR', 'Error occurred while getting invoice data: ' + errorMsg);
+                    });
+        }
     }
 
     saveAndPrintReceipt(formData: any) {

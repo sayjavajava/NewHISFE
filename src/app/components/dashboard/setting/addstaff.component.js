@@ -148,15 +148,12 @@ var AddStaffComponent = (function () {
         });
     };
     AddStaffComponent.prototype.sortServices = function (branchObj) {
-        //uncomment and check branches from server to filter service by  visit branches
-        /* let brId =  branchObj.value;
-         console.log(this.allServicesList)
-         let sortedList = this.allServicesList.filter((x:any)=>{
-             if(x.branches !=null || x.branches != "undefined"){
-                 x.branches.id ==brId
- 
-             }
-         })*/
+        var brId = branchObj.value;
+        var sortedList = this.allServicesList.filter(function (x) {
+            if (x.branches.length > 0)
+                x.branches.id == brId;
+        });
+        console.log('servicesList' + sortedList[0]);
     };
     AddStaffComponent.prototype.allServices = function () {
         var _this = this;

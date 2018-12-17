@@ -22,7 +22,17 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6"></div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="sub-total">
+                        <ul>
+                            <li> <span>Invoice Id:</span>    <span  class="text-align-left"> {{invoicePrefix}} </span> </li>
+
+                            <li> <span>Doctor Name:</span>      <span  class="text-align-left">{{docFirstName}} {{docLastName}} </span> </li>
+
+                            <li> <span>Cashier Name:</span>     <span  class="text-align-left">Administrator</span>    </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -84,11 +94,14 @@
                         </label>
                     </div>
                     <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
-                    <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-top8">
+                    <label class="mt-checkbox mt-checkbox-outline col-md-6">
                             <input type="checkbox" [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
-                                    Use Advanced Balance : <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b>
+                                    Use Advanced Balance :
                             <span></span>
                         </label>
+                    <div class="col-md-6 no-padding-rgt">
+                        <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
+                    </div>
                 </div>
                 <div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
                     <label class="col-md-4 no-padding-lft">Advance Used :</label>
@@ -96,7 +109,7 @@
                         <input type="number" class="form-control text-align-right" name="usedAdvanceDeposit" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
                     </div>
                 </div>
-                <div class="form-group hr mrgn-btm08">
+                <div class="form-group hr mrgn-btm08 mrgn-top8">
                     <label class="col-md-4 no-padding-lft">Applied Amount</label>
                     <div class="col-md-8 no-padding-rgt profile-frm">
                         <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
@@ -132,7 +145,7 @@
                 </div>
             </div>
             <div class="col-md-4 pull-right mrgn-top8">
-                <div class="hedng-bck-clr padding-10 sub-total">
+                <div class="off-wite-bg padding-10 sub-total">
                     <ul>
                         <li>
                             <span>Total Invoice Amount:</span> <span>{{grandTotal | number :'.2-2'}}</span>

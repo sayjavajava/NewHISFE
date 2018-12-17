@@ -7,6 +7,7 @@ export  class  LabTestSpecimanModel{
     maxNormalRange: string = '';
     description: string = '';
     unit:string='';
+    specimanId:string='';
     constructor() {
     }
 }

@@ -134,7 +134,7 @@ export class RefundListingComponent {
                 (response: Response)=>{
                     if (response["responseCode"] === "PATIENT_SUC_11")
                     {
-                        this.patientList = response["responseData"].data;
+                        this.patientList = response["responseData"];
                     }
                 }, function (error) {
              //       this.notificationService.error("ERROR", "States List is not available");

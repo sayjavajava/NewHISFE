@@ -74,18 +74,19 @@
                 </div>
                 <div class="hr">
                     <div class="col-md-7">
-                        <p class="text-right">Advance Balance:</p>
+                        <p class="text-right bold">Advance Balance:
+                            <input type="checkbox"
+                               [(ngModel)]="bulkReceitRequest.useAdvance"
+                               ng-reflect-name="chk-3"
+                               ng-reflect-model="false"
+                               id="chk-3"
+                               class="ng-valid ng-dirty ng-touched">
+                            <span></span></p>
                     </div>
                     <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{cusAdvanceBalance | number :'.2-2'}}</b></div>
                 </div>
                 <div class="text-center">
-                    <input type="checkbox"
-                           [(ngModel)]="bulkReceitRequest.useAdvance"
-                           ng-reflect-name="chk-3"
-                           ng-reflect-model="false"
-                           id="chk-3"
-                           class="ng-valid ng-dirty ng-touched">
-                    <b> Use Advanced Balance : </b>  <span></span>
+
                 </div>
             </div>
         </div>
@@ -173,7 +174,7 @@
             </div>
 
             <div class="col-md-4 pull-right mrgn-top8">
-                <div class="hedng-bck-clr padding-10 sub-total">
+                <div class="off-wite-bg padding-10 sub-total">
                    
                     <ul>
                         <li>

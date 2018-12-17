@@ -118,15 +118,18 @@
                     <div class="scroller" style="height:270px" data-always-visible="1" data-rail-visible1="1">
                         <!-- Multi select by ng-->
                         <div class="form-group hr mrgn-btm08">
-                                <label class="control-label col-md-3 pdng-lr-5 txt-size">Versions</label>
+                                <label class="control-label col-md-3 pdng-lr-5 txt-size">Versions
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
                                 <div class="col-md-9 pdng-lr-5">
-                                    <p-multiSelect
+                                    <p-multiSelect required id="codeVersion" name="codeVersion"
                                             placeholder="select version e.g icd-version-0001"
                                             [style]="{'text-align': 'left' ,'width':'100%'}"
                                             [options]="icdVersions" (onChange)="changeSelectedChecked()"
                                             [ngModelOptions]="{standalone:true}" [(ngModel)]="clientCheckedVersions"
                                             [panelStyle]="{minWidth:''}">
                                     </p-multiSelect>
+
                                 </div>
                         </div>
                         <!-- Multi select by ng-->

@@ -59,7 +59,7 @@ export class PatientLabOrdersComponent implements OnInit {
             { field: 'orderStatus', header: 'Order Status' },
             { field: 'description', header: 'Description' },
             { field: 'LabTest', header: 'Lab Test' },
-            { field: 'action', header: 'Lab Test' }
+            { field: 'action', header: 'Action' }
         ];
     }
 

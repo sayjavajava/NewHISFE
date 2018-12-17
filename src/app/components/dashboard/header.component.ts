@@ -48,7 +48,8 @@ export class HeaderComponent implements OnInit {
                         {label: 'Appointment',
                             items: [{label: 'Appointments',icon: 'icon-clock',routerLink: ['/dashboard/appointment/manage']},
                                 {label: 'New Appointment',icon: 'fa fa-calendar-plus-o',routerLink: ['/dashboard/appointment/add']},
-                                {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/appointment/reports']}]
+                                // {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/appointment/reports']}
+                                ]
 
                         },
                     ],
@@ -63,15 +64,15 @@ export class HeaderComponent implements OnInit {
                             items: [
                                 {label: 'Manage Patient',icon: 'icon-user-following',routerLink: ['/dashboard/patient/manage']},
                                 {label: 'New Patient',icon: 'icon-user-follow',routerLink: ['/dashboard/patient/add']},
-                                {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/patient/reports']},
-                                {label: 'Invoice Listing',icon: 'far fa-file-invoice',routerLink: ['/dashboard/invoice-listing']},
-                                {label: 'Receipt Listing',icon: 'fas fa-file-invoice',routerLink: ['/dashboard/receipt-listing']},
+                                // {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/patient/reports']},
+                                {label: 'Invoices',icon: 'fa fa-list-ul',routerLink: ['/dashboard/invoice-listing']},
+                                {label: 'Receipts',icon: 'fa fa-list-ul',routerLink: ['/dashboard/receipt-listing']},
 
-                                {label: 'Doctor Payment',icon: 'fas fa-file-invoice',routerLink: ['/dashboard/doc-payment-listing']},
+                                {label: 'Doctor Payments',icon: 'ffa fa-money',routerLink: ['/dashboard/doc-payment-listing']},
 
-                                {label: 'Refunds Listing',icon: 'icon-user-follow',routerLink: ['/dashboard/refund']},
-                                {label: 'Invoices',icon: 'icon-user-following',routerLink: ['/dashboard/invoice']},
-                                {label: 'Receipt',icon: 'fa fa-book',routerLink: ['/dashboard/patient/payment']}
+                                {label: 'Refunds',icon: 'icon-user-follow',routerLink: ['/dashboard/refund']}
+                                // {label: 'Invoices',icon: 'icon-user-following',routerLink: ['/dashboard/invoice']},
+                                // {label: 'Receipt',icon: 'fa fa-book',routerLink: ['/dashboard/patient/payment']}
                                 ]
 
                         },

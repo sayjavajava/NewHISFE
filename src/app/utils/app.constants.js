@@ -217,6 +217,9 @@ var AppConstants = (function () {
     AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS = '/labTest/getAll';
     AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_SAVE = '/labTest/saveLabTestSpeciman';
     AppConstants.IMPORT_LAB_TEST_LIST_TO_SERVER = '/labTest/importRecords';
+    // public static DRUG_DELETE_URI = '/setting/drug/delete?drugId=';
+    AppConstants.LAB_TEST_SPECIMAN_CONFIGURATION_DELETE = '/labTest/delete?specimanId=';
+    AppConstants.LAB_TEST_UPDATE_URL = '/labTest/update';
     ///////////////////// Patient Group URLs ////////////////////////////////////////
     AppConstants.PATIENT_GROUP_FETCH_ALL_PAGINATED_URI = '/patient/group/'; ///all by paginated , zero means first page , 1 means second page
     AppConstants.PATIENT_GROUP_DELETE_URI = '/patient/group/delete?patientGroupId=';
@@ -298,12 +301,12 @@ var AppConstants = (function () {
     AppConstants.UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
     AppConstants.PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/'; ///all by paginated
     AppConstants.FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
-    /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/ /*public static GET_COUNTRY_BY_NAME='/CountryAPI/getByName/';*/
-    AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get';
+    AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get?orderId=';
     /*****************************REPORT PRINT*************************************/
     AppConstants.PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';
     AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
     AppConstants.PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
+    AppConstants.PRINT_PATIENT_INVOICE_DETAILS = '/reportPrint/patientInvoice';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {RequestsService} from "../../../services/requests.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {InvoicesList} from "../../../model/InvoicesList";
@@ -18,6 +18,7 @@ export class InvoiceListingComponent implements OnInit{
     cols: any[];
     currency: string = "";
     totalAmount: number;
+    // href: string = "";
 
 
 
@@ -25,7 +26,7 @@ export class InvoiceListingComponent implements OnInit{
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private notificationService: NotificationService) {
-    //    this.currency = "USD";
+        //    this.currency = "USD";
 
     }
 
@@ -80,14 +81,19 @@ export class InvoiceListingComponent implements OnInit{
 
     printReport(invoiceId: any) {
         console.log(invoiceId);
-        this.requestsService.getRequest(AppConstants.PRINT_PATIENT_PAYMENT_INVOICE + "/" + invoiceId)
+        this.requestsService.getRequest(AppConstants.PRINT_PATIENT_INVOICE_DETAILS + "/" + invoiceId)
             .subscribe(
                 (response: Response) => {
                     console.log(" Added : " + response);
                     if (response['responseCode'] === 'SUCCESS') {
                         // this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-                        this.notificationService.success('Payment Invoice Downloaded Successfully' + response["responseData"]);
-                        // this.refundList = response["responseData"];
+                        let pdfFilePath = response["responseData"];
+                        // if (pdfFilePath != null && pdfFilePath.trim().length > 0) {
+                        // this.openPDF(pdfFilePath);
+                        this.notificationService.success('Payment Invoice Downloaded Successfully: ');
+                        // } else {
+                        //     this.notificationService.success('Payment Invoice Saved Successfully: ');
+                        // }
                     } else {
                         this.notificationService.error('ERROR', 'Failed to generate Invoice: '+response["responseData"]);
                     }

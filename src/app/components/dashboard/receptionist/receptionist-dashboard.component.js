@@ -59,9 +59,6 @@ var ReceptionistDashboardComponent = (function () {
                 _this.dashboardListModified = _this.dashboardList;
                 _this.loading = false;
             }
-            else {
-                _this.loading = false;
-            }
         }, function (error) {
             _this.error = error.error.error;
             _this.loading = false;

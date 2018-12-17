@@ -46,8 +46,8 @@ export class ManagePatientComponent implements OnInit {
             {field: "email", header: "Email"},
             {field: 'gender', header: 'Gender'},
             {field: 'cellPhone', header: 'Cell No.'},
-            {field: 'pastAppointments', header: 'Last Appt.'},
-            {field: 'futureAppointments', header: 'Next Appt.'},
+            {field: 'lastAppointment', header: 'Last Appt.'},
+            {field: 'nextAppointment', header: 'Next Appt.'},
             {field: "status", header: "Status"},
             {field: "action", header: "Action"}
         ];
@@ -169,9 +169,9 @@ export class ManagePatientComponent implements OnInit {
         if (fileList != null && fileList.length > 0) {
             if (event.target.name === 'patientDataImport') {
                 // if (fileList[0].size < 4000000) {
-                    this.patientDataImport = fileList[0];
+                this.patientDataImport = fileList[0];
                 // } else {
-                    // this.notificationService.warn('File size must be less than 4000000 bytes');
+                // this.notificationService.warn('File size must be less than 4000000 bytes');
                 // }
 
                 this.requestsService.postRequestMultipartForm(AppConstants.IMPORT_PATIENTS_LIST_TO_SERVER, this.patientDataImport)

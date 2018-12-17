@@ -30,6 +30,8 @@ export class Patient {
     ////////Appointment
     pastAppointments: any = [];
     futureAppointments: any[];
+    lastAppointment: string = "";
+    nextAppointment: string = "";
     /////// DEMOGRAPHY
     patientId: string;
     patientSSN: string = "";

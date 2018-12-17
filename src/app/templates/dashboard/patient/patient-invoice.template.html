@@ -15,7 +15,7 @@
                                 <span class="text-align-left">10002</span>
                             </li>-->
                             <li>
-                                <span>Invoice Id:</span>
+                                <span>File Id:</span>
                                 <span class="text-align-left">{{invoicePrefix}}</span>
                             </li>
 
@@ -30,19 +30,24 @@
                             <!-- <li>
                                 <span>Time In:</span>
                                 <span>{{appointmentStartedOn}}</span>   
-                            </li>  -->   
+                            </li>  -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="sub-total">
+                        <ul>
+                            <li>
+                                <span>Invoice Id:</span>
+                                <span class="text-align-left">{{invoicePrefix}}</span>
+                            </li>
                             <li>
                                 <span>Doctor Name:</span>
                                 <span class="text-align-left">{{docFirstName}}  {{docLastName}} </span>
                             </li>
-                            <li>
-                                <span>Cashier Name:</span>
-                                <span class="text-align-left">Administrator</span>
-                            </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6"></div>
             </div>
         </div>
             <div class="row" *ngIf="!completed">
@@ -89,7 +94,7 @@
                                         </tr>
                                         <tr role="row" class="filter">
                                             <td rowspan="1" colspan="1" class="custom-td-size profile-frm">
-                                                <input type="text" name="code" value="{{selectedService.code}}" class="form-control" disabled>
+                                                <input type="text" name="code" value="{{selectedService.code}}" class="form-control off-wite-bg" disabled>
                                             </td>
                                             <td class="sorting_disabled custom-td-size profile-frm" rowspan="1" colspan="1">
                                                 <input type="text" class="form-control" name="name" value="{{serviceName}}"  disabled>
@@ -165,8 +170,8 @@
                                 <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">
-                                        <button *ngIf="!completed" (click)="editInvoic(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
-                                        <button *ngIf="!completed" (click)="removeInvoic(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
+                                        <button *ngIf="!completed" (click)="editInvoic(idx)" class=""><i class="fa fa-pencil"></i></button>
+                                        <button *ngIf="!completed" (click)="removeInvoic(idx)" class=""> <i class="fa fa-remove font-red"></i> </button>
                                 </td>
                             </tr>
                             
@@ -180,7 +185,7 @@
             </div>
 
             <div class="col-md-4 pull-right mrgn-top8">
-                <div class="hedng-bck-clr padding-10 sub-total">
+                <div class="padding-10 sub-total off-wite-bg">
                    
                     <ul>
                         <li>
