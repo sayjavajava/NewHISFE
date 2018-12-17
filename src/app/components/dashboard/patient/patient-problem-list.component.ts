@@ -77,6 +77,7 @@ export class PatientProblemListComponent implements OnInit {
         this.cols = [
             { field: 'versionName', header: 'Version' },
             { field: 'codeName', header: 'Code' },
+            { field: 'problemName', header: 'Name' },
             { field: 'dateDiagnosis', header: 'Diagnosis Date' },
             { field: 'note', header: 'Notes' },
             { field: 'status', header: 'Status' },
@@ -164,6 +165,7 @@ export class PatientProblemListComponent implements OnInit {
         this.ppm = new PatientProblemModel();
         this.appointmentsByServer();
         this.versionsByServer();
+
     }
 
     changedVersion(associatedICDCVId: any) {
@@ -181,7 +183,16 @@ export class PatientProblemListComponent implements OnInit {
                             this.associatedCodes = [];
 
                             this.associatedCodes = response['responseData'].code;
+                            debugger;
+                            for(var i=0; i<this.associatedCodes.length;i++){
+                                var problems=this.associatedCodes[i];
+                                var pair={label:problems.problem,value:problems.id}
+                                this.selectedCodeId.push(pair);
+                            }
 
+                            console.log(this.associatedCodes);
+
+                            debugger;
                         }
                     },
                     (error: any) => {
@@ -190,6 +201,8 @@ export class PatientProblemListComponent implements OnInit {
                 );
         }
     }
+
+
 
     savePatientProblem() {
 
@@ -200,25 +213,25 @@ export class PatientProblemListComponent implements OnInit {
 
         if (this.ppm.appointmentId <= 0) {
             this.notificationService.warn('Please select appoint.');
-            document.getElementById('selectedAppointmentId').focus();
+          //  document.getElementById('selectedAppointmentId').focus();
             return;
         }
 
         if (this.ppm.selectedICDVersionId <= 0) {
             this.notificationService.warn('Please select Version.');
-            document.getElementById('icdVersionId').focus();
+         //   document.getElementById('icdVersionId').focus();
             return;
         }
 
         if (this.ppm.selectedCodeId <= 0) {
             this.notificationService.warn('Please select Code.');
-           document.getElementById('associatedCodesId').focus();
+        //   document.getElementById('associatedCodesId').focus();
             return;
         }
 
         if (this.ppm.datePrescribedDate === null) {
             this.notificationService.warn('Please enter Diagnosis Date.');
-            document.getElementById('dateDiagnosisId').focus();
+        //    document.getElementById('dateDiagnosisId').focus();
             return;
         }
         this.ppm.datePrescribedDate=new Date(this.ppm.datePrescribedDate);
@@ -268,6 +281,7 @@ export class PatientProblemListComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.problemData = response['responseData']['data'];
+
                         console.log(this.problemData);
                     } else {
                         this.notificationService.error(response['responseMessage'])
@@ -316,9 +330,11 @@ export class PatientProblemListComponent implements OnInit {
                                 this.ppm = response['responseData'];
                                 this.appointmentsByPatientServer(this.ppm.patientId);
                                 this.versionsByServer();
+                                debugger;
                                 this.codesByVersionFromServer(this.ppm.selectedICDVersionId);
                                 this.ppm.datePrescribedDate=new Date(this.ppm.dateDiagnosis);
-
+                               // this.selectedCodeId=this.ppm.codeName;
+                                debugger;
                             } else {
                                 this.notificationService.error(response['responseMessage'], 'Problem of Patient');
                             }
@@ -345,25 +361,25 @@ export class PatientProblemListComponent implements OnInit {
 
         if (this.ppm.appointmentId <= 0) {
             this.notificationService.warn('Please select appoint.');
-            document.getElementById('selectedAppointmentId').focus();
+        //    document.getElementById('selectedAppointmentId').focus();
             return;
         }
 
         if (this.ppm.selectedICDVersionId <= 0) {
             this.notificationService.warn('Please select Version.');
-            document.getElementById('icdVersionId').focus();
+       //     document.getElementById('icdVersionId').focus();
             return;
         }
 
         if (this.ppm.selectedCodeId <= 0) {
             this.notificationService.warn('Please select Code.');
-            document.getElementById('associatedCodesId').focus();
+        //    document.getElementById('associatedCodesId').focus();
             return;
         }
 
         if (this.ppm.datePrescribedDate === null) {
             this.notificationService.warn('Please enter Diagnosis Date.');
-            document.getElementById('dateDiagnosisId').focus();
+      //      document.getElementById('dateDiagnosisId').focus();
             return;
         }
         this.ppm.datePrescribedDate=new Date(this.ppm.datePrescribedDate);

@@ -55,8 +55,10 @@ export class PatientMedicationListComponent implements OnInit {
     searchedDrugNamesLst:any =[];
     searchedDrugStrengths: DrugModel = new DrugModel();
     DrugStrengths: any[];
+    cols:any=[];
     selectedstrength: StrengthModel[];
     StrengthListModified: SelectItem[] = [];
+    isUpdateAppoint: boolean = false;
   //  strengthsListModified
     // new Scheme
     searchedDrugStrengthsAny: any[];
@@ -108,6 +110,26 @@ export class PatientMedicationListComponent implements OnInit {
             {label: 'Month ', value: 'Month '},
 
         ];
+
+
+        /*<th> Appointment Date/Time</th>
+        <th> Medication</th>
+        <th>Strengths</th>
+        <th>Frequency</th>
+        <th> Duration</th>
+        <th> SIG </th>
+        <th> Start Date</th>
+        <th>Action</th>*/
+        this.cols = [
+            { field: 'appointmentDate', header: 'Appointment Date/Time' },
+            { field: 'drugName', header: 'Medication' },
+            { field: 'strengths', header: 'Strengths' },
+            { field: 'frequency', header: 'Frequency' },
+            { field: 'duration', header: 'Duration' },
+            { field: 'pharmacyNote', header: 'SIG' },
+            { field: 'datePrescribedString', header: 'Start Date' },
+            { field: 'status', header: 'Action' },
+        ];
     }
 
 
@@ -141,6 +163,7 @@ export class PatientMedicationListComponent implements OnInit {
     addMedication() {
 
         this.isUpdate = false;
+        this.isUpdateAppoint=false;
         this.medicationModel = new MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
         this.getAllDrugsFromServer()
@@ -346,6 +369,7 @@ export class PatientMedicationListComponent implements OnInit {
 
     editMedication(medicationId: number) {
         this.isUpdate = true;
+        this.isUpdateAppoint=false;
         this.medicationModel = new MedicationModel();
         this.getAllDrugsFromServer();
         if (medicationId > 0) {
@@ -362,7 +386,7 @@ export class PatientMedicationListComponent implements OnInit {
                                 this.medicationModel.dateStoppedTakingDate=new Date(this.medicationModel.dateStoppedTakingString);
                                 this.medicationModel.status=this.medicationModel.status;
 
-
+                                this.isUpdateAppoint=true;
                                 this.selectedstr=this.medicationModel.strengths;
                                 this.appointmentsByPatientFromServer(this.medicationModel.patientId);
                             } else {

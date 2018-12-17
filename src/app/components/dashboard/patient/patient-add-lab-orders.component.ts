@@ -47,6 +47,8 @@ export class PatientAddLabOrdersComponent implements OnInit {
     appointmentList:any[];
     selectedAppointmentId: SelectItem[] = [];
     selectedString:string;
+    isUpdate:boolean=false;
+    isError:boolean=false;
     filterLabTestSingle(event:any) {
         let query = event.query;
         this.filteredTestSingle = this.filterLabTest(query, this.labTestSpecimanList);
@@ -123,9 +125,9 @@ export class PatientAddLabOrdersComponent implements OnInit {
             this.patchOrderData();
         }
         this.statusType = [
-            { label: 'ORDERED ENTERED', value: 'ORDEREDENTERED' },
-            { label: 'IN_PROGRESS', value: 'INPROGRESS' },
-            { label: 'RESULT RECEIVED', value: 'RESULTRECEIVED' },
+            { label: 'ORDERED', value: 'ORDERED' },
+            { label: 'IN_PROGRESS', value: 'IN_PROGRESS' },
+            { label: 'COMPLETED', value: 'COMPLETED' },
 
         ];
         this.requestService.getRequest(AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS
@@ -162,7 +164,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
                         console.log(this.patient);
                         let apptId = response['responseData']['pastAppointments'];
                         this.appointmentList=response['responseData']['pastAppointments'];
-
+                        debugger;
                         //   this.doctorAppointment=apptId[]
                         console.log(apptId);
                         this.appointmentId  = apptId[0].id;
@@ -237,6 +239,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
 
                 });
+                this.isUpdate=true;
 
             }, (error: any) => {
                 //console.log(error.json());
@@ -363,14 +366,17 @@ export class PatientAddLabOrdersComponent implements OnInit {
         this.selectedTest.minNormalRange=this.singleObj.minNormalRange;
         this.selectedTest.id=this.singleObj.id;
         this.selectedTest.resultValue=this.resultValue;
-        debugger;
-        this.LabReadList.push(this.selectedTest);
-        this.show = false;
-        this.showEdit=false;
-        this.clearField();
-        let arr = this.filteredTestSingle.filter((listing: any) => listing.id === this.selectedTest.id);
-        this.filteredTestSingle.splice(arr[0],1);
-
+        if(this.resultValue.length >0) {
+            debugger;
+            this.LabReadList.push(this.selectedTest);
+            this.show = false;
+            this.showEdit = false;
+            this.clearField();
+            let arr = this.filteredTestSingle.filter((listing: any) => listing.id === this.selectedTest.id);
+            this.filteredTestSingle.splice(arr[0], 1);
+        }else{
+            this.isError=true;
+        }
     }
 
     updateLabtoGrid(event : any){

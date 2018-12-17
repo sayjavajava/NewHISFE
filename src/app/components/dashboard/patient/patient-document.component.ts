@@ -28,7 +28,7 @@ export class PatientDocumentsComponent implements OnInit {
     private isRequestUnderProcess: boolean = false;
     private subscription: Subscription;
     reportType:any;
-
+    cols: any[];
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -53,6 +53,16 @@ export class PatientDocumentsComponent implements OnInit {
             {label: 'REPORT',value:'REPORT'},
             {label: 'TEST',value:'TEST'},
 
+        ];
+
+
+
+        this.cols = [
+            { field: 'createdOn', header: 'Uploaded on' },
+            { field: 'url', header: 'Download' },
+            { field: 'name', header: 'Name' },
+            { field: 'description', header: 'Description' },
+            { field: 'action', header: 'Action' }
         ];
     }
 

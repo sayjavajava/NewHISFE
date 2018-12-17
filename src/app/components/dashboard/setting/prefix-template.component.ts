@@ -66,12 +66,40 @@ export class PrefixTemplateComponent {
 
     editPrefixModule(formData: NgForm) {
         if (localStorage.getItem(btoa('access_token'))) {
+
+
+
+            if (this.prefixTemplate.module == null || this.prefixTemplate.module.trim().length <= 0) {
+                this.notificationService.error("Please provide Module");
+                return;
+            }
+            if (this.prefixTemplate.currentValue == "" || this.prefixTemplate.currentValue == null) {
+
+                this.notificationService.error('Please provide Current Value');
+
+                return;
+            }
+
+            if (this.prefixTemplate.startValue == 1) {
+
+                this.notificationService.error('Please provide Start Value');
+
+                return;
+            }
+            if (this.prefixTemplate.name == "" || this.prefixTemplate.name == null) {
+
+                this.notificationService.error('Please provide Name');
+
+                return;
+            }
+
             this.requestsService.postRequest(AppConstants.PREFIX_CONFIGURATION_SAVE , this.prefixTemplate)
              .subscribe(
                (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
                             this.prefixTemplateList = response['responseData'];
                             document.getElementById('close-btn-Prefix').click();
+                            this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                             this.notificationService.success(response['responseMessage'], 'Update Module Prefix');
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Update Module Prefix');

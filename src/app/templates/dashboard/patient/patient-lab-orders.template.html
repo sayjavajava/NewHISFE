@@ -84,7 +84,127 @@
                     </div>
                 </h4>
 
-                <div class="table-scrollable">
+
+                <!-- New Data Tables ---->
+                <div class="table-scrollable tbl-brdr-radus">
+
+
+                    <p-table #dt [columns]="cols" [value]="allOrders"  [rows]="10"  [paginator]="true" >
+
+
+                        <ng-template pTemplate="caption">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Allergy/Reaction/Notes"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
+                        <!--<div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Allergy/Reaction/Notes"
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                   style="width:auto">
+                        </div>-->
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+
+                            <tr>
+                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                    {{col.header}}
+                                    <p-sortIcon *ngIf="col.field != 'origin' && col.field != 'status'"
+                                                [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                            <!--<tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                    <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    <input *ngSwitchCase="'reaction'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                    &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+
+                                   &lt;!&ndash; <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+
+                                    &lt;!&ndash;<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+
+
+
+
+                                </th>
+                            </tr>-->
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item let-allergyData>
+                            <tr>
+
+                                <td ><strong>{{item.appointment[0].doctor.firstName +" "+ item.appointment[0].doctor.lastName}}</strong></td>
+                                <td >{{item.dateTest | date:stdSystemFormat}}</td>
+                                <td >{{item.status}}</td>
+                                <td >{{item.comments}}</td>
+                                <!--<td >{{allergyData.updatedOn}}</td>-->
+
+                                <td><a href="#popupTest" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow"
+                                            (click)="getLabTest(item.id)"
+                                            data-confirm-button-class="btn-success">
+                                        <i class="fa fa"></i> Show Test
+                                    </button>
+                                </a></td>
+                                <td rowspan="1" colspan="1">
+
+                                    <button (click)="updateOrder(item.id)" class="btn btn-default btn-outline btn-sm"><i
+                                            class="fa fa-pencil"></i></button>
+                                    <button (click)="deleteLabOrder(item.id)" class="btn btn-default btn-outline btn-sm"><i
+                                            class="fa fa-remove"></i></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+
+
+
+                    <!--<table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Allergy</th>
+                            <th> Reaction</th>
+                            <th> Status</th>
+                            <th> Notes</th>
+                            <th>updated</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng" *ngFor="let allergy of allergyData" class="filter">
+                            <td>{{allergy.name}}</td>
+                            <td>{{allergy.reaction}}</td>
+                            <td>{{allergy.status}}</td>
+                            <td>{{allergy.note}}</td>
+                            <td>{{allergy.updatedOn}}</td>
+                            <td>
+                                <a href="#responsiveAllergy" data-toggle="modal"
+                                   (click)="editAllergy(allergy.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="deleteAllergy(allergy.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>-->
+                </div>
+
+
+
+               <!-- <div class="table-scrollable">
                     <table class="table table-striped table-hover table-checkable dataTable no-footer"
                            aria-describedby="datatable_ajax_info" role="grid">
                         <thead>
@@ -127,7 +247,7 @@
                         </tr>
                         </thead>
                     </table>
-                </div>
+                </div>-->
             </div>
         </div>
 

@@ -58,6 +58,7 @@ export class UpdateBranchComponent implements OnInit {
                     if (response["responseCode"] === "BRANCH_SUC_01") {
                         if (!isNullOrUndefined(response["responseData"])) {
                             this.noOfRoom = response["responseData"].data;
+                            debugger;
                         }
                         if (this.noOfRoom < 1) {
                             this.noOfRoom = 1;
@@ -174,6 +175,7 @@ export class UpdateBranchComponent implements OnInit {
 
     public patchData() {
         if (this.id) {
+            debugger;
             this.requestService.findById(AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(
                 branch => {
                     this.branchForm.patchValue({
@@ -217,9 +219,12 @@ export class UpdateBranchComponent implements OnInit {
                          );*/
                     this.branchForm.controls["zipCode"].patchValue(branch.zipCode);
                     this.allRoomCount();
-                    branch.examRooms = this.noOfRoom;
-                    this.addFields(branch.rooms);
-                    // this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
+                    this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
+                 //   branch.examRooms = this.noOfRoom;
+
+                    debugger;
+                   this.addFields(branch.rooms);
+                    this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -389,12 +394,26 @@ export class UpdateBranchComponent implements OnInit {
 
     addFields(no: number): void {
         this.removeAllFields();
+        debugger;
         this.examRooms = this.branchForm.get("examRooms") as FormArray;
         for (var i = 0; i < no; i++) {
+            debugger;
             this.examRooms.push(this.createExamRoom());
         }
 
     }
+
+    addValuesFields(no: number): void {
+        this.removeAllFields();
+        debugger;
+        this.examRooms = this.branchForm.get("examRooms") as FormArray;
+        for (var i = 0; i < no; i++) {
+            debugger;
+            this.examRooms.push(this.createExamRoom());
+        }
+
+    }
+
 
     removeAllFields() {
         this.examRooms = this.branchForm.get("examRooms") as FormArray;

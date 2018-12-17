@@ -80,6 +80,9 @@
                                      Appointments<span class="required" aria-required="true"> * </span>
                                  </label>-->
 
+                                <div class="col-md-5" *ngIf="!isUpdate">
+
+
                                 <div class="col-md-5 pdng-lr-5">
                                     <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
                                                  (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
@@ -88,6 +91,17 @@
                                           *ngIf="!labForm.controls['appointmentId'].valid && labForm.controls['appointmentId'].touched">
                                                     <span *ngIf="labForm.controls['appointmentId'].errors.required"> Please Select Appointment </span>
                                                 </span>
+
+                                </div>
+
+
+                                <div class="col-md-5" *ngIf="isUpdate">
+
+
+                                    <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
+                                                  (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true" disabled="appointmentId">
+                                    </p-dropdown>
+
 
                                 </div>
                             </div>
@@ -138,13 +152,29 @@
                                     <p-autoComplete class="custm-tst-input"  placeholder={{selectedString}} [suggestions]="filteredTestSingle" formControlName="testNameId" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true" [disabled]="showEdit"></p-autoComplete>
                                     <span class="text-danger"
                                           *ngIf="!labForm.controls['testNameId'].valid && labForm.controls['testNameId'].touched">
+                                <div class="col-md-5" *ngIf="!isUpdate">
+                                    <p-autoComplete  placeholder={{selectedString}} [suggestions]="filteredTestSingle" formControlName="testNameId" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true" ></p-autoComplete>
+                                </div>
+                                <div class="col-md-5" *ngIf="isUpdate">
+                                    <p-autoComplete  placeholder={{selectedString}} [suggestions]="filteredTestSingle" formControlName="testNameId" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true" [disabled]="isUpdate"></p-autoComplete>
+                                </div>
+
+                                <div class="col-md-4">Test Name of the lab order.</div>
+                                <span class="text-danger"
+                                      *ngIf="!labForm.controls['testNameId'].valid && labForm.controls['testNameId'].touched">
                                                     <span *ngIf="labForm.controls['testNameId'].errors.required"> Please Select Test </span>
+                                                </span>
+                            </div>
+
+                        </div>
+
                                     </span>
                                 </div>
                                 <div class="col-md-3 pdng-lr-5 font-siz">Status of the lab order.</div>
                             </div>
                         </div>
                     </div>
+
                    <!-- <div class="row">
                         <form id="LabForm" *ngIf="showEdit" [formGroup]="labForm" #form="ngForm">
                             <div class="col-md-12">
@@ -340,6 +370,11 @@
                                             <td rowspan="1" colspan="1" class="custom-td-size profile-frm">
                                                 <input type="text" id="resultValueId" name="resultValue"  class="form-control" placeholder="eg 123.."
                                                        [(ngModel)]="resultValue"  >
+
+                                                <span class="text-danger" *ngIf="isError">
+                                                    <span > Please Enter Value </span>
+                                                </span>
+
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size profile-frm">
                                                 <input type="text"  class="form-control" value="{{filterSpeciman.unit}}" disabled>

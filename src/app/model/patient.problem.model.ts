@@ -1,6 +1,7 @@
 /**
  * Created by jamal on 8/13/2018.
  */
+import {SelectItem} from "primeng/api";
 
 export class PatientProblemModel {
     id: number;
@@ -15,6 +16,7 @@ export class PatientProblemModel {
     status: string = "ACTIVE";
     info:string;
     datePrescribedDate: Date = new Date();
+
     constructor() {
     }
 
