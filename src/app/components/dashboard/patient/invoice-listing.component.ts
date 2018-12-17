@@ -86,19 +86,13 @@ export class InvoiceListingComponent implements OnInit{
                 (response: Response) => {
                     console.log(" Added : " + response);
                     if (response['responseCode'] === 'SUCCESS') {
-                        // this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                         let pdfFilePath = response["responseData"];
-                        // if (pdfFilePath != null && pdfFilePath.trim().length > 0) {
-                        // this.openPDF(pdfFilePath);
-                        this.notificationService.success('Payment Invoice Downloaded Successfully: ');
-                        // } else {
-                        //     this.notificationService.success('Payment Invoice Saved Successfully: ');
-                        // }
+                        this.notificationService.success('Invoice Downloaded Successfully: ');
                     } else {
-                        this.notificationService.error('ERROR', 'Failed to generate Invoice: '+response["responseData"]);
+                        this.notificationService.error('ERROR', 'Failed to generate Invoice ');
                     }
-                }, function (errorMsg: any) {
-                    this.notificationService.error('ERROR', 'Error occurred while getting invoice data: ' + errorMsg);
+                }, function () {
+                    this.notificationService.error('ERROR', 'Error occurred while getting invoice data' );
                 });
     }
 
