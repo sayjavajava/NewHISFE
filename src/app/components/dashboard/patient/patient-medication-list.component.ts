@@ -59,7 +59,7 @@ export class PatientMedicationListComponent implements OnInit {
     selectedstrength: StrengthModel[];
     StrengthListModified: SelectItem[] = [];
     isUpdateAppoint: boolean = false;
-  //  strengthsListModified
+    //  strengthsListModified
     // new Scheme
     searchedDrugStrengthsAny: any[];
     searchedDrugStrengthsAnyListModified: SelectItem[] = [];
@@ -170,17 +170,17 @@ export class PatientMedicationListComponent implements OnInit {
     }
 
 
-   getRouteDrug(txt: string) {
+    getRouteDrug(txt: string) {
 
         this.requestsService.getRequest(AppConstants.FETCH_NAME_ROUTE + txt)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DRUG_SUC_10') {
                         this.routeDrug = response['responseData'];
-                     //   let drug = new DrugModel();
+                        //   let drug = new DrugModel();
                         console.log(this.routeDrug);
                         this.medicationModel.route =this.routeDrug;
-                    //    this.medicationModel.strengths=this.routeDrug.strengths;
+                        //    this.medicationModel.strengths=this.routeDrug.strengths;
 
 
                     } else {
@@ -202,7 +202,7 @@ export class PatientMedicationListComponent implements OnInit {
 
         url += val;
         window.open(url, '_blank');
-     //   window.open("https://www.google.com", "_blank");
+        //   window.open("https://www.google.com", "_blank");
     }
 
     getStrengthsDrug(txt: string) {
@@ -485,23 +485,24 @@ export class PatientMedicationListComponent implements OnInit {
             );
     }
 
-     isEmpty(val:string){
+    isEmpty(val:string){
         return (val === undefined || val == null || val.length <= 0) ? true : false;
     }
 
     search(event: any) {
 
-       if(this.isEmpty(this.text)==false){
-
-       this.getRouteDrug(this.text);
-       this.getStrengthsDrug(this.text);
-       }
+        if(this.isEmpty(this.text)==false){
+            this.getRouteDrug(this.text);
+            this.getStrengthsDrug(this.text);
+        }
 
         this.requestsService.getRequest(AppConstants.DRUG_SEARCH_BY_NAME_URL + this.text)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DRUG_SUC_10') {
+
                         this.searchedDrugNames = response['responseData'];
+
 
 
 
@@ -515,12 +516,15 @@ export class PatientMedicationListComponent implements OnInit {
             }
     }
 
+
+
     getAllDrugsFromServer() {
         this.requestsService.getRequest(AppConstants.DRUG_GET_ALL_URL)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'DRUG_SUC_10') {
                         this.drugs = response['responseData'];
+
                     } else {
                         this.notificationService.error(response['responseMessage']);
                     }
