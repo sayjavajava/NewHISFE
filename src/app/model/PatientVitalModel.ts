@@ -8,7 +8,8 @@ export class PatientVitalModel{
     standardValue: string ;
     status: boolean = false;
     currentValue:string;
-    patient:Patient=new Patient();
+    listofVital:PatientVitalModel[];
+    // patient:Patient=new Patient();
     constructor() {
     }
 }
