@@ -20,9 +20,10 @@ var DataService_1 = require("../../../services/DataService");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
 var patient_1 = require("../../../model/patient");
 var PatientFamilyHistoryComponent = (function () {
-    function PatientFamilyHistoryComponent(router, requestsService, hISUtilService, dataService, notificationService, confirmationDialogService) {
+    function PatientFamilyHistoryComponent(router, route, requestsService, hISUtilService, dataService, notificationService, confirmationDialogService) {
         var _this = this;
         this.router = router;
+        this.route = route;
         this.requestsService = requestsService;
         this.hISUtilService = hISUtilService;
         this.dataService = dataService;
@@ -33,12 +34,15 @@ var PatientFamilyHistoryComponent = (function () {
         this.selectedFamily = new Family_1.Family();
         this.relationsList2 = [];
         this.patient = new patient_1.Patient();
-        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
-            _this.patientId = id;
+        /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
+             this.patientId = id
+         });*/
+        this.route.params.subscribe(function (params) {
+            _this.patientId = params['id'];
         });
     }
     PatientFamilyHistoryComponent.prototype.ngOnDestroy = function () {
-        this.subscription.unsubscribe();
+        //  this.subscription.unsubscribe();
     };
     PatientFamilyHistoryComponent.prototype.ngOnInit = function () {
         this.loadRecord();
@@ -217,7 +221,7 @@ var PatientFamilyHistoryComponent = (function () {
             selector: 'patient-family-history',
             templateUrl: '../../../templates/dashboard/patient/patient-family-history.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.Router, requests_service_1.RequestsService, his_util_service_1.HISUtilService, DataService_1.DataService,
+        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, requests_service_1.RequestsService, his_util_service_1.HISUtilService, DataService_1.DataService,
             notification_service_1.NotificationService, ConformationDialogService_1.ConformationDialogService])
     ], PatientFamilyHistoryComponent);
     return PatientFamilyHistoryComponent;

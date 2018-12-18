@@ -59,8 +59,12 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                 private dataService: DataService) {
 
 
-        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+        /*this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
+        });*/
+        this.route.params.subscribe(params => {
+            this.selectedPatientId = params['id'];
+
         });
 
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
@@ -177,7 +181,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+     //   this.subscription.unsubscribe();
     }
 
     patientHistory() {

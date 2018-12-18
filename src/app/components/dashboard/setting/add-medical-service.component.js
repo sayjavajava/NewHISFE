@@ -59,25 +59,30 @@ var AddMedicalServiceComponent = (function () {
             _this.HISUtilService.tokenExpired(error.error.error);
         });
     };
-    AddMedicalServiceComponent.prototype.onBranchSelection = function () {
+    AddMedicalServiceComponent.prototype.onBranchSelection = function (branchObj) {
         var _this = this;
+        if (this.selectedBranches.length > 0)
+            this.selectedBranches.forEach(function (x) { _this.ms.selectedBranches = x.id; });
+        // this.ms.selectedBranches.push(branchObj.id);
         this.ms.selectedDepartments = [];
         this.ms.departments = [];
-        this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.ms.selectedBranches)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'CLI_DPT_SUC_01') {
-                _this.ms.selectedDepartments = [];
-                _this.ms.departments = [];
-                _this.ms.departments = response['responseData'];
-            }
-            else {
-                _this.ms.selectedDepartments = [];
-                _this.ms.departments = [];
-                _this.notificationService.error(response['responseMessage']);
-            }
-        }, function (error) {
-            _this.HISUtilService.tokenExpired(error.error.error);
-        });
+        if (this.ms.selectedBranches.length != 0) {
+            this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_CLINICAL_DEPARTMENTS_BY_BRANCHES_IDs_URI + '?branchIds=' + this.ms.selectedBranches)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'CLI_DPT_SUC_01') {
+                    _this.ms.selectedDepartments = [];
+                    _this.ms.departments = [];
+                    _this.ms.departments = response['responseData'];
+                }
+                else {
+                    _this.ms.selectedDepartments = [];
+                    _this.ms.departments = [];
+                    _this.notificationService.error(response['responseMessage']);
+                }
+            }, function (error) {
+                _this.HISUtilService.tokenExpired(error.error.error);
+            });
+        }
     };
     AddMedicalServiceComponent.prototype.allorganizationData = function () {
         var _this = this;
@@ -113,7 +118,7 @@ var AddMedicalServiceComponent = (function () {
                     foundBranch++;
                 }
             }
-            if (foundBranch <= 0) {
+            if (this.ms.selectedBranches.length <= 0) {
                 this.notificationService.warn('Please select at least one branch.');
                 document.getElementById('branchId').focus();
                 return;
@@ -125,7 +130,7 @@ var AddMedicalServiceComponent = (function () {
                     foundDepartment++;
                 }
             }
-            if (foundDepartment <= 0) {
+            if (this.selectedDepartments.length <= 0) {
                 this.notificationService.warn('Please select at least one Department.');
                 document.getElementById('departmentId').focus();
                 return;
@@ -135,6 +140,7 @@ var AddMedicalServiceComponent = (function () {
                 document.getElementById('taxId').focus();
                 return;
             }
+            this.selectedBranches.forEach(function (x) { _this.ms.selectedBranchesMS.push(x.id); });
             this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_MEDICAL_SERVICES_URL, this.ms)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
