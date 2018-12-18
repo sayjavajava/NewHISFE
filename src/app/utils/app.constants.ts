@@ -336,6 +336,7 @@ export class AppConstants {
     public static VITAL_GET_URL = '/PatientVital/get/';
     public static VITALS_PATIENT_UPDATE = '/PatientVital/update';
     public static VITALS_PAGINATED_URL = '/PatientVital/';
+    public static VITALS_PATIENT_SAVE_LIST = '/PatientVital/savePatientVitalList';
 
     ///////////////////////////////////////////
     public static FETCH_PATIENT_IMAGE = '/PatientImage/getSetup';

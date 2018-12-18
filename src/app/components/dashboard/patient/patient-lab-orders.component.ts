@@ -31,7 +31,7 @@ export class PatientLabOrdersComponent implements OnInit {
     orderNotFound:boolean=false;
     organizationDataList: any;
     stdSystemFormat:string;
-   // allOrders:any=[];
+    // allOrders:any=[];
     allOrders:any[];
     filteredLabTest :any[] =[];
     ListofAppointment:any[]=[];
@@ -51,7 +51,7 @@ export class PatientLabOrdersComponent implements OnInit {
         this.labForm.controls['patientId'].setValue(this.id);
         this.getLabOrderFromServer(0);
 
-      //  this.addMoreTest();
+        //  this.addMoreTest();
 
         this.cols = [
             { field: 'name', header: 'Doctor Name' },
@@ -75,31 +75,31 @@ export class PatientLabOrdersComponent implements OnInit {
             this.orderNotFound =true;
             this.notificationService.error('Please Select Patient Again From Dashboard')
         }else {
-        this.requestService.getRequestWithParam(
-            AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL + page,this.id)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'LAB_ORDER_SUC_02') {
-                        this.nextPage = response['responseData']['nextPage'];
-                        this.prePage = response['responseData']['prePage'];
-                        this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];
-                        this.allOrders = response['responseData']['data'];
-                        this.LabOrderProjectionModelList=this.allOrders;
-                      //  this.ListofAppointment=response['responseData']['doctors'];
-                        const myClonedArray  = Object.assign([], this.LabOrderProjectionModelList);
-                        console.log(myClonedArray);
+            this.requestService.getRequestWithParam(
+                AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL + page,this.id)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'LAB_ORDER_SUC_02') {
+                            this.nextPage = response['responseData']['nextPage'];
+                            this.prePage = response['responseData']['prePage'];
+                            this.currPage = response['responseData']['currPage'];
+                            this.pages = response['responseData']['pages'];
+                            this.allOrders = response['responseData']['data'];
+                            this.LabOrderProjectionModelList=this.allOrders;
+                            //  this.ListofAppointment=response['responseData']['doctors'];
+                            const myClonedArray  = Object.assign([], this.LabOrderProjectionModelList);
+                            console.log(myClonedArray);
 
 
+                        }
+                        if(response['responseCode'] =='LAB_ORDER_ERR_02'){
+                            this.notificationService.warn(`Info ${response['responseMessage']}`)
+                        }
+                    },
+                    (error: any) => {
+                        this.error = error.error.error;
                     }
-                    if(response['responseCode'] =='LAB_ORDER_ERR_02'){
-                        this.notificationService.warn(`Info ${response['responseMessage']}`)
-                    }
-                },
-                (error: any) => {
-                    this.error = error.error.error;
-                }
-            );
+                );
         }
     }
     loadRecord(){
@@ -191,18 +191,18 @@ export class PatientLabOrdersComponent implements OnInit {
 
     }
     getLabTest(orderId:any){
-      let labTestFiltered :any[]= this.allOrders.filter((x:any) =>x.id == orderId).map((x:any)=>x.labTests);
-      debugger;
-      this.filteredLabTest = labTestFiltered[0];
-      labTestFiltered.forEach(function (msg) {
-          console.log(msg);
-      })
-      console.log('lab tes'+ labTestFiltered[0]);
+        let labTestFiltered :any[]= this.allOrders.filter((x:any) =>x.id == orderId).map((x:any)=>x.labTests);
+
+        this.filteredLabTest = labTestFiltered[0];
+        labTestFiltered.forEach(function (msg) {
+            console.log(msg);
+        })
+        console.log('lab tes'+ labTestFiltered[0]);
     }
     updateOrder(id:number){
         console.log('dmmm');
         this.orderId = id;
-       // this.router.navigate("['/dashboard/patient/create-order/',id,'add',orderId,'order']");
+        // this.router.navigate("['/dashboard/patient/create-order/',id,'add',orderId,'order']");
         this.router.navigate(['/dashboard/patient/create-order',this.id,'add',this.orderId,'order']);
     }
 

@@ -12,6 +12,7 @@ import {SelectItem} from "primeng/api";
 import {PatientImageOrderModel} from "../../../model/PatientImageOrderModel";
 import {PatientImageModel} from "../../../model/PatientImageModel";
 
+
 @Component({
     selector: 'patient-document',
     templateUrl: '../../../templates/dashboard/patient/patient-order.template.html',
@@ -54,19 +55,15 @@ export class PatientImageOrderComponent implements OnInit {
     cols:any[];
     @ViewChild('closeBtn') closeBtn: ElementRef;
 
-    constructor(private notificationService: NotificationService,private route:ActivatedRoute,
+    constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private dataService: DataService) {
 
-        /*this.subscription = this.dataService.currentPatientId.subscribe(id => {
+        this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
-        });*/
-        this.route.params.subscribe(params => {
-            this.selectedPatientId = params['id'];
-
         });
 
         this.getPatientImageSetupList();
@@ -112,19 +109,19 @@ export class PatientImageOrderComponent implements OnInit {
         /*if($('Div').hasClass('ui-fileupload-content')){
             $('Div').removeClass('ui-fileupload-content');
         }*/
-      //  $(".k-widget.k-upload").find("ul").remove();
-     //   $("ui-widget-content").removeClass("ui-fileupload-row");
-      //  document.getElementsByClassName('appBanner').style.visibility='hidden';
-     //   this.demo
-       /* let element = document.getElementsByClassName("ui-fileupload-content ui-widget-content ui-corner-bottom").style.visibility='hidden';;
-        element.style.display = element.style.display === 'none' ? 'block' : 'none';*/
-       // document.getElementById("")ui-fileupload-content
+        //  $(".k-widget.k-upload").find("ul").remove();
+        //   $("ui-widget-content").removeClass("ui-fileupload-row");
+        //  document.getElementsByClassName('appBanner').style.visibility='hidden';
+        //   this.demo
+        /* let element = document.getElementsByClassName("ui-fileupload-content ui-widget-content ui-corner-bottom").style.visibility='hidden';;
+         element.style.display = element.style.display === 'none' ? 'block' : 'none';*/
+        // document.getElementById("")ui-fileupload-content
     }
 
 
     uploadImgOnChange(event: any,form:any) {
-            // clear before loading
-            this.uploadedFiles=[];
+        // clear before loading
+        this.uploadedFiles=[];
         for (var i = 0; i < event.files.length; i++) {
             this.uploadedFiles.push(event.files[i]);
 
@@ -132,7 +129,7 @@ export class PatientImageOrderComponent implements OnInit {
         }
 
         this.notificationService.success("File Uploaded");
-       // event.target.clear();
+        // event.target.clear();
         form.clear();
     }
 
@@ -172,29 +169,29 @@ export class PatientImageOrderComponent implements OnInit {
                 this.notificationService.warn('Please Upload  File ');
                 return;
             }
-                console.log(this.patientImageTemplate);
-                this.closeBtn.nativeElement.click();
-                this.requestsService.postRequestMultipartFormAndDataWithMultipleFile(
-                    AppConstants.PATIENT_IMAGE_SAVE_ORDER,
-                    this.patientImageTemplate,this.uploadedFiles
-                ).subscribe(
-                    (response: Response) => {
-                        if (response['responseCode'] === 'DOC_SUC_37') {
-                            this.notificationService.success(response['responseMessage'], 'Patient Image Order');
+            console.log(this.patientImageTemplate);
+            this.closeBtn.nativeElement.click();
+            this.requestsService.postRequestMultipartFormAndDataWithMultipleFile(
+                AppConstants.PATIENT_IMAGE_SAVE_ORDER,
+                this.patientImageTemplate,this.uploadedFiles
+            ).subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'DOC_SUC_37') {
+                        this.notificationService.success(response['responseMessage'], 'Patient Image Order');
 
-                            this.closeBtn.nativeElement.click();
-                            this.getPageWiseOrderFromServer(0);
-                        } else {
-                            this.notificationService.error(response['responseMessage'], '');
-                        }
-                        this.isRequestUnderProcess = false;
-                    },
-                    (error: any) => {
-                        this.notificationService.success(Response['responseMessage'], '');
-                        this.HISUtilService.tokenExpired(error.error.error);
-                        this.isRequestUnderProcess = false;
+                        this.closeBtn.nativeElement.click();
+                        this.getPageWiseOrderFromServer(0);
+                    } else {
+                        this.notificationService.error(response['responseMessage'], '');
                     }
-                );
+                    this.isRequestUnderProcess = false;
+                },
+                (error: any) => {
+                    this.notificationService.success(Response['responseMessage'], '');
+                    this.HISUtilService.tokenExpired(error.error.error);
+                    this.isRequestUnderProcess = false;
+                }
+            );
 
 
         } else {
@@ -239,9 +236,7 @@ export class PatientImageOrderComponent implements OnInit {
                         response => {
                             if (response['responseCode'] === 'DOC_SUC_42') {
                                 this.patientImageTemplate = response['responseData'];
-                                this.isUpdate=true;
-                              //  alert();
-                              //  debugger;
+                                //  this.isUpdate=true;
                                 this.selectedOrder=this.patientImageTemplate.orderObj.code;
                                 this.isUpdate = true;
                             } else {
@@ -251,7 +246,7 @@ export class PatientImageOrderComponent implements OnInit {
                         },
                         (error: any) => {
                             this.HISUtilService.tokenExpired(error.error.error);
-                        //    this.isUpdate = true;
+                            //    this.isUpdate = true;
                         });
             } else {
                 this.router.navigate(['/login']);
@@ -406,8 +401,8 @@ export class PatientImageOrderComponent implements OnInit {
         }
         this.labTestFiltered = this.orderData.filter((x:any) =>x.id == Id);
 
-         this.filteredLabTestUrl = this.labTestFiltered[0].url;
-         this.selectedId=this.labTestFiltered[0].id;
+        this.filteredLabTestUrl = this.labTestFiltered[0].url;
+        this.selectedId=this.labTestFiltered[0].id;
         /*for (let patientImg of this.filteredLabTestUrl) {
             var filename = patientImg.substring(patientImg.lastIndexOf('/')+1);
 
@@ -430,14 +425,14 @@ export class PatientImageOrderComponent implements OnInit {
     openDiv(val :string){
 
 
-        //debugger;
+        debugger;
 
         if(this.showImage==true){
             this.showImage=false;
         }
-       // this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-    //    document.getElementById('close-btn-Prefix').click();
-    //    this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+        // this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+        //    document.getElementById('close-btn-Prefix').click();
+        //    this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
         var filename = val.substring(val.lastIndexOf('/')+1);
 
         var ext=filename.substr(filename.length - 3);
@@ -451,41 +446,41 @@ export class PatientImageOrderComponent implements OnInit {
 
             for(let i = 0; i < labTestFilteredimgUrl.length; i++) {
                 let test = labTestFilteredimgUrl[i];
-            //   var filenameInt = test;
-                //debugger;
-           //     filenameInt=filenameInt.url;
-            //    var ext=filenameInt.substr(filenameInt.length - 3);
-            //    if(filename===filenameInt){
-            //       this.selectedindex=i;
-            //   }
-                    for(let j=0;j < test.url.length; j++) {
+                //   var filenameInt = test;
+                debugger;
+                //     filenameInt=filenameInt.url;
+                //    var ext=filenameInt.substr(filenameInt.length - 3);
+                //     if(filename===filenameInt){
+                //        this.selectedindex=i;
+                //   }
+                for(let j=0;j < test.url.length; j++) {
 
-                        var urlpath=test.url[j];
-                        var extPath=filename.substr(filename.length - 3);
-                        var fileNameInt=urlpath.substring(val.lastIndexOf('/')+1);
-                        if(filename===fileNameInt){
-                                   this.selectedindex=j;
-                        }
-                        if(extPath=="gif" || extPath=="png" || extPath=="jpeg" || extPath=="tiff" || extPath=="jpg" || extPath=="GIF" || extPath=="PNG" || extPath=="JPEG" || extPath=="TIFF" || ext=="JPG" ){
+                    var urlpath=test.url[j];
+                    var extPath=filename.substr(filename.length - 3);
+                    var fileNameInt=urlpath.substring(val.lastIndexOf('/')+1);
+                    if(filename===fileNameInt){
+                        this.selectedindex=j;
+                    }
+                    if(extPath=="gif" || extPath=="png" || extPath=="jpeg" || extPath=="tiff" || extPath=="jpg" || extPath=="GIF" || extPath=="PNG" || extPath=="JPEG" || extPath=="TIFF" || ext=="JPG" ){
 
                         this.images.push({source: test.url[j]});
 
                     }
+                }
+                console.log(this.images);
+                link.setAttribute("href", "#responsiveGalleria2");
+                this.showImage=true;
+                this.showDialog();
+                // this.HISUtilService.hidePopupWithCloseButtonId("closeGalleria");
             }
-            console.log(this.images);
-            link.setAttribute("href", "#responsiveGalleria2");
-            this.showImage=true;
-            this.showDialog();
-           // this.HISUtilService.hidePopupWithCloseButtonId("closeGalleria");
-        }
         }else if(ext=="pdf" || ext=="txt" || ext=="PDF" || ext=="TXT" ){
             this.showImage=false;
             link.setAttribute("href", "#Doc");
             var e = document.getElementById("MyFrame");
-          //  var url="https://docs.google.com/viewer?url="+val;
-         //   var site = url+'\'&embedded=true" style="width:600px; height:500px;" frameborder="0';
-        //    var url="https://docs.google.com/viewer?url="+val;
-         //   var site = url+'+\'" style="width:600px; height:500px;" frameborder="0';
+            //  var url="https://docs.google.com/viewer?url="+val;
+            //   var site = url+'\'&embedded=true" style="width:600px; height:500px;" frameborder="0';
+            //    var url="https://docs.google.com/viewer?url="+val;
+            //   var site = url+'+\'" style="width:600px; height:500px;" frameborder="0';
             this.url=val;
             var src = document.getElementById('MyFrame');
             src.setAttribute("src",this.url);
@@ -497,7 +492,7 @@ export class PatientImageOrderComponent implements OnInit {
         }
     }
 
-     downloadURL(urlString:string) {
+    downloadURL(urlString:string) {
         var hiddenIFrameID = 'hiddenDownloader',
             iframe = document.getElementById("MyFrame");
         if (iframe === null) {
@@ -506,8 +501,8 @@ export class PatientImageOrderComponent implements OnInit {
             iframe.style.display = 'none';
             document.body.appendChild(iframe);
         }
-         iframe.setAttribute("src",urlString);
-      //  iframe.src = urlString;
-         // updted
+        iframe.setAttribute("src",urlString);
+        //  iframe.src = urlString;
+        // updted
     };
 }
