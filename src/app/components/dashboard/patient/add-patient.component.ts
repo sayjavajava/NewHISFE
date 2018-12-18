@@ -275,7 +275,7 @@ export class AddPatientComponent implements OnInit {
                         }
                     },
                     (error: any) => {
-                        this.notificationService.success(Response['responseMessage'], 'Patient');
+                        this.notificationService.error(Response['responseMessage'], 'Patient');
                         this.HISUTilService.tokenExpired(error.error.error);
                     }
                 );

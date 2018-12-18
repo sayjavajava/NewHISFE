@@ -102,4 +102,9 @@ export class AdminProfileComponent implements OnInit {
             );
     }
 
+    // cancel() {
+    //     this.router.navigate(['/dashboard/setting/admin/profile']);
+    // }
+
+
 }

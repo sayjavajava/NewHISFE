@@ -568,7 +568,8 @@
                             </div>
                             <div class="hr">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn blue" (click)="saveGeneralSettings(generalForm.value)"> Save</button>
+                                    <button type="button" class="btn blue" (click)="saveGeneralSettings(generalForm.value)"> Update</button>
+                                    <button (click)="cancel()" class="btn default"><i class="fa fa-default"></i> Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -695,6 +696,7 @@
                             <div class="hr">
                                 <div class="col-md-12 text-center">
                                     <button type="button" class="btn blue" (click)="addOrganization(proForm.value,'done')"> Update</button>
+                                    <button (click)="cancel()" class="btn default"><i class="fa fa-default"></i> Cancel</button>
                                 </div>
                             </div>
                         </div>

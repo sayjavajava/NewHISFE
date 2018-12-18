@@ -45,7 +45,6 @@ var UpdateBranchComponent = (function () {
                 if (response["responseCode"] === "BRANCH_SUC_01") {
                     if (!util_1.isNullOrUndefined(response["responseData"])) {
                         _this.noOfRoom = response["responseData"].data;
-                        debugger;
                     }
                     if (_this.noOfRoom < 1) {
                         _this.noOfRoom = 1;
@@ -142,7 +141,6 @@ var UpdateBranchComponent = (function () {
     UpdateBranchComponent.prototype.patchData = function () {
         var _this = this;
         if (this.id) {
-            debugger;
             this.requestService.findById(app_constants_1.AppConstants.FETCH_BRANCHES_BY_ID + this.id).subscribe(function (branch) {
                 _this.branchForm.patchValue({
                     branchName: branch.branchName,
@@ -181,10 +179,9 @@ var UpdateBranchComponent = (function () {
                          }
                      );*/
                 _this.branchForm.controls["zipCode"].patchValue(branch.zipCode);
-                _this.allRoomCount();
+                // this.allRoomCount();
                 _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
                 //   branch.examRooms = this.noOfRoom;
-                debugger;
                 _this.addFields(branch.rooms);
                 _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
             }, function (error) {
@@ -238,7 +235,10 @@ var UpdateBranchComponent = (function () {
         if (this.branchForm.valid) {
             //  let branchObject = this.prepareSaveBranch();
             var that = this;
-            this.requestService.postRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, data)
+            this.branchForm.value.cityId = this.branchForm.value.city;
+            // data = this.branchForm;
+            // data.set("cityId", data.get("city"));
+            this.requestService.postRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, this.branchForm.value)
                 .subscribe(function (response) {
                 //that.router.navigate(["/dashboard/setting/branch"]);
                 if (response["responseCode"] == "BRANCH_UPDATE_SUC_01") {
@@ -333,19 +333,15 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent.prototype.addFields = function (no) {
         this.removeAllFields();
-        debugger;
         this.examRooms = this.branchForm.get("examRooms");
         for (var i = 0; i < no; i++) {
-            debugger;
             this.examRooms.push(this.createExamRoom());
         }
     };
     UpdateBranchComponent.prototype.addValuesFields = function (no) {
         this.removeAllFields();
-        debugger;
         this.examRooms = this.branchForm.get("examRooms");
         for (var i = 0; i < no; i++) {
-            debugger;
             this.examRooms.push(this.createExamRoom());
         }
     };
@@ -375,9 +371,11 @@ var UpdateBranchComponent = (function () {
     UpdateBranchComponent.prototype.getStatesByCountryId = function (countryId) {
         var _this = this;
         this.statesList = this.citiesList = this.statesListModified = this.citiesListModified = [];
-        this.cityId = this.selectedCity;
-        this.stateId = this.state.id;
-        this.countryId = this.country.id;
+        // this.cityId = this.selectedCity;
+        this.cityId = !(util_1.isNullOrUndefined(this.city)) ? this.city.id : null;
+        this.stateId = !(util_1.isNullOrUndefined(this.state)) ? this.state.id : null;
+        this.countryId = countryId;
+        // this.countryId = !(isNullOrUndefined(this.country)) ? this.country.id : null;
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
             .subscribe(function (response) {
             if (response["responseCode"] === "BRANCH_SUC_01") {
@@ -394,6 +392,7 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent.prototype.getCitiesByStateId = function (stateId) {
         var _this = this;
+        this.citiesList = this.citiesListModified = [];
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
             .subscribe(function (response) {
             if (response["responseCode"] === "BRANCH_SUC_01") {
@@ -410,6 +409,7 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent.prototype.selectBranchCity = function (city) {
         this.city = city;
+        this.cityId = city;
     };
     UpdateBranchComponent.prototype.getCityStateCntryByBranchId = function () {
         var _this = this;
@@ -419,15 +419,21 @@ var UpdateBranchComponent = (function () {
                 _this.city = response["responseData"].data.city;
                 _this.state = response["responseData"].data.state;
                 _this.country = response["responseData"].data.country;
-                _this.selectedCity = _this.city.name;
-                _this.selectedState = _this.state.name;
-                _this.selectedCountry = _this.country.name;
-                _this.cityId = _this.city.id;
-                _this.stateId = _this.state.id;
-                _this.countryId = _this.country.id;
                 _this.createCountriesList();
-                _this.getStatesByCountryId(_this.countryId);
-                _this.getCitiesByStateId(_this.stateId);
+                if (!util_1.isNullOrUndefined(_this.country)) {
+                    _this.selectedCountry = _this.country.name;
+                    _this.countryId = _this.country.id;
+                    _this.getStatesByCountryId(_this.countryId);
+                }
+                if (!util_1.isNullOrUndefined(_this.state)) {
+                    _this.selectedState = _this.state.name;
+                    _this.stateId = _this.state.id;
+                    _this.getCitiesByStateId(_this.stateId);
+                }
+                if (!util_1.isNullOrUndefined(_this.city)) {
+                    _this.selectedCity = _this.city.name;
+                    _this.cityId = _this.city.id;
+                }
             }
         }, function (error) {
             this.notificationService.error("ERROR", "CIty State Country for branch is/are not available");

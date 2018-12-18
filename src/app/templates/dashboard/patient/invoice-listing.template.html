@@ -46,7 +46,7 @@
                                     <td field="totalAmount" class="text-align-right"> {{invoiceList.invoiceAmount | number :'.2-2'}} </td>
                                     <td field="status"> {{invoiceList.status}} </td>
                                     <td field="action">
-                                        <span *ngIf="invoiceList.status == 'CLOSE'">
+                                        <span>
                                             <button (click)="printReport(invoiceList.invoiceId)" class="btn btn-default btn-outline btn-sm" title="Download Invoice ">
                                                 <i class="fa fa-download"></i>
                                             </button>

@@ -63,7 +63,7 @@
                                         <label class="control-label col-md-4">Cell Phone
                                         </label>
                                         <div class="col-md-8 profile-frm">
-                                            <input type="text" formControlName="cellPhone"
+                                            <input type="number" formControlName="cellPhone"
                                                    [(ngModel)]="organization.cellPhone"
                                                    class="form-control"></div>
                                     </div>
@@ -71,7 +71,7 @@
                                         <label class="control-label col-md-4">Home Phone
                                         </label>
                                         <div class="col-md-8 profile-frm">
-                                            <input type="text" formControlName="homePhone"
+                                            <input type="number" formControlName="homePhone"
                                                    [(ngModel)]="organization.homePhone"
                                                    class="form-control"></div>
                                     </div>
@@ -90,7 +90,9 @@
             </div>
             <div class="hr">
                 <div class="col-md-12 text-center">
-                    <button type="button" class="btn blue" (click)="saveAccount(accountForm.value)"> Save</button>
+                    <button type="button" class="btn blue" (click)="saveAccount(accountForm.value)"> Update</button>
+                    <!--<button (click)="cancel()" class="btn default"><i class="fa fa-default"></i> Cancel</button>-->
+
                 </div>
             </div>
         </div>
