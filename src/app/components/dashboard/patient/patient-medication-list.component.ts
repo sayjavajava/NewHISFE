@@ -64,15 +64,19 @@ export class PatientMedicationListComponent implements OnInit {
     searchedDrugStrengthsAny: any[];
     searchedDrugStrengthsAnyListModified: SelectItem[] = [];
     selectedstr: SelectItem[] = [];
-    constructor(private notificationService: NotificationService,
+    constructor(private notificationService: NotificationService,private route:ActivatedRoute,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private dataService: DataService,public datepipe: DatePipe) {
 
-        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+       /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
+        });*/
+        this.route.params.subscribe(params => {
+            this.selectedPatientId = params['id'];
+
         });
         this.getPaginatedMedicationFromServer(0);
         this.appointmentsByPatientFromServer(this.selectedPatientId);

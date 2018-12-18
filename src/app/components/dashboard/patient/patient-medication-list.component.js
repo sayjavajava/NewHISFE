@@ -22,9 +22,10 @@ var drug_model_1 = require("../../../model/drug.model");
 var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var common_1 = require("@angular/common");
 var PatientMedicationListComponent = (function () {
-    function PatientMedicationListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService, datepipe) {
+    function PatientMedicationListComponent(notificationService, route, requestsService, HISUtilService, router, activatedRoute, dataService, datepipe) {
         var _this = this;
         this.notificationService = notificationService;
+        this.route = route;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
@@ -53,8 +54,11 @@ var PatientMedicationListComponent = (function () {
         this.isUpdateAppoint = false;
         this.searchedDrugStrengthsAnyListModified = [];
         this.selectedstr = [];
-        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
-            _this.selectedPatientId = id;
+        /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
+             this.selectedPatientId = id;
+         });*/
+        this.route.params.subscribe(function (params) {
+            _this.selectedPatientId = params['id'];
         });
         this.getPaginatedMedicationFromServer(0);
         this.appointmentsByPatientFromServer(this.selectedPatientId);
@@ -449,7 +453,7 @@ var PatientMedicationListComponent = (function () {
             selector: 'patient-medical-list',
             templateUrl: '../../../templates/dashboard/patient/patient-medication-list.template.html',
         }),
-        __metadata("design:paramtypes", [notification_service_1.NotificationService,
+        __metadata("design:paramtypes", [notification_service_1.NotificationService, router_1.ActivatedRoute,
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router,

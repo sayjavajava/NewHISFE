@@ -50,17 +50,17 @@ export const PatientRoutes: Routes = [
     {path: 'appointments/:id/history', component: PatientAppointmentComponent},
     {path: ':id/documents', component: PatientDocumentsComponent},
     {path: ':id/problems-list', component: PatientProblemListComponent},
-    {path: 'medication-list', component: PatientMedicationListComponent},
-    {path: 'allergy-list', component: PatientAllergyListComponent},
+    {path: ':id/medication-list', component: PatientMedicationListComponent},
+    {path: ':id/allergy-list', component: PatientAllergyListComponent},
     {path: 'lab-orders/:id/history', component: PatientLabOrdersComponent},
     {path: 'create-order/:id/add/:orderId/order', component: PatientAddLabOrdersComponent},
     {path: 'communication', component: PatientCommunicationComponent},
-    {path: 'family-history', component: PatientFamilyHistoryComponent},
+    {path: ':id/family-history', component: PatientFamilyHistoryComponent},
 
     /*{path: 'image-order', component: PatientImageOrderComponent},*/
 
-    {path: 'image-order', component: PatientImageOrderComponent},
+    {path: ':id/image-order', component: PatientImageOrderComponent},
 
-    {path: 'patient-vital', component: PatientHistoryVitalComponent},
+    {path: ':id/patient-vital', component: PatientHistoryVitalComponent},
     {path: '**', redirectTo: '404'}
 ];

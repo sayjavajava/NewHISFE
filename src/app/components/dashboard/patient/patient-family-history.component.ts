@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Family} from "../../../model/Family";
 import {NgForm} from "@angular/forms";
 import {RequestsService} from "../../../services/requests.service";
@@ -19,7 +19,7 @@ import {LazyLoadEvent} from "primeng/api";
 })
 export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+      //  this.subscription.unsubscribe();
     }
 
     cars:any;
@@ -44,10 +44,14 @@ export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
     relationType:any;
     relationsList2 :Family[]=[];
     patient :Patient =new Patient();
-    constructor(private router: Router, private requestsService: RequestsService, private hISUtilService: HISUtilService, private dataService: DataService,
+    constructor(private router: Router,private route:ActivatedRoute,private requestsService: RequestsService, private hISUtilService: HISUtilService, private dataService: DataService,
                 private notificationService: NotificationService, private confirmationDialogService: ConformationDialogService) {
-        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+       /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.patientId = id
+        });*/
+        this.route.params.subscribe(params => {
+            this.patientId = params['id'];
+
         });
     }
 

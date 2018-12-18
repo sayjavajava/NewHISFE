@@ -19,9 +19,10 @@ var patient_allergy_model_1 = require("../../../model/patient.allergy.model");
 var DataService_1 = require("../../../services/DataService");
 var patient_1 = require("../../../model/patient");
 var PatientAllergyListComponent = (function () {
-    function PatientAllergyListComponent(notificationService, requestsService, HISUtilService, router, activatedRoute, dataService) {
+    function PatientAllergyListComponent(notificationService, route, requestsService, HISUtilService, router, activatedRoute, dataService) {
         var _this = this;
         this.notificationService = notificationService;
+        this.route = route;
         this.requestsService = requestsService;
         this.HISUtilService = HISUtilService;
         this.router = router;
@@ -33,8 +34,8 @@ var PatientAllergyListComponent = (function () {
         this.appointments = [];
         this.isUpdate = false;
         this.patient = new patient_1.Patient();
-        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
-            _this.selectedPatientId = id;
+        this.route.params.subscribe(function (params) {
+            _this.selectedPatientId = params['id'];
         });
         this.getPaginatedAllergyFromServer(0);
         this.appointmentsByPatientFromServer(this.selectedPatientId);
@@ -253,7 +254,7 @@ var PatientAllergyListComponent = (function () {
             selector: 'patient-alergy-list',
             templateUrl: '../../../templates/dashboard/patient/patient-allergy-list.template.html',
         }),
-        __metadata("design:paramtypes", [notification_service_1.NotificationService,
+        __metadata("design:paramtypes", [notification_service_1.NotificationService, router_1.ActivatedRoute,
             requests_service_1.RequestsService,
             his_util_service_1.HISUtilService,
             router_1.Router,

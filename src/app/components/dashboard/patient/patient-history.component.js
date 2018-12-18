@@ -38,8 +38,11 @@ var PatientHistoryComponent = (function () {
         this.vitalSetupTemplate = new PatientVitalModel_1.PatientVitalModel();
         this.searchedVitalAnyListModified = [];
         this.selectedstr = [];
-        this.subscription = this.dataService.currentPatientId.subscribe(function (id) {
-            _this.selectedPatientId = id;
+        /*this.subscription = this.dataService.currentPatientId.subscribe(id => {
+            this.selectedPatientId = id;
+        });*/
+        this.route.params.subscribe(function (params) {
+            _this.selectedPatientId = params['id'];
         });
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
@@ -131,7 +134,7 @@ var PatientHistoryComponent = (function () {
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
     };
     PatientHistoryComponent.prototype.ngOnDestroy = function () {
-        this.subscription.unsubscribe();
+        //   this.subscription.unsubscribe();
     };
     PatientHistoryComponent.prototype.patientHistory = function () {
         // this.dataService.getPatientId(id);//

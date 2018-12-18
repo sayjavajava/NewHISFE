@@ -69,8 +69,12 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                 private dataService: DataService) {
 
 
-        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+       /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
+        });*/
+        this.route.params.subscribe(params => {
+            this.selectedPatientId = params['id'];
+
         });
 
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
@@ -196,7 +200,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+       // this.subscription.unsubscribe();
     }
 
     patientHistory() {
@@ -287,7 +291,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             return;
         }
 
-        debugger;
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
 
@@ -349,10 +352,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     editVital(Id: number) {
 
         this.isUpdate = true;
-
-
         debugger;
-
         if (Id > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.getRequest(AppConstants.VITAL_GET_URL + Id)

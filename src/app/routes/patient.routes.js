@@ -39,15 +39,15 @@ exports.PatientRoutes = [
     { path: 'appointments/:id/history', component: patient_appointment_component_1.PatientAppointmentComponent },
     { path: ':id/documents', component: patient_document_component_1.PatientDocumentsComponent },
     { path: ':id/problems-list', component: patient_problem_list_component_1.PatientProblemListComponent },
-    { path: 'medication-list', component: patient_medication_list_component_1.PatientMedicationListComponent },
-    { path: 'allergy-list', component: patient_allergy_list_component_1.PatientAllergyListComponent },
+    { path: ':id/medication-list', component: patient_medication_list_component_1.PatientMedicationListComponent },
+    { path: ':id/allergy-list', component: patient_allergy_list_component_1.PatientAllergyListComponent },
     { path: 'lab-orders/:id/history', component: patient_lab_orders_component_1.PatientLabOrdersComponent },
     { path: 'create-order/:id/add/:orderId/order', component: patient_add_lab_orders_component_1.PatientAddLabOrdersComponent },
     { path: 'communication', component: patient_communication_component_1.PatientCommunicationComponent },
-    { path: 'family-history', component: patient_family_history_component_1.PatientFamilyHistoryComponent },
+    { path: ':id/family-history', component: patient_family_history_component_1.PatientFamilyHistoryComponent },
     /*{path: 'image-order', component: PatientImageOrderComponent},*/
-    { path: 'image-order', component: PatientImageOrderComponent_1.PatientImageOrderComponent },
-    { path: 'patient-vital', component: patient_history_vital_component_1.PatientHistoryVitalComponent },
+    { path: ':id/image-order', component: PatientImageOrderComponent_1.PatientImageOrderComponent },
+    { path: ':id/patient-vital', component: patient_history_vital_component_1.PatientHistoryVitalComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=patient.routes.js.map
