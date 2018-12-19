@@ -376,13 +376,14 @@ export class UpdateOrganizationComponent implements OnInit {
                         durationFollowUp: organization.durationFollowUp,
                         dateFormat:organization.dateFormat,
                         timeFormat:organization.timeFormat,
-                        selectedTimeZoneFormat:organization.addInfo.zoneFormat
+                        selectedTimeZoneFormat:organization.addInfo.zoneFormat,
 
 
                     });
-
-
-
+                  //  this.organization.zoneId=organization.addInfo.zoneId;
+               //     let pair: any = {label:organization.addInfo.zoneFormat,value: organization.addInfo.zoneId};
+                   // this.selectedTimeZoneFormat.values=organization.addInfo.zoneId;
+              //      this.selectedTimeZoneFormat.push(pair);
 
                 }, (error: any) => {
 
@@ -483,6 +484,7 @@ export class UpdateOrganizationComponent implements OnInit {
     saveGeneralSettings(data: FormData) {
 
         var self = this;
+        debugger;
 
         this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
             .subscribe(function (response) {
