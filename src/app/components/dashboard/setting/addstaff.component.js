@@ -355,6 +355,7 @@ var AddStaffComponent = (function () {
                 if (!this.firstShiftFromTime || !this.firstShiftToTime) {
                     this.dutyShift1 = true;
                     data.shift = true;
+                    this.notificationService.error('ERROR', 'Select duty times first! ');
                     return;
                 }
                 var doctor = new User_1.User({

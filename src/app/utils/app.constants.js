@@ -285,6 +285,7 @@ var AppConstants = (function () {
     AppConstants.VITAL_GET_URL = '/PatientVital/get/';
     AppConstants.VITALS_PATIENT_UPDATE = '/PatientVital/update';
     AppConstants.VITALS_PAGINATED_URL = '/PatientVital/';
+    AppConstants.VITALS_PATIENT_SAVE_LIST = '/PatientVital/savePatientVitalList';
     ///////////////////////////////////////////
     AppConstants.FETCH_PATIENT_IMAGE = '/PatientImage/getSetup';
     AppConstants.PATIENT_IMAGE_SAVE = '/PatientImage/savePatientImageSetup';

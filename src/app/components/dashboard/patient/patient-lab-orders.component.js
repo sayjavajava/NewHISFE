@@ -167,7 +167,6 @@ var PatientLabOrdersComponent = (function () {
     };
     PatientLabOrdersComponent.prototype.getLabTest = function (orderId) {
         var labTestFiltered = this.allOrders.filter(function (x) { return x.id == orderId; }).map(function (x) { return x.labTests; });
-        debugger;
         this.filteredLabTest = labTestFiltered[0];
         labTestFiltered.forEach(function (msg) {
             console.log(msg);

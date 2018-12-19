@@ -197,7 +197,10 @@ var PatientAddLabOrdersComponent = (function () {
             }
             _this.addUpdateResponseTest(res.labTests.length);
             var selectAppointment = _this.patient.pastAppointments.filter(function (listing) { return listing.appointmentId === res.appointment[0].appointmentId; });
-            _this.selectedAppointmentId = selectAppointment[0].label;
+            debugger;
+            if (selectAppointment != null) {
+                _this.selectedAppointmentId = selectAppointment[0].label;
+            }
             /*debugger;
             for (let sel of selectAppointment) {
                 var pair: any = {label: sel.label, value: sel.label};
@@ -260,8 +263,40 @@ var PatientAddLabOrdersComponent = (function () {
     PatientAddLabOrdersComponent.prototype.addLabOrder = function (data) {
         var _this = this;
         data.testDate = new Date(this.dateTest);
-        if (this.labForm.valid) {
+        if (!this.isUpdate == true) {
+            if (this.labForm.valid) {
+                if (this.orderId > 0) {
+                    this.requestService.putRequest(app_constants_1.AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
+                        .subscribe(function (response) {
+                        if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
+                            _this.notificationService.success('LabOrder is Updated Successfully');
+                            _this.router.navigate(['/dashboard/patient/lab-orders/', _this.id, 'history']);
+                        }
+                    }, function (error) {
+                        this.notificationService.error('ERROR', 'LabOrder is not Updated');
+                    });
+                }
+                else {
+                    data.labTest = this.LabReadList;
+                    this.requestService.postRequest(app_constants_1.AppConstants.LAB_ORDER_CREATE, data)
+                        .subscribe(function (response) {
+                        if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
+                            _this.notificationService.success('LabOrder is Created Successfully');
+                            _this.router.navigate(['/dashboard/patient/lab-orders/', _this.id, 'history']);
+                        }
+                    }, function (error) {
+                        this.notificationService.error('ERROR', 'LabOrder is not Created');
+                    });
+                }
+            }
+            else {
+                this.validateAllFormFields(this.labForm);
+            }
+        }
+        else {
             if (this.orderId > 0) {
+                data.labTest = this.LabReadList;
+                debugger;
                 this.requestService.putRequest(app_constants_1.AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
@@ -272,21 +307,6 @@ var PatientAddLabOrdersComponent = (function () {
                     this.notificationService.error('ERROR', 'LabOrder is not Updated');
                 });
             }
-            else {
-                data.labTest = this.LabReadList;
-                this.requestService.postRequest(app_constants_1.AppConstants.LAB_ORDER_CREATE, data)
-                    .subscribe(function (response) {
-                    if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
-                        _this.notificationService.success('LabOrder is Created Successfully');
-                        _this.router.navigate(['/dashboard/patient/lab-orders/', _this.id, 'history']);
-                    }
-                }, function (error) {
-                    this.notificationService.error('ERROR', 'LabOrder is not Created');
-                });
-            }
-        }
-        else {
-            this.validateAllFormFields(this.labForm);
         }
     };
     PatientAddLabOrdersComponent.prototype.validateAllFormFields = function (formGroup) {
@@ -304,13 +324,20 @@ var PatientAddLabOrdersComponent = (function () {
     };
     PatientAddLabOrdersComponent.prototype.selectedAppointment = function (aptObje) {
         var id = aptObje.value;
-        var doctorName = this.appointmentList.filter(function (listing) { return listing.id === id; });
-        debugger;
-        this.doctorAppointment = doctorName[0].docFirstName + ' ' + doctorName[0].docLastName;
-        // console.log('apt idd ' +  id + '' )
-        this.showDoctor = true;
-        this.labForm.controls['appointmentId'].setValue(id);
+        if (this.appointmentList.length > 0) {
+            var doctorName = this.appointmentList.filter(function (listing) { return listing.id === id; });
+            debugger;
+            this.doctorAppointment = doctorName[0].docFirstName + ' ' + doctorName[0].docLastName;
+            // console.log('apt idd ' +  id + '' )
+            this.showDoctor = true;
+            this.labForm.controls['appointmentId'].setValue(id);
+        }
+        else {
+        }
         //  this.labForm.controls['doctorName'].setValue()
+    };
+    PatientAddLabOrdersComponent.prototype.isEmpty = function (val) {
+        return (val === undefined || val == null || val.length <= 0) ? true : false;
     };
     PatientAddLabOrdersComponent.prototype.addLabtoGrid = function (event) {
         var _this = this;
@@ -320,7 +347,8 @@ var PatientAddLabOrdersComponent = (function () {
         this.selectedTest.minNormalRange = this.singleObj.minNormalRange;
         this.selectedTest.id = this.singleObj.id;
         this.selectedTest.resultValue = this.resultValue;
-        if (this.resultValue.length > 0) {
+        debugger;
+        if (!this.isEmpty(this.resultValue)) {
             debugger;
             this.LabReadList.push(this.selectedTest);
             this.show = false;
@@ -341,10 +369,15 @@ var PatientAddLabOrdersComponent = (function () {
         this.selectedTest.minNormalRange = this.filterSpeciman.minNormalRange;
         this.selectedTest.id = this.filterSpeciman.id;
         this.selectedTest.resultValue = this.resultValue;
-        this.LabReadList[this.editIndex] = this.selectedTest;
-        this.clearField();
-        this.show = false;
-        this.showEdit = false;
+        if (!this.isEmpty(this.resultValue)) {
+            this.LabReadList[this.editIndex] = this.selectedTest;
+            this.clearField();
+            this.show = false;
+            this.showEdit = false;
+        }
+        else {
+            this.isError = true;
+        }
     };
     PatientAddLabOrdersComponent.prototype.unSelectedList = function () {
         var _this = this;

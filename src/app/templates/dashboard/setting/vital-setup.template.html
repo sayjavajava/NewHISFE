@@ -82,7 +82,7 @@
                         <td> {{item.name}}</td>
                         <td> {{item.unit}}</td>
                         <td> {{item.standardValue}}</td>
-                        <td> {{item.status==true || item.status=='true'? 'Active': 'Inactive'}}</td>
+                        <td> {{item.status == true || item.status.toLowerCase().trim() == "true" ? 'Active': 'In-Active'}}</td>
 
 
                         <td>
@@ -152,11 +152,8 @@
                                                name="status"
                                                [(ngModel)]="vitalSetupTemplate.status"><span></span></label>-->
                                 <div class="col-md-9 pdng-lr-5">
-                                <label class="mt-checkbox-outline mrgn-top-8">
-                                                      <mat-checkbox #status="ngModel"
-                                                      name="status"
-                                                      [(ngModel)]="vitalSetupTemplate.status"
-                                                      color="primary"></mat-checkbox>
+                                    <label class="mt-checkbox-outline mrgn-top-8">
+                                          <mat-checkbox #status="ngModel" name="status" [(ngModel)]="vitalSetupTemplate.status" color="primary"></mat-checkbox>
                                     </label>
                                 </div>
                             </div>
@@ -164,9 +161,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                 <span >
-                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
-                </span>
+                    <span >
+                        <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                    </span>
 
                     <button type="button" class="btn blue"
                             *ngIf="vitalSetupTemplate.id <= 0 || vitalSetupTemplate.id == null"

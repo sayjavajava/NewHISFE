@@ -749,6 +749,7 @@
                             </div>
                             <div *ngIf="vacationweek" class="form-group mrgn-btm08">
                                 <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Working Days:
+                                    <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <!--<div class="col-md-8 col-xs-12 text-center">
                                     <div *ngFor="let item of workingDays" class="">
@@ -761,7 +762,7 @@
                                     </div>
                                 </div>-->
                                 <div class="col-md-8 pdng-lr-5">
-                                    <p-multiSelect placeholder="select days"
+                                    <p-multiSelect placeholder="Select Days"
                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
                                                    [options]="workingDays" [(ngModel)]="selectedWorkingDays"
                                                    [ngModelOptions]="{standalone:true}"
@@ -771,6 +772,8 @@
                                         </ng-template>
                                     </p-multiSelect>
                                 </div>
+                                <!--<span class="text-danger"
+                                      *ngIf="!userForm.controls['selectedWorkingDays'].valid &&  userForm.controls['selectedWorkingDays'].touched">Working Days are required</span>-->
                             </div>
                             <!--<div class="form-group">
                                 <div class="col-md-4"></div>

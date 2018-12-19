@@ -42,6 +42,7 @@ export class VitalSetupComponent {
     onAddPopupLoadVital(){
         this.vitalSetupTemplate = new VitalSetupModel();
     }
+
     getVitalSetupList() {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(AppConstants.FETCH_VITALS_CONFIGURATIONS
@@ -63,16 +64,13 @@ export class VitalSetupComponent {
         }
     }
 
-
     editVitalSetup(formData: NgForm) {
         if (localStorage.getItem(btoa('access_token'))) {
-            debugger;
+            
             if (this.vitalSetupTemplate.name =="" || this.vitalSetupTemplate.name == null ) {
                 this.notificationService.warn('Please enter Name.');
                 return;
             }
-
-
 
             if (this.vitalSetupTemplate.unit == "" || this.vitalSetupTemplate.unit == null) {
                 this.notificationService.warn('Please enter Unit');
@@ -103,7 +101,6 @@ export class VitalSetupComponent {
             this.router.navigate(['/login']);
         }
     }
-
 
     edit(editModule: any) {
         if (editModule) {

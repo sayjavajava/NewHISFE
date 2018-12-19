@@ -140,6 +140,7 @@ export class StatusesComponent implements OnInit {
         } else {
             this.notificationService.error('Required fields missing', 'Status');
         }
+        this.closeAddStatusModal();
     }
 
 
