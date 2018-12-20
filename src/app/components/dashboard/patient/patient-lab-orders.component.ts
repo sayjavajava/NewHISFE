@@ -10,7 +10,6 @@ import {ConfirmationdialogComponent} from "../confirmationdialog.component";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {LabOrderProjection} from "../../../model/LabOrderProjection";
 import {LabOrderProjectionModel} from "../../../model/LabOrderProjectModel";
-import {LabOrderModel} from "../../../model/LabOrderModel";
 
 
 @Component({
@@ -37,7 +36,6 @@ export class PatientLabOrdersComponent implements OnInit {
     filteredLabTest :any[] =[];
     ListofAppointment:any[]=[];
     LabOrderProjectionModelList:LabOrderProjectionModel[]=[]
-    LabOrderModelList:LabOrderModel[]=[];
     patient:Patient =new Patient();
     cols: any[];
     labTestFiltered:any[]=[];

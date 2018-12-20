@@ -73,6 +73,7 @@ export class PaymentTypeComponent implements OnInit {
                     this.paymentlst=[];
                     this.paymentlst= response['responseData']['data'];
 
+                    console.log(this.paymentlst);
 
                 }
             },
