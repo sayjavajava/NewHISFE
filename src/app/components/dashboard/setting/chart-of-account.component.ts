@@ -59,7 +59,8 @@ export class ChartOfAccountComponent {
             // {label: 'Bank', value: 'Bank'},
             {label: 'Liabilities', value: 'Liabilities'},
             {label: 'Revenue', value: 'Revenue'},
-            {label: 'Cost of Goods Sold', value: 'Expense'},
+            {label: 'Cost of Goods Sold', value: 'Cost of Goods Sold'},
+            {label: 'Expense', value: 'Expense'},
         ];
         this.accountTypes = [];
     }

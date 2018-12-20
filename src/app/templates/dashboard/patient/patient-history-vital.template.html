@@ -487,7 +487,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <button type="button" id="close-btn-new-vitals" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title" >Vital</h4>
             </div>
             <div class="modal-body">
@@ -599,16 +599,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                 <span >
+                <span >
                     <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">Close </button>
                 </span>
-                <span [hidden]="!isUpdate">
-                    <button type="button" class="btn green" name="btnSaveMD"
-                            (click)="savePatientVitalList(ngForm)">Save</button>
-                </span>
-                <span [hidden]="isUpdate">
-                    <button type="button" class="btn blue" id="save-btn-update" (click)="updateVital(ngForm)" >Update </button>
-                </span>
+                <button type="button" class="btn green" name="btnSaveMD" (click)="savePatientVitalList(ngForm)">Save</button>
             </div>
         </div>
     </div>

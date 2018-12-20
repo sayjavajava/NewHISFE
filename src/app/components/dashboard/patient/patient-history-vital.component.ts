@@ -510,7 +510,7 @@ export class PatientHistoryVitalComponent implements OnInit {
                         if (response['responseCode'] === 'SUCCESS') {
 
                             this.notificationService.success('Patient Vital Sucessfully Saved');
-                            document.getElementById('close-btn-Prefix').click();
+                            document.getElementById('close-btn-new-vitals').click();
                             this.getPaginatedPatientVitalList(0);
                             //  this.getPatientVitalList();
 
@@ -603,10 +603,7 @@ export class PatientHistoryVitalComponent implements OnInit {
     }
 
 
-    updateVital() {
-
-
-
+    updateVital(formData: FormData) {
         if (this.selectedPatientId <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;

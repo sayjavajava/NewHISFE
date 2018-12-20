@@ -24,7 +24,7 @@ var CashierComponent = (function () {
     };
     CashierComponent.prototype.getAllInvoicesList = function () {
         var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.GET_All_INVOICES)
+        this.requestsService.getRequest(app_constants_1.AppConstants.GET_All_PENDING_INVOICES)
             .subscribe(function (res) {
             _this.invoiceList = res['responseData'];
             console.log("get All Invoice_Items Data : " + _this.invoiceList);

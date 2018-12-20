@@ -46,6 +46,7 @@ var AppConstants = (function () {
     AppConstants.PATIENT_ALLINVOICE_BALANCE = '/invoice/getPatientInvBal/';
     ////////////////////// Cashier Desk ///////////////////////////////
     AppConstants.GET_All_INVOICES = '/cashier/getAllInvoices';
+    AppConstants.GET_All_PENDING_INVOICES = '/cashier/getPendingInvoices';
     AppConstants.FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';
     AppConstants.SAVE_PAYMENT = '/cashier/savePayment';
     ////////////////////// ICD URLs ///////////////////////////////

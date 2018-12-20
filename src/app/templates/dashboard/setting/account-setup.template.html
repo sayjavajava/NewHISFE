@@ -27,43 +27,43 @@
                         <div class="tab-pane fade active in" id="tab_1_1">
                             <!--<form id="assetsForm" class="form-horizontal" >-->
                             <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group hr mrgn-btm08">
-                                <label class="control-label col-md-4 pdng-lr-5"> Cash </label>
-                                <div class="col-md-8 pdng-lr-5">
-                                    <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.cash">
-                                        <option value=-1 [disabled]="true">Select Account Type</option>
-                                        &lt;!&ndash;<ng-container *ngFor="let item of chartOfAccountList;">
-                                            <option *ngIf="item.parentType=='Assets'"  [ngValue]="item.id" >{{item.name}}</option>
-                                        </ng-container>&ndash;&gt;
+                                <div class="col-md-6">
+                                    <div class="form-group hr mrgn-btm08">
+                                        <label class="control-label col-md-4 pdng-lr-5"> Cash </label>
+                                        <div class="col-md-8 pdng-lr-5">
+                                            <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.cash">
+                                                <option value=-1 [disabled]="true">Select Account Type</option>
+                                                &lt;!&ndash;<ng-container *ngFor="let item of chartOfAccountList;">
+                                                    <option *ngIf="item.parentType=='Assets'"  [ngValue]="item.id" >{{item.name}}</option>
+                                                </ng-container>&ndash;&gt;
 
-                                        <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
-                                            {{item.name}}
-                                        </option>
-                                    </select>-->
-                                    <p-dropdown placeholder="Select Account" [autoWidth]="false"
-                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="cash"
-                                                [(ngModel)]="accountConfig.cash" [options]="assetsAccountList"
-                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                    </p-dropdown>
-                                </div>
-                            </div>
-                            <div class="form-group hr mrgn-btm08">
-                                <label class="control-label col-md-4 pdng-lr-5"> Bank </label>
-                                <div class="col-md-8 pdng-lr-5">
-                                    <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.bank">
-                                        <option value=-1 [disabled]="true">Select Account Type</option>
-                                        <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
-                                            {{item.name}}
-                                        </option>
-                                    </select>-->
-                                    <p-dropdown placeholder="Select Account" [autoWidth]="false"
-                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="bank"
-                                                [(ngModel)]="accountConfig.bank" [options]="assetsAccountList"
-                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                    </p-dropdown>
-                                </div>
-                            </div>
+                                                <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
+                                                    {{item.name}}
+                                                </option>
+                                            </select>-->
+                                            <p-dropdown placeholder="Select Account" [autoWidth]="false"
+                                                        [style]="{'text-align': 'left' ,'width':'100%'}" name="cash"
+                                                        [(ngModel)]="accountConfig.cash" [options]="assetsAccountList"
+                                                        [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr mrgn-btm08">
+                                        <label class="control-label col-md-4 pdng-lr-5"> Bank </label>
+                                        <div class="col-md-8 pdng-lr-5">
+                                            <!--<select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.bank">
+                                                <option value=-1 [disabled]="true">Select Account Type</option>
+                                                <option *ngFor="let item of assetsAccountList;" value={{item.id}}>
+                                                    {{item.name}}
+                                                </option>
+                                            </select>-->
+                                            <p-dropdown placeholder="Select Account" [autoWidth]="false"
+                                                        [style]="{'text-align': 'left' ,'width':'100%'}" name="bank"
+                                                        [(ngModel)]="accountConfig.bank" [options]="assetsAccountList"
+                                                        [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
                             <div class="form-group hr mrgn-btm08">
                                 <label class="control-label col-md-4 pdng-lr-5"> Inventory </label>
                                 <div class="col-md-8 pdng-lr-5">
@@ -308,30 +308,40 @@
                         </div>
                         <div class="tab-pane" id="tab_1_5">
                             <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 pdng-lr-5"> General Expenses </label>
-                                <div class="col-md-8 pdng-lr-5">
-                                   <!-- <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.generalExpense">
-                                        <option value=-1 >Select Account Type</option>
-                                        <option *ngFor="let item of expensesAccountList; " value={{item.id}} >
-                                            {{item.name}}
-                                        </option>
-                                    </select>-->
-                                    <p-dropdown placeholder="Select Account" [autoWidth]="false"
-                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="generalExpense"
-                                                [(ngModel)]="accountConfig.generalExpense" [options]="expensesAccountList"
-                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                    </p-dropdown>
+                                <div class="col-md-6">
+                                    <div class="form-group hr mrgn-btm08">
+                                        <label class="control-label col-md-4 pdng-lr-5"> General Expenses </label>
+                                        <div class="col-md-8 pdng-lr-5">
+                                            <!-- <select class="form-control" style="width: 250px !important" [(ngModel)]="accountConfig.generalExpense">
+                                                 <option value=-1 >Select Account Type</option>
+                                                 <option *ngFor="let item of expensesAccountList; " value={{item.id}} >
+                                                     {{item.name}}
+                                                 </option>
+                                             </select>-->
+                                            <p-dropdown placeholder="Select Account" [autoWidth]="false"
+                                                        [style]="{'text-align': 'left' ,'width':'100%'}" name="generalExpense"
+                                                        [(ngModel)]="accountConfig.generalExpense" [options]="expensesAccountList"
+                                                        [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hr mrgn-btm08">
+                                        <label class="control-label col-md-4 pdng-lr-5"> Doctor Expenses </label>
+                                        <div class="col-md-8 pdng-lr-5">
+                                            <p-dropdown placeholder="Select Account" [autoWidth]="false"
+                                                        [style]="{'text-align': 'left' ,'width':'100%'}" name="doctorExpense"
+                                                        [(ngModel)]="accountConfig.doctorExpense" [options]="expensesAccountList"
+                                                        [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
-                            </div>
                             </div>
                             <div class="row mrgn-top14">
                                 <div class="col-md-12">
                                     <div class="text-center hr"><button data-repeater-create="" class="btn blue" (click)="updateExpenseConfig()"> Save </button></div>
                                 </div>
-                              </div>
+                            </div>
                       </div>
                     </div>
                 </div>

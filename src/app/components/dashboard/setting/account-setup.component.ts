@@ -54,7 +54,7 @@ export class AccountSetupComponent {
                         this.accountConfig = isNullOrUndefined(response["responseData"].accountConfig) ? new AccountConfigModel : response["responseData"].accountConfig;
                         // console.log(this.accountConfig.cash.id + " : " + typeof this.accountConfig.cash.id);
                         for (let account of this.chartOfAccountList) {
-                            var pair: any = {label: account.name, value: account.id};
+                            let pair: any = {label: account.name, value: account.id};
                             if (account.parentType === "Assets") {
                                 this.assetsAccountList.push(pair);
                             }
@@ -248,6 +248,11 @@ export class AccountSetupComponent {
             // EXPENSE
             if (this.accountConfig.generalExpense != null && this.typesArray.indexOf(typeof this.accountConfig.generalExpense) == -1) {
                 this.accountConfig.generalExpense = this.accountConfig.generalExpense.parentType == "Expense" ? this.accountConfig.generalExpense.id : "";
+            }
+            if (this.accountConfig.doctorExpense != null) {
+                this.accountConfig.doctorExpense = (typeof this.accountConfig.doctorExpense == "number"
+                    ? this.accountConfig.doctorExpense
+                    : (this.accountConfig.doctorExpense.parentType == "Expense" ? this.accountConfig.doctorExpense.id : ""));
             }
         }
     }

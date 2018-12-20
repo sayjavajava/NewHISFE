@@ -6,7 +6,7 @@ export class PatientVitalModel{
     name: string = '';
     unit: string = '';
     standardValue: string ;
-    status: boolean = false;
+    status: boolean = true;
     currentValue:string;
     listofVital:PatientVitalModel[];
     // patient:Patient=new Patient();

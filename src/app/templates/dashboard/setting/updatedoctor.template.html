@@ -12,10 +12,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">First Name
+                                    <label class="control-label col-md-4 pdng-lr-5">First Name
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" formControlName="firstName" data-required="1"
                                                class="form-control">
                                         <span class="text-danger"
@@ -26,16 +26,16 @@
 
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Last Name
+                                    <label class="control-label col-md-4 pdng-lr-5">Last Name
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input formControlName="lastName" type="text" class="form-control"></div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Username
+                                    <label class="control-label col-md-4 pdng-lr-5">Username
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" formControlName="userName" class="form-control">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
@@ -48,10 +48,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Primary Branch
+                                    <label class="control-label col-md-4 pdng-lr-5">Primary Branch
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
 
                                         <!--                                        <select class="form-control"
                                                                                         (change)="getSelectedBranch($event.target.value)"
@@ -73,10 +73,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Email Address
+                                    <label class="control-label col-md-4 pdng-lr-5">Email Address
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="email" formControlName="email"
                                                class="form-control">
                                         <span class="text-danger"
@@ -85,10 +85,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08" ngClass="displayFieldCss">
-                                    <label class="control-label col-md-4">Visit Branches
+                                    <label class="control-label col-md-4 pdng-lr-5">Visit Branches
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--   <div class="checkbox-box cod-higt" id="not-due">
                                                <address class="row"><label class="mt-checkbox mt-checkbox-outline">
                                                    <div *ngFor="let item of branchesList" class="col-md-6">
@@ -119,11 +119,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Department
+                                    <label class="control-label col-md-4 pdng-lr-5">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <!--doctor department container-->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<select class="form-control" (change)="selectDoctorDepartment($event.target.value)">
                                             &lt;!&ndash;<option value="" selected="selected">Select Department</option>&ndash;&gt;
                                             <option *ngFor="let item of departmentList" [selected] = "item.selected" value="{{item.id}}">{{item.name}}</option>
@@ -143,27 +143,26 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Services
+                                    <label class="control-label col-md-4 pdng-lr-5">Services
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <div class="checkbox-box cod-higt" id="not-due">
                                             <address>
-                                                <div class="col-md-5 pdng-lr-5">
-                                                    <label class="mt-checkbox mt-checkbox-outline">
+                                                <div class="col-md-10 pdng-lr-5">
+                                                    <label class="mt-checkbox mt-checkbox-outline" style="width: 100%">
                                                         <div class="ui-inputgroup row" *ngFor="let item of servicesList">
                                                             <div class="col-md-2 no-padding-rgt">
                                                                 <input type="checkbox" formControlName="servicesControl" name={{item.name}}
                                                                         value="{{item.id}}" [checked]="item.checked" (change)="addComissionCheck($event,item)">
                                                             </div>
-                                                            <div class="col-md-3 pdng-lr-5"><input [hidden]="showComissioninput!=1" (keyup)="addComission($event,item)" type="text" id={{item.id}} ></div>
-                                                            <div class="col-md-3 pdng-lr-5"><div class=""></div></div>
-                                                            <div class="col-md-4 pdng-lr-5"><div class="">  {{item.name}}</div></div>
+                                                            <div class="col-md-7 pdng-lr-5"><div class="">  {{item.name}}</div></div>
+                                                            <div class="col-md-3 pdng-lr-5 margin-bottom-5"><input [hidden]="showComissioninput!=1" (keyup)="addComission($event,item)" type="number" id={{item.id}} style="width: 100%"></div>
                                                         </div>
                                                     </label>
                                                 </div>
-                                                <div class="col-md-3 pdng-lr-5">
-                                                    <div class="">
+                                                <div class="col-md-2 pdng-lr-5">
+                                                    <div class="pull-right">
                                                         <button id="comissionBtn" type="button" class="btn-link"(click)="showServiceComission()">{{comissionBtn}}</button>
                                                     </div>
                                                 </div>
@@ -188,10 +187,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                        <label class="control-label col-md-4 col-xs-12"> Duty (Shift 1):
+                                        <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Duty (Shift 1):
                                             <span class="required" aria-required="true"> * </span>
                                         </label>
-                                        <div class="col-md-8 col-xs-12">
+                                        <div class="col-md-8 col-xs-12 pdng-lr-5">
                                             <div class="pull-left no-padding col-md-1"><label
                                                     class="mt-checkbox-outline chckbox">
                                                 <!--<input type="checkbox" formControlName="shift1" class="">-->
@@ -215,9 +214,9 @@
                                               *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
                                     </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 col-xs-12"> Duty (Shift 2):
+                                    <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Duty (Shift 2):
                                     </label>
-                                    <div class="col-md-8  col-xs-12">
+                                    <div class="col-md-8  col-xs-12 pdng-lr-5">
                                         <div class="col-md-1 pull-left no-padding"><label
                                                 class="mt-checkbox-outline chckbox">
                                             <!--<input type="checkbox" class=""
@@ -241,9 +240,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 col-xs-12"> Vacation:
+                                    <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Vacation:
                                     </label>
-                                    <div class="col-md-8  col-xs-12">
+                                    <div class="col-md-8  col-xs-12 pdng-lr-5">
                                         <div class="pull-left col-md-1 no-padding-lft"><label
                                                 class="mt-checkbox-outline chckbox">
                                             <!--<input type="checkbox" formControlName="vacation"
@@ -273,7 +272,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 col-xs-12"> Working Days:
+                                    <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Working Days:
                                     </label>
                                     <!--  <div class="col-md-8 col-xs-12 text-center" formGroupName="workingDaysContorl">
 
@@ -314,7 +313,7 @@
                                             Saturday: <input type="checkbox" class="spinner" formControlName="saturday">
                                         </div>
                                         </div>-->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <p-multiSelect placeholder="select days"
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="workingDays" [(ngModel)]="selectedWorkingDays"
@@ -331,25 +330,25 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Home Phone
+                                    <label class="control-label col-md-4 pdng-lr-5">Home Phone
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input formControlName="homePhone" type="text"
                                                class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4">Cell Phone
+                                    <label class="control-label col-md-4 pdng-lr-5">Cell Phone
                                     </label>
-                                    <div class="col-md-8 profile-frm">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input formControlName="cellPhone" type="text"
                                                class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 col-xs-6">Active
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Active
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!-- <label class="mt-checkbox-outline chckbox mrgn-top8">
                                              <input type="checkbox" formControlName="active"><span></span></label>-->
                                         <label class="mt-checkbox-outline">

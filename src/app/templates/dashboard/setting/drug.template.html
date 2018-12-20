@@ -292,23 +292,21 @@
                                         </p-dropdown>
                                         </div>
                                     </div>
-                                    </div>
-                                    <div class="col-md-6">
+
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Strength<span
                                                     class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-8 pdng-lr-5 profile-frm">
-                                            <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                     [(ngModel)]="drug.strengths" placeholder="Insert value and press enter"
-                                                     id="strengths" #strengths="ngModel">
-                                            </p-chips>
-                                                <!--<span *ngIf="strengths.invalid && strengths.touched"
-                                                            class="col-md-9 select pdng-lr-5 text-danger">
-                                                    Please enter.
-                                            </span>-->
+                                                <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%', 'height':''}"
+                                                         [(ngModel)]="drug.strengths" placeholder="Insert value and press enter"
+                                                         id="strengths" #strengths="ngModel">
+                                                </p-chips>
+                                                <span *ngIf="strengths.touched"  class="col-md-9 select pdng-lr-5 text-danger">Insert value and press enter</span>
                                             </div>
 
                                         </div>
+                                    </div>
+                                    <div class="col-md-6">
 
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">UoM<span
