@@ -484,7 +484,7 @@ export class UpdateOrganizationComponent implements OnInit {
     saveGeneralSettings(data: FormData) {
 
         var self = this;
-        debugger;
+
 
         this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
             .subscribe(function (response) {

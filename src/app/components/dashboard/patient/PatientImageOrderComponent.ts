@@ -52,7 +52,9 @@ export class PatientImageOrderComponent implements OnInit {
     showDiv:boolean =false;
     display: boolean = false;
     selectedindex:number=0;
+    patientId: number;
     cols:any[];
+
     @ViewChild('closeBtn') closeBtn: ElementRef;
 
     constructor(private notificationService: NotificationService,
@@ -62,8 +64,13 @@ export class PatientImageOrderComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private dataService: DataService) {
 
-        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+       /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
+        });*/
+
+        this.activatedRoute.params.subscribe(params => {
+            this.selectedPatientId = params['id'];
+
         });
 
         this.getPatientImageSetupList();
@@ -71,7 +78,7 @@ export class PatientImageOrderComponent implements OnInit {
 
     }
     ngOnInit(): void {
-
+        this.loadRecord();
         this.statusType = [
             {label: 'ACTIVE',value:'ACTIVE'},
             {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
@@ -100,7 +107,8 @@ export class PatientImageOrderComponent implements OnInit {
 
 
     addProblemPopupClick() {
-        this.isUpdate = true;
+     //   this.isUpdate =true;
+        this.isUpdate = false;
         this.patientImageTemplate=new PatientImageOrderModel();
         this.uploadedFiles=[];
         this.selectedOrder=this.orderListModified[0].value;
@@ -425,7 +433,6 @@ export class PatientImageOrderComponent implements OnInit {
     openDiv(val :string){
 
 
-        debugger;
 
         if(this.showImage==true){
             this.showImage=false;
@@ -447,7 +454,7 @@ export class PatientImageOrderComponent implements OnInit {
             for(let i = 0; i < labTestFilteredimgUrl.length; i++) {
                 let test = labTestFilteredimgUrl[i];
                 //   var filenameInt = test;
-                debugger;
+
                 //     filenameInt=filenameInt.url;
                 //    var ext=filenameInt.substr(filenameInt.length - 3);
                 //     if(filename===filenameInt){
@@ -505,4 +512,27 @@ export class PatientImageOrderComponent implements OnInit {
         //  iframe.src = urlString;
         // updted
     };
+
+
+    loadRecord() {
+        if (this.patientId == null || this.patientId == 0 || this.patientId == undefined) {
+            this.notificationService.error('Please Select Patient Again From Dashboard')
+        } else {
+            this.requestsService.getRequest(
+                AppConstants.PATIENT_FETCH_URL + this.patientId
+            ).subscribe(
+                response => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.patient = response['responseData'];
+                        //this.patient.races = JSON.parse(response['responseData'].racesString);
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Patient');
+                        // this.router.navigate(['404-not-found'])
+                    }
+                },
+                (error: any) => {
+
+                });
+        }
+    }
 }

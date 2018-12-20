@@ -184,7 +184,7 @@ export class PatientProblemListComponent implements OnInit {
                             this.associatedCodes = [];
 
                             this.associatedCodes = response['responseData'].code;
-                            debugger;
+
                             for(var i=0; i<this.associatedCodes.length;i++){
                                 var problems=this.associatedCodes[i];
                                 var pair={label:problems.problem,value:problems.id}
@@ -193,7 +193,7 @@ export class PatientProblemListComponent implements OnInit {
 
                             console.log(this.associatedCodes);
 
-                            debugger;
+
                         }
                     },
                     (error: any) => {
@@ -331,11 +331,11 @@ export class PatientProblemListComponent implements OnInit {
                                 this.ppm = response['responseData'];
                                 this.appointmentsByPatientServer(this.ppm.patientId);
                                 this.versionsByServer();
-                                debugger;
+
                                 this.codesByVersionFromServer(this.ppm.selectedICDVersionId);
                                 this.ppm.datePrescribedDate=new Date(this.ppm.dateDiagnosis);
                                 // this.selectedCodeId=this.ppm.codeName;
-                                debugger;
+
                             } else {
                                 this.notificationService.error(response['responseMessage'], 'Problem of Patient');
                             }

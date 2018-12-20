@@ -137,9 +137,9 @@
                         <ng-template   pTemplate="body" let-item let-allergyData>
                             <tr>
 
-                                <td ><strong>{{item.appointment[0].doctor.firstName +" "+ item.appointment[0].doctor.lastName}}</strong></td>
-                                <td >{{item.dateTest | date:stdSystemFormat}}</td>
-                                <td >{{item.status}}</td>
+                                <td ><strong>{{item.appointment.doctor.firstName +" "+ item.appointment.doctor.lastName}}</strong></td>
+                                <td >{{item.testDate | date:stdSystemFormat}}</td>
+                                <td >{{item.orderStatus}}</td>
                                 <td >{{item.comments}}</td>
                                 <!--<td >{{allergyData.updatedOn}}</td>-->
 
@@ -281,7 +281,8 @@
                                                 <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
 
                                             </tr>
-                                            <tr role="row" class="filter" *ngFor="let lbRT of filteredLabTest;  let idx = index">
+                                            {{filteredLabTest}}
+                                            <tr role="row" class="filter" *ngFor="let lbRT of labTestFiltered;  let idx = index">
                                                 <!-- <td rowspan="1" colspan="1">{{lbRT.id}}</td>-->
                                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.loincCode}}</td>
 
