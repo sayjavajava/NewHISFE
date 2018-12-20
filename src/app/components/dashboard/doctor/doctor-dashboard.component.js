@@ -203,7 +203,18 @@ var DoctorDashboardComponent = (function () {
         this.router.navigate(['/dashboard/patient/', id, 'history']);
     };
     DoctorDashboardComponent.prototype.updateAppointmentData = function (id) {
-        this.router.navigate(['/dashboard/patient/invoice', id]);
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.INVOICE_CHECK_IN + id)
+            .subscribe(function (res) {
+            if (res['responseCode'] === "INVOICE_ERR_01") {
+                _this.snackBar.open('Error', "Invoice Not Generated", { duration: 3000 });
+            }
+            else {
+                _this.router.navigate(['/dashboard/patient/invoice', id]);
+            }
+        }, function (error) {
+            _this.error = error.error.error;
+        });
     };
     DoctorDashboardComponent = __decorate([
         core_1.Component({

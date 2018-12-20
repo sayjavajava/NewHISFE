@@ -45,7 +45,7 @@
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                <input type="text" pInputText size="50" placeholder="Name, Abbreviation" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                             </div>
                         </ng-template>
 
@@ -61,12 +61,12 @@
                                     </p-sortIcon>
                                 </th>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                     <input *ngSwitchCase="'name'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     <input *ngSwitchCase="'abbreviation'" pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                 </th>
-                            </tr>
+                            </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-data>
                             <tr>
@@ -86,7 +86,7 @@
                                             <button class="" (click)="onUpdatePopupLoad(data)"> <i class="fa fa-pencil"></i> </button>
                                         </a>
                                         <span [hidden]="data.hasChild">
-                                            <button class="" (click)="deleteStatus(data.id)"> <i class="fa fa-remove"></i> </button>
+                                            <button class="text-danger" (click)="deleteStatus(data.id)"> <i class="fa fa-remove"></i> </button>
                                         </span>
                                     </ng-container>
                                 </td>
@@ -174,7 +174,7 @@
 
 <!-- Pop-up Modal-->
 
-<div id="statusModal" bsModal #statusModal ="bs-modal"   class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="statusModal" bsModal #statusModal="bs-modal"   class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <form id="statusForm" class="status-form" #form="ngForm">
             <div class="modal-content" style="width: 80%">

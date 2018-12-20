@@ -35,7 +35,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="text" formControlName="userName" class="form-control">
+                                        <input type="text" formControlName="userName" class="form-control" disabled="true">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
                                            <span *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
@@ -132,7 +132,7 @@
                                     </div>
                                 </div>-->
 
-                                <div class="form-group">
+                               <!-- <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Account Expiry
                                     </label>
                                     <div class="col-md-8 col-xs-6">
@@ -143,7 +143,7 @@
                                             <mat-datepicker #from></mat-datepicker>
                                         </mat-form-field>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-xs-6">Active
                                     </label>

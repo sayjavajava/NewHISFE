@@ -16,6 +16,7 @@ export class PaymentType {
     patientRefunds:any[];
     staffPayment:any[];
     ReceiptPaymentType:any[];
+    hasChild:boolean;
     constructor() {
 
     }

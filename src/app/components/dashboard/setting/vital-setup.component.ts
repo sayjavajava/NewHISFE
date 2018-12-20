@@ -42,6 +42,7 @@ export class VitalSetupComponent {
     onAddPopupLoadVital(){
         this.vitalSetupTemplate = new VitalSetupModel();
     }
+
     getVitalSetupList() {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(AppConstants.FETCH_VITALS_CONFIGURATIONS
@@ -63,7 +64,6 @@ export class VitalSetupComponent {
         }
     }
 
-
     editVitalSetup(formData: NgForm) {
         if (localStorage.getItem(btoa('access_token'))) {
 
@@ -72,8 +72,6 @@ export class VitalSetupComponent {
                 return;
             }
 
-
-
             if (this.vitalSetupTemplate.unit == "" || this.vitalSetupTemplate.unit == null) {
                 this.notificationService.warn('Please enter Unit');
                 return;
@@ -82,6 +80,11 @@ export class VitalSetupComponent {
             if (this.vitalSetupTemplate.unit == "" || this.vitalSetupTemplate.unit == null) {
                 this.notificationService.warn('Please enter Unit');
                 return;
+            }
+            if (this.vitalSetupTemplate.status == true || this.vitalSetupTemplate.status == "true" ) {
+                this.vitalSetupTemplate.status = "true";
+            } else {
+                this.vitalSetupTemplate.status = "false";
             }
 
             this.requestsService.postRequest(AppConstants.VITALS_CONFIGURATION_SAVE , this.vitalSetupTemplate)
@@ -104,10 +107,10 @@ export class VitalSetupComponent {
         }
     }
 
-
     edit(editModule: any) {
         if (editModule) {
             this.vitalSetupTemplate = editModule;
+            this.vitalSetupTemplate.status = (this.vitalSetupTemplate.status == true || this.vitalSetupTemplate.status == "true" ) ? true : false;
         } else {
             this.vitalSetupTemplate = new VitalSetupModel();
         }

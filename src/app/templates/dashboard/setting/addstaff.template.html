@@ -235,22 +235,18 @@
                                                      </div>
                                                  </ng-template>
                                              </p-multiSelect>-->
-                                            <div class="ui-inputgroup row margin-bottom-5"
+                                            <div class="ui-inputgroup margin-bottom-5"
                                                  *ngFor="let item of servicesList">
-                                                <div class="col-md-2 no-padding-rgt">
-                                                    <span class="ui-inputgroup-addon">
+                                                    <span class="col-md-1 pdng-lr-5">
                                                         <p-checkbox value="{{item.id}}"
                                                                     (onChange)="addComissionCheck($event,item)">
                                                         </p-checkbox>
                                                     </span>
-                                                </div>
-                                                <div class="col-md-6 pdng-lr-5">
-                                                    <input type="text" pInputText
-                                                           (keyup)="addComission($event,item)"
-                                                           placeholder="comission">{{item.name}}
-                                                </div>
+                                                    <p class="col-md-7 pdng-lr-5">{{item.name}}</p>
                                                 <div class="col-md-4 pdng-lr-5">
-                                                    <div class=""></div>
+                                                    <input style="width: 100%" type="number" pInputText
+                                                           (keyup)="addComission($event,item)"
+                                                           placeholder="comission">
                                                 </div>
                                             </div>
 
@@ -749,6 +745,7 @@
                             </div>
                             <div *ngIf="vacationweek" class="form-group mrgn-btm08">
                                 <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Working Days:
+                                    <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <!--<div class="col-md-8 col-xs-12 text-center">
                                     <div *ngFor="let item of workingDays" class="">
@@ -761,7 +758,7 @@
                                     </div>
                                 </div>-->
                                 <div class="col-md-8 pdng-lr-5">
-                                    <p-multiSelect placeholder="select days"
+                                    <p-multiSelect placeholder="Select Days"
                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
                                                    [options]="workingDays" [(ngModel)]="selectedWorkingDays"
                                                    [ngModelOptions]="{standalone:true}"
@@ -771,6 +768,8 @@
                                         </ng-template>
                                     </p-multiSelect>
                                 </div>
+                                <!--<span class="text-danger"
+                                      *ngIf="!userForm.controls['selectedWorkingDays'].valid &&  userForm.controls['selectedWorkingDays'].touched">Working Days are required</span>-->
                             </div>
                             <!--<div class="form-group">
                                 <div class="col-md-4"></div>

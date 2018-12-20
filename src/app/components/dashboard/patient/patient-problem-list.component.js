@@ -152,14 +152,12 @@ var PatientProblemListComponent = (function () {
                 if (response['responseCode'] === 'ICD_ASSOCIATED_FOUND_SUC_02') {
                     _this.associatedCodes = [];
                     _this.associatedCodes = response['responseData'].code;
-                    debugger;
                     for (var i = 0; i < _this.associatedCodes.length; i++) {
                         var problems = _this.associatedCodes[i];
                         var pair = { label: problems.problem, value: problems.id };
                         _this.selectedCodeId.push(pair);
                     }
                     console.log(_this.associatedCodes);
-                    debugger;
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
@@ -275,11 +273,9 @@ var PatientProblemListComponent = (function () {
                         _this.ppm = response['responseData'];
                         _this.appointmentsByPatientServer(_this.ppm.patientId);
                         _this.versionsByServer();
-                        debugger;
                         _this.codesByVersionFromServer(_this.ppm.selectedICDVersionId);
                         _this.ppm.datePrescribedDate = new Date(_this.ppm.dateDiagnosis);
                         // this.selectedCodeId=this.ppm.codeName;
-                        debugger;
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Problem of Patient');

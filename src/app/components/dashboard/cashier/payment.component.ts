@@ -35,7 +35,6 @@ export class PaymentComponent implements OnInit {
     patientAdvanceDeposit : number = 0.00;
     usedAdvanceDeposit : number = 0.00;
     discountAmount: number = 0.00;
-
     paymentRequest : PaymentRequest= new PaymentRequest();
     selectedPaymentType: any ;
 
@@ -131,6 +130,7 @@ export class PaymentComponent implements OnInit {
         var itemAmt = 0.00;
         var taxAmt = 0.00;
         var discAmount = 0.00;
+        var amtAfterDisc=0.00;
 
         var i = 0, len = this.invoiceList.length;
         for(;i<len; i++){
@@ -140,20 +140,22 @@ export class PaymentComponent implements OnInit {
             discAmount = (this.invoiceList[i].quantity * this.invoiceList[i].unitFee) * this.invoiceList[i].discountRate/100  ;
             this.grandTotalDiscount += discAmount;
 
-            taxAmt = (this.invoiceList[i].quantity * this.invoiceList[i].unitFee) * this.invoiceList[i].taxRate/100  ;
+            amtAfterDisc = itemAmt-discAmount;
+
+            taxAmt = amtAfterDisc * this.invoiceList[i].taxRate/100  ;
             this.grandTotalTax += taxAmt;
-            this.grandTotalWithTax +=  itemAmt + taxAmt - discAmount;
+            this.grandTotalWithTax += (amtAfterDisc+ taxAmt);
         }
         console.log("----grandTotal : " + this.grandTotal);
     }
 
     savePayment(){
-        this.paymentRequest = new PaymentRequest();
+        // this.paymentRequest = new PaymentRequest();
         this.paymentRequest.id = this.id ;
         this.paymentRequest.invoiceId = "0" ;
         this.paymentRequest.paidAmount = this.paidAmount ;
         this.paymentRequest.invoiceAmount = this.grandTotalWithTax ;
-
+    //    this.paymentRequest.paymentTypeId = this.id ;
         this.paymentRequest.paidAmount = this.paidAmount ;
         this.paymentRequest.useAdvancedBal = this.useAdvancedBal;
         this.paymentRequest.usedAdvanceDeposit = this.usedAdvanceDeposit;

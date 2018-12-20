@@ -77,6 +77,7 @@ export class BranchComponent implements OnInit {
     }
 
     getbranchesWithDoctors(id: number, overlaypanel?: OverlayPanel,event?:any) {
+        this.doctorsInBranch.length =0;
         this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_WITH_DOCTORS + id)
             .subscribe(
                 (response: Response) => {

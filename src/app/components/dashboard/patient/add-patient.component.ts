@@ -204,7 +204,7 @@ export class AddPatientComponent implements OnInit {
                 /***
                  * going to check , if any one value available of insurance then company name must be presented
                  * **/
-                /*if (this.patient.insuranceIdNumber != '' && this.patient.company === '') {
+                if (this.patient.insuranceIdNumber != '' && this.patient.company === '') {
                     this.notificationService.warn('Please enter insurance company name.');
                     document.getElementById('company').focus();
                     return;
@@ -256,7 +256,7 @@ export class AddPatientComponent implements OnInit {
                     this.notificationService.warn('Please enter insurance company name.');
                     document.getElementById('company').focus();
                     return;
-                }*/
+                }
 
                 this.requestsService.postRequestMultipartFormAndData(
                     AppConstants.PATIENT_SAVE_URL,

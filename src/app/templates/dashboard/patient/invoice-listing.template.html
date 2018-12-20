@@ -40,14 +40,13 @@
                                     <td field="serialNo">{{sNo+1}}</td>
                                     <td field="invoiceId"> {{invoiceList.invoiceId}} </td>
                                     <td field="patientName"> {{invoiceList.patientName}} </td>
-                                    <td field="invoiceAmount" class="text-align-right"> {{invoiceList.invoiceAmount | number :'.2-2'}} </td>
-                                    <td field="discountAmount" class="text-align-right"> {{invoiceList.discountAmount | number :'.2-2'}} </td>
-                                    <td field="taxAmount" class="text-align-right"> {{invoiceList.taxAmount | number :'.2-2'}} </td>
-                                    <td field="totalAmount" class="text-align-right"> {{invoiceList.invoiceAmount | number :'.2-2'}} </td>
+                                    <td field="invoiceAmount" class="text-align-right"> {{invoiceList.totalInvoiceAmount | number :'.2-2'}} </td>
+                                    <td field="paidAmount" class="text-align-right"> {{invoiceList.paidAmount | number :'.2-2'}} </td>
+                                    <td field="balanceAmount" class="text-align-right"> {{invoiceList.totalInvoiceAmount - invoiceList.paidAmount | number :'.2-2'}} </td>
                                     <td field="status"> {{invoiceList.status}} </td>
                                     <td field="action">
                                         <span>
-                                            <button (click)="printReport(invoiceList.invoiceId)" class="btn btn-default btn-outline btn-sm" title="Download Invoice ">
+                                            <button (click)="printReport(invoiceList.invoiceId)" class="font-green-jungle" title="Download Invoice ">
                                                 <i class="fa fa-download"></i>
                                             </button>
                                         </span>

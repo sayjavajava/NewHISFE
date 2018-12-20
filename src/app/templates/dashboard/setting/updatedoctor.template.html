@@ -143,45 +143,50 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                        <label class="control-label col-md-4">Services
-                                            <!--<span class="required" aria-required="true"> * </span>-->
-                                        </label>
-                                        <div class="col-md-8">
-                                            <div class="checkbox-box cod-higt" id="not-due">
-                                                <address>
+                                    <label class="control-label col-md-4">Services
+                                        <!--<span class="required" aria-required="true"> * </span>-->
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="checkbox-box cod-higt" id="not-due">
+                                            <address>
+                                                <div class="col-md-5 pdng-lr-5">
                                                     <label class="mt-checkbox mt-checkbox-outline">
                                                         <div class="ui-inputgroup row" *ngFor="let item of servicesList">
-                                                            <div class="col-md-2 no-padding-rgt"><input type="checkbox" formControlName="servicesControl"
-                                                                                                        name={{item.name}}
-                                                                                                        value="{{item.id}}"
-                                                                                                        [checked]="item.checked"
-                                                                                                        (change)="addComissionCheck($event,item)"></div>
+                                                            <div class="col-md-2 no-padding-rgt">
+                                                                <input type="checkbox" formControlName="servicesControl" name={{item.name}}
+                                                                        value="{{item.id}}" [checked]="item.checked" (change)="addComissionCheck($event,item)">
+                                                            </div>
                                                             <div class="col-md-3 pdng-lr-5"><input [hidden]="showComissioninput!=1" (keyup)="addComission($event,item)" type="text" id={{item.id}} ></div>
-                                                            <div class="col-md-7 pdng-lr-5"><div class=""></div></div>
-                                                            {{item.name}}
+                                                            <div class="col-md-3 pdng-lr-5"><div class=""></div></div>
+                                                            <div class="col-md-4 pdng-lr-5"><div class="">  {{item.name}}</div></div>
                                                         </div>
                                                     </label>
-                                                    <button id="comissionBtn" type="button" class="btn-link"(click)="showServiceComission()">{{comissionBtn}}</button>
-                                                    <!--<div class="ui-inputgroup" *ngFor="let item of servicesList">
-                                                        <span class="ui-inputgroup-addon"><p-checkbox  value="{{item.id}}"(onChange) ="addComissionCheck($event,item)" ></p-checkbox></span>
-                                                        <input type="text" pInputText  (keyup)="addComission($event,item)" placeholder="comission">
-                                                    </div>-->
-                                                </address>
-                                            </div>
-                                            <!--<p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                           [options]="servicesList" [(ngModel)]="selectedServices"
-                                                           [ngModelOptions]="{standalone:true}"
-                                                           [panelStyle]="{minWidth:'12em'}">
-                                                <ng-template let-ser pTemplate="item">
-                                                    <div style="font-size:14px;float:right;margin-top:4px">{{ser.label}}
+                                                </div>
+                                                <div class="col-md-3 pdng-lr-5">
+                                                    <div class="">
+                                                        <button id="comissionBtn" type="button" class="btn-link"(click)="showServiceComission()">{{comissionBtn}}</button>
                                                     </div>
-                                                </ng-template>
-                                            </p-multiSelect>-->
-                                            <span class="text-danger"
-                                                  *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
-                                            <div class="font-siz font-red" *ngIf="hasServices">This Department has no service</div>
+                                                </div>
+                                                <!--<div class="ui-inputgroup" *ngFor="let item of servicesList">
+                                                    <span class="ui-inputgroup-addon"><p-checkbox  value="{{item.id}}"(onChange) ="addComissionCheck($event,item)" ></p-checkbox></span>
+                                                    <input type="text" pInputText  (keyup)="addComission($event,item)" placeholder="comission">
+                                                </div>-->
+                                            </address>
                                         </div>
+                                        <!--<p-multiSelect [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="servicesList" [(ngModel)]="selectedServices"
+                                                       [ngModelOptions]="{standalone:true}"
+                                                       [panelStyle]="{minWidth:'12em'}">
+                                            <ng-template let-ser pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{ser.label}}
+                                                </div>
+                                            </ng-template>
+                                        </p-multiSelect>-->
+                                        <span class="text-danger"
+                                              *ngIf="!userForm.controls['servicesControl'].valid && userForm.controls['servicesControl'].touched">select atleast one Service </span>
+                                        <div class="font-siz font-red" *ngIf="hasServices">This Department has no service</div>
                                     </div>
+                                </div>
                                 <div class="form-group mrgn-btm08">
                                         <label class="control-label col-md-4 col-xs-12"> Duty (Shift 1):
                                             <span class="required" aria-required="true"> * </span>
@@ -359,11 +364,8 @@
                         </div>
                         <div class="hr">
                             <div class="col-md-12 text-center">
-                                <button (click)="addUser(userForm.value)" class="btn blue"><i class="fa fa-plus"></i>
-                                    Update
-                                </button>
-                                <button (click)="cancel()" class="btn default"><i class="fa fa-cancel"></i> Cancel
-                                </button>
+                                <button (click)="addUser(userForm.value)" class="btn blue"><i class="fa fa-plus"></i> Update</button>
+                                <button (click)="cancel()" class="btn default"><i class="fa fa-cancel"></i> Cancel</button>
                             </div>
                         </div>
                     </div>
