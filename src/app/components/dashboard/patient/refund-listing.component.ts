@@ -202,7 +202,7 @@ export class RefundListingComponent {
         console.log("------------"+selectedInvoice);
 
         this.refundRequest.invoiceId=selectedInvoice.invoiceId;
-        this.refundRequest.selectedBalance=selectedInvoice.dueAmount;
+        this.refundRequest.selectedBalance=selectedInvoice.paidAmount;
     }
 
     getSelectedPaymentType(selectedPaymentTyp: any){
