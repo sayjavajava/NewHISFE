@@ -213,7 +213,7 @@ export class PaymentTypeComponent implements OnInit {
         this.newPaymentType = new PaymentType();
 
 
-
+        debugger;
         if(objPaymentType.paymentMode==="Card"){
 
 
@@ -222,7 +222,7 @@ export class PaymentTypeComponent implements OnInit {
             this.payCreditDiv = true;
             this.serviceChargesDiv = true;
             this.newPaymentType.paymentMode="Card";
-
+            this.newPaymentType.isPatient=true;
 
         }else if(objPaymentType.paymentMode==="Cash"){
 
@@ -376,15 +376,18 @@ export class PaymentTypeComponent implements OnInit {
                 this.newPaymentType.payCredit="";
 
             }
-
-
+            debugger;
+            this.newPaymentType.isPatient=this.newPaymentType.isPatient;
+            console.log(this.newPaymentType.isPatient);
             if (form.valid) {
                 this.service.putRequest(AppConstants.UPDATE_PAYMENTTYPE,this.newPaymentType)
                     .subscribe(
                         (response: Response) => {
                             if (response['responseCode'] === 'PAYMENT_SUC_03') {
                              //   this.paymentlst=[];
+
                                 this.notificationService.success(response['responseMessage'], 'Payment Type Update');
+                                this.getPaymentTypeList();
                                 this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
 
 
