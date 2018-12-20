@@ -45,6 +45,7 @@ export class AppConstants {
 
     ////////////////////// Cashier Desk ///////////////////////////////
     public static GET_All_INVOICES = '/cashier/getAllInvoices';
+    public static GET_All_PENDING_INVOICES = '/cashier/getPendingInvoices';
     public static FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';
     public static SAVE_PAYMENT = '/cashier/savePayment';
 

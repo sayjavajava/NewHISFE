@@ -25,11 +25,11 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="sub-total">
                         <ul>
-                            <li> <span>Invoice Id:</span>    <span  class="text-align-left"> {{invoicePrefix}} </span> </li>
+                            <li> <span>Invoice Id:</span><span  class="text-align-left"> {{invoicePrefix}} </span> </li>
 
-                            <li> <span>Doctor Name:</span>      <span  class="text-align-left">{{docFirstName}} {{docLastName}} </span> </li>
+                            <li> <span>Doctor Name:</span><span  class="text-align-left">{{docFirstName}} {{docLastName}} </span> </li>
 
-                            <li> <span>Cashier Name:</span>     <span  class="text-align-left">Administrator</span>    </li>
+                            <li> <span>Cashier Name:</span><span  class="text-align-left">Administrator</span>    </li>
                         </ul>
                     </div>
                 </div>
@@ -46,86 +46,91 @@
                         role="grid">
                         <thead>
                             <tr role="row" class="">
-                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Code </th>
-                                <th width="12%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Services </th>
-                                <th width="5%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Qty </th>
-                                <th width="8%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Charges </th>
-                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Discount (%) </th>
-                                <th width="8%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Discount (Amount) </th>
-                              
-                                <th width="5%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Tax (%) </th>
-                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Tax (Amount) </th>
-                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Total </th>
+                                <th width="6%" class="sorting_disabled text-align-left" rowspan="1" colspan="1">Code</th>
+                                <th width="12%" class="sorting_disabled text-align-left" rowspan="1" colspan="1">Service</th>
+                                <th width="5%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Qty</th>
+                                <th width="8%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Charges</th>
+                                <th width="6%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Discount(%)</th>
+                                <th width="8%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Discount(Amount)</th>
+                                <th width="5%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Tax(%)</th>
+                                <th width="6%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Tax(Amount)</th>
+                                <th width="6%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Total</th>
                             </tr>
                             <tr role="row" class="filter" *ngFor="let invc of invoiceList;  let idx = index">
-                                <td rowspan="1" colspan="1">{{invc.code}}</td>
-                                <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
+                                <td rowspan="1" colspan="1" class="sorting_disabled text-align-left">{{invc.code}}</td>
+                                <td class="sorting_disabled text-align-left" rowspan="1" colspan="1">{{invc.serviceName}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{invc.quantity | number :'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{invc.unitFee | number :'.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.discountRate}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.discountRate | number :'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number :'.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.taxRate}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number :'.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{(((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee) - ((invc.quantity*invc.unitFee) * (invc.discountRate/100))) | number :'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.taxRate | number :'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{(((invc.quantity*invc.unitFee)-((invc.quantity*invc.unitFee) * (invc.discountRate/100))) * (invc.taxRate/100)) | number:'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{(invc.quantity*invc.unitFee) - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) + (((invc.quantity*invc.unitFee)-((invc.quantity*invc.unitFee) * (invc.discountRate/100))) * (invc.taxRate/100)) | number:'.2-2'}}</td>
                             </tr>
                         </thead>
                     </table>
                 </div>
             </div>
             <div class="col-md-4 mrgn-top8">
-                <div class="form-group mrgn-btm08">
-                    <label><b> Payment Type </b></label>
+                <div class="off-wite-bg hr padding-10">
+                    <h4 class="bold mrgn-btm08">Payment</h4>
+                    <div class="form-group mrgn-btm08">
+                    <label class="col-md-4 pdng-lr-5"> Payment Type </label>
                     <!--<select class="form-control">
                         <option>Cash</option>
                     </select>-->
-                    <p-dropdown [options]="paymentTypeList"
+                    <div class="col-md-8 pdng-lr-5">
+                        <p-dropdown [options]="paymentTypeList"
                                 [(ngModel)]="selectedPaymentType"
+                                 placeholder="Select Payment Type"
                                 optionLabel="paymentTitle"
                                 (onChange) = "getSelectedPaymentType(selectedPaymentType)"
                                 [filter]="true">
                     </p-dropdown>
+                    </div>
                 </div>
-                <div class="form-group mrgn-btm08">
+                    <div class="form-group hr mrgn-btm08 mrgn-top8">
+                        <label class="col-md-4 pdng-lr-5">Applied Amount</label>
+                        <div class="col-md-8 pdng-lr-5 profile-frm">
+                            <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
+                        </div>
+                    </div>
+                    <div class="form-group hr mrgn-btm08">
+                        <label class="col-md-4 pdng-lr-5">Discount Amount</label>
+                        <div class="col-md-8 pdng-lr-5 profile-frm">
+                            <input type="number" class="form-control text-align-right" name="discountAmount" [(ngModel)]="discountAmount" [step]="0.01">
+                        </div>
+                    </div>
+                    <div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
+                    <label class="col-md-4 pdng-lr-5">Advance Used :</label>
+                    <div class="col-md-8 pdng-lr-5 profile-frm">
+                        <input type="number" class="form-control text-align-right" name="usedAdvanceDeposit" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
+                    </div>
+                </div>
+                    <div class="form-group mrgn-btm08">
                     <!-- <div class="col-md-2">
                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                             <input type="checkbox" class="form-control"
-                                   name="useAdvancedBal" 
+                                   name="useAdvancedBal"
                                    [(ngModel)]="useAdvancedBal"><span></span>
                         </label>
                     </div>
                     <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
-                    <label class="mt-checkbox mt-checkbox-outline col-md-6">
-                            <input type="checkbox" [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
-                                    Use Advanced Balance :
-                            <span></span>
+                    <label class="col-md-4 pdng-lr-5"> Use Advanced </label>
+                    <div class="col-md-8 pdng-lr-5">
+                        <label class="mt-checkbox mt-checkbox-outline">
+                        <input type="checkbox" [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
+                        <span></span>
                         </label>
-                    <div class="col-md-6 no-padding-rgt">
                         <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
                     </div>
                 </div>
-                <div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
-                    <label class="col-md-4 no-padding-lft">Advance Used :</label>
-                    <div class="col-md-8 no-padding-rgt profile-frm">
-                        <input type="number" class="form-control text-align-right" name="usedAdvanceDeposit" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
-                    </div>
                 </div>
-                <div class="form-group hr mrgn-btm08 mrgn-top8">
-                    <label class="col-md-4 no-padding-lft">Applied Amount</label>
-                    <div class="col-md-8 no-padding-rgt profile-frm">
-                        <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
-                    </div>
-                </div>
-                <div class="form-group hr mrgn-btm08">
-                    <label class="col-md-4 no-padding-lft">Discount Amount</label>
-                    <div class="col-md-8 no-padding-rgt profile-frm">
-                        <input type="number" class="form-control text-align-right" name="discountAmount" [(ngModel)]="discountAmount" [step]="0.01">
-                    </div>
-                </div>
-                <div class="form-group  pull-right mrgn-btm08">
+                <div class="form-group  pull-right mrgn-top8">
                     <button  class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel</button>
                     <button  class="btn btn-default btn-outline btn-sm" (click)="savePayment()"> Payment </button>
                 </div>
-                <div class="form-group hr">
+                <!--<div class="form-group hr">
                     <div class="sub-total">
                         <ul>
                             <li class="sar-total">
@@ -142,13 +147,13 @@
                                 </li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="col-md-4 pull-right mrgn-top8">
                 <div class="off-wite-bg padding-10 sub-total">
                     <ul>
                         <li>
-                            <span>Total Invoice Amount:</span> <span>{{grandTotal | number :'.2-2'}}</span>
+                            <span>Gross Amount:</span> <span>{{grandTotal | number :'.2-2'}}</span>
                         </li>
                         <li>
                             <span>Total Discount:</span> <span class="amount-border-botom">{{grandTotalDiscount | number :'.2-2'}}</span>
@@ -157,10 +162,19 @@
                             <span>Gross Total:</span> <span>{{(grandTotal - grandTotalDiscount) | number :'.2-2'}}</span>
                         </li>
                         <li>
-                            <span>Total Tax:</span> <span>{{grandTotalTax | number :'.2-2'}}</span>
+                            <span>Total Tax</span> <span>{{grandTotalTax | number :'.2-2'}}</span>
                         </li>
                         <li>
                             <span>Grand Total:</span> <span class="amount-border-botom amount-border-top">{{grandTotalWithTax | number :'.2-2'}}</span>
+                        </li>
+                        <li>
+                            <span>Paid Amount</span><span>{{receivedAmount | number :'.2-2'}}</span>
+                        </li>
+                        <li>
+                            <span>Refunded Amount</span><span>{{refundAmount | number :'.2-2'}}</span>
+                        </li>
+                        <li>
+                            <span>Invoice Due Amount</span><span class="amount-border-botom amount-border-top">{{grandTotalWithTax - receivedAmount - refundAmount| number :'.2-2'}}</span>
                         </li>
                     </ul>
                     <!-- <ul>

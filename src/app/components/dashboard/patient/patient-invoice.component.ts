@@ -145,6 +145,7 @@ export class PatientInvoiceComponent implements OnInit {
             this.selectedService = this.unSelectedServicesList[service];
             this.serviceName = this.unSelectedServicesList[service].name;
             this.taxRate = this.unSelectedServicesList[service].tax.rate;
+            this.unitFee = this.unSelectedServicesList[service].fee;
             this.selectedServiceIndex = service;
         } else {
             this.show = false;
@@ -157,8 +158,9 @@ export class PatientInvoiceComponent implements OnInit {
 
         var Amt = (this.quantity * this.unitFee);
         var discountAmt = (this.quantity * this.unitFee) * this.discountRate/100;
-        var taxAmt = (this.quantity * this.unitFee) * this.taxRate/100;
-        var totalAMt = Amt + taxAmt - discountAmt;
+        var amtAfterDisc = Amt-discountAmt;
+        var taxAmt = amtAfterDisc * this.taxRate/100;
+        var totalAMt = amtAfterDisc + taxAmt;
 
         this.discountAmount = discountAmt;
         this.taxAmount = taxAmt;
@@ -176,7 +178,7 @@ export class PatientInvoiceComponent implements OnInit {
     {
         var Amt = (this.quantity * this.unitFee);
         this.discountRate = (this.discountAmount / (this.quantity * this.unitFee)) * 100 ;
-        this.taxRate = (this.taxAmount / (this.quantity * this.unitFee)) * 100 ;
+        this.taxRate = (this.taxAmount / (Amt-this.discountAmount)) * 100 ;
 
         var totalAMt = Amt + this.taxAmount - this.discountAmount;
         this.invoiceAmount=totalAMt;
@@ -202,7 +204,7 @@ export class PatientInvoiceComponent implements OnInit {
             discAmount = (this.invoiceList[i].quantity * this.invoiceList[i].unitFee) * this.invoiceList[i].discountRate/100  ;
             this.grandTotalDiscount += discAmount;
 
-            taxAmt = (this.invoiceList[i].quantity * this.invoiceList[i].unitFee) * this.invoiceList[i].taxRate/100  ;
+            taxAmt = (itemAmt - discAmount) * this.invoiceList[i].taxRate/100  ;
             this.grandTotalTax += taxAmt;
             this.grandTotalWithTax +=  itemAmt + taxAmt - discAmount;
         }
