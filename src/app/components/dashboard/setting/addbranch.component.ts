@@ -231,7 +231,8 @@ export class AddBranchComponent implements OnInit {
                             this.notificationService.warn("Branch already Exists");
                             //  this.router.navigate(['/dashboard/setting/branch'])
                         }
-                    }, function (error) {
+                    }, function () {
+                        console.clear();
                         this.notificationService.error("ERROR", "Branch is not Created");
                     });
 

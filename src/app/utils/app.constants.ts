@@ -184,6 +184,9 @@ export class AppConstants {
     public static LAB_ORDER_UPDATE = '/patient/laborder/update/';
     public static LAB_ORDER_DELETE = '/patient/laborder/delete/';
     public static FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
+    public static FETCH_ALL_ORDER_BY_PATIENT_URL_NEW = '/patient/laborder/order/';
+    //public static FETCH_ALL_ORDERTEST_BY_PATIENT_URL = '/patient/laborder/orderId/';
+    public static FETCH_ALL_ORDERTEST_BY_PATIENT_URL = '/patient/laborder/orderId?orderId=';
     ///////////////////Family History//////////
     public static FAMILY_HISTORY_CREATE = '/patient/family/create';
     public static FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
@@ -336,6 +339,7 @@ export class AppConstants {
     public static VITAL_GET_URL = '/PatientVital/get/';
     public static VITALS_PATIENT_UPDATE = '/PatientVital/update';
     public static VITALS_PAGINATED_URL = '/PatientVital/';
+    public static VITALS_PATIENT_SAVE_LIST = '/PatientVital/savePatientVitalList';
 
     ///////////////////////////////////////////
     public static FETCH_PATIENT_IMAGE = '/PatientImage/getSetup';
@@ -363,7 +367,7 @@ export class AppConstants {
     public static PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
     public static PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
     public static PRINT_PATIENT_INVOICE_DETAILS = '/reportPrint/patientInvoice';
-
+    public static FETCH_VITALS_CONFIGURATIONS_ID = '/PatientVital/get/';
 }
 
 

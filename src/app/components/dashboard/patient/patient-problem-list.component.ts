@@ -86,11 +86,11 @@ export class PatientProblemListComponent implements OnInit {
         ];
 
 
-       /* this.problemList = [
-            {label: 'Fever ', value: '0 '},
-            {label: 'General ', value: '1 '},
-            {label: 'BackBone ', value: '2 '}
-        ];*/
+        /* this.problemList = [
+             {label: 'Fever ', value: '0 '},
+             {label: 'General ', value: '1 '},
+             {label: 'BackBone ', value: '2 '}
+         ];*/
     }
 
     appointmentsByServer() {
@@ -184,7 +184,7 @@ export class PatientProblemListComponent implements OnInit {
                             this.associatedCodes = [];
 
                             this.associatedCodes = response['responseData'].code;
-                            debugger;
+
                             for(var i=0; i<this.associatedCodes.length;i++){
                                 var problems=this.associatedCodes[i];
                                 var pair={label:problems.problem,value:problems.id}
@@ -193,7 +193,7 @@ export class PatientProblemListComponent implements OnInit {
 
                             console.log(this.associatedCodes);
 
-                            debugger;
+
                         }
                     },
                     (error: any) => {
@@ -214,25 +214,25 @@ export class PatientProblemListComponent implements OnInit {
 
         if (this.ppm.appointmentId <= 0) {
             this.notificationService.warn('Please select appoint.');
-          //  document.getElementById('selectedAppointmentId').focus();
+            //  document.getElementById('selectedAppointmentId').focus();
             return;
         }
 
         if (this.ppm.selectedICDVersionId <= 0) {
             this.notificationService.warn('Please select Version.');
-         //   document.getElementById('icdVersionId').focus();
+            //   document.getElementById('icdVersionId').focus();
             return;
         }
 
         if (this.ppm.selectedCodeId <= 0) {
             this.notificationService.warn('Please select Code.');
-        //   document.getElementById('associatedCodesId').focus();
+            //   document.getElementById('associatedCodesId').focus();
             return;
         }
 
         if (this.ppm.datePrescribedDate === null) {
             this.notificationService.warn('Please enter Diagnosis Date.');
-        //    document.getElementById('dateDiagnosisId').focus();
+            //    document.getElementById('dateDiagnosisId').focus();
             return;
         }
         this.ppm.datePrescribedDate=new Date(this.ppm.datePrescribedDate);
@@ -331,11 +331,11 @@ export class PatientProblemListComponent implements OnInit {
                                 this.ppm = response['responseData'];
                                 this.appointmentsByPatientServer(this.ppm.patientId);
                                 this.versionsByServer();
-                                debugger;
+
                                 this.codesByVersionFromServer(this.ppm.selectedICDVersionId);
                                 this.ppm.datePrescribedDate=new Date(this.ppm.dateDiagnosis);
-                               // this.selectedCodeId=this.ppm.codeName;
-                                debugger;
+                                // this.selectedCodeId=this.ppm.codeName;
+
                             } else {
                                 this.notificationService.error(response['responseMessage'], 'Problem of Patient');
                             }
@@ -362,25 +362,25 @@ export class PatientProblemListComponent implements OnInit {
 
         if (this.ppm.appointmentId <= 0) {
             this.notificationService.warn('Please select appoint.');
-        //    document.getElementById('selectedAppointmentId').focus();
+            //    document.getElementById('selectedAppointmentId').focus();
             return;
         }
 
         if (this.ppm.selectedICDVersionId <= 0) {
             this.notificationService.warn('Please select Version.');
-       //     document.getElementById('icdVersionId').focus();
+            //     document.getElementById('icdVersionId').focus();
             return;
         }
 
         if (this.ppm.selectedCodeId <= 0) {
             this.notificationService.warn('Please select Code.');
-        //    document.getElementById('associatedCodesId').focus();
+            //    document.getElementById('associatedCodesId').focus();
             return;
         }
 
         if (this.ppm.datePrescribedDate === null) {
             this.notificationService.warn('Please enter Diagnosis Date.');
-      //      document.getElementById('dateDiagnosisId').focus();
+            //      document.getElementById('dateDiagnosisId').focus();
             return;
         }
         this.ppm.datePrescribedDate=new Date(this.ppm.datePrescribedDate);

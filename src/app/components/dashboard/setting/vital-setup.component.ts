@@ -66,7 +66,7 @@ export class VitalSetupComponent {
 
     editVitalSetup(formData: NgForm) {
         if (localStorage.getItem(btoa('access_token'))) {
-            debugger;
+
             if (this.vitalSetupTemplate.name =="" || this.vitalSetupTemplate.name == null ) {
                 this.notificationService.warn('Please enter Name.');
                 return;

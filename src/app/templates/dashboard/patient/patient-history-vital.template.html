@@ -88,24 +88,24 @@
                         </a>-->
                         <span>
                             <a href="#newvitals" data-toggle="modal">
-                            <button class="btn primary blue">Vitals</button>
+                            <button class="btn primary blue" (click)="addVitalPopupClick()">Vitals</button>
                         </a>
                         </span>
-                        <span>
-                                 <a href="#vitalSetup" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
-                                        data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                        data-type="success" data-allow-outside-click="true"
-                                        (click)="addVitalPopupClick()"
-                                        data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Vital
-                                </button>
-                                 </a>
-                            </span>
+                        <!-- <span>
+                                  <a href="#vitalSetup" data-toggle="modal">
+                                 <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                         data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                         data-type="success" data-allow-outside-click="true"
+                                         (click)="addVitalPopupClick()"
+                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Vital
+                                 </button>
+                                  </a>
+                             </span>-->
 
                     </div></h4>
                 </div>
                 <div class="table-scrollable tbl-brdr-radus">
-                    <p-table #dt [columns]="cols" [value]="vitalListData"  [rows]="10"  [paginator]="true" >
+                    <p-table #dt [columns]="cols" [value]="vitalListReadData"  [rows]="10"  [paginator]="true" >
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -114,12 +114,12 @@
                             </div>
                         </ng-template>
 
-                       <!-- <div style="text-align: right">
-                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                            <input type="text" pInputText size="50" placeholder="Name/Unit/Current Value/Standard Value"
-                                   (input)="dt.filterGlobal($event.target.value, 'contains')"
-                                   style="width:auto">
-                        </div>-->
+                        <!-- <div style="text-align: right">
+                             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                             <input type="text" pInputText size="50" placeholder="Name/Unit/Current Value/Standard Value"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                    style="width:auto">
+                         </div>-->
                         <ng-template sortable="true" pTemplate="header" let-columns>
                             <tr>
                                 <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
@@ -129,25 +129,25 @@
                                                 [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                                 </th>
                             </tr>
-                           <!-- <tr>
-                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <!-- <tr>
+                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
 
-                                    <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
 
-                                    <input *ngSwitchCase="'unit'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     <input *ngSwitchCase="'unit'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
 
-                                    &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                     &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
 
-                                    <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+                                     <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
 
-                                    &lt;!&ndash;<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
-                                           (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
-                                </th>
-                            </tr>-->
+                                     &lt;!&ndash;<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+                                 </th>
+                             </tr>-->
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-vitalListData>
                             <tr>
@@ -155,16 +155,16 @@
                                 <td field="unit">{{vitalListData.unit}}</td>
                                 <td field="currentValue">{{vitalListData.currentValue}}</td>
                                 <td field="standardValue">{{vitalListData.standardValue}}</td>
-                                <td field="status">{{vitalListData.status}}</td>
+                                <!--<td field="status">{{vitalListData.status}}</td>-->
                                 <td>
                                     <a href="#vitalSetup" data-toggle="modal"
                                        (click)="editVital(vitalListData.id)">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <button
+                                    <!--<button
                                             (click)="delete(vitalListData.id)">
                                         <i class="fa fa-remove"></i>
-                                    </button>
+                                    </button>-->
                                 </td>
                             </tr>
                         </ng-template>
@@ -249,39 +249,39 @@
 
         </div>
 
-       <!-- <div class="row">
-            <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
-                    <ul class="pagination" style="visibility: visible;">
-                        <li class="prev" *ngIf="vitalPages.length >= 2 && vitalCurrPage > 0">
-                            <a (click)="getPageWiseVitalActive(0);" title="First">
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>
-                        </li>
-                        <li class="prev" *ngIf="vitalPrePage">
-                            <a (click)="getPageWiseVitalActive(vitalCurrPage - 1)" title="Previous">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li [ngClass]="{active: page === vitalCurrPage}"
-                            *ngFor="let page of vitalPages">
-                            <a (click)="getPageWiseVitalActive(page)">{{page + 1}}</a>
-                        </li>
-                        <li class="next" *ngIf="vitalNextPage">
-                            <a (click)="getPageWiseVitalActive(problemCurrPage + 1)" title="Next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                        <li class="next"
-                            *ngIf="vitalPages.length >= 2 && vitalCurrPage < vitalPages[vitalPages.length - 1]">
-                            <a (click)="getPageWiseVitalActive(vitalPages.length - 1)" title="Last">
-                                <i class="fa fa-angle-double-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>-->
+        <!-- <div class="row">
+             <div class="col-md-12 col-xs-12 col-sm-12">
+                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
+                     <ul class="pagination" style="visibility: visible;">
+                         <li class="prev" *ngIf="vitalPages.length >= 2 && vitalCurrPage > 0">
+                             <a (click)="getPageWiseVitalActive(0);" title="First">
+                                 <i class="fa fa-angle-double-left"></i>
+                             </a>
+                         </li>
+                         <li class="prev" *ngIf="vitalPrePage">
+                             <a (click)="getPageWiseVitalActive(vitalCurrPage - 1)" title="Previous">
+                                 <i class="fa fa-angle-left"></i>
+                             </a>
+                         </li>
+                         <li [ngClass]="{active: page === vitalCurrPage}"
+                             *ngFor="let page of vitalPages">
+                             <a (click)="getPageWiseVitalActive(page)">{{page + 1}}</a>
+                         </li>
+                         <li class="next" *ngIf="vitalNextPage">
+                             <a (click)="getPageWiseVitalActive(problemCurrPage + 1)" title="Next">
+                                 <i class="fa fa-angle-right"></i>
+                             </a>
+                         </li>
+                         <li class="next"
+                             *ngIf="vitalPages.length >= 2 && vitalCurrPage < vitalPages[vitalPages.length - 1]">
+                             <a (click)="getPageWiseVitalActive(vitalPages.length - 1)" title="Last">
+                                 <i class="fa fa-angle-double-right"></i>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
+         </div>-->
 
 
         <!--<div class="row">
@@ -318,79 +318,79 @@
 
         </div>-->
 
-       <!-- <div class="row">
-            <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
-                    <ul class="pagination" style="visibility: visible;">
-                        <li class="prev" *ngIf="problemPages.length >= 2 && problemCurrPage > 0">
-                            <a (click)="getPageWiseProblemActive(0);" title="First">
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>
-                        </li>
-                        <li class="prev" *ngIf="problemPrePage">
-                            <a (click)="getPageWiseProblemActive(problemCurrPage - 1)" title="Previous">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li [ngClass]="{active: page === problemCurrPage}"
-                            *ngFor="let page of problemPages">
-                            <a (click)="getPageWiseProblemActive(page)">{{page + 1}}</a>
-                        </li>
-                        <li class="next" *ngIf="problemNextPage">
-                            <a (click)="getPageWiseProblemActive(problemCurrPage + 1)" title="Next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                        <li class="next"
-                            *ngIf="problemPages.length >= 2 && problemCurrPage < problemPages[problemPages.length - 1]">
-                            <a (click)="getPageWiseProblemActive(problemPages.length - 1)" title="Last">
-                                <i class="fa fa-angle-double-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>-->
+        <!-- <div class="row">
+             <div class="col-md-12 col-xs-12 col-sm-12">
+                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
+                     <ul class="pagination" style="visibility: visible;">
+                         <li class="prev" *ngIf="problemPages.length >= 2 && problemCurrPage > 0">
+                             <a (click)="getPageWiseProblemActive(0);" title="First">
+                                 <i class="fa fa-angle-double-left"></i>
+                             </a>
+                         </li>
+                         <li class="prev" *ngIf="problemPrePage">
+                             <a (click)="getPageWiseProblemActive(problemCurrPage - 1)" title="Previous">
+                                 <i class="fa fa-angle-left"></i>
+                             </a>
+                         </li>
+                         <li [ngClass]="{active: page === problemCurrPage}"
+                             *ngFor="let page of problemPages">
+                             <a (click)="getPageWiseProblemActive(page)">{{page + 1}}</a>
+                         </li>
+                         <li class="next" *ngIf="problemNextPage">
+                             <a (click)="getPageWiseProblemActive(problemCurrPage + 1)" title="Next">
+                                 <i class="fa fa-angle-right"></i>
+                             </a>
+                         </li>
+                         <li class="next"
+                             *ngIf="problemPages.length >= 2 && problemCurrPage < problemPages[problemPages.length - 1]">
+                             <a (click)="getPageWiseProblemActive(problemPages.length - 1)" title="Last">
+                                 <i class="fa fa-angle-double-right"></i>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
+         </div>-->
 
 
 
 
 
 
-       <!-- <div class="row">
-            <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="dataTables_paginate paging_bootstrap_full_number pull-right"
-                     id="getPageWiseMedicationsByActive">
-                    <ul class="pagination" style="visibility: visible;">
-                        <li class="prev" *ngIf="medicationsPages.length >= 2 && medicationsCurrPage > 0">
-                            <a (click)="getPageWiseMedicationsByActive(0);" title="First">
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>
-                        </li>
-                        <li class="prev" *ngIf="medicationsPrePage">
-                            <a (click)="getPageWiseMedicationsByActive(medicationsCurrPage - 1)" title="Previous">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li [ngClass]="{active: page === medicationsCurrPage}"
-                            *ngFor="let page of medicationsPages">
-                            <a (click)="getPageWiseMedicationsByActive(page)">{{page + 1}}</a>
-                        </li>
-                        <li class="next" *ngIf="medicationsNextPage">
-                            <a (click)="getPageWiseMedicationsByActive(medicationsCurrPage + 1)" title="Next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                        <li class="next"
-                            *ngIf="medicationsPages.length >= 2 && medicationsCurrPage < medicationsPages[medicationsPages.length - 1]">
-                            <a (click)="getPageWiseMedicationsByActive(medicationsPages.length - 1)" title="Last">
-                                <i class="fa fa-angle-double-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>-->
+        <!-- <div class="row">
+             <div class="col-md-12 col-xs-12 col-sm-12">
+                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right"
+                      id="getPageWiseMedicationsByActive">
+                     <ul class="pagination" style="visibility: visible;">
+                         <li class="prev" *ngIf="medicationsPages.length >= 2 && medicationsCurrPage > 0">
+                             <a (click)="getPageWiseMedicationsByActive(0);" title="First">
+                                 <i class="fa fa-angle-double-left"></i>
+                             </a>
+                         </li>
+                         <li class="prev" *ngIf="medicationsPrePage">
+                             <a (click)="getPageWiseMedicationsByActive(medicationsCurrPage - 1)" title="Previous">
+                                 <i class="fa fa-angle-left"></i>
+                             </a>
+                         </li>
+                         <li [ngClass]="{active: page === medicationsCurrPage}"
+                             *ngFor="let page of medicationsPages">
+                             <a (click)="getPageWiseMedicationsByActive(page)">{{page + 1}}</a>
+                         </li>
+                         <li class="next" *ngIf="medicationsNextPage">
+                             <a (click)="getPageWiseMedicationsByActive(medicationsCurrPage + 1)" title="Next">
+                                 <i class="fa fa-angle-right"></i>
+                             </a>
+                         </li>
+                         <li class="next"
+                             *ngIf="medicationsPages.length >= 2 && medicationsCurrPage < medicationsPages[medicationsPages.length - 1]">
+                             <a (click)="getPageWiseMedicationsByActive(medicationsPages.length - 1)" title="Last">
+                                 <i class="fa fa-angle-double-right"></i>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
+         </div>-->
 
     </div>
 </div>
@@ -412,11 +412,11 @@
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Name<span class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5">
                                     <p-autoComplete class="custm-tst-input"
-                                            id="name" name="name"
-                                            [suggestions]="searchedVitalAnyListModified" #name="ngModel"
-                                            (completeMethod)="getSelectedVital($event)"
-                                            [(ngModel)]="selectedstr" [dropdown]="true" [size]=""
-                                            [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
+                                                    id="name" name="name"
+                                                    [suggestions]="searchedVitalAnyListModified" #name="ngModel"
+                                                    (completeMethod)="getSelectedVital($event)"
+                                                    [(ngModel)]="selectedstr" [dropdown]="true" [size]="" [disabled]="true"
+                                                    [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
                                     </p-autoComplete>
                                 </div>
 
@@ -430,9 +430,9 @@
                                     <input type="text"  name="unit" class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="eg bpm" readonly
                                            [(ngModel)]="vitalSetupTemplate.unit" #unit="ngModel">
                                 </div>
-                               <!-- <span *ngIf="unit.invalid && unit.touched" class="col-md-9 select pdng-lr-5 text-danger">
-                                        Please enter valid unit.
-                                </span>-->
+                                <!-- <span *ngIf="unit.invalid && unit.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                         Please enter valid unit.
+                                 </span>-->
                             </div>
                             <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Current Value<span class="required" aria-required="true"> * </span></label>
@@ -447,20 +447,20 @@
                                     <input type="text" name="standardValue" class="form-control" placeholder="eg 92" readonly
                                            [(ngModel)]="vitalSetupTemplate.standardValue" #standardValue="ngModel">
                                 </div>
-                                 <span *ngIf="standardValue.invalid && standardValue.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                <span *ngIf="standardValue.invalid && standardValue.touched" class="col-md-9 select pdng-lr-5 text-danger">
                                        Please Select  Vital.
                                </span>
                             </div>
-                            <div class="form-group hr mrgn-btm08">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
-                                <label class="mt-checkbox-outline col-md-3 pdng-lr-5">
-                                    <mat-checkbox #status="ngModel"
-                                                  name="status"
-                                                  [(ngModel)]="vitalSetupTemplate.status"
-                                                  color="primary"></mat-checkbox>
-                                </label>
+                            <!-- <div class="form-group hr mrgn-btm08">
+                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+                                 <label class="mt-checkbox-outline col-md-3 pdng-lr-5">
+                                     <mat-checkbox #status="ngModel"
+                                                   name="status"
+                                                   [(ngModel)]="vitalSetupTemplate.status"
+                                                   color="primary"></mat-checkbox>
+                                 </label>
 
-                            </div>
+                             </div>-->
                         </div>
                     </div>
                 </div>
@@ -482,18 +482,20 @@
 </div>
 
 <!-- Vitals -->
+
 <div id="newvitals" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title" >Vital</h4>
-                </div>
-                <div class="modal-body">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" >Vital</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="vitalForm"  class="form-horizontal">
                     <div class="scroller" style="height:220px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="table-scrollable">
+                                <div class="table-scrollable" formArrayName="items">
                                     <table class="table table-striped table-hover table-checkable dataTable no-footer"
                                            id="datatable_ajax">
                                         <thead>
@@ -502,101 +504,117 @@
                                             <th width="33%" class="" rowspan="1" colspan="1"> Current</th>
                                             <th width="33%" class="" rowspan="1" colspan="1"> Standard</th>
                                         </tr>
-                                        <tr role="row">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
+
+
+                                        <tr   class="text-center" role="row" *ngFor="let item of vitalListData; let i = index;">
+
+                                            <td rowspan="1" colspan="1" class="text-align-left">{{item.name}}</td>
+                                            <td rowspan="1" colspan="1" class="text-align-left"><input type="text" class="form-control text-center"    name="currentValue"  (blur)="onBlurMethod(item.id,$event.target.value)"  placeholder="eg 123"></td>
+                                            <td rowspan="1" colspan="1" class="text-align-left">{{item.standardValue}}</td>
+
                                         </tr>
-                                        <tr role="row" class="off-wite-bg">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="off-wite-bg">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="off-wite-bg">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="off-wite-bg">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="off-wite-bg">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
-                                        <tr role="row" class="">
-                                            <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
-                                            <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
-                                            <td rowspan="1" colspan="1" class="text-center">1258931</td>
-                                        </tr>
+
+
                                         </thead>
                                     </table>
                                 </div>
+
+                                <!--<tr role="row">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="off-wite-bg">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="off-wite-bg">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="off-wite-bg">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="off-wite-bg">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Temperature (f)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="off-wite-bg">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Pulse (bpm)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>
+                                <tr role="row" class="">
+                                    <td rowspan="1" colspan="1" class="text-align-left">Blood Pressure (mmHg)</td>
+                                    <td rowspan="1" colspan="1" class="profile-frm"><input class="form-control text-center" type="text" placeholder="12508" value="" > </td>
+                                    <td rowspan="1" colspan="1" class="text-center">1258931</td>
+                                </tr>-->
+                                <!-- </thead>
+                             </table>-->
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
+                    <!-- </div>-->
+                </form>
+            </div>
+            <div class="modal-footer">
                  <span >
-                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                    <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">Close </button>
                 </span>
-                    <span [hidden]="isUpdate">
+                <span [hidden]="!isUpdate">
                     <button type="button" class="btn green" name="btnSaveMD"
-                            (click)="savePatientVital(ngForm)">Save</button>
+                            (click)="savePatientVitalList(ngForm)">Save</button>
                 </span>
-                    <span [hidden]="!isUpdate">
+                <span [hidden]="isUpdate">
                     <button type="button" class="btn blue" id="save-btn-update" (click)="updateVital(ngForm)" >Update </button>
                 </span>
-                </div>
             </div>
+        </div>
     </div>
 </div>
 <!-- Vitals -->

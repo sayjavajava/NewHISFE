@@ -8,17 +8,17 @@ import {PatientProblemModel} from "../../../model/patient.problem.model";
 import {PatientAllergyModel} from "../../../model/patient.allergy.model";
 import {MedicationModel} from "../../../model/medication.model";
 import {DataService} from "../../../services/DataService";
-import {Subscription} from "rxjs/Subscription";
 import {Patient} from "../../../model/patient";
 import {SelectItem} from "primeng/api";
 import {PatientVitalModel} from "../../../model/PatientVitalModel";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
     selector: 'patient-history',
     templateUrl: '../../../templates/dashboard/patient/patient-history-vital.template.html',
 })
-export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
+export class PatientHistoryVitalComponent implements OnInit {
 
     problemPages: number[] = [];
     problemNextPage: any;
@@ -31,7 +31,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     vitalNextPage: any;
     vitalPrePage: any;
     vitalCurrPage: any;
-   // vitalActiveData: PatientProblemModel[] = [];
+    // vitalActiveData: PatientProblemModel[] = [];
 
     allergiesPages: number[] = [];
     allergiesNextPage: any;
@@ -46,7 +46,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     medicationsActiveData: MedicationModel[] = [];
 
     selectedPatientId: any;
-    subscription: Subscription;
+  //  subscription: Subscription;
     patient: Patient = new Patient();
     isUpdate: boolean = false;
     data: PatientVitalModel[];
@@ -61,17 +61,29 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     currPage: any;
     pages: number[] = [];
     cols: any[];
+    vitalListSetupData: PatientVitalModel[];
+    vitalForm: FormGroup;
+    items: FormArray;
+    public myForm: FormGroup;
+    vitalListReadData:PatientVitalModel[];
+    /* vitalForm: FormGroup;
+     items: FormArray;*/
+    vitalSetupTemplatetemp:PatientVitalModel;
+    public form: FormGroup;
+    public contactList: FormArray;
+    vitalSaveList:any[];
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private route: ActivatedRoute,
                 private HISUTilService: HISUtilService,
                 private notificationService: NotificationService,
-                private dataService: DataService) {
+                private dataService: DataService,private fb: FormBuilder) {
 
 
        /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
         });*/
+
         this.route.params.subscribe(params => {
             this.selectedPatientId = params['id'];
 
@@ -82,20 +94,107 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
         this.getPatientByIdFromServer(this.selectedPatientId);
         this.getPaginatedPatientVitalList(0);
         this.getVitalSetupList();
-        //   this.getPatientVitalList();
     }
+
+    get createFormGroup() {
+        return this.vitalForm.get('items') as FormArray;
+    }
+
+    get contactFormGroup() {
+        return this.form.get('contacts') as FormArray;
+    }
+
+
+
+    createForm(): FormGroup {
+        return this.fb.group({
+            type: ['email', Validators.compose([Validators.required])],
+            name: [null, Validators.compose([Validators.required])],
+            value: [null, Validators.compose([Validators.required, Validators.email])]
+        });
+    }
+
+    addAddress() {
+        // add address to the list
+        const control = <FormArray>this.myForm.controls['addresses'];
+        control.push(this.initAddress());
+    }
+
 
     ngOnInit(): void {
 
+        this.form = this.fb.group({
+            name: [null, Validators.compose([Validators.required])],
+            organization: [null],
+            contacts: this.fb.array([this.createContact()])
+        });
+        this.contactList = this.form.get('contacts') as FormArray;
+
+
+
+        this.vitalForm = this.fb.group({
+
+            items: this.fb.array([this.createItem()])
+        });
+
+        this.myForm = this.fb.group({
+            name: ['', [Validators.required, Validators.minLength(5)]],
+            addresses: this.fb.array([
+                this.initAddress(),
+            ])
+        });
+
+        /* this.vitalForm = this.fb.group({
+             currentValue: '',
+             items: this.fb.array([ this.createItem() ])
+         });*/
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'unit', header: 'Unit' },
             { field: 'currentValue', header: 'Current' },
             { field: 'standardValue', header: 'Standard' },
-            { field: 'status', header: 'Status' },
+            /*   { field: 'status', header: 'Status' },*/
             { field: 'status', header: 'Action' }
         ];
+
+        this.getVitalSetupList();
+
+
     }
+
+    createContact(): FormGroup {
+        return this.fb.group({
+            type: ['email', Validators.compose([Validators.required])], // i.e Email, Phone
+            name: [null, Validators.compose([Validators.required])], // i.e. Home, Office
+            value: [null, Validators.compose([Validators.required, Validators.email])]
+        });
+    }
+
+
+
+    initAddress() {
+        return this.fb.group({
+            street: ['', Validators.required],
+            postcode: ['']
+        });
+    }
+
+    createItem(): FormGroup {
+        return this.fb.group({
+            name: '',
+            currentValue: '',
+            standardValue: ''
+        });
+    }
+
+
+    /* createVitalForm() {
+         this.billingForm = this.fb.group({
+             "currentValue": ['']
+
+         })
+     }*/
+
 
     getPatientByIdFromServer(patientId: number) {
         this.requestsService.getRequest(
@@ -199,9 +298,9 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
     }
 
-    ngOnDestroy(): void {
-       // this.subscription.unsubscribe();
-    }
+   /* ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }*/
 
     patientHistory() {
         // this.dataService.getPatientId(id);//
@@ -212,20 +311,27 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     addVitalPopupClick() {
         this.isUpdate = false;
         this.vitalSetupTemplate = new PatientVitalModel();
-        this.getPaginatedPatientVitalList(0);
+        this.vitalListData=[];
+        //  this.getPaginatedPatientVitalList(0);
+
+
+        this.getVitalSetupList();
     }
 
     getVitalSetupList() {
+        this.vitalListData=[];
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest(AppConstants.FETCH_VITALS_CONFIGURATIONS
+            this.requestsService.getRequest(AppConstants.FETCH_VITALS_CONFIGURATIONS+'?patientId=' + this.selectedPatientId
             ).subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.data = response['responseData'];
                         console.log(this.data);
                         this.vitalList = this.data;
+                        this.vitalSaveList=this.data;
                         this.allVitalsNamesAny = this.data;
 
+                        this.vitalListData=this.data;
                         for (let vital of this.allVitalsNamesAny) {
                             let pair: any = {label: vital.name, value: vital.name};
                             this.searchedVitalAnyListModified.push(pair);
@@ -275,11 +381,11 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     getSelectedVital(name: any) {
 
         let vitalSelectedObj = this.vitalList.filter(x => x.name == this.selectedstr.toString());
-        debugger;
+
         if(vitalSelectedObj.length>0){
-        this.vitalSetupTemplate.unit = vitalSelectedObj[0].unit;
-        this.vitalSetupTemplate.standardValue = vitalSelectedObj[0].standardValue;
-        this.vitalSetupTemplate.status = vitalSelectedObj[0].status;
+            this.vitalSetupTemplate.unit = vitalSelectedObj[0].unit;
+            this.vitalSetupTemplate.standardValue = vitalSelectedObj[0].standardValue;
+            this.vitalSetupTemplate.status = vitalSelectedObj[0].status;
         }
 
     }
@@ -290,6 +396,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;
         }
+
 
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
@@ -313,7 +420,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             document.getElementById('name').focus();
             return;
         }
-        debugger;
+
         this.vitalSetupTemplate.name = this.selectedstr.toString();
 
         if (localStorage.getItem(btoa('access_token'))) {
@@ -349,10 +456,91 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     }
 
 
+    savePatientVitalList(form:FormData) {
+
+        console.log(this.vitalListData);
+        //console.log(form);
+
+        if (this.selectedPatientId <= 0) {
+            this.notificationService.warn('Please select patient from dashboard again ');
+            return;
+        }
+        /* for(int i=0;i<this.vitalListData.length;)
+             for (let vital of this.vitalListData) {
+                 let pair: any = {label: vital.name, value: vital.name};
+                 this.searchedVitalAnyListModified.push(pair);
+
+             }*/
+
+        /* debugger;
+         if (this.selectedstr.toString() == '') {
+             this.notificationService.warn('Please select Vital');
+
+             return;
+         }
+
+         if (this.vitalSetupTemplate.currentValue == '' || this.vitalSetupTemplate.currentValue == null) {
+             this.notificationService.warn('Please Enter Current Value');
+
+             return;
+         }
+         if (this.vitalSetupTemplate.standardValue == '' || this.vitalSetupTemplate.standardValue == null) {
+             this.notificationService.warn('Please Select standard Value');
+
+             return;
+         }*/
+
+        /*  if (this.vitalSetupTemplate.unit == '' || this.vitalSetupTemplate.unit == null) {
+              this.notificationService.warn('Please Select Vital');
+              document.getElementById('name').focus();
+              return;
+          }*/
+
+        //   this.vitalSetupTemplate.name = this.selectedstr.toString();
+        this.vitalSetupTemplate.listofVital=this.vitalListData;
+
+        if (localStorage.getItem(btoa('access_token'))) {
+            //    this.vitalSetupTemplate.patientId = this.selectedPatientId;
+            console.log(this.vitalSetupTemplate.listofVital.length);
+
+            this.requestsService.postRequest(
+                AppConstants.VITALS_PATIENT_SAVE_LIST+"?selectedPatientId=" + this.selectedPatientId, this.vitalListData)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+
+                            this.notificationService.success('Patient Vital Sucessfully Saved');
+                            document.getElementById('close-btn-Prefix').click();
+                            this.getPaginatedPatientVitalList(0);
+                            //  this.getPatientVitalList();
+
+                        } else {
+                            this.notificationService.error("Patient Vital not Saved");
+                            //  this.getPaginatedProblemsFromServer(0);
+                            this.getPaginatedPatientVitalList(0);
+                        }
+
+                    },
+                    (error: any) => {
+                        this.HISUTilService.tokenExpired(error.error.error);
+
+                    }
+                );
+        } else {
+            this.notificationService.warn('Your first request is under process,Please wait...');
+            return;
+        }
+
+    }
+
+
     editVital(Id: number) {
 
         this.isUpdate = true;
-        debugger;
+
+
+
+
         if (Id > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.getRequest(AppConstants.VITAL_GET_URL + Id)
@@ -360,11 +548,11 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         response => {
                             if (response['responseCode'] === 'SUCCESS') {
                                 this.vitalSetupTemplate = response['responseData'];
-                                debugger;
-                                this.selectedPatientId=this.vitalSetupTemplate.patient.id;
+
+                                //      this.selectedPatientId=this.vitalSetupTemplate.id;
 
 
-                                debugger;
+
                             }
                         },
                         (error: any) => {
@@ -398,7 +586,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                             document.getElementById('close-btn-Prefix').click();
                             this.getPaginatedPatientVitalList(0);
                         } else {
-                            //     this.getPatientVitalList();
                             this.getPaginatedPatientVitalList(0);
                             this.notificationService.error(response['responseMessage'], 'Patient Vital unable to Delete');
                         }
@@ -417,6 +604,8 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
 
 
     updateVital() {
+
+
 
         if (this.selectedPatientId <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
@@ -442,19 +631,20 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
         }
 
         this.vitalSetupTemplate.name = this.selectedstr.toString();
-
+        this.vitalSetupTemplatetemp=new PatientVitalModel();
+        this.vitalSetupTemplatetemp.id=this.vitalSetupTemplate.id;
+        this.vitalSetupTemplatetemp.currentValue=this.vitalSetupTemplate.currentValue;
+        /*this.vitalSetupTemplatetemp.patientId=this.vitalSetupTemplate.patientId;*/
         if (localStorage.getItem(btoa('access_token'))) {
-            this.vitalSetupTemplate.patientId = this.selectedPatientId;
+            //   this.vitalSetupTemplate.patientId = this.selectedPatientId;
+            console.log(this.vitalSetupTemplatetemp);
             this.requestsService.putRequest(
-                AppConstants.VITALS_PATIENT_UPDATE, this.vitalSetupTemplate)
+                AppConstants.VITALS_PATIENT_UPDATE, this.vitalSetupTemplatetemp)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
 
                             this.notificationService.success('Patient Vital Sucessfully Updated');
-
-                            // this.getPatientVitalList();
-                            //  this.HISUTilService.hidePopupWithCloseButtonId('closeButton');
                             document.getElementById('close-btn-Prefix').click();
                             this.getPaginatedPatientVitalList(0);
 
@@ -513,10 +703,10 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         this.vitalPrePage = response['responseData']['prePage'];
                         this.vitalCurrPage = response['responseData']['currPage'];
                         this.vitalPages = response['responseData']['pages'];
-                       // this.vitalActiveData=[];
-                        this.vitalListData = response['responseData']['data'];
+                        // this.vitalActiveData=[];
+                        this.vitalListReadData = response['responseData']['data'];
                     } else {
-                        this.notificationService.error( 'Vital  Information not fetched');
+                      //  this.notificationService.error( 'Vital  Information not fetched');
                     }
                 },
                 (error: any) => {
@@ -542,7 +732,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         this.vitalPrePage = response['responseData']['prePage'];
                         this.vitalCurrPage = response['responseData']['currPage'];
                         this.vitalPages = response['responseData']['pages'];
-                     //   this.vitalActiveData = [];
+                        //   this.vitalActiveData = [];
                         this.vitalListData = response['responseData']['data'];
                     }
                 },
@@ -552,5 +742,56 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             );
     }
 
+    onBlurMethod(id:number,event : any){
+
+        const index = this.vitalListData.findIndex(list => list.id === id);
+        let arr = this.vitalListData.filter((listing: any) => listing.id === id);
+        this.vitalListData[index].currentValue=event;
+        //   this.vitalListData[index].currentValue=arr[index].currentValue;
+        //    let updateItem = this.vitalListData.items.find(this.findIndexToUpdate, id);
+        //   let arr = this.vitalListData.filter((listing: any) => listing.id === id);
+
+        //   let updateItem = this.vitalListData.items.find(this.findIndexToUpdate, id);
+        //   let index = this.vitalListData.items.indexOf(updateItem);
+        //  this.vitalListData.items[index].currentValue = event.value;
+        //var currentValue = event.value();
+
+    }
+
+    /*showUpdatedItem(obj:any){
+        let updateItem = this.vitalListData.items.find(this.findIndexToUpdate, obj.id);
+        //updateItem
+        let index = this.vitalListData.items.indexOf(updateItem);
+
+
+        this.LabReadList.items[index] = obj.id;
+
+    }*/
+
+    findIndexToUpdate(object:any) {
+        //   return this.vitalListData.id === this;
+    }
+
+
+    /* getVitalSetupList() {
+         if (localStorage.getItem(btoa('access_token'))) {
+             this.requestsService.getRequest(AppConstants.FETCH_VITALS_CONFIGURATIONS
+             ).subscribe(
+                 (response: Response) => {
+                     if (response['responseCode'] === 'SUCCESS') {
+                         this.data = response['responseData'];
+                         // console.log("Length : " + this.prefixTemplateList.length);
+                     } else {
+                         this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
+                     }
+                 },
+                 (error: any) => {
+                     this.notificationService.error(Response['responseMessage'], 'Vital Setup Configurations');
+                 }
+             );
+         } else {
+             this.router.navigate(['/login']);
+         }
+     }*/
 
 }

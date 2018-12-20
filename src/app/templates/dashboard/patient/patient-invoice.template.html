@@ -146,30 +146,30 @@
                         role="grid">
                         <thead>
                             <tr role="row" class="">
-                                <th width="6%" class="sorting_disabled" rowspan="1" colspan="1"> Code </th>
-                                <th width="12%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Services </th>
-                                <th width="4%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Qty </th>
-                                <th width="9%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Charges </th>
-                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Discount (%) </th>
-                                <th width="8%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Discount (Amount) </th>
+                                <th width="6%" class="sorting_disabled text-align-left" rowspan="1" colspan="1">Code</th>
+                                <th width="12%" class="sorting_disabled text-align-left" rowspan="1" colspan="1">Service</th>
+                                <th width="4%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Quantity</th>
+                                <th width="9%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Charges</th>
+                                <th width="6%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Discount(%)</th>
+                                <th width="8%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Discount(Amount)</th>
                                 <!-- <th width="6%" class="sorting_disabled" rowspan="1" colspan="1">I.C Pay</th> -->
                                 <!-- <th width="6%" class="sorting_disabled" rowspan="1" colspan="1">Patient Pay</th> -->
-                                <th width="5%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Tax (%) </th>
-                                <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Tax (Amount) </th>
-                                <th width="7%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Total </th>
-                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1"> Action </th>
+                                <th width="5%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Tax(%)</th>
+                                <th width="7%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Tax(Amount)</th>
+                                <th width="7%" class="sorting_disabled text-align-right" rowspan="1" colspan="1">Total</th>
+                                <th width="6%" class="sorting_disabled text-align-center" rowspan="1" colspan="1">Action</th>
                             </tr>
                             <tr role="row" class="filter" *ngFor="let invc of invoiceList;  let idx = index">
-                                <td rowspan="1" colspan="1">{{invc.code}}</td>
-                                <td class="sorting_disabled" rowspan="1" colspan="1">{{invc.serviceName}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.quantity | number}}</td>
+                                <td class="sorting_disabled text-align-left" rowspan="1" colspan="1">{{invc.code}}</td>
+                                <td class="sorting_disabled text-align-left" rowspan="1" colspan="1">{{invc.serviceName}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{invc.quantity | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{invc.unitFee | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{invc.discountRate| number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{invc.taxRate | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">
+                                <td rowspan="1" colspan="1" class="text-align-center">
                                         <button *ngIf="!completed" (click)="editInvoic(idx)" class=""><i class="fa fa-pencil"></i></button>
                                         <button *ngIf="!completed" (click)="removeInvoic(idx)" class=""> <i class="fa fa-remove font-red"></i> </button>
                                 </td>
@@ -189,11 +189,11 @@
                    
                     <ul>
                         <li>
-                            <span>Total Amount:</span>
+                            <span>Gross Amount:</span>
                             <span>{{grandTotal | number :'.2-2'}}</span>
                         </li>
                         <li>
-                            <span>Total Discount:</span>
+                            <span>Discount Amount:</span>
                             <span class="amount-border-botom">{{grandTotalDiscount | number :'.2-2'}}</span>
                         </li>
                         <li>

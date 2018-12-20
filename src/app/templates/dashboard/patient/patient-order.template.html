@@ -127,50 +127,50 @@
                             </div>&ndash;&gt;
 
                         </div>-->
-                        <!--<div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group hr">
-                                    <label class="col-md-2 pdng-lr-5 control-label txt-size">Description</label>
-                                    <div class="col-md-10 select pdng-lr-5">
-                                        <address>
-                                                <textarea rows="5" cols="80"
-                                                          id="descriptionId"
-                                                          name="description" maxlength="3000"
-                                                          [(ngModel)]="dm.description">
-                                                </textarea>
-                                        </address>
-                                    </div>
+                    <!--<div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group hr">
+                                <label class="col-md-2 pdng-lr-5 control-label txt-size">Description</label>
+                                <div class="col-md-10 select pdng-lr-5">
+                                    <address>
+                                            <textarea rows="5" cols="80"
+                                                      id="descriptionId"
+                                                      name="description" maxlength="3000"
+                                                      [(ngModel)]="dm.description">
+                                            </textarea>
+                                    </address>
                                 </div>
                             </div>
-                        </div>-->
-                        <!--<div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group hr" align="right">
-                                     <span [hidden]="isUpdate">
-                                        <input type="button" id="saveDocumentId" class="btn green"
-                                               (click)="saveDocumentByPatient()" value="Save">
-                                     </span>
-                                </div>
-                                <div class="form-group hr" align="right">
-                                    <span [hidden]="!isUpdate">
-                                        <input type="button" id="updateDocumentId" class="btn green"
-                                               (click)="updateDocumentByPatient()" value="Update">
-                                    </span>
-                                </div>
+                        </div>
+                    </div>-->
+                    <!--<div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group hr" align="right">
+                                 <span [hidden]="isUpdate">
+                                    <input type="button" id="saveDocumentId" class="btn green"
+                                           (click)="saveDocumentByPatient()" value="Save">
+                                 </span>
                             </div>
-                        </div>-->
+                            <div class="form-group hr" align="right">
+                                <span [hidden]="!isUpdate">
+                                    <input type="button" id="updateDocumentId" class="btn green"
+                                           (click)="updateDocumentByPatient()" value="Update">
+                                </span>
+                            </div>
+                        </div>
+                    </div>-->
 
-                        <div class="hr">
-                            <h4 class="text-info ">Uploaded Documents
-                                <div class="pull-right mrgn-btm10">
-                                    <!--<a href="#responsive" data-toggle="modal">
-                                        <button class="btn mt-sweetalert btn green-meadow pdngall3"
-                                                data-title="Sweet Alerts with Icons" data-message="Success Icon"
-                                                data-type="success" data-allow-outside-click="true"
-                                                data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
-                                        </button>
-                                    </a>-->
-                                    <span>
+                    <div class="hr">
+                        <h4 class="text-info ">Uploaded Documents
+                            <div class="pull-right mrgn-btm10">
+                                <!--<a href="#responsive" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                            data-title="Sweet Alerts with Icons" data-message="Success Icon"
+                                            data-type="success" data-allow-outside-click="true"
+                                            data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Edit Problem
+                                    </button>
+                                </a>-->
+                                <span>
                                 <a href="#responsive" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow pdngall3"
                                         data-title="Sweet Alerts with Icons" data-message="Success Icon"
@@ -181,63 +181,123 @@
                                  </a>
                             </span>
 
-                                </div>
-                            </h4>
-                            <div class="table-scrollable tbl-brdr-radus">
-                                <table class="table table-hover table-light">
-                                    <thead>
-                                    <tr class="hedng-bck-clr tbl-pdng">
-                                        <th> Order  Name</th>
-                                        <th> Download</th>
-                                        <th> Doctor Comment</th>
-                                        <th>Description</th>
-                                        <th> Action</th>
+                            </div>
+                        </h4>
+                        <div class="table-scrollable tbl-brdr-radus">
+
+                            <p-table #dt [columns]="cols" [value]="orderData" [paginator]="true"  [rows]="5">
+
+                                <ng-template pTemplate="caption">
+                                    <div style="text-align: right">
+                                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                        <input type="text" pInputText size="50" placeholder="Order Name/Doctor Comment/Description"
+                                               (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                    </div>
+                                </ng-template>
+
+
+
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                            {{col.header}}
+                                            <p-sortIcon *ngIf="col.field != 'action' && col.field !='download'"
+                                                        [field]="col.field" ariaLabel="Activate to sort"
+                                                        ariaLabelDesc="Activate to sort in descending order"
+                                                        ariaLabelAsc="Activate to sort in ascending order">
+                                            </p-sortIcon>
+                                        </th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="tbl-pdng" *ngFor="let order of orderData;">
-                                        <td>{{order.orderObj.name}}</td>
+
+                                </ng-template>
+
+
+                                <ng-template pTemplate="body" let-order let-columns="columns">
+                                    <tr>
+
+                                        <!--{{car[col.field]}}-->
+                                        <td> {{order.orderObj.name}}</td>
                                         <td><a href="#popupTest" data-toggle="modal">
-                                        <button class="btn mt-sweetalert btn green-meadow" (click)="getImageTest(order.id)"
-                                                data-confirm-button-class="btn-success">
-                                            <i class="fa fa"></i> Show Test
-                                        </button>
+                                            <button class="btn mt-sweetalert btn green-meadow" (click)="getImageTest(order.id)"
+                                                    data-confirm-button-class="btn-success">
+                                                <i class="fa fa"></i> Show Test
+                                            </button>
                                         </a></td>
-
-                                            <!--<a href="{{order.url}}" target="_blank">Download</a>-->
-
                                         <td>{{order.doctorComment}}</td>
-                                        <td>{{order.description}}</td>
-                                        <td><!--(click)="editOrder(order.id)"-->
-                                            <a href="#responsive" data-toggle="modal" >
-                                                <button class="btn btn-default btn-outline btn-sm"
-                                                        (click)="editOrder(order.id)"><i class="fa fa-pencil"></i>
-
-                                                </button>
-                                            </a><!--<a
-                                                    (click)="editOrder(order.id)">
+                                        <td> {{order.description}} </td>
+                                        <!--<td> {{problem.status}} </td>-->
+                                        <td>
+                                            <a href="#responsive" data-toggle="modal"
+                                               (click)="editOrder(order.id)">
                                                 <i class="fa fa-pencil"></i>
-                                            </a>-->
-                                            <!--{{order.id}}-->
-                                           <button
-
+                                            </a>
+                                            <button
                                                     (click)="deleteOrder(order.id)">
                                                 <i class="fa fa-remove"></i>
                                             </button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
 
+
+                                        </td>
+
+                                    </tr>
+                                </ng-template>
+
+                            </p-table>
+
+                            <!-- <table class="table table-hover table-light">
+                                <thead>
+                                <tr class="hedng-bck-clr tbl-pdng">
+                                    <th> Order  Name</th>
+                                    <th> Download</th>
+                                    <th> Doctor Comment</th>
+                                    <th>Description</th>
+                                    <th> Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="tbl-pdng" *ngFor="let order of orderData;">
+                                    <td>{{order.orderObj.name}}</td>
+                                    <td><a href="#popupTest" data-toggle="modal">
+                                    <button class="btn mt-sweetalert btn green-meadow" (click)="getImageTest(order.id)"
+                                            data-confirm-button-class="btn-success">
+                                        <i class="fa fa"></i> Show Test
+                                    </button>
+                                    </a></td>
+
+                                        <!--<a href="{{order.url}}" target="_blank">Download</a>
+
+                                    <td>{{order.doctorComment}}</td>
+                                    <td>{{order.description}}</td>
+                                    <td><!--(click)="editOrder(order.id)"
+                                        <a href="#responsive" data-toggle="modal" >
+                                            <button class="btn btn-default btn-outline btn-sm"
+                                                    (click)="editOrder(order.id)"><i class="fa fa-pencil"></i>
+
+                                            </button>
+                                        </a><!--<a
+                                                (click)="editOrder(order.id)">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>-->
+                            <!--{{order.id}}
+                           <button
+
+                                    (click)="deleteOrder(order.id)">
+                                <i class="fa fa-remove"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table> -->
+                        </div>
                     </div>
-                    <div class="clearfix margin-bottom-20"></div>
+
                 </div>
+                <div class="clearfix margin-bottom-20"></div>
             </div>
+        </div>
         <div class="clearfix"></div>
         <div class="row">
-            <div class="col-md-12 col-xs-12 col-sm-12">
+            <!-- <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_2_paginate">
                     <ul class="pagination" style="visibility: visible;">
                         <li class="prev" *ngIf="pages.length >= 2 && currPage > 0">
@@ -266,9 +326,9 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
-        </div>
+    </div>
 
 
 
@@ -288,8 +348,8 @@
                         <div class="form-group hr">
                             <label class="control-label txt-size pdng-lr-5 col-md-3">Order<span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-9 pdng-lr-5">
-                                <div class="select2-bootstrap-prepend">
+                            <div class="col-md-9 pdng-lr-5" >
+                                <div class="select2-bootstrap-prepend" *ngIf="!isUpdate">
 
 
                                     <p-dropdown  placeholder="{{selectedOrder}}"
@@ -300,6 +360,19 @@
                                     </p-dropdown>
 
                                 </div>
+
+                                <div class="select2-bootstrap-prepend" *ngIf="isUpdate">
+
+
+                                    <p-dropdown  placeholder="{{selectedOrder}}"
+                                                 [autoWidth]="false"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedId"
+                                                 [options]="orderListModified" disabled="true"
+                                                 [(ngModel)]="selectedOrder"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    </p-dropdown>
+
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group hr mrgn-btm10">
@@ -308,15 +381,15 @@
                             </label>
                             <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-                                    <textarea type="text" rows="2" class="form-control"
-                                              [(ngModel)]="patientImageTemplate.description"></textarea>
+                                   <textarea type="text" rows="2" class="form-control"
+                                             [(ngModel)]="patientImageTemplate.description"></textarea>
 
                                 </div>
                             </div>
                         </div>
                         <div class="form-group hr mrgn-btm10">
                             <label class="col-md-3 control-label txt-size pdng-lr-5">Doctor Comment:<span class="required"
-                                                                                                   aria-required="true"> * </span></label>
+                                                                                                          aria-required="true"> * </span></label>
                             <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
                                     <textarea class="form-control" rows="2" [(ngModel)]="patientImageTemplate.doctorComment"></textarea>
@@ -336,20 +409,20 @@
                             </div>
                         </div>
 
-                            <div class="form-group mrgn-btm10" *ngIf="isUpdate && showUpload">
-                                <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File<span class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5">
-                                    <p-fileUpload #form  name="demo[]"   customUpload="true"  (uploadHandler)="uploadImgOnChange($event,form)" (onUpload)="onUpload($event)"
-                                                  multiple="multiple"  maxFileSize="4000000"
-                                                  invalidFileSizeMessageSummary="{0} has wrong size, "
-                                                  invalidFileSizeMessageDetail="it exceeds {0}."
-                                                  chooseLabel="Select file"
-                                                  uploadLabel="Upload it!"
-                                                  cancelLabel="Abort">
+                        <div class="form-group mrgn-btm10" *ngIf="(!isUpdate) && showUpload">
+                            <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File<span class="required" aria-required="true"> * </span></label>
+                            <div class="col-md-9 select pdng-lr-5">
+                                <p-fileUpload #form  name="demo[]"   customUpload="true"  (uploadHandler)="uploadImgOnChange($event,form)" (onUpload)="onUpload($event)"
+                                              multiple="multiple"  maxFileSize="4000000"
+                                              invalidFileSizeMessageSummary="{0} has wrong size, "
+                                              invalidFileSizeMessageDetail="it exceeds {0}."
+                                              chooseLabel="Select file"
+                                              uploadLabel="Upload it!"
+                                              cancelLabel="Abort">
 
-                                    </p-fileUpload>
-                                </div>
+                                </p-fileUpload>
                             </div>
+                        </div>
                         <!--<div class="form-group" *ngIf="!isUpdate && !showUpload">
                             <label class="col-md-4 pdng-lr-5 control-label txt-size">Upload File<span class="required" aria-required="true"> * </span></label>
                             <div class="col-md-8 select pdng-lr-5">
@@ -380,10 +453,10 @@
                 <button type="button" data-dismiss="modal" #closeBtn
                         class="btn btn-default btn-outline">Close
                 </button>
-                <span [hidden]="!isUpdate">
+                <span *ngIf="!isUpdate">
                     <button type="button" class="btn green" (click)="saveOrder()">Save</button>
                 </span>
-                <span [hidden]="isUpdate">
+                <span *ngIf="isUpdate">
                     <button type="button" class="btn green" (click)="updateOrderByPatient()">Update
                     </button>
                 </span>
@@ -393,7 +466,48 @@
 </div>
 
 
-<div *ngIf="showImage" id="responsiveGalleria2" class="modal fade" tabindex="-1" aria-hidden="true">
+<p-dialog *ngIf="showImage" id="responsiveGalleria2"  [modal]="true" [responsive]="true" [width]="1024" [minWidth]="520" [minY]="170"
+          [maximizable]="true" [baseZIndex]="10000" header="View Image Order" [(visible)]="display" >
+
+
+    <!--<div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
+        <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
+            <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
+                [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="clickImage($event,image,i)">
+                <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
+            </li>
+        </ul>
+        <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}" *ngIf="showFilmstrip">
+            <ul class="ui-galleria-filmstrip" style="transition:left 1s" [style.left.px]="stripLeft">
+                <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)"
+                    [style.width.px]="frameWidth" [style.height.px]="frameHeight" [style.transition]="'opacity 0.75s ease'">
+                    <div class="ui-galleria-frame-content">
+                        <img [src]="image.source" [alt]="image.alt" [title]="image.title" class="ui-galleria-frame-image"
+                             [style.width.px]="frameWidth" [style.height.px]="frameHeight">
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="ui-galleria-nav-prev pi pi-fw pi-chevron-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2" *ngIf="activeIndex !== 0"></div>
+        <div class="ui-galleria-nav-next pi pi-fw pi-chevron-right" (click)="clickNavRight()" [style.bottom.px]="frameHeight/2"></div>
+        <div class="ui-galleria-caption" *ngIf="showCaption&&images" style="display:block">
+            <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
+        </div>
+    </div>-->
+
+    <div class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1" >
+
+        <p-galleria [images]="images" panelWidth="1024" panelHeight="520" [(activeIndex)]="selectedindex" ></p-galleria>
+        <!--<p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+        </p-footer>-->
+    </div>
+
+
+</p-dialog>
+
+<!-- <div *ngIf="showImage" id="responsiveGalleria2" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
         <div class="modal-content">
             <div class="modal-header">
@@ -407,7 +521,25 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<!-- <div  *ngIf="!showImage" id="Doc" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">View  Order </h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:520px" data-always-visible="1" data-rail-visible1="1">
+
+                    <iframe id="MyFrame" style="width:1024px; height:520px;" frameborder="0"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> -->
 
 <div  *ngIf="!showImage" id="Doc" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
@@ -428,6 +560,74 @@
 </div>
 
 <div id="popupTest" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog"  >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Lab Order</h4>
+            </div>
+            <div class="modal-body">
+                <p class="font-red" *ngIf="filteredLabTestUrl.length <= 0">Order has no URL</p>
+                <div class="scroller" style="height:150px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <address>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
+                                               role="grid">
+                                            <thead>
+                                            <tr role="row" class="off-wite-bg">
+
+                                                <th style="width: 502px" class="sorting_disabled" rowspan="1" colspan="1"> Url </th>
+                                                <th style="width: 36px" class="sorting_disabled" rowspan="1" colspan="1"> Action  </th>
+                                            </tr>
+                                            </thead>
+                                            <tr role="row" class="filter" *ngFor="let lbRT of filteredLabTestUrl;  let idx = index">
+
+                                                <td class="sorting_disabled" rowspan="1" colspan="1">
+                                                    <a href="{{lbRT}}" target="{{lbRT}}">Download</a>
+                                                </td>
+                                                <td class="sorting_disabled">
+                                                    <a  id="closeGalleria" data-toggle="modal" data-dismiss="modal" >
+                                                        <button class="btn btn-default btn-outline btn-sm"
+                                                                (click)="openDiv(lbRT)"><i class="fa fa-pencil"></i>
+
+                                                        </button>
+                                                    </a>
+                                                </td>
+
+
+
+
+                                            </tr>
+
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </address>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" #closeBtn
+                        class="btn btn-default btn-outline">Close
+                </button>
+                <!-- <span [hidden]="!isUpdate">
+                     <button type="button" class="btn green" (click)="saveOrder()">Save</button>
+                 </span>
+                 <span [hidden]="isUpdate">
+                     <button type="button" class="btn green" (click)="updateOrderByPatient()">Update
+                     </button>
+                 </span>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div id="popupTest" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog"  >
         <div class="modal-content">
             <div class="modal-header">
@@ -490,8 +690,8 @@
                 <span [hidden]="isUpdate">
                     <button type="button" class="btn green" (click)="updateOrderByPatient()">Update
                     </button>
-                </span>-->
+                </span>
             </div>
         </div>
     </div>
-</div>
+</div> -->

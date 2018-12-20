@@ -10,6 +10,7 @@ import {ConfirmationdialogComponent} from "../confirmationdialog.component";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {LabOrderProjection} from "../../../model/LabOrderProjection";
 import {LabOrderProjectionModel} from "../../../model/LabOrderProjectModel";
+import {LabOrderModel} from "../../../model/LabOrderModel";
 
 
 @Component({
@@ -31,13 +32,15 @@ export class PatientLabOrdersComponent implements OnInit {
     orderNotFound:boolean=false;
     organizationDataList: any;
     stdSystemFormat:string;
-   // allOrders:any=[];
+    // allOrders:any=[];
     allOrders:any[];
     filteredLabTest :any[] =[];
     ListofAppointment:any[]=[];
     LabOrderProjectionModelList:LabOrderProjectionModel[]=[]
+    LabOrderModelList:LabOrderModel[]=[];
     patient:Patient =new Patient();
     cols: any[];
+    labTestFiltered:any[]=[];
     constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,
                 private notificationService:NotificationService,private hISUtilService: HISUtilService,private confirmationDialogService: ConformationDialogService ) {
     }
@@ -46,12 +49,14 @@ export class PatientLabOrdersComponent implements OnInit {
             this.id = params['id'];
         });
         this.allorganizationData();
-        this.createLabOrderForm();
+       this.createLabOrderForm();
+
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
         this.getLabOrderFromServer(0);
 
-      //  this.addMoreTest();
+
+        //  this.addMoreTest();
 
         this.cols = [
             { field: 'name', header: 'Doctor Name' },
@@ -63,45 +68,28 @@ export class PatientLabOrdersComponent implements OnInit {
         ];
     }
 
+    getLabOrderFromServer(page: number) {
+        this.requestService.getRequestWithParam(
+            AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL_NEW+page,this.id
+        ).subscribe(
+            response => {
+                if (response['responseCode'] === 'LAB_ORDER_SUC_02') {
+                    this.allOrders = response['responseData']['data'];
+                    console.log(this.allOrders);
+
+                    //this.patient.races = JSON.parse(response['responseData'].racesString);
+                }
+            },
+            (error: any) => {
+                this.hISUtilService.tokenExpired(error.error.error);
+            });
+    }
+
+
     goToUserDashBoard(){
         this.router.navigate(['/dashboard/'+atob(localStorage.getItem(btoa('user_type')))+'/']);
     }
-    getLabOrderFromServer(page: number) {
-        if (page > 0) {
-            page = page;
 
-        }
-        if(this.id == null || this.id ==0 || this.id==undefined){
-            this.orderNotFound =true;
-            this.notificationService.error('Please Select Patient Again From Dashboard')
-        }else {
-        this.requestService.getRequestWithParam(
-            AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL + page,this.id)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'LAB_ORDER_SUC_02') {
-                        this.nextPage = response['responseData']['nextPage'];
-                        this.prePage = response['responseData']['prePage'];
-                        this.currPage = response['responseData']['currPage'];
-                        this.pages = response['responseData']['pages'];
-                        this.allOrders = response['responseData']['data'];
-                        this.LabOrderProjectionModelList=this.allOrders;
-                      //  this.ListofAppointment=response['responseData']['doctors'];
-                        const myClonedArray  = Object.assign([], this.LabOrderProjectionModelList);
-                        console.log(myClonedArray);
-
-
-                    }
-                    if(response['responseCode'] =='LAB_ORDER_ERR_02'){
-                        this.notificationService.warn(`Info ${response['responseMessage']}`)
-                    }
-                },
-                (error: any) => {
-                    this.error = error.error.error;
-                }
-            );
-        }
-    }
     loadRecord(){
         this.requestService.getRequest(
             AppConstants.PATIENT_FETCH_URL + this.id
@@ -109,7 +97,7 @@ export class PatientLabOrdersComponent implements OnInit {
             response => {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
-                    console.log(this.patient)
+
                     //this.patient.races = JSON.parse(response['responseData'].racesString);
                 }
             },
@@ -191,18 +179,53 @@ export class PatientLabOrdersComponent implements OnInit {
 
     }
     getLabTest(orderId:any){
-      let labTestFiltered :any[]= this.allOrders.filter((x:any) =>x.id == orderId).map((x:any)=>x.labTests);
-      debugger;
-      this.filteredLabTest = labTestFiltered[0];
-      labTestFiltered.forEach(function (msg) {
-          console.log(msg);
-      })
-      console.log('lab tes'+ labTestFiltered[0]);
+
+
+        if(orderId>0) {
+            this.requestService.getRequest(
+                AppConstants.FETCH_ALL_ORDERTEST_BY_PATIENT_URL+orderId
+            ).subscribe(
+                response => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.labTestFiltered=[];
+                        this.labTestFiltered = response['responseData']['data'];
+                        console.log(this.labTestFiltered);
+
+                        //this.patient.races = JSON.parse(response['responseData'].racesString);
+                    }
+                },
+                (error: any) => {
+                    this.hISUtilService.tokenExpired(error.error.error);
+                });
+
+        }else{
+
+        }
+        /*this.requestService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+                        this.stdSystemFormat=this.organizationDataList.dateFormat +' '+this.organizationDataList.timeFormat;
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })*/
+
+
+        /*this.filteredLabTest = labTestFiltered[0];
+        labTestFiltered.forEach(function (msg) {
+            console.log(msg);
+        })*/
+        //console.log('lab tes'+ labTestFiltered[0]);
     }
     updateOrder(id:number){
         console.log('dmmm');
         this.orderId = id;
-       // this.router.navigate("['/dashboard/patient/create-order/',id,'add',orderId,'order']");
+
+        // this.router.navigate("['/dashboard/patient/create-order/',id,'add',orderId,'order']");
         this.router.navigate(['/dashboard/patient/create-order',this.id,'add',this.orderId,'order']);
     }
 
