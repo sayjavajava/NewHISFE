@@ -54,16 +54,16 @@
                                 <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount.name}} </td>
                                 <td field="serviceCharges" > {{ paymentlst.serviceCharges}} </td>
                                 <td field="maxCardCharges"> {{paymentlst.maxCardCharges}} </td>
-                                <td field="active"><span class="font-blue"> {{paymentlst.active?"Active":"Inactive"}} </span></td>
+                                <td field="active"><span class=""> {{paymentlst.active?"Active":"Inactive"}} </span></td>
                                 <td>
                                     <a href="#responsive" data-toggle="modal">
-                                        <button class=""
+                                        <button class="font-blue"
                                                 (click)="onUpdatePopupLoad(paymentlst)"><i class="fa fa-pencil"></i>
 
                                         </button>
                                     </a>
                                     <span>
-                                        <button class=""
+                                        <button class="text-danger"
                                                 (click)="deletePaymentType(paymentlst.id)">
                                             <i class="fa fa-remove"></i>
                                         </button>
@@ -182,6 +182,24 @@
                                         </span>
                                     </div>
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Who Will Pay Credit Card Charge</label>
+                                        <div class="col-md-9 select pdng-lr-5">
+                                            <label class="mt-checkbox-outline">
+                                                <mat-checkbox #isPatient="ngModel"
+                                                              name="isPatient"
+                                                              [(ngModel)]="newPaymentType.isPatient"
+                                                              color="primary"></mat-checkbox>
+
+                                            </label>
+                                            <!--<label class="mt-checkbox-outline" >
+                                                <input class="mt-checkbox mt-checkbox-outline ng-dirty ng-valid ng-touched" formcontrolname="restrictBranch" type="radio"   value="true" checked>
+                                                Patient
+                                                <span></span>
+                                            </label>-->
+
+                                        </div>
+                                    </div>
+                                    <div *ngIf="serviceChargesDiv" class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Bank GL Account <span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5">
@@ -199,24 +217,6 @@
                                                     {{ca.name}}
                                                 </option>
                                             </select>-->
-                                        </div>
-                                    </div>
-                                    <div *ngIf="serviceChargesDiv" class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Who Will Pay Credit Card Charge</label>
-                                        <div class="col-md-9 select pdng-lr-5">
-                                            <label class="mt-checkbox-outline">
-                                                <mat-checkbox #isPatient="ngModel"
-                                                              name="isPatient"
-                                                              [(ngModel)]="newPaymentType.isPatient"
-                                                              color="primary"></mat-checkbox>
-
-                                            </label>
-                                            <!--<label class="mt-checkbox-outline" >
-                                                <input class="mt-checkbox mt-checkbox-outline ng-dirty ng-valid ng-touched" formcontrolname="restrictBranch" type="radio"   value="true" checked>
-                                                Patient
-                                                <span></span>
-                                            </label>-->
-
                                         </div>
                                     </div>
                                     <div class="form-group hr">

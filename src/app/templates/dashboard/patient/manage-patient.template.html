@@ -104,10 +104,10 @@
                                     <td field="status">{{data.status ? 'Active' : 'Inactive'}}</td>
                                     <td class="sorting_disabled">
                                         <a routerLink="/dashboard/patient/edit/{{data.id}}">
-                                            <button class=""> <i class="fa fa-pencil"></i> </button>
+                                            <button class="font-blue"> <i class="fa fa-pencil"></i> </button>
                                         </a>
                                         <span [hidden]="data.hasChild">
-                                            <button class="" (click)="deletePatient(data.id)"> <i class="fa fa-remove"></i> </button>
+                                            <button class="text-danger" (click)="deletePatient(data.id)"> <i class="fa fa-remove"></i> </button>
                                         </span>
                                     </td>
                                 </tr>

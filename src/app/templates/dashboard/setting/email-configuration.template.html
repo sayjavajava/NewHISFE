@@ -22,7 +22,7 @@
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" class="form-control" id="host" [(ngModel)]="smtps.smtpHost" name="host" #host="ngModel" required>
-                                        <div *ngIf="host.invalid" style="color: red">Host is required</div>
+                                        <div *ngIf="host.invalid && (host.dirty || host.touched) " class="font-red">Host is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -30,8 +30,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
-                                        <input type="text" class="form-control" id="smtpEmail" [(ngModel)]="smtps.senderEmail" name="smtpEmail" #smtpEmail="ngModel" required>
-                                        <div *ngIf="smtpEmail.invalid" style="color: red">Email is required</div>
+                                        <input type="email" class="form-control" id="smtpEmail" [(ngModel)]="smtps.senderEmail"  required
+                                               name="smtpEmail" #smtpEmail="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                        <div *ngIf="smtpEmail.invalid && (smtpEmail.dirty || smtpEmail.touched)" class="font-red">
+                                            Please enter valid email
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -48,11 +51,14 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
-                                        <input type="text" class="form-control"
+                                        <input type="password" class="form-control"
                                                [(ngModel)]="smtps.smptPassword"
                                                name="smtpPassword"
                                                #smtpPassword="ngModel">
                                         <div *ngIf="smtpPassword.invalid" style="color: red">Password is required</div>
+                                        <input type="text" class="form-control" [(ngModel)]="smtps.smptPassword"
+                                               name="smtpPassword" required #smtpPassword="ngModel">
+                                        <div *ngIf="smtpPassword.invalid && (smtpPassword.dirty || smtpPassword.touched) " class="font-red">Password is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -60,11 +66,9 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
-                                        <input type="text" class="form-control"
-                                               [(ngModel)]="smtps.smtpPort"
-                                               name="smtpPort"
-                                               #smtpPort="ngModel">
-                                        <div *ngIf="smtpPort.invalid" style="color: red">Port is required</div>
+                                        <input type="text" class="form-control" [(ngModel)]="smtps.smtpPort" required
+                                               name="smtpPort" #smtpPort="ngModel">
+                                        <div *ngIf="smtpPort.invalid && (smtpPort.dirty || smtpPort.touched) " class="font-red">Port is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -108,10 +112,9 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
-                                        <input type="text" class="form-control"
-                                               #accessKey="ngModel"  id="accessKey"
+                                        <input type="text" class="form-control" #accessKey="ngModel"  id="accessKey" required
                                                name="accessKey" [(ngModel)]="amazonSES.sesAccessKey">
-                                        <div *ngIf="accessKey.invalid" style="color: red">Access Key is required</div>
+                                        <div *ngIf="accessKey.invalid && (accessKey.dirty || accessKey.touched) " class="font-red">Access Key is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -119,10 +122,9 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
-                                        <input type="text" class="form-control"
-                                               #secretKey="ngModel"  id="secretKey"
+                                        <input type="text" class="form-control" #secretKey="ngModel"  id="secretKey" required
                                                name="secretKey" [(ngModel)]="amazonSES.sesSecretKey">
-                                        <div *ngIf="secretKey.invalid" style="color: red">Secret Key is required</div>
+                                        <div *ngIf="secretKey.invalid && (secretKey.dirty || secretKey.touched) " class="font-red">Secret Key is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -130,10 +132,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
-                                        <input type="text" class="form-control"
-                                               #emailId="ngModel"  id="emailId"
-                                               name="emailId" [(ngModel)]="amazonSES.senderEmail">
-                                        <div *ngIf="emailId.invalid" style="color: red">Email is required</div>
+                                        <input type="text" class="form-control" #emailId="ngModel"  id="emailId" name="emailId" required
+                                               [(ngModel)]="amazonSES.senderEmail" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                        <div *ngIf="emailId.invalid && (emailId.dirty || emailId.touched)" class="font-red">
+                                            Please enter valid email
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">

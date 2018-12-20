@@ -41,7 +41,7 @@ var MenuComponent = (function () {
                 if (x.indicatior == 'G') {
                     var ob2 = new items_1.items(x.name, x.routeUrl, x.permissionIcon);
                     itemsList_1.push(ob2);
-                    gInd_1 = new items_1.items('Genaral', '', 'fa fa-cog', itemsList_1);
+                    gInd_1 = new items_1.items('General', '', 'fa fa-cog', itemsList_1);
                 }
                 if (x.indicatior == 'C') {
                     var ob3 = new items_1.items(x.name, x.routeUrl, x.permissionIcon);

@@ -20,9 +20,7 @@ export class CashierComponent implements OnInit {
     this.getAllInvoicesList();
   }
 
-
-
-  public getAllInvoicesList() 
+  public getAllInvoicesList()
   {
       this.requestsService.getRequest(AppConstants.GET_All_PENDING_INVOICES)
       .subscribe((res :any) =>{

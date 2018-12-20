@@ -409,7 +409,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group mrgn-btm10" *ngIf="isUpdate && showUpload">
+                        <div class="form-group mrgn-btm10" *ngIf="(!isUpdate) && showUpload">
                             <label class="col-md-3 pdng-lr-5 control-label txt-size">Upload File<span class="required" aria-required="true"> * </span></label>
                             <div class="col-md-9 select pdng-lr-5">
                                 <p-fileUpload #form  name="demo[]"   customUpload="true"  (uploadHandler)="uploadImgOnChange($event,form)" (onUpload)="onUpload($event)"
@@ -496,7 +496,7 @@
     </div>-->
 
     <div class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1" >
-        {{"Current Selected Image ="+selectedindex}}
+
         <p-galleria [images]="images" panelWidth="1024" panelHeight="520" [(activeIndex)]="selectedindex" ></p-galleria>
         <!--<p-footer>
             <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>

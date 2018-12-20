@@ -88,7 +88,7 @@
         <form id="prefixModuleForm" #form="ngForm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <button type="button" id="closeButton" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title" >Update Module Prefix</h4>
                 </div>
                 <div class="modal-body">
@@ -96,10 +96,26 @@
                         <div class="row">
                             <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Module<span class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text" disabled
+                                <div class="col-md-9 select pdng-lr-5 profile-frm"> <strong>{{prefixTemplate.module}}</strong>
+                                    <input type="hidden" disabled
                                            [(ngModel)]="prefixTemplate.module"
                                            required name="nameName" id="nameNameId" class="form-control" placeholder="Enter Name" #nameName="ngModel">
+                                </div>
+                            </div>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Start From<span class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5 profile-frm"> <strong>{{prefixTemplate.startValue}}</strong>
+                                    <input type="hidden" disabled
+                                           [(ngModel)]="prefixTemplate.startValue"
+                                           name="startValue" class="form-control" placeholder="Enter text" #startValue="ngModel">
+                                </div>
+                            </div>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Current Value<span class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5 profile-frm"> <strong>{{prefixTemplate.currentValue}}</strong>
+                                    <input type="hidden" disabled
+                                           [(ngModel)]="prefixTemplate.currentValue"
+                                           name="currentValue" class="form-control" placeholder="Enter text" #currentValue="ngModel">
                                 </div>
                             </div>
                             <div class="form-group hr mrgn-btm08">
@@ -111,22 +127,6 @@
                                 <span *ngIf="title.invalid && title.touched" class="col-md-9 select pdng-lr-5 text-danger">
                                         Please enter valid prefix.
                                 </span>
-                            </div>
-                            <div class="form-group hr mrgn-btm08">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Start From<span class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text" disabled
-                                           [(ngModel)]="prefixTemplate.startValue"
-                                           name="startValue" class="form-control" placeholder="Enter text" #startValue="ngModel">
-                                </div>
-                            </div>
-                            <div class="form-group hr mrgn-btm08">
-                                <label class="col-md-3 control-label txt-size pdng-lr-5">Current Value<span class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="text" disabled
-                                           [(ngModel)]="prefixTemplate.currentValue"
-                                           name="currentValue" class="form-control" placeholder="Enter text" #currentValue="ngModel">
-                                </div>
                             </div>
                         </div>
                     </div>

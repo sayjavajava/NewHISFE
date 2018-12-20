@@ -5,7 +5,7 @@ export class VitalSetupModel{
     name: string = '';
     unit: string = '';
     standardValue: number ;
-    status: boolean = false;
+    status: any = false;
     constructor() {
     }
 }

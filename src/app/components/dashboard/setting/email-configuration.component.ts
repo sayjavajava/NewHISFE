@@ -30,28 +30,28 @@ export class EmailConfigurationComponent {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(AppConstants.FETCH_EMAIL_CONFIGURATIONS)
                 .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'SUCCESS') {
-                        if (response['responseData'].length > 0) {
+                    (response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            if (response['responseData'].length > 0) {
 
-                            let smtpConfiguration: SMTPS[] = response['responseData'].filter((x: any) => x.serverType === "SMTP");
-                            let sesConfiguration: AmazonSES[] = response['responseData'].filter((x: any) => x.serverType === "SES");
+                                let smtpConfiguration: SMTPS[] = response['responseData'].filter((x: any) => x.serverType === "SMTP");
+                                let sesConfiguration: AmazonSES[] = response['responseData'].filter((x: any) => x.serverType === "SES");
 
-                            if (smtpConfiguration.length > 0) {
-                                this.smtps = smtpConfiguration[0];
+                                if (smtpConfiguration.length > 0) {
+                                    this.smtps = smtpConfiguration[0];
+                                }
+                                if (sesConfiguration.length > 0) {
+                                    this.amazonSES = response['responseData'].filter((x: any) => x.serverType === "SES")[0];
+                                }
                             }
-                            if (sesConfiguration.length > 0) {
-                                this.amazonSES = response['responseData'].filter((x: any) => x.serverType === "SES")[0];
-                            }
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Email Configurations');
                         }
-                    } else {
-                        this.notificationService.error(response['responseMessage'], 'Email Configurations');
+                    },
+                    (error: any) => {
+                        this.notificationService.error(Response['responseMessage'], 'Email Configurations');
                     }
-                },
-                (error: any) => {
-                    this.notificationService.error(Response['responseMessage'], 'Email Configurations');
-                }
-            );
+                );
         } else {
             this.router.navigate(['/login']);
         }
@@ -59,7 +59,7 @@ export class EmailConfigurationComponent {
 
     saveSMTPSConfiguration(smtpsForm: NgForm, sesForm: NgForm) {
         if (smtpsForm.invalid || sesForm.invalid) {
-            this.notificationService.error('Please provide required Values', 'Patient');
+            this.notificationService.error('Please provide required Values', 'Email');
             return;
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
@@ -86,7 +86,7 @@ export class EmailConfigurationComponent {
 
     saveSESConfiguration(smtpsForm: NgForm, sesForm: NgForm) {
         if (smtpsForm.invalid || sesForm.invalid) {
-            this.notificationService.error('Please provide required Values', 'Patient');
+            this.notificationService.error('Please provide required Values', 'Email');
             return;
         } else {
             if (localStorage.getItem(btoa('access_token'))) {
@@ -114,11 +114,11 @@ export class EmailConfigurationComponent {
 
     changeDefault(server: any) {
         if (server == 'SMTPS') {
-            if(this.amazonSES.systemDefault){
+            if (this.amazonSES.systemDefault) {
                 this.amazonSES.systemDefault = false;
             }
         } else if (server == 'AmazonSES') {
-            if(this.smtps.systemDefault){
+            if (this.smtps.systemDefault) {
                 this.smtps.systemDefault = false;
             }
         }

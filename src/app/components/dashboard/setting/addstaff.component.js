@@ -355,6 +355,7 @@ var AddStaffComponent = (function () {
                 if (!this.firstShiftFromTime || !this.firstShiftToTime) {
                     this.dutyShift1 = true;
                     data.shift = true;
+                    this.notificationService.error('ERROR', 'Select duty times first! ');
                     return;
                 }
                 var doctor = new User_1.User({
@@ -510,6 +511,10 @@ var AddStaffComponent = (function () {
                 _this.responseUser = response['responseData'];
                 _this.notificationService.success(_this.responseUser['username'] + ' has been Created Successfully');
                 _this.router.navigate(['/dashboard/setting/staff']);
+            } //
+            else if (response["responseCode"] === "USER_ADD_ERR_02") {
+                _this.notificationService.warn("User already Exists");
+                //  this.router.navigate(['/dashboard/setting/branch'])
             }
         }, function (error) {
             //console.log(error.json());

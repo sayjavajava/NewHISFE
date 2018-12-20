@@ -97,7 +97,7 @@ export class PrefixTemplateComponent {
              .subscribe(
                (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
-                            this.prefixTemplateList = response['responseData'];
+                            // this.prefixTemplateList = response['responseData'];
                             document.getElementById('close-btn-Prefix').click();
                             this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
                             this.notificationService.success(response['responseMessage'], 'Update Module Prefix');
