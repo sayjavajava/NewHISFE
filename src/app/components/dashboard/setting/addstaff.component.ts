@@ -584,6 +584,10 @@ export class AddStaffComponent implements OnInit {
                     this.responseUser = response['responseData'];
                     this.notificationService.success(this.responseUser['username'] + ' has been Created Successfully');
                     this.router.navigate(['/dashboard/setting/staff']);
+                } //
+                else if (response["responseCode"] === "USER_ADD_ERR_02") {
+                    this.notificationService.warn("User already Exists");
+                    //  this.router.navigate(['/dashboard/setting/branch'])
                 }
             }
             , (error: any) => {

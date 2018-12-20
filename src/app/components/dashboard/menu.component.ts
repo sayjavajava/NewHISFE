@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit{
                 if(x.indicatior == 'G'){
                     let ob2  = new items(x.name,x.routeUrl,x.permissionIcon);
                     itemsList.push(ob2)
-                    gInd = new items('Genaral','','fa fa-cog',itemsList);
+                    gInd = new items('General','','fa fa-cog',itemsList);
                    }
                 if(x.indicatior == 'C'){
                     let ob3 = new items(x.name,x.routeUrl,x.permissionIcon);

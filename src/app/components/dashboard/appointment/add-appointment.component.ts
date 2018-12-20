@@ -140,7 +140,7 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/
                                 '<div class="headng-bck">\n' +
                                 ' <div class="hadng-txt">\n' +
-                                '<table width="236" border="0">\n' +'\n' +
+                                '<table width="236px" border="0">\n' +'\n' +
                                 '<tr class="" width="236">\n' +
                                 '    <td   id="imageDiv" style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="'+apt.profileImgURL+'"></td>\n' +
                                 '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>'+ apt.patient +'</h2></td>\n' +
@@ -149,39 +149,40 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 '            </div>\n' +
                                 /* '        </div> ' +*/
                                 '<div class="bc-bg">\n' +
-                                '                <table width="236" border="0">\n' +
+                                '                <table width="236px" border="0">\n' +
                                 '\n' +
                                 '            <tr class="gry-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Branch</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.branchName +'</td>\n' +
-                                '                </tr>\n' +
-                                '            <tr class="whte-bckgrnd inr-txt week-st">\n' +
-                                '                    <td style="width:30%">Patient</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.patient +'</td>\n' +
+                                '                    <td style="width:30px; display: none !important;">Branch</td>\n' +
+                                '                    <td style="width:70px; padding-top: 20px;\n' +
+                                '    padding-left: 40px;">\n'+apt.branchName +'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Schedule Date</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.scheduleDate +'</td>\n' +
+                                '                    <td style="width:30px">Patient</td>\n' +
+                                '                    <td style="width:70px">\n'+apt.patient +'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Doctor</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.docFirstName+'</td>\n' +
+                                '                    <td style="width:30px">Schedule Date</td>\n' +
+                                '                    <td style="width:70px">\n'+apt.scheduleDate +'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Service</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.serviceName+'</td>\n' +
+                                '                    <td style="width:30px">Doctor</td>\n' +
+                                '                    <td style="width:70px">\n'+apt.docFirstName+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Duration</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.duration +'min'+'</td>\n' +
+                                '                    <td style="width:30px">Service</td>\n' +
+                                '                    <td style="width:70px">\n'+apt.serviceName+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Status</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.status+'</td>\n' +
+                                '                    <td style="width:30px">Duration</td>\n' +
+                                '                    <td style="width:70px">\n'+apt.duration +'min'+'</td>\n' +
                                 '                </tr>\n' +
                                 '            <tr class="whte-bckgrnd inr-txt">\n' +
-                                '                    <td style="width:30%">Room</td>\n' +
-                                '                    <td style="width:70%">\n'+apt.examName+'</td>\n' +
+                                '                    <td style="width:30px">Status</td>\n' +
+                                '                    <td style="width:70px">\n'+apt.status+'</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td style="width:30px">Room</td>\n' +
+                                '                    <td style="width:70px">\n'+apt.examName+'</td>\n' +
                                 '                </tr>\n' +
                                 '            </table>\n' +
                                 '                \n' +
@@ -518,6 +519,8 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         this.eventsRequest.length = 0;
         this.serviceDuration = 0;
         this.addModal.show();
+
+        this.dateSchedule = new Date(date);
         //  $('#create-responsive').modal('show');
         /* $('#create-responsive').on('show', function() {
              alert('hello i am jquery');
@@ -539,14 +542,14 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
             cellPhone: '',
             selectWorkingDays: this.selectedRecurringDays,
             appointmentType: this.selectedType,
-            followUpDate: new Date(),
+            followUpDate: new Date(date),
             followUpReason: '',
             recurseEvery: 'rescurse',
             neverEnds: false,
             followUpReminder: false,
             arrangeFollowUpReminder: false,
-            firstAppointment: new Date(),
-            lastAppointment: new Date(),
+            firstAppointment: new Date(date),
+            lastAppointment: new Date(date),
             recurringAppointment: false,
             branch: 'select',
             //  doctorId: 0,

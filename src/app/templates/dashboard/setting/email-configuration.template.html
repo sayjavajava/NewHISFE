@@ -51,6 +51,11 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
+                                        <input type="password" class="form-control"
+                                               [(ngModel)]="smtps.smptPassword"
+                                               name="smtpPassword"
+                                               #smtpPassword="ngModel">
+                                        <div *ngIf="smtpPassword.invalid" style="color: red">Password is required</div>
                                         <input type="text" class="form-control" [(ngModel)]="smtps.smptPassword"
                                                name="smtpPassword" required #smtpPassword="ngModel">
                                         <div *ngIf="smtpPassword.invalid && (smtpPassword.dirty || smtpPassword.touched) " class="font-red">Password is required</div>
