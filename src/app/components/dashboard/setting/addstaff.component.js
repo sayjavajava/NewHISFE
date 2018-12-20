@@ -510,6 +510,10 @@ var AddStaffComponent = (function () {
                 _this.responseUser = response['responseData'];
                 _this.notificationService.success(_this.responseUser['username'] + ' has been Created Successfully');
                 _this.router.navigate(['/dashboard/setting/staff']);
+            } //
+            else if (response["responseCode"] === "USER_ADD_ERR_02") {
+                _this.notificationService.warn("User already Exists");
+                //  this.router.navigate(['/dashboard/setting/branch'])
             }
         }, function (error) {
             //console.log(error.json());
