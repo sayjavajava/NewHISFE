@@ -169,6 +169,9 @@ var AppConstants = (function () {
     AppConstants.LAB_ORDER_UPDATE = '/patient/laborder/update/';
     AppConstants.LAB_ORDER_DELETE = '/patient/laborder/delete/';
     AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL = '/patient/laborder/order/';
+    AppConstants.FETCH_ALL_ORDER_BY_PATIENT_URL_NEW = '/patient/laborder/order/';
+    //public static FETCH_ALL_ORDERTEST_BY_PATIENT_URL = '/patient/laborder/orderId/';
+    AppConstants.FETCH_ALL_ORDERTEST_BY_PATIENT_URL = '/patient/laborder/orderId?orderId=';
     ///////////////////Family History//////////
     AppConstants.FAMILY_HISTORY_CREATE = '/patient/family/create';
     AppConstants.FETCH_ALL_FAMILY_HISTORY_URL = '/patient/family/';
@@ -308,6 +311,7 @@ var AppConstants = (function () {
     AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
     AppConstants.PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
     AppConstants.PRINT_PATIENT_INVOICE_DETAILS = '/reportPrint/patientInvoice';
+    AppConstants.FETCH_VITALS_CONFIGURATIONS_ID = '/PatientVital/get/';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

@@ -600,13 +600,13 @@
             </div>
             <div class="modal-footer">
                  <span >
-                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                    <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">Close </button>
                 </span>
-                <span [hidden]="isUpdate">
+                <span [hidden]="!isUpdate">
                     <button type="button" class="btn green" name="btnSaveMD"
                             (click)="savePatientVitalList(ngForm)">Save</button>
                 </span>
-                <span [hidden]="!isUpdate">
+                <span [hidden]="isUpdate">
                     <button type="button" class="btn blue" id="save-btn-update" (click)="updateVital(ngForm)" >Update </button>
                 </span>
             </div>

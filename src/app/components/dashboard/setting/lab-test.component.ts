@@ -52,7 +52,7 @@ export class LabTestComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.data = response['responseData'];
-                        
+
                         console.log(this.data);
                        // this.cars = response['responseData'];
                     } else {

@@ -8,7 +8,6 @@ import {PatientProblemModel} from "../../../model/patient.problem.model";
 import {PatientAllergyModel} from "../../../model/patient.allergy.model";
 import {MedicationModel} from "../../../model/medication.model";
 import {DataService} from "../../../services/DataService";
-import {Subscription} from "rxjs/Subscription";
 import {Patient} from "../../../model/patient";
 import {SelectItem} from "primeng/api";
 import {PatientVitalModel} from "../../../model/PatientVitalModel";
@@ -19,7 +18,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
     selector: 'patient-history',
     templateUrl: '../../../templates/dashboard/patient/patient-history-vital.template.html',
 })
-export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
+export class PatientHistoryVitalComponent implements OnInit {
 
     problemPages: number[] = [];
     problemNextPage: any;
@@ -47,7 +46,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     medicationsActiveData: MedicationModel[] = [];
 
     selectedPatientId: any;
-    subscription: Subscription;
+  //  subscription: Subscription;
     patient: Patient = new Patient();
     isUpdate: boolean = false;
     data: PatientVitalModel[];
@@ -81,8 +80,13 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                 private dataService: DataService,private fb: FormBuilder) {
 
 
-        this.subscription = this.dataService.currentPatientId.subscribe(id => {
+       /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
+        });*/
+
+        this.route.params.subscribe(params => {
+            this.selectedPatientId = params['id'];
+
         });
 
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
@@ -294,9 +298,9 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(page, 5, 'ACTIVE');
     }
 
-    ngOnDestroy(): void {
+   /* ngOnDestroy(): void {
         this.subscription.unsubscribe();
-    }
+    }*/
 
     patientHistory() {
         // this.dataService.getPatientId(id);//
@@ -309,14 +313,15 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
         this.vitalSetupTemplate = new PatientVitalModel();
         this.vitalListData=[];
         //  this.getPaginatedPatientVitalList(0);
-        debugger;
+
+
         this.getVitalSetupList();
     }
 
     getVitalSetupList() {
         this.vitalListData=[];
         if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest(AppConstants.FETCH_VITALS_CONFIGURATIONS
+            this.requestsService.getRequest(AppConstants.FETCH_VITALS_CONFIGURATIONS+'?patientId=' + this.selectedPatientId
             ).subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
@@ -325,7 +330,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         this.vitalList = this.data;
                         this.vitalSaveList=this.data;
                         this.allVitalsNamesAny = this.data;
-                        debugger;
+
                         this.vitalListData=this.data;
                         for (let vital of this.allVitalsNamesAny) {
                             let pair: any = {label: vital.name, value: vital.name};
@@ -376,7 +381,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     getSelectedVital(name: any) {
 
         let vitalSelectedObj = this.vitalList.filter(x => x.name == this.selectedstr.toString());
-        debugger;
+
         if(vitalSelectedObj.length>0){
             this.vitalSetupTemplate.unit = vitalSelectedObj[0].unit;
             this.vitalSetupTemplate.standardValue = vitalSelectedObj[0].standardValue;
@@ -392,7 +397,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             return;
         }
 
-        debugger;
+
         if (this.selectedstr.toString() == '') {
             this.notificationService.warn('Please select Vital');
 
@@ -415,7 +420,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
             document.getElementById('name').focus();
             return;
         }
-        debugger;
+
         this.vitalSetupTemplate.name = this.selectedstr.toString();
 
         if (localStorage.getItem(btoa('access_token'))) {
@@ -455,7 +460,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
 
         console.log(this.vitalListData);
         //console.log(form);
-        debugger;
+
         if (this.selectedPatientId <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;
@@ -490,14 +495,14 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
               document.getElementById('name').focus();
               return;
           }*/
-        debugger;
+
         //   this.vitalSetupTemplate.name = this.selectedstr.toString();
         this.vitalSetupTemplate.listofVital=this.vitalListData;
-        debugger;
+
         if (localStorage.getItem(btoa('access_token'))) {
             //    this.vitalSetupTemplate.patientId = this.selectedPatientId;
             console.log(this.vitalSetupTemplate.listofVital.length);
-            alert(this.vitalSetupTemplate.listofVital.length);
+
             this.requestsService.postRequest(
                 AppConstants.VITALS_PATIENT_SAVE_LIST+"?selectedPatientId=" + this.selectedPatientId, this.vitalListData)
                 .subscribe(
@@ -534,7 +539,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
         this.isUpdate = true;
 
 
-        debugger;
+
 
         if (Id > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
@@ -543,11 +548,11 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         response => {
                             if (response['responseCode'] === 'SUCCESS') {
                                 this.vitalSetupTemplate = response['responseData'];
-                                debugger;
+
                                 //      this.selectedPatientId=this.vitalSetupTemplate.id;
 
 
-                                debugger;
+
                             }
                         },
                         (error: any) => {
@@ -601,7 +606,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     updateVital() {
 
 
-        debugger;
+
         if (this.selectedPatientId <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;
@@ -640,9 +645,6 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         if (response['responseCode'] === 'SUCCESS') {
 
                             this.notificationService.success('Patient Vital Sucessfully Updated');
-
-                            // this.getPatientVitalList();
-                            //  this.HISUTilService.hidePopupWithCloseButtonId('closeButton');
                             document.getElementById('close-btn-Prefix').click();
                             this.getPaginatedPatientVitalList(0);
 
@@ -704,7 +706,7 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
                         // this.vitalActiveData=[];
                         this.vitalListReadData = response['responseData']['data'];
                     } else {
-                        this.notificationService.error( 'Vital  Information not fetched');
+                      //  this.notificationService.error( 'Vital  Information not fetched');
                     }
                 },
                 (error: any) => {
@@ -741,14 +743,14 @@ export class PatientHistoryVitalComponent implements OnInit, OnDestroy {
     }
 
     onBlurMethod(id:number,event : any){
-        debugger;
+
         const index = this.vitalListData.findIndex(list => list.id === id);
         let arr = this.vitalListData.filter((listing: any) => listing.id === id);
         this.vitalListData[index].currentValue=event;
         //   this.vitalListData[index].currentValue=arr[index].currentValue;
         //    let updateItem = this.vitalListData.items.find(this.findIndexToUpdate, id);
         //   let arr = this.vitalListData.filter((listing: any) => listing.id === id);
-        debugger;
+
         //   let updateItem = this.vitalListData.items.find(this.findIndexToUpdate, id);
         //   let index = this.vitalListData.items.indexOf(updateItem);
         //  this.vitalListData.items[index].currentValue = event.value;

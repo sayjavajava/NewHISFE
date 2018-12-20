@@ -49,6 +49,9 @@ export class PatientAddLabOrdersComponent implements OnInit {
     selectedString:string;
     isUpdate:boolean=false;
     isError:boolean=false;
+    labOrder:any[];
+    labTestList:any[];
+    listOfAppointment:any[];
     filterLabTestSingle(event:any) {
         let query = event.query;
         this.filteredTestSingle = this.filterLabTest(query, this.labTestSpecimanList);
@@ -58,13 +61,14 @@ export class PatientAddLabOrdersComponent implements OnInit {
         }else{
             this.show=false;
         }
+        if(this.filteredTestSingle.length > 0){
         this.singleObj=this.filteredTestSingle[0];
         this.singleTestSpeciman.description=this.filteredTestSingle[0].description;
         this.filterSpeciman.description=this.singleObj.description;
         this.singleTestSpeciman.unit=this.filteredTestSingle[0].unit;
         this.filterSpeciman.unit=this.singleObj.unit;
         this.singleTestSpeciman.minNormalRange=this.filteredTestSingle[0].minNormalRange;
-        this.filterSpeciman.minNormalRange=this.singleObj.minNormalRange;
+        this.filterSpeciman.minNormalRange=this.singleObj.minNormalRange+"-"+this.singleObj.maxNormalRange;
         this.singleTestSpeciman.maxNormalRange=this.filteredTestSingle[0].maxNormalRange;
         this.filterSpeciman.maxNormalRange=this.singleObj.maxNormalRange;
         this.singleTestSpeciman.testCode=this.filteredTestSingle[0].testCode;
@@ -73,6 +77,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
         this.filterSpeciman.testName=this.singleObj.testName;
         this.singleTestSpeciman.id=this.filteredTestSingle[0].id;
         this.filterSpeciman.id=this.singleObj.id;
+        }
     }
 
     filterLabTest(query:any, labTests: any[]):any[] {
@@ -121,7 +126,9 @@ export class PatientAddLabOrdersComponent implements OnInit {
         this.createLabOrderForm();
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
+
         if(this.orderId !=null) {
+
             this.patchOrderData();
         }
         this.statusType = [
@@ -164,7 +171,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
                         console.log(this.patient);
                         let apptId = response['responseData']['pastAppointments'];
                         this.appointmentList=response['responseData']['pastAppointments'];
-                        debugger;
+
                         //   this.doctorAppointment=apptId[]
                         console.log(apptId);
                         this.appointmentId  = apptId[0].id;
@@ -204,9 +211,83 @@ export class PatientAddLabOrdersComponent implements OnInit {
     }
 
     public patchOrderData() {
-        this.requestService.findById(AppConstants.FETCH_LABORDER_BY_ID + this.orderId).subscribe(
+        this.requestService.getRequest(AppConstants.FETCH_LABORDER_BY_ID + this.orderId).subscribe(
             res => {
-                this.LabReadList=res.labTests;
+
+
+
+                if (res['responseCode'] === 'LAB_ORDER_SUC_02') {
+                    this.labOrder = res['responseData']['data'];
+                    this.labTestList=res['responseData']['labTest'];
+                    this.listOfAppointment=res['responseData']['appointment'];
+                    this.LabReadList=this.labTestList;
+                    if(this.LabReadList.length >0 ){
+                    for(let i = 0; i < this.LabReadList.length; i++) {
+                        let test = this.LabReadList[i]
+                        //labTests[i];
+
+                        if(test!=null) {
+                            this.LabReadList[i].testCode=test.loincCode;
+                            this.LabReadList[i].resultValue=test.resultValue;
+                            this.LabReadList[i].unit=test.units;
+                            this.LabReadList[i].minNormalRange=test.normalRange;
+                        }
+                    }
+                    this.addUpdateResponseTest(this.LabReadList.length);
+                    console.log(this.patient);
+                    }
+                    if(this.labOrder.length>0) {
+                        let associateAppoint = this.labOrder[0].appointment;
+
+
+                    let selectAppointment=this.patient.pastAppointments.filter((listing: any) => listing.id === associateAppoint.id);
+
+                 //   console.log(this.labOrder.appointment[0].id);
+                    this.appointmentId=selectAppointment.appointmentId;
+                    if(selectAppointment!=null){
+                        this.selectedAppointmentId=selectAppointment[0].label;
+                    }
+                    }
+                 //   console.log(this.labOrder);
+                    /*let apptId = res['responseData']['pastAppointments'];
+                    this.appointmentList=response['responseData']['pastAppointments'];*/
+               //     debugger;
+                    //   this.doctorAppointment=apptId[]
+                //    console.log(apptId);
+                //    this.appointmentId  = apptId[0].id;
+                    if(this.LabReadList.length>0){
+                    this.selectedString=this.LabReadList[0].testCode.toString();
+                    }
+                    if(this.labOrder.length>0) {
+                        let DateTest = this.labOrder[0].dateTest;
+                        if (DateTest != null) {
+                            DateTest = new Date(this.labOrder[0].dateTest);
+
+                        } else {
+                            DateTest = new Date();
+                        }
+                   //     document.getElementById("TestDate") = DateTest;
+                    }
+                    if(this.labOrder.length>0) {
+                    this.labForm.patchValue({
+                        orderStatus: this.labOrder[0].status,
+                     //   dateTest: DateTest,
+                        comments: this.labOrder[0].comments,
+                        labTest : this.LabReadList,
+
+
+
+                    });
+                    }
+
+                    this.isUpdate=true;
+
+                } else {
+                    this.notificationService.error(res['responseMessage'], '');
+                    // this.router.navigate(['404-not-found'])
+                }
+
+               /* this.LabReadList=res.labTests;
                 for(let i = 0; i < res.labTests.length; i++) {
                     let test = res.labTests[i];
 
@@ -216,23 +297,23 @@ export class PatientAddLabOrdersComponent implements OnInit {
                         this.LabReadList[i].unit=test.units;
                         this.LabReadList[i].minNormalRange=test.normalRange;
                     }
-                }
-
+                }*/
+               /* debugger;
                 this.addUpdateResponseTest(res.labTests.length);
 
                 let selectAppointment=this.patient.pastAppointments.filter((listing: any) => listing.appointmentId === res.appointment[0].appointmentId);
                 debugger;
                 if(selectAppointment!=null){
                     this.selectedAppointmentId=selectAppointment[0].label;
-                }
+                }*/
                 /*debugger;
                 for (let sel of selectAppointment) {
                     var pair: any = {label: sel.label, value: sel.label};
                     this.selectedAppointmentId.push(pair);
                 }*/
 
-                this.selectedString=res.labTests[0].testCode.toString();
-
+               /* this.selectedString=res.labTests[0].testCode.toString();
+                debugger;
                 this.labForm.patchValue({
                     orderStatus: res.status,
                     orderTestDate: new Date(),
@@ -242,7 +323,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
 
                 });
-                this.isUpdate=true;
+                this.isUpdate=true;*/
 
             }, (error: any) => {
                 //console.log(error.json());
@@ -304,6 +385,44 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
 
     }
+   /* addLabOrder(data:any ){
+
+        data.testDate=new Date(this.dateTest);
+        debugger;
+            if (this.labForm.valid) {
+                if (this.orderId > 0) {
+
+                    this.requestService.putRequest(AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
+                        .subscribe(
+                            (response: Response) => {
+                                if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
+                                    this.notificationService.success('LabOrder is Updated Successfully');
+                                    this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
+                                }
+                            }, function (error) {
+                                this.notificationService.error('ERROR', 'LabOrder is not Updated');
+                            });
+                } else {
+                    debugger;
+                    data.labTest = this.LabReadList;
+                    this.requestService.postRequest(AppConstants.LAB_ORDER_CREATE, data)
+                        .subscribe(
+                            (response: Response) => {
+                                if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
+                                    this.notificationService.success('LabOrder is Created Successfully');
+                                    this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
+                                }
+                            }, function (error) {
+                                this.notificationService.error('ERROR', 'LabOrder is not Created');
+                            });
+                }
+
+            } else {
+                this.validateAllFormFields(this.labForm);
+            }
+
+    }*/
+
     addLabOrder(data:any ){
 
         data.testDate=new Date(this.dateTest);
@@ -323,6 +442,8 @@ export class PatientAddLabOrdersComponent implements OnInit {
                             });
                 } else {
                     data.labTest = this.LabReadList;
+                    alert();
+                    console.log(data);
                     this.requestService.postRequest(AppConstants.LAB_ORDER_CREATE, data)
                         .subscribe(
                             (response: Response) => {
@@ -342,6 +463,8 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
             if (this.orderId > 0) {
                 data.labTest = this.LabReadList;
+                data.testDate=new Date(this.dateTest);
+                console.log(data);
                 debugger;
                 this.requestService.putRequest(AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
                     .subscribe(
@@ -356,6 +479,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
             }
         }
     }
+
 
     validateAllFormFields(formGroup: FormGroup) {
         console.log('i am validating');
@@ -393,7 +517,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
         this.selectedTest = new LabTestModel();
         this.selectedTest.testCode = this.singleObj.testCode;
         this.selectedTest.unit=this.singleObj.unit;
-        this.selectedTest.minNormalRange=this.singleObj.minNormalRange;
+        this.selectedTest.minNormalRange=this.singleObj.minNormalRange +"-"+this.singleObj.maxNormalRange;
         this.selectedTest.id=this.singleObj.id;
         this.selectedTest.resultValue=this.resultValue;
         debugger;
@@ -453,6 +577,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
         debugger;
         this.selectedTest = new LabTestModel();
+        if(this.LabReadList.length>0){
         this.filterSpeciman.testCode = this.LabReadList[value].testCode;
         this.filterSpeciman.unit=this.LabReadList[value].unit;
         this.filterSpeciman.minNormalRange=this.LabReadList[value].minNormalRange;
@@ -467,6 +592,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
         this.editIndex = value ;
         this.show = true;
         this.showEdit=true;
+        }
 
 
     }

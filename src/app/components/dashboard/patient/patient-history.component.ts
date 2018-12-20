@@ -72,7 +72,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPatientByIdFromServer(this.selectedPatientId);
         this.getVitalSetupList();
-        this.getPatientVitalList();
+        this.getPatientVitalList(0);
     }
 
     ngOnInit(): void {
@@ -230,8 +230,28 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     }
 
 
-    getPatientVitalList() {
-        if (localStorage.getItem(btoa('access_token'))) {
+    getPatientVitalList(page: number) {
+
+        this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                       /* this.vitalNextPage = response['responseData']['nextPage'];
+                        this.vitalPrePage = response['responseData']['prePage'];
+                        this.vitalCurrPage = response['responseData']['currPage'];
+                        this.vitalPages = response['responseData']['pages'];*/
+                        // this.vitalActiveData=[];
+                        this.vitalListData = response['responseData']['data'];
+                    } else {
+                        //  this.notificationService.error( 'Vital  Information not fetched');
+                    }
+                },
+                (error: any) => {
+                    this.HISUTilService.tokenExpired(error.error.error);
+                }
+            );
+
+        /*if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.getRequest(AppConstants.FETCH_VITALS_PATIENT
             ).subscribe(
                 (response: Response) => {
@@ -240,11 +260,11 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                         console.log(this.vitalListData);
                         //   this.allVitalsNamesAny=this.data;
 
-                        /*for (let vital of this.allVitalsNamesAny) {
+                        /!*for (let vital of this.allVitalsNamesAny) {
                             let pair: any = {label: vital.name, value: vital.name};
                             this.searchedVitalAnyListModified.push(pair);
 
-                        }*/
+                        }*!/
 
                   //      this.selectedstr = this.searchedVitalAnyListModified[0].value;
 
@@ -259,7 +279,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
             );
         } else {
             this.router.navigate(['/login']);
-        }
+        }*/
     }
 
 
@@ -305,7 +325,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                         if (response['responseCode'] === 'SUCCESS') {
 
                             this.notificationService.success(response['responseMessage'], 'Patient Vital Sucessfully Saved');
-                             this.getPatientVitalList();
+                             this.getPatientVitalList(0);
                             // this.closeBtn.nativeElement.click();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Problem of Patient');
@@ -339,7 +359,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                             if (response['responseCode'] === 'SUCCESS') {
                                 this.vitalSetupTemplate = response['responseData'];
                                 this.selectedPatientId=this.vitalSetupTemplate.patientId;
-                                debugger;
+
                             }
                         },
                         (error: any) => {
@@ -361,10 +381,10 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
                             this.notificationService.success(response['responseMessage'], 'Patient Vital Delete');
-                            this.getPatientVitalList();
+                            this.getPatientVitalList(0);
                             this.HISUTilService.hidePopupWithCloseButtonId('closeButton');
                         } else {
-                            this.getPatientVitalList();
+                            this.getPatientVitalList(0);
                             this.notificationService.error(response['responseMessage'], 'Patient Vital Delete');
                         }
                     },

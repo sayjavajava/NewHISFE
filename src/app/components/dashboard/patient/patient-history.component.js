@@ -49,7 +49,7 @@ var PatientHistoryComponent = (function () {
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPatientByIdFromServer(this.selectedPatientId);
         this.getVitalSetupList();
-        this.getPatientVitalList();
+        this.getPatientVitalList(0);
     }
     PatientHistoryComponent.prototype.ngOnInit = function () {
     };
@@ -174,32 +174,53 @@ var PatientHistoryComponent = (function () {
             this.router.navigate(['/login']);
         }
     };
-    PatientHistoryComponent.prototype.getPatientVitalList = function () {
+    PatientHistoryComponent.prototype.getPatientVitalList = function (page) {
         var _this = this;
-        if (localStorage.getItem(btoa('access_token'))) {
-            this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_VITALS_PATIENT).subscribe(function (response) {
-                if (response['responseCode'] === 'SUCCESS') {
-                    _this.vitalListData = response['responseData'];
-                    console.log(_this.vitalListData);
-                    //   this.allVitalsNamesAny=this.data;
-                    /*for (let vital of this.allVitalsNamesAny) {
-                        let pair: any = {label: vital.name, value: vital.name};
-                        this.searchedVitalAnyListModified.push(pair);
+        this.requestsService.getRequest(app_constants_1.AppConstants.VITALS_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'SUCCESS') {
+                /* this.vitalNextPage = response['responseData']['nextPage'];
+                 this.vitalPrePage = response['responseData']['prePage'];
+                 this.vitalCurrPage = response['responseData']['currPage'];
+                 this.vitalPages = response['responseData']['pages'];*/
+                // this.vitalActiveData=[];
+                _this.vitalListData = response['responseData']['data'];
+            }
+            else {
+                //  this.notificationService.error( 'Vital  Information not fetched');
+            }
+        }, function (error) {
+            _this.HISUTilService.tokenExpired(error.error.error);
+        });
+        /*if (localStorage.getItem(btoa('access_token'))) {
+            this.requestsService.getRequest(AppConstants.FETCH_VITALS_PATIENT
+            ).subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.vitalListData = response['responseData'];
+                        console.log(this.vitalListData);
+                        //   this.allVitalsNamesAny=this.data;
 
-                    }*/
-                    //      this.selectedstr = this.searchedVitalAnyListModified[0].value;
-                    // console.log("Length : " + this.prefixTemplateList.length);
+                        /!*for (let vital of this.allVitalsNamesAny) {
+                            let pair: any = {label: vital.name, value: vital.name};
+                            this.searchedVitalAnyListModified.push(pair);
+
+                        }*!/
+
+                  //      this.selectedstr = this.searchedVitalAnyListModified[0].value;
+
+                        // console.log("Length : " + this.prefixTemplateList.length);
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(Response['responseMessage'], 'Vital Setup Configurations');
                 }
-                else {
-                    _this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
-                }
-            }, function (error) {
-                _this.notificationService.error(Response['responseMessage'], 'Vital Setup Configurations');
-            });
-        }
-        else {
+            );
+        } else {
             this.router.navigate(['/login']);
-        }
+        }*/
     };
     PatientHistoryComponent.prototype.getSelectedVital = function (name) {
         var _this = this;
@@ -231,7 +252,7 @@ var PatientHistoryComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'SUCCESS') {
                     _this.notificationService.success(response['responseMessage'], 'Patient Vital Sucessfully Saved');
-                    _this.getPatientVitalList();
+                    _this.getPatientVitalList(0);
                     // this.closeBtn.nativeElement.click();
                 }
                 else {
@@ -258,7 +279,6 @@ var PatientHistoryComponent = (function () {
                     if (response['responseCode'] === 'SUCCESS') {
                         _this.vitalSetupTemplate = response['responseData'];
                         _this.selectedPatientId = _this.vitalSetupTemplate.patientId;
-                        debugger;
                     }
                 }, function (error) {
                     _this.HISUTilService.tokenExpired(error.error.error);
@@ -278,11 +298,11 @@ var PatientHistoryComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'SUCCESS') {
                     _this.notificationService.success(response['responseMessage'], 'Patient Vital Delete');
-                    _this.getPatientVitalList();
+                    _this.getPatientVitalList(0);
                     _this.HISUTilService.hidePopupWithCloseButtonId('closeButton');
                 }
                 else {
-                    _this.getPatientVitalList();
+                    _this.getPatientVitalList(0);
                     _this.notificationService.error(response['responseMessage'], 'Patient Vital Delete');
                 }
             }, function (error) {
