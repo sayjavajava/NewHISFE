@@ -8,10 +8,9 @@ export class InvoicesList
     status : string;
     taxAmount: number;
     discountAmount: number;
-
-    totalAmount: number;
+    totalInvoiceAmount: number;
 
     constructor() {
-        this.totalAmount = this.invoiceAmount + this.taxAmount - this.discountAmount;
+        // this.totalAmount = this.invoiceAmount + this.taxAmount - this.discountAmount;
     }
 }

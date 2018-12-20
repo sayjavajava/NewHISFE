@@ -15,8 +15,8 @@
                                 <span class="text-align-left">10002</span>
                             </li>-->
                             <li>
-                                <span>File Id:</span>
-                                <span class="text-align-left">{{invoicePrefix}}</span>
+                                <span>Appointment Id:</span>
+                                <span class="text-align-left">{{appointmentId}}</span>
                             </li>
 
                             <li>
@@ -167,8 +167,8 @@
                                 <td rowspan="1" colspan="1" class="text-align-right">{{invc.discountRate| number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.discountRate/100)) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{invc.taxRate | number:'.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{((invc.quantity*invc.unitFee) * (invc.taxRate/100)) | number:'.2-2'}}</td>
-                                <td rowspan="1" colspan="1" class="text-align-right">{{( ((invc.quantity*invc.unitFee) * (invc.taxRate/100))+(invc.quantity*invc.unitFee)  - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) ) | number:'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{(((invc.quantity*invc.unitFee)-((invc.quantity*invc.unitFee) * (invc.discountRate/100))) * (invc.taxRate/100)) | number:'.2-2'}}</td>
+                                <td rowspan="1" colspan="1" class="text-align-right">{{(invc.quantity*invc.unitFee) - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) + (((invc.quantity*invc.unitFee)-((invc.quantity*invc.unitFee) * (invc.discountRate/100))) * (invc.taxRate/100)) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-center">
                                         <button *ngIf="!completed" (click)="editInvoic(idx)" class=""><i class="fa fa-pencil"></i></button>
                                         <button *ngIf="!completed" (click)="removeInvoic(idx)" class=""> <i class="fa fa-remove font-red"></i> </button>
