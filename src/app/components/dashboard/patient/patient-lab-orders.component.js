@@ -34,7 +34,6 @@ var PatientLabOrdersComponent = (function () {
         this.filteredLabTest = [];
         this.ListofAppointment = [];
         this.LabOrderProjectionModelList = [];
-        this.LabOrderModelList = [];
         this.patient = new patient_1.Patient();
         this.labTestFiltered = [];
     }

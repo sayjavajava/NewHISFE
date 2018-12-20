@@ -51,7 +51,7 @@
                         <ng-template pTemplate="body" let-rowData let-paymentlst>
                             <tr>
                                 <td field="paymentTitle"> {{paymentlst.paymentTitle}} </td>
-                                <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount.name}} </td>
+                                <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount==null?"":paymentlst.paymentGlAccount.name}} </td>
                                 <td field="serviceCharges" > {{ paymentlst.serviceCharges}} </td>
                                 <td field="maxCardCharges"> {{paymentlst.maxCardCharges}} </td>
                                 <td field="active"><span class=""> {{paymentlst.active?"Active":"Inactive"}} </span></td>
@@ -62,7 +62,7 @@
 
                                         </button>
                                     </a>
-                                    <span>
+                                    <span [hidden]="paymentlst.hasChild">
                                         <button class="text-danger"
                                                 (click)="deletePaymentType(paymentlst.id)">
                                             <i class="fa fa-remove"></i>
