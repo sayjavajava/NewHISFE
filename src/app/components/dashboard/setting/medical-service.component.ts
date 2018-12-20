@@ -48,7 +48,7 @@ export class MedicalServiceComponent implements OnInit {
                 { field: 'branch', header: 'Branch' },
                 { field: 'department', header: 'Department' },
                 { field: 'fee', header: 'Fee'},
-                { field: 'tax', header: 'Tax'},
+                { field: 'tax', header: 'Tax (%)'},
                 { field: 'cost', header: 'Cost'},
                 { field: 'status', header: 'Status' },
                 { field: 'action', header: 'Action' }

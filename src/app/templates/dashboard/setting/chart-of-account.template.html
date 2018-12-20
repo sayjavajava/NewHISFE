@@ -47,16 +47,16 @@
                             <tr>
                                 <td field="code">{{chartOfAccountList.code}}</td>
                                 <td field="name">{{chartOfAccountList.name}}</td>
-                                <td field="parentType">{{chartOfAccountList.parentType}}</td>
+                                <td field="parentType">{{chartOfAccountList.parentType + " ("+chartOfAccountList.accountType+")"}}</td>
                                 <td field="description">{{chartOfAccountList.description}}</td>
                                 <td field="balance">{{chartOfAccountList.balance}}</td>
 
                                 <td field="action">
                                     <ng-container>
                                         <a href="#chartOfAccount" data-toggle="modal">
-                                            <button class="" (click)="edit(chartOfAccountList)"> <i class="fa fa-pencil"></i></button>
+                                            <button class="font-blue" (click)="edit(chartOfAccountList)"> <i class="fa fa-pencil"></i></button>
                                         </a>
-                                        <button class="" (click)="deleteAccount(chartOfAccountList.id)"> <i class="fa fa-remove"></i> </button>
+                                        <button class="text-danger" (click)="deleteAccount(chartOfAccountList.id)"> <i class="fa fa-remove"></i> </button>
                                     </ng-container>
                                 </td>
                             </tr>
@@ -104,8 +104,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title" >Add Account</h4>
                 </div>
-                <div class="modal-body" id="addAccDiv" style="height:250px !important;">
-                    <div class="scroller" style="height:190px !important" data-always-visible="1" data-rail-visible1="1">
+                <div class="modal-body" id="addAccDiv" style="height:280px !important;">
+                    <div class="scroller" style="height:220px !important" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Account Code</label>
@@ -198,14 +198,18 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                    <span>
-                        <button type="button" data-dismiss="modal" id="close-btn-Prefix" (click)="clearAccountSetUp()"
-                                class="btn btn-default btn-outline">Close </button>
-                    </span>
+                        <span *ngIf="isUpdate">
+                            <button type="button" class="btn blue" id="save-btn-update"
+                                    (click)="editAccountSetUp(accountForm)">Update </button>
+                        </span>
+                        <span *ngIf="isNew">
+                            <button type="button" class="btn blue" id="save-btn"
+                                    (click)="editAccountSetUp(accountForm)">Save </button>
+                        </span>
                         <span>
-                        <button type="button" class="btn blue" id="save-btn-update"
-                                (click)="editAccountSetUp(accountForm)">Save/Update </button>
-                    </span>
+                            <button type="button" data-dismiss="modal" id="close-btn-Prefix" (click)="clearAccountSetUp()"
+                                    class="btn default">Close </button>
+                        </span>
                     </div>
                 </div>
             </form>

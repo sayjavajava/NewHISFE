@@ -492,29 +492,25 @@
             </div>
             <div class="modal-body">
                 <form [formGroup]="vitalForm"  class="form-horizontal">
-                    <div class="scroller" style="height:220px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:220px; padding-right: 0px;" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-scrollable" formArrayName="items">
                                     <table class="table table-striped table-hover table-checkable dataTable no-footer"
                                            id="datatable_ajax">
                                         <thead>
-                                        <tr role="row" class="off-wite-bg text-center">
-                                            <th width="33%" class="" rowspan="1" colspan="1"> Title</th>
-                                            <th width="33%" class="" rowspan="1" colspan="1"> Current</th>
-                                            <th width="33%" class="" rowspan="1" colspan="1"> Standard</th>
+                                        <tr role="row" class="off-wite-bg">
+                                            <th width="33%" class="" rowspan="1" colspan="1" style="text-align: left !important;"> <span class="text-left pdng-l-r-15"> Title</span></th>
+                                            <th width="33%" class="text-center" rowspan="1" colspan="1"> <span class="pdng-l-r-15"> Current</span></th>
+                                            <th width="33%" class="text-align-right" rowspan="1" colspan="1"> <span class="pdng-l-r-15">Standard</span></th>
                                         </tr>
 
-
-                                        <tr   class="text-center" role="row" *ngFor="let item of vitalListData; let i = index;">
-
-                                            <td rowspan="1" colspan="1" class="text-align-left">{{item.name}}</td>
-                                            <td rowspan="1" colspan="1" class="text-align-left"><input type="text" class="form-control text-center"    name="currentValue"  (blur)="onBlurMethod(item.id,$event.target.value)"  placeholder="eg 123"></td>
-                                            <td rowspan="1" colspan="1" class="text-align-left">{{item.standardValue}}</td>
+                                        <tr class="" role="row" *ngFor="let item of vitalListData; let i = index;">
+                                            <td rowspan="1" colspan="1" class="text-align-left padding-t-10"><span class="pdng-l-r-15">{{item.name}}</span></td>
+                                            <td rowspan="1" colspan="1" class="text-align-left profile-frm"><input type="text" class="form-control text-center" name="currentValue"  (blur)="onBlurMethod(item.id,$event.target.value)"  placeholder="eg 123"></td>
+                                            <td rowspan="1" colspan="1" class="text-align-right padding-t-10"><span class="pdng-l-r-15">{{item.standardValue}}</span></td>
 
                                         </tr>
-
-
                                         </thead>
                                     </table>
                                 </div>

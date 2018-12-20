@@ -82,14 +82,14 @@
                         <td> {{item.name}}</td>
                         <td> {{item.unit}}</td>
                         <td> {{item.standardValue}}</td>
-                        <td> {{item.status == true || item.status.toLowerCase().trim() == "true" ? 'Active': 'In-Active'}}</td>
+                        <td> {{ (item.status == true || item.status == "true") ? 'Active': 'In-Active'}}</td>
 
 
                         <td>
                             <a href="#vitalSetup" data-toggle="modal">
-                                <button class="" (click)="edit(item)"> <i class="fa fa-pencil"></i> </button>
+                                <button class="font-blue" (click)="edit(item)"> <i class="fa fa-pencil"></i> </button>
                             </a>
-                            <button class="" (click)="deleteVitalSetup(item.id)"> <i class="fa fa-remove"></i> </button>
+                            <button class="text-danger" (click)="deleteVitalSetup(item.id)"> <i class="fa fa-remove"></i> </button>
                         </td>
 
                     </tr>

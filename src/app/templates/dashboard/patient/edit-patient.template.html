@@ -564,11 +564,10 @@
                                                 <input class="file" type="file" id="photoFrontURL" name="photoFrontURL"
                                                        (change)="uploadImgOnChange($event)">
                                             </div>
-                                            <div class="imgUploadTopMargin" *ngIf="patient.insuranceId != null">
+                                            <div class="imgUploadTopMargin" *ngIf="showFrontPicUploadBtn">
                                                 <button class="btn btn-default btn-outline"
                                                         (click)="uploadFrontImg()">
-                                                    <i class=" icon-arrow-up"></i>
-                                                    upload
+                                                    <i class=" icon-arrow-up"></i> Upload
                                                 </button>
                                             </div>
                                         </div>
@@ -590,11 +589,10 @@
                                                 <input class="file" type="file" id="photoBackURL" name="photoBackURL"
                                                        (change)="uploadImgOnChange($event)">
                                             </div>
-                                            <div class="imgUploadTopMargin" *ngIf="patient.insuranceId != null">
+                                            <div class="imgUploadTopMargin" *ngIf="showBackPicUploadBtn">
                                                 <button class="btn btn-default btn-outline"
                                                         (click)="uploadBackImg()">
-                                                    <i class=" icon-arrow-up"></i>
-                                                    upload
+                                                    <i class=" icon-arrow-up"></i> Upload
                                                 </button>
                                             </div>
                                         </div>

@@ -158,14 +158,14 @@
                                             <i class="fa fa"></i>Doctors
                                         </button>
                                     </a>-->
-                                    <button type="text" label="" (click)="getbranchesWithDoctors(branchesList.id,op,$event)"><i class="fa fa-university"></i> </button>
+                                    <button class="font-blue" type="text" label="" (click)="getbranchesWithDoctors(branchesList.id,op,$event)"><i class="fa fa-university"></i> </button>
                                 </td>
                                 <td field="rooms">{{branchesList.rooms}}</td>
                                 <td field="id">
                                     <ng-container>
-                                        <button (click)="updateBranch(branchesList.id)" class=""><i
+                                        <button (click)="updateBranch(branchesList.id)" class="font-blue"><i
                                                 class="fa fa-pencil"></i></button>
-                                        <button (click)="deleteBranch(branchesList.id)" class=""><i
+                                        <button (click)="deleteBranch(branchesList.id)" class="text-danger"><i
                                                 class="fa fa-remove"></i></button>
                                     </ng-container>
                                 </td>

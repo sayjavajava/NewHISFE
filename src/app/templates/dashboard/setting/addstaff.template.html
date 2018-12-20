@@ -235,22 +235,18 @@
                                                      </div>
                                                  </ng-template>
                                              </p-multiSelect>-->
-                                            <div class="ui-inputgroup row margin-bottom-5"
+                                            <div class="ui-inputgroup margin-bottom-5"
                                                  *ngFor="let item of servicesList">
-                                                <div class="col-md-2 no-padding-rgt">
-                                                    <span class="ui-inputgroup-addon">
+                                                    <span class="col-md-1 pdng-lr-5">
                                                         <p-checkbox value="{{item.id}}"
                                                                     (onChange)="addComissionCheck($event,item)">
                                                         </p-checkbox>
                                                     </span>
-                                                </div>
-                                                <div class="col-md-6 pdng-lr-5">
-                                                    <input type="text" pInputText
-                                                           (keyup)="addComission($event,item)"
-                                                           placeholder="comission">{{item.name}}
-                                                </div>
+                                                    <p class="col-md-7 pdng-lr-5">{{item.name}}</p>
                                                 <div class="col-md-4 pdng-lr-5">
-                                                    <div class=""></div>
+                                                    <input style="width: 100%" type="number" pInputText
+                                                           (keyup)="addComission($event,item)"
+                                                           placeholder="comission">
                                                 </div>
                                             </div>
 

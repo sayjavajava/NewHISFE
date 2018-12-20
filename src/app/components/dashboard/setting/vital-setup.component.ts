@@ -50,6 +50,7 @@ export class VitalSetupComponent {
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.data = response['responseData'];
+                        console.log(this.data);
                         // console.log("Length : " + this.prefixTemplateList.length);
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Vital Setup Configurations');
@@ -81,6 +82,11 @@ export class VitalSetupComponent {
                 this.notificationService.warn('Please enter Unit');
                 return;
             }
+            if (this.vitalSetupTemplate.status == true || this.vitalSetupTemplate.status == "true" ) {
+                this.vitalSetupTemplate.status = "true";
+            } else {
+                this.vitalSetupTemplate.status = "false";
+            }
 
             this.requestsService.postRequest(AppConstants.VITALS_CONFIGURATION_SAVE , this.vitalSetupTemplate)
                 .subscribe(
@@ -105,6 +111,7 @@ export class VitalSetupComponent {
     edit(editModule: any) {
         if (editModule) {
             this.vitalSetupTemplate = editModule;
+            this.vitalSetupTemplate.status = (this.vitalSetupTemplate.status == true || this.vitalSetupTemplate.status == "true" ) ? true : false;
         } else {
             this.vitalSetupTemplate = new VitalSetupModel();
         }
