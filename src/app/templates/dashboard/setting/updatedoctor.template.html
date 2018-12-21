@@ -129,7 +129,7 @@
                                             <option *ngFor="let item of departmentList" [selected] = "item.selected" value="{{item.id}}">{{item.name}}</option>
                                         </select>-->
 
-                                        <p-dropdown [autoWidth]="false"
+                                        <p-dropdown [autoWidth]="false" placeholder="select department"
                                                     formControlName="departmentControl" name="dept"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="selectDoctorDepartment($event)"
                                                     [(ngModel)]="selectedDepartmentObj" [options]="departmentList"
@@ -138,6 +138,7 @@
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{dpt.name}}</div>
                                             </ng-template>-->
                                         </p-dropdown>
+                                        <span class="text-danger" *ngIf="dept_In_Branch">no department is associated </span>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
                                     </div>

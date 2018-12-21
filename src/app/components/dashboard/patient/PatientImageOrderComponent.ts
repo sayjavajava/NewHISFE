@@ -50,10 +50,10 @@ export class PatientImageOrderComponent implements OnInit {
     patientImageTemplate: PatientImageOrderModel = new PatientImageOrderModel();
     showUpload:boolean=false;
     showDiv:boolean =false;
-    display: boolean = false;
     selectedindex:number=0;
     patientId: number;
     cols:any[];
+    imageUrl:any[];
 
     @ViewChild('closeBtn') closeBtn: ElementRef;
 
@@ -78,7 +78,7 @@ export class PatientImageOrderComponent implements OnInit {
 
     }
     ngOnInit(): void {
-        this.loadRecord();
+     //   this.loadRecord();
         this.statusType = [
             {label: 'ACTIVE',value:'ACTIVE'},
             {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
@@ -105,7 +105,12 @@ export class PatientImageOrderComponent implements OnInit {
         this.isUpdate = true;
     }
 
+    /*onBeforeDialogHide(event:any){
+        console.log("Just before the dialog is closing");
+        event.preventDefault();
+        return false;
 
+    }*/
     addProblemPopupClick() {
      //   this.isUpdate =true;
         this.isUpdate = false;
@@ -141,9 +146,9 @@ export class PatientImageOrderComponent implements OnInit {
         form.clear();
     }
 
-    showDialog() {
+   /* showDialog() {
         this.display = true;
-    }
+    }*/
 
     saveOrder() {
         if (localStorage.getItem(btoa('access_token'))) {
@@ -409,8 +414,10 @@ export class PatientImageOrderComponent implements OnInit {
         }
         this.labTestFiltered = this.orderData.filter((x:any) =>x.id == Id);
 
+        if(this.labTestFiltered.length>0){
         this.filteredLabTestUrl = this.labTestFiltered[0].url;
         this.selectedId=this.labTestFiltered[0].id;
+        }
         /*for (let patientImg of this.filteredLabTestUrl) {
             var filename = patientImg.substring(patientImg.lastIndexOf('/')+1);
 
@@ -477,7 +484,7 @@ export class PatientImageOrderComponent implements OnInit {
                 console.log(this.images);
                 link.setAttribute("href", "#responsiveGalleria2");
                 this.showImage=true;
-                this.showDialog();
+//                this.showDialog();
                 // this.HISUtilService.hidePopupWithCloseButtonId("closeGalleria");
             }
         }else if(ext=="pdf" || ext=="txt" || ext=="PDF" || ext=="TXT" ){
@@ -495,7 +502,30 @@ export class PatientImageOrderComponent implements OnInit {
 
 
         }else{
-            this.downloadURL(val);
+            debugger;
+
+            this.requestsService.getRequest(AppConstants.PATIENT_IMAGES_FETCH_ALL_PAGINATED_URI+ this.selectedId + '?fileName=' + filename)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'DOC_SUC_42') {
+                           /* this.nextPage = response['responseData']['nextPage'];
+                            this.prePage = response['responseData']['prePage'];
+                            this.currPage = response['responseData']['currPage'];
+                            this.pages = response['responseData']['pages'];*/
+                            this.imageUrl = response['responseData']['data'];
+
+                            console.log(this.imageUrl);
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'No Record Found');
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+
+
+          //  this.downloadURL(val);
         }
     }
 
@@ -514,7 +544,7 @@ export class PatientImageOrderComponent implements OnInit {
     };
 
 
-    loadRecord() {
+    /*loadRecord() {
         if (this.patientId == null || this.patientId == 0 || this.patientId == undefined) {
          //   this.notificationService.error('Please Select Patient Again From Dashboard')
         } else {
@@ -534,5 +564,5 @@ export class PatientImageOrderComponent implements OnInit {
 
                 });
         }
-    }
+    }*/
 }
