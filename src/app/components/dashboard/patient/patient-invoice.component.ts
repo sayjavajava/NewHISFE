@@ -147,6 +147,7 @@ export class PatientInvoiceComponent implements OnInit {
             this.taxRate = this.unSelectedServicesList[service].tax.rate;
             this.unitFee = this.unSelectedServicesList[service].fee;
             this.selectedServiceIndex = service;
+            this.invoiceBillCalculation(null);
         } else {
             this.show = false;
         }
