@@ -254,8 +254,8 @@ export class PaymentComponent implements OnInit {
 
     checkExistingAdvanceBal(){
         if (isNullOrUndefined(this.patientAdvanceDeposit) || this.patientAdvanceDeposit == 0) {
-                this.notificationService.warn('This person has no advance amount');
-                this.useAdvancedBal = false;
+            this.notificationService.warn('This person has no advance amount');
+            this.useAdvancedBal = false;
         } else {
             this.useAdvancedBal = true;
         }

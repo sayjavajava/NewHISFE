@@ -147,7 +147,7 @@ export class PatientFamilyHistoryComponent implements OnInit, OnDestroy {
 
                     if(response['responseCode'] =='FAM_HISTORY_ERR_02'){
                         this.loading = false;
-                        this.notificationService.error(`Error ${response['responseMessage']}`)
+                        // this.notificationService.error(`Error ${response['responseMessage']}`)
                     }
                 },
                 (error: any) => {

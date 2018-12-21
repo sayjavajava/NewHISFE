@@ -218,20 +218,14 @@
                                 <td> {{problem.versionName}}</td>
                                 <td> {{problem.codeName}}</td>
                                 <td> {{problem.problemName}}</td>
-                                <td>{{problem.dateDiagnosis}}</td>
+                                <td> {{problem.dateDiagnosis}}</td>
                                 <td> {{problem.note}} </td>
                                 <td> {{problem.status}} </td>
-                                <td>
-                                    <a href="#responsive" data-toggle="modal"
-                                       (click)="editPatientProblem(problem.id)">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <button
-                                            (click)="deletePatientProblem(problem.id)">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
 
-                                    <button (click)="openUrl(problem.info)"><i class="fa fa-globe"></i></button>
+                                <td>
+                                    <a href="#responsive" data-toggle="modal" class="font-blue" (click)="editPatientProblem(problem.id)"> <i class="fa fa-pencil"></i> </a>
+                                    <button class="text-danger" (click)="deletePatientProblem(problem.id)"> <i class="fa fa-remove"></i> </button>
+                                    <button class="font-green-jungle" (click)="openUrl(problem.info)"><i class="fa fa-globe"></i></button>
                                 </td>
 
                             </tr>
