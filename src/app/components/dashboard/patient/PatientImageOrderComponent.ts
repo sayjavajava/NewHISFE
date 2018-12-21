@@ -516,7 +516,7 @@ export class PatientImageOrderComponent implements OnInit {
 
     loadRecord() {
         if (this.patientId == null || this.patientId == 0 || this.patientId == undefined) {
-            this.notificationService.error('Please Select Patient Again From Dashboard')
+         //   this.notificationService.error('Please Select Patient Again From Dashboard')
         } else {
             this.requestsService.getRequest(
                 AppConstants.PATIENT_FETCH_URL + this.patientId

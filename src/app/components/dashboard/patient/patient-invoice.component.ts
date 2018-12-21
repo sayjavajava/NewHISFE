@@ -178,10 +178,14 @@ export class PatientInvoiceComponent implements OnInit {
     {
         var Amt = (this.quantity * this.unitFee);
         this.discountRate = (this.discountAmount / (this.quantity * this.unitFee)) * 100 ;
-        this.taxRate = (this.taxAmount / (Amt-this.discountAmount)) * 100 ;
+        var amtAfterDisc = Amt-this.discountAmount;
+        this.taxAmount = amtAfterDisc * this.taxRate/100;
 
-        var totalAMt = Amt + this.taxAmount - this.discountAmount;
+        var totalAMt = amtAfterDisc+this.taxAmount;
         this.invoiceAmount=totalAMt;
+
+
+
     }
     
     getTotalOfAllInviceItems(){

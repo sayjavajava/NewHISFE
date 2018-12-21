@@ -313,7 +313,7 @@ export class AppConstants {
     public static SAVE_DOCTOR_PAYMENT = '/doctorPayment/save';
     public static GET_DOCTOR_PAYMENT_List = '/doctorPayment/getPaymentList';
 
-    public static GET_DOCTOR_List = '/doctorPayment/role';
+    public static GET_DOCTOR_List = '/doctorPayment//doctorsWithCommission';
 
     ////////////////Country/////////////////////////////
     public static GET_ALL_COUNTRY = '/CountryAPI/';

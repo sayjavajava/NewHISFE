@@ -79,7 +79,7 @@ export class DoctorPaymentListingComponent {
 
     getDoctorsList() {
         this.requestsService.getRequest(
-            AppConstants.GET_DOCTOR_List + '?name=' + UserTypeEnum.DOCTOR)
+            AppConstants.GET_DOCTOR_List)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'USER_SUC_01') {
@@ -166,8 +166,8 @@ export class DoctorPaymentListingComponent {
 
     getSelectedDoctor(selectedDoctr: any){
         console.log("------------"+selectedDoctr);
-        this.doctorPayment.doctorId = selectedDoctr.id;
-        this.selectedDoctorBalance = selectedDoctr.balance;
+        this.doctorPayment.doctorId = selectedDoctr.pId;
+        this.selectedDoctorBalance = selectedDoctr.advanceBalance;
     }
 
 
