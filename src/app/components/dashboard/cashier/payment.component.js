@@ -15,6 +15,7 @@ var app_constants_1 = require("../../../utils/app.constants");
 var router_1 = require("@angular/router");
 var PaymentRequest_1 = require("../../../model/PaymentRequest");
 var notification_service_1 = require("../../../services/notification.service");
+var util_1 = require("util");
 var PaymentComponent = (function () {
     function PaymentComponent(router, route, requestsService, notificationService) {
         this.router = router;
@@ -34,6 +35,7 @@ var PaymentComponent = (function () {
         this.grandTotalDiscount = 0.00;
         this.grandTotalTax = 0.00;
         this.grandTotalWithTax = 0.00;
+        this.isPaymentOK = false;
     }
     PaymentComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -153,6 +155,82 @@ var PaymentComponent = (function () {
     };
     PaymentComponent.prototype.backPage = function () {
         this.router.navigate(['/dashboard/cashier']);
+    };
+    PaymentComponent.prototype.checkPaidAmount = function (value) {
+        if (!util_1.isNullOrUndefined(value)) {
+            if (this.useAdvancedBal) {
+                if ((this.paidAmount - this.discountAmount + this.usedAdvanceDeposit) > (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                    this.notificationService.warn('Payment amount is exceeding the total due amount');
+                    this.isPaymentOK = false;
+                    // document.getElementById("usedAdvanceDeposit").focus();
+                }
+                else {
+                    this.isPaymentOK = true;
+                }
+            }
+            else {
+                if ((this.paidAmount - this.discountAmount) > (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                    this.notificationService.warn('Payment amount is exceeding the total due amount');
+                    this.isPaymentOK = false;
+                    // document.getElementById("usedAdvanceDeposit").focus();
+                }
+                else {
+                    this.isPaymentOK = true;
+                }
+            }
+        }
+    };
+    PaymentComponent.prototype.checkDiscount = function (value) {
+        if (!util_1.isNullOrUndefined(value)) {
+            if (this.useAdvancedBal) {
+                if ((this.paidAmount - this.discountAmount + this.usedAdvanceDeposit) > (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                    this.notificationService.warn('Payment amount is exceeding the total due amount');
+                    this.isPaymentOK = false;
+                    // document.getElementById("usedAdvanceDeposit").focus();
+                }
+                else {
+                    this.isPaymentOK = true;
+                }
+            }
+            else {
+                if ((this.paidAmount - this.discountAmount) > (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                    this.notificationService.warn('Payment amount is exceeding the total due amount');
+                    this.isPaymentOK = false;
+                    // document.getElementById("usedAdvanceDeposit").focus();
+                }
+                else {
+                    this.isPaymentOK = true;
+                }
+            }
+        }
+    };
+    PaymentComponent.prototype.useAdvanceBalance = function (value) {
+        if (util_1.isNullOrUndefined(this.patientAdvanceDeposit) || this.patientAdvanceDeposit == 0) {
+            if (!util_1.isNullOrUndefined(value) && value != 0) {
+                this.notificationService.warn('This person has no advance amount');
+                this.useAdvancedBal = false;
+            }
+            // document.getElementById("amount").focus();
+        }
+        else {
+            if ((this.paidAmount - this.discountAmount + this.usedAdvanceDeposit) > (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                this.notificationService.warn('Payment amount is exceeding the total due amount');
+                // document.getElementById("usedAdvanceDeposit").focus();
+                this.isPaymentOK = false;
+            }
+            else {
+                this.isPaymentOK = true;
+            }
+        }
+    };
+    PaymentComponent.prototype.checkExistingAdvanceBal = function () {
+        if (util_1.isNullOrUndefined(this.patientAdvanceDeposit) || this.patientAdvanceDeposit == 0) {
+            this.notificationService.warn('This person has no advance amount');
+            this.useAdvancedBal = false;
+        }
+        else {
+            this.useAdvancedBal = true;
+        }
     };
     PaymentComponent = __decorate([
         core_1.Component({

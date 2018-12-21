@@ -267,7 +267,7 @@ var AppConstants = (function () {
     AppConstants.GET_REFUND_ID = '/refundApi/getRefundId';
     AppConstants.SAVE_DOCTOR_PAYMENT = '/doctorPayment/save';
     AppConstants.GET_DOCTOR_PAYMENT_List = '/doctorPayment/getPaymentList';
-    AppConstants.GET_DOCTOR_List = '/doctorPayment/role';
+    AppConstants.GET_DOCTOR_List = '/doctorPayment//doctorsWithCommission';
     ////////////////Country/////////////////////////////
     AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
     AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';

@@ -92,21 +92,22 @@
                     <div class="form-group hr mrgn-btm08 mrgn-top8">
                         <label class="col-md-4 pdng-lr-5">Applied Amount</label>
                         <div class="col-md-8 pdng-lr-5 profile-frm">
-                            <input type="number" class="form-control text-align-right" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
+                            <input type="number" class="form-control text-align-right" min="0" (blur)="checkDiscount($event.target.value)" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
                         </div>
                     </div>
                     <div class="form-group hr mrgn-btm08">
                         <label class="col-md-4 pdng-lr-5">Discount Amount</label>
                         <div class="col-md-8 pdng-lr-5 profile-frm">
-                            <input type="number" class="form-control text-align-right" name="discountAmount" [(ngModel)]="discountAmount" [step]="0.01">
+                            <input type="number" class="form-control text-align-right" min="0" (blur)="checkDiscount($event.target.value)" name="discountAmount" [(ngModel)]="discountAmount" [step]="0.01">
                         </div>
                     </div>
                     <div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
-                    <label class="col-md-4 pdng-lr-5">Advance Used :</label>
-                    <div class="col-md-8 pdng-lr-5 profile-frm">
-                        <input type="number" class="form-control text-align-right" name="usedAdvanceDeposit" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
+                        <label class="col-md-4 pdng-lr-5">Advance Used :</label>
+                        <div class="col-md-8 pdng-lr-5 profile-frm">
+                            <input type="number" class="form-control text-align-right" min="0" max="{{patientAdvanceDeposit}}" name="usedAdvanceDeposit"
+                                   id="usedAdvanceDeposit" (blur)="useAdvanceBalance($event.target.value)" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
+                        </div>
                     </div>
-                </div>
                     <div class="form-group mrgn-btm08">
                     <!-- <div class="col-md-2">
                         <label class="mt-checkbox mt-checkbox-outline chckbox">
@@ -119,8 +120,8 @@
                     <label class="col-md-4 pdng-lr-5"> Use Advanced </label>
                     <div class="col-md-8 pdng-lr-5">
                         <label class="mt-checkbox mt-checkbox-outline">
-                        <input type="checkbox" [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
-                        <span></span>
+                            <input type="checkbox" (change)="checkExistingAdvanceBal()"  [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
+                            <span></span>
                         </label>
                         <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
                     </div>
@@ -128,7 +129,10 @@
                 </div>
                 <div class="form-group  pull-right mrgn-top8">
                     <button  class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel</button>
-                    <button  class="btn btn-default btn-outline btn-sm" (click)="savePayment()"> Payment </button>
+                    <span *ngIf="isPaymentOK">
+                        <button  class="btn btn-default btn-outline btn-sm" (click)="savePayment()"> Payment </button>
+                    </span>
+
                 </div>
                 <!--<div class="form-group hr">
                     <div class="sub-total">
