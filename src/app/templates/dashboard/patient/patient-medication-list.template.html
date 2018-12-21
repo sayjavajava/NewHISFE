@@ -157,14 +157,17 @@
                                             (click)="deleteMedication(medication.id)">
                                         <i class="fa fa-remove"></i>
                                     </button>
-
+                                    <span *ngIf="!medication.pharmacyNote.length<=0">
                                     <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
+                                    </span>
+                                    </td>
+
                                     <!--  &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
                                       &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;-->
 
 
 
-                                </td>
+
 
                             </tr>
                         </ng-template>
@@ -520,15 +523,39 @@
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">
                                         Drug name:<span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 select pdng-lr-5">
-                                        <p-autoComplete
+                                    <div class="col-md-8 select pdng-lr-5" >
+                                        <!--<p-autoComplete
                                                 id="drugName" name="drugName"
                                                 [suggestions]="searchedDrugNames"
                                                 (completeMethod)="search($event)"
                                                 [(ngModel)]="text" [dropdown]="true" [size]="30"
                                                 [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
-                                        </p-autoComplete>
+                                        </p-autoComplete>-->
+
+                                        <p-dropdown  placeholder="{{selectedDrug}}" [autoWidth]="false" [(ngModel)]="selectedDrug"
+                                                      [style]="{'text-align': 'left' ,'width':'100%'}"  [ngModelOptions]="{standalone: true}"
+                                                     (onChange)="search($event.value)"
+                                                     [options]="searchedDrugNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
+
                                     </div>
+
+                                    <!--<div class="col-md-8 select pdng-lr-5" *ngIf="isUpdateAppoint">
+                                        &lt;!&ndash;<p-autoComplete
+                                                id="drugName" name="drugName"
+                                                [suggestions]="searchedDrugNames"
+                                                (completeMethod)="search($event)"
+                                                [(ngModel)]="text" [dropdown]="true" [size]="30"
+                                                [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
+                                        </p-autoComplete>&ndash;&gt;
+
+                                        <p-dropdown  placeholder="{{selectedDrug}}" [autoWidth]="false" [(ngModel)]="selectedDrug"
+                                                     [style]="{'text-align': 'left' ,'width':'100%'}"  [ngModelOptions]="{standalone: true}"
+                                                     (onChange)="search($event.value)" disabled="true"
+                                                     [options]="searchedDrugNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
+
+                                    </div>-->
                                 </div>
                                 <!--date fields -->
                                 <!-- <div class="form-group hr">
@@ -562,7 +589,7 @@
 
                                     <label class="col-md-4 pdng-lr-5 control-label txt-size">Strength</label>
                                     <div class="col-md-8 pdng-lr-5">
-                                        <p-dropdown placeholder="Select Drug"  [(ngModel)]="selectedstr"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
+                                        <p-dropdown placeholder="{{selectedstr}}"  [(ngModel)]="selectedstr"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     required id="strengths"
                                                     name="strengths" [options]="searchedDrugStrengthsAnyListModified"
                                                     #strengths="ngModel">

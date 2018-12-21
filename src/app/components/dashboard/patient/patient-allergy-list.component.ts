@@ -89,7 +89,7 @@ export class PatientAllergyListComponent implements OnInit {
                         this.pages = response['responseData']['pages'];
                         this.allergyData = response['responseData']['data'];
                     } else {
-                        this.notificationService.error(response['responseMessage'])
+                    //    this.notificationService.error(response['responseMessage'])
                     }
                 },
                 (error: any) => {
@@ -115,7 +115,7 @@ export class PatientAllergyListComponent implements OnInit {
                         this.pastAppointments = [];
                         this.pastAppointments = response['responseData'].pastAppointments;*/
                     } else {
-                        this.notificationService.error(response['responseMessage'], 'Patient');
+                    //    this.notificationService.error(response['responseMessage'], 'Patient');
                     }
                 },
                 (error: any) => {
@@ -170,7 +170,7 @@ export class PatientAllergyListComponent implements OnInit {
                             this.getPaginatedAllergyFromServer(0);
                             this.closeBtnAllergy.nativeElement.click();
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                    //        this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
                             this.getPaginatedAllergyFromServer(0);
                         }
                     },
@@ -198,7 +198,7 @@ export class PatientAllergyListComponent implements OnInit {
                                 this.pam = response['responseData'];
                                 this.appointmentsByPatientFromServer(this.pam.patientId);
                             } else {
-                                this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                       //         this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
                             }
                         },
                         (error: any) => {
@@ -246,7 +246,7 @@ export class PatientAllergyListComponent implements OnInit {
                             this.getPaginatedAllergyFromServer(0);
                             this.closeBtnAllergy.nativeElement.click();
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                      //      this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
                             this.getPaginatedAllergyFromServer(0);
                         }
                     },
@@ -271,7 +271,7 @@ export class PatientAllergyListComponent implements OnInit {
                             this.getPaginatedAllergyFromServer(0);
                         } else {
                             this.getPaginatedAllergyFromServer(0);
-                            this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                    //        this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
                         }
                     },
                     (error: any) => {
