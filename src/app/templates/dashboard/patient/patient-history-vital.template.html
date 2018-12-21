@@ -125,8 +125,7 @@
                                 <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
 
                                     {{col.header}}
-                                    <p-sortIcon *ngIf="col.field != 'status'"
-                                                [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                    <p-sortIcon *ngIf="col.field != 'status'" [field]="col.field" ></p-sortIcon>
                                 </th>
                             </tr>
                             <!-- <tr>
@@ -155,6 +154,7 @@
                                 <td field="unit">{{vitalListData.unit}}</td>
                                 <td field="currentValue">{{vitalListData.currentValue}}</td>
                                 <td field="standardValue">{{vitalListData.standardValue}}</td>
+                                <td field="updatedOn">{{vitalListData.updatedOn}}</td>
                                 <!--<td field="status">{{vitalListData.status}}</td>-->
                                 <td>
                                     <a href="#vitalSetup" data-toggle="modal"

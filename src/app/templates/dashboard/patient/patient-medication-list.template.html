@@ -118,22 +118,14 @@
                             </div>
                         </ng-template>
 
-
-
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                                     {{col.header}}
-                                    <p-sortIcon *ngIf="col.field != 'status'"
-                                                [field]="col.field" ariaLabel="Activate to sort"
-                                                ariaLabelDesc="Activate to sort in descending order"
-                                                ariaLabelAsc="Activate to sort in ascending order">
-                                    </p-sortIcon>
+                                    <p-sortIcon *ngIf="col.field != 'status'" [field]="col.field"></p-sortIcon>
                                 </th>
                             </tr>
-
                         </ng-template>
-
 
                         <ng-template pTemplate="body" let-medication let-columns="columns">
                             <tr>
@@ -149,25 +141,14 @@
                                 <td>{{medication.datePrescribedString}}</td>
                                 <!--<td>{{medication.updatedOn}}</td>-->
                                 <td>
-                                    <a href="#responsiveMedication" data-toggle="modal"
-                                       (click)="editMedication(medication.id)">
+                                    <a href="#responsiveMedication" data-toggle="modal" (click)="editMedication(medication.id)">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <button
-                                            (click)="deleteMedication(medication.id)">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
-                                    <span *ngIf="!medication.pharmacyNote.length<=0">
-                                    <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
-                                    </span>
-                                    </td>
-
+                                    <button class="text-danger" (click)="deleteMedication(medication.id)"> <i class="fa fa-remove"></i> </button>
+                                    <button class="font-green-jungle" (click)="openUrl(medication.pharmacyNote)"> <i class="fa fa-globe"></i> </button>
                                     <!--  &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
                                       &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;-->
-
-
-
-
+                                </td>
 
                             </tr>
                         </ng-template>
@@ -210,8 +191,6 @@
                                <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
                               <!-- <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>-->
                     <!--<a href="#{{medication.pharmacyNote}}" target="_blank">
-
-
 
                 </td>
             </tr>

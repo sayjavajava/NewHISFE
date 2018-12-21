@@ -75,20 +75,20 @@
                 <div class="off-wite-bg hr padding-10">
                     <h4 class="bold mrgn-btm08">Payment</h4>
                     <div class="form-group mrgn-btm08">
-                    <label class="col-md-4 pdng-lr-5"> Payment Type </label>
-                    <!--<select class="form-control">
-                        <option>Cash</option>
-                    </select>-->
-                    <div class="col-md-8 pdng-lr-5">
-                        <p-dropdown [options]="paymentTypeList"
-                                [(ngModel)]="selectedPaymentType"
-                                 placeholder="Select Payment Type"
-                                optionLabel="paymentTitle"
-                                (onChange) = "getSelectedPaymentType(selectedPaymentType)"
-                                [filter]="true">
-                    </p-dropdown>
+                        <label class="col-md-4 pdng-lr-5"> Payment Type </label>
+                        <!--<select class="form-control">
+                            <option>Cash</option>
+                        </select>-->
+                        <div class="col-md-8 pdng-lr-5">
+                            <p-dropdown [options]="paymentTypeList"
+                                    [(ngModel)]="selectedPaymentType"
+                                     placeholder="Select Payment Type"
+                                    optionLabel="paymentTitle"
+                                    (onChange) = "getSelectedPaymentType(selectedPaymentType)"
+                                    [filter]="true">
+                        </p-dropdown>
+                        </div>
                     </div>
-                </div>
                     <div class="form-group hr mrgn-btm08 mrgn-top8">
                         <label class="col-md-4 pdng-lr-5">Applied Amount</label>
                         <div class="col-md-8 pdng-lr-5 profile-frm">
@@ -109,23 +109,23 @@
                         </div>
                     </div>
                     <div class="form-group mrgn-btm08">
-                    <!-- <div class="col-md-2">
-                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                            <input type="checkbox" class="form-control"
-                                   name="useAdvancedBal"
-                                   [(ngModel)]="useAdvancedBal"><span></span>
-                        </label>
+                        <!-- <div class="col-md-2">
+                            <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                <input type="checkbox" class="form-control"
+                                       name="useAdvancedBal"
+                                       [(ngModel)]="useAdvancedBal"><span></span>
+                            </label>
+                        </div>
+                        <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
+                        <label class="col-md-4 pdng-lr-5"> Use Advanced </label>
+                        <div class="col-md-8 pdng-lr-5">
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" (change)="checkExistingAdvanceBal()"  [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
+                                <span></span>
+                            </label>
+                            <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
+                        </div>
                     </div>
-                    <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
-                    <label class="col-md-4 pdng-lr-5"> Use Advanced </label>
-                    <div class="col-md-8 pdng-lr-5">
-                        <label class="mt-checkbox mt-checkbox-outline">
-                            <input type="checkbox" (change)="checkExistingAdvanceBal()"  [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
-                            <span></span>
-                        </label>
-                        <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
-                    </div>
-                </div>
                 </div>
                 <div class="form-group  pull-right mrgn-top8">
                     <button  class="btn btn-default btn-outline btn-sm" (click)="backPage()"> Cancel</button>

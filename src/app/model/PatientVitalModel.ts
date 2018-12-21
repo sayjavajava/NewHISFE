@@ -9,6 +9,7 @@ export class PatientVitalModel{
     status: boolean = true;
     currentValue:string;
     listofVital:PatientVitalModel[];
+    updatedOn: string;
     // patient:Patient=new Patient();
     constructor() {
     }

@@ -73,7 +73,7 @@ var PatientAllergyListComponent = (function () {
                 _this.allergyData = response['responseData']['data'];
             }
             else {
-                _this.notificationService.error(response['responseMessage']);
+                //    this.notificationService.error(response['responseMessage'])
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
@@ -94,7 +94,7 @@ var PatientAllergyListComponent = (function () {
                       this.pastAppointments = response['responseData'].pastAppointments;*/
                 }
                 else {
-                    _this.notificationService.error(response['responseMessage'], 'Patient');
+                    //    this.notificationService.error(response['responseMessage'], 'Patient');
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
@@ -140,7 +140,7 @@ var PatientAllergyListComponent = (function () {
                     _this.closeBtnAllergy.nativeElement.click();
                 }
                 else {
-                    _this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                    //        this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
                     _this.getPaginatedAllergyFromServer(0);
                 }
             }, function (error) {
@@ -167,7 +167,7 @@ var PatientAllergyListComponent = (function () {
                         _this.appointmentsByPatientFromServer(_this.pam.patientId);
                     }
                     else {
-                        _this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                        //         this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
                     }
                 }, function (error) {
                     _this.HISUtilService.tokenExpired(error.error.error);
@@ -211,7 +211,7 @@ var PatientAllergyListComponent = (function () {
                     _this.closeBtnAllergy.nativeElement.click();
                 }
                 else {
-                    _this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                    //      this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
                     _this.getPaginatedAllergyFromServer(0);
                 }
             }, function (error) {
@@ -235,7 +235,7 @@ var PatientAllergyListComponent = (function () {
                 }
                 else {
                     _this.getPaginatedAllergyFromServer(0);
-                    _this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
+                    //        this.notificationService.error(response['responseMessage'], 'Allergy of Patient');
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);

@@ -914,26 +914,24 @@
                                 <div class="table-scrollable tbl-brdr-radus">
                                     <table class="table table-hover table-light">
                                         <thead>
-                                        <tr class="hedng-bck-clr tbl-pdng">
-                                            <th> Smoking Status</th>
-                                            <th> Start Date</th>
-                                            <th> End Date</th>
-                                            <th> Recorded Date</th>
-                                            <th> Action</th>
-                                        </tr>
+                                            <tr class="hedng-bck-clr tbl-pdng">
+                                                <th> Smoking Status</th>
+                                                <th> Start Date</th>
+                                                <th> End Date</th>
+                                                <th> Recorded Date</th>
+                                                <th> Action</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="tbl-pdng" *ngFor="let ss of smokeStatusList">
-                                            <td>{{ss.smokingStatus}}</td>
-                                            <td>{{ss.startDate | date: 'dd-MM-yyyy'}}</td>
-                                            <td>{{ss.endDate | date: 'dd-MM-yyyy'}}</td>
-                                            <td>{{ss.recordedDate | date: 'dd-MM-yyyy'}}</td>
-                                            <td>
-                                                <button class="btn btn-default btn-outline btn-sm"
-                                                        (click)="deleteSmokeStatus(ss.id)"><i class="fa fa-remove"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                            <tr class="tbl-pdng" *ngFor="let ss of smokeStatusList">
+                                                <td>{{ss.smokingStatus}}</td>
+                                                <td>{{ss.startDate | date: 'dd-MM-yyyy'}}</td>
+                                                <td>{{ss.endDate | date: 'dd-MM-yyyy'}}</td>
+                                                <td>{{ss.recordedDate | date: 'dd-MM-yyyy'}}</td>
+                                                <td>
+                                                    <button class="text-danger" (click)="deleteSmokeStatus(ss.id)"> <i class="fa fa-remove"></i> </button>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
                 private HISUtilService: HISUtilService,
                 private permissionService: PermissionsService) {
         this.items = [
-            {
+            /*{
                 label: 'Dashboard', icon: 'icon-home',
                 items: [
                     [
@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
                         },
                     ]
                 ],
-            },
+            },*/
             {
                 label: 'Appointments', icon: 'icon-calendar',
                 items: [
@@ -122,6 +122,21 @@ export class HeaderComponent implements OnInit {
             if(userType === 'admin' || userType === 'manager') {
                 this.showMenu = true;
                 this.showSettings = true;
+                var db ={
+                    label: 'Dashboard', icon: 'icon-home',
+                    items: [
+                        [
+                            { label: 'DashBoard',
+                                items: [{label: 'Cashier',icon: 'fa fa-briefcase',routerLink: ['/dashboard/cashier']},
+                                    {label: 'Receptionist',icon: 'fa fa-laptop',routerLink: ['/dashboard/receptionist']},
+                                    {label: 'Nurse',icon: 'fa fa-stethoscope',routerLink: ['/dashboard/nurse']},
+                                    {label: 'Doctor',icon: 'fa fa-user-md',routerLink: ['/dashboard/doctor']}]
+
+                            },
+                        ]
+                    ],
+                };
+                this.items.push(db)
             }
 
             this.requestsService.getRequest(

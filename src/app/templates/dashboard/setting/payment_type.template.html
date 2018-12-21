@@ -182,14 +182,10 @@
                                         </span>
                                     </div>
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
-                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Who Will Pay Credit Card Charge</label>
+                                        <label class="col-md-3 control-label txt-size pdng-lr-5">Patient Paid</label>
                                         <div class="col-md-9 select pdng-lr-5">
                                             <label class="mt-checkbox-outline">
-                                                <mat-checkbox #isPatient="ngModel"
-                                                              name="isPatient"
-                                                              [(ngModel)]="newPaymentType.isPatient"
-                                                              color="primary"></mat-checkbox>
-
+                                                <mat-checkbox #isPatient="ngModel" name="isPatient" [(ngModel)]="newPaymentType.isPatient" color="primary"></mat-checkbox>
                                             </label>
                                             <!--<label class="mt-checkbox-outline" >
                                                 <input class="mt-checkbox mt-checkbox-outline ng-dirty ng-valid ng-touched" formcontrolname="restrictBranch" type="radio"   value="true" checked>
@@ -245,9 +241,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">
-                            Close
-                        </button>
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn default"> Close </button>
                         <button type="button" class="btn blue"
                                 *ngIf="newPaymentType.id == null || newPaymentType.id <= 0"
                                 (click)="savePaymentType(form)">Save

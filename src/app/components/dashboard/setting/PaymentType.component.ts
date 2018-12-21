@@ -213,7 +213,7 @@ export class PaymentTypeComponent implements OnInit {
         this.newPaymentType = new PaymentType();
 
 
-        debugger;
+        
         if(objPaymentType.paymentMode==="Card"){
 
 
@@ -376,7 +376,7 @@ export class PaymentTypeComponent implements OnInit {
                 this.newPaymentType.payCredit="";
 
             }
-            debugger;
+            
             this.newPaymentType.isPatient=this.newPaymentType.isPatient;
             console.log(this.newPaymentType.isPatient);
             if (form.valid) {

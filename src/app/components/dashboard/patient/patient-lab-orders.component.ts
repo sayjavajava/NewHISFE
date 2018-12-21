@@ -10,7 +10,7 @@ import {ConfirmationdialogComponent} from "../confirmationdialog.component";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
 import {LabOrderProjection} from "../../../model/LabOrderProjection";
 import {LabOrderProjectionModel} from "../../../model/LabOrderProjectModel";
-// import {LabOrderModel} from "../../../model/LabOrderModel";
+
 
 
 @Component({
