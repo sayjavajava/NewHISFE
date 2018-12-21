@@ -151,7 +151,7 @@ label{margin-bottom: 0 !important;}
     padding-top: 0 !important;
 }
 
-.width100{width:100%;}
+.width100{width:100% !important;}
 
 .funkycheckbox div {
     clear: both;
@@ -616,7 +616,17 @@ textarea {
 .inr-txt td{
     padding:6px;
     color: #000;
-    font-size: 16px;
+    font-size: 14px;
+}
+.inr-txt td:first-child{
+    width: 40% !important;
+    text-align: left;
+    float: left;
+}
+.inr-txt td:last-child{
+    width: 60%;
+    text-align: left;
+    float: left;
 }
 .popup-hiden{
     position: absolute;
@@ -873,3 +883,4 @@ ul.ui-inputtext{width: 100%;}
 .doctorslist button span{display: none !important;}
 .doctorslist button{background: none !important; color: #007ad9 !important; border: none !important;}
 .hght250{height: 250px !important;}
+.brnch-td{padding-top:20px !important; padding-left:20px !important;}

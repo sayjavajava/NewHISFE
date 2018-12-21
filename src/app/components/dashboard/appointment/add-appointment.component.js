@@ -149,7 +149,7 @@ var AddAppointmentComponent = (function () {
                             '<table width="236px" border="0">\n' + '\n' +
                             '<tr class="" width="236">\n' +
                             '    <td   id="imageDiv" style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="' + apt.profileImgURL + '"></td>\n' +
-                            '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>' + apt.patient + '</h2></td>\n' +
+                            '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>' + apt.appointmentId + '</h2></td>\n' +
                             '</tr>\n' +
                             '  </table>\n' +
                             '            </div>\n' +
@@ -158,37 +158,36 @@ var AddAppointmentComponent = (function () {
                             '                <table width="236px" border="0">\n' +
                             '\n' +
                             '            <tr class="gry-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30px; display: none !important;">Branch</td>\n' +
-                            '                    <td style="width:70px; padding-top: 20px;\n' +
-                            '    padding-left: 40px;">\n' + apt.branchName + '</td>\n' +
+                            '                    <td class="display-none">Patient</td>\n' +
+                            '                    <td class="brnch-td width100">\n' + apt.patient + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30px">Patient</td>\n' +
-                            '                    <td style="width:70px">\n' + apt.patient + '</td>\n' +
+                            '                    <td>Branch</td>\n' +
+                            '                    <td>\n' + apt.branchName + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30px">Schedule Date</td>\n' +
-                            '                    <td style="width:70px">\n' + apt.scheduleDate + '</td>\n' +
+                            '                    <td>Schedule Date</td>\n' +
+                            '                    <td>\n' + apt.scheduleDate + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30px">Doctor</td>\n' +
-                            '                    <td style="width:70px">\n' + apt.docFirstName + '</td>\n' +
+                            '                    <td>Doctor</td>\n' +
+                            '                    <td>\n' + apt.docFirstName + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30px">Service</td>\n' +
-                            '                    <td style="width:70px">\n' + apt.serviceName + '</td>\n' +
+                            '                    <td>Service</td>\n' +
+                            '                    <td>\n' + apt.serviceName + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30px">Duration</td>\n' +
-                            '                    <td style="width:70px">\n' + apt.duration + 'min' + '</td>\n' +
+                            '                    <td>Duration</td>\n' +
+                            '                    <td>\n' + apt.duration + 'min' + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30px">Status</td>\n' +
-                            '                    <td style="width:70px">\n' + apt.status + '</td>\n' +
+                            '                    <td>Status</td>\n' +
+                            '                    <td>\n' + apt.status + '</td>\n' +
                             '                </tr>\n' +
                             '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td style="width:30px">Room</td>\n' +
-                            '                    <td style="width:70px">\n' + apt.examName + '</td>\n' +
+                            '                    <td>Room</td>\n' +
+                            '                    <td>\n' + apt.examName + '</td>\n' +
                             '                </tr>\n' +
                             '            </table>\n' +
                             '                \n' +

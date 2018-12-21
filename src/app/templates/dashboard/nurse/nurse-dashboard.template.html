@@ -6,7 +6,7 @@
                 <div class="col-md-12 col-xs-12">
                     <div class="hr"><h3 class="text-info">Nurse Dashboard</h3></div>
                     <div class="hr padding round-table off-wite-bg">
-                        <div class="col-md-3 no-padding">
+                        <div class="col-md-3 no-padding profile-frm">
                             <h4 class="font-green-meadow">Branch</h4>
                             <select class="form-control" (change)="getFilteredBranch($event.target.value)">
                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
@@ -17,7 +17,7 @@
                             </select>
                         </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-3 no-padding">
+                        <div class="col-md-3 no-padding profile-frm">
                             <h4 class="font-green-meadow">Doctor</h4>
                             <select class="form-control" (change)="getfilteredDoctor($event.target.value)">
                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
@@ -34,23 +34,6 @@
                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Appointment
                                 </button>
                             </a></div>
-                        <div class="col-md-1"></div>
-                       <!-- <div class="col-md-3 no-padding">
-                            <h4 class="font-green-meadow">Statuses</h4>
-                            <select class="form-control" (change)="getfilteredStatus($event.target.value)">
-                                <option value="All">&#45;&#45; All &#45;&#45;</option>
-                                <option value="ARRIVED">Arrived</option>
-                                <option value="CHECK_IN">Checked In</option>
-                                <option value="IN_ROOM">In Room</option>
-                                <option value="IN_SESSION">In Session</option>
-                                <option value="COMPLETE">Complete</option>
-                                <option value="NOT_CONFIRMED">NOT CONFIRMED</option>
-                                <option value="RE_SCHEDULED">RE SCHEDULE</option>
-                                <option value="CANCELLED">CANCELLED</option>
-                                <option value="REGULAR">REGULAR</option>
-
-                            </select>
-                        </div>-->
                     </div>
                 </div>
             </div>

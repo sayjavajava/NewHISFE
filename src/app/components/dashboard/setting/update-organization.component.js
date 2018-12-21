@@ -320,8 +320,12 @@ var UpdateOrganizationComponent = (function () {
                     durationFollowUp: organization.durationFollowUp,
                     dateFormat: organization.dateFormat,
                     timeFormat: organization.timeFormat,
-                    selectedTimeZoneFormat: organization.addInfo.zoneFormat
+                    selectedTimeZoneFormat: organization.addInfo.zoneFormat,
                 });
+                //  this.organization.zoneId=organization.addInfo.zoneId;
+                //     let pair: any = {label:organization.addInfo.zoneFormat,value: organization.addInfo.zoneId};
+                // this.selectedTimeZoneFormat.values=organization.addInfo.zoneId;
+                //      this.selectedTimeZoneFormat.push(pair);
             }, function (error) {
                 _this.error = error.error.error_description;
             });

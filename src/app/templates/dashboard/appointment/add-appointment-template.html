@@ -1,8 +1,9 @@
-
 <style type="text/css">
     .checkbox-sm .form-control {
-        height: 18px !important}
-    .bc-bg{
+        height: 18px !important
+    }
+
+    .bc-bg {
         background-color: red;
         color: green;
     }
@@ -192,7 +193,8 @@
                                                                     </div>-->
                                                                     <angular2-date-picker
                                                                             style="margin-left: 0px !important; background-color: red !important"
-                                                                            class="schdld-clndr" [(ngModel)]="modalData?.event.start"
+                                                                            class="schdld-clndr"
+                                                                            [(ngModel)]="modalData?.event.start"
                                                                             [ngModelOptions]="{standalone:true}"
                                                                             [settings]="settings"></angular2-date-picker>
                                                                 </div>
@@ -471,7 +473,8 @@
                                                                 around this date.</p>
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr">
-                                                                    <label class="control-label col-md-3 no-padding">Follow Up
+                                                                    <label class="control-label col-md-3 no-padding">Follow
+                                                                        Up
                                                                         Date</label>
                                                                     <div class="col-md-9">
                                                                         <!--    <mwl-demo-utils-date-time-picker
@@ -697,9 +700,9 @@
                             Month
                         </div>
                         <div
-                                  class="btn btn-primary"
-                                 (click)="view = 'week'"
-                                 [class.active]="view === 'week'">
+                                class="btn btn-primary"
+                                (click)="view = 'week'"
+                                [class.active]="view === 'week'">
                             Week
                         </div>
                         <div
@@ -736,7 +739,7 @@
                     *ngSwitchCase="'day'"
                     [viewDate]="viewDate"
                     [events]="events"
-                    [hourSegments]="5"
+                    [hourSegments]="2"
                     [refresh]="refresh"
                     (mouseoverr)="moveMouse('mouse moved',$event)"
                     (eventClicked)="handleEvent('Clicked', $event.event)"
@@ -791,7 +794,7 @@
                                                         <input type="checkbox" name="newPatient"
                                                                (change)="createNewPatient()"
                                                                [(ngModel)]="stateOfPatientBox"
-                                                                      [ngModelOptions]="{standalone:true}">New Patient
+                                                               [ngModelOptions]="{standalone:true}">New Patient
                                                     </div>
                                                     <div class="text-danger" *ngIf="maxNo">
                                                         <p> Please Choose Regular OR Walk-IN</p>
@@ -857,9 +860,11 @@
 
                                                                         </option>
                                                                     </select>-->
-                                                                   <!-- [required]="newPatientValidaor" [disabled]="newPatientValidaor"-->
+                                                                    <!-- [required]="newPatientValidaor" [disabled]="newPatientValidaor"-->
                                                                     <p-dropdown placeholder="Select Patient"
-                                                                                [autoWidth]="false" [disabled]="patientDisable" [required]="newPatientValidaor"
+                                                                                [autoWidth]="false"
+                                                                                [disabled]="patientDisable"
+                                                                                [required]="newPatientValidaor"
                                                                                 [(ngModel)]="event.patientId"
                                                                                 name="patientDrp"
                                                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
@@ -886,7 +891,8 @@
                                                         <div class="form-group hr mrgn-btm08">
                                                             <label class="col-md-3 control-label">Reason:</label>
                                                             <div class="col-md-9 col-xs-12">
-                                                        <textarea placeholder="malaria" name="reason" style="height: 66px !important;"
+                                                        <textarea placeholder="malaria" name="reason"
+                                                                  style="height: 66px !important;"
                                                                   rows="3"
                                                                   class="form-control"
                                                                   [(ngModel)]="event.reason"
@@ -922,7 +928,7 @@
                                                         <div class="form-group hr mrgn-btm08">
                                                             <label class="col-md-3 control-label">Notes:</label>
                                                             <div class="col-md-9 col-xs-12">
-                                                               <textarea placeholder="note"  style="height: 66px !important;
+                                                               <textarea placeholder="note" style="height: 66px !important;
     margin-bottom: 13px;"
                                                                          rows="3" name="name"
                                                                          [ngModelOptions]="{standalone:true}"
@@ -966,22 +972,21 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group hr mrgn-btm08">
-                                                            <label class="control-label col-md-4">Room <span
-                                                                    class="required"
-                                                                    aria-required="true"> * </span></label>
+                                                            <label class="control-label col-md-4">Room
+                                                            </label>
                                                             <div class="col-md-8 profile-frm">
-                                                                <select class="form-control" name="roomDrp" required
-                                                                        #roomDrp="ngModel"
+                                                                <select class="form-control" name="roomDrp"
+
                                                                         [(ngModel)]="event.roomId">
                                                                     <option *ngFor="let item of examRooms;"
                                                                             value={{item.id}} (keyup)="refresh.next()">
                                                                         {{item.roomName}}
                                                                     </option>
                                                                 </select>
-                                                              <!--  <span *ngIf="roomDrp.invalid && roomDrp.touched"
-                                                                      class="col-md-9 select pdng-lr-5 text-danger">
-                                                               Select Room
-                                                                  </span>-->
+                                                                <!--  <span *ngIf="roomDrp.invalid && roomDrp.touched"
+                                                                        class="col-md-9 select pdng-lr-5 text-danger">
+                                                                 Select Room
+                                                                    </span>-->
 
 
                                                             </div>
@@ -1121,7 +1126,9 @@
                                                                (keyup)="refresh.next()"> Recurring Appointment
                                                         <span></span>
                                                     </label>
-                                                    <div *ngIf="isRecurringFlag" class="hr off-wite-bg round-table checkbox-sm" style="padding: 10px">
+                                                    <div *ngIf="isRecurringFlag"
+                                                         class="hr off-wite-bg round-table checkbox-sm"
+                                                         style="padding: 10px">
 
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-2 col-xs-12"> Working
@@ -1132,7 +1139,8 @@
                                                                 <div *ngFor="let item of recurringDays" class="">
 
                                                                     <div class=" col-md-1 col-width14 col-xs-3">
-                                                                        <input class="checkbox-sm" type="checkbox" name="working"
+                                                                        <input class="checkbox-sm" type="checkbox"
+                                                                               name="working"
                                                                                class="form-control spinner"
                                                                                value="{{item.id}}"
                                                                                (change)="selectRecurringDays($event,item)">
@@ -1198,9 +1206,6 @@
                                                                                 [settings]="settings"></angular2-date-picker>
 
 
-
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1215,11 +1220,13 @@
                                                         <span></span>
                                                     </label>
                                                     <div class="hr off-wite-bg round-table" style="padding: 10px;">
-                                                        <p class="padding-b-10">Patient will be reminded to make a follow up appointment
+                                                        <p class="padding-b-10">Patient will be reminded to make a
+                                                            follow up appointment
                                                             around this date.</p>
                                                         <div class="col-md-6">
                                                             <div class="form-group hr">
-                                                                <label class="control-label col-md-3 no-padding">Follow Up Date</label>
+                                                                <label class="control-label col-md-3 no-padding">Follow
+                                                                    Up Date</label>
                                                                 <!--<div class="col-md-8">
                                                                     <mwl-demo-utils-date-time-picker
                                                                             [ngModelOptions]="{standalone:true}"
@@ -1270,6 +1277,44 @@
                                                   </span>
                                                           </div>-->
 
+                                                    </div>
+
+                                                    <div class="hr off-wite-bg round-table" style="padding: 10px;">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group hr mrgn-btm08">
+                                                                <label class="control-label col-md-3">Email
+                                                                </label>
+                                                                <div class="col-md-9 profile-frm">
+                                                                    <p-dropdown placeholder="Select Email"
+                                                                                [autoWidth]="false"
+                                                                                name="patientEditDrp"
+                                                                                [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                                [options]=""
+                                                                                [panelStyle]="{minWidth:'12em'}"
+                                                                                [filter]="true">
+                                                                    </p-dropdown>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group hr mrgn-btm08">
+                                                                <div class="col-md-6 profile-frm">
+                                                                    <input type="text"
+                                                                           data-required="1"
+                                                                           [(ngModel)]="event.followUpReason"
+                                                                           (ngModelChange)="refresh.next()"
+                                                                           [ngModelOptions]="{standalone:true}"
+                                                                           name="followReason"
+                                                                           value="" class="form-control">
+                                                                </div>
+                                                                <label class="control-label col-md-6">Before
+                                                                </label>
+                                                            </div>
+
+
+                                                        </div>
                                                     </div>
 
                                                 </div>

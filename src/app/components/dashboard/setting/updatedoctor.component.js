@@ -58,6 +58,7 @@ var UpdatedoctorComponent = (function () {
         this.listOfServices = [];
         this.showComissioninput = false;
         this.comissionBtn = 'Show';
+        this.dept_In_Branch = false;
         this.date = new forms_1.FormControl(new Date());
         this.allBranches();
         this.allDoctors();
@@ -144,6 +145,11 @@ var UpdatedoctorComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                 _this.departmentList = response['responseData'];
+                _this.dept_In_Branch = false;
+            }
+            if (response['responseCode'] === 'CLI_DPT_ERR_03') {
+                _this.departmentList.length = 0;
+                _this.dept_In_Branch = true;
             }
         }, function (error) {
             _this.error = error.error.error;
