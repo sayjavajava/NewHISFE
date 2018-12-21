@@ -81,11 +81,12 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     listOfServices :any=[];
     showComissioninput :boolean =false;
     comissionBtn:any = 'Show';
+    dept_In_Branch :boolean = false;
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService
                 ,private fb: FormBuilder, private notificationService: NotificationService
-        , private amazingTimePickerService?: AmazingTimePickerService) {
-           this.allBranches();
-           this.allDoctors();
+                ,private amazingTimePickerService?: AmazingTimePickerService) {
+                this.allBranches();
+                this.allDoctors();
     }
 
     date = new FormControl(new Date());
@@ -173,7 +174,13 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 (response: Response) => {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                         this.departmentList = response['responseData'];
+                        this.dept_In_Branch =false;
                     }
+                    if (response['responseCode'] === 'CLI_DPT_ERR_03') {
+                        this.departmentList.length = 0;
+                        this.dept_In_Branch = true;
+                    }
+
                 },
                 (error: any) => {
                     this.error = error.error.error;
@@ -442,12 +449,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     checkAvailabilty(value: string, array: string[]) {
         return array.indexOf(value) > -1;
     }
-
-
     setPreset() {
         this.workingDaysContorl.patchValue(['LA', 'MTV']);
     }
-
     addUser(data: any) {
         let days = this.userForm.get('workingDaysContorl');
         let daysOfDoctor: { key: string, value: boolean }[] = []
