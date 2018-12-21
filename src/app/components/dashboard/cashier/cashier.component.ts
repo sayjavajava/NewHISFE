@@ -22,7 +22,7 @@ export class CashierComponent implements OnInit {
 
   public getAllInvoicesList()
   {
-      this.requestsService.getRequest(AppConstants.GET_All_INVOICES)
+      this.requestsService.getRequest(AppConstants.GET_All_PENDING_INVOICES)
       .subscribe((res :any) =>{
           this.invoiceList = res['responseData'];
           console.log("get All Invoice_Items Data : " + this.invoiceList );

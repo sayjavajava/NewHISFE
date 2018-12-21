@@ -21,6 +21,7 @@ export  class  AccountConfigModel{
     costOfSale: any = -1;
 //EXPENSE
     generalExpense: any = -1;
+    doctorExpense: any = -1;
 
     constructor() {
     }

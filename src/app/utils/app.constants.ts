@@ -45,6 +45,7 @@ export class AppConstants {
 
     ////////////////////// Cashier Desk ///////////////////////////////
     public static GET_All_INVOICES = '/cashier/getAllInvoices';
+    public static GET_All_PENDING_INVOICES = '/cashier/getPendingInvoices';
     public static FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';
     public static SAVE_PAYMENT = '/cashier/savePayment';
 
@@ -312,7 +313,7 @@ export class AppConstants {
     public static SAVE_DOCTOR_PAYMENT = '/doctorPayment/save';
     public static GET_DOCTOR_PAYMENT_List = '/doctorPayment/getPaymentList';
 
-    public static GET_DOCTOR_List = '/doctorPayment/role';
+    public static GET_DOCTOR_List = '/doctorPayment//doctorsWithCommission';
 
     ////////////////Country/////////////////////////////
     public static GET_ALL_COUNTRY = '/CountryAPI/';
@@ -361,13 +362,14 @@ export class AppConstants {
     public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
     public static FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
     public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get?orderId=';
-
+    public static PATIENT_IMAGES_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/getImagesOrderId/';
     /*****************************REPORT PRINT*************************************/
     public static PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';
     public static PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
     public static PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
     public static PRINT_PATIENT_INVOICE_DETAILS = '/reportPrint/patientInvoice';
     public static FETCH_VITALS_CONFIGURATIONS_ID = '/PatientVital/get/';
+  //  public static PATIENT_IMAGE_FILES_URL = '/patient/get/'
 }
 
 

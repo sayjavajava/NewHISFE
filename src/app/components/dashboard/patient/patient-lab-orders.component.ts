@@ -37,6 +37,7 @@ export class PatientLabOrdersComponent implements OnInit {
     filteredLabTest :any[] =[];
     ListofAppointment:any[]=[];
     LabOrderProjectionModelList:LabOrderProjectionModel[]=[]
+    // LabOrderModelList:LabOrderModel[]=[];
     patient:Patient =new Patient();
     cols: any[];
     labTestFiltered:any[]=[];

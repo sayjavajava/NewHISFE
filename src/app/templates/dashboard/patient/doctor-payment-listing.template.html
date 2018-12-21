@@ -22,6 +22,13 @@
                 <div class="col-md-12">
                     <div class="table-scrollable tbl-brdr-radus">
                         <p-table #dt [columns]="cols" [value]="paymentList" [paginator]="true" [rows]="10">
+                            <ng-template pTemplate="caption">
+                                <div style="text-align: right">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search here..."
+                                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
                             <ng-template sortable="true" pTemplate="header" let-columns>
                                 <tr>
                                     <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
@@ -31,11 +38,11 @@
                                         </p-sortIcon>
                                     </th>
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
                                         <input  pInputText type="text"  style="width: 100%" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                     </th>
-                                </tr>
+                                </tr>-->
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-paymentList let-sNo="rowIndex">
                                 <tr>
@@ -62,7 +69,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Add Payment</h4>
+                                <h4 class="modal-title">Add Doctor Payment</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
@@ -91,7 +98,7 @@
                                         </div>
 
                                         <div class="form-group hr">
-                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Current Balance <span class="required" aria-required="true"> * </span></label>
+                                            <label class="col-md-3 control-label txt-size pdng-lr-5">Current Balance<span class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-9 select pdng-lr-5 profile-frm">
                                                 <input class="form-control text-align-right"
                                                        type="text"
@@ -136,18 +143,15 @@
                                         <div class="form-group hr">
                                             <label class="col-md-3 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                                <input class="form-control text-align-right"
-                                                       type="text"
-                                                       name="amount"
-                                                       placeholder="enter advance amount"
-                                                       required
-                                                       [(ngModel)]="doctorPayment.amount"
-                                                       #amount="ngModel"/>
-                                                <!--required pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
+                                                <input class="form-control text-align-right" type="number"
+                                                       name="amount" id="amount" placeholder="Enter amount"
+                                                       required [(ngModel)]="doctorPayment.amount" min="0" max="{{selectedDoctorBalance}}"
+                                                       #amount="ngModel" (blur)="checkAmountEntered($event.target.value)" />
+                                                <!-- required pattern="^[a-zA-Z 0-9_-]{1,60}$" -->
                                             </div>
-                                            <span *ngIf="amount.invalid && amount.touched" class="col-md-9 select pdng-lr-5 text-danger">
+                                            <!--<span *ngIf="amount.invalid && amount.touched" class="col-md-9 select pdng-lr-5 text-danger">
                                                 Please enter valid amount.
-                                            </span>
+                                            </span>-->
                                         </div>
                                     </div>
                                 </div>

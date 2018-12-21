@@ -11,11 +11,12 @@ export class PaymentType {
     maxCardCharges: number;
     payCredit:string='';
     bankGlCharges:GeneralLedgerModel = new GeneralLedgerModel();
-    isPatient: boolean=true;
-    patient:boolean=false;
+    isPatient: boolean;
+    patient:boolean;
     patientRefunds:any[];
     staffPayment:any[];
     ReceiptPaymentType:any[];
+    hasChild:boolean;
     constructor() {
 
     }

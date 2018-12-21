@@ -51,19 +51,19 @@
                         <ng-template pTemplate="body" let-rowData let-paymentlst>
                             <tr>
                                 <td field="paymentTitle"> {{paymentlst.paymentTitle}} </td>
-                                <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount.name}} </td>
+                                <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount==null?"":paymentlst.paymentGlAccount.name}} </td>
                                 <td field="serviceCharges" > {{ paymentlst.serviceCharges}} </td>
                                 <td field="maxCardCharges"> {{paymentlst.maxCardCharges}} </td>
-                                <td field="active"><span class="font-blue"> {{paymentlst.active?"Active":"Inactive"}} </span></td>
+                                <td field="active"><span class=""> {{paymentlst.active?"Active":"Inactive"}} </span></td>
                                 <td>
                                     <a href="#responsive" data-toggle="modal">
-                                        <button class="btn btn-default btn-outline btn-sm"
+                                        <button class="font-blue"
                                                 (click)="onUpdatePopupLoad(paymentlst)"><i class="fa fa-pencil"></i>
 
                                         </button>
                                     </a>
-                                    <span>
-                                        <button class="btn btn-default btn-outline btn-sm"
+                                    <span [hidden]="paymentlst.hasChild">
+                                        <button class="text-danger"
                                                 (click)="deletePaymentType(paymentlst.id)">
                                             <i class="fa fa-remove"></i>
                                         </button>

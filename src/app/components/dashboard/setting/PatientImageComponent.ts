@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {VitalSetupModel} from "../../../model/VitalSetupModel";
 import {PatientImageModel} from "../../../model/PatientImageModel";
+import {ModalDirective} from "ngx-bootstrap";
 
 @Component({
     selector: 'patient-image.template',
@@ -30,7 +31,7 @@ export class PatientImageComponent {
         document.title = 'HIS | Patient Image Process Template';
         if (localStorage.getItem(btoa('access_token'))) {
             this. getPatientImageSetupList();
-        };
+        }
         this.cols = [
             {field: 'code', header: 'Code'},
             {field: 'name', header: 'Name'},
@@ -145,7 +146,7 @@ export class PatientImageComponent {
                         (response: Response) => {
                             if (response['responseCode'] === 'SUCCESS') {
                                 this.notificationService.success(response['responseMessage'], 'Patient Image Update');
-                                this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                                this.HISUtilService.hidePopupWithCloseButtonId('stClose');
                                 this.getPatientImageSetupList();
 
                             } else {
@@ -165,5 +166,7 @@ export class PatientImageComponent {
             }
         }else {
             this.router.navigate(['/login']);
-        }}
+        }
+        // this.patImgSetupModal.hide();
+    }
 }

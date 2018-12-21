@@ -18,6 +18,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var patient_1 = require("../../../model/patient");
 var his_util_service_1 = require("../../../services/his-util.service");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
+// import {LabOrderModel} from "../../../model/LabOrderModel";
 var PatientLabOrdersComponent = (function () {
     function PatientLabOrdersComponent(router, route, fb, requestService, notificationService, hISUtilService, confirmationDialogService) {
         this.router = router;
@@ -34,6 +35,7 @@ var PatientLabOrdersComponent = (function () {
         this.filteredLabTest = [];
         this.ListofAppointment = [];
         this.LabOrderProjectionModelList = [];
+        // LabOrderModelList:LabOrderModel[]=[];
         this.patient = new patient_1.Patient();
         this.labTestFiltered = [];
     }

@@ -19,6 +19,8 @@ import {DatePicker} from "angular2-datetimepicker";
 export class EditPatientComponent implements OnInit {
     patient: Patient = new Patient();
     showProfilePicUploadBtn = false;
+    showFrontPicUploadBtn = false;
+    showBackPicUploadBtn = false;
     imageModel: ImageModel = new ImageModel();
     selectedPatientId: any;
     doctors: any = [];
@@ -262,14 +264,15 @@ export class EditPatientComponent implements OnInit {
         if (fileList != null && fileList.length > 0) {
             if (event.target.name === "profileImgURL") {
                 this.profileImg = fileList[0];
+                this.showProfilePicUploadBtn = true;
             } else if (event.target.name === "photoFrontURL") {
                 this.photoFront = fileList[0];
+                this.showFrontPicUploadBtn = true;
             } else if (event.target.name === "photoBackURL") {
                 this.photoBack = fileList[0];
+                this.showBackPicUploadBtn = true;
             }
         }
-
-        this.showProfilePicUploadBtn = true;
     }
 
     uploadProfileImg() {
@@ -286,9 +289,11 @@ export class EditPatientComponent implements OnInit {
                             this.profileImg = null;
                             this.show = false;
                             this.populatePatient();
+                            this.showProfilePicUploadBtn = false;
                         }else{
                             this.show = false;
                             this.notificationService.error('Profile Image uploading failed', 'Update Patient');
+                            this.showProfilePicUploadBtn = false;
                         }
                     },
                     (error: any) => {
@@ -315,9 +320,11 @@ export class EditPatientComponent implements OnInit {
                             this.photoFront = null;
                             this.show = false;
                             this.populatePatient();
+                            this.showFrontPicUploadBtn = false;
                         } else {
                             this.show = false;
                             this.notificationService.error(response['responseMessage'], 'Update Patient');
+                            this.showFrontPicUploadBtn = false;
                         }
                     },
                     (error: any) => {
@@ -344,8 +351,10 @@ export class EditPatientComponent implements OnInit {
                             this.file = null;
                             this.populatePatient();
                             this.show = false;
+                            this.showBackPicUploadBtn = false;
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Update Patient');
+                            this.showBackPicUploadBtn = false;
                         }
                     },
                     (error: any) => {

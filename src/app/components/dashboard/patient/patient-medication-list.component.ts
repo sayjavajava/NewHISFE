@@ -42,20 +42,20 @@ export class PatientMedicationListComponent implements OnInit {
     text: any = '';
     drugs: DrugModel[] = [];
     searchedDrugNames: any[] = [];
-    strengthLst:any;
-    statusType:any;
-    orderStatusList:any;
+    strengthLst: any;
+    statusType: any;
+    orderStatusList: any;
     date: Date = new Date();
     dateStarted: Date = new Date();
     dateEnded: Date = new Date();
-    durationList :any;
-    DateStr : string;
+    durationList: any;
+    DateStr: string;
     drug: DrugModel = new DrugModel();
-    routeDrug:string;
-    searchedDrugNamesLst:any =[];
+    routeDrug: string;
+    searchedDrugNamesLst: any = [];
     searchedDrugStrengths: DrugModel = new DrugModel();
     DrugStrengths: any[];
-    cols:any=[];
+    cols: any = [];
     selectedstrength: StrengthModel[];
     StrengthListModified: SelectItem[] = [];
     isUpdateAppoint: boolean = false;
@@ -64,47 +64,51 @@ export class PatientMedicationListComponent implements OnInit {
     searchedDrugStrengthsAny: any[];
     searchedDrugStrengthsAnyListModified: SelectItem[] = [];
     selectedstr: SelectItem[] = [];
-    constructor(private notificationService: NotificationService,private route:ActivatedRoute,
+    searchedDrugNamesLstNew: SelectItem[] = [];
+    data: DrugModel [] = [];
+    selectedDrug: SelectItem[] = [];
+    drugList:any[]=[];
+    constructor(private notificationService: NotificationService, private route: ActivatedRoute,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
-                private dataService: DataService,public datepipe: DatePipe) {
+                private dataService: DataService, public datepipe: DatePipe) {
 
-       /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
-            this.selectedPatientId = id;
-        });*/
+        /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
+             this.selectedPatientId = id;
+         });*/
         this.route.params.subscribe(params => {
             this.selectedPatientId = params['id'];
 
         });
         this.getPaginatedMedicationFromServer(0);
         this.appointmentsByPatientFromServer(this.selectedPatientId);
-        DatePicker.prototype.ngOnInit = function() {
+        DatePicker.prototype.ngOnInit = function () {
             this.settings = Object.assign(this.defaultSettings, this.settings);
             if (this.settings.defaultOpen) {
                 this.popover = true;
             }
-            this.settings.timePicker =true;
+            this.settings.timePicker = true;
             this.date = new Date();
         };
     }
 
     ngOnInit(): void {
         this.statusType = [
-            {label: 'ACTIVE',value:'ACTIVE'},
-            {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
+            {label: 'ACTIVE', value: 'ACTIVE'},
+            {label: 'IN-ACTIVE', value: 'IN-ACTIVE'},
         ];
         this.orderStatusList = [
-            {label: 'administered during visit',value:'administered during visit'},
-            {label: 'Electronic eRx Sent',value:'Electronic eRx Sent'},
-            {label: 'Phoned into Pharmacy"',value:'Phoned into Pharmacy"'},
-            {label: 'Faxed to Pharmacy',value:'Faxed to Pharmacy'},
-            {label: 'Paper Rx',value:'Paper Rx'},
-            {label: 'Prescription Printed',value:'Prescription Printed'},
-            {label: 'Discontinued',value:'Discontinued'},
-            {label: 'Prescribed by other Dr',value:'Prescribed by other Dr'},
-            {label: 'Over the Counter',value:'Over the Counter'},
+            {label: 'administered during visit', value: 'administered during visit'},
+            {label: 'Electronic eRx Sent', value: 'Electronic eRx Sent'},
+            {label: 'Phoned into Pharmacy"', value: 'Phoned into Pharmacy"'},
+            {label: 'Faxed to Pharmacy', value: 'Faxed to Pharmacy'},
+            {label: 'Paper Rx', value: 'Paper Rx'},
+            {label: 'Prescription Printed', value: 'Prescription Printed'},
+            {label: 'Discontinued', value: 'Discontinued'},
+            {label: 'Prescribed by other Dr', value: 'Prescribed by other Dr'},
+            {label: 'Over the Counter', value: 'Over the Counter'},
         ];
 
 
@@ -125,17 +129,16 @@ export class PatientMedicationListComponent implements OnInit {
         <th> Start Date</th>
         <th>Action</th>*/
         this.cols = [
-            { field: 'appointmentDate', header: 'Appointment Date/Time' },
-            { field: 'drugName', header: 'Medication' },
-            { field: 'strengths', header: 'Strengths' },
-            { field: 'frequency', header: 'Frequency' },
-            { field: 'duration', header: 'Duration' },
-            { field: 'pharmacyNote', header: 'SIG' },
-            { field: 'datePrescribedString', header: 'Start Date' },
-            { field: 'status', header: 'Action' },
+            {field: 'appointmentDate', header: 'Appointment Date/Time'},
+            {field: 'drugName', header: 'Medication'},
+            {field: 'strengths', header: 'Strengths'},
+            {field: 'frequency', header: 'Frequency'},
+            {field: 'duration', header: 'Duration'},
+            {field: 'pharmacyNote', header: 'SIG'},
+            {field: 'datePrescribedString', header: 'Start Date'},
+            {field: 'status', header: 'Action'},
         ];
     }
-
 
 
     appointmentsByPatientFromServer(selectedPatientId: number) {
@@ -152,7 +155,7 @@ export class PatientMedicationListComponent implements OnInit {
                         this.pastAppointments = response['responseData'].pastAppointments;
 
                     } else {
-                        this.notificationService.error(response['responseMessage'], 'Patient');
+                        //       this.notificationService.error(response['responseMessage'], 'Patient');
                     }
                 },
                 (error: any) => {
@@ -167,10 +170,36 @@ export class PatientMedicationListComponent implements OnInit {
     addMedication() {
 
         this.isUpdate = false;
-        this.isUpdateAppoint=false;
+        this.isUpdateAppoint = false;
         this.medicationModel = new MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
+
         this.getAllDrugsFromServer()
+    }
+
+    getAllDrugsFromServer() {
+        this.requestsService.getRequest(AppConstants.DRUG_FETCH_ALL_PAGINATED_URI + "all")
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'DRUG_SUC_10') {
+                        this.data = response['responseData']['data'];
+                        this.drugList=response['responseData']['data'];
+                        this.searchedDrugNamesLstNew=[];
+                        if (this.data.length > 0) {
+                            for (let drug of this.data) {
+                                let pair: any = {label: drug.drugName, value: drug.id};
+                                this.searchedDrugNamesLstNew.push(pair);
+
+                            }
+                        }
+
+                    }
+                },
+                (error: any) => {
+                    //console.log(error.json())
+                    this.notificationService.error(error.error.error);
+                }
+            );
     }
 
 
@@ -183,7 +212,7 @@ export class PatientMedicationListComponent implements OnInit {
                         this.routeDrug = response['responseData'];
                         //   let drug = new DrugModel();
                         console.log(this.routeDrug);
-                        this.medicationModel.route =this.routeDrug;
+                        this.medicationModel.route = this.routeDrug;
                         //    this.medicationModel.strengths=this.routeDrug.strengths;
 
 
@@ -197,7 +226,7 @@ export class PatientMedicationListComponent implements OnInit {
             }
     }
 
-    openUrl(val :string){
+    openUrl(val: string) {
 
         let url: string = '';
         if (!/^http[s]?:\/\//.test(val)) {
@@ -216,28 +245,28 @@ export class PatientMedicationListComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'DRUG_SUC_10') {
                         this.searchedDrugStrengths = response['responseData'];
-                        this.searchedDrugStrengthsAny=this.searchedDrugStrengths.strengths;
-
+                        this.searchedDrugStrengthsAnyListModified=[];
+                        if (this.searchedDrugStrengths !== null) {
+                            this.searchedDrugStrengthsAny = this.searchedDrugStrengths.strengths;
+                        }
                         for (let strenths of this.searchedDrugStrengthsAny) {
                             let pair: any = {label: strenths, value: strenths};
                             this.searchedDrugStrengthsAnyListModified.push(pair);
 
                         }
 
-                        this.selectedstr=this.searchedDrugStrengthsAnyListModified[0].value;
+                        this.selectedstr = this.searchedDrugStrengthsAnyListModified[0].value;
 
 
-
-                        this.strengthLst=this.searchedDrugStrengths.strengths;
-                        this.medicationModel.strengths=this.searchedDrugStrengths.strengths[0];
-                        this.medicationModel.strengths=this.searchedDrugStrengths.strengths;
+                        this.strengthLst = this.searchedDrugStrengths.strengths;
+                        this.medicationModel.strengths = this.searchedDrugStrengths.strengths[0];
+                        this.medicationModel.strengths = this.searchedDrugStrengths.strengths;
 
                         console.log(this.medicationModel.strengths);
 
 
-
                     } else {
-                        this.notificationService.error(response['responseMessage']);
+                        //          this.notificationService.error(response['responseMessage']);
                     }
                 }
             ),
@@ -249,7 +278,7 @@ export class PatientMedicationListComponent implements OnInit {
 
     saveMedication(mdForm: NgForm) {
 
-        this.medicationModel.drugName=this.text;
+        this.medicationModel.drugName = this.text;
         if (this.selectedPatientId <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;
@@ -282,10 +311,10 @@ export class PatientMedicationListComponent implements OnInit {
             document.getElementById('dateStoppedTakingId').focus();
             return;
         }
-        this.medicationModel.datePrescribedDate=new Date(this.medicationModel.datePrescribedDate);
-        this.medicationModel.dateStartedTakingDate=new Date(this.medicationModel.dateStartedTakingDate);
-        this.medicationModel.dateStoppedTakingDate=new Date(this.medicationModel.dateStoppedTakingDate);
-        this.medicationModel.strengths=this.selectedstr;
+        this.medicationModel.datePrescribedDate = new Date(this.medicationModel.datePrescribedDate);
+        this.medicationModel.dateStartedTakingDate = new Date(this.medicationModel.dateStartedTakingDate);
+        this.medicationModel.dateStoppedTakingDate = new Date(this.medicationModel.dateStoppedTakingDate);
+        this.medicationModel.strengths = this.selectedstr;
 
 
         if (localStorage.getItem(btoa('access_token'))) {
@@ -318,8 +347,6 @@ export class PatientMedicationListComponent implements OnInit {
     }
 
 
-
-
     getPaginatedMedicationFromServer(page: number) {
         this.requestsService.getRequest(
             AppConstants.MEDICATION_PAGINATED_URL + page + '?selectedPatientId=' + this.selectedPatientId)
@@ -334,7 +361,7 @@ export class PatientMedicationListComponent implements OnInit {
                         console.log(this.medicationData);
 
                     } else {
-                        this.notificationService.error(response['responseMessage'])
+                        //      this.notificationService.error(response['responseMessage'])
                     }
                 },
                 (error: any) => {
@@ -373,7 +400,7 @@ export class PatientMedicationListComponent implements OnInit {
 
     editMedication(medicationId: number) {
         this.isUpdate = true;
-        this.isUpdateAppoint=false;
+        this.isUpdateAppoint = false;
         this.medicationModel = new MedicationModel();
         this.getAllDrugsFromServer();
         if (medicationId > 0) {
@@ -384,17 +411,18 @@ export class PatientMedicationListComponent implements OnInit {
                             if (response['responseCode'] === 'MEDICATION_SUC_34') {
                                 this.medicationModel = response['responseData'];
 
-                                this.text=this.medicationModel.drugName;
-                                this.medicationModel.datePrescribedDate=new Date(this.medicationModel.datePrescribedString);
-                                this.medicationModel.dateStartedTakingDate=new Date(this.medicationModel.dateStartedTakingString);
-                                this.medicationModel.dateStoppedTakingDate=new Date(this.medicationModel.dateStoppedTakingString);
-                                this.medicationModel.status=this.medicationModel.status;
-
-                                this.isUpdateAppoint=true;
+                                this.text = this.medicationModel.drugName;
+                                this.medicationModel.datePrescribedDate = new Date(this.medicationModel.datePrescribedString);
+                                this.medicationModel.dateStartedTakingDate = new Date(this.medicationModel.dateStartedTakingString);
+                                this.medicationModel.dateStoppedTakingDate = new Date(this.medicationModel.dateStoppedTakingString);
+                                this.medicationModel.status = this.medicationModel.status;
                                 this.selectedstr=this.medicationModel.strengths;
+
+                                this.isUpdateAppoint = true;
+                                this.selectedstr = this.medicationModel.strengths;
                                 this.appointmentsByPatientFromServer(this.medicationModel.patientId);
                             } else {
-                                this.notificationService.error(response['responseMessage'], 'Medication');
+                                //                this.notificationService.error(response['responseMessage'], 'Medication');
                             }
                         },
                         (error: any) => {
@@ -409,7 +437,7 @@ export class PatientMedicationListComponent implements OnInit {
     }
 
     updateMedication(mdForm: NgForm) {
-        this.medicationModel.drugName=this.text;
+        this.medicationModel.drugName = this.text;
         if (this.selectedPatientId <= 0) {
             this.notificationService.warn('Please select patient from dashboard again ');
             return;
@@ -442,11 +470,13 @@ export class PatientMedicationListComponent implements OnInit {
             document.getElementById('dateStoppedTakingId').focus();
             return;
         }
-        this.medicationModel.datePrescribedDate=new Date(this.medicationModel.datePrescribedDate);
-        this.medicationModel.dateStartedTakingDate=new Date(this.medicationModel.dateStartedTakingDate);
-        this.medicationModel.dateStoppedTakingDate=new Date(this.medicationModel.dateStoppedTakingDate);
+        this.medicationModel.datePrescribedDate = new Date(this.medicationModel.datePrescribedDate);
+        this.medicationModel.dateStartedTakingDate = new Date(this.medicationModel.dateStartedTakingDate);
+        this.medicationModel.dateStoppedTakingDate = new Date(this.medicationModel.dateStoppedTakingDate);
 
-
+        if(this.medicationModel.strengths.length>0){
+            this.medicationModel.strengths=null;
+        }
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.putRequest(AppConstants.MEDICATION_UPDATE_URL, this.medicationModel)
                 .subscribe(
@@ -456,7 +486,7 @@ export class PatientMedicationListComponent implements OnInit {
                             this.getPaginatedMedicationFromServer(0);
                             this.closeBtnMedication.nativeElement.click();
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Medication');
+                            //           this.notificationService.error(response['responseMessage'], 'Medication');
                             this.getPaginatedMedicationFromServer(0);
                         }
                     },
@@ -468,7 +498,7 @@ export class PatientMedicationListComponent implements OnInit {
         }
     }
 
-    private  getPaginatedDataFromServer(page: number) {
+    private getPaginatedDataFromServer(page: number) {
         this.requestsService.getRequest(
             AppConstants.PAGINATED_URL + page)
             .subscribe(
@@ -480,7 +510,7 @@ export class PatientMedicationListComponent implements OnInit {
                         this.pages = response['responseData']['pages'];
                         this.medicationData = response['responseData']['data'];
 
-                        console.log("All"+this.medicationData);
+                        console.log("All" + this.medicationData);
                     }
                 },
                 (error: any) => {
@@ -489,13 +519,16 @@ export class PatientMedicationListComponent implements OnInit {
             );
     }
 
-    isEmpty(val:string){
+    isEmpty(val: string) {
         return (val === undefined || val == null || val.length <= 0) ? true : false;
     }
 
     search(event: any) {
 
-        if(this.isEmpty(this.text)==false){
+        if(event>0){
+        let listOfDrug=this.drugList.filter((listing: any) => listing.id === event);
+        this.text=listOfDrug[0].drugName;
+        if (this.isEmpty(this.text) == false) {
             this.getRouteDrug(this.text);
             this.getStrengthsDrug(this.text);
         }
@@ -508,21 +541,23 @@ export class PatientMedicationListComponent implements OnInit {
                         this.searchedDrugNames = response['responseData'];
 
 
-
-
                     } else {
-                        this.notificationService.error(response['responseMessage']);
+                        //           this.notificationService.error(response['responseMessage']);
                     }
                 }
             ),
             (error: any) => {
                 this.notificationService.error(error.error.error);
             }
+    }else{
+
+        }
+
     }
 
+}
 
-
-    getAllDrugsFromServer() {
+  /*  getAllDrugsFromServer() {
         this.requestsService.getRequest(AppConstants.DRUG_GET_ALL_URL)
             .subscribe(
                 (response: Response) => {
@@ -530,7 +565,7 @@ export class PatientMedicationListComponent implements OnInit {
                         this.drugs = response['responseData'];
 
                     } else {
-                        this.notificationService.error(response['responseMessage']);
+            //            this.notificationService.error(response['responseMessage']);
                     }
                 }
             ),
@@ -541,4 +576,4 @@ export class PatientMedicationListComponent implements OnInit {
     }
 
 
-}
+}*/

@@ -51,12 +51,11 @@ export class InvoiceListingComponent implements OnInit{
 
                     this.cols = [
                         {field: "serialNo", header: "Serial No."},
-                        {field: "invoiceId", header: "Invoice No."},
+                        {field: "invoiceId", header: "Invoice No"},
                         {field: "patientName", header: "Patient Name"},
-                        {field: "invoiceAmount", header: "Invoice Amount (" + (this.currency) + ")"},
-                        {field: "discountAmount", header: "Discount (" + (this.currency) + ")"},
-                        {field: "taxAmount", header: "Tax (" + (this.currency) + ")"},
-                        {field: "totalAmount", header: "Total Amount (" + (this.currency) + ")"},
+                        {field: "invoiceAmount", header: "Invoice Amount ("+(this.currency)+")"},
+                        {field: "paidAmount", header: "Paid Amount ("+(this.currency)+")"},
+                        {field: "balanceAmount", header: "Balance("+(this.currency)+")"},
                         {field: "status", header: "Status"},
                         {field: "action", header: "Action"},
                     ];

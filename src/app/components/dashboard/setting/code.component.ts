@@ -66,7 +66,7 @@ export class CodeComponent implements OnInit {
 
     deleteICD(codeId: any) {
         if (localStorage.getItem(btoa('access_token'))) {
-            if (!confirm('Are Your Source You Want To Delete')) return;
+            if (!confirm('Are you sure want to Delete?')) return;
             this.requestsService.deleteRequest(
                 AppConstants.ICD_CODE_DELETE_URL + codeId)
                 .subscribe(

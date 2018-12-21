@@ -60,7 +60,7 @@
                                     <td field="refundType"> {{refundList.refundType}} </td>
                                     <td field="refundAmount" class="text-align-right"> {{refundList.refundAmount | number : '.2-2'}} </td>
                                     <td>
-                                        <button (click)="printReport(refundList.refundId)" class="btn btn-default btn-outline btn-sm" title="Download Receipt">
+                                        <button (click)="printReport(refundList.refundId)" class="font-green-jungle" title="Download Receipt">
                                             <i class="fa fa-download"></i>
                                         </button>
                                     </td>
@@ -127,29 +127,23 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group hr">
-                                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Invoice <span class="required" aria-required="true"> * </span></label>
-                                                    <div class="col-md-8 select pdng-lr-5">
-                                                        <p-dropdown [options]="allInvoiceList"
-                                                                    [(ngModel)]="selectedInvoice"
-                                                                    optionLabel="invoiceId"
-                                                                    name="selectedInvoice"
-                                                                    (onChange) = "getSelectedInvoice(selectedInvoice)"
-                                                                    [filter]="true">
-                                                        </p-dropdown>
+                                                <span [hidden]="!isInvoice">
+                                                    <div class="form-group hr" >
+                                                        <label class="col-md-4 control-label txt-size pdng-lr-5">Invoice <span class="required" aria-required="true"> * </span></label>
+                                                        <div class="col-md-8 select pdng-lr-5">
+                                                            <p-dropdown [options]="allInvoiceList" [(ngModel)]="selectedInvoice" optionLabel="invoiceId"
+                                                                        name="selectedInvoice" (onChange) = "getSelectedInvoice(selectedInvoice)" [filter]="true">
+                                                            </p-dropdown>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </span>
 
                                                 <div class="form-group hr">
                                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Amount <span class="required" aria-required="true"> * </span></label>
                                                     <div class="col-md-8 select pdng-lr-5 profile-frm">
-                                                        <input class="form-control text-align-right"
-                                                               type="number"
-                                                               name="refundAmount"
-                                                               placeholder="enter refund amount"
-                                                               required
-                                                               [(ngModel)]="refundRequest.refundAmount"
-                                                               #refundAmount="ngModel"/>
+                                                        <input class="form-control text-align-right" min="0" max="{{refundRequest.selectedBalance}}"
+                                                               type="number" name="refundAmount" id="refundAmount" placeholder="Enter refund amount"
+                                                               required [(ngModel)]="refundRequest.refundAmount" #refundAmount="ngModel" (blur)="checkAmountEntered($event.target.value)"/>
                                                     </div>
                                                 </div>
 
@@ -196,14 +190,14 @@
                                                 <div class="form-group hr">
                                                     <label class="col-md-4 pdng-lr-5 control-label txt-size">Description</label>
                                                     <div class="col-md-8 select pdng-lr-5">
-                                                    <textarea class="form-control"
-                                                              rows="3"
-                                                              [(ngModel)]="refundRequest.description"
-                                                              name="desc"
-                                                              #desc="ngModel"
-                                                              placeholder="enter description of advance payment">
+                                                        <textarea class="form-control"
+                                                                  rows="3"
+                                                                  [(ngModel)]="refundRequest.description"
+                                                                  name="desc"
+                                                                  #desc="ngModel"
+                                                                  placeholder="enter description of advance payment">
 
-                                                    </textarea>
+                                                        </textarea>
                                                     </div>
                                                 </div>
 
@@ -215,7 +209,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline"> Close </button>
+                                <button type="button" data-dismiss="modal" id="closeButton" class="btn default"> Close </button>
                                 <button type="button" class="btn blue" (click)="refundPayment()"> Save </button>
                             </div>
                         </div>

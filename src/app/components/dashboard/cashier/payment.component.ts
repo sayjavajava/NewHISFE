@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { RequestsService } from '../../../services/requests.service';
-import { AppConstants } from '../../../utils/app.constants';
-import { InvoicesList } from '../../../model/InvoicesList';
-import { Invoice } from '../../../model/Invoice';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PaymentRequest } from "../../../model/PaymentRequest";
+import {Component, OnInit} from '@angular/core';
+import {RequestsService} from '../../../services/requests.service';
+import {AppConstants} from '../../../utils/app.constants';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PaymentRequest} from "../../../model/PaymentRequest";
 import {NotificationService} from "../../../services/notification.service";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'payment-component',
@@ -35,7 +34,6 @@ export class PaymentComponent implements OnInit {
     patientAdvanceDeposit : number = 0.00;
     usedAdvanceDeposit : number = 0.00;
     discountAmount: number = 0.00;
-
     paymentRequest : PaymentRequest= new PaymentRequest();
     selectedPaymentType: any ;
 
@@ -45,6 +43,7 @@ export class PaymentComponent implements OnInit {
     grandTotalWithTax : number= 0.00;
 
     paymentTypeList: any[];
+    isPaymentOK = false;
 
     constructor(private router: Router,private route: ActivatedRoute, private requestsService: RequestsService , private notificationService: NotificationService) {
 
@@ -131,6 +130,7 @@ export class PaymentComponent implements OnInit {
         var itemAmt = 0.00;
         var taxAmt = 0.00;
         var discAmount = 0.00;
+        var amtAfterDisc=0.00;
 
         var i = 0, len = this.invoiceList.length;
         for(;i<len; i++){
@@ -140,20 +140,22 @@ export class PaymentComponent implements OnInit {
             discAmount = (this.invoiceList[i].quantity * this.invoiceList[i].unitFee) * this.invoiceList[i].discountRate/100  ;
             this.grandTotalDiscount += discAmount;
 
-            taxAmt = (this.invoiceList[i].quantity * this.invoiceList[i].unitFee) * this.invoiceList[i].taxRate/100  ;
+            amtAfterDisc = itemAmt-discAmount;
+
+            taxAmt = amtAfterDisc * this.invoiceList[i].taxRate/100  ;
             this.grandTotalTax += taxAmt;
-            this.grandTotalWithTax +=  itemAmt + taxAmt - discAmount;
+            this.grandTotalWithTax += (amtAfterDisc+ taxAmt);
         }
         console.log("----grandTotal : " + this.grandTotal);
     }
 
     savePayment(){
-        this.paymentRequest = new PaymentRequest();
+        // this.paymentRequest = new PaymentRequest();
         this.paymentRequest.id = this.id ;
         this.paymentRequest.invoiceId = "0" ;
         this.paymentRequest.paidAmount = this.paidAmount ;
         this.paymentRequest.invoiceAmount = this.grandTotalWithTax ;
-
+    //    this.paymentRequest.paymentTypeId = this.id ;
         this.paymentRequest.paidAmount = this.paidAmount ;
         this.paymentRequest.useAdvancedBal = this.useAdvancedBal;
         this.paymentRequest.usedAdvanceDeposit = this.usedAdvanceDeposit;
@@ -185,5 +187,93 @@ export class PaymentComponent implements OnInit {
     backPage(){
         this.router.navigate(['/dashboard/cashier']);
     }
+
+    checkPaidAmount(value: any){
+        if (!isNullOrUndefined(value)) {
+            if(this.useAdvancedBal){
+                if ((this.paidAmount - this.discountAmount + this.usedAdvanceDeposit) > (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                    this.notificationService.warn('Payment amount is exceeding the total due amount');
+                    this.isPaymentOK = false;
+                    // document.getElementById("usedAdvanceDeposit").focus();
+                } else {
+                    this.isPaymentOK = true;
+                }
+            } else {
+                if ((this.paidAmount - this.discountAmount)> (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                    this.notificationService.warn('Payment amount is exceeding the total due amount');
+                    this.isPaymentOK = false;
+                    // document.getElementById("usedAdvanceDeposit").focus();
+                } else {
+                    this.isPaymentOK = true;
+                }
+            }
+
+        }
+    }
+
+    checkDiscount(value: any){
+        if (!isNullOrUndefined(value)) {
+            if(this.useAdvancedBal){
+                if ((this.paidAmount - this.discountAmount + this.usedAdvanceDeposit) > (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                    this.notificationService.warn('Payment amount is exceeding the total due amount');
+                    this.isPaymentOK = false;
+                    // document.getElementById("usedAdvanceDeposit").focus();
+                } else {
+                    this.isPaymentOK = true;
+                }
+            } else {
+                if ((this.paidAmount - this.discountAmount)> (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                    this.notificationService.warn('Payment amount is exceeding the total due amount');
+                    this.isPaymentOK = false;
+                    // document.getElementById("usedAdvanceDeposit").focus();
+                } else {
+                    this.isPaymentOK = true;
+                }
+            }
+
+        }
+    }
+
+    useAdvanceBalance(value: any){
+        if (isNullOrUndefined(this.patientAdvanceDeposit) || this.patientAdvanceDeposit == 0) {
+            if (!isNullOrUndefined(value) && value != 0) {
+                this.notificationService.warn('This person has no advance amount');
+                this.useAdvancedBal = false;
+            }
+            // document.getElementById("amount").focus();
+        } else {
+            if ((this.paidAmount - this.discountAmount + this.usedAdvanceDeposit) > (this.grandTotalWithTax - this.receivedAmount - this.refundAmount)) {
+                this.notificationService.warn('Payment amount is exceeding the total due amount');
+                // document.getElementById("usedAdvanceDeposit").focus();
+                this.isPaymentOK = false;
+            } else {
+                this.isPaymentOK = true;
+            }
+        }
+    }
+
+    checkExistingAdvanceBal(){
+        if (isNullOrUndefined(this.patientAdvanceDeposit) || this.patientAdvanceDeposit == 0) {
+                this.notificationService.warn('This person has no advance amount');
+                this.useAdvancedBal = false;
+        } else {
+            this.useAdvancedBal = true;
+        }
+    }
+
+    /*checkAmountEntered(value: any) {
+        if (isNullOrUndefined(this.selectedDoctorBalance)) {
+            if (!isNullOrUndefined(value) && value == 0) {
+                this.notificationService.warn('This Doctor has no balance amount');
+            }
+            // document.getElementById("amount").focus();
+        } else if (value > this.selectedDoctorBalance) {
+            this.notificationService.warn('Refund amount cannot be greater than Balance amount');
+            document.getElementById("amount").focus();
+        } else if (value < 0) {
+            this.notificationService.warn('Refund amount cannot be negative');
+            document.getElementById("amount").focus();
+        }
+    }*/
 
 }

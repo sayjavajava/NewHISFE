@@ -465,8 +465,11 @@
     </div>
 </div>
 
-
-<p-dialog *ngIf="showImage" id="responsiveGalleria2"  [modal]="true" [responsive]="true" [width]="1024" [minWidth]="520" [minY]="170"
+<!--[modal]="true"-->
+<p-dialog *ngIf="showImage" id="responsiveGalleria2"   [responsive]="true" [width]="1024" [minWidth]="520" [minY]="170" showEffect="fade" modal="modal"  [dismissableMask]="true"
+          [closeOnEscape]="true"
+          [responsive]="true"
+          [closable]="true"
           [maximizable]="true" [baseZIndex]="10000" header="View Image Order" [(visible)]="display" >
 
 
@@ -498,10 +501,10 @@
     <div class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1" >
 
         <p-galleria [images]="images" panelWidth="1024" panelHeight="520" [(activeIndex)]="selectedindex" ></p-galleria>
-        <!--<p-footer>
+        <p-footer>
             <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
             <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
-        </p-footer>-->
+        </p-footer>
     </div>
 
 

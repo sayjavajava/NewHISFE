@@ -7,6 +7,7 @@ import {AppConstants} from "../../../utils/app.constants";
 import {RefundRequest} from "../../../model/RefundRequest";
 import {HISUtilService} from "../../../services/his-util.service";
 import {NotificationService} from "../../../services/notification.service";
+import {isNullOrUndefined} from "util";
 
 @Component({
     selector: 'refund-listing-template',
@@ -33,6 +34,8 @@ export class RefundListingComponent {
     cusAdvanceBalance : any =0.0;
     refundTypes: any = [  {name:'Advance'}, {name:'Invoice'} ];
     selectedRefundType : any;
+    isInvoice:boolean = false;
+
 
     constructor(private router: Router,
                 private titleService: Title,
@@ -187,13 +190,21 @@ export class RefundListingComponent {
     }
 
     getSelectedRefundType(selectedRefundTyp : any){
+        // console.log(this.refundRequest.patientId);
         this.refundRequest.refundType = selectedRefundTyp.name;
-        if(selectedRefundTyp.name == "Advance"){
-            this.refundRequest.selectedBalance = this.cusAdvanceBalance;
-        }else{
-            if(this.allInvoiceList.length > 0){
-                this.refundRequest.invoiceId=this.allInvoiceList[0].id;
-                this.refundRequest.selectedBalance=this.allInvoiceList[0].invoiceAmount;
+        if (!isNullOrUndefined(this.refundRequest.patientId)) {
+            if (this.refundRequest.refundType == "Advance") {
+                this.refundRequest.selectedBalance = this.cusAdvanceBalance;
+                this.isInvoice = false;
+            } else {
+                if (this.allInvoiceList != null && this.allInvoiceList.length > 0) {
+                    this.refundRequest.invoiceId = this.allInvoiceList[0].id;
+                    this.refundRequest.selectedBalance = this.allInvoiceList[0].invoiceAmount;
+                } else {
+                    this.refundRequest.invoiceId = null;
+                    this.refundRequest.selectedBalance = null;
+                }
+                this.isInvoice = true;
             }
         }
     }
@@ -202,7 +213,7 @@ export class RefundListingComponent {
         console.log("------------"+selectedInvoice);
 
         this.refundRequest.invoiceId=selectedInvoice.invoiceId;
-        this.refundRequest.selectedBalance=selectedInvoice.dueAmount;
+        this.refundRequest.selectedBalance=selectedInvoice.paidAmount;
     }
 
     getSelectedPaymentType(selectedPaymentTyp: any){
@@ -249,5 +260,22 @@ export class RefundListingComponent {
     saveAndPrintReceipt() {
         this.refundPayment();
         this.printReport(this.refundRequest.refundId);
+    }
+
+    checkAmountEntered(value: any) {
+        if (isNullOrUndefined(this.refundRequest.selectedBalance)) {
+            if (this.refundRequest.refundType == "Advance") {
+                this.notificationService.warn('This patient has not deposited any advance balance');
+            } else {
+                this.notificationService.warn('This patient has no balance amount');
+            }
+            // document.getElementById("refundAmount").focus();
+        } else if (value > this.refundRequest.selectedBalance) {
+            this.notificationService.warn('Refund amount cannot be greater than Balance amount');
+            document.getElementById("refundAmount").focus();
+        } else if (value < 0) {
+            this.notificationService.warn('Refund amount cannot be negative');
+            document.getElementById("refundAmount").focus();
+        }
     }
 }

@@ -208,6 +208,7 @@ var UpdateBranchComponent = (function () {
         var secretLairsDeepCopy = formModel.examRooms.map(function (examRooms) { return Object.assign({}, examRooms); });
         var saveBranchModel = {
             branchName: formModel.branchName,
+            name: formModel.branchName,
             officeHoursStart: formModel.officeHoursStart,
             officeHoursEnd: formModel.officeHoursEnd,
             noOfExamRooms: formModel.noOfExamRooms,

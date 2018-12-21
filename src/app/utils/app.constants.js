@@ -46,6 +46,7 @@ var AppConstants = (function () {
     AppConstants.PATIENT_ALLINVOICE_BALANCE = '/invoice/getPatientInvBal/';
     ////////////////////// Cashier Desk ///////////////////////////////
     AppConstants.GET_All_INVOICES = '/cashier/getAllInvoices';
+    AppConstants.GET_All_PENDING_INVOICES = '/cashier/getPendingInvoices';
     AppConstants.FETCH_APPOINTMENTS_BY_INOVICE_ID = '/cashier/getAppointmentByInvoiceId/';
     AppConstants.SAVE_PAYMENT = '/cashier/savePayment';
     ////////////////////// ICD URLs ///////////////////////////////
@@ -266,7 +267,7 @@ var AppConstants = (function () {
     AppConstants.GET_REFUND_ID = '/refundApi/getRefundId';
     AppConstants.SAVE_DOCTOR_PAYMENT = '/doctorPayment/save';
     AppConstants.GET_DOCTOR_PAYMENT_List = '/doctorPayment/getPaymentList';
-    AppConstants.GET_DOCTOR_List = '/doctorPayment/role';
+    AppConstants.GET_DOCTOR_List = '/doctorPayment//doctorsWithCommission';
     ////////////////Country/////////////////////////////
     AppConstants.GET_ALL_COUNTRY = '/CountryAPI/';
     AppConstants.GET_STATE_BYCOUNTRYID = '/StateAPI/get/';

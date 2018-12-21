@@ -158,7 +158,7 @@
                             <div class="form-group mrgn-top8">
                                 <label class="control-label col-md-3">Comments</label>
                                 <div class="col-md-5">
-                                    <textarea class="form-control" formControlName="comments"  style="height: 50em; "></textarea>
+                                    <textarea class="form-control" formControlName="comments"  style=""></textarea>
                                 </div>
                                 <div class="col-md-4">Status of the lab order.</div>
                             </div>
@@ -168,7 +168,15 @@
                                 <label class="control-label col-md-3">Test<span
                                         class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-5" *ngIf="!isUpdate">
-                                    <p-autoComplete  placeholder={{selectedString}} [suggestions]="filteredTestSingle" formControlName="testNameId" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true" ></p-autoComplete>
+                                    <!--<p-autoComplete  id="search" placeholder={{selectedString}} [suggestions]="filteredTestSingle" formControlName="testNameId"
+                                                     (completeMethod)="filterLabTestSingle($event)" (completeMethod)="search($event)"
+                                                     field="testCode" placeholder="Search Tests..." [dropdown]="true" ></p-autoComplete>-->
+                                    <p-dropdown  placeholder="{{selectedTestNew}}" [autoWidth]="false" [(ngModel)]="selectedTestNew"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                 (onChange)="filterLabTestSingle($event.value)" formControlName="testNameId"  field="testCode"
+                                                 [options]="searchedNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true" >
+                                    </p-dropdown>
+
                                     <div class="col-md-4">Test Name of the lab order.</div>
                                     <span class="text-danger"
                                           *ngIf="!labForm.controls['testNameId'].valid && labForm.controls['testNameId'].touched">
@@ -176,7 +184,20 @@
                                     </span>
                                 </div>
                                 <div class="col-md-5" *ngIf="isUpdate">
-                                    <p-autoComplete  placeholder={{selectedString}} [suggestions]="filteredTestSingle" formControlName="testNameId" (completeMethod)="filterLabTestSingle($event)" field="testCode" placeholder="Search Tests..." [dropdown]="true" [disabled]="isUpdate"></p-autoComplete>
+                                    <!--<p-autoComplete   placeholder={{selectedString}} [suggestions]="filteredTestSingle"
+                                                      formControlName="testNameId"
+                                                      (completeMethod)="filterLabTestSingle($event)"
+                                                      (completeMethod)="search($event)"
+                                                      field="testCode" search
+                                                      placeholder="Search Tests..." [dropdown]="true"
+                                                      [disabled]="isUpdate"></p-autoComplete>-->
+
+                                    <p-dropdown  placeholder="{{selectedTestNew}}" [autoWidth]="false" [(ngModel)]="selectedTestNew"
+                                                 [style]="{'text-align': 'left' ,'width':'100%'}"  formControlName="testNameId"  field="testCode"
+                                                 (onChange)="filterLabTestSingle($event.value)"
+                                                 [options]="searchedNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true" disabled="true">
+                                    </p-dropdown>
+
                                 </div>
 
 

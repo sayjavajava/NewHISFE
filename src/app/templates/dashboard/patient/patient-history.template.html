@@ -105,40 +105,40 @@
                 <div class="table-scrollable tbl-brdr-radus">
                     <table class="table table-hover table-light">
                         <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
-                            <th> Name</th>
-                            <th> Unit</th>
-                            <th> Current Value</th>
-                            <th> Standard</th>
-                            <th> Status</th>
-                           <!-- <th> Acton</th>-->
-                        </tr>
+                            <tr class="hedng-bck-clr tbl-pdng">
+                                <th> Name</th>
+                                <th> Unit</th>
+                                <th> NCurrent Value</th>
+                                <th> Standard</th>
+                                <!--<th> Status</th>-->
+                               <!-- <th> Acton</th>-->
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let vitalList of vitalListData" class="filter">
-                            <td>{{vitalList.name}}</td>
-                            <td>{{vitalList.unit}}</td>
-                            <td> {{vitalList.currentValue }}</td>
-                            <td>{{vitalList.standardValue}}</td>
-                            <td>{{vitalList.status}}</td>
-                            <!--<td>
-                                <a href="#vitalSetup" data-toggle="modal"
-                                   (click)="editVital(vitalList.id)">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <button
-                                        (click)="delete(vitalList.id)">
-                                    <i class="fa fa-remove"></i>
-                                </button>
-                                &lt;!&ndash;      href = "#{{aType.Name}}"&ndash;&gt;
-                                &lt;!&ndash;<button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>&ndash;&gt;
-                                &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
-                                &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
+                            <tr *ngFor="let vitalList of vitalListData" class="filter">
+                                <td>{{vitalList.name}}</td>
+                                <td>{{vitalList.unit}}</td>
+                                <td> {{vitalList.currentValue }}</td>
+                                <td>{{vitalList.standardValue}}</td>
+                                <!--<td>{{vitalList.status}}</td>-->
+                                <!--<td>
+                                    <a href="#vitalSetup" data-toggle="modal"
+                                       (click)="editVital(vitalList.id)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <button
+                                            (click)="delete(vitalList.id)">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                    &lt;!&ndash;      href = "#{{aType.Name}}"&ndash;&gt;
+                                    &lt;!&ndash;<button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>&ndash;&gt;
+                                    &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
+                                    &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
 
 
 
-                            </td>-->
-                        </tr>
+                                </td>-->
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -9,66 +9,63 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Name
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Name
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input class="form-control" minlength="1"
                                                type="text" required placeholder="Enter Name"
                                                [(ngModel)]="ms.name"
                                                required id="msTitle"
                                                name="msTitle" #msTitle="ngModel"/>
                                         <!--pattern="^[a-zA-Z 0-9_-]{1,60}$"-->
-                                    </div>
-                                    <span *ngIf="msTitle.invalid && msTitle.touched"
-                                          class="col-md-6 select pdng-lr-5 text-danger">
+                                        <span *ngIf="msTitle.invalid && msTitle.touched"
+                                              class="text-danger">
                                                 Please enter valid name
                                     </span>
+                                    </div>
+
                                 </div>
-
                                 <!---->
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">code
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">code
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input class="form-control"
                                                type="text" placeholder="Enter Code"
                                                [(ngModel)]="ms.code" minlength="3"
                                                required id="code"
                                                name="code" #code="ngModel"/>
-                                    </div>
-                                    <span *ngIf="code.invalid && code.touched"
-                                          class="col-md-6 select pdng-lr-5 text-danger">
+                                        <span *ngIf="code.invalid && code.touched"
+                                              class="text-danger">
                                                 Please enter valid Code.
                                     </span>
+                                    </div>
+
                                 </div>
-
-
                                 <!---->
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Branch
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Branch
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <p-multiSelect
                                                 placeholder="select branches"
                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
                                                 [options]="ms.branches" name="brList"
                                                 [(ngModel)]="selectedBranches" optionLabel="name"
                                                 (onChange)="onBranchSelection($event)"
-                                                [panelStyle]="{minWidth:'12em'}">
+                                                [panelStyle]="{minWidth:''}">
                                         </p-multiSelect>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Department
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <!--<div class="checkbox-box  cod-higt" id="departmentDiv">
                                             <div class="col-md-6" *ngFor="let department of ms.departments">
                                                 <address>
@@ -88,49 +85,50 @@
                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
                                                 optionLabel="name"
                                                 [options]="ms.departments" [(ngModel)]="selectedDepartments"
-                                                name="dptList" [panelStyle]="{minWidth:'12em'}">
+                                                name="dptList" [panelStyle]="{minWidth:''}">
 
                                         </p-multiSelect>
 
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Service Cost {{+ "("+currency+")"}}
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Service Cost {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span></label>
 
-                                    <div class="col-md-9">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input class="form-control"
                                                type="number" placeholder="Enter Cost"
                                                [(ngModel)]="ms.cost" min="0"
                                                required pattern="^[0-9]{1,60}$"
                                                name="cost" #cost="ngModel"/>
-                                    </div>
-                                    <span *ngIf="cost.invalid && cost.touched"
-                                          class="col-md-6 select pdng-lr-5 text-danger">
+                                        <span *ngIf="cost.invalid && cost.touched"
+                                               class="text-danger">
                                                 Please enter valid cost.
                                     </span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Service Fee {{+ "("+currency+")"}}
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Service Fee {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input class="form-control" type="number"
                                                [(ngModel)]="ms.fee" min="0" placeholder="Enter fee"
                                                required pattern="^[0-9]{1,60}$"
                                                name="fee" #fee="ngModel"/>
-                                    </div>
-                                    <span *ngIf="fee.invalid && fee.touched"
-                                          class="col-md-6 select pdng-lr-5 text-danger">
+                                        <span *ngIf="fee.invalid && fee.touched"
+                                               class="text-danger">
                                                 Please enter valid fee.
                                     </span>
+                                    </div>
+
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">
                                         Service Tax {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<select class="form-control"
                                                 name="taxId" id="taxId"
                                                 [ngModelOptions]="{standalone:true}"
@@ -144,32 +142,32 @@
                                         <p-dropdown placeholder="Select Tax" [autoWidth]="false" name="dpt"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     [(ngModel)]="ms.tax.id" [options]="taxes"
-                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    [panelStyle]="{minWidth:''}" [filter]="true">
                                         </p-dropdown>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Duration
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Duration
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-7 pdng-lr-5 profile-frm">
                                         <input class="form-control"
                                                type="number" required
                                                [(ngModel)]="ms.duration" min="0" maxlength="5"
                                                name="duration" placeholder="Enter duration"
                                                #duration="ngModel"/>
                                     </div>
-                                    <div class="control-label col-md-1">
+                                    <div class="control-label col-md-1 pdng-lr-5">
                                         Minutes
                                     </div>
                                     <span *ngIf="duration.invalid && duration.touched"
-                                          class="col-md-6 select pdng-lr-5 text-danger">
+                                          class="text-danger">
                                                 Please enter valid duration.
                                     </span>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Description
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Description
                                     </label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <textarea class="form-control"
                                                   rows="3" title=""
                                                   placeholder="Enter Description"
@@ -180,9 +178,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group hr">
-                                    <label class="col-md-3 control-label txt-size">Status</label>
-                                    <div class="col-md-9 select mt-checkbox mt-checkbox-outline pdng-l-r-15">
-                                        <label class="mt-checkbox-outline col-md-2 pdng-lr-5">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                                    <div class="col-md-8 select mt-checkbox mt-checkbox-outline pdng-l-r-15">
+                                        <label class="mt-checkbox-outline">
                                             <mat-checkbox
                                                     [(ngModel)]="ms.status" name="status"
                                                     color="primary">

@@ -53,7 +53,7 @@
                         </button>
                     </div>
                     <div class="modal-body schedule-body">
-                        <div class="scroller" style="height:1120px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="scroller" style="height:820px" data-always-visible="1" data-rail-visible1="1">
                             <div class="row">
                                 <form id="updateForm" class="login-form" #updateForm="ngForm">
                                     <div class=" col-md-12">
@@ -356,7 +356,7 @@
                                                                     </p-dropdown>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group hr mrgn-btm08">
+                                                            <div class="form-group hr mrgn-btm08 mrgn-top08">
                                                                 <label class="col-md-4 control-label">Duration <span
                                                                         class="required" aria-required="true"> * </span></label>
                                                                 <div class="col-md-6 col-xs-12 profile-frm">
@@ -1251,13 +1251,13 @@
                                                                 <label class="control-label col-md-3">Reason
                                                                 </label>
                                                                 <div class="col-md-9 profile-frm">
-                                                                    <input type="text"
+                                                                    <textarea rows="2"
                                                                            data-required="1"
                                                                            [(ngModel)]="event.followUpReason"
                                                                            (ngModelChange)="refresh.next()"
                                                                            [ngModelOptions]="{standalone:true}"
                                                                            name="followReason"
-                                                                           value="" class="form-control"></div>
+                                                                              value="" class="form-control"></textarea></div>
                                                             </div>
 
 

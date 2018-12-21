@@ -248,6 +248,7 @@ export class UpdateBranchComponent implements OnInit {
 
         const saveBranchModel: Branch = {
             branchName: formModel.branchName,
+            name: formModel.branchName,
             officeHoursStart: formModel.officeHoursStart,
             officeHoursEnd: formModel.officeHoursEnd,
             noOfExamRooms: formModel.noOfExamRooms,

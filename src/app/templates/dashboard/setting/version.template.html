@@ -101,12 +101,12 @@
                     <td>{{item.status === true ? 'Active' : 'In-Active'}}</td>
                     <td rowspan="1" colspan="1">
                         <a href="#popupVersion" data-toggle="modal">
-                            <button class="btn btn-default btn-outline btn-sm" (click)="editICDVersion(item)">
+                            <button class="font-blue" (click)="editICDVersion(item)">
                                 <i class="fa fa-pencil"></i>
                             </button>
                         </a>
                         <span [hidden]="item.hasChild">
-                            <button class="btn btn-default btn-outline btn-sm"
+                            <button class="text-danger"
                                     (click)="deleteICDVersion(item.id)">
                                 <i class="fa fa-remove"></i>
                             </button>
@@ -130,7 +130,7 @@
                     <h4 class="modal-title" [hidden]="!(this.isVersionUpdate)">Update Version</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="scroller" style="height:160px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:180px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
 
                             <div class="form-group hr">

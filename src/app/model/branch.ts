@@ -6,6 +6,7 @@ import {Country} from "./Country";
 export class Branch {
     id?: number;
     branchName: string;
+    name: string;
     officeHoursStart: number;
     officeHoursEnd: number;
     noOfExamRooms: number;
@@ -29,9 +30,10 @@ export class Branch {
     value?:number;
 
 
-    constructor(id?: number, branchName?: string, officeHoursStart?: number, officeHoursEnd?: number, noOfExamRooms?: number, state ?: State, city?: City, primaryDoctor ?: string, zipCode?: number, address?: string, country?: Country, officePhone?: number, fax?: string, formattedAddress?: string, checked?: boolean) {
+    constructor(id?: number, branchName?: string, officeHoursStart?: number, officeHoursEnd?: number, noOfExamRooms?: number, state ?: State, city?: City, primaryDoctor ?: string, zipCode?: number, address?: string, country?: Country, officePhone?: number, fax?: string, formattedAddress?: string, checked?: boolean, name?: string) {
         this.id = id;
         this.branchName = branchName;
+        this.name = branchName;
         this.officeHoursStart = officeHoursStart;
         this.officeHoursEnd = officeHoursEnd;
         this.noOfExamRooms = noOfExamRooms;
