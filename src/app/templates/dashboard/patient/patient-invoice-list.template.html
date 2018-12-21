@@ -68,9 +68,9 @@
                 </div>
                 <div class="hr">
                     <div class="col-md-7">
-                        <p class="text-right">Due Invoices Balance SAR:</p>
+                        <p class="text-right">Due Invoices Balance:</p>
                     </div>
-                    <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{dueAmountOnAllInvc | number :'.2-2'}}</b></div>
+                    <div class="col-md-5 text-right no-padding-rgt"><strong> </strong><b>{{dueAmountOnAllInvc | number :'.2-2'}}</b></div>
                 </div>
                 <div class="hr">
                     <div class="col-md-7">
@@ -83,7 +83,7 @@
                                class="ng-valid ng-dirty ng-touched">
                             <span></span></p>
                     </div>
-                    <div class="col-md-5 text-right no-padding-rgt"><strong>SAR </strong><b>{{cusAdvanceBalance | number :'.2-2'}}</b></div>
+                    <div class="col-md-5 text-right no-padding-rgt"><strong> </strong><b>{{cusAdvanceBalance | number :'.2-2'}}</b></div>
                 </div>
                 <div class="text-center">
 
@@ -102,16 +102,16 @@
                         <thead>
                         <tr role="row" class="off-wite-bg">
                             <th width="5%" class="sorting_disabled" rowspan="1" colspan="1"> </th>
-                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Inv Code #</th>
-                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1">Invoice Amount </th>
+                            <th width="8%" class="sorting_disabled" rowspan="1" colspan="1">Invoice ID</th>
+                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1">Invoice Amount</th>
 
-                            <th width="5%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Refunded Amount </th>
+                            <th width="5%" class="sorting_disabled text-right" rowspan="1" colspan="1">Refund Amount</th>
 
-                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Paid Amount </th>
-                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Discount </th>
-                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Advance </th>
-                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Applied Amount </th>
-                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1"> Balance </th>
+                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1">Paid Amount</th>
+                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1">Discount Amount</th>
+                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1">Advance Amount </th>
+                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1">Applied Amount</th>
+                            <th width="7%" class="sorting_disabled text-right" rowspan="1" colspan="1">Due Balance</th>
 
                         </tr>
                         <tr role="row" class="filter" *ngFor="let invc of patientInvoiceList;  let idx = index">
@@ -177,10 +177,10 @@
                 <div class="off-wite-bg padding-10 sub-total">
                    
                     <ul>
-                        <li>
+                       <!-- <li>
                             <span> Amount Due:</span>
                             <span>{{dueAmountOnSelectedInvc | number :'.2-2'}}</span>
-                        </li>
+                        </li>-->
                         <li>
                             <span>Applied Amount:</span>
                             <span>{{appliedAmountOnSelectedInvc | number :'.2-2'}}</span>
