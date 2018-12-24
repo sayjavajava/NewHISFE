@@ -54,6 +54,10 @@ var PatientMedicationListComponent = (function () {
         this.isUpdateAppoint = false;
         this.searchedDrugStrengthsAnyListModified = [];
         this.selectedstr = [];
+        this.searchedDrugNamesLstNew = [];
+        this.data = [];
+        this.selectedDrug = [];
+        this.drugList = [];
         /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
              this.selectedPatientId = id;
          });*/
@@ -123,7 +127,7 @@ var PatientMedicationListComponent = (function () {
                     _this.pastAppointments = response['responseData'].pastAppointments;
                 }
                 else {
-                    _this.notificationService.error(response['responseMessage'], 'Patient');
+                    //       this.notificationService.error(response['responseMessage'], 'Patient');
                 }
             }, function (error) {
                 _this.HISUtilService.tokenExpired(error.error.error);
@@ -139,6 +143,27 @@ var PatientMedicationListComponent = (function () {
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
         this.getAllDrugsFromServer();
+    };
+    PatientMedicationListComponent.prototype.getAllDrugsFromServer = function () {
+        var _this = this;
+        this.requestsService.getRequest(app_constants_1.AppConstants.DRUG_FETCH_ALL_PAGINATED_URI + "all")
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'DRUG_SUC_10') {
+                _this.data = response['responseData']['data'];
+                _this.drugList = response['responseData']['data'];
+                _this.searchedDrugNamesLstNew = [];
+                if (_this.data.length > 0) {
+                    for (var _i = 0, _a = _this.data; _i < _a.length; _i++) {
+                        var drug = _a[_i];
+                        var pair = { label: drug.drugName, value: drug.id };
+                        _this.searchedDrugNamesLstNew.push(pair);
+                    }
+                }
+            }
+        }, function (error) {
+            //console.log(error.json())
+            _this.notificationService.error(error.error.error);
+        });
     };
     PatientMedicationListComponent.prototype.getRouteDrug = function (txt) {
         var _this = this;
@@ -174,7 +199,10 @@ var PatientMedicationListComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'DRUG_SUC_10') {
                 _this.searchedDrugStrengths = response['responseData'];
-                _this.searchedDrugStrengthsAny = _this.searchedDrugStrengths.strengths;
+                _this.searchedDrugStrengthsAnyListModified = [];
+                if (_this.searchedDrugStrengths !== null) {
+                    _this.searchedDrugStrengthsAny = _this.searchedDrugStrengths.strengths;
+                }
                 for (var _i = 0, _a = _this.searchedDrugStrengthsAny; _i < _a.length; _i++) {
                     var strenths = _a[_i];
                     var pair = { label: strenths, value: strenths };
@@ -187,7 +215,7 @@ var PatientMedicationListComponent = (function () {
                 console.log(_this.medicationModel.strengths);
             }
             else {
-                _this.notificationService.error(response['responseMessage']);
+                //          this.notificationService.error(response['responseMessage']);
             }
         }),
             function (error) {
@@ -268,7 +296,7 @@ var PatientMedicationListComponent = (function () {
                 console.log(_this.medicationData);
             }
             else {
-                _this.notificationService.error(response['responseMessage']);
+                //      this.notificationService.error(response['responseMessage'])
             }
         }, function (error) {
             _this.HISUtilService.tokenExpired(error.error.error);
@@ -317,12 +345,13 @@ var PatientMedicationListComponent = (function () {
                         _this.medicationModel.dateStartedTakingDate = new Date(_this.medicationModel.dateStartedTakingString);
                         _this.medicationModel.dateStoppedTakingDate = new Date(_this.medicationModel.dateStoppedTakingString);
                         _this.medicationModel.status = _this.medicationModel.status;
+                        _this.selectedstr = _this.medicationModel.strengths;
                         _this.isUpdateAppoint = true;
                         _this.selectedstr = _this.medicationModel.strengths;
                         _this.appointmentsByPatientFromServer(_this.medicationModel.patientId);
                     }
                     else {
-                        _this.notificationService.error(response['responseMessage'], 'Medication');
+                        //                this.notificationService.error(response['responseMessage'], 'Medication');
                     }
                 }, function (error) {
                     _this.HISUtilService.tokenExpired(error.error.error);
@@ -371,6 +400,9 @@ var PatientMedicationListComponent = (function () {
         this.medicationModel.datePrescribedDate = new Date(this.medicationModel.datePrescribedDate);
         this.medicationModel.dateStartedTakingDate = new Date(this.medicationModel.dateStartedTakingDate);
         this.medicationModel.dateStoppedTakingDate = new Date(this.medicationModel.dateStoppedTakingDate);
+        if (this.medicationModel.strengths.length > 0) {
+            this.medicationModel.strengths = null;
+        }
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestsService.putRequest(app_constants_1.AppConstants.MEDICATION_UPDATE_URL, this.medicationModel)
                 .subscribe(function (response) {
@@ -380,7 +412,7 @@ var PatientMedicationListComponent = (function () {
                     _this.closeBtnMedication.nativeElement.click();
                 }
                 else {
-                    _this.notificationService.error(response['responseMessage'], 'Medication');
+                    //           this.notificationService.error(response['responseMessage'], 'Medication');
                     _this.getPaginatedMedicationFromServer(0);
                 }
             }, function (error) {
@@ -412,37 +444,28 @@ var PatientMedicationListComponent = (function () {
     };
     PatientMedicationListComponent.prototype.search = function (event) {
         var _this = this;
-        if (this.isEmpty(this.text) == false) {
-            this.getRouteDrug(this.text);
-            this.getStrengthsDrug(this.text);
+        if (event > 0) {
+            var listOfDrug = this.drugList.filter(function (listing) { return listing.id === event; });
+            this.text = listOfDrug[0].drugName;
+            if (this.isEmpty(this.text) == false) {
+                this.getRouteDrug(this.text);
+                this.getStrengthsDrug(this.text);
+            }
+            this.requestsService.getRequest(app_constants_1.AppConstants.DRUG_SEARCH_BY_NAME_URL + this.text)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'DRUG_SUC_10') {
+                    _this.searchedDrugNames = response['responseData'];
+                }
+                else {
+                    //           this.notificationService.error(response['responseMessage']);
+                }
+            }),
+                function (error) {
+                    _this.notificationService.error(error.error.error);
+                };
         }
-        this.requestsService.getRequest(app_constants_1.AppConstants.DRUG_SEARCH_BY_NAME_URL + this.text)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'DRUG_SUC_10') {
-                _this.searchedDrugNames = response['responseData'];
-            }
-            else {
-                _this.notificationService.error(response['responseMessage']);
-            }
-        }),
-            function (error) {
-                _this.notificationService.error(error.error.error);
-            };
-    };
-    PatientMedicationListComponent.prototype.getAllDrugsFromServer = function () {
-        var _this = this;
-        this.requestsService.getRequest(app_constants_1.AppConstants.DRUG_GET_ALL_URL)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'DRUG_SUC_10') {
-                _this.drugs = response['responseData'];
-            }
-            else {
-                _this.notificationService.error(response['responseMessage']);
-            }
-        }),
-            function (error) {
-                _this.notificationService.error(error.error.error);
-            };
+        else {
+        }
     };
     __decorate([
         core_1.ViewChild('closeBtnMedication'),
@@ -463,4 +486,24 @@ var PatientMedicationListComponent = (function () {
     return PatientMedicationListComponent;
 }());
 exports.PatientMedicationListComponent = PatientMedicationListComponent;
+/*  getAllDrugsFromServer() {
+      this.requestsService.getRequest(AppConstants.DRUG_GET_ALL_URL)
+          .subscribe(
+              (response: Response) => {
+                  if (response['responseCode'] === 'DRUG_SUC_10') {
+                      this.drugs = response['responseData'];
+
+                  } else {
+          //            this.notificationService.error(response['responseMessage']);
+                  }
+              }
+          ),
+          (error: any) => {
+              this.notificationService.error(error.error.error);
+          }
+
+  }
+
+
+}*/ 
 //# sourceMappingURL=patient-medication-list.component.js.map

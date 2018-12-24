@@ -18,7 +18,6 @@ var notification_service_1 = require("../../../services/notification.service");
 var patient_1 = require("../../../model/patient");
 var his_util_service_1 = require("../../../services/his-util.service");
 var ConformationDialogService_1 = require("../../../services/ConformationDialogService");
-// import {LabOrderModel} from "../../../model/LabOrderModel";
 var PatientLabOrdersComponent = (function () {
     function PatientLabOrdersComponent(router, route, fb, requestService, notificationService, hISUtilService, confirmationDialogService) {
         this.router = router;

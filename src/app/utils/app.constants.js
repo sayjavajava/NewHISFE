@@ -307,6 +307,7 @@ var AppConstants = (function () {
     AppConstants.PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/'; ///all by paginated
     AppConstants.FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
     AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get?orderId=';
+    AppConstants.PATIENT_IMAGES_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/getImagesOrderId/';
     /*****************************REPORT PRINT*************************************/
     AppConstants.PRINT_REFUND_RECEIPT = '/reportPrint/refundReceipt';
     AppConstants.PRINT_ADVANCED_PAYMENT_RECEIPT = '/reportPrint/advancePaymentReceipt';
