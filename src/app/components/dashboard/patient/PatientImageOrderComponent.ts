@@ -225,8 +225,6 @@ export class PatientImageOrderComponent implements OnInit {
                         this.orderData = response['responseData']['data'];
 
                         console.log(this.orderData);
-                    } else {
-                        this.notificationService.error(response['responseMessage'], 'No Record Found');
                     }
                 },
                 (error: any) => {
@@ -314,7 +312,7 @@ export class PatientImageOrderComponent implements OnInit {
                 );
 
             } else {
-                this.notificationService.warn('Your first request is under process,Please wait...');
+                this.notificationService.warn('Your first request is under process, Please wait...');
             }
         } else {
             this.router.navigate(['/login']);
@@ -409,14 +407,14 @@ export class PatientImageOrderComponent implements OnInit {
 
     getImageTest(Id:any){
 
-        if(this.showImage=true){
-            this.showImage=false;
+        if (this.showImage == true) {
+            this.showImage = false;
         }
         this.labTestFiltered = this.orderData.filter((x:any) =>x.id == Id);
 
         if(this.labTestFiltered.length>0){
-        this.filteredLabTestUrl = this.labTestFiltered[0].url;
-        this.selectedId=this.labTestFiltered[0].id;
+            this.filteredLabTestUrl = this.labTestFiltered[0].url;
+            this.selectedId=this.labTestFiltered[0].id;
         }
         /*for (let patientImg of this.filteredLabTestUrl) {
             var filename = patientImg.substring(patientImg.lastIndexOf('/')+1);
@@ -439,26 +437,24 @@ export class PatientImageOrderComponent implements OnInit {
 
     openDiv(val :string){
 
-
-
-        if(this.showImage==true){
-            this.showImage=false;
+        if (this.showImage == true) {
+            this.showImage = false;
         }
         // this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
         //    document.getElementById('close-btn-Prefix').click();
         //    this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-        var filename = val.substring(val.lastIndexOf('/')+1);
+        var filename = val.substring(val.lastIndexOf('/') + 1);
 
         var ext=filename.substr(filename.length - 3);
 
         var link = document.getElementById("closeGalleria");
         this.images=[];
 
-        if(ext=="gif" || ext=="png" || ext=="jpeg" || ext=="tiff" || ext=="jpg" || ext=="GIF" || ext=="PNG" || ext=="JPEG" || ext=="TIFF" || ext=="JPG" ){
-            let labTestFilteredimgUrl = this.orderData.filter((x:any) =>x.id == this.selectedId);
+        if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "tiff" || ext == "jpg" || ext == "GIF" || ext == "PNG" || ext == "JPEG" || ext == "TIFF" || ext == "JPG") {
+            let labTestFilteredimgUrl = this.orderData.filter((x: any) => x.id == this.selectedId);
 
 
-            for(let i = 0; i < labTestFilteredimgUrl.length; i++) {
+            for (let i = 0; i < labTestFilteredimgUrl.length; i++) {
                 let test = labTestFilteredimgUrl[i];
                 //   var filenameInt = test;
 
@@ -467,15 +463,15 @@ export class PatientImageOrderComponent implements OnInit {
                 //     if(filename===filenameInt){
                 //        this.selectedindex=i;
                 //   }
-                for(let j=0;j < test.url.length; j++) {
+                for (let j = 0; j < test.url.length; j++) {
 
-                    var urlpath=test.url[j];
-                    var extPath=filename.substr(filename.length - 3);
-                    var fileNameInt=urlpath.substring(val.lastIndexOf('/')+1);
-                    if(filename===fileNameInt){
-                        this.selectedindex=j;
+                    var urlpath = test.url[j];
+                    var extPath = filename.substr(filename.length - 3);
+                    var fileNameInt = urlpath.substring(val.lastIndexOf('/') + 1);
+                    if (filename === fileNameInt) {
+                        this.selectedindex = j;
                     }
-                    if(extPath=="gif" || extPath=="png" || extPath=="jpeg" || extPath=="tiff" || extPath=="jpg" || extPath=="GIF" || extPath=="PNG" || extPath=="JPEG" || extPath=="TIFF" || ext=="JPG" ){
+                    if (extPath == "gif" || extPath == "png" || extPath == "jpeg" || extPath == "tiff" || extPath == "jpg" || extPath == "GIF" || extPath == "PNG" || extPath == "JPEG" || extPath == "TIFF" || ext == "JPG") {
 
                         this.images.push({source: test.url[j]});
 
@@ -483,27 +479,25 @@ export class PatientImageOrderComponent implements OnInit {
                 }
                 console.log(this.images);
                 link.setAttribute("href", "#responsiveGalleria2");
-                this.showImage=true;
-//                this.showDialog();
+                this.showImage = true;
+                // this.showDialog();
                 // this.HISUtilService.hidePopupWithCloseButtonId("closeGalleria");
             }
-        }else if(ext=="pdf" || ext=="txt" || ext=="PDF" || ext=="TXT" ){
-            this.showImage=false;
+        } else if (ext == "pdf" || ext == "txt" || ext == "PDF" || ext == "TXT") {
+            this.showImage = false;
             link.setAttribute("href", "#Doc");
             var e = document.getElementById("MyFrame");
             //  var url="https://docs.google.com/viewer?url="+val;
             //   var site = url+'\'&embedded=true" style="width:600px; height:500px;" frameborder="0';
             //    var url="https://docs.google.com/viewer?url="+val;
             //   var site = url+'+\'" style="width:600px; height:500px;" frameborder="0';
-            this.url=val;
+            this.url = val;
             var src = document.getElementById('MyFrame');
-            src.setAttribute("src",this.url);
-            this.images=[];
+            src.setAttribute("src", this.url);
+            this.images = [];
 
 
-        }else{
-            debugger;
-
+        } else {
             this.requestsService.getRequest(AppConstants.PATIENT_IMAGES_FETCH_ALL_PAGINATED_URI+ this.selectedId + '?fileName=' + filename)
                 .subscribe(
                     (response: Response) => {

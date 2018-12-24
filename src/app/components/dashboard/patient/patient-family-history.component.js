@@ -124,7 +124,7 @@ var PatientFamilyHistoryComponent = (function () {
             }
             if (response['responseCode'] == 'FAM_HISTORY_ERR_02') {
                 _this.loading = false;
-                _this.notificationService.error("Error " + response['responseMessage']);
+                // this.notificationService.error(`Error ${response['responseMessage']}`)
             }
         }, function (error) {
             _this.error = error.error.error;

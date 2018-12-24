@@ -153,6 +153,7 @@ export class PatientHistoryVitalComponent implements OnInit {
             { field: 'unit', header: 'Unit' },
             { field: 'currentValue', header: 'Current' },
             { field: 'standardValue', header: 'Standard' },
+            { field: 'updatedOn', header: 'Updated On' },
             /*   { field: 'status', header: 'Status' },*/
             { field: 'status', header: 'Action' }
         ];

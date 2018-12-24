@@ -152,22 +152,14 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-allergyData>
                             <tr>
-
                                 <td field="name"><strong>{{allergyData.name}}</strong></td>
                                 <td field="reaction">{{allergyData.reaction}}</td>
                                 <td field="status">{{allergyData.status}}</td>
                                 <td field="note">{{allergyData.note}}</td>
                                 <td field="updatedOn">{{allergyData.updatedOn}}</td>
-
                                 <td>
-                                    <a href="#responsiveAllergy" data-toggle="modal"
-                                       (click)="editAllergy(allergyData.id)">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <button
-                                            (click)="deleteAllergy(allergyData.id)">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
+                                    <a href="#responsiveAllergy" data-toggle="modal" (click)="editAllergy(allergyData.id)" class="font-blue"> <i class="fa fa-pencil"></i> </a>
+                                    <button class="text-danger" (click)="deleteAllergy(allergyData.id)"> <i class="fa fa-remove"></i> </button>
                                 </td>
                             </tr>
                         </ng-template>

@@ -73,7 +73,7 @@ export class RefundListingComponent {
                         {field: "date", header: "Date"},
                         {field: "refundId", header: "Voucher #"},
                         {field: "patientName", header: "Patient Name"},
-                        {field: "paymentType", header: "Payment)"},
+                        {field: "paymentType", header: "Payment (" + this.currency + ")"},
                         {field: "refundType", header: "Refund Type"},
                         {field: "refundAmount", header: "Refund Amount (" + this.currency + ")"},
                         {field: "action", header: "Action"},
