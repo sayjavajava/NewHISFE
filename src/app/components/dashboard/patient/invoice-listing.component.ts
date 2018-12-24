@@ -81,18 +81,17 @@ export class InvoiceListingComponent implements OnInit{
     printReport(invoiceId: any) {
         console.log(invoiceId);
         this.requestsService.getRequest(AppConstants.PRINT_PATIENT_INVOICE_DETAILS + "/" + invoiceId)
-            .subscribe(
-                (response: Response) => {
-                    console.log(" Added : " + response);
-                    if (response['responseCode'] === 'SUCCESS') {
-                        let pdfFilePath = response["responseData"];
-                        this.notificationService.success('Invoice Downloaded Successfully: ');
-                    } else {
-                        this.notificationService.error('ERROR', 'Failed to generate Invoice ');
-                    }
-                }, function () {
-                    this.notificationService.error('ERROR', 'Error occurred while getting invoice data' );
-                });
+            .subscribe((response: Response) => {
+                console.log(" Added : " + response);
+                if (response['responseCode'] === 'SUCCESS') {
+                    let pdfFilePath = response["responseData"];
+                    this.notificationService.success('Invoice Downloaded Successfully: ');
+                } else {
+                    this.notificationService.error('ERROR', response["responseMessage"]);
+                }
+            }, function () {
+                this.notificationService.error('ERROR', 'Error occurred while getting invoice data' );
+            });
     }
 
 }

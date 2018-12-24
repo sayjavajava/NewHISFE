@@ -42,12 +42,9 @@ export class RefundListingComponent {
                 private route: ActivatedRoute,
                 private requestsService: RequestsService,
                 private notificationService: NotificationService,
-                private HISUtilService: HISUtilService)
-    {
+                private HISUtilService: HISUtilService) {
     //    this.currency = "USD";
-
         this.getDefaultCurrency();
-
         this.getAllPaymentTypes();
         this.getAllPatient();
         this.getAllRefundData();
@@ -160,7 +157,7 @@ export class RefundListingComponent {
     */
 
     getSelectedCustomer(selectedPatId: any){
-        console.log("------------"+selectedPatId);
+        // console.log("------------"+selectedPatId);
         this.refundRequest.patientId=selectedPatId;
         this.getSelectedPatientIvoices(selectedPatId);
     //    this.refundRequest.paymentTypeId=selectedPaymentTyp.id;
@@ -168,7 +165,7 @@ export class RefundListingComponent {
 
     getSelectedPatientIvoices(selectedPatId : any)
     {
-        console.log("selected customer : " + selectedPatId);
+        // console.log("selected customer : " + selectedPatId);
 
         this.requestsService.getRequest(AppConstants.GET_INVOICE_List_BY_PAT_ID + selectedPatId )
             .subscribe(
@@ -210,14 +207,14 @@ export class RefundListingComponent {
     }
 
     getSelectedInvoice(selectedInvoice: any){
-        console.log("------------"+selectedInvoice);
+        // console.log("------------"+selectedInvoice);
 
         this.refundRequest.invoiceId=selectedInvoice.invoiceId;
         this.refundRequest.selectedBalance=selectedInvoice.paidAmount;
     }
 
     getSelectedPaymentType(selectedPaymentTyp: any){
-        console.log("------------"+selectedPaymentTyp);
+        // console.log("------------"+selectedPaymentTyp);
         this.refundRequest.paymentTypeId=selectedPaymentTyp.id;
     }
 
@@ -242,19 +239,21 @@ export class RefundListingComponent {
     }
 
     printReport(refundId: any) {
-        console.log(refundId);
+        // console.log(refundId);
         this.requestsService.getRequest(AppConstants.PRINT_REFUND_RECEIPT + "/" + refundId)
-            .subscribe(
-                (response: Response) => {
-                    console.log(" Added : " + response);
-                    if (response['responseCode'] === 'SUCCESS') {
-                        this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-                        this.notificationService.success('Refund Receipt Downloaded Successfully' + response["responseData"]);
-                        // this.refundList = response["responseData"];
-                    }
-                }, function (error) {
-                    //    this.error('ERROR', 'Refund amount failed');
-                });
+            .subscribe( (response: Response) => {
+                // console.log(" Added : " + response);
+                if (response['responseCode'] === 'SUCCESS') {
+                    this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                    this.notificationService.success('Refund Receipt Downloaded Successfully' + response["responseData"]);
+                    // this.refundList = response["responseData"];
+                } else {
+                    this.notificationService.error('Error', response["responseMessage"]);
+                }
+            }, function (error) {
+                this.notificationService.error('ERROR', "Error occurred while generating the report");
+                //    this.error('ERROR', 'Refund amount failed');
+            });
     }
 
     saveAndPrintReceipt() {
