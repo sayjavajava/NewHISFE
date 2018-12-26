@@ -480,7 +480,7 @@ export class PatientImageOrderComponent implements OnInit {
                 console.log(this.images);
                 link.setAttribute("href", "#responsiveGalleria2");
                 this.showImage = true;
-                this.showDialog();
+                // this.showDialog();
                 // this.HISUtilService.hidePopupWithCloseButtonId("closeGalleria");
             }
         } else if (ext == "pdf" || ext == "txt" || ext == "PDF" || ext == "TXT") {
