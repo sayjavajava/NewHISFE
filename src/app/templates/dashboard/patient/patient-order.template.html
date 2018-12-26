@@ -466,23 +466,42 @@
 </div>
 
 <!--[modal]="true"-->
-<p-dialog *ngIf="showImage" id="responsiveGalleria2"   [responsive]="true" [width]="1024" [minWidth]="520" [minY]="170" showEffect="fade" modal="modal"  [dismissableMask]="true"
+<!--<p-dialog *ngIf="showImage" id="responsiveGalleria2"   [responsive]="true" [width]="1024" [minWidth]="520" [minY]="170" showEffect="fade" modal="modal"  [dismissableMask]="true"
           [closeOnEscape]="true"
           [responsive]="true"
           [closable]="true"
-          [maximizable]="true" [baseZIndex]="10000" header="View Image Order" [(visible)]="display" >
+          [maximizable]="true" [baseZIndex]="10000" header="View Image Order" [(visible)]="display" >-->
+
+    <!--<div  *ngIf="showImage" class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1" >
+
+        <p-galleria [images]="images" panelWidth="1024" panelHeight="520" [(activeIndex)]="selectedindex" ></p-galleria>
+       &lt;!&ndash; <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+        </p-footer>&ndash;&gt;
+    </div>-->
 
 
-    <!--<div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
+<!--</p-dialog>-->
+<!--[modal]="true"-->
+<p-dialog *ngIf="showImage" id="responsiveGalleria2"   [responsive]="true" [width]="1170" [minWidth]="520"   [minY]="170" showEffect="fade" modal="modal"
+          [dismissableMask]="true"
+          [closeOnEscape]="true"
+          [responsive]="true"
+          [closable]="true"
+          [maximizable]="false" [baseZIndex]="10000" header="View Image Order" [(visible)]="display" >
+
+
+  <!--  <div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
         <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
-            <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
+            <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=selectedindex}"
                 [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="clickImage($event,image,i)">
                 <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
             </li>
         </ul>
         <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}" *ngIf="showFilmstrip">
             <ul class="ui-galleria-filmstrip" style="transition:left 1s" [style.left.px]="stripLeft">
-                <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)"
+                <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==selectedindex}" class="ui-galleria-frame" (click)="frameClick(frame)"
                     [style.width.px]="frameWidth" [style.height.px]="frameHeight" [style.transition]="'opacity 0.75s ease'">
                     <div class="ui-galleria-frame-content">
                         <img [src]="image.source" [alt]="image.alt" [title]="image.title" class="ui-galleria-frame-image"
@@ -491,40 +510,81 @@
                 </li>
             </ul>
         </div>
-        <div class="ui-galleria-nav-prev pi pi-fw pi-chevron-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2" *ngIf="activeIndex !== 0"></div>
+        <div class="ui-galleria-nav-prev pi pi-fw pi-chevron-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2" *ngIf="selectedindex !== 0"></div>
         <div class="ui-galleria-nav-next pi pi-fw pi-chevron-right" (click)="clickNavRight()" [style.bottom.px]="frameHeight/2"></div>
         <div class="ui-galleria-caption" *ngIf="showCaption&&images" style="display:block">
-            <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
+            <h4>{{images[selectedindex]?.title}}</h4><p>{{images[selectedindex]?.alt}}</p>
         </div>
     </div>-->
 
     <div class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1" >
-
-        <p-galleria [images]="images" panelWidth="1024" panelHeight="520" [(activeIndex)]="selectedindex" ></p-galleria>
-        <p-footer>
+        <!--onImageChange)="getIndex($event)"-->
+        <p-galleria [images]="images" panelWidth="1170" panelHeight="520" [(activeIndex)]="selectedindex"></p-galleria>
+       <!-- <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}" *ngIf="showImage">
+            <ul class="ui-galleria-filmstrip" style="transition:left 1s" [style.left.px]="stripLeft">
+                <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==selectedindex}" class="ui-galleria-frame" (click)="frameClick(frame)"
+                    [style.width.px]="frameWidth" [style.height.px]="frameHeight" [style.transition]="'opacity 0.75s ease'">
+                    <div class="ui-galleria-frame-content">
+                        <img [src]="image.source" [alt]="image.alt" [title]="image.title" class="ui-galleria-frame-image"
+                             [style.width.px]="frameWidth" [style.height.px]="frameHeight">
+                    </div>
+                </li>
+            </ul>
+        </div>-->
+        <!--<p-footer>
             <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
             <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
-        </p-footer>
+        </p-footer>-->
     </div>
 
 
 </p-dialog>
-
-<!-- <div *ngIf="showImage" id="responsiveGalleria2" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
+<!--<div *ngIf="showImage" id="responsiveGalleria2" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width: 1170px; margin: 30px auto;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">View Order </h4>
             </div>
-            <div class="modal-body">
+                <div class="modal-body">
                 <div class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1">
-                <p-galleria [images]="images" panelWidth="1024" panelHeight="520"></p-galleria>
-                </div>
+                <p-galleria [images]="images" panelWidth="1170" panelHeight="520" ></p-galleria>
+              </div>
             </div>
-        </div>
+      </div>
     </div>
-</div> -->
+</div>-->
+
+<!--<div *ngIf="showImage" id="responsiveGalleria2" [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
+    <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
+        <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
+            [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="clickImage($event,image,i)">
+            <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
+        </li>
+    </ul>
+    <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}" *ngIf="showFilmstrip">
+        <ul class="ui-galleria-filmstrip" style="transition:left 1s" [style.left.px]="stripLeft">
+            <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)"
+                [style.width.px]="frameWidth" [style.height.px]="frameHeight" [style.transition]="'opacity 0.75s ease'">
+                <div class="ui-galleria-frame-content">
+                    <img [src]="image.source" [alt]="image.alt" [title]="image.title" class="ui-galleria-frame-image"
+                         [style.width.px]="frameWidth" [style.height.px]="frameHeight">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="ui-galleria-nav-prev pi pi-fw pi-chevron-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2" *ngIf="activeIndex !== 0"></div>
+    <div class="ui-galleria-nav-next pi pi-fw pi-chevron-right" (click)="clickNavRight()" [style.bottom.px]="frameHeight/2"></div>
+    <div class="ui-galleria-caption" *ngIf="showCaption&&images" style="display:block">
+        <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
+    </div>
+</div>-->
+
+   <!-- <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>-->
 
 <!-- <div  *ngIf="!showImage" id="Doc" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
@@ -544,7 +604,7 @@
     </div>
 </div> -->
 
-<div  *ngIf="!showImage" id="Doc" class="modal fade" tabindex="-1" aria-hidden="true">
+<!--<div  *ngIf="!showImage" id="Doc" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
         <div class="modal-content">
             <div class="modal-header">
@@ -554,13 +614,13 @@
             <div class="modal-body">
                 <div class="scroller" style="height:520px" data-always-visible="1" data-rail-visible1="1">
 
-                    <iframe id="MyFrame" style="width:1024px; height:520px;" frameborder="0"></iframe>
+                    &lt;!&ndash;<iframe id="MyFrame"></iframe>&ndash;&gt;
                 </div>
             </div>
 
         </div>
     </div>
-</div>
+</div>-->
 
 <div id="popupTest" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog"  >

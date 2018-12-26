@@ -50,11 +50,12 @@ export class PatientImageOrderComponent implements OnInit {
     patientImageTemplate: PatientImageOrderModel = new PatientImageOrderModel();
     showUpload:boolean=false;
     showDiv:boolean =false;
-    selectedindex:number=0;
+    selectedindex:number;
     patientId: number;
     cols:any[];
     imageUrl:any[];
-
+    otherUrl:string;
+    display: boolean = false;
     @ViewChild('closeBtn') closeBtn: ElementRef;
 
     constructor(private notificationService: NotificationService,
@@ -64,9 +65,9 @@ export class PatientImageOrderComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private dataService: DataService) {
 
-       /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
-            this.selectedPatientId = id;
-        });*/
+        /* this.subscription = this.dataService.currentPatientId.subscribe(id => {
+             this.selectedPatientId = id;
+         });*/
 
         this.activatedRoute.params.subscribe(params => {
             this.selectedPatientId = params['id'];
@@ -78,7 +79,7 @@ export class PatientImageOrderComponent implements OnInit {
 
     }
     ngOnInit(): void {
-     //   this.loadRecord();
+        //   this.loadRecord();
         this.statusType = [
             {label: 'ACTIVE',value:'ACTIVE'},
             {label: 'IN-ACTIVE',value:'IN-ACTIVE'},
@@ -112,7 +113,7 @@ export class PatientImageOrderComponent implements OnInit {
 
     }*/
     addProblemPopupClick() {
-     //   this.isUpdate =true;
+        //   this.isUpdate =true;
         this.isUpdate = false;
         this.patientImageTemplate=new PatientImageOrderModel();
         this.uploadedFiles=[];
@@ -146,9 +147,9 @@ export class PatientImageOrderComponent implements OnInit {
         form.clear();
     }
 
-   /* showDialog() {
+    showDialog() {
         this.display = true;
-    }*/
+    }
 
     saveOrder() {
         if (localStorage.getItem(btoa('access_token'))) {
@@ -449,7 +450,7 @@ export class PatientImageOrderComponent implements OnInit {
 
         var link = document.getElementById("closeGalleria");
         this.images=[];
-
+        debugger;
         if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "tiff" || ext == "jpg" || ext == "GIF" || ext == "PNG" || ext == "JPEG" || ext == "TIFF" || ext == "JPG") {
             let labTestFilteredimgUrl = this.orderData.filter((x: any) => x.id == this.selectedId);
 
@@ -479,36 +480,54 @@ export class PatientImageOrderComponent implements OnInit {
                 }
                 console.log(this.images);
                 link.setAttribute("href", "#responsiveGalleria2");
+
                 this.showImage = true;
                 // this.showDialog();
+
+                    this.showDialog();
+                this.showImage = true;
+                //  this.showDialog();
+
                 // this.HISUtilService.hidePopupWithCloseButtonId("closeGalleria");
             }
         } else if (ext == "pdf" || ext == "txt" || ext == "PDF" || ext == "TXT") {
             this.showImage = false;
             link.setAttribute("href", "#Doc");
-            var e = document.getElementById("MyFrame");
+            //       var e = document.getElementById("MyFrame");
             //  var url="https://docs.google.com/viewer?url="+val;
             //   var site = url+'\'&embedded=true" style="width:600px; height:500px;" frameborder="0';
             //    var url="https://docs.google.com/viewer?url="+val;
             //   var site = url+'+\'" style="width:600px; height:500px;" frameborder="0';
             this.url = val;
-            var src = document.getElementById('MyFrame');
-            src.setAttribute("src", this.url);
             this.images = [];
+            //      var src = document.getElementById('MyFrame');
+            //      src.setAttribute("src", this.url);
+            window.open(this.url);
+
 
 
         } else {
-            this.requestsService.getRequest(AppConstants.PATIENT_IMAGES_FETCH_ALL_PAGINATED_URI+ this.selectedId + '?fileName=' + filename)
+            /*this.requestsService.getRequest(AppConstants.PATIENT_IMAGES_FETCH_ALL_PAGINATED_URI+ this.selectedId + '?fileName=' + filename)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'DOC_SUC_42') {
-                           /* this.nextPage = response['responseData']['nextPage'];
+                           /!* this.nextPage = response['responseData']['nextPage'];
                             this.prePage = response['responseData']['prePage'];
                             this.currPage = response['responseData']['currPage'];
-                            this.pages = response['responseData']['pages'];*/
-                            this.imageUrl = response['responseData']['data'];
-
-                            console.log(this.imageUrl);
+                            this.pages = response['responseData']['pages'];*!/
+                            this.otherUrl = response['responseData'];
+                            this.showImage = false;
+                            link.setAttribute("href", "#Doc");
+                            var e = document.getElementById("MyFrame");
+                              var url="https://docs.google.com/viewer?url="+this.otherUrl;
+                              var site = url+'\'&embedded=true" style="width:600px; height:500px;" frameborder="0';
+                            //    var url="https://docs.google.com/viewer?url="+val;
+                            //   var site = url+'+\'" style="width:600px; height:500px;" frameborder="0';
+                       //     this.url = this.imageUrl.toString();
+                            var src = document.getElementById('MyFrame');
+                            src.setAttribute("src", site);
+                         //   this.images = [];
+                            console.log(this.otherUrl);
                         } else {
                             this.notificationService.error(response['responseMessage'], 'No Record Found');
                         }
@@ -516,10 +535,23 @@ export class PatientImageOrderComponent implements OnInit {
                     (error: any) => {
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
-                );
+                );*/
 
 
-          //  this.downloadURL(val);
+            //  this.downloadURL(val);
+            debugger;
+            //    var e = document.getElementById("MyFrame");
+            var url="https://docs.google.com/viewer?url="+val;
+            var site = url+'&embedded=true"';
+            //    var url="https://docs.google.com/viewer?url="+val;
+            //   var site = url+'+\'" style="width:600px; height:500px;" frameborder="0';
+            //  this.url = val;
+
+
+            //      var src = document.getElementById("MyFrame");
+            //       src.setAttribute("src", site);
+            window.open(site);
+            //       this.images = [];
         }
     }
 
@@ -537,26 +569,36 @@ export class PatientImageOrderComponent implements OnInit {
         // updted
     };
 
-
-    /*loadRecord() {
-        if (this.patientId == null || this.patientId == 0 || this.patientId == undefined) {
-         //   this.notificationService.error('Please Select Patient Again From Dashboard')
-        } else {
-            this.requestsService.getRequest(
-                AppConstants.PATIENT_FETCH_URL + this.patientId
-            ).subscribe(
-                response => {
-                    if (response['responseCode'] === 'USER_SUC_01') {
-                        this.patient = response['responseData'];
-                        //this.patient.races = JSON.parse(response['responseData'].racesString);
-                    } else {
-                        this.notificationService.error(response['responseMessage'], 'Patient');
-                        // this.router.navigate(['404-not-found'])
-                    }
-                },
-                (error: any) => {
-
-                });
+    cancel() {
+        if (!this.display) {
+            console.log('closing');
         }
-    }*/
+        /*loadRecord() {
+            if (this.patientId == null || this.patientId == 0 || this.patientId == undefined) {
+             //   this.notificationService.error('Please Select Patient Again From Dashboard')
+            } else {
+                this.requestsService.getRequest(
+                    AppConstants.PATIENT_FETCH_URL + this.patientId
+                ).subscribe(
+                    response => {
+                        if (response['responseCode'] === 'USER_SUC_01') {
+                            this.patient = response['responseData'];
+                            //this.patient.races = JSON.parse(response['responseData'].racesString);
+                        } else {
+                            this.notificationService.error(response['responseMessage'], 'Patient');
+                            // this.router.navigate(['404-not-found'])
+                        }
+                    },
+                    (error: any) => {
+
+                    });
+            }
+        }*/
+    }
+
+
+    getIndex(e: any) {
+
+        this.selectedindex = e.index+1;
+    }
 }

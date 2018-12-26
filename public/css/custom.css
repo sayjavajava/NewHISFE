@@ -885,3 +885,4 @@ input.upload-btn[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; c
 .doctorslist button{background: none !important; color: #007ad9 !important; border: none !important;}
 .hght250{height: 250px !important;}
 .brnch-td{padding-top:20px !important; padding-left:20px !important;}
+.modal-backdrop.in {opacity: .5; display: none;}
