@@ -138,11 +138,14 @@ var PatientMedicationListComponent = (function () {
         }
     };
     PatientMedicationListComponent.prototype.addMedication = function () {
+        debugger;
         this.isUpdate = false;
         this.isUpdateAppoint = false;
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
         this.getAllDrugsFromServer();
+        //   this.getRouteDrug(this.searchedDrugNamesLstNew[0].label);
+        //   this.getStrengthsDrug(this.searchedDrugNamesLstNew[0].label);
     };
     PatientMedicationListComponent.prototype.getAllDrugsFromServer = function () {
         var _this = this;
@@ -151,6 +154,7 @@ var PatientMedicationListComponent = (function () {
             if (response['responseCode'] === 'DRUG_SUC_10') {
                 _this.data = response['responseData']['data'];
                 _this.drugList = response['responseData']['data'];
+                debugger;
                 _this.searchedDrugNamesLstNew = [];
                 if (_this.data.length > 0) {
                     for (var _i = 0, _a = _this.data; _i < _a.length; _i++) {
