@@ -116,16 +116,12 @@
                                                [(ngModel)]="ms.fee" min="0" placeholder="Enter fee"
                                                required pattern="^[0-9]{1,60}$"
                                                name="fee" #fee="ngModel"/>
-                                        <span *ngIf="fee.invalid && fee.touched"
-                                               class="text-danger">
-                                                Please enter valid fee.
-                                    </span>
+                                        <span *ngIf="fee.invalid && fee.touched" class="text-danger"> Please enter valid fee </span>
                                     </div>
 
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 pdng-lr-5">
-                                        Service Tax {{+ "("+currency+")"}}
+                                    <label class="control-label col-md-4 pdng-lr-5">Service Tax (%)
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 pdng-lr-5">
@@ -147,33 +143,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 pdng-lr-5">Duration
-                                    </label>
+                                    <label class="control-label col-md-4 pdng-lr-5">Duration</label>
                                     <div class="col-md-7 pdng-lr-5 profile-frm">
-                                        <input class="form-control"
-                                               type="number" required
+                                        <input class="form-control" type="number" required
                                                [(ngModel)]="ms.duration" min="0" maxlength="5"
                                                name="duration" placeholder="Enter duration"
                                                #duration="ngModel"/>
                                     </div>
-                                    <div class="control-label col-md-1 pdng-lr-5">
-                                        Minutes
-                                    </div>
-                                    <span *ngIf="duration.invalid && duration.touched"
-                                          class="text-danger">
-                                                Please enter valid duration.
-                                    </span>
+                                    <div class="control-label col-md-1 pdng-lr-5">Minutes</div>
+                                    <span *ngIf="duration.invalid && duration.touched" class="text-danger"> Please enter valid duration</span>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 pdng-lr-5">Description
-                                    </label>
+                                    <label class="control-label col-md-4 pdng-lr-5">Description</label>
                                     <div class="col-md-8 pdng-lr-5">
-                                        <textarea class="form-control"
-                                                  rows="3" title=""
-                                                  placeholder="Enter Description"
-                                                  [(ngModel)]="ms.description"
-                                                  name="description"
-                                                  #description="ngModel">
+                                        <textarea class="form-control" rows="3" title="" placeholder="Enter Description"
+                                                  [(ngModel)]="ms.description" name="description" #description="ngModel">
                                         </textarea>
                                     </div>
                                 </div>
@@ -181,10 +165,7 @@
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
                                     <div class="col-md-8 select mt-checkbox mt-checkbox-outline pdng-l-r-15">
                                         <label class="mt-checkbox-outline">
-                                            <mat-checkbox
-                                                    [(ngModel)]="ms.status" name="status"
-                                                    color="primary">
-                                            </mat-checkbox>
+                                            <mat-checkbox [(ngModel)]="ms.status" name="status" color="primary"></mat-checkbox>
                                         </label>
                                     </div>
                                 </div>
@@ -195,8 +176,7 @@
                                 <a routerLink="/dashboard/setting/medicalServices">
                                     <button type="button" class="btn default"> Cancel</button>
                                 </a>
-                                <button type="button" (click)="saveMedicalServices(msForm)" class="btn blue"> Save
-                                </button>
+                                <button type="button" (click)="saveMedicalServices(msForm)" class="btn blue"> Save </button>
                             </div>
                         </div>
                     </div>

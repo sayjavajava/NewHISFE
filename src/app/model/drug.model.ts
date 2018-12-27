@@ -31,10 +31,11 @@ export class DrugModel {
 
     UOMs: SelectItem[] = [
         {label: 'ML', value: 'ML'},
+        {label: 'MG', value: 'MG'},
         {label: 'DOSING CUP', value: 'DOSING CUP'},
-        {label: 'MEASURING SPOONS', value: 'MEASURING SPOONS'},
         {label: 'DOSING SPOONS', value: 'DOSING SPOONS'},
         {label: 'DOSING SYRINGE', value: 'DOSING SYRINGE'},
+        {label: 'MEASURING SPOONS', value: 'MEASURING SPOONS'},
     ];
 
     origin: string = '';

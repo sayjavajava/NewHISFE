@@ -209,18 +209,25 @@ var AddBranchComponent = (function () {
         }
         else {
             this.validateAllFormFields(this.branchForm);
+            var errors = 0;
             if (this.examRooms.length == 0) {
                 /*let examRoomLen = this.examRooms.length;
                 for (var i = 0; i < examRoomLen; i++) {
                    console.log(this.examRooms.controls(i).controls['roomName'].value);
                 }*/
                 this.notificationService.error("Fill Form Properly");
+                errors++;
             }
             if (this.officeHoursStart.length == 0) {
                 this.notificationService.error("Please provide branch start time");
+                errors++;
             }
             if (this.officeHoursEnd.length == 0) {
                 this.notificationService.error("Please provide branch closing time");
+                errors++;
+            }
+            if (errors == 0) {
+                this.notificationService.error("Please provide data in all required fields");
             }
         }
     };
@@ -290,6 +297,11 @@ var AddBranchComponent = (function () {
     AddBranchComponent.prototype.getZipCode = function (value) {
         if (value) {
             this.branchForm.controls["zipCode"].setValue(value);
+        }
+    };
+    AddBranchComponent.prototype.getFormattedAddress = function (value) {
+        if (value) {
+            this.branchForm.controls["formattedAddress"].setValue(value);
         }
     };
     AddBranchComponent.prototype.getNoOfExamRooms = function (room) {

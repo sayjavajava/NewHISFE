@@ -350,4 +350,16 @@ export class CodeComponent implements OnInit {
         this.clientCheckedVersions = [];
     }
 
+    openUrl(val :string){
+
+        let url: string = '';
+        if (!/^http[s]?:\/\//.test(val)) {
+            url += 'http://';
+        }
+
+        url += val;
+        window.open(url, '_blank');
+        //   window.open("https://www.google.com", "_blank");
+    }
+
 }

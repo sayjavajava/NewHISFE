@@ -70,7 +70,6 @@ export class DrugComponent implements OnInit {
 
 
     allCountries() {
-
         this.requestsService.getRequest(AppConstants.GET_ALL_COUNTRY)
             .subscribe(
                 (response: Response) => {
@@ -79,9 +78,7 @@ export class DrugComponent implements OnInit {
                         for (let country of this.countryLst) {
                             let pair: any = {label: country.name, value: country.id};
                             this.countryListModified.push(pair);
-
                         }
-
                     }
                 },
                 (error: any) => {
@@ -204,7 +201,6 @@ export class DrugComponent implements OnInit {
     }*/
 
     saveDrug(data: FormData) {
-
         if (this.drug.drugName == '') {
             this.notificationService.error('Please enter Drug name.', 'Drug');
             document.getElementById('drugName').focus();
@@ -239,7 +235,7 @@ export class DrugComponent implements OnInit {
         }*/
        if(this.selectedCountry.length==0){
             this.notificationService.error('Please Select Make.', 'Drug');
-           document.getElementById('origin').focus();
+            document.getElementById('origin').focus();
             return;
         }
    //     this.drug.selectedCountry=this.selectedCountry;
@@ -292,12 +288,11 @@ export class DrugComponent implements OnInit {
             return;
         }
 
-       if (this.drug.strengths.length == 0) {
+        if (this.drug.strengths.length == 0) {
             this.notificationService.error('Please enter  strength.', 'Drug');
             document.getElementById('strengths').focus();
             return;
         }
-
 
         if(this.selectedCountry.length==0){
             this.notificationService.error('Please Select Make.', 'Drug');
@@ -312,47 +307,44 @@ export class DrugComponent implements OnInit {
         this.drug.selectedCountry=this.selectedCountry;
 
         console.log(this.drug);
-        this.requestsService.putRequest(
-            AppConstants.DRUG_UPDATE_URL,
-            this.drug)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'DRUG_SUC_11') {
-                        this.notificationService.success(response['responseMessage'], 'Drug');
-                        // this.getPageWiseDrugFromServer(0);
-                        this.getAllDrugsFromServer();
-                        this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-                    } else {
-                        this.notificationService.error(response['responseMessage'], 'Drug');
-                    }
-                },
-                (error: any) => {
-                    //console.log(error.json())
-                    this.notificationService.error(error.error.error);
-
+        this.requestsService.putRequest(AppConstants.DRUG_UPDATE_URL, this.drug)
+            .subscribe((response: Response) => {
+                if (response['responseCode'] === 'DRUG_SUC_11') {
+                    this.notificationService.success(response['responseMessage'], 'Drug');
+                    // this.getPageWiseDrugFromServer(0);
+                    this.getAllDrugsFromServer();
+                    this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                } else {
+                    this.notificationService.error(response['responseMessage'], 'Drug');
                 }
-            );
+            }, (error: any) => {
+                //console.log(error.json())
+                this.notificationService.error(error.error.error);
+            });
     }
 
     onUpdatePopupDrug(id: any) {
         this.requestsService.getRequest(AppConstants.DRUG_GET_URL + id)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'DRUG_SUC_10') {
-                        this.drug = response['responseData'];
-                        let drug = new DrugModel();
-                        this.drug.routes = drug.routes;
-                        this.drug.UOMs = drug.UOMs;
-                        this.selectedCountry=this.drug.addInfo.country;
-                        console.log(this.drug);
+            .subscribe((response: Response) => {
+                if (response['responseCode'] === 'DRUG_SUC_10') {
+                    this.drug = response['responseData'];
+                    let drug = new DrugModel();
+                    this.drug.routes = drug.routes;
+                    this.drug.UOMs = drug.UOMs;
+
+                    if (isNaN(this.drug.selectedCountry)) {
+                        this.selectedCountry = this.drug.selectedCountry;
                     } else {
-                        this.notificationService.error(response['responseMessage']);
+                        this.selectedCountry = this.drug.addInfo.country;
                     }
+
+                    console.log(this.drug);
+                } else {
+                    this.notificationService.error(response['responseMessage']);
                 }
-            ),
-            (error: any) => {
-                this.notificationService.error(error.error.error);
-            }
+            }, (error: any) => {
+            this.notificationService.error(error.error.error);
+        });
     }
 
     onAddDrug() {
@@ -365,11 +357,9 @@ export class DrugComponent implements OnInit {
                     } else {
                         this.notificationService.error(response['responseMessage']);
                     }
-                }
-            ),
-            (error: any) => {
+                }, (error: any) => {
                 this.notificationService.error(error.error.error);
-            };
+            });
     }
 
     importData(event: any) {
@@ -401,5 +391,21 @@ export class DrugComponent implements OnInit {
                 }
             }
         }
+    }
+
+    openUrl(val :string){
+        let url: string = '';
+        if (!/^http[s]?:\/\//.test(val)) {
+            url += 'http://';
+        }
+        url += val;
+        window.open(url, '_blank');
+        //   window.open("https://www.google.com", "_blank");
+    }
+
+    selectedCountryPrint() {
+        this.selectedCountry = this.drug.selectedCountry;
+        console.log(this.selectedCountry);
+        console.log(this.drug.selectedCountry);
     }
 }

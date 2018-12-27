@@ -64,8 +64,7 @@ export class UpdateBranchComponent implements OnInit {
                         }
                         console.log("No of rooms: " + this.noOfRoom);
                     }
-                },
-                (error: any) => {
+                }, (error: any) => {
                     this.error = error.error.error;
                 })
     }
@@ -78,15 +77,13 @@ export class UpdateBranchComponent implements OnInit {
                 private fb: FormBuilder,
                 private notificationService: NotificationService,
                 private amazingTimePickerService?: AmazingTimePickerService) {
-
         this.requestService.getRequest(AppConstants.USER_BY_ROLE + "?name=" + this.userSelected)
             .subscribe(
                 (response: Response) => {
                     if (response["responseCode"] === "USER_SUC_01") {
                         this.pDoctor = response["responseData"];
                     }
-                },
-                (error: any) => {
+                }, (error: any) => {
                     this.error = error.error.error;
                 });
         // this.allBranches();
@@ -193,6 +190,7 @@ export class UpdateBranchComponent implements OnInit {
                         // primaryDoctor: branch.user.id,
                         fax: branch.fax,
                         address: branch.address,
+                        formattedAddress: branch.formattedAddress,
                         zipCode: branch.zipCode,
                         officePhone: branch.officePhone,
                         flow: branch.flow,
@@ -213,6 +211,7 @@ export class UpdateBranchComponent implements OnInit {
                              }
                          );*/
                     this.branchForm.controls["zipCode"].patchValue(branch.zipCode);
+                    this.branchForm.controls["formattedAddress"].patchValue(branch.formattedAddress);
                     // this.allRoomCount();
                     this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
                  //   branch.examRooms = this.noOfRoom;
@@ -314,7 +313,6 @@ export class UpdateBranchComponent implements OnInit {
         }
     }
 
-
     isFieldValid(field: string) {
         return !this.branchForm.get(field).valid && this.branchForm.get(field).touched;
     }
@@ -380,6 +378,12 @@ export class UpdateBranchComponent implements OnInit {
         }
     }
 
+    getFormattedAddress(value: any) {
+        if (value) {
+            this.branchForm.controls["formattedAddress"].setValue(value);
+        }
+    }
+
     getNoOfExamRooms(value: any) {
         if (value) {
             this.branchForm.controls["noOfExamRooms"].setValue(value);
@@ -406,7 +410,6 @@ export class UpdateBranchComponent implements OnInit {
 
     }
 
-
     removeAllFields() {
         this.examRooms = this.branchForm.get("examRooms") as FormArray;
         let examRoomLen = this.examRooms.length;
@@ -417,18 +420,17 @@ export class UpdateBranchComponent implements OnInit {
 
     createCountriesList() {
         this.requestService.getRequest(AppConstants.FETCH_LIST_OF_COUNTRIES)
-            .subscribe(
-                (response: Response) => {
-                    if (response["responseCode"] === "BRANCH_SUC_01") {
-                        this.countryList = response["responseData"].data;
-                        for (let country of this.countryList) {
-                            var pair: any = {label: country.name, value: country.id};
-                            this.countryListModified.push(pair);
-                        }
+            .subscribe((response: Response) => {
+                if (response["responseCode"] === "BRANCH_SUC_01") {
+                    this.countryList = response["responseData"].data;
+                    for (let country of this.countryList) {
+                        var pair: any = {label: country.name, value: country.id};
+                        this.countryListModified.push(pair);
                     }
-                }, function (error) {
-                    this.notificationService.error("ERROR", "Countries List is not available");
-                });
+                }
+            }, function (error) {
+                this.notificationService.error("ERROR", "Countries List is not available");
+            });
     }
 
     getStatesByCountryId(countryId: any) {
