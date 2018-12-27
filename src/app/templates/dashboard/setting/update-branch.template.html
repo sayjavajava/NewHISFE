@@ -10,12 +10,12 @@
                         <li class="active">
                             <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"> Basic </a>
                         </li>
-                        <!--<li class="">
+                        <li class="">
                             <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> Billing </a>
                         </li>
                         <li class="">
                             <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Online Schedule </a>
-                        </li>-->
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_1_1">
@@ -28,17 +28,15 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input type="text" formControlName="branchName"
-                                                           class="form-control">
+                                                    <input type="text" formControlName="branchName" class="form-control">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['branchName'].valid && branchForm.controls['branchName'].touched">
-                                           <span *ngIf="branchForm.controls['branchName'].errors.minlength"> minimum 4 charachters</span>
-                                           <span *ngIf="branchForm.controls['branchName'].errors.required"> name is required </span>
-
-                                        </span>
+                                                       <span *ngIf="branchForm.controls['branchName'].errors.minlength"> minimum 4 charachters</span>
+                                                       <span *ngIf="branchForm.controls['branchName'].errors.required"> name is required </span>
+                                                    </span>
                                                 </div>
                                             </div>
-                                      <!--      <div class="form-group">
+                                            <!--      <div class="form-group">
                                                 <label class="control-label col-md-3">Primary Doctor
                                                 </label>
                                                 <div class="col-md-9">
@@ -53,10 +51,8 @@
                                                     </select>
                                                 </div>
                                             </div>-->
-
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Country
-                                                </label>
+                                                <label class="control-label col-md-4 pdng-lr-5">Country</label>
                                                 <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedCountry}}" [autoWidth]="false" [(ngModel)]="selectedCountry"
                                                                  formControlName="selectedCountry" [style]="{'text-align': 'left' ,'width':'100%'}"
@@ -76,8 +72,19 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">State
-                                                </label>
+                                                <label class="control-label col-md-4 pdng-lr-5">Address</label>
+                                                <div class="col-md-8 pdng-lr-5">
+                                                    <textarea formControlName="address" class="form-control" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Zip Code </label>
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
+                                                    <input type="text" placeholder="Enter Zip Code" formControlName="zipCode" data-required="1" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">State</label>
                                                 <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedState}}" [autoWidth]="false" [(ngModel)]="selectedState"
                                                                  formControlName="selectedState" [style]="{'text-align': 'left' ,'width':'100%'}"
@@ -92,20 +99,17 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">City
-                                                </label>
+                                                <label class="control-label col-md-4 pdng-lr-5">City</label>
                                                 <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedCity}}" [autoWidth]="false" [(ngModel)]="selectedCity"
                                                                  formControlName="city" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="selectBranchCity($event.value)"
                                                                  [options]="citiesListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
-
                                                     <!--<input type="text" formControlName="city" data-required="1" value=""
                                                            class="form-control">-->
                                                 </div>
                                             </div>
-
                                             <!--<div class="form-group">
                                                 <label class="control-label col-md-4">Zip Code
                                                 </label>
@@ -124,27 +128,22 @@
                                             </div>-->
 
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Address
-                                                </label>
-                                                <div class="col-md-8 pdng-lr-5">
-                                                    <textarea formControlName="address" class="form-control"
-                                                              rows="5"></textarea></div>
-                                            </div>
-                                            <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Office Phone
-                                                </label>
+                                                <label class="control-label col-md-4 pdng-lr-5">Office Phone</label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input name="home phone" formControlName="officePhone" type="text"
-                                                           value="(876) 785-6757"
-                                                           class="form-control">
+                                                    <input name="home phone" formControlName="officePhone" type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Fax
-                                                </label>
+                                                <label class="control-label col-md-4 pdng-lr-5">Fax</label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input type="text" formControlName="fax" data-required="1" value=""
-                                                           class="form-control"></div>
+                                                    <input type="text" formControlName="fax" data-required="1" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Formatted Address </label>
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
+                                                    <input type="text" formControlName="formattedAddress" data-required="1" class="form-control">
+                                                </div>
                                             </div>
                                            <!-- <div class="form-group">
                                                 <label class="control-label col-md-3">Formatted Address
@@ -163,7 +162,6 @@
                                                         <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -173,34 +171,25 @@
                                                 </label>
                                                 <div class="col-md-5 pdng-lr-5">
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
-                                                    <input class="col-md-9" type="time"
-                                                           formControlName="officeHoursStart"
-                                                           value="{{officeHoursStart}}">
+                                                    <input class="col-md-9" type="time" formControlName="officeHoursStart" value="{{officeHoursStart}}">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
-                                                    <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
-
-                                        </span></div>
-
+                                                        <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
+                                                    </span>
+                                                </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-3 pdng-lr-5"> Office End Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-
                                                 <div class="col-md-5 pdng-lr-5">
-
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
-
-                                                    <input class="col-md-9" type="time" formControlName="officeHoursEnd"
-                                                           value="{{officeHoursEnd}}">
-
+                                                    <input class="col-md-9" type="time" formControlName="officeHoursEnd" value="{{officeHoursEnd}}">
                                                 </div>
                                                 <span class="text-danger"
                                                       *ngIf="!branchForm.controls['officeHoursEnd'].valid && branchForm.controls['officeHoursEnd'].touched">
                                                     <span *ngIf="branchForm.controls['officeHoursEnd'].errors.required">End time  is required </span>
-
-                                        </span>
+                                                </span>
                                             </div>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-3 pdng-lr-5">No of Ex Rooms
@@ -217,8 +206,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div formArrayName="examRooms"
-                                             *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
+                                        <div formArrayName="examRooms" *ngFor="let item of branchForm.get('examRooms').controls; let i = index;">
                                             <div class="col-md-6" [formGroupName]="i">
                                                 <div class="form-group mrgn-btm08">
                                                     <label class="control-label col-md-3 pdng-lr-5">Exam Name
@@ -228,13 +216,12 @@
                                                                formControlName="roomName"></div>
                                                     <div class="col-md-5 pdng-lr-5 mrgn-top4">
                                                         <label class="mt-checkbox-outline">
-                                                            <input type="checkbox"  [attr.disabled]="disable"
-                                                                   formControlName="allowOnlineScheduling"> Allow Online
-                                                            Schediling
-                                                            <span></span>
+                                                            <mat-checkbox formControlName="allowOnlineScheduling" color="primary"
+                                                                          [disabled]="true"> Allow Online Scheduling</mat-checkbox><span></span>
+                                                            <!--<input type="checkbox"  [attr.disabled]="disable"
+                                                                   formControlName="allowOnlineScheduling"> Allow Online Scheduling <span></span>-->
+                                                            <!--<i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>-->
                                                         </label>
-                                                        <i (click)="deleteField(i)" title="Remove"
-                                                           class="fa fa-close font-red"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -245,11 +232,10 @@
                                     </div>
                                     <div class="hr">
                                         <div class="col-md-12 text-center">
-                                            <button (click)="addBranch(branchForm.value)" class="btn blue"><i
-                                                    class="fa fa-plus"></i> Update
+                                            <button (click)="addBranch(branchForm.value)" class="btn blue">
+                                                <i class="fa fa-plus"></i> Update
                                             </button>
-                                            <button (click)="cancel()" class="btn default"><i class="fa fa-cancel"></i> Cancel
-                                            </button>
+                                            <button (click)="cancel()" class="btn default"><i class="fa fa-cancel"></i> Cancel </button>
                                         </div>
                                     </div>
                                 </div>

@@ -91,6 +91,7 @@ export class AddBranchComponent implements OnInit {
             {label: "4", value: 4},
 
         ];
+
     }
 
     createBranchForm() {
@@ -240,18 +241,25 @@ export class AddBranchComponent implements OnInit {
 
         } else {
             this.validateAllFormFields(this.branchForm);
+            let errors:number = 0;
             if (this.examRooms.length == 0) {
                 /*let examRoomLen = this.examRooms.length;
                 for (var i = 0; i < examRoomLen; i++) {
                    console.log(this.examRooms.controls(i).controls['roomName'].value);
                 }*/
                 this.notificationService.error("Fill Form Properly");
+                errors++;
             }
             if (this.officeHoursStart.length == 0) {
                 this.notificationService.error("Please provide branch start time");
+                errors++;
             }
             if (this.officeHoursEnd.length == 0) {
                 this.notificationService.error("Please provide branch closing time");
+                errors++;
+            }
+            if (errors == 0) {
+                this.notificationService.error("Please provide data in all required fields");
             }
         }
     }
@@ -330,6 +338,12 @@ export class AddBranchComponent implements OnInit {
     getZipCode(value: any) {
         if (value) {
             this.branchForm.controls["zipCode"].setValue(value);
+        }
+    }
+
+    getFormattedAddress(value: any) {
+        if (value) {
+            this.branchForm.controls["formattedAddress"].setValue(value);
         }
     }
 

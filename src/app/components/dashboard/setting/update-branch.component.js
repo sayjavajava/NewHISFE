@@ -159,6 +159,7 @@ var UpdateBranchComponent = (function () {
                     // primaryDoctor: branch.user.id,
                     fax: branch.fax,
                     address: branch.address,
+                    formattedAddress: branch.formattedAddress,
                     zipCode: branch.zipCode,
                     officePhone: branch.officePhone,
                     flow: branch.flow,
@@ -179,6 +180,7 @@ var UpdateBranchComponent = (function () {
                          }
                      );*/
                 _this.branchForm.controls["zipCode"].patchValue(branch.zipCode);
+                _this.branchForm.controls["formattedAddress"].patchValue(branch.formattedAddress);
                 // this.allRoomCount();
                 _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
                 //   branch.examRooms = this.noOfRoom;
@@ -323,6 +325,11 @@ var UpdateBranchComponent = (function () {
     UpdateBranchComponent.prototype.getZipCode = function (value) {
         if (value) {
             this.branchForm.controls["zipCode"].setValue(value);
+        }
+    };
+    UpdateBranchComponent.prototype.getFormattedAddress = function (value) {
+        if (value) {
+            this.branchForm.controls["formattedAddress"].setValue(value);
         }
     };
     UpdateBranchComponent.prototype.getNoOfExamRooms = function (value) {
