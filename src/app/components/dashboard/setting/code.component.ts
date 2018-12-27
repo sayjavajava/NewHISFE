@@ -7,7 +7,8 @@ import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AppConstants} from '../../../utils/app.constants';
 import {ICDVersionModel} from '../../../model/ICDVersionModel';
-import any = jasmine.any;
+import {MenuItem} from "primeng/api";
+import {FileServices} from "../../../services/FileServices";
 
 @Component({
     selector: 'icd-code-component',
@@ -36,14 +37,16 @@ export class CodeComponent implements OnInit {
         {field: 'status', header: 'Status'},
         {field: 'action', header: 'Action'},
     ];
+    items: MenuItem[];
 
     codeDataImport: File = null;
-
     loading:boolean = false;
+
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
-                private router: Router) {
+                private router: Router,
+                private fileServices: FileServices) {
 
     }
 
@@ -52,6 +55,21 @@ export class CodeComponent implements OnInit {
         if (localStorage.getItem(btoa('access_token'))) {
             this.getAllCodesFromServer();
         }
+
+        this.items = [
+            {label: 'Download Sample',  icon: 'fa fa-download',
+                command: () => {
+                    this.fileServices.downloadSampleFile('icd_code');
+                }
+            },
+            {label: 'Import Data', icon: 'fa fa-upload',
+                command: () => {
+                    this.importDataClicked();
+                }
+            },
+            // {label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io'},
+            // {label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup']}
+        ];
     }
 
     refreshCodesTable() {
@@ -315,9 +333,13 @@ export class CodeComponent implements OnInit {
         }
     }
 
+    importDataClicked(){
+        document.getElementById("codeDataImport").click();
+    }
+
     importData(event: any) {
-        console.log(event);
-        console.log("Data import method is called");
+        // console.log(event);
+        // console.log("Data import method is called");
         let fileList: FileList = event.target.files;
         if (fileList != null && fileList.length > 0) {
             if (event.target.name === 'codeDataImport') {
@@ -335,7 +357,7 @@ export class CodeComponent implements OnInit {
                             }, (error: any) => {
                                 //console.log(error.json())
                                 // this.HISUtilService.tokenExpired(error.error.error);
-                                this.notificationService.error(error.error.responseMessage, 'ICD Code');
+                                this.notificationService.error('ICD Code', error.error.responseMessage);
                             }
                         );
                 } else {
@@ -360,6 +382,14 @@ export class CodeComponent implements OnInit {
         url += val;
         window.open(url, '_blank');
         //   window.open("https://www.google.com", "_blank");
+    }
+
+    openCaretDropdown() {
+        let elementByDiv: any[] = Array.from(document.getElementsByClassName("ui-splitbutton-menubutton"));
+        for (let i = 0; i < elementByDiv.length; i++) {
+            // console.log(elementByDiv[i]);
+            elementByDiv[i].click();
+        }
     }
 
 }

@@ -369,6 +369,9 @@ export class AppConstants {
     public static PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
     public static PRINT_PATIENT_INVOICE_DETAILS = '/reportPrint/patientInvoice';
     public static FETCH_VITALS_CONFIGURATIONS_ID = '/PatientVital/get/';
+    /*****************************FILE DOWNLOAD*************************************/
+    public static ICD_CODE_DOWNLOAD_SAMPLE_FILE = '/fileDownload/icdCodeSample';
+
   //  public static PATIENT_IMAGE_FILES_URL = '/patient/get/'
 }
 
