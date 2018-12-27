@@ -844,7 +844,6 @@ ul.ui-inputtext{width: 100%;}
 .upload-btn-wrapper{position: relative; overflow: hidden; display: inline-block; top: 14px;}
 .btn{color: #FFF; background-color: #3598dc; border-color: #3598dc; padding: 7px 12px !important; font-size: 14px; font-weight: 400;}
 .upload-btn-wrapper input[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; cursor: pointer; line-height: 34px;}
-input.upload-btn[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; cursor: pointer; line-height: 34px;}
 .ui-menuitem{margin: 0; border-bottom: 1px solid #1212;}
 .text-danger{color:#ed6b75; font-size:12px;}
 .ui-overlaypanel-content{background: rgb(0, 0, 0) !important; color: #fff !important;}
@@ -885,4 +884,7 @@ input.upload-btn[type=file]{position: absolute; left: 0; opacity: 0; top: 0px; c
 .doctorslist button{background: none !important; color: #007ad9 !important; border: none !important;}
 .hght250{height: 250px !important;}
 .brnch-td{padding-top:20px !important; padding-left:20px !important;}
+.mat-form-field-underline{margin-bottom: -20px; }
+.mat-form-field-wrapper{padding-bottom: 0px !important;}
+
 .modal-backdrop.in {opacity: .5; display: none;}

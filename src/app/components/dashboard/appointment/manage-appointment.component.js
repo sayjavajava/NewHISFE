@@ -42,7 +42,7 @@ var ManageAppointmentComponent = (function () {
             { field: 'scheduleDate', header: 'Started On' },
             { field: 'appointmentEndedOn', header: 'Ended On' },
             { field: 'duration', header: 'Duration' },
-            { field: 'Status', header: 'status' },
+            { field: 'status', header: 'status' },
             { field: 'status', header: 'Action' }
         ];
         /*        <th width="15%"> Patient</th>

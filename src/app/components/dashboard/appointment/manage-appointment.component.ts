@@ -44,7 +44,7 @@ export class ManageAppointmentComponent implements OnInit {
             { field: 'scheduleDate', header: 'Started On' },
             { field: 'appointmentEndedOn', header: 'Ended On' },
             { field: 'duration', header: 'Duration' },
-            { field: 'Status', header: 'status' },
+            { field: 'status', header: 'status' },
             { field: 'status', header: 'Action' }
         ];
 
