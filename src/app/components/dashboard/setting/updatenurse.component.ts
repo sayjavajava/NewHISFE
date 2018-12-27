@@ -197,6 +197,10 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                         managePatientRecords: user.managePatientRecords,
                         managePatientInvoices: user.managePatientInvoices,
                         primaryBranch:user.primaryBranchId,
+                        sendBillingReport :user.sendBillingReport,
+                        useReceptDashboard :user.useReceptDashboard,
+                        otherDoctorDashBoard :user.otherDoctorDashBoard,
+
 
                     });
 

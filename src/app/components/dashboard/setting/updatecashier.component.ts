@@ -137,6 +137,10 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
                         accountExpiry: cashier.expiryDate,
                         otherDashboard: cashier.otherDashboard,
                         primaryBranch: cashier.primaryBranchId,
+                        sendBillingReport :cashier.sendBillingReport,
+                        useReceptDashboard :cashier.useReceptDashboard,
+                        otherDoctorDashBoard :cashier.otherDoctorDashBoard
+
                     });
                     this.staffBranches = cashier.staffBranches;
                     //this.selectedDoctors = cashier.dutyWithDoctors;

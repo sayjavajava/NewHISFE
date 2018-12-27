@@ -289,18 +289,18 @@ var UpdatedoctorComponent = (function () {
                     email: user.email,
                     homePhone: user.homePhone,
                     cellPhone: user.cellPhone,
-                    sendBillingReport: user.sendBillingReport,
                     userName: user.userName,
                     active: user.active,
                     otherDashboard: user.otherDashboard,
-                    useReceptDashboard: user.useReceptDashBoard,
-                    otherDoctorDashBoard: user.otherDoctorDashBoard,
                     primaryBranch: user.primaryBranchId,
                     interval: user.checkUpInterval,
                     // shift1: user.dutyShift.dutyTimmingShift1,
                     // shift2: user.dutyShift.dutyTimmingShift2,
                     //  secondShiftFromTimeControl: user.dutyShift.secondShiftFromTime,
                     vacation: user.vacation,
+                    sendBillingReport: user.sendBillingReport,
+                    useReceptDashboard: user.useReceptDashboard,
+                    otherDoctorDashBoard: user.otherDoctorDashBoard
                 });
                 var docDeptId = user.docDepartmentId;
                 //this.servicesList = this.getDeptServices(docDeptId);

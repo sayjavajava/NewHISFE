@@ -142,6 +142,9 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         active: receptionist.active,
                         accountExpiry: receptionist.expiryDate,
                         primaryBranch: receptionist.primaryBranchId,
+                        sendBillingReport :receptionist.sendBillingReport,
+                        useReceptDashboard :receptionist.useReceptDashboard,
+                        otherDoctorDashBoard :receptionist.otherDoctorDashBoard
                     });
                     this.staffBranches = receptionist.staffBranches;
 

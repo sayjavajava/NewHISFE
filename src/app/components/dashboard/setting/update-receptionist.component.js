@@ -132,6 +132,9 @@ var UpdateReceptionistComponent = (function () {
                     active: receptionist.active,
                     accountExpiry: receptionist.expiryDate,
                     primaryBranch: receptionist.primaryBranchId,
+                    sendBillingReport: receptionist.sendBillingReport,
+                    useReceptDashboard: receptionist.useReceptDashboard,
+                    otherDoctorDashBoard: receptionist.otherDoctorDashBoard
                 });
                 _this.staffBranches = receptionist.staffBranches;
                 _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')

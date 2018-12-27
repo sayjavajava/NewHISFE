@@ -206,7 +206,68 @@
                                                class="form-control">
                                     </div>
                                 </div>
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Send Daily Billing Report</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
+                                        <!--<input type="checkbox" formControlName="sendBillingReport"
+                                               class="">-->
+                                        <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                        <span></span>-->
+                                        <label class="mt-checkbox-outline">
+                                            <mat-checkbox formControlName="sendBillingReport"
+                                                          color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
 
+                                            <span></span>
+                                        </label>
+                                        <!--</label>-->
+                                    </div>
+                                </div>
+
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="useReceptDashboard"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Other Doctor Dashboard</label>
+                                    <div class="col-md-1 col-xs-6 pdngall3">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox"> </label>
+                                        <mat-checkbox formControlName ="otherDoctorDashBoard"><span></span></mat-checkbox>
+                                        <!--  <select class="form-control"
+                                                  (change)="getSelectedDashboard($event.target.value)"
+                                                  formControlName="otherDashboard" placeholder="Dashoboard">
+                                                  <option *ngFor="let br of primaryDoctor" [value]="br.userName">
+                                                  {{br.userName}}
+                                              </option>
+
+                                          </select>-->
+                                    </div>
+                                    <div class="col-md-7 pdng-lr-5">
+                                        <p-dropdown placeholder="Select Dashboard" [autoWidth]="false"
+                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                    [options]="doctorsList"
+                                                    formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                    [filter]="true">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Account Expiry
+                                    </label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <mat-form-field class="width100">
+                                            <input [style]="{'text-align': 'left' ,'width':'100%'}" matInput
+                                                   [matDatepicker]="from" placeholder="Expiry Date"
+                                                   formControlName="accountExpiry">
+                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                            <mat-datepicker #from></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
 
 
                                 <div class="form-group">
@@ -214,7 +275,22 @@
                                     </label>
                                     <div class="col-md-8 col-xs-6">
                                         <label class="mt-checkbox-outline chckbox mrgn-top12">
-                                            <input type="checkbox" formControlName="active"><span></span></label>
+                                            <mat-checkbox formControlName="active"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
+
+                                <div  class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Manage Patient Records</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="managePatientRecords"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
+                                <div  class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Manage Patient Invoices</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="managePatientInvoices"><span></span></mat-checkbox></label>
                                     </div>
                                 </div>
                             </div>

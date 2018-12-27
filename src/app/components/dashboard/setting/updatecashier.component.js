@@ -125,6 +125,9 @@ var UpdateCashierComponent = (function () {
                     accountExpiry: cashier.expiryDate,
                     otherDashboard: cashier.otherDashboard,
                     primaryBranch: cashier.primaryBranchId,
+                    sendBillingReport: cashier.sendBillingReport,
+                    useReceptDashboard: cashier.useReceptDashboard,
+                    otherDoctorDashBoard: cashier.otherDoctorDashBoard
                 });
                 _this.staffBranches = cashier.staffBranches;
                 //this.selectedDoctors = cashier.dutyWithDoctors;
