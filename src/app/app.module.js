@@ -115,6 +115,7 @@ var ngx_bootstrap_1 = require("ngx-bootstrap");
 var fileupload_1 = require("primeng/fileupload");
 var dialog_1 = require("primeng/dialog");
 var primeng_1 = require("primeng/primeng");
+var splitbutton_1 = require("primeng/components/splitbutton/splitbutton");
 var togglebutton_1 = require("primeng/togglebutton");
 var admin_profile_component_1 = require("./components/dashboard/setting/admin-profile.component");
 var prime_schedular_component_1 = require("./components/dashboard/primeschedular/prime-schedular.component");
@@ -153,6 +154,7 @@ var patient_history_vital_component_1 = require("./components/dashboard/patient/
 var panel_1 = require("primeng/panel");
 var galleria_1 = require("primeng/components/galleria/galleria");
 var doctor_payment_listing_component_1 = require("./components/dashboard/patient/doctor-payment-listing.component");
+var FileServices_1 = require("./services/FileServices");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -168,7 +170,8 @@ var AppModule = (function () {
                 app_config_1.AppConfig,
                 permissions_service_1.PermissionsService, DataService_1.DataService,
                 { provide: ng2_toastr_1.ToastOptions, useClass: CustomOption_1.CustomOption },
-                user_shared_service_1.UserSharedService, ConformationDialogService_1.ConformationDialogService
+                user_shared_service_1.UserSharedService, ConformationDialogService_1.ConformationDialogService,
+                FileServices_1.FileServices,
             ], entryComponents: [confirmationdialog_component_1.ConfirmationdialogComponent],
             imports: [
                 // Modules
@@ -226,7 +229,8 @@ var AppModule = (function () {
                 chart_1.ChartModule,
                 fileupload_1.FileUploadModule,
                 galleria_1.GalleriaModule,
-                dialog_1.DialogModule
+                dialog_1.DialogModule,
+                splitbutton_1.SplitButtonModule,
             ],
             declarations: [
                 // App Components

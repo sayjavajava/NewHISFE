@@ -314,6 +314,8 @@ var AppConstants = (function () {
     AppConstants.PRINT_PATIENT_PAYMENT_INVOICE = '/reportPrint/patientPaymentInvoice';
     AppConstants.PRINT_PATIENT_INVOICE_DETAILS = '/reportPrint/patientInvoice';
     AppConstants.FETCH_VITALS_CONFIGURATIONS_ID = '/PatientVital/get/';
+    /*****************************FILE DOWNLOAD*************************************/
+    AppConstants.ICD_CODE_DOWNLOAD_SAMPLE_FILE = '/fileDownload/icdCodeSample';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

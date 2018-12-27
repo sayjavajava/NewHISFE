@@ -129,6 +129,7 @@ import {
     PasswordModule,
     ScheduleModule
 } from "primeng/primeng";
+import {SplitButtonModule} from "primeng/components/splitbutton/splitbutton";
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {AdminProfileComponent} from "./components/dashboard/setting/admin-profile.component";
 
@@ -170,6 +171,7 @@ import {PanelModule} from "primeng/panel";
 
 import {GalleriaModule} from 'primeng/components/galleria/galleria';
 import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
+import {FileServices} from "./services/FileServices";
 
 @NgModule({
     providers: [
@@ -180,7 +182,8 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         AppConfig,
         PermissionsService,DataService,
         {provide: ToastOptions, useClass: CustomOption},
-        UserSharedService, ConformationDialogService
+        UserSharedService, ConformationDialogService,
+        FileServices,
     ], entryComponents: [ConfirmationdialogComponent],
     imports: [
         // Modules
@@ -239,7 +242,8 @@ import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doct
         ChartModule,
         FileUploadModule,
         GalleriaModule,
-        DialogModule
+        DialogModule,
+        SplitButtonModule,
     ],
     declarations: [
         // App Components
