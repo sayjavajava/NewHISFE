@@ -62,6 +62,7 @@ export class AddStaffComponent implements OnInit {
     doctorsList: any = [];
     selectedBranchId: number;
     allServicesList :any =[];
+    doctorsDashboard :any =[];
     workingDays = [
         {label: 'Monday', value: 'Monday'},
         {label: 'Tuesday', value: 'Tuesday'},
@@ -295,7 +296,7 @@ export class AddStaffComponent implements OnInit {
                 'homePhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'cellPhone': [null, Validators.compose([Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
                 'primaryBranch': [null, Validators.required],
-                'interval': [null],
+                'interval': [null,Validators.required],
                 'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'restrictBranch': [null],
                 'allowDiscount': [null],

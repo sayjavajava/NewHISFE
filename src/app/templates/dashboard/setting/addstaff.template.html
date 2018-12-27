@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08" ngClass="displayFieldCss">
-                                    <label class="control-label col-md-4 pdng-lr-5">Visiting Branches
+                                    <label class="control-label col-md-4 pdng-lr-5">Allow Branches
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <!--<div class="">-->
@@ -272,7 +272,7 @@
                                     <label class="control-label col-md-4">Allow Discount
                                     </label>
                                     <div class="col-md-8">
-                                        <input formControlName="allowDiscount" type="checkbox" class="form-control">
+                                        <mat-checkbox formControlName = "allowDiscount"  class="form-control"></mat-checkbox>
                                     </div>
                                 </div>-->
                                 <div *ngIf="dutywithdoctor" class="form-group mrgn-btm08">
@@ -331,6 +331,119 @@
                                         </div>
                                     </div>
                                 </div>-->
+                                <div *ngIf="dutytimmingshift1"  class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Duty (Shift 1):
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8 col-xs-12 pdng-lr-5">
+                                        <div class="pull-left no-padding col-md-1"><label
+                                                class="mt-checkbox-outline chckbox">
+                                            <!--<input type="checkbox" formControlName="shift1" class="">-->
+                                            <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
+                                            <span></span></label>
+                                        </div>
+                                        <div class="col-md-2 pdng-lr-5">
+                                            <button type="button" (click)="firstShiftFrom()">From</button>
+                                        </div>
+                                        <div class="col-md-4 pdng-lr-5">
+                                            <input type="time" style="width: 100%" value="{{firstShiftFromTime}}">
+                                        </div>
+                                        <div class="col-md-1 pdng-lr-5">
+                                            <button type="button" (click)="firstShiftTo()">To</button>
+                                        </div>
+                                        <div class="col-md-4 pdng-lr-5">
+                                            <input type="time" style="width: 100%" value="{{firstShiftToTime}}">
+                                        </div>
+                                    </div>
+                                    <span class="text-danger"
+                                          *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
+                                </div>
+                                <div *ngIf="dutytimmingshift2"  class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Duty (Shift 2):
+                                    </label>
+                                    <div class="col-md-8  col-xs-12 pdng-lr-5">
+                                        <div class="col-md-1 pull-left no-padding"><label
+                                                class="mt-checkbox-outline chckbox">
+                                            <!--<input type="checkbox" class=""
+                                                   formControlName="shift2">-->
+                                            <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
+                                            <span></span></label></div>
+                                        <div class="col-md-2 pdng-lr-5">
+                                            <button type="button" (click)="secondShiftFrom()">From</button>
+                                        </div>
+                                        <div class="col-md-4 pdng-lr-5">
+                                            <input type="time" style="width: 100%" value="{{secondShiftFromTime}}">
+                                        </div>
+                                        <div class="col-md-1 pdng-lr-5">
+                                            <button type="button" (click)="secondShiftTo()">To</button>
+                                        </div>
+                                        <div class="col-md-4 pdng-lr-5">
+                                            <input type="time" style="width:100%" value="{{secondShiftToTime}}">
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="vacation" class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Vacation:
+                                    </label>
+                                    <div class="col-md-8  col-xs-12 pdng-lr-5">
+                                        <div class="pull-left col-md-1 no-padding-lft"><label
+                                                class="mt-checkbox-outline chckbox">
+                                            <!--<input type="checkbox" formControlName="vacation"
+                                                   class="">-->
+                                            <mat-checkbox formControlName="vacation" color="primary"></mat-checkbox>
+                                            <span></span></label></div>
+                                        <!--<div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
+                                            From
+                                        </div>-->
+                                        <div class=" col-md-6 col-xs-5 pull-left">
+                                            <mat-form-field style="width: 118%">
+                                                <input matInput [matDatepicker]="from" placeholder="From"
+                                                       formControlName="dateFrom">
+                                                <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                                <mat-datepicker #from></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>&emsp;
+
+                                        <div class=" col-md-5 col-xs-5 pull-left mrgn-top-20">
+                                            <mat-form-field style="width: 120%">
+                                                <input matInput [matDatepicker]="to" placeholder="To"
+                                                       formControlName="dateTo">
+                                                <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                                                <mat-datepicker #to></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="vacationweek" class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Working Days:
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <!--<div class="col-md-8 col-xs-12 text-center">
+                                        <div *ngFor="let item of workingDays" class="">
+                                            <div class=" col-md-1 col-width25 col-xs-3">
+                                                <input type="checkbox" class="spinner"
+                                                       value="{{item.id}}"
+                                                       (change)="selectWorkingDays($event,item)">
+                                                {{item.name}}
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <div class="col-md-8 pdng-lr-5">
+                                        <p-multiSelect placeholder="Select Days"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="workingDays" [(ngModel)]="selectedWorkingDays"
+                                                       [ngModelOptions]="{standalone:true}"
+                                                       [panelStyle]="{minWidth:''}">
+                                            <ng-template let-dy pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{dy.label}}</div>
+                                            </ng-template>
+                                        </p-multiSelect>
+                                    </div>
+                                    <!--<span class="text-danger"
+                                          *ngIf="!userForm.controls['selectedWorkingDays'].valid &&  userForm.controls['selectedWorkingDays'].touched">Working Days are required</span>-->
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <!-- nurse department container
@@ -442,56 +555,59 @@
                                         </span>
                                     </div>
                                 </div>
-                                <!--   <div class="form-group">
-                                       <label class="control-label col-md-4 col-xs-6">Send daily billing report?</label>
-                                       <div class="col-md-8 col-xs-6">
-                                           &lt;!&ndash;<label class="mt-checkbox-outline chckbox mrgn-top10">&ndash;&gt;
-                                           &lt;!&ndash;<input type="checkbox" formControlName="sendBillingReport"
-                                                  class="">&ndash;&gt;
-                                           &lt;!&ndash;<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
-                                           <span></span>&ndash;&gt;
+                                <div class="form-group mrgn-btm08">
+                                       <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Send Daily Billing Report</label>
+                                       <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                           <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
+                                           <!--<input type="checkbox" formControlName="sendBillingReport"
+                                                  class="">-->
+                                           <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                           <span></span>-->
                                            <label class="mt-checkbox-outline">
                                                <mat-checkbox formControlName="sendBillingReport"
                                                              color="primary"></mat-checkbox>
-                                               &lt;!&ndash; <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>&ndash;&gt;
+                                               <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
 
                                                <span></span>
                                            </label>
-                                           &lt;!&ndash;</label>&ndash;&gt;
+                                           <!--</label>-->
                                        </div>
-                                   </div>-->
-
-                                <!--<div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Use Receipt Dashboard?</label>
-                                    <div class="col-md-8 col-xs-6">
+                                   </div>
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox"
-                                                   formControlName="useReceptDashboard"><span></span></label>
+                                            <mat-checkbox formControlName="useReceptDashboard"><span></span></mat-checkbox></label>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Other Doctor Dashboard?</label>
-                                    <div class="col-md-8 col-xs-6">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <input type="checkbox" formControlName="otherDoctorDashBoard"><span></span>
-                                            <select class="form-control"
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Other Doctor Dashboard</label>
+                                    <div class="col-md-1 col-xs-6 pdngall3">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox"> </label>
+                                            <mat-checkbox formControlName ="otherDoctorDashBoard"><span></span></mat-checkbox>
+                                          <!--  <select class="form-control"
                                                     (change)="getSelectedDashboard($event.target.value)"
                                                     formControlName="otherDashboard" placeholder="Dashoboard">
-                                                <option *ngFor="let br of primaryDoctor" [value]="br.userName">
+                                                    <option *ngFor="let br of primaryDoctor" [value]="br.userName">
                                                     {{br.userName}}
                                                 </option>
 
-                                            </select>
-                                        </label>
+                                            </select>-->
+                                            </div>
+                                    <div class="col-md-7 pdng-lr-5">
+                                        <p-dropdown placeholder="Select Dashboard" [autoWidth]="false"
+                                                  [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                  [options]="doctorsList"
+                                                  formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                  [filter]="true">
+                                    </p-dropdown>
                                     </div>
                                 </div>
--->
-                                <!--  <div class="form-group">
-                                      <label class="control-label col-md-4 col-xs-6">Account Expiry
+                                <div class="form-group mrgn-btm08">
+                                      <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Account Expiry
                                       </label>
-                                      <div class="col-md-8 col-xs-6">
-                                          <mat-form-field class="mrgn-lft8">
+                                      <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                          <mat-form-field class="width100">
                                               <input [style]="{'text-align': 'left' ,'width':'100%'}" matInput
                                                      [matDatepicker]="from" placeholder="Expiry Date"
                                                      formControlName="accountExpiry">
@@ -499,24 +615,46 @@
                                               <mat-datepicker #from></mat-datepicker>
                                           </mat-form-field>
                                       </div>
-                                  </div>-->
-                                <!--   <div class="form-group">
-                                       <label class="control-label col-md-4 col-xs-6">Active
+                                  </div>
+                                <div class="form-group mrgn-btm08">
+                                       <label class="control-label col-md-4 col-xs-6  pdng-lr-5">Active
                                        </label>
-                                       <div class="col-md-8 col-xs-6">
+                                       <div class="col-md-8 col-xs-6  pdng-lr-5">
                                            <label class="mt-checkbox-outline chckbox mrgn-top10">
-                                               <input type="checkbox" formControlName="active"><span></span></label>
+                                               <mat-checkbox formControlName ="active" color="primary"><span></span></mat-checkbox></label>
                                        </div>
-                                   </div>-->
+                                   </div>
 
+                                <div *ngIf="managepatientrecord" class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Manage Patient Records</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="managePatientRecords"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
+                                <div *ngIf="managepatientinvoices" class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Manage Patient Invoices</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="managePatientInvoices"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
 
-                                <!--<div *ngIf="checkUpInterval" class="form-group">
-                                    <label class="control-label col-md-4">Checkup Interval:
+                                <div *ngIf="allowdiscount" class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Allow Discount</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="allowDiscount"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="checkUpInterval" class="form-group  mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Checkup Interval:
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    &lt;!&ndash;<div class="col-md-8">
-                                        <select class="form-control"
-                                                (change)="checkupIntervalMethod($event.target.value)"
+                                  <!--  (change)="checkupIntervalMethod($event.target.value)"-->
+                                    <div class="col-md-8 pdng-lr-5">
+                                        <!--<select class="form-control"
                                                 formControlName="interval">
                                             <option value="5">5</option>
                                             <option value="10">10</option>
@@ -526,18 +664,17 @@
                                             <option value="50">50</option>
                                             <option value="60">60</option>
 
-                                        </select>
-                                       &lt;!&ndash; <span class="text-danger"
-                                              *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
-                                        <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>&ndash;&gt;
-                                    </div>&ndash;&gt;
-                                    <div class="col-md-8" id="not-due">
+                                        </select>-->
                                         <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     [options]="intervalList" formControlName="interval"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
+                                        <!--<span class="text-danger"
+                                              *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
+                                        <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>-->
                                     </div>
-                                </div>-->
+
+                                </div>
 
 
                             </div>
@@ -658,119 +795,6 @@
                                     </div>
                                 </div>
                             </div>-->
-                            <div class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 col-xs-12"> Duty (Shift 1):
-                                    <span class="required" aria-required="true"> * </span>
-                                </label>
-                                <div class="col-md-8 col-xs-12">
-                                    <div class="pull-left no-padding col-md-1"><label
-                                            class="mt-checkbox-outline chckbox">
-                                        <!--<input type="checkbox" formControlName="shift1" class="">-->
-                                        <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
-                                        <span></span></label>
-                                    </div>
-                                    <div class="col-md-2 pdng-lr-5">
-                                        <button type="button" (click)="firstShiftFrom()">From</button>
-                                    </div>
-                                    <div class="col-md-4 pdng-lr-5">
-                                        <input type="time" style="width: 100%" value="{{firstShiftFromTime}}">
-                                    </div>
-                                    <div class="col-md-1 pdng-lr-5">
-                                        <button type="button" (click)="firstShiftTo()">To</button>
-                                    </div>
-                                    <div class="col-md-4 pdng-lr-5">
-                                        <input type="time" style="width: 100%" value="{{firstShiftToTime}}">
-                                    </div>
-                                </div>
-                                <span class="text-danger"
-                                      *ngIf="!userForm.controls['shift1'].valid &&  userForm.controls['shift1'].touched">Duty Shift is required</span>
-                            </div>
-                            <div class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 col-xs-12"> Duty (Shift 2):
-                                </label>
-                                <div class="col-md-8  col-xs-12">
-                                    <div class="col-md-1 pull-left no-padding"><label
-                                            class="mt-checkbox-outline chckbox">
-                                        <!--<input type="checkbox" class=""
-                                               formControlName="shift2">-->
-                                        <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
-                                        <span></span></label></div>
-                                    <div class="col-md-2 pdng-lr-5">
-                                        <button type="button" (click)="secondShiftFrom()">From</button>
-                                    </div>
-                                    <div class="col-md-4 pdng-lr-5">
-                                        <input type="time" style="width: 100%" value="{{secondShiftFromTime}}">
-                                    </div>
-                                    <div class="col-md-1 pdng-lr-5">
-                                        <button type="button" (click)="secondShiftTo()">To</button>
-                                    </div>
-                                    <div class="col-md-4 pdng-lr-5">
-                                        <input type="time" style="width:100%" value="{{secondShiftToTime}}">
-                                    </div>
-                                    <div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 col-xs-12"> Vacation:
-                                </label>
-                                <div class="col-md-8  col-xs-12">
-                                    <div class="pull-left col-md-1 no-padding-lft"><label
-                                            class="mt-checkbox-outline chckbox">
-                                        <!--<input type="checkbox" formControlName="vacation"
-                                               class="">-->
-                                        <mat-checkbox formControlName="vacation" color="primary"></mat-checkbox>
-                                        <span></span></label></div>
-                                    <!--<div class="col-md-1 width40 pdng-lr-5 pull-left text-center label-control2">
-                                        From
-                                    </div>-->
-                                    <div class=" col-md-6 col-xs-5 pull-left">
-                                        <mat-form-field style="width: 118%">
-                                            <input matInput [matDatepicker]="from" placeholder="From"
-                                                   formControlName="dateFrom">
-                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                                            <mat-datepicker #from></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>&emsp;
-
-                                    <div class=" col-md-5 col-xs-5 pull-left mrgn-top-20">
-                                        <mat-form-field style="width: 120%">
-                                            <input matInput [matDatepicker]="to" placeholder="To"
-                                                   formControlName="dateTo">
-                                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
-                                            <mat-datepicker #to></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="vacationweek" class="form-group mrgn-btm08">
-                                <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Working Days:
-                                    <span class="required" aria-required="true"> * </span>
-                                </label>
-                                <!--<div class="col-md-8 col-xs-12 text-center">
-                                    <div *ngFor="let item of workingDays" class="">
-                                        <div class=" col-md-1 col-width25 col-xs-3">
-                                            <input type="checkbox" class="spinner"
-                                                   value="{{item.id}}"
-                                                   (change)="selectWorkingDays($event,item)">
-                                            {{item.name}}
-                                        </div>
-                                    </div>
-                                </div>-->
-                                <div class="col-md-8 pdng-lr-5">
-                                    <p-multiSelect placeholder="Select Days"
-                                                   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                   [options]="workingDays" [(ngModel)]="selectedWorkingDays"
-                                                   [ngModelOptions]="{standalone:true}"
-                                                   [panelStyle]="{minWidth:''}">
-                                        <ng-template let-dy pTemplate="item">
-                                            <div style="font-size:14px;float:right;margin-top:4px">{{dy.label}}</div>
-                                        </ng-template>
-                                    </p-multiSelect>
-                                </div>
-                                <!--<span class="text-danger"
-                                      *ngIf="!userForm.controls['selectedWorkingDays'].valid &&  userForm.controls['selectedWorkingDays'].touched">Working Days are required</span>-->
-                            </div>
                             <!--<div class="form-group">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-8">

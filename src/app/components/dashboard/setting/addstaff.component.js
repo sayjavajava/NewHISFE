@@ -46,6 +46,7 @@ var AddStaffComponent = (function () {
         this.servicesList = [];
         this.doctorsList = [];
         this.allServicesList = [];
+        this.doctorsDashboard = [];
         this.workingDays = [
             { label: 'Monday', value: 'Monday' },
             { label: 'Tuesday', value: 'Tuesday' },
@@ -241,7 +242,7 @@ var AddStaffComponent = (function () {
             'homePhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'cellPhone': [null, forms_1.Validators.compose([forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
             'primaryBranch': [null, forms_1.Validators.required],
-            'interval': [null],
+            'interval': [null, forms_1.Validators.required],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'restrictBranch': [null],
             'allowDiscount': [null],
