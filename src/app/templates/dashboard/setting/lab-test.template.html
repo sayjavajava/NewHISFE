@@ -8,8 +8,9 @@
                             <a href="#labTestSpeciman" data-toggle="modal">
                                 <button class="btn mt-sweetalert btn green-meadow" (click)="addPopupClick()"><i class="fa fa-plus"></i> Lab Test</button>
                             </a>
+                            <p-splitButton label="Data Import" icon="fa fa-file" (onClick)="openCaretDropdown()" [model]="items" styleClass="ui-button-danger"></p-splitButton>
                             <div class="upload-btn-wrapper">
-                                <button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>
+                                <!--<button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>-->
                                 <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                        id="labTestDataImport" name="labTestDataImport" value="" placeholder="" (change)="importData($event)">
                             </div>

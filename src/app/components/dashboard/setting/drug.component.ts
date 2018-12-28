@@ -7,7 +7,8 @@ import {AppConstants} from '../../../utils/app.constants';
 import {NotificationService} from '../../../services/notification.service';
 import {FormBuilder} from '@angular/forms';
 import {DrugModel} from '../../../model/drug.model';
-import {SelectItem} from "primeng/api";
+import {MenuItem, SelectItem} from "primeng/api";
+import {FileServices} from "../../../services/FileServices";
 
 @Component({
     selector: 'drug',
@@ -26,6 +27,7 @@ export class DrugComponent implements OnInit {
     countryListModified: SelectItem[] = [];
     countryLst: any = [];
     drugDataImport: File = null;
+    items: MenuItem[];
 
     /*searchDepart: string;
      searched: boolean = false;*/
@@ -34,7 +36,8 @@ export class DrugComponent implements OnInit {
                 private router: Router,
                 private userSharedService: UserSharedService,
                 private HISUtilService: HISUtilService,
-                private notificationService: NotificationService,private fb: FormBuilder) {
+                private notificationService: NotificationService,
+                private fileServices: FileServices) {
     }
 
     ngOnInit() {
@@ -56,6 +59,18 @@ export class DrugComponent implements OnInit {
             { field: 'origin', header: 'Origin' },
             { field: 'status', header: 'Status' },
             { field: 'active', header: 'Action' }
+        ];
+        this.items = [
+            {label: 'Download Sample',  icon: 'fa fa-download',
+                command: () => {
+                    this.fileServices.downloadSampleFile('drug');
+                }
+            },
+            {label: 'Import Data', icon: 'fa fa-upload',
+                command: () => {
+                    this.importDataClicked();
+                }
+            },
         ];
     }
 
@@ -407,5 +422,17 @@ export class DrugComponent implements OnInit {
         this.selectedCountry = this.drug.selectedCountry;
         console.log(this.selectedCountry);
         console.log(this.drug.selectedCountry);
+    }
+
+    openCaretDropdown() {
+        let elementByDiv: any[] = Array.from(document.getElementsByClassName("ui-splitbutton-menubutton"));
+        for (let i = 0; i < elementByDiv.length; i++) {
+            // console.log(elementByDiv[i]);
+            elementByDiv[i].click();
+        }
+    }
+
+    importDataClicked(){
+        document.getElementById("drugsDataImport").click();
     }
 }

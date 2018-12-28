@@ -16,10 +16,12 @@
                                     (click)="getPageWiseDrugFromServer(0)"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
-                            <span><button class="btn btn-default btn-outline"> <i
-                                    class=" icon-clock"></i> Print </button></span>
+                            <span>
+                                <button class="btn btn-default btn-outline"> <i class="icon-clock"></i> Print </button>
+                            </span>
+                            <p-splitButton label="Data Import" icon="fa fa-file" (onClick)="openCaretDropdown()" [model]="items" styleClass="ui-button-danger"></p-splitButton>
                             <div class="upload-btn-wrapper">
-                                <button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>
+                                <!--<button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>-->
                                 <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                        id="drugsDataImport" name="drugsDataImport" value="" placeholder="" (change)="importData($event)">
                             </div>
@@ -366,10 +368,13 @@
                                         <div class="form-group hr">
                                             <label class="col-md-4 pdng-lr-5 control-label txt-size">Status</label>
                                             <div class="col-md-3 select pdng-lr-5">
-                                                <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                                <label class="mt-checkbox-outline">
+                                                    <mat-checkbox [(ngModel)]="drug.active" name="status" color="primary"></mat-checkbox>
+                                                </label>
+                                                <!--<label class="mt-checkbox mt-checkbox-outline chckbox">
                                                     <input type="checkbox" class="form-control" [(ngModel)]="drug.active" name="status" #status="ngModel">
                                                     <span></span>
-                                                </label>
+                                                </label>-->
                                             </div>
                                         </div>
                                     </div>

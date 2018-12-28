@@ -8,6 +8,8 @@ import {NotificationService} from "../../../services/notification.service";
 import {UserTypeEnum} from "../../../enums/user-type-enum";
 import {Patient} from "../../../model/patient";
 import {DataService} from "../../../services/DataService";
+import {FileServices} from "../../../services/FileServices";
+import {MenuItem} from "primeng/api";
 
 
 @Component({
@@ -24,7 +26,7 @@ export class ManagePatientComponent implements OnInit {
     searchString:string="";
     searched:boolean=false;
     cols: any[];
-
+    items: MenuItem[];
     patientDataImport: File = null;
 
     constructor(private requestsService: RequestsService,
@@ -32,7 +34,8 @@ export class ManagePatientComponent implements OnInit {
                 private titleService: Title,
                 private HISUtilService: HISUtilService,
                 private dataService: DataService,
-                private notificationService: NotificationService) {
+                private notificationService: NotificationService,
+                private fileServices: FileServices) {
     };
 
     ngOnInit() {
@@ -50,6 +53,18 @@ export class ManagePatientComponent implements OnInit {
             {field: 'nextAppointment', header: 'Next Appt.'},
             {field: "status", header: "Status"},
             {field: "action", header: "Action"}
+        ];
+        this.items = [
+            {label: 'Download Sample',  icon: 'fa fa-download',
+                command: () => {
+                    this.fileServices.downloadSampleFile('patient');
+                }
+            },
+            {label: 'Import Data', icon: 'fa fa-upload',
+                command: () => {
+                    this.importDataClicked();
+                }
+            },
         ];
     }
 
@@ -218,5 +233,16 @@ export class ManagePatientComponent implements OnInit {
         this.router.navigate(['/dashboard/patient/',id,'history']);
     }
 
+    openCaretDropdown() {
+        let elementByDiv: any[] = Array.from(document.getElementsByClassName("ui-splitbutton-menubutton"));
+        for (let i = 0; i < elementByDiv.length; i++) {
+            // console.log(elementByDiv[i]);
+            elementByDiv[i].click();
+        }
+    }
+
+    importDataClicked(){
+        document.getElementById("patientDataImport").click();
+    }
 
 }
