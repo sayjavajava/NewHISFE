@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {UserSharedService} from '../../services/user.shared.service';
 import {HISUtilService} from '../../services/his-util.service';
 import {PermissionsService} from "../../services/permissions.service";
-import {items} from "../../model/items";
 
 @Component({
     selector: 'header-component',
@@ -186,6 +185,9 @@ export class HeaderComponent implements OnInit {
             );
     }
 
+    userProfileSetting() {
+        this.router.navigate(['/dashboard/setting/admin/profile']);
+    }
 
     goToUserDashBoard() {
         //this.router.navigate(['/dashboard/'+window.localStorage.getItem(atob('user_type'))+'/']);
