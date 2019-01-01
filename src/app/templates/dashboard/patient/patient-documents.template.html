@@ -137,26 +137,25 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group hr" align="right">
+                                <div class="form-group hr no-margin" align="right">
                                      <span [hidden]="isUpdate">
-                                        <input type="button" id="saveDocumentId" class="btn green"
+                                        <input type="button" id="saveDocumentId" class="btn primary blue"
                                                (click)="saveDocumentByPatient()" value="Save">
                                      </span>
                                 </div>
-                                <div class="form-group hr" align="right">
+                                <!--<div class="form-group hr" align="right">
                                     <span [hidden]="!isUpdate">
                                         <input type="button" id="updateDocumentId" class="btn green"
                                                (click)="updateDocumentByPatient()" value="Update">
                                     </span>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
 
 
 
-                        <div class="table-scrollable tbl-brdr-radus">
+                        <div class="table-scrollable table-brd-non">
                             <p-table #dt [columns]="cols" [value]="documentData" [paginator]="true"  [rows]="5">
-
                                 <ng-template pTemplate="caption">
                                     <div style="text-align: right">
                                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -164,8 +163,6 @@
                                                (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                                     </div>
                                 </ng-template>
-
-
 
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
@@ -178,25 +175,20 @@
                                             </p-sortIcon>
                                         </th>
                                     </tr>
-
                                 </ng-template>
 
 
                                 <ng-template pTemplate="body" let-doc let-columns="columns">
                                     <tr>
-
                                         <td>{{doc.createdOn}}</td>
                                         <td><a href="{{doc.url}}" target="_blank">Download</a></td>
                                         <td>{{doc.name}}</td>
                                         <td>{{doc.description}}</td>
                                         <td>
-                                            <a
-                                                    (click)="editDocument(doc.id)">
+                                            <a (click)="editDocument(doc.id)">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <button
-
-                                                    (click)="deleteDocument(doc.id)">
+                                            <button class="text-danger" (click)="deleteDocument(doc.id)">
                                                 <i class="fa fa-remove"></i>
                                             </button>
                                         </td>

@@ -675,10 +675,10 @@ textarea {
     width: 100%;
 }
 .ui-multiselect-label{
-    padding: 0px !important;
+    padding: 4px 6px !important;
     font-size: 12px;
-    margin-top: 6px;
-    margin-left: 10px;
+    margin-top: 0px;
+    margin-left: 0px;
 }
 .ui-multiselect:hover{
     border: 1px solid #9da8b8
@@ -822,7 +822,7 @@ width: 93%; !important;
 .cusm-col-3{width: 20% !important;}
 .fnt-sze10{font-size: 10px;}
 .mat-form-field-infix{border-top:0px !important; width: 100px !important;}
-.mat-form-field-wrapper{width:88% !important;}
+.vacation-width110{width:110% !important;}
 .wc-date-container {width: 100% !important; margin-left: 0px !important;}
 .wc-day-row{display: none !important;}
 .wc-date-row{display: none !important;}
@@ -858,6 +858,7 @@ ul.ui-inputtext{width: 100%;}
     height: 310px;
 }*/
 .ui-autocomplete-input{width:87% !important;}
+.width92{width: 92% !important;}
 .ui-autocomplete{width: 100% !important;}
 /*.ui-button-text{padding-bottom: 2px !important;}*/
 .slide-br-img ul{}
@@ -887,4 +888,11 @@ ul.ui-inputtext{width: 100%;}
 .mat-form-field-underline{margin-bottom: -20px; }
 .mat-form-field-wrapper{padding-bottom: 0px !important;}
 .ui-button.ui-splitbutton-menubutton {height: 2.4em !important;}
-.modal-backdrop.in {opacity: .5; display: none;}
+.wc-date-popover[_ngcontent-c7] {width: 250px; position: fixed !important; top: 5% !important; height: auto; left: 50% !important; transform: translateX(-50%) !important;}
+.patnt-img img{border: 1px solid #e7e7e7;}
+.wc-date-container{border: 1px solid #c2cad8 !important; font-size: 13px !important; color:#333333 !important;}
+.wc-date-container i{color: #333333 !important; font-size: 16px !important;}
+.wc-date-container span{color: #333333 !important;}
+.ui-table-caption{background-color: #fff !important; border: none !important; padding-right: 0px !important;}
+.table-brd-non{border: none !important;}
+.clr-bck{color: #000000 !important; padding:5px!important; font-size: 12px !important;}

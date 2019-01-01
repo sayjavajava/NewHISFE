@@ -160,9 +160,9 @@
                         </div>
                     </div>-->
 
-                    <div class="hr">
+                    <div class="hr no-margin">
                         <h4 class="text-info ">Uploaded Documents
-                            <div class="pull-right mrgn-btm10">
+                            <div class="pull-right">
                                 <!--<a href="#responsive" data-toggle="modal">
                                     <button class="btn mt-sweetalert btn green-meadow pdngall3"
                                             data-title="Sweet Alerts with Icons" data-message="Success Icon"
@@ -172,7 +172,7 @@
                                 </a>-->
                                 <span>
                                 <a href="#responsive" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                <button class="btn primary blue pdngall3"
                                         data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                         data-type="success" data-allow-outside-click="true"
                                         (click)="addProblemPopupClick()"
@@ -183,10 +183,8 @@
 
                             </div>
                         </h4>
-                        <div class="table-scrollable tbl-brdr-radus">
-
+                        <div class="table-scrollable table-brd-non">
                             <p-table #dt [columns]="cols" [value]="orderData" [paginator]="true"  [rows]="5">
-
                                 <ng-template pTemplate="caption">
                                     <div style="text-align: right">
                                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -194,8 +192,6 @@
                                                (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                                     </div>
                                 </ng-template>
-
-
 
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
@@ -208,19 +204,16 @@
                                             </p-sortIcon>
                                         </th>
                                     </tr>
-
                                 </ng-template>
-
 
                                 <ng-template pTemplate="body" let-order let-columns="columns">
                                     <tr>
-
                                         <!--{{car[col.field]}}-->
                                         <td> {{order.orderObj.name}}</td>
                                         <td><a href="#popupTest" data-toggle="modal">
-                                            <button class="btn mt-sweetalert btn green-meadow" (click)="getImageTest(order.id)"
+                                            <button class="btn default clr-bck" (click)="getImageTest(order.id)"
                                                     data-confirm-button-class="btn-success">
-                                                <i class="fa fa"></i> Show Test
+                                                Show Test
                                             </button>
                                         </a></td>
                                         <td>{{order.doctorComment}}</td>
@@ -231,17 +224,13 @@
                                                (click)="editOrder(order.id)">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <button
+                                            <button class="text-danger"
                                                     (click)="deleteOrder(order.id)">
                                                 <i class="fa fa-remove"></i>
                                             </button>
-
-
                                         </td>
-
                                     </tr>
                                 </ng-template>
-
                             </p-table>
 
                             <!-- <table class="table table-hover table-light">
@@ -350,29 +339,21 @@
                             </label>
                             <div class="col-md-9 pdng-lr-5" >
                                 <div class="select2-bootstrap-prepend" *ngIf="!isUpdate">
-
-
                                     <p-dropdown  placeholder="{{selectedOrder}}"
                                                  [autoWidth]="false"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedId"
                                                  [options]="orderListModified"
                                                  [(ngModel)]="selectedOrder"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
-
                                 </div>
-
                                 <div class="select2-bootstrap-prepend" *ngIf="isUpdate">
-
-
                                     <p-dropdown  placeholder="{{selectedOrder}}"
                                                  [autoWidth]="false"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedId"
                                                  [options]="orderListModified" disabled="true"
                                                  [(ngModel)]="selectedOrder"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="form-group hr mrgn-btm10">
@@ -641,35 +622,25 @@
                                                role="grid">
                                             <thead>
                                             <tr role="row" class="off-wite-bg">
-
                                                 <th style="width: 502px" class="sorting_disabled" rowspan="1" colspan="1"> Url </th>
                                                 <th style="width: 36px" class="sorting_disabled" rowspan="1" colspan="1"> Action  </th>
                                             </tr>
                                             </thead>
                                             <tr role="row" class="filter" *ngFor="let lbRT of filteredLabTestUrl;  let idx = index">
-
                                                 <td class="sorting_disabled" rowspan="1" colspan="1">
                                                     <a href="{{lbRT}}" target="{{lbRT}}">Download</a>
                                                 </td>
                                                 <td class="sorting_disabled">
                                                     <a  id="closeGalleria" data-toggle="modal" data-dismiss="modal" >
-                                                        <button class="btn btn-default btn-outline btn-sm"
+                                                        <button class=""
                                                                 (click)="openDiv(lbRT)"><i class="fa fa-pencil"></i>
-
                                                         </button>
                                                     </a>
                                                 </td>
-
-
-
-
                                             </tr>
-
-
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
                         </address>
                     </div>

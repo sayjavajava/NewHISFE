@@ -9,11 +9,11 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">First Name
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">First Name
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="text" formControlName="firstName" data-required="1"
                                                class="form-control">
                                         <span class="text-danger"
@@ -23,18 +23,17 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Last Name
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Last Name
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input formControlName="lastName" type="text" class="form-control"></div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Username
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Username
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="text" formControlName="userName" class="form-control">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
@@ -46,11 +45,11 @@
                                         </app-field-error-display>-->
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Primary Branch
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Primary Branch
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<select class="form-control"
                                                 (change)="getSelectedBranch($event)"
                                                 formControlName="primaryBranch" placeholder="Select Branch">
@@ -68,24 +67,22 @@
                                               *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">{{primaryBranchError}}</span>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Email Address
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Email Address
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="email" formControlName="email"
                                                class="form-control">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">{{emailError}}</span>
-
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Visiting Branches
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Visiting Branches
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<div class="checkbox-box" id="not-due">
                                             <address class="row">
                                                 <label class="mt-checkbox mt-checkbox-outline">
@@ -101,7 +98,7 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        formControlName="restrictBranch"
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
-                                                       name="visitBranches" [panelStyle]="{minWidth:'12em'}">
+                                                       name="visitBranches" [panelStyle]="{minWidth:''}">
                                             <ng-template let-br pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
                                             </ng-template>
@@ -120,23 +117,22 @@
                                   </div>-->
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Home Phone
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Home Phone
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input formControlName="homePhone" type="text"
                                                class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Cell Phone
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Cell Phone
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input formControlName="cellPhone" type="text"
                                                class="form-control">
                                     </div>
                                 </div>
-
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Send Daily Billing Report</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
@@ -155,7 +151,6 @@
                                         <!--</label>-->
                                     </div>
                                 </div>
-
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
@@ -219,10 +214,10 @@
                                         </mat-form-field>
                                     </div>
                                 </div>-->
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Active
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Active
                                     </label>
-                                    <div class="col-md-8 col-xs-6">
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <!-- <label class="mrgn-top12 mt-checkbox-outline chckbox">
                                              <input type="checkbox" formControlName="active"><span></span></label>-->
                                         <label class="mt-checkbox-outline">
@@ -232,8 +227,6 @@
                                         </label>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
 

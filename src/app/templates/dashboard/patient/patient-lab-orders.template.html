@@ -73,10 +73,10 @@
 
         <div class="row mrgn-top10">
             <div class="col-md-12">
-                <h4 class="text-info mrgn-btm10">Lab Orders
-                    <div class="pull-right mrgn-btm10">
+                <h4 class="text-info">Lab Orders
+                    <div class="pull-right">
                         <a [routerLink]="['/dashboard/patient/create-order/',id,'add',orderId,'order']">
-                            <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
+                            <button class="btn primary blue" data-title="Sweet Alerts with Icons"
                                     data-message="Success Icon" data-type="success" data-allow-outside-click="true"
                                     data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
                             </button>
@@ -84,14 +84,9 @@
                     </div>
                 </h4>
 
-                <div class="table-scrollable">
-
-
+                <div class="table-scrollable table-brd-non">
                     <!-- New Data Table -->
-
                     <p-table #dt [columns]="cols" [value]="allOrders"  [rows]="10"  [paginator]="true" >
-
-
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>

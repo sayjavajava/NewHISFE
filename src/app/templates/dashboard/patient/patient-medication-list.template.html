@@ -83,12 +83,12 @@
 
         <div class="row mrgn-top10">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">Active Medication Orders
                         <div class="pull-right">
                         <span>
                             <a href="#responsiveMedication" data-toggle="modal" (click)="addMedication()">
-                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                <button class="btn primary blue pdngall3"
                                         data-title="Sweet Alerts with Icons"
                                         data-message="Success Icon" data-type="success"
                                         data-allow-outside-click="true"
@@ -98,18 +98,15 @@
                             </a>
                         </span>
                             <span>
-                                <button class="btn btn-default btn-outline btn-sm">
+                                <button class="btn green-meadow">
                                     <i class=" icon-clock"></i> Print List
                                 </button>
                             </span>
                         </div>
                     </h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
-
-
+                <div class="table-scrollable table-brd-non">
                     <p-table #dt [columns]="cols" [value]="medicationData" [paginator]="true"  [rows]="5">
-
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>

@@ -175,7 +175,7 @@
                                                 <label class="control-label col-md-4 pdng-lr-5">Office Start Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8 pdng-lr-5">
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
                                                     <input class="col-md-4 time-form-control pdng-lr-5 font-siz" type="time"
                                                            placeholder="Select start time e.g 8:00 AM" value=""
@@ -190,7 +190,7 @@
                                                 <label class="control-label col-md-4 pdng-lr-5"> Office End Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8 pdng-lr-5">
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
                                                     <input class="col-md-4 time-form-control pdng-lr-5 font-siz" type="time" value=""
                                                            formControlName="officeHoursEnd" placeholder="Select end time e.g 4:00 PM">
@@ -265,25 +265,25 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <form [formGroup]="billingForm" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Billing Name</label>
-                                            <div class="col-md-8">
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Billing Name</label>
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <input type="text" placeholder="enter name of bill e.g purchase bill" formControlName="billingName"
                                                        class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Billing Branch</label>
-                                            <div class="col-md-8">
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Billing Branch</label>
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <select class="form-control" (change)="getSelectedBranch($event.target.value)"
                                                         formControlName="billingBranch" placeholder="Select Branch">
                                                     <option *ngFor="let br of branchesList" [value]="br"> {{br}} </option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Billing Tax ID #</label>
-                                            <div class="col-md-8">
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Billing Tax ID #</label>
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <input type="text" placeholder="Enter billing tax id" formControlName="billingTaxID"
                                                        class="form-control">
                                             </div>
@@ -302,9 +302,9 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <form [formGroup]="scheduleForm" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-8">Show this Branch information online</label>
-                                            <div class="col-md-4">
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-8 pdng-lr-5">Show this Branch information online</label>
+                                            <div class="col-md-4 pdng-lr-5">
                                                 <label class="mt-checkbox mt-checkbox-outline chckbox">
                                                     <mat-checkbox formControlName="showBranchOnline" color="primary" ></mat-checkbox>
                                                 </label>
@@ -313,9 +313,9 @@
                                                 </label>-->
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-8">Allow online scheduling in this Branch</label>
-                                            <div class="col-md-4">
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-8 pdng-lr-5">Allow online scheduling in this Branch</label>
+                                            <div class="col-md-4 pdng-lr-5">
                                                 <label class="mt-checkbox mt-checkbox-outline chckbox">
                                                     <mat-checkbox formControlName="allowOnlineSchedulingInBranch" color="primary" ></mat-checkbox>
                                                 </label>
@@ -329,7 +329,7 @@
                             </div>
                             <div class="hr">
                                 <div class="col-md-4 branch-save-button">
-                                    <button (click)="addBranch(billingForm.value,'done')" class="pull-right btn blue"> <i class="fa fa-plus"></i> Save </button>
+                                    <button (click)="addBranch(billingForm.value,'done')" class="pull-right btn blue"> Save </button>
                                 </div>
                             </div>
                         </div>
