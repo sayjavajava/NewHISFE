@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NotificationService} from '../../../services/notification.service';
 import {RequestsService} from '../../../services/requests.service';
 import {HISUtilService} from '../../../services/his-util.service';
@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SmsTemplateModel} from "../../../model/SmsTemplateModel";
 import {PrefixTemplateModel} from "../../../model/PrefixTemplateModel";
 import {NgForm} from "@angular/forms";
+import {isNullOrUndefined} from "util";
 
 @Component({
     selector: 'prefix-template-component',
@@ -67,48 +68,41 @@ export class PrefixTemplateComponent {
     editPrefixModule(formData: NgForm) {
         if (localStorage.getItem(btoa('access_token'))) {
 
-
-
             if (this.prefixTemplate.module == null || this.prefixTemplate.module.trim().length <= 0) {
                 this.notificationService.error("Please provide Module");
                 return;
             }
-            if (this.prefixTemplate.currentValue == "" || this.prefixTemplate.currentValue == null) {
-
+            /*if (this.prefixTemplate.currentValue == "" || this.prefixTemplate.currentValue == null) {
                 this.notificationService.error('Please provide Current Value');
-
                 return;
-            }
+            }*/
 
-            if (this.prefixTemplate.startValue == 1) {
-
-                this.notificationService.error('Please provide Start Value');
-
+            if (isNullOrUndefined(this.prefixTemplate.startValue) || typeof this.prefixTemplate.startValue != "number" ) {
+                this.notificationService.error('Please provide valid Start Value');
                 return;
             }
             if (this.prefixTemplate.name == "" || this.prefixTemplate.name == null) {
-
-                this.notificationService.error('Please provide Name');
-
+                this.notificationService.error('Please provide prefix name');
                 return;
+            }
+            if (this.prefixTemplate.isFirstEdit) {
+                this.prefixTemplate.currentValue = this.prefixTemplate.startValue;
             }
 
             this.requestsService.postRequest(AppConstants.PREFIX_CONFIGURATION_SAVE , this.prefixTemplate)
-             .subscribe(
-               (response: Response) => {
-                        if (response['responseCode'] === 'SUCCESS') {
-                            // this.prefixTemplateList = response['responseData'];
-                            document.getElementById('close-btn-Prefix').click();
-                            this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-                            this.notificationService.success(response['responseMessage'], 'Update Module Prefix');
-                        } else {
-                            this.notificationService.error(response['responseMessage'], 'Update Module Prefix');
-                        }
-                    },
-                    (error: any) => {
-                        this.HISUtilService.tokenExpired(error.error.error);
+                .subscribe((response: Response) => {
+                    if (response['responseCode'] === 'SUCCESS') {
+                        // this.prefixTemplateList = response['responseData'];
+                        document.getElementById('close-btn-Prefix').click();
+                        this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                        this.notificationService.success(response['responseMessage'], 'Update Module Prefix');
+                    } else {
+                        this.notificationService.error(response['responseMessage'], 'Update Module Prefix');
                     }
-                );
+                }, (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                }
+            );
         } else {
             this.router.navigate(['/login']);
         }
@@ -117,5 +111,6 @@ export class PrefixTemplateComponent {
 
     edit(editModule: any){
         this.prefixTemplate = editModule;
+        this.prefixTemplate.isFirstEdit = (this.prefixTemplate.startValue == this.prefixTemplate.currentValue);
     }
 }
