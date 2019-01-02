@@ -31,7 +31,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input type="text" formControlName="companyName" class="form-control">
+                                                    <input type="text" formControlName="companyName" class="form-control bootstrap-switch-readonly">
                                                     <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
                                                             <span *ngIf="proForm.controls['companyName'].errors.minlength"> Minimum 4 characters</span>
                                                     <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
@@ -242,15 +242,6 @@
 
                                                 </div>
                                             </div>-->
-                                            <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Practice Business Logo
-                                                </label>
-                                                <div class="col-md-5 pdng-lr-5">
-                                                    <input type="file" id="exampleInputFile">
-                                                    <p class="help-block"> Will be attached to emails & offical
-                                                        forms </p>
-                                                </div>
-                                            </div>
                                             <h4 class="hr" style="margin-left: 19%;"> Contact</h4>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Email
@@ -305,12 +296,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="col-md-4 pdng-lr-5 control-label">Practice Business Logo</label>
-                                            <div class="col-md-8 pdng-lr-5">
-                                                <img class="img-responsive img-width" src="/public/images/patient-photo.jpg"/>
+                                            <div class="col-md-6 pdng-lr-5">
+                                                <div class="logo-plchldr"><img class="img-responsive" src="/public/images/company-logo-placeholder.jpg"/></div>
                                                 <div class="mrgn-top8">
                                                     <input class="mrgn-top8" type="file" id="profileImg" name="profileImg"
                                                            (change)="uploadImgOnChange($event,'profileImg')" >
-                                                    <small>Will be attached to emails & offical forms</small>
+                                                    <small class="font-siz11">Will be attached to emails & offical forms</small>
                                                 </div>
                                             </div>
                                             </div>
