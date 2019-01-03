@@ -42,10 +42,10 @@
                                     </form>
                                 </div>-->
 
-                <div class="table-scrollable">
+                <div class="mrgn-top8">
                     <table class="table table-striped table-hover table-checkable dataTable no-footer"
                            id="datatable_ajax" aria-describedby="datatable_ajax_info" role="grid">
-                        <thead>
+                        <thead class="ui-table-thead">
                             <tr role="row" class="off-wite-bg">
                                 <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Company Name</th>
                                 <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Office Phone</th>
@@ -53,7 +53,8 @@
                                 <th width="14%" class="sorting_disabled" rowspan="1" colspan="1"> Email</th>
                                 <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                             </tr>
-
+                        </thead>
+                        <tbody class="ui-table-tbody">
                             <tr role="row" class="filter" *ngFor="let item of data">
                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{item.companyName}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{item.officePhone}}</td>
@@ -63,7 +64,7 @@
                                     <button (click)="updateOrganization(item.id)" class="font-blue"><i class="fa fa-pencil"></i></button>
                                 </td>
                             </tr>
-                        </thead>
+                    </tbody>
                     </table>
                 </div>
             </div>

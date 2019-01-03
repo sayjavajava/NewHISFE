@@ -110,11 +110,7 @@
                                      Appointments<span class="required" aria-required="true"> * </span>
                                  </label>-->
                                 <div class="col-md-5 pdng-lr-5">
-
-
                                     <input type="text"  class="form-control" formControlName="doctorName" value="{{doctorAppointment}}"  disabled>
-
-
                                 </div>
                             </div>
                         </div>
@@ -185,22 +181,15 @@
                                                       field="testCode" search
                                                       placeholder="Search Tests..." [dropdown]="true"
                                                       [disabled]="isUpdate"></p-autoComplete>-->
-
                                     <p-dropdown  placeholder="{{selectedTestNew}}" [autoWidth]="false" [(ngModel)]="selectedTestNew"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}"  formControlName="testNameId"  field="testCode"
                                                  (onChange)="filterLabTestSingle($event.value)"
                                                  [options]="searchedNamesLstNew"  [panelStyle]="{minWidth:''}" [filter]="true" disabled="true">
                                     </p-dropdown>
-
                                 </div>
-
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <!-- <div class="row">
                          <form id="LabForm" *ngIf="showEdit" [formGroup]="labForm" #form="ngForm">
                              <div class="col-md-12">
@@ -294,7 +283,6 @@
 
                         </form>
                     </div>-->
-
                     <!-- <div class="row">
                          <div class="col-md-12 mrgn-btm10">
                              <div class="pull-right">
@@ -308,8 +296,6 @@
                              </div>
                          </div>
                      </div>-->
-
-
                     <!--<div class="row">
 
                         <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
@@ -371,17 +357,14 @@
                                 <div class="hr padding round-bck table-responsive">
                                     <table class="table table-striped table-hover table-checkable dataTable no-footer" id="" aria-describedby="datatable_ajax_info"
                                            role="grid">
-                                        <thead>
+                                        <thead class="ui-table-thead">
                                         <tr role="row" class="">
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
-
                                             <!-- <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th> -->
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result Value </th>
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Unit  </th>
-
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
                                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
-
                                         </tr>
                                         <tr role="row" class="filter">
                                             <td rowspan="1" colspan="1" class="custom-td-size">

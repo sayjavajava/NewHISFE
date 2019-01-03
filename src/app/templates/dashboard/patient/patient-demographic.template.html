@@ -900,9 +900,9 @@
                             </div>-->
                             <div class="tab-pane" id="smoking">
                                 <h4 class="text-info">Smoking Status </h4>
-                                <div class="table-scrollable">
+                                <div class="mrgn-top8">
                                     <table class="table table-hover table-light">
-                                        <thead>
+                                        <thead class="ui-table-thead">
                                             <tr class="off-wite-bg tbl-pdng">
                                                 <th> Smoking Status</th>
                                                 <th> Start Date</th>
@@ -911,7 +911,7 @@
                                                 <th> Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="ui-table-tbody">
                                             <tr class="tbl-pdng" *ngFor="let ss of smokeStatusList">
                                                 <td>{{ss.smokingStatus}}</td>
                                                 <td>{{ss.startDate | date: 'dd-MM-yyyy'}}</td>
@@ -1033,7 +1033,7 @@
                             </div>
                             <div class="tab-pane" id="balance">
                                 <h4 class="text-info">Patient Account Balance </h4>
-                                <div class="table-scrollable tbl-brdr-radus">
+                                <div class="table-scrollable">
                                     <table class="table table-hover table-light">
                                         <tbody>
                                         <tr class="">
@@ -1050,7 +1050,7 @@
                                             <td>Total Patient Balance</td>
                                             <td>{{patientInvBal.balance | number :'.2-2'}}</td>
                                         </tr>
-                                        <tr class="">
+                                        <tr class="off-wite-bg">
                                             <td>Total Patient Advance Balance</td>
                                             <td>{{patientInvBal.advanceBalance | number :'.2-2'}}</td>
                                         </tr>

@@ -102,10 +102,10 @@
                 <div class="hr">
                     <h4 class="text-info">Vital </h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
+                <div class="mrgn-top8">
                     <table class="table table-hover table-light">
-                        <thead>
-                            <tr class="hedng-bck-clr tbl-pdng">
+                        <thead class="ui-table-thead">
+                            <tr class="tbl-pdng off-wite-bg">
                                 <th> Name</th>
                                 <th> Unit</th>
                                 <th> NCurrent Value</th>
@@ -114,7 +114,7 @@
                                <!-- <th> Acton</th>-->
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="ui-table-tbody">
                             <tr *ngFor="let vitalList of vitalListData" class="filter">
                                 <td>{{vitalList.name}}</td>
                                 <td>{{vitalList.unit}}</td>
@@ -134,9 +134,6 @@
                                     &lt;!&ndash;<button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>&ndash;&gt;
                                     &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
                                     &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
-
-
-
                                 </td>-->
                             </tr>
                         </tbody>
@@ -144,21 +141,17 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-
         </div>
-
-
-
 
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Ongoing Problems</h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
+                <div class="mrgn-top8">
                     <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
+                        <thead class="ui-table-thead off-wite-bg">
+                        <tr class="tbl-pdng">
                             <th> Version Name</th>
                             <th> Problem</th>
                             <th> Diagnosis Date</th>
@@ -168,7 +161,7 @@
                             <th> Notes</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="ui-table-tbody">
                         <tr *ngFor="let problemActive of problemActiveData" class="filter">
                             <td>{{problemActive.versionName}}</td>
                             <td>{{problemActive.codeName}}</td>
@@ -183,8 +176,7 @@
             <div class="clearfix"></div>
 
         </div>
-
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="getPageWiseProblemActive">
                     <ul class="pagination" style="visibility: visible;">
@@ -216,17 +208,16 @@
                     </ul>
                 </div>
             </div>
-        </div>
-
+        </div>-->
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Active Allergies</h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
+                <div class="mrgn-top8">
                     <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
+                        <thead class="ui-table-thead off-wite-bg">
+                        <tr class="tbl-pdng">
                             <th> Name</th>
                             <th> Type</th>
                             <th> Reaction</th>
@@ -236,7 +227,7 @@
                             <th> Notes</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="ui-table-tbody">
                         <tr *ngFor="let allergyActive of allergiesActiveData" class="filter">
                             <td>{{allergyActive.name}}</td>
                             <td>{{allergyActive.allergyType}}</td>
@@ -252,8 +243,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right"
                      id="getPageWiseAllergiesByActive">
@@ -286,17 +276,16 @@
                     </ul>
                 </div>
             </div>
-        </div>
-
+        </div>-->
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
                     <h4 class="text-info">Active Medications</h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
+                <div class="mrgn-top8">
                     <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
+                        <thead class="ui-table-thead off-wite-bg">
+                        <tr class="tbl-pdng">
                             <th> Drug Name</th>
                             <th> Prescribed Date</th>
                             <th> Taking</th>
@@ -307,7 +296,7 @@
                             <th> Indication</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="ui-table-tbody">
                         <tr *ngFor="let med of medicationsActiveData" class="tbl-pdng">
                             <td>{{med.drugName}}</td>
                             <td>{{med.datePrescribedString | date:'medium'}}</td>
@@ -323,8 +312,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right"
                      id="getPageWiseMedicationsByActive">
@@ -357,8 +345,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
-
+        </div>-->
         <!--<div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr">
