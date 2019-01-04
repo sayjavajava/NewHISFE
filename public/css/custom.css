@@ -95,8 +95,8 @@ label{margin-bottom: 0 !important;}
 .sub-total ul{list-style:none; padding:0; float:left; width: 100%;}
 .sub-total li{width:100%; float:left; padding-top: 5px; padding-bottom: 5px;}
 .sub-total li span{}
-.sub-total li span:first-child{float: left;font-weight: bold; width: 46%; text-align: left;}
-.sub-total li span:last-child{float: right;width: 50%; text-align: right;}
+.sub-total li span:first-child{float: left;font-weight: bold; width: 30%; text-align: left;}
+.sub-total li span:last-child{float: right;width: 70%; text-align: right;}
 .sar-total{background:#faf9f9; border:1px solid #eee; padding:10px;}
 .txt-btm-brdr{border-bottom: 1px dotted #000;}
 .hdr-bckgrnd{background:#0153a7; color:#fff; text-align:left;}

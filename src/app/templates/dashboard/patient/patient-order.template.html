@@ -620,12 +620,13 @@
                                     <div class="table-scrollable">
                                         <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
                                                role="grid">
-                                            <thead>
+                                            <thead class="ui-table-thead">
                                             <tr role="row" class="off-wite-bg">
                                                 <th style="width: 502px" class="sorting_disabled" rowspan="1" colspan="1"> Url </th>
                                                 <th style="width: 36px" class="sorting_disabled" rowspan="1" colspan="1"> Action  </th>
                                             </tr>
                                             </thead>
+                                            <tbody class="ui-table-tbody">
                                             <tr role="row" class="filter" *ngFor="let lbRT of filteredLabTestUrl;  let idx = index">
                                                 <td class="sorting_disabled" rowspan="1" colspan="1">
                                                     <a href="{{lbRT}}" target="{{lbRT}}">Download</a>
@@ -638,6 +639,7 @@
                                                     </a>
                                                 </td>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>

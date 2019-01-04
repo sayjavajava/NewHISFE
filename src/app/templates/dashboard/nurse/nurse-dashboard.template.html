@@ -29,7 +29,7 @@
                         </div>
                         <div class="pull-right">
                             <a routerLink="/dashboard/appointment/add">
-                                <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
+                                <button class="btn primary blue" data-title="Sweet Alerts with Icons"
                                         data-message="Success Icon" data-type="success" data-allow-outside-click="true"
                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> Add Appointment
                                 </button>
@@ -39,10 +39,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-scrollable tbl-brdr-radus">
+                    <div class="">
                         <table class="table table-hover table-light">
-                            <thead>
-                            <tr class="hedng-bck-clr tbl-pdng">
+                            <thead class="ui-table-thead">
+                            <tr class="off-wite-bg tbl-pdng">
                                 <th> Appointment Id </th>
                                 <th> In </th>
                                 <th> In Time </th>
@@ -58,7 +58,7 @@
                             </tr>
                             <ngx-loading [show]="loading"></ngx-loading>
                             </thead>
-                            <tbody>
+                            <tbody class="ui-table-tbody">
                             <tr class="tbl-pdng" *ngFor="let item of dashboardListModified">
                                 <td>{{item.apptNaturalId}}</td>
                                 <td><ng-container *ngIf="item.status == 'IN_SESSION'" ><div class="mt-action-dot bg-green-meadow" ></div></ng-container>
@@ -72,12 +72,12 @@
                                 <td>{{item.examRoom}}</td>
                                 <td><button  type="button" class="btn-link"(click)="showRoomWithBranch(item.branchId,item.roomId)">{{showRoomBtn}}</button>
                                 </td>
-                                <td>
+                                <td class="profile-frm">
                                     <select *ngIf="showRoomDrop" class="form-control" [ngModelOptions]="{standalone:true}" [(ngModel)]="item.roomId" (change)="getExamRoom($event.target.value,item.appointmentId)">
                                         <option *ngFor="let r of allRooms" value="{{r.id}}">{{ r.branchName }} </option>
                                     </select>
                                 </td>
-                                <td>
+                                <td class="profile-frm">
                                     <!--<select class="form-control" (change)="getUpdatedStatus($event.target.value,item.apptNaturalId,item.appointmentId)" [ngModelOptions]="{standalone:true}"
                                             [(ngModel)]="item.status">
                                  &lt;!&ndash;   <option value="IN_SESSION">IN SESSION</option>
