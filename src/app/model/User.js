@@ -20,6 +20,7 @@ var User = (function () {
         this.otherDoctorDashBoard = user.otherDoctorDashBoard;
         this.otherDashboard = user.otherDashboard;
         this.accountExpiry = user.accountExpiry;
+        this.receivePayment = user.receivePayment;
         this.active = user.active;
         this.interval = user.interval;
         this.dutyWithDoctors = user.dutyWithDoctors;

@@ -263,6 +263,7 @@ var AddStaffComponent = (function () {
             'dateTo': [null],
             'managePatientInvoices': '',
             'managePatientRecords': '',
+            'receivePayment': '',
             'hidePatient': '',
             'departmentControl': [null, forms_1.Validators.pattern('true')],
             'servicesControl': [null],
@@ -291,6 +292,7 @@ var AddStaffComponent = (function () {
                     useReceptDashboard: data.useReceptDashboard,
                     otherDashboard: data.otherDashboard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment: data.recivePayment,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -314,6 +316,7 @@ var AddStaffComponent = (function () {
                     useReceptDashboard: data.useReceptDashboard,
                     otherDashboard: data.otherDashboard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment: data.recivePayment,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -380,6 +383,7 @@ var AddStaffComponent = (function () {
                     otherDashboard: data.otherDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment: data.recivePayment,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -752,7 +756,9 @@ var AddStaffComponent = (function () {
         this.dutytimmingshift2 = true;
         this.vacation = true;
         this.vacationweek = true;
+        this.recivepayment = true;
         this.services = true;
+        this.allowdiscount = true;
     };
     AddStaffComponent.prototype.nursePermissions = function () {
         this.nurseDepartment = true;
@@ -762,9 +768,11 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.receptionistPermissions = function () {
         this.allowdiscount = true;
+        this.recivepayment = true;
     };
     AddStaffComponent.prototype.cashierPermissions = function () {
         this.allowdiscount = true;
+        this.recivepayment = true;
     };
     AddStaffComponent.prototype.changeState = function () {
         this.allowdiscount = false;
@@ -778,6 +786,7 @@ var AddStaffComponent = (function () {
         this.dutywithdoctor = false;
         this.managepatientrecord = false;
         this.managepatientinvoices = false;
+        this.recivepayment = false;
     };
     AddStaffComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);

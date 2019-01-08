@@ -85,14 +85,14 @@ var UpdateReceptionistComponent = (function () {
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+            'userName': [null],
             'password': [null],
             'confirmPassword': [null],
             'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
             'interval': [null],
-            'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.email])],
+            'email': [null],
             'restrictBranch': [null],
             'allowDiscount': [null],
             'otherDashboard': '',
@@ -102,6 +102,7 @@ var UpdateReceptionistComponent = (function () {
             'vacation': '',
             'otherDoctorDashBoard': '',
             'accountExpiry': [null],
+            'receivePayment': [null],
             'active': '',
             'dateFrom': [null],
             'dateTo': [null],
@@ -130,6 +131,7 @@ var UpdateReceptionistComponent = (function () {
                     userName: receptionist.userName,
                     active: receptionist.active,
                     accountExpiry: receptionist.expiryDate,
+                    receivePayment: receptionist.receivePayment,
                     primaryBranch: receptionist.primaryBranchId,
                     sendBillingReport: receptionist.sendBillingReport,
                     useReceptDashboard: receptionist.useReceptDashboard,
@@ -185,6 +187,7 @@ var UpdateReceptionistComponent = (function () {
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
+                receivePayment: data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,
@@ -196,7 +199,6 @@ var UpdateReceptionistComponent = (function () {
             this.makeService(cashier);
         }
         else {
-            console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     };

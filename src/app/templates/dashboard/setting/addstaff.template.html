@@ -12,7 +12,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5">Role <span class="required"
-                                                                                     aria-required="true"> * </span></label>
+                                                                                               aria-required="true"> * </span></label>
                                     <div class="col-md-8 pdng-lr-5">
                                         <!--<select class="form-control" (change)="goTo($event.target.value)" formControlName="changeUser">
                                             <option *ngFor="let r of allStaffTypes" value="{{r.name}}">{{ r.name }}</option>
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="form-group mrgn-btm08" ngClass="displayFieldCss">
                                     <label class="control-label col-md-4 pdng-lr-5">Primary Branch <span class="required"
-                                                                                               aria-required="true"> * </span>
+                                                                                                         aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 pdng-lr-5">
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
@@ -242,7 +242,7 @@
                                                                     (onChange)="addComissionCheck($event,item)">
                                                         </p-checkbox>
                                                     </span>
-                                                    <p class="col-md-7 pdng-lr-5">{{item.name}}</p>
+                                                <p class="col-md-7 pdng-lr-5">{{item.name}}</p>
                                                 <div class="col-md-4 pdng-lr-5">
                                                     <input style="width: 100%" type="number" pInputText
                                                            (keyup)="addComission($event,item)"
@@ -540,24 +540,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Hide Patient Phone Number</label>
-                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
-                                        <!--<input type="checkbox" formControlName="sendBillingReport"
-                                               class="">-->
-                                        <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
-                                        <span></span>-->
-                                        <label class="mt-checkbox-outline">
-                                            <mat-checkbox formControlName="sendBillingReport"
-                                                          color="primary"></mat-checkbox>
-                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
 
-                                            <span></span>
-                                        </label>
-                                        <!--</label>-->
-                                    </div>
-                                </div>
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5">Cell Phone
                                     </label>
@@ -591,23 +574,23 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                       <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Send Daily Billing Report</label>
-                                       <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                           <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
-                                           <!--<input type="checkbox" formControlName="sendBillingReport"
-                                                  class="">-->
-                                           <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
-                                           <span></span>-->
-                                           <label class="mt-checkbox-outline">
-                                               <mat-checkbox formControlName="sendBillingReport"
-                                                             color="primary"></mat-checkbox>
-                                               <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Send Daily Billing Report</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
+                                        <!--<input type="checkbox" formControlName="sendBillingReport"
+                                               class="">-->
+                                        <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                        <span></span>-->
+                                        <label class="mt-checkbox-outline">
+                                            <mat-checkbox formControlName="sendBillingReport"
+                                                          color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
 
-                                               <span></span>
-                                           </label>
-                                           <!--</label>-->
-                                       </div>
-                                   </div>
+                                            <span></span>
+                                        </label>
+                                        <!--</label>-->
+                                    </div>
+                                </div>
 
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
@@ -620,53 +603,60 @@
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Other Doctor Dashboard</label>
                                     <div class="col-md-1 col-xs-6 pdngall3">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox"> </label>
-                                            <mat-checkbox formControlName ="otherDoctorDashBoard"><span></span></mat-checkbox>
-                                          <!--  <select class="form-control"
-                                                    (change)="getSelectedDashboard($event.target.value)"
-                                                    formControlName="otherDashboard" placeholder="Dashoboard">
-                                                    <option *ngFor="let br of primaryDoctor" [value]="br.userName">
-                                                    {{br.userName}}
-                                                </option>
+                                        <mat-checkbox formControlName ="otherDoctorDashBoard"><span></span></mat-checkbox>
+                                        <!--  <select class="form-control"
+                                                  (change)="getSelectedDashboard($event.target.value)"
+                                                  formControlName="otherDashboard" placeholder="Dashoboard">
+                                                  <option *ngFor="let br of primaryDoctor" [value]="br.userName">
+                                                  {{br.userName}}
+                                              </option>
 
-                                            </select>-->
-                                            </div>
+                                          </select>-->
+                                    </div>
                                     <div class="col-md-7 pdng-lr-5">
                                         <p-multiSelect placeholder="Select Dashboard"
-                                                  [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                  [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
-                                                    name="doctorboards"
-                                                  formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
-                                                  [filter]="true">
-                                    </p-multiSelect>
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
+                                                       name="doctorboards"
+                                                       formControlName="otherDashboard"
+                                                       [filter]="true">
+                                        </p-multiSelect>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                      <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Account Expiry
-                                      </label>
-                                      <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                          <mat-form-field class="width100">
-                                              <input [style]="{'text-align': 'left' ,'width':'100%'}" matInput
-                                                     [matDatepicker]="from" placeholder="Expiry Date"
-                                                     formControlName="accountExpiry">
-                                              <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                                              <mat-datepicker #from></mat-datepicker>
-                                          </mat-form-field>
-                                      </div>
-                                  </div>
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Account Expiry
+                                    </label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <mat-form-field class="width100">
+                                            <input [style]="{'text-align': 'left' ,'width':'100%'}" matInput
+                                                   [matDatepicker]="from" placeholder="Expiry Date"
+                                                   formControlName="accountExpiry">
+                                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                            <mat-datepicker #from></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
                                 <div class="form-group mrgn-btm08">
-                                       <label class="control-label col-md-4 col-xs-6  pdng-lr-5">Active
-                                       </label>
-                                       <div class="col-md-8 col-xs-6  pdng-lr-5">
-                                           <label class="mt-checkbox-outline chckbox mrgn-top10">
-                                               <mat-checkbox formControlName ="active" color="primary"><span></span></mat-checkbox></label>
-                                       </div>
-                                   </div>
+                                    <label class="control-label col-md-4 col-xs-6  pdng-lr-5">Active
+                                    </label>
+                                    <div class="col-md-8 col-xs-6  pdng-lr-5">
+                                        <label class="mt-checkbox-outline chckbox mrgn-top10">
+                                            <mat-checkbox formControlName ="active" color="primary"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
 
                                 <div *ngIf="managepatientrecord" class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Manage Patient Records</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <mat-checkbox formControlName="managePatientRecords"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
+                                <div *ngIf="recivepayment" class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Can Receive Payment</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="receivePayment"><span></span></mat-checkbox></label>
                                     </div>
                                 </div>
                                 <div *ngIf="managepatientinvoices" class="form-group mrgn-btm08">
@@ -678,55 +668,55 @@
                                 </div>
 
                                 <div *ngIf="allowdiscount" class="form-group mrgn-btm08">
-                                <!--<label class="control-label col-md-4 col-xs-6 pdng-lr-5">Allow Discount</label>
-                                <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                    <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                        <mat-checkbox formControlName="allowDiscount"><span></span></mat-checkbox></label>
-                                </div>-->
-                                <label class="control-label col-md-4 pdng-lr-5">Allow Discount
-                                </label>
-                                <div class="col-md-8 col-xs-6 pdng-lr-5">  
-                                    <input formControlName="allowDiscount" type="number"  min="0" max="100"
-                                           placeholder="0-100"
-                                           class="form-control">
-                                </div>
+                                    <!--<label class="control-label col-md-4 col-xs-6 pdng-lr-5">Allow Discount</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="allowDiscount"><span></span></mat-checkbox></label>
+                                    </div>-->
+                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount
+                                    </label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <input formControlName="allowDiscount" type="number"  min="0" max="100"
+                                               placeholder="0-100"
+                                               class="form-control">
+                                    </div>
                                     <!--<mat-input-container>
                                         <input type="number" min="0" max="100" required matInput placeholder="Charge" [(ngModel)]="rateInput" name="rateInput" [formControl]="allowDiscount">
                                         <mat-error>Please enter a value between 0 and 100</mat-error>
                                     </mat-input-container>-->
-                                <span *ngIf="userForm.controls['allowDiscount'].touched && userForm.controls['allowDiscount'].hasError('minlength')">
+                                    <span *ngIf="userForm.controls['allowDiscount'].touched && userForm.controls['allowDiscount'].hasError('minlength')">
                                         Maximum of 100
                                     </span>
-                               </div>
+                                </div>
 
 
-                               <!-- <div *ngIf="checkUpInterval" class="form-group  mrgn-btm08">
-                                    <label class="control-label col-md-4 pdng-lr-5">Checkup Interval:
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
-                                  &lt;!&ndash;  (change)="checkupIntervalMethod($event.target.value)"&ndash;&gt;
-                                    <div class="col-md-8 pdng-lr-5">
-                                        &lt;!&ndash;<select class="form-control"
-                                                formControlName="interval">
-                                            <option value="5">5</option>
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
-                                            <option value="50">50</option>
-                                            <option value="60">60</option>
+                                <!-- <div *ngIf="checkUpInterval" class="form-group  mrgn-btm08">
+                                     <label class="control-label col-md-4 pdng-lr-5">Checkup Interval:
+                                         <span class="required" aria-required="true"> * </span>
+                                     </label>
+                                   &lt;!&ndash;  (change)="checkupIntervalMethod($event.target.value)"&ndash;&gt;
+                                     <div class="col-md-8 pdng-lr-5">
+                                         &lt;!&ndash;<select class="form-control"
+                                                 formControlName="interval">
+                                             <option value="5">5</option>
+                                             <option value="10">10</option>
+                                             <option value="20">20</option>
+                                             <option value="30">30</option>
+                                             <option value="40">40</option>
+                                             <option value="50">50</option>
+                                             <option value="60">60</option>
 
-                                        </select>&ndash;&gt;
-                                        <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [options]="intervalList" formControlName="interval"
-                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                        </p-dropdown>
-                                        &lt;!&ndash;<span class="text-danger"
-                                              *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
-                                        <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>&ndash;&gt;
-                                    </div>
+                                         </select>&ndash;&gt;
+                                         <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                     [options]="intervalList" formControlName="interval"
+                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                         </p-dropdown>
+                                         &lt;!&ndash;<span class="text-danger"
+                                               *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
+                                         <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>&ndash;&gt;
+                                     </div>
 
-                                </div>-->
+                                 </div>-->
 
 
                             </div>

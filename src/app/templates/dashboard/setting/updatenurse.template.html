@@ -250,7 +250,7 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
                                                        name="doctorboards"
-                                                       formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                       formControlName="otherDashboard"
                                                        [filter]="true">
                                         </p-multiSelect>
                                     </div>
@@ -289,6 +289,13 @@
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <mat-checkbox formControlName="managePatientInvoices"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Can Receive Payment</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="recivePayment"><span></span></mat-checkbox></label>
                                     </div>
                                 </div>
                             </div>

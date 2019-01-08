@@ -96,14 +96,14 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+                'userName': [null],
                 'password': [null],
                 'confirmPassword': [null],
                 'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'interval': [null],
-                'email': [null, Validators.compose([Validators.required, Validators.email])],
+                'email': [null],
                 'restrictBranch': [null],
                 'allowDiscount': [null],
                 'otherDashboard': '',
@@ -113,6 +113,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 'vacation': '',
                 'otherDoctorDashBoard': '',
                 'accountExpiry': [null],
+                'receivePayment': [null],
                 'active': '',
                 'dateFrom': [null],
                 'dateTo': [null],
@@ -145,6 +146,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         userName: receptionist.userName,
                         active: receptionist.active,
                         accountExpiry: receptionist.expiryDate,
+                        receivePayment :receptionist.receivePayment,
                         primaryBranch: receptionist.primaryBranchId,
                         sendBillingReport :receptionist.sendBillingReport,
                         useReceptDashboard :receptionist.useReceptDashboard,
@@ -206,6 +208,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
+                receivePayment :data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,
@@ -216,7 +219,6 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
             });
             this.makeService(cashier);
         } else {
-            console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     }

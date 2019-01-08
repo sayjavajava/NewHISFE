@@ -199,6 +199,13 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
+                                <div  class="form-group mrgn-btm08">
+                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Can Receive Payment</label>
+                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="receivePayment"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
                                 <!-- <div class="form-group">
                                      <label class="control-label col-md-4">Use Doctor Dashboard?</label>
                                      <div class="col-md-8">
@@ -231,6 +238,25 @@
                                             <span></span>
                                         </label>
                                     </div>
+                                </div>
+                                <div  class="form-group mrgn-btm08">
+                                    <!--<label class="control-label col-md-4 col-xs-6 pdng-lr-5">Allow Discount</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="allowDiscount"><span></span></mat-checkbox></label>
+                                    </div>-->
+                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount
+                                    </label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <input formControlName="allowDiscount" type="number"  min="0" max="100"
+                                               placeholder="0-100"
+                                               class="form-control">
+                                    </div>
+                                    <!--<mat-input-container>
+                                        <input type="number" min="0" max="100" required matInput placeholder="Charge" [(ngModel)]="rateInput" name="rateInput" [formControl]="allowDiscount">
+                                        <mat-error>Please enter a value between 0 and 100</mat-error>
+                                    </mat-input-container>-->
+
                                 </div>
                             </div>
                         </div>

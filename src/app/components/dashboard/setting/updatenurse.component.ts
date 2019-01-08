@@ -159,11 +159,11 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+                'userName': [null],
                 'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
-                'email': [null, Validators.compose([Validators.required, Validators.email])],
+                'email': [null],
                 'restrictBranch': [null],
                 'allowDiscount': [null],
                 'otherDashboard': '',

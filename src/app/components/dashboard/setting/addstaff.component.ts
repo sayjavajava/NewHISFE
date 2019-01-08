@@ -33,6 +33,7 @@ export class AddStaffComponent implements OnInit {
     dutywithdoctor: boolean;
     managepatientrecord: boolean;
     managepatientinvoices: boolean;
+    recivepayment : boolean;
     allDBRoles: RoleAndPermission[];
     userForm: FormGroup;
     selectedDepartment: any = [];
@@ -320,6 +321,7 @@ export class AddStaffComponent implements OnInit {
                 'dateTo': [null],
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
+                'receivePayment': '',
                  'hidePatient':'',
                 'departmentControl': [null, Validators.pattern('true')],
                 'servicesControl': [null],
@@ -353,6 +355,7 @@ export class AddStaffComponent implements OnInit {
                     useReceptDashboard: data.useReceptDashboard,
                     otherDashboard: data.otherDashboard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment :data.recivePayment,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -380,6 +383,7 @@ export class AddStaffComponent implements OnInit {
                     useReceptDashboard: data.useReceptDashboard,
                     otherDashboard: data.otherDashboard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment :data.recivePayment,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -449,10 +453,11 @@ export class AddStaffComponent implements OnInit {
                     otherDashboard: data.otherDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment :data.recivePayment,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
-                   selectedDoctorDashboard:this.selectedDoctorDashboard,
+                    selectedDoctorDashboard:this.selectedDoctorDashboard,
                     active: data.active,
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
@@ -859,7 +864,9 @@ export class AddStaffComponent implements OnInit {
         this.dutytimmingshift2 = true;
         this.vacation = true;
         this.vacationweek = true;
+        this.recivepayment =true;
         this.services = true;
+        this.allowdiscount =true;
 
     }
 
@@ -873,10 +880,12 @@ export class AddStaffComponent implements OnInit {
 
     private receptionistPermissions() {
         this.allowdiscount = true;
+        this.recivepayment =true;
     }
 
     private cashierPermissions() {
         this.allowdiscount = true;
+        this.recivepayment =true;
     }
 
     private changeState() {
@@ -891,6 +900,7 @@ export class AddStaffComponent implements OnInit {
         this.dutywithdoctor = false;
         this.managepatientrecord = false;
         this.managepatientinvoices = false;
+        this.recivepayment =false;
     }
 
     cancel() {

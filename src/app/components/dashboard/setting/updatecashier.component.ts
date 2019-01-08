@@ -106,7 +106,7 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'interval': [null],
-                'email': [null, Validators.compose([Validators.required, Validators.email])],
+                'email': [null],
                 'restrictBranch': [null],
                 'allowDiscount': [null],
                 'otherDashboard': '',
@@ -119,6 +119,7 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                 'active': '',
                 'dateFrom': [null],
                 'dateTo': [null],
+                'receivePayment':[null],
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
                 'departmentControl': [null],
@@ -150,7 +151,8 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                         primaryBranch: cashier.primaryBranchId,
                         sendBillingReport: cashier.sendBillingReport,
                         useReceptDashboard: cashier.useReceptDashboard,
-                        otherDoctorDashBoard: cashier.otherDoctorDashBoard
+                        otherDoctorDashBoard: cashier.otherDoctorDashBoard,
+                        receivePayment :cashier.receivePayment
 
                     });
                     this.staffBranches = cashier.staffBranches;
@@ -209,6 +211,7 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
+                receivePayment:data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,

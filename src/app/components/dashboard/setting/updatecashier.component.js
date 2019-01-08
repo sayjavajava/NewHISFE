@@ -86,7 +86,7 @@ var UpdateCashierComponent = (function () {
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
             'interval': [null],
-            'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.email])],
+            'email': [null],
             'restrictBranch': [null],
             'allowDiscount': [null],
             'otherDashboard': '',
@@ -99,6 +99,7 @@ var UpdateCashierComponent = (function () {
             'active': '',
             'dateFrom': [null],
             'dateTo': [null],
+            'receivePayment': [null],
             'managePatientInvoices': '',
             'managePatientRecords': '',
             'departmentControl': [null],
@@ -127,7 +128,8 @@ var UpdateCashierComponent = (function () {
                     primaryBranch: cashier.primaryBranchId,
                     sendBillingReport: cashier.sendBillingReport,
                     useReceptDashboard: cashier.useReceptDashboard,
-                    otherDoctorDashBoard: cashier.otherDoctorDashBoard
+                    otherDoctorDashBoard: cashier.otherDoctorDashBoard,
+                    receivePayment: cashier.receivePayment
                 });
                 _this.staffBranches = cashier.staffBranches;
                 //this.selectedDoctors = cashier.dutyWithDoctors;
@@ -179,6 +181,7 @@ var UpdateCashierComponent = (function () {
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
+                receivePayment: data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,

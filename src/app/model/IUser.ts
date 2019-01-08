@@ -21,6 +21,7 @@ export interface  IUser {
     useReceptDashboard: boolean;
     otherDoctorDashBoard: boolean;
     accountExpiry: string;
+    receivePayment ?: boolean;
     active:boolean ;
     allowDiscount?: string;
     interval?: number;
@@ -36,6 +37,7 @@ export interface  IUser {
     shift1 ?: boolean;
     vacation ?: boolean;
     firstShiftToTime?: string;
+
 
     selectedDepartment ?: any[];
     selectedServices ?: any[];
