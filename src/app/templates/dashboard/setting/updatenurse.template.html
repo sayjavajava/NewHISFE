@@ -11,14 +11,12 @@
                     <!-- (ngSubmit)="addData(userForm.value)"-->
                     <div class="form-body">
                         <div class="row">
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">First Name
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">First Name
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="text"  formControlName="firstName" data-required="1"
                                                class="form-control">
                                         <span class="text-danger" *ngIf="userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched">{{firstNameError}}</span>
@@ -26,18 +24,22 @@
                                          </app-field-error-display>-->
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Last Name
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Last Name
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input formControlName="lastName" type="text" class="form-control"></div>
                                 </div>
-                                <div class="form-group" >
-                                    <label class="control-label col-md-4">Username
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Username
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
-                                        <input type="text" formControlName="userName" class="form-control">
+
+
+
+                                    <div class="col-md-8 pdng-lr-5">
+                                        <input type="text" formControlName="userName" class="form-control" disabled="true">
+
                                         <span class="text-danger" *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
                                            <span *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
                                            <span *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
@@ -47,11 +49,11 @@
                                         </app-field-error-display>-->
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Primary Branch
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Primary Branch
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
 
                                        <!-- <select class="form-control"
                                                 (change)="getSelectedBranch($event.target.value)"
@@ -71,22 +73,23 @@
                                         <span class="text-danger" *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">Select Primary Branch</span>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Email Address
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Email Address
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
-                                        <input type="email" formControlName="email"
+
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
+                                        <input type="email" formControlName="email"  disabled="true"
+
                                                class="form-control">
                                         <span class="text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">{{emailError}}</span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Visit Branches
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Visit Branches
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                        <!-- <div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label class="mt-checkbox mt-checkbox-outline">
                                                 <div *ngFor="let item of branchesList" class="col-md-6">
@@ -106,7 +109,7 @@
                                                        [options]="branchesList"
                                                        [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
-                                                       [panelStyle]="{minWidth:'12em'}">
+                                                       [panelStyle]="{minWidth:''}">
                                           <!--  <ng-template let-br pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
                                             </ng-template>-->
@@ -115,11 +118,11 @@
 
                                     </div>
                                 </div>
-                                <div  class="form-group mrgn-top10">
-                                    <label class="control-label col-md-4">Department
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Department
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label>
                                                 <div *ngFor="let item of departmentList" class="col-md-6">
@@ -141,7 +144,7 @@
                                                        [(ngModel)]="selectedDepartment"
                                                        (onChange)="selectDepartment($event)"
                                                        [ngModelOptions]="{standalone:true}"
-                                                       [panelStyle]="{minWidth:'12em'}">
+                                                       [panelStyle]="{minWidth:''}">
                                             <ng-template let-br pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
                                             </ng-template>
@@ -154,11 +157,11 @@
                                         <span class="text-danger" *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">select atleast one department </span>
                                     </div>
                                 </div>
-                                <div class="form-group mrgn-top10">
-                                    <label class="control-label col-md-4">Duty with Doctor
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Duty with Doctor
 
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                        <!-- <div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label class="mt-checkbox mt-checkbox-outline">
                                                 <div *ngFor="let item of doctorsList" class="col-md-6">
@@ -177,33 +180,30 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="doctorsList" [(ngModel)]="dutyWithDoctors" formControlName="nurseDutyWithDoctor"
                                                        (change)="dutyWithDoctor($event)"
-                                                       [panelStyle]="{minWidth:'12em'}">
+                                                       [panelStyle]="{minWidth:''}">
                                             <ng-template let-dpt pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{dpt.label}}
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
-
                                         <span class="text-danger" *ngIf="!userForm.controls['nurseDutyWithDoctor'].valid && userForm.controls['nurseDutyWithDoctor'].touched">please select Doctor </span>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Home Phone
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Home Phone
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input formControlName="homePhone" type="text"
                                                class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Cell Phone
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Cell Phone
                                     </label>
-                                    <div class="col-md-8">
-                                        <input formControlName="cellPhone" type="text"
-                                               class="form-control">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
+                                        <input formControlName="cellPhone" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -224,7 +224,6 @@
                                         <!--</label>-->
                                     </div>
                                 </div>
-
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
@@ -247,14 +246,16 @@
                                           </select>-->
                                     </div>
                                     <div class="col-md-7 pdng-lr-5">
-                                        <p-dropdown placeholder="Select Dashboard" [autoWidth]="false"
-                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [options]="doctorsList"
-                                                    formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
-                                                    [filter]="true">
-                                        </p-dropdown>
+                                        <p-multiSelect placeholder="Select Dashboard"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
+                                                       name="doctorboards"
+                                                       formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                       [filter]="true">
+                                        </p-multiSelect>
                                     </div>
                                 </div>
+
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Account Expiry
                                     </label>
@@ -268,25 +269,22 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
-
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-xs-6">Active
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Active
                                     </label>
-                                    <div class="col-md-8 col-xs-6">
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <label class="mt-checkbox-outline chckbox mrgn-top12">
                                             <mat-checkbox formControlName="active"><span></span></mat-checkbox></label>
                                     </div>
                                 </div>
-
-                                <div  class="form-group mrgn-btm08">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Manage Patient Records</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <mat-checkbox formControlName="managePatientRecords"><span></span></mat-checkbox></label>
                                     </div>
                                 </div>
-                                <div  class="form-group mrgn-btm08">
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Manage Patient Invoices</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">

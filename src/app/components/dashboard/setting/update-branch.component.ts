@@ -165,6 +165,13 @@ export class UpdateBranchComponent implements OnInit {
         });
     }
 
+    createExamRooms(roomName: string, allowOnlineScheduling: boolean): FormGroup {
+        return this.fb.group({
+            "roomName": roomName,
+            "allowOnlineScheduling": allowOnlineScheduling,
+        });
+    }
+
     allBranches() {
         this.requestService.getRequest(AppConstants.BRANCHES_NAME)
             .subscribe(
@@ -187,7 +194,7 @@ export class UpdateBranchComponent implements OnInit {
                         officeHoursStart: branch.officeHoursStart,
                         officeHoursEnd: branch.officeHoursEnd,
                         noOfExamRooms: branch.examRooms.length,
-                        examRooms: branch.examRooms,
+                        examRooms: (branch.examRooms as FormArray),
                         city: branch.city,
                         state: branch.city,
                         country: branch.city,
@@ -214,6 +221,7 @@ export class UpdateBranchComponent implements OnInit {
                     this.formattedAddress_State = this.checkFormattedAddressForNullOrEmpty(branch.state);
                     this.formattedAddress_Country = this.checkFormattedAddressForNullOrEmpty(branch.country,true);
                     this.examRooms = branch.examRooms;
+                    this.addValuesFields(this.examRooms.length, this.examRooms);
                     this.createFormattedAddress();
                     /*     this.billingForm.patchValue({
                              billingBranch: branch.billingBranch,
@@ -234,12 +242,12 @@ export class UpdateBranchComponent implements OnInit {
                       branch.examRooms = this.noOfRoom;
                       */
                     // this.addFields(branch.rooms);
-                    // console.log( this.branchForm.controls );
-                    // console.log( this.branchForm.controls.examRooms );
-                    // console.log( (this.branchForm.controls.examRooms as FormArray).controls[0] );
-                    // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls );
-                    // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.roomName );
+                    console.log( this.examRooms );
+                    console.log( this.branchForm.controls.examRooms );
                     // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.roomName.value );
+                    // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.allowOnlineScheduling.value );
+                    // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).value.roomName);
+                    // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).value.allowOnlineScheduling);
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -427,13 +435,17 @@ export class UpdateBranchComponent implements OnInit {
 
     }
 
-    addValuesFields(no: number): void {
+    addValuesFields(no: number, examRooms: any): void {
         this.removeAllFields();
-        this.examRooms = this.branchForm.get("examRooms") as FormArray;
-        for (var i = 0; i < no; i++) {
-            this.examRooms.push(this.createExamRoom());
+        // this.examRooms = this.branchForm.get("examRooms") as FormArray;
+        for (let i = 0; i < no; i++) {
+            this.examRooms.push(
+                this.createExamRooms(
+                    examRooms[i].roomName,
+                    examRooms[i].allowOnlineScheduling)
+            );
         }
-
+        // console.log(this.examRooms);
     }
 
     removeAllFields() {

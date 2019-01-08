@@ -6,17 +6,17 @@
                     <h4 class="text-info">Group
                         <div class="pull-right">
                             <a href="#popupPatientGroup" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow" (click)="onAddPatientGroup()">
+                                <button class="btn primary blue" (click)="onAddPatientGroup()">
                                     <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
-                            <button class="btn mt-sweetalert btn blue"
+                            <button class="btn green-meadow"
                                     data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                     data-type="success" data-allow-outside-click="true"
                                     (click)="getPageWisePatientGroupFromServer(0)"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
-                            <span><button class="btn btn-default btn-outline"> <i
+                            <span><button class="btn primary blue"> <i
                                     class=" icon-clock"></i> Print </button></span>
                         </div>
                     </h4>
@@ -218,15 +218,15 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">
-                            Close
-                        </button>
-                        <button type="button" class="btn blue"
-                                *ngIf="patientGroup.id <= 0 || patientGroup.id == null"
-                                (click)="savePatientGroup()">Save
-                        </button>
+                        <button type="button" class="btn primary blue"
+                              *ngIf="patientGroup.id <= 0 || patientGroup.id == null"
+                              (click)="savePatientGroup()">Save
+                    </button>
                         <button type="button" class="btn blue" *ngIf="patientGroup.id > 0"
-                                (click)="updatePatientGroup()">Update
+                                     (click)="updatePatientGroup()">Update
+                    </button>
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow">
+                            Close
                         </button>
                     </div>
                 </div>

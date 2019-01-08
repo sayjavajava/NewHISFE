@@ -6,7 +6,7 @@
                     <h4 class="text-info">Lab Tests
                         <div class="pull-right">
                             <a href="#labTestSpeciman" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow" (click)="addPopupClick()"><i class="fa fa-plus"></i> Lab Test</button>
+                                <button class="btn primary blue" (click)="addPopupClick()"><i class="fa fa-plus"></i> Lab Test</button>
                             </a>
                             <p-splitButton label="Data Import" icon="fa fa-file" (onClick)="openCaretDropdown()" [model]="items" styleClass="ui-button-danger"></p-splitButton>
                             <div class="upload-btn-wrapper">
@@ -212,17 +212,17 @@
                 </div>
                 <div class="modal-footer">
                     <span>
-                        <button type="button" data-dismiss="modal" id="close-btn-Prefix"
-                                class="btn btn-default btn-outline">Close </button>
-                    </span>
-                    <span>
-                        <button type="button" class="btn blue"
+                        <button type="button" class="btn primary blue"
                                  *ngIf="labTestSpeciman.id <= 0 || labTestSpeciman.id == null"
                                  (click)="editLabSpeciman(ngForm)">Save
                         </button>
-                        <button type="button" class="btn blue" *ngIf="labTestSpeciman.id > 0"
+                        <button type="button" class="btn primary blue" *ngIf="labTestSpeciman.id > 0"
                                 (click)="updateLab(ngForm)">Update
                         </button>
+                    </span>
+                    <span>
+                        <button type="button" data-dismiss="modal" id="close-btn-Prefix"
+                                class="btn green-meadow">Close </button>
                     </span>
                 </div>
             </div>

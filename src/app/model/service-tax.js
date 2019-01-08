@@ -6,10 +6,12 @@ var TaxService = (function () {
         this.name = '';
         this.description = '';
         this.rate = 0.0;
-        this.fromDate = '';
-        this.toDate = '';
+        this.fromDate = new Date();
+        this.toDate = new Date();
         this.active = true;
         this.deleted = false;
+        this.strtoDate = '';
+        this.strfromDate = '';
         this.hasChild = false;
     }
     return TaxService;

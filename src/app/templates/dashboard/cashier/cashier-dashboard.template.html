@@ -48,10 +48,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-scrollable tbl-brdr-radus">
+                        <div class="mrgn-top8">
                             <table class="table table-hover table-light">
-                                <thead>
-                                <tr class="hedng-bck-clr tbl-pdng">
+                                <thead class="ui-table-thead">
+                                <tr class="tbl-pdng off-wite-bg">
                                     <th>Invoice Id</th>
                                     <th>Patient Name</th>
                                     <th>Amount Due</th>
@@ -60,7 +60,7 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="ui-table-tbody">
                                 <tr class="tbl-pdng" *ngFor="let invc of invoiceList">
                                     <td>{{invc.invoiceId}}</td>
                                     <td>{{invc.patientName}}</td>
@@ -73,7 +73,6 @@
                                         </a>
                                     </td>
                                 </tr>
-    
                                 </tbody>
                             </table>
                         </div>

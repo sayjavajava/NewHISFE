@@ -27,6 +27,8 @@ var AddMedicalServiceComponent = (function () {
         this.branchIds = [];
         this.selectedBranches = [];
         this.selectedDepartments = [];
+        this.isError = false;
+        this.isErrorFee = false;
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
@@ -37,6 +39,12 @@ var AddMedicalServiceComponent = (function () {
         //   this.getBranchesFromServer();
         //    this.getDepartmentsFromServer();
     };
+    /*ngAfterViewInit() {
+        let NumberInput = document.getElementById('fee');
+       // let inputmask = new inputmask(this.currencyFormat);
+
+      //  inputmask.mask(NumberInput);
+    }*/
     AddMedicalServiceComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all/all')
@@ -92,6 +100,7 @@ var AddMedicalServiceComponent = (function () {
                 _this.organizationDataList = response['responseData'];
                 _this.currency = _this.organizationDataList.currency;
                 console.log(_this.organizationDataList);
+                _this.currencyFormat = _this.organizationDataList.currencyFormat;
             }
         }, function (error) {
             _this.notificationService.error(error.error.error);
@@ -121,6 +130,16 @@ var AddMedicalServiceComponent = (function () {
             if (this.ms.selectedBranches.length <= 0) {
                 this.notificationService.warn('Please select at least one branch.');
                 document.getElementById('branchId').focus();
+                return;
+            }
+            if (this.isError == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('cost').focus();
+                return;
+            }
+            if (this.isErrorFee == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('fee').focus();
                 return;
             }
             var foundDepartment = 0;
@@ -167,6 +186,24 @@ var AddMedicalServiceComponent = (function () {
             }
             this.notificationService.error('Please provide required field data', 'Medical Service');
         }
+    };
+    AddMedicalServiceComponent.prototype.isNumberCheck = function (evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)) {
+            this.isError = true;
+            return false;
+        }
+        this.isError = false;
+        return true;
+    };
+    AddMedicalServiceComponent.prototype.isNumberCheckFee = function (evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)) {
+            this.isErrorFee = true;
+            return false;
+        }
+        this.isErrorFee = false;
+        return true;
     };
     AddMedicalServiceComponent = __decorate([
         core_1.Component({

@@ -111,6 +111,8 @@ var AppConstants = (function () {
     AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
     AppConstants.FETCH_ORG_ACCOUNT_URL = '/setting/organization/account';
     AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
+    AppConstants.UPDATE_ORGANIZATION_URL_NEW = '/setting/organization/update/';
+    AppConstants.UPLOAD_ORGNAIZATION_IMAGE_URL = '/setting/organization/uploadProfileImg/';
     ////////////////////// Patient URLs ///////////////////////////////
     AppConstants.FETCH_ALL_PATIENT_URL = '/patient/';
     AppConstants.PATIENT_DELETE_URI = '/patient/delete/';

@@ -72,10 +72,10 @@
             </div>
         </div>
             <div class="col-md-12">
-                <div class="hr mrgn-top8">
+                <div class="hr no-margin">
                     <h4 class="text-info">Family History<div class="pull-right">
                         <a href="#responsive" data-toggle="modal">
-                            <button class="btn mt-sweetalert btn green-meadow" (click)="onAddPopupLoad()">
+                            <button class="btn primary blue" (click)="onAddPopupLoad()">
                                 <i class="fa fa-plus"></i> Add Family
                             </button>
                         </a>
@@ -95,10 +95,8 @@
                         </tr>
                         </thead>
                         <tbody>
-
-                        <tr role="row" class="filter" *ngFor="let item of data   ">
-
-                            <td class="sorting_disabled" rowspan="1" colspan="1">
+                      <tr role="row" class="filter" *ngFor="let item of data   ">
+                           <td class="sorting_disabled" rowspan="1" colspan="1">
                                 {{item.name}}
                             </td>
                             <td class="sorting_disabled" rowspan="1" colspan="1">
@@ -106,26 +104,21 @@
                             </td>
                             <td rowspan="1" colspan="1">{{item.ethnicGroup}}</td>
                             <td rowspan="1" colspan="1">{{item.status}}</td>
-
-
                             <td class="sorting_disabled">
                                 <a href="#responsive" data-toggle="modal">
                                     <button class="btn btn-default btn-outline btn-sm"
                                             (click)="onUpdatePopupLoad(item)"><i class="fa fa-pencil"></i>
-
                                     </button>
                                 </a>
                                 <button class="btn btn-default btn-outline btn-sm"
                                         (click)="deletePatientFamilyHistory(item.id)">
                                     <i class="fa fa-remove"></i>
                                 </button>
-
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>-->
-
                 <ngx-loading [show]="loading"></ngx-loading>
                 <p-table #dt [columns]="cols" [value]="data" [paginator]="true"  [rows]="5">
                     <ng-template pTemplate="caption">

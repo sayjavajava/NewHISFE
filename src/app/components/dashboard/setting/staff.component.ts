@@ -166,6 +166,12 @@ export class StaffComponent implements OnInit {
                             this.getUserFromServer();
 
                         }
+                        if (data['responseCode'] === 'USR_ERR_07') {
+                            this.notificationService.warn('User is associated ');
+                            //this.getUserFromServer();
+
+                        }
+
                     }, error => {
                         this.error = error.error.error_description;
                         this.notificationService.error('ERROR', 'User Unable to Delete ');

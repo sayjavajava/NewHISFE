@@ -6,6 +6,7 @@ import {AppConstants} from '../../../utils/app.constants';
 import {TaxService} from '../../../model/service-tax';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
+import {DatePicker} from "angular2-datetimepicker";
 
 @Component({
     selector: 'service-tax-component',
@@ -19,6 +20,9 @@ export class TaxComponent implements OnInit {
     isUpdateServiceTax: boolean = false;
     isSearchedTax: boolean = false;
     searchTax: string = '';
+    organizationDataList: any;
+    dateFormat:string='';
+    currency:string;
     cols: any[] = [
         {field: 'name', header: 'Name'},
         {field: 'rate', header: 'Rate'},
@@ -38,9 +42,21 @@ export class TaxComponent implements OnInit {
 
     ngOnInit() {
         document.title = 'HIS | Service Tax';
+        this.allorganizationData();
         if (localStorage.getItem(btoa('access_token'))) {
             this.getAllTaxesForDataTable();
+
         }
+
+        DatePicker.prototype.ngOnInit = function() {
+            this.settings = Object.assign(this.defaultSettings, this.settings);
+            if (this.settings.defaultOpen) {
+                this.popover = true;
+            }
+            this.settings.timePicker =false;
+            this.settings.format=this.dateFormat;
+            this.date = new Date();
+        };
     }
 
     getAllTaxesForDataTable() {
@@ -79,6 +95,8 @@ export class TaxComponent implements OnInit {
                 this.notificationService.error('Please enter valid tax', 'Tax');
                 return
             }
+            this.serviceTax.fromDate=new Date(this.serviceTax.fromDate);
+            this.serviceTax.toDate=new Date(this.serviceTax.toDate);
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.postRequest(
                     AppConstants.SERVICE_TAX_SAVE_URL,
@@ -106,12 +124,12 @@ export class TaxComponent implements OnInit {
                 document.getElementById('name').focus();
                 return;
             }
-            if (this.serviceTax.fromDate === '') {
+            if (this.serviceTax.fromDate === null) {
                 this.notificationService.warn('Please enter from date.');
                 document.getElementById('fromDate').focus();
                 return;
             }
-            if (this.serviceTax.toDate === '') {
+            if (this.serviceTax.toDate === null) {
                 this.notificationService.warn('Please enter to date.');
                 document.getElementById('toDate').focus();
                 return;
@@ -158,6 +176,14 @@ export class TaxComponent implements OnInit {
 
     editServiceTax(serviceTax: any) {
         this.isUpdateServiceTax = true;
+        debugger;
+        let dateString = serviceTax.fromDate;
+        let date1String =serviceTax.toDate;
+        let newDate = new Date(dateString);
+        let newDate1 = new Date(date1String);
+        serviceTax.fromDate=newDate;
+        serviceTax.toDate=newDate1;
+        console.log(this.serviceTax);
         this.serviceTax = serviceTax;
     }
 
@@ -165,6 +191,7 @@ export class TaxComponent implements OnInit {
         if (updateServiceTaxForm.valid) {
 
             if (new Date(this.serviceTax.fromDate) > new Date(this.serviceTax.toDate)) {
+                debugger;
                 this.notificationService.warn('FROM DATE must be less than or equal to TO DATE.');
                 document.getElementById('fromDate').focus();
                 return;
@@ -174,6 +201,8 @@ export class TaxComponent implements OnInit {
                 this.notificationService.error('Please enter valid tax', 'Tax');
                 return
             }
+            this.serviceTax.fromDate=new Date(this.serviceTax.fromDate);
+            this.serviceTax.toDate=new Date(this.serviceTax.toDate);
             if (localStorage.getItem(btoa('access_token'))) {
                 this.requestsService.putRequest(
                     AppConstants.SERVICE_TAX_UPDATE_URL, this.serviceTax
@@ -201,7 +230,7 @@ export class TaxComponent implements OnInit {
                 document.getElementById('name').focus();
                 return;
             }
-            if (this.serviceTax.fromDate === '') {
+           /* if (this.serviceTax.fromDate === '') {
                 this.notificationService.warn('Please enter from date.');
                 document.getElementById('fromDate').focus();
                 return;
@@ -210,7 +239,7 @@ export class TaxComponent implements OnInit {
                 this.notificationService.warn('Please enter to date.');
                 document.getElementById('toDate').focus();
                 return;
-            }
+            }*/
 
 
             if (this.serviceTax.rate < 0 || this.serviceTax.rate > 100) {
@@ -227,4 +256,25 @@ export class TaxComponent implements OnInit {
         this.searchTax = '';
         this.getAllTaxesForDataTable();
     }
+
+    allorganizationData() {
+
+        this.requestsService.getRequest(AppConstants.ORGANIZATION_DATA_URL)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ORG_SUC_01') {
+
+                        this.organizationDataList = response['responseData'];
+                        console.log(this.organizationDataList);
+                        this.dateFormat=this.organizationDataList.dateFormat;
+                        this.currency=this.organizationDataList.currency;
+
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })
+    }
+
+
 }

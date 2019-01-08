@@ -79,7 +79,7 @@
 
         <div class="row mrgn-top10">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">Active Problems
                         <div class="pull-right">
                             <!--<a href="#responsive" data-toggle="modal">
@@ -91,7 +91,7 @@
                             </a>-->
                             <span>
                                 <a href="#responsive" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow pdngall3"
+                                <button class="btn primary blue pdngall3"
                                         data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                         data-type="success" data-allow-outside-click="true"
                                         (click)="addProblemPopupClick()"
@@ -103,7 +103,7 @@
                         </div>
                     </h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
+                <div class="table-scrollable table-brd-non">
                     <p-table #dt [columns]="cols" [value]="problemData" [paginator]="true"  [rows]="5">
 
                         <ng-template pTemplate="caption">
@@ -327,7 +327,7 @@
                                                  [autoWidth]="false"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAppointmentId"
                                                  [options]="patient.pastAppointments"
-                                                 [(ngModel)]="ppm.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                 [(ngModel)]="ppm.appointmentId"  [panelStyle]="{minWidth:''}" [filter]="true">
                                     </p-dropdown>
 
 
@@ -407,7 +407,6 @@
                                                                                                    aria-required="true"> * </span></label>
                             <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
-
                                     <p-dropdown  placeholder="Select Problem"
                                                  [autoWidth]="false"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedVer"

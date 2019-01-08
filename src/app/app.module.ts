@@ -124,6 +124,7 @@ import {ModalModule} from "ngx-bootstrap";
 import {FileUploadModule} from 'primeng/fileupload';
 import {DialogModule} from 'primeng/dialog';
 
+
 import {
     CheckboxModule, DataTableModule, MegaMenuModule, OverlayPanelModule, PaginatorModule, PanelMenuModule,
     PasswordModule,
@@ -183,7 +184,7 @@ import {FileServices} from "./services/FileServices";
         PermissionsService,DataService,
         {provide: ToastOptions, useClass: CustomOption},
         UserSharedService, ConformationDialogService,
-        FileServices,
+        FileServices
     ], entryComponents: [ConfirmationdialogComponent],
     imports: [
         // Modules

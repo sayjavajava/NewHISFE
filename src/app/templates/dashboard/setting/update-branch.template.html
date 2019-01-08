@@ -220,18 +220,30 @@
                                                 <div class="form-group mrgn-btm08">
                                                     <label class="control-label col-md-3 pdng-lr-5">Exam Name</label>
                                                     <div class="col-md-4 profile-frm pdng-lr-5">
-                                                        <input type="text" class="form-control" formControlName="roomName" value="{{branchForm.controls.examRooms.controls[i].controls.roomName.value}}" >
+                                                        <input type="text" class="form-control" formControlName="roomName" >
                                                     </div>
-                                                    <div class="col-md-5 pdng-lr-5 mrgn-top4">
+                                                    <!--<div class="col-md-5 pdng-lr-5 mrgn-top4">
                                                         <label class="mt-checkbox-outline">
-                                                            <mat-checkbox formControlName="allowOnlineScheduling" color="primary" checked="{{item.allowOnlineScheduling}}" > Online Scheduling</mat-checkbox><span></span>
-                                                            <!--<input type="checkbox"  [attr.disabled]="disable"
-                                                                   formControlName="allowOnlineScheduling"> Allow Online Scheduling <span></span>-->
+                                                            <mat-checkbox formControlName="allowOnlineScheduling" color="primary"
+                                                             checked="{{branchForm.controls.examRooms.controls[i].controls.allowOnlineScheduling.value}}" > Online Scheduling</mat-checkbox><span></span>
+                                                            &lt;!&ndash;<input type="checkbox"  [attr.disabled]="disable"
+                                                                   formControlName="allowOnlineScheduling"> Allow Online Scheduling <span></span>&ndash;&gt;
+                                                            <span [hidden]="i==0" >
+                                                                <i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div>-->
+
+                                                    <div class="col-md-3 pdng-lr-5">
+                                                        <label class="mt-checkbox-outline pull-right fnt-sze10">
+                                                            <mat-checkbox formControlName="allowOnlineScheduling" color="primary"> Online Scheduling</mat-checkbox>
+                                                            <span></span>
                                                             <span [hidden]="i==0" >
                                                                 <i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>
                                                             </span>
                                                         </label>
                                                     </div>
+
                                                 </div>
                                             </div>
 

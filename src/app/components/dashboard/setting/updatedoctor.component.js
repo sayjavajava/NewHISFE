@@ -19,6 +19,7 @@ var amazing_time_picker_1 = require("amazing-time-picker");
 var app_constants_1 = require("../../../utils/app.constants");
 var DataService_1 = require("../../../services/DataService");
 var service_comission_1 = require("../../../model/service-comission");
+var user_type_enum_1 = require("../../../enums/user-type-enum");
 var UpdatedoctorComponent = (function () {
     function UpdatedoctorComponent(route, router, requestService, dataService, fb, notificationService, amazingTimePickerService) {
         this.route = route;
@@ -35,6 +36,7 @@ var UpdatedoctorComponent = (function () {
         this.doctorServices = [];
         this.selectedWorkingDays = [];
         this.selectedVisitBranches = [];
+        this.selectedDoctorDashboard = new Array();
         this.selectedDoctors = [];
         this.departmentList = [];
         this.selectedUser = 'doctor';
@@ -44,6 +46,7 @@ var UpdatedoctorComponent = (function () {
         this.branchesList = [];
         this.servicesList = [];
         this.primaryDoctor = [];
+        this.doctorsList = [];
         this.workingDays = [
             { label: 'Monday', value: 'Monday' },
             { label: 'Tuesday', value: 'Tuesday' },
@@ -104,13 +107,12 @@ var UpdatedoctorComponent = (function () {
     };
     UpdatedoctorComponent.prototype.allDoctors = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + user_type_enum_1.UserTypeEnum.DOCTOR)
             .subscribe(function (response) {
-            if (response['responseStatus'] === 'SUCCESS') {
-                _this.primaryDoctor = response['responseData'];
+            if (response['responseCode'] === 'USER_SUC_01') {
+                _this.doctorsList = response['responseData'];
             }
         }, function (error) {
-            _this.error = error.error.error;
         });
     };
     UpdatedoctorComponent.prototype.removeBranch = function () {
@@ -237,7 +239,7 @@ var UpdatedoctorComponent = (function () {
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[A-Z/a-z0-9_-]{4,15}$')])],
             'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
@@ -300,15 +302,19 @@ var UpdatedoctorComponent = (function () {
                     vacation: user.vacation,
                     sendBillingReport: user.sendBillingReport,
                     useReceptDashboard: user.useReceptDashboard,
-                    otherDoctorDashBoard: user.otherDoctorDashBoard
+                    otherDoctorDashBoard: user.otherDoctorDashBoard,
                 });
                 var docDeptId = user.docDepartmentId;
                 //this.servicesList = this.getDeptServices(docDeptId);
+                _this.selectedWorkingDays = user.workingDays.slice();
                 if (user.expiryDate != null) {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                 }
                 if (user.primaryBranchId) {
                     _this.loadDepartmentByBranchOnIntialization(user.primaryBranchId);
+                } //selectedDoctorDashboard
+                if (user.permittedDoctorDashboard) {
+                    _this.selectedDoctorDashboard = user.permittedDoctorDashboard.slice();
                 }
                 // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
                 console.log('med service ' + user.doctorMedicalSrvcList.length);
@@ -316,27 +322,41 @@ var UpdatedoctorComponent = (function () {
                     _this.listOfServices.push({ id: x.id, comission: x.comissionService });
                 });
                 //let shifts: any [] = user.dutyShifts;
-                if (user.dutyShifts != null && user.dutyShifts.length > 0) {
-                    for (var s in user.dutyShifts) {
+                /*if (user.dutyShifts!=null && user.dutyShifts.length > 0) {
+                    for (let s in user.dutyShifts) {
                         if (user.dutyShifts[s].shiftName === 'SHIFT1') {
-                            _this.userForm.controls['shift1'].setValue(true);
-                            _this.firstShiftFromTime = user.dutyShifts[s].startTime;
-                            _this.firstShiftToTime = user.dutyShifts[s].endTime;
-                        }
-                        else if (user.dutyShifts[s].shiftName === 'SHIFT2') {
-                            _this.userForm.controls['shift2'].setValue(true);
-                            _this.secondShiftFromTime = user.dutyShifts[s].startTime;
-                            _this.secondShiftToTime = user.dutyShifts[s].endTime;
+                            this.userForm.controls['shift1'].setValue(true);
+                            this.firstShiftFromTime = user.dutyShifts[s].startTime;
+                            this.firstShiftToTime = user.dutyShifts[s].endTime;
+                        } else if (user.dutyShifts[s].shiftName === 'SHIFT2') {
+                            this.userForm.controls['shift2'].setValue(true);
+                            this.secondShiftFromTime = user.dutyShifts[s].startTime;
+                            this.secondShiftToTime = user.dutyShifts[s].endTime;
                         }
                     }
+
                     if (user.dutyShifts[0].shiftName == 'MORNING') {
                         // console.log('doneee'+user.dutyShifts[0].shiftName);
-                        _this.userForm.controls['shift1'].setValue(true);
+                        this.userForm.controls['shift1'].setValue(true);
                     }
                     if (user.dutyShifts.length > 1 && user.dutyShifts[1].shiftName == 'EVENING') {
                         // console.log('doneee'+user.dutyShifts[0].shiftName);
-                        _this.userForm.controls['shift2'].setValue(true);
+                        this.userForm.controls['shift2'].setValue(true);
                     }
+                }*/
+                if (user.shift1) {
+                    user.shift1.forEach(function (x) {
+                        _this.userForm.controls['shift1'].setValue(true);
+                        _this.firstShiftFromTime = x.startDutyTime,
+                            _this.firstShiftToTime = x.endDutyTime;
+                    });
+                }
+                if (user.shift2.length != 0) {
+                    user.shift1.forEach(function (x) {
+                        _this.userForm.controls['shift2'].setValue(true);
+                        _this.secondShiftFromTime = x.startDutyTime,
+                            _this.secondShiftToTime = x.endDutyTime;
+                    });
                 }
                 for (var k in _this.departmentList) {
                     if (_this.departmentList[k].id == docDeptId) {
@@ -372,19 +392,21 @@ var UpdatedoctorComponent = (function () {
                     _this.selectedVisitBranches.push(x.id);
                 });
                 _this.doctorServices = user.doctorMedicalSrvcList;
-                if (user.vacation) {
+                if (user.vacationFrom && user.vacationTo) {
                     _this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
                     _this.userForm.controls['dateTo'].setValue(new Date(user.vacationTo));
                 }
-                _this.userForm.controls['workingDaysContorl'].patchValue({
-                    sunday: _this.checkAvailabilty('sunday', user.workingDays),
-                    monday: _this.checkAvailabilty('monday', user.workingDays),
-                    tuesday: _this.checkAvailabilty('tuesday', user.workingDays),
-                    thursday: _this.checkAvailabilty('thursday', user.workingDays),
-                    friday: _this.checkAvailabilty('friday', user.workingDays),
-                    saturday: _this.checkAvailabilty('saturday', user.workingDays),
-                    wednesday: _this.checkAvailabilty('wednesday', user.workingDays)
-                });
+                /*this.userForm.controls['workingDaysContorl'].patchValue({
+                   sunday: this.checkAvailabilty('sunday', user.workingDays),
+                   monday: this.checkAvailabilty('monday', user.workingDays),
+                   tuesday: this.checkAvailabilty('tuesday', user.workingDays),
+                   thursday: this.checkAvailabilty('thursday', user.workingDays),
+                   friday: this.checkAvailabilty('friday', user.workingDays),
+                   saturday: this.checkAvailabilty('saturday', user.workingDays),
+                   wednesday: this.checkAvailabilty('wednesday', user.workingDays)
+
+               }
+               )*/
                 /*this.secondShiftFromTime = user.dutyShifts[0].startTime,
                 this.secondShiftToTime = user.dutyShifts[0].endTime,
                 this.firstShiftFromTime = user.dutyShifts[1].startTime,
@@ -447,6 +469,7 @@ var UpdatedoctorComponent = (function () {
                 selectedServices: this.selectedServices,
                 interval: data.interval,
                 selectedVisitBranches: this.selectedVisitBranches,
+                selectedDoctorDashboard: this.selectedDoctorDashboard,
                 shift1: data.shift1,
                 shift2: data.shift2,
                 secondShiftToTime: this.secondShiftToTime,

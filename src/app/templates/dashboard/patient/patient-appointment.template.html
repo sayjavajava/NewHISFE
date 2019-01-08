@@ -76,21 +76,19 @@
                 <div class="hr">
                     <h4 class="text-info">Future Appointments</h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
+                <div class="">
                     <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
+                        <thead class="ui-table-thead">
+                        <tr class="off-wite-bg tbl-pdng">
                             <th> Scheduled Time </th>
                             <th> Doctor </th>
                             <th> Reason </th>
                             <th> Clinic Room </th>
                             <th> Branch </th>
                             <th> Appointment Status </th>
-
-
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="ui-table-tbody">
                         <tr class="tbl-pdng" *ngFor="let item of patient.futureAppointments">
                             <td>{{item.scheduleDate}}</td>
                             <td>{{item.docFirstName}}{{item.docLastName}}</td>
@@ -98,10 +96,7 @@
                             <td>{{item.examName}}</td>
                             <td>{{item.branchName}}</td>
                             <td>{{item.status}}</td>
-
-
                         </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -113,20 +108,19 @@
                 <div class="hr">
                     <h4 class="text-info">Past Appointment</h4>
                 </div>
-                <div class="table-scrollable tbl-brdr-radus">
+                <div class="">
                     <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="hedng-bck-clr tbl-pdng">
+                        <thead class="ui-table-thead">
+                        <tr class="off-wite-bg tbl-pdng">
                             <th> Scheduled Time </th>
                             <th> Doctor </th>
                             <th> Reason </th>
                             <th> Clinic Room </th>
                             <th> Branch </th>
                             <th> Appointment Status </th>
-
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="ui-table-tbody">
                         <tr class="tbl-pdng" *ngFor="let item of patient.pastAppointments">
                             <td>{{item.scheduleDate}}</td>
                             <td>{{item.docFirstName}}{{item.docLastName}}</td>
@@ -134,11 +128,7 @@
                             <td>{{item.examName}}</td>
                             <td>{{item.branchName}}</td>
                             <td>{{item.status}}</td>
-
-
                         </tr>
-
-
                         </tbody>
                     </table>
                 </div>

@@ -35,6 +35,7 @@ var AddStaffComponent = (function () {
         this.selectedServices = [];
         this.selectedWorkingDays = [];
         this.selectedVisitBranches = [];
+        this.selectedDoctorDashboard = [];
         this.selectedRoles = [];
         this.selectedDoctors = [];
         this.departmentFlag = false;
@@ -198,6 +199,9 @@ var AddStaffComponent = (function () {
             if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                 _this.departmentList = response['responseData'];
                 if (_this.departmentList) {
+                    //selectedDepartment
+                    console.log(_this.departmentList);
+                    _this.selectedDepartment.push(_this.departmentList[0].id);
                     var first = _this.departmentList[0];
                     if (_this.doctorDepartment)
                         _this.getDeptServices(first.id);
@@ -235,7 +239,8 @@ var AddStaffComponent = (function () {
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
+            // 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
+            'userName': [null],
             'password': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(6)])],
             'confirmPassword': [null, forms_1.Validators.compose([forms_1.Validators.required])],
             //'userRole': [null, Validators.required],
@@ -245,7 +250,7 @@ var AddStaffComponent = (function () {
             'interval': [null, forms_1.Validators.required],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'restrictBranch': [null],
-            'allowDiscount': [null],
+            'allowDiscount': [null, forms_1.Validators.compose([forms_1.Validators.pattern("^[0-9]*$"), forms_1.Validators.max(100), forms_1.Validators.min(0)])],
             'otherDashboard': '',
             'sendBillingReport': '',
             'useReceptDashboard': '',
@@ -258,6 +263,7 @@ var AddStaffComponent = (function () {
             'dateTo': [null],
             'managePatientInvoices': '',
             'managePatientRecords': '',
+            'hidePatient': '',
             'departmentControl': [null, forms_1.Validators.pattern('true')],
             'servicesControl': [null],
             'shift1': [null, forms_1.Validators.required],
@@ -288,6 +294,7 @@ var AddStaffComponent = (function () {
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
+                    selectedDoctorDashboard: this.selectedDoctorDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     allowDiscount: data.allowDiscount,
@@ -310,6 +317,7 @@ var AddStaffComponent = (function () {
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
+                    selectedDoctorDashboard: this.selectedDoctorDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     allowDiscount: data.allowDiscount,
@@ -335,6 +343,7 @@ var AddStaffComponent = (function () {
                         primaryBranch: data.primaryBranch,
                         email: data.email,
                         selectedVisitBranches: this.selectedVisitBranches,
+                        selectedDoctorDashboard: this.selectedDoctorDashboard,
                         otherDoctorDashBoard: data.otherDoctorDashBoard,
                         active: data.active,
                         managePatientRecords: data.managePatientRecords,
@@ -374,6 +383,7 @@ var AddStaffComponent = (function () {
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
+                    selectedDoctorDashboard: this.selectedDoctorDashboard,
                     active: data.active,
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
@@ -653,6 +663,7 @@ var AddStaffComponent = (function () {
         var value = typeObj.value ? typeObj.value : 'RECEPTIONIST';
         this.selectedDepartment.length = 0;
         this.selectedServices.length = 0;
+        //  this.selectedDoctorDashboard.length =0;
         this.selectedVisitBranches.length = 0;
         this.selectedDoctors.length = 0;
         this.selectedWorkingDays.length = 0;

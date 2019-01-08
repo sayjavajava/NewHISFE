@@ -70,19 +70,19 @@
                 <form [formGroup]="labForm" class="form-horizontal">
                     <div class="hr mrgn-top8">
                         <div class="col-md-12 mrgn-btm10">
-                            <h3 class="text-info">Enter Lab Orders</h3>
+                            <h4 class="text-info">Enter Lab Orders</h4>
                         </div>
 
 
                         <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="control-label col-md-3"> Appointments <span
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-3 pdng-lr-5"> Appointments <span
                                         class="required" aria-required="true"> * </span></label>
                                 <!-- <label class="control-label txt-size pdng-lr-3">
                                      Appointments<span class="required" aria-required="true"> * </span>
                                  </label>-->
 
-                                <div class="col-md-5" *ngIf="!isUpdate">
+                                <div class="col-md-5 pdng-lr-5" *ngIf="!isUpdate">
 
 
                                     <p-dropdown  placeholder="select appointment"  [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
@@ -92,43 +92,34 @@
                                           *ngIf="!labForm.controls['appointmentId'].valid && labForm.controls['appointmentId'].touched">
                                                     <span *ngIf="labForm.controls['appointmentId'].errors.required"> Please Select Appointment </span>
                                                 </span>
-
                                 </div>
 
 
-                                <div class="col-md-5" *ngIf="isUpdate">
-
-
+                                <div class="col-md-5 pdng-lr-5" *ngIf="isUpdate">
                                     <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
                                                   (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true" disabled="appointmentId">
                                     </p-dropdown>
-
-
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-8" *ngIf="showDoctor">
-                            <div class="form-group">
-                                <label class="control-label col-md-3"> Doctor </label>
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-3 pdng-lr-5"> Doctor </label>
                                 <!-- <label class="control-label txt-size pdng-lr-3">
                                      Appointments<span class="required" aria-required="true"> * </span>
                                  </label>-->
-                                <div class="col-md-5">
-
-
+                                <div class="col-md-5 pdng-lr-5">
                                     <input type="text"  class="form-control" formControlName="doctorName" value="{{doctorAppointment}}"  disabled>
-
-
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="control-label col-md-3"> Status <span
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-3 pdng-lr-5"> Status <span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-5">
+                                <div class="col-md-5 pdng-lr-5">
 
                                     <p-dropdown  placeholder="Select Status" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="goToStatus($event)" name="pStatus"
                                                  formControlName="orderStatus" [options]="statusType"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
@@ -138,15 +129,15 @@
                                                     <span *ngIf="labForm.controls['orderStatus'].errors.required"> Please Select Status </span>
                                                 </span>
                                 </div>
-                                <div class="col-md-4">Status of the lab order.</div>
+                                <div class="col-md-4 pdng-lr-5 font-siz">Status of the lab order.</div>
                             </div>
                         </div>
 
                         <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label txt-size pdng-lr-4">Test Date:</label>
+                            <div class="form-group mrgn-btm08">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Test Date:</label>
 
-                                <div class="col-md-5 select pdng-lr-3">
+                                <div class="col-md-5 select pdng-lr-5">
                                     <angular2-date-picker   name="TestDate"
                                                             id="TestDate" [settings]="settings" [(ngModel)]="dateTest" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
                                 </div>
@@ -155,19 +146,19 @@
 
 
                         <div class="col-md-8">
-                            <div class="form-group mrgn-top8">
-                                <label class="control-label col-md-3">Comments</label>
-                                <div class="col-md-5">
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-3 pdng-lr-5">Comments</label>
+                                <div class="col-md-5 pdng-lr-5">
                                     <textarea class="form-control" formControlName="comments"  style=""></textarea>
                                 </div>
-                                <div class="col-md-4">Status of the lab order.</div>
+                                <div class="col-md-4 pdng-lr-5 font-siz">Status of the lab order.</div>
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Test<span
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-3 pdng-lr-5">Test<span
                                         class="required" aria-required="true"> * </span></label>
-                                <div class="col-md-5" *ngIf="!isUpdate">
+                                <div class="col-md-5 pdng-lr-5" *ngIf="!isUpdate">
                                     <!--<p-autoComplete  id="search" placeholder={{selectedString}} [suggestions]="filteredTestSingle" formControlName="testNameId"
                                                      (completeMethod)="filterLabTestSingle($event)" (completeMethod)="search($event)"
                                                      field="testCode" placeholder="Search Tests..." [dropdown]="true" ></p-autoComplete>-->
@@ -176,13 +167,12 @@
                                                  (onChange)="filterLabTestSingle($event.value)" formControlName="testNameId"  field="testCode"
                                                  [options]="searchedNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true" >
                                     </p-dropdown>
-
-                                    <div class="col-md-4">Test Name of the lab order.</div>
                                     <span class="text-danger"
                                           *ngIf="!labForm.controls['testNameId'].valid && labForm.controls['testNameId'].touched">
                                                     <span *ngIf="labForm.controls['testNameId'].errors.required"> Please Select Test </span>
                                     </span>
                                 </div>
+                                <div class="col-md-4 pdng-lr-5 font-siz">Test Name of the lab order.</div>
                                 <div class="col-md-5" *ngIf="isUpdate">
                                     <!--<p-autoComplete   placeholder={{selectedString}} [suggestions]="filteredTestSingle"
                                                       formControlName="testNameId"
@@ -191,22 +181,15 @@
                                                       field="testCode" search
                                                       placeholder="Search Tests..." [dropdown]="true"
                                                       [disabled]="isUpdate"></p-autoComplete>-->
-
                                     <p-dropdown  placeholder="{{selectedTestNew}}" [autoWidth]="false" [(ngModel)]="selectedTestNew"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}"  formControlName="testNameId"  field="testCode"
                                                  (onChange)="filterLabTestSingle($event.value)"
-                                                 [options]="searchedNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true" disabled="true">
+                                                 [options]="searchedNamesLstNew"  [panelStyle]="{minWidth:''}" [filter]="true" disabled="true">
                                     </p-dropdown>
-
                                 </div>
-
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <!-- <div class="row">
                          <form id="LabForm" *ngIf="showEdit" [formGroup]="labForm" #form="ngForm">
                              <div class="col-md-12">
@@ -300,7 +283,6 @@
 
                         </form>
                     </div>-->
-
                     <!-- <div class="row">
                          <div class="col-md-12 mrgn-btm10">
                              <div class="pull-right">
@@ -314,8 +296,6 @@
                              </div>
                          </div>
                      </div>-->
-
-
                     <!--<div class="row">
 
                         <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
@@ -377,17 +357,14 @@
                                 <div class="hr padding round-bck table-responsive">
                                     <table class="table table-striped table-hover table-checkable dataTable no-footer" id="" aria-describedby="datatable_ajax_info"
                                            role="grid">
-                                        <thead>
+                                        <thead class="ui-table-thead">
                                         <tr role="row" class="">
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
-
                                             <!-- <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th> -->
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result Value </th>
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Unit  </th>
-
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
                                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
-
                                         </tr>
                                         <tr role="row" class="filter">
                                             <td rowspan="1" colspan="1" class="custom-td-size">

@@ -127,18 +127,22 @@
             </div>
         </div>-->
 
-        <div class="hr mrgn-btm08">
+
+        <div class="hr no-margin">
             <!--<h4 class="text-info">Staff</h4>-->
+
+
+            <h4 class="text-info">Staff
+
         <div class="pull-right">
             <a routerLink="/dashboard/setting/staff/add">
-                <button class="btn mt-sweetalert btn green-meadow" data-title="Sweet Alerts with Icons"
+                <button class="btn primary blue" data-title="Sweet Alerts with Icons"
                         data-message="Success Icon" data-type="success" data-allow-outside-click="true"
                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
                 </button>
-            </a></div>
+            </a></div></h4>
         </div>
         <div class="hr">
-
             <ngx-loading [show]="loading"></ngx-loading>
             <p-table #dt [columns]="cols" [value]="data" [paginator]="true"  [rows]="5">
                 <ng-template pTemplate="caption">

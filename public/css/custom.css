@@ -95,8 +95,8 @@ label{margin-bottom: 0 !important;}
 .sub-total ul{list-style:none; padding:0; float:left; width: 100%;}
 .sub-total li{width:100%; float:left; padding-top: 5px; padding-bottom: 5px;}
 .sub-total li span{}
-.sub-total li span:first-child{float: left;font-weight: bold; width: 46%; text-align: left;}
-.sub-total li span:last-child{float: right;width: 50%; text-align: right;}
+.sub-total li span:first-child{float: left;font-weight: bold; width: 30%; text-align: left;}
+.sub-total li span:last-child{float: right;width: 70%; text-align: right;}
 .sar-total{background:#faf9f9; border:1px solid #eee; padding:10px;}
 .txt-btm-brdr{border-bottom: 1px dotted #000;}
 .hdr-bckgrnd{background:#0153a7; color:#fff; text-align:left;}
@@ -675,10 +675,10 @@ textarea {
     width: 100%;
 }
 .ui-multiselect-label{
-    padding: 0px !important;
+    padding: 4px 6px !important;
     font-size: 12px;
-    margin-top: 6px;
-    margin-left: 10px;
+    margin-top: 0px;
+    margin-left: 0px;
 }
 .ui-multiselect:hover{
     border: 1px solid #9da8b8
@@ -822,7 +822,7 @@ width: 93%; !important;
 .cusm-col-3{width: 20% !important;}
 .fnt-sze10{font-size: 10px;}
 .mat-form-field-infix{border-top:0px !important; width: 100px !important;}
-.mat-form-field-wrapper{width:88% !important;}
+.vacation-width110{width:110% !important;}
 .wc-date-container {width: 100% !important; margin-left: 0px !important;}
 .wc-day-row{display: none !important;}
 .wc-date-row{display: none !important;}
@@ -858,6 +858,7 @@ ul.ui-inputtext{width: 100%;}
     height: 310px;
 }*/
 .ui-autocomplete-input{width:87% !important;}
+.width92{width: 92% !important;}
 .ui-autocomplete{width: 100% !important;}
 /*.ui-button-text{padding-bottom: 2px !important;}*/
 .slide-br-img ul{}
@@ -884,9 +885,29 @@ ul.ui-inputtext{width: 100%;}
 .doctorslist button{background: none !important; color: #007ad9 !important; border: none !important;}
 .hght250{height: 250px !important;}
 .brnch-td{padding-top:20px !important; padding-left:20px !important;}
+.modal-backdrop.in {opacity: .5; display: none;}
+.logo-plchldr{border: 1px solid #e7e7e7; padding: 20px; text-align: center;}
+.logo-plchldr img{display:inline-block !important;}
 .mat-form-field-underline{margin-bottom: -20px; }
 .mat-form-field-wrapper{padding-bottom: 0px !important;}
 .ui-button.ui-splitbutton-menubutton {height: 2.4em !important;}
-.modal-backdrop.in {opacity: .5; display: none;}
+.wc-date-popover[_ngcontent-c7] {width: 250px; position: fixed !important; top: 5% !important; height: auto; left: 50% !important; transform: translateX(-50%) !important;}
+.patnt-img img{border: 1px solid #e7e7e7;}
+.wc-date-container{border: 1px solid #c2cad8 !important; font-size: 13px !important; color:#333333 !important;}
+.wc-date-container i{color: #333333 !important; font-size: 16px !important;}
+.wc-date-container span{color: #333333 !important;}
+.ui-table-caption{background-color: #fff !important; border: none !important; padding-right: 0px !important;}
+.table-brd-non{border: none !important;}
+.clr-bck{color: #000000 !important; padding:5px!important; font-size: 12px !important;}
+.logo-plchldr{border: 1px solid #e7e7e7; padding: 20px; text-align: center;}
+.logo-plchldr img{display:inline-block !important;}
+
+.ui-table-tbody > tr > td {padding: 4px 10px !important; border: 1px solid #e7e7e7 !important;}
+.ui-table-thead > tr > th {border: 1px solid #e7e7e7 !important; /*background: #f4f4f4 !important;*/ padding: 0.271em 0.857em !important; font-weight: bold !important; font-size: 14px !important;}
+.ui-table-thead > tr > th:hover .ui-table-thead > tr > th:focus {background: #EFEFEF !important; color: #000 !important;}
+.ui-paginator{background-color: #f4f4f4 !important; border: 1px solid #e7e7e7 !important;}
+.ui-paginator-first, .ui-paginator-page, .ui-paginator-prev, .ui-paginator-next, .ui-paginator-last{height: 1.5em !important; line-height: 1.5em !important;}
+.checkbox-sm .form-control{height: 18px !important}
+.bc-bg{background-color: red; color: green;}
 
 .wrap-overflow-text {overflow-wrap: break-word;}

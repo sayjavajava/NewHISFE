@@ -22,7 +22,8 @@ export class EditMedicalServiceComponent implements OnInit {
     currency: string;
     branchesList: any = [];
     error: any;
-
+    isError:boolean=false;
+    isErrorFee:boolean=false;
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -174,6 +175,18 @@ export class EditMedicalServiceComponent implements OnInit {
                 return;
             }
 
+            if (this.isError == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('cost').focus();
+                return;
+            }
+
+            if (this.isErrorFee == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('fee').focus();
+                return;
+            }
+
             this.requestsService.putRequest(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.ms)
                 .subscribe(
                     (response: Response) => {
@@ -247,6 +260,31 @@ export class EditMedicalServiceComponent implements OnInit {
                 }
             }
         }
+    }
+
+
+    isNumberCheck(evt:any) {
+
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+
+
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)){
+            this.isError=true;
+            return false;
+        }
+        this.isError=false;
+        return true;
+    }
+
+    isNumberCheckFee(evt:any) {
+
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)){
+            this.isErrorFee=true;
+            return false;
+        }
+        this.isErrorFee=false;
+        return true;
     }
 
 }

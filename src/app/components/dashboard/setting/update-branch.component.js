@@ -135,6 +135,12 @@ var UpdateBranchComponent = (function () {
             "allowOnlineScheduling": "",
         });
     };
+    UpdateBranchComponent.prototype.createExamRooms = function (roomName, allowOnlineScheduling) {
+        return this.fb.group({
+            "roomName": roomName,
+            "allowOnlineScheduling": allowOnlineScheduling,
+        });
+    };
     UpdateBranchComponent.prototype.allBranches = function () {
         var _this = this;
         this.requestService.getRequest(app_constants_1.AppConstants.BRANCHES_NAME)
@@ -182,6 +188,7 @@ var UpdateBranchComponent = (function () {
                 _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty(branch.state);
                 _this.formattedAddress_Country = _this.checkFormattedAddressForNullOrEmpty(branch.country, true);
                 _this.examRooms = branch.examRooms;
+                _this.addValuesFields(_this.examRooms.length, _this.examRooms);
                 _this.createFormattedAddress();
                 /*     this.billingForm.patchValue({
                          billingBranch: branch.billingBranch,
@@ -202,12 +209,12 @@ var UpdateBranchComponent = (function () {
                   branch.examRooms = this.noOfRoom;
                   */
                 // this.addFields(branch.rooms);
-                // console.log( this.branchForm.controls );
-                // console.log( this.branchForm.controls.examRooms );
-                // console.log( (this.branchForm.controls.examRooms as FormArray).controls[0] );
-                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls );
-                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.roomName );
+                console.log(_this.examRooms);
+                console.log(_this.branchForm.controls.examRooms);
                 // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.roomName.value );
+                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.allowOnlineScheduling.value );
+                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).value.roomName);
+                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).value.allowOnlineScheduling);
             }, function (error) {
                 //console.log(error.json());
                 _this.error = error.error.error_description;
@@ -371,12 +378,13 @@ var UpdateBranchComponent = (function () {
             this.examRooms.push(this.createExamRoom());
         }
     };
-    UpdateBranchComponent.prototype.addValuesFields = function (no) {
+    UpdateBranchComponent.prototype.addValuesFields = function (no, examRooms) {
         this.removeAllFields();
-        this.examRooms = this.branchForm.get("examRooms");
+        // this.examRooms = this.branchForm.get("examRooms") as FormArray;
         for (var i = 0; i < no; i++) {
-            this.examRooms.push(this.createExamRoom());
+            this.examRooms.push(this.createExamRooms(examRooms[i].roomName, examRooms[i].allowOnlineScheduling));
         }
+        // console.log(this.examRooms);
     };
     UpdateBranchComponent.prototype.removeAllFields = function () {
         this.examRooms = this.branchForm.get("examRooms");

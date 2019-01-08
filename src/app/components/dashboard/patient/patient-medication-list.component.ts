@@ -168,17 +168,13 @@ export class PatientMedicationListComponent implements OnInit {
     }
 
     addMedication() {
-        debugger;
+
         this.isUpdate = false;
         this.isUpdateAppoint = false;
         this.medicationModel = new MedicationModel();
         this.appointmentsByPatientFromServer(this.selectedPatientId);
 
-        this.getAllDrugsFromServer();
-
-     //   this.getRouteDrug(this.searchedDrugNamesLstNew[0].label);
-     //   this.getStrengthsDrug(this.searchedDrugNamesLstNew[0].label);
-
+        this.getAllDrugsFromServer()
     }
 
     getAllDrugsFromServer() {
@@ -188,7 +184,6 @@ export class PatientMedicationListComponent implements OnInit {
                     if (response['responseCode'] === 'DRUG_SUC_10') {
                         this.data = response['responseData']['data'];
                         this.drugList=response['responseData']['data'];
-                        debugger;
                         this.searchedDrugNamesLstNew=[];
                         if (this.data.length > 0) {
                             for (let drug of this.data) {

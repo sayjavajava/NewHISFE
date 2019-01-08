@@ -96,11 +96,11 @@
                             <div class="tab-pane active" id="important">
                                 <div class="hr"><h4 class="text-info">Important Information</h4></div>
                                 <form id="patientForm" class="form-horizontal" #patientForm="ngForm">
-                                    <div class="hr bdr-btm padding-b-10">
+                                    <div class="hr">
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Primary Doctor</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Primary Doctor</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<select id="icdVersions" [(ngModel)]="patient.selectedDoctor"
                                                             #selectedDoctor="ngModel" name="selectedDoctor"
                                                             class="form-control">
@@ -117,9 +117,9 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Title</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Title</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<select class="form-control"
                                                             name="titlePrefix"
                                                             #titlePrefix="ngModel"
@@ -140,11 +140,11 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">First Name
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">First Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8 select pdng-lr-4">
+                                                <div class="col-md-8 select pdng-lr-5 profile-frm">
                                                     <input type="text"
                                                            class="form-control" [(ngModel)]="patient.firstName"
                                                            placeholder="Enter first name" name="firstName"
@@ -156,10 +156,10 @@
                                                     First name required,min 1 , max 60 characters long
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Middle Name
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Middle Name
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <input type="text" class="form-control"
                                                            [(ngModel)]="patient.middleName"
                                                            placeholder="Enter  middle Name" name="middleName"
@@ -171,11 +171,11 @@
                                                     </div>-->
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Last Name
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Last Name
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <input type="text" class="form-control"
                                                            [(ngModel)]="patient.lastName"
                                                            placeholder="Enter last Name" name="lastName"
@@ -187,9 +187,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Group</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Group</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown placeholder="Select Patient Group" [autoWidth]="false"
                                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="patientGroupId"
                                                                 [(ngModel)]="patient.patientGroupId" [options]="patientGroupListModified"
@@ -197,37 +197,9 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label txt-size">Patient Photo</label>
-                                                <div class="col-md-8 select">
-                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
-                                                         src="/public/images/patient-photo.jpg"
-                                                         *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
-                                                    <img class="" style="width: 120px; height: 140px;"
-                                                         src="{{patient.profileImgURL}}"
-                                                         *ngIf="patient.profileImgURL != null">
-                                                    <div class="">
-                                                        <input class="file" type="file" id="profileImgURL"
-                                                               name="profileImgURL"
-                                                               (change)="uploadImgOnChange($event)">
-                                                    </div>
-                                                    <div class="imgUploadTopMargin">
-                                                        <button class="btn btn-default btn-outline"
-                                                                (click)="uploadProfileImg()">
-                                                            <i class=" icon-arrow-up"></i>upload
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="hr bdr-btm">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Home Phone</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Home Phone</label>
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <input type="number" class="form-control"
                                                            [(ngModel)]="patient.homePhone"
                                                            placeholder="Enter home Phone" name="homePhone"
@@ -238,10 +210,9 @@
                                                     </div>-->
                                                 </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label txt-size">Office Phone</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="col-md-4 control-label txt-size pdng-lr-5">Office Phone</label>
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <input type="number" class="form-control"
                                                            [(ngModel)]="patient.officePhone"
                                                            placeholder="Enter office Phone"
@@ -253,10 +224,9 @@
                                                     </div>-->
                                                 </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Preferred Communication</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Preferred Communication</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown placeholder="Select prefered communication method" [autoWidth]="false"
                                                                 [style]="{'text-align': 'left' ,'width':'100%'}" name="pLanguage"
                                                                 [(ngModel)]="patient.preferredCommunication"
@@ -265,13 +235,11 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-                                        <!--</div>
-                                        <div class="col-md-6">-->
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Cell Phone
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Cell Phone
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <input type="number" class="form-control"
                                                            [(ngModel)]="patient.cellPhone"
                                                            placeholder="Enter cell Phone"
@@ -283,9 +251,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Email</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Email</label>
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <input type="email" name="email" readonly
                                                            [(ngModel)]="patient.email" #email="ngModel"
                                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
@@ -298,17 +266,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Disable SMS/Txt</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Disable SMS/Txt</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="Select Language" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="rLanguage" [(ngModel)]="patient.reminderLanguage" [options]="rLanguage"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Disable SMS/Txt
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Disable SMS/Txt
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<label class="control-label">
                                                         <input type="checkbox" name="disableSMSTxt"
                                                                #disableSMSTxt="ngModel"
@@ -321,16 +289,38 @@
                                                     </label>
                                                 </div>
                                             </div>
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Status</label>
+                                                <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                                    <label class="mt-checkbox-outline">
+                                                        <mat-checkbox name="status" [(ngModel)]="patient.status" color="primary"> </mat-checkbox>
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Status</label>
-                                            <div class="col-md-8 col-xs-6">
-                                                <label class="mt-checkbox-outline">
-                                                    <mat-checkbox name="status" [(ngModel)]="patient.status" color="primary"> </mat-checkbox>
-                                                    <span></span>
-                                                </label>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label txt-size">Patient Photo</label>
+                                                <div class="col-md-8 select patnt-img">
+                                                    <img class="img-responsive" style="width: 120px; height: 120px;"
+                                                         src="/public/images/patient-photo.jpg"
+                                                         *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                                    <img class="" style="width: 120px; height: 120px;"
+                                                         src="{{patient.profileImgURL}}"
+                                                         *ngIf="patient.profileImgURL != null">
+                                                    <div class="mrgn-top8">
+                                                        <input class="file" type="file" id="profileImgURL"
+                                                               name="profileImgURL"
+                                                               (change)="uploadImgOnChange($event)">
+                                                    </div>
+                                                    <div class="imgUploadTopMargin mrgn-top8">
+                                                        <button class="btn btn-default btn-outline"
+                                                                (click)="uploadProfileImg()">
+                                                            <i class=" icon-arrow-up"></i> upload
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -343,20 +333,20 @@
                                         <div class="bg-danger-light bold"> BILLING WARNING: Authorization #31321 has 1.0 visits remaining. </div>
                                     </div>-->
                                     <h4 class="text-info">Demographics</h4>
-                                    <div class="hr bdr-btm">
+                                    <div class="hr">
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Patient ID</label>
-                                                <div class="col-md-8"> <b>{{patient.patientSSN}}</b>
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Patient ID</label>
+                                                <div class="col-md-8 pdng-lr-5"> <b>{{patient.patientSSN}}</b>
                                                     <!--<input type="text" class="form-control"
                                                            [(ngModel)]="patient.patientSSN"
                                                            name="patientSSN"
                                                            #patientSSN="ngModel">-->
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Date of Birth</label>
-                                                <div class="col-md-8 select ">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Date of Birth</label>
+                                                <div class="col-md-8 select pdng-lr-5">
                                                     <!--<input type="date"
                                                            class="form-control form-control-inline input-medium"
                                                            [(ngModel)]="patient.dob"
@@ -383,19 +373,18 @@
                                                     </select>
                                                 </div>
                                             </div>-->
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Emergency Contact Name</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Name</label>
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <input type="text" class="form-control"
                                                            [(ngModel)]="patient.emergencyContactName"
                                                            name="emergencyContactName"
                                                            #emergencyContactName="ngModel">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Emergency Contact Relation</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Relation</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<input type="text" class="form-control"
                                                            [(ngModel)]="patient.emergencyContactRelation"
                                                            name="emergencyContactRelation"
@@ -407,9 +396,9 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Emergency Contact Phone</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Phone</label>
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
                                                     <input type="number" class="form-control"
                                                            [(ngModel)]="patient.emergencyContactPhone"
                                                            name="emergencyContactPhone"
@@ -422,9 +411,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Gender</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Gender</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<select class="form-control" name="gender"
                                                             #gender="ngModel"
                                                             [(ngModel)]="patient.gender">
@@ -438,10 +427,10 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Marital Status
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Marital Status
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<select class="form-control" name="maritalStatus"
                                                             #state="ngModel"
                                                             [(ngModel)]="patient.marital">
@@ -460,9 +449,9 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Country</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Country</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<select class="form-control" name="country"
                                                             #country="ngModel"
                                                             [(ngModel)]="patient.country">
@@ -481,9 +470,9 @@
 
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Street Address</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Street Address</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <textarea class="form-control" rows="3"
                                                               placeholder=" Street Address"
                                                               name="streetAddress"
@@ -492,10 +481,9 @@
                                                     </textarea>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">State</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">State</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<select class="form-control" name="state"
                                                             #state="ngModel"
                                                             [(ngModel)]="patient.state">
@@ -513,10 +501,9 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">City</label>
-                                                <div class="col-md-8">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">City</label>
+                                                <div class="col-md-8 pdng-lr-5">
                                                     <!--<input type="text" class="form-control"
                                                            [(ngModel)]="patient.city"
                                                            name="city"
@@ -543,26 +530,27 @@
                                     </h4>
                                 </div>
                                 <form id="insuranceForm" class="form-horizontal" #insuranceForm="ngForm">
+                                    <div class="hr">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Insurance ID Number
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance ID Number
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <input type="text" class="form-control" name="insuranceId"
                                                        #insuranceId="ngModel"
                                                        [(ngModel)]="patient.insuranceId"></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Insurance Plan Name
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Plan Name
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <input type="text" class="form-control" name="planName"
                                                        #planName="ngModel"
                                                        [(ngModel)]="patient.planName"></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label txt-size ">Card Issued Date</label>
-                                            <div class="col-md-8 select ">
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Card Issued Date</label>
+                                            <div class="col-md-8 select pdng-lr-5">
                                                 <!--<input type="date" class="form-control form-control-inline input-medium"
                                                        (ngModelChange)="patient.cardIssuedDate = $event"
                                                        #cardIssuedDate="ngModel"
@@ -576,9 +564,9 @@
                                                 Please enter valid from Date.
                                             </span>-->
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label txt-size ">Card expiry Date</label>
-                                            <div class="col-md-8 select ">
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Card expiry Date</label>
+                                            <div class="col-md-8 select pdng-lr-5">
                                                 <!--<input type="date" class="form-control form-control-inline input-medium"
                                                        (ngModelChange)="patient.cardExpiryDate = $event"
                                                        #cardExpiryDate="ngModel"
@@ -592,32 +580,32 @@
                                                 Please enter valid from Date.
                                             </span>-->
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label txt-size">Primary Insurance
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Primary Insurance
                                                 Notes</label>
-                                            <div class="col-md-8 frm-stng">
-                                                <textarea class="form-control" rows="1" title=""
+                                            <div class="col-md-8 pdng-lr-5">
+                                                <textarea class="form-control" rows="3" title=""
                                                           placeholder=""></textarea>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Insurance Photo Front
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Photo Front
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 pdng-lr-5">
                                                 <!--<input type="file" [(ngModel)]="patient.photoFrontURL" name="photoFrontURL">-->
-                                                <div class="pull-left mrgn-top24">
-                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                <div class="pull-left">
+                                                    <img class="img-responsive" style="width: 120px; height: 120px;"
                                                          src="/public/images/patient-photo.jpg"
                                                          *ngIf="patient.photoFrontURL === null || patient.photoFrontURL === ''"/>
-                                                    <img class="" style="width: 120px; height: 140px;"
+                                                    <img class="" style="width: 120px; height: 120px;"
                                                          src="{{patient.photoFrontURL}}"
                                                          *ngIf="patient.photoFrontURL != null">
-                                                    <div class="">
+                                                    <div class="mrgn-top8">
                                                         <input class="file" type="file" id="photoFrontURL"
                                                                name="photoFrontURL"
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
-                                                    <div class="imgUploadTopMargin">
+                                                    <div class="imgUploadTopMargin mrgn-top8">
                                                         <button class="btn btn-default btn-outline"
                                                                 (click)="uploadFrontImg()">
                                                             <i class=" icon-arrow-up"></i>
@@ -630,10 +618,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Insurance Company
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Company
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <input type="text" class="form-control"
                                                        #company="ngModel"
                                                        name="company" [(ngModel)]="patient.company">
@@ -652,42 +640,42 @@
                                                 <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
                                             </div>
                                         </div>-->
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Insurance Group Number
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Group Number
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <input type="text" name="groupNumber"
                                                        #groupNumber="ngModel"
                                                        [(ngModel)]="patient.groupNumber" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Insurance Plan Type
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Plan Type
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <input type="text" [(ngModel)]="patient.planType" name="planType"
                                                        #planType="ngModel"
                                                        class="form-control"></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Insurance Photo Back
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Photo Back
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 pdng-lr-5">
                                                 <!--<input type="file" [(ngModel)]="patient.photoBackURL" name="photoBackURL">-->
 
-                                                <div class="pull-left mrgn-top24">
-                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                <div class="pull-left">
+                                                    <img class="img-responsive" style="width: 120px; height: 120px;"
                                                          src="/public/images/patient-photo.jpg"
                                                          *ngIf="patient.photoBackURL === null || patient.photoBackURL === ''"/>
-                                                    <img class="" style="width: 120px; height: 140px;"
+                                                    <img class="" style="width: 120px; height: 120px;"
                                                          src="{{patient.photoBackURL}}"
                                                          *ngIf="patient.photoBackURL != null">
-                                                    <div class="">
+                                                    <div class="mrgn-top8">
                                                         <input class="file" type="file" id="photoBackURL"
                                                                name="photoBackURL"
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
-                                                    <div class="imgUploadTopMargin">
+                                                    <div class="imgUploadTopMargin mrgn-top8">
                                                         <button class="btn btn-default btn-outline"
                                                                 (click)="uploadBackImg()">
                                                             <i class=" icon-arrow-up"></i>
@@ -704,6 +692,7 @@
                                                 <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
                                             </div>
                                         </div>-->
+                                    </div>
                                     </div>
                                 </form>
                             </div>
@@ -911,10 +900,10 @@
                             </div>-->
                             <div class="tab-pane" id="smoking">
                                 <h4 class="text-info">Smoking Status </h4>
-                                <div class="table-scrollable tbl-brdr-radus">
+                                <div class="mrgn-top8">
                                     <table class="table table-hover table-light">
-                                        <thead>
-                                            <tr class="hedng-bck-clr tbl-pdng">
+                                        <thead class="ui-table-thead">
+                                            <tr class="off-wite-bg tbl-pdng">
                                                 <th> Smoking Status</th>
                                                 <th> Start Date</th>
                                                 <th> End Date</th>
@@ -922,7 +911,7 @@
                                                 <th> Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="ui-table-tbody">
                                             <tr class="tbl-pdng" *ngFor="let ss of smokeStatusList">
                                                 <td>{{ss.smokingStatus}}</td>
                                                 <td>{{ss.startDate | date: 'dd-MM-yyyy'}}</td>
@@ -947,9 +936,9 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="hr margin-0">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Smoking
-                                                        Status *</label>
-                                                    <div class="col-md-7 col-sm-7 col-xs-6">
+                                                    <label class="col-md-4 col-sm-5 col-xs-6 control-label">Smoking
+                                                        Status <span aria-required="true" class="required"> *</span></label>
+                                                    <div class="col-md-8 col-sm-7 col-xs-6">
                                                         <!--<input type="text" class="form-control"
                                                                [(ngModel)]="smokeStatus.smokingStatus"
                                                                required="required"
@@ -963,23 +952,23 @@
                                                             <option value="Category 3">Current every day smoker</option>
                                                             <option value="Category 4">Current every day smoker</option>
                                                         </select>-->
-
                                                         <p-dropdown
                                                                 [autoWidth]="false" required="required"  placeholder="Please Select Smoking Status" name="smokingStatus"
                                                                 pattern="^[a-zA-Z 0-9_-]{1,60}$"
                                                                 [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                 [(ngModel)]="smokeStatus.smokingStatus"
                                                                 [options]="smokeStatusType"
-                                                                [panelStyle]="{minWidth:'12em'}"
+                                                                [panelStyle]="{minWidth:''}"
                                                                 [filter]="true">
                                                         </p-dropdown>
                                                     </div>
                                                 </div>
+
                                                 <div class="hr no-padding">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Start Date
-                                                        *</label>
-                                                    <div class="col-md-7 col-sm-7 col-xs-6">
-                                                        <div class="input-group date form_datetime form_datetime bs-datetime">
+                                                    <label class="col-md-4 col-sm-5 col-xs-6 control-label">Start Date
+                                                        <span aria-required="true" class="required"> *</span></label>
+                                                    <div class="col-md-8 col-sm-7 col-xs-6">
+                                                        <div class="input-group date form_datetime form_datetime bs-datetime profile-frm width100">
                                                             <input type="date" required="required" size="16"
                                                                    [(ngModel)]="smokeStatus.startDate"
                                                                    class="form-control" name="startStatus">
@@ -991,10 +980,10 @@
                                                 </div>
 
                                                 <div class="hr no-padding">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">End
+                                                    <label class="col-md-4 col-sm-5 col-xs-6 control-label">End
                                                         Date</label>
-                                                    <div class="col-md-7 col-sm-7 col-xs-6">
-                                                        <div class="input-group date form_datetime form_datetime bs-datetime">
+                                                    <div class="col-md-8 col-sm-7 col-xs-6">
+                                                        <div class="input-group date form_datetime form_datetime bs-datetime profile-frm width100">
                                                             <input type="date" size="16"
                                                                    [(ngModel)]="smokeStatus.endDate"
                                                                    class="form-control" name="endData">
@@ -1006,10 +995,10 @@
                                                 </div>
 
                                                 <div class="hr no-padding">
-                                                    <label class="col-md-5 col-sm-5 col-xs-6 control-label">Recorded
-                                                        Date *</label>
-                                                    <div class="col-md-7 col-sm-7 col-xs-6">
-                                                        <div class="input-group date form_datetime form_datetime bs-datetime">
+                                                    <label class="col-md-4 col-sm-5 col-xs-6 control-label">Recorded
+                                                        Date <span aria-required="true" class="required"> *</span></label>
+                                                    <div class="col-md-8 col-sm-7 col-xs-6">
+                                                        <div class="input-group date form_datetime form_datetime bs-datetime profile-frm width100">
                                                             <input type="date" required="required" size="16"
                                                                    [(ngModel)]="smokeStatus.recordedDate"
                                                                    class="form-control" name="recordedDate">
@@ -1032,9 +1021,9 @@
                                     </div>
                                 </div>
                                 <!-- /.modal -->
-                                <div class="hr bdr-btm padding-b-10">
-                                    <div class=" pull-right">
-                                        <button class="btn btn-xs green-haze"
+                                <div class="hr">
+                                    <div class=" pull-right mrgn-btm08">
+                                        <button class="btn primary blue"
                                                 (click)="addSmokingStatusPopup()"
                                                 type="button" data-target="#edit1"
                                                 data-toggle="modal"><i class="fa fa-plus"></i> Add Smoking Status
@@ -1044,7 +1033,7 @@
                             </div>
                             <div class="tab-pane" id="balance">
                                 <h4 class="text-info">Patient Account Balance </h4>
-                                <div class="table-scrollable tbl-brdr-radus">
+                                <div class="table-scrollable">
                                     <table class="table table-hover table-light">
                                         <tbody>
                                         <tr class="">
@@ -1061,7 +1050,7 @@
                                             <td>Total Patient Balance</td>
                                             <td>{{patientInvBal.balance | number :'.2-2'}}</td>
                                         </tr>
-                                        <tr class="">
+                                        <tr class="off-wite-bg">
                                             <td>Total Patient Advance Balance</td>
                                             <td>{{patientInvBal.advanceBalance | number :'.2-2'}}</td>
                                         </tr>
@@ -1108,7 +1097,7 @@
                             </div>
                             <span *ngIf="updateBtn">
                                 <div class="hr text-center">
-                                    <button data-repeater-create="" class="btn yellow" (click)="updatePatient(insuranceForm,demographicForm,patientForm)">Update</button>
+                                    <button data-repeater-create="" class="btn primary blue" (click)="updatePatient(insuranceForm,demographicForm,patientForm)">Update</button>
                                 </div>
                             </span>
                             <div class="clearfix"></div>

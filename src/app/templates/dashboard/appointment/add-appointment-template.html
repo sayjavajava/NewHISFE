@@ -1,12 +1,5 @@
 <style type="text/css">
-    .checkbox-sm .form-control {
-        height: 18px !important
-    }
 
-    .bc-bg {
-        background-color: red;
-        color: green;
-    }
 </style>
 <div class="page-content-wrapper">
     <!--<div #showPopApt class="outr-div popup-hiden">
@@ -920,9 +913,9 @@
                                                             <div class="col-md-9 col-xs-12">
                                                                 <angular2-date-picker
                                                                         style="margin-left: 0px !important; background-color: red !important"
-                                                                        class="schdld-clndr" [(ngModel)]="dateSchedule"
+                                                                        class="schdld-clndr" [(ngModel)]="dateSchedule" [disabled]="disbaleDoctor"
                                                                         [ngModelOptions]="{standalone:true}"
-                                                                        [settings]="settings"></angular2-date-picker>
+                                                                        [settings]="settings"></angular2-date-picker>   
                                                             </div>
                                                         </div>
                                                         <div class="form-group hr mrgn-btm08">

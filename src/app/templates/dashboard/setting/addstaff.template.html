@@ -107,7 +107,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
-                                        <input type="email" formControlName="email"
+                                        <input type="email" formControlName="email" name="email" [(ngModel)]="emailName"
                                                class="form-control"
                                                placeholder="enter email address or id e.g  zzz@gmail.com">
                                         <span class="text-danger"
@@ -398,16 +398,15 @@
                                             From
                                         </div>-->
                                         <div class=" col-md-6 col-xs-5 pull-left">
-                                            <mat-form-field style="width: 118%">
+                                            <mat-form-field class="vacation-width110">
                                                 <input matInput [matDatepicker]="from" placeholder="From"
                                                        formControlName="dateFrom">
                                                 <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
                                                 <mat-datepicker #from></mat-datepicker>
                                             </mat-form-field>
                                         </div>&emsp;
-
                                         <div class=" col-md-5 col-xs-5 pull-left mrgn-top-20">
-                                            <mat-form-field style="width: 120%">
+                                            <mat-form-field class="vacation-width110" style="width: 120%">
                                                 <input matInput [matDatepicker]="to" placeholder="To"
                                                        formControlName="dateTo">
                                                 <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
@@ -516,14 +515,14 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
-                                        <input type="text" formControlName="userName" placeholder="enter user name  e.g James Gosling" class="form-control">
-                                        <span class="text-danger font-siz"
+                                        <input type="text" formControlName="userName" placeholder="enter user name  e.g James Gosling" class="form-control" disabled="true"  name="username" [(ngModel)]="emailName">
+                                        <!--<span class="text-danger font-siz"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
                                            <span class="font-siz"
                                                  *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
                                            <span class="font-siz" *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
                                           <span class="font-siz" *ngIf="userForm.controls['userName'].errors.pattern">User name not valid</span>
-                                        </span>
+                                        </span>-->
                                         <!--<app-field-error-display [displayError]="isFieldValid('userName')" errorMsg="user name is required">
                                         </app-field-error-display>-->
                                     </div>
@@ -542,6 +541,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Hide Patient Phone Number</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
+                                        <!--<input type="checkbox" formControlName="sendBillingReport"
+                                               class="">-->
+                                        <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                        <span></span>-->
+                                        <label class="mt-checkbox-outline">
+                                            <mat-checkbox formControlName="sendBillingReport"
+                                                          color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
+                                            <span></span>
+                                        </label>
+                                        <!--</label>-->
+                                    </div>
+                                </div>
+                                <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5">Cell Phone
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
@@ -553,6 +570,24 @@
                                            <span *ngIf="userForm.controls['cellPhone'].errors.maxlength"> maximun 11 charachters</span>
                                             <span *ngIf="userForm.controls['cellPhone'].errors.pattern">Phone Number is not valid</span>
                                         </span>
+                                    </div>
+                                </div>
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Hide Patient Phone Number</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
+                                        <!--<input type="checkbox" formControlName="sendBillingReport"
+                                               class="">-->
+                                        <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                        <span></span>-->
+                                        <label class="mt-checkbox-outline">
+                                            <mat-checkbox formControlName="hidePatient"
+                                                          color="primary"></mat-checkbox>
+                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+
+                                            <span></span>
+                                        </label>
+                                        <!--</label>-->
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -573,6 +608,7 @@
                                            <!--</label>-->
                                        </div>
                                    </div>
+
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
@@ -595,12 +631,13 @@
                                             </select>-->
                                             </div>
                                     <div class="col-md-7 pdng-lr-5">
-                                        <p-dropdown placeholder="Select Dashboard" [autoWidth]="false"
+                                        <p-multiSelect placeholder="Select Dashboard"
                                                   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                  [options]="doctorsList"
+                                                  [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
+                                                    name="doctorboards"
                                                   formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
                                                   [filter]="true">
-                                    </p-dropdown>
+                                    </p-multiSelect>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -641,20 +678,35 @@
                                 </div>
 
                                 <div *ngIf="allowdiscount" class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Allow Discount</label>
-                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                            <mat-checkbox formControlName="allowDiscount"><span></span></mat-checkbox></label>
-                                    </div>
+                                <!--<label class="control-label col-md-4 col-xs-6 pdng-lr-5">Allow Discount</label>
+                                <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                    <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                        <mat-checkbox formControlName="allowDiscount"><span></span></mat-checkbox></label>
+                                </div>-->
+                                <label class="control-label col-md-4 pdng-lr-5">Allow Discount
+                                </label>
+                                <div class="col-md-8 col-xs-6 pdng-lr-5">  
+                                    <input formControlName="allowDiscount" type="number"  min="0" max="100"
+                                           placeholder="0-100"
+                                           class="form-control">
                                 </div>
+                                    <!--<mat-input-container>
+                                        <input type="number" min="0" max="100" required matInput placeholder="Charge" [(ngModel)]="rateInput" name="rateInput" [formControl]="allowDiscount">
+                                        <mat-error>Please enter a value between 0 and 100</mat-error>
+                                    </mat-input-container>-->
+                                <span *ngIf="userForm.controls['allowDiscount'].touched && userForm.controls['allowDiscount'].hasError('minlength')">
+                                        Maximum of 100
+                                    </span>
+                               </div>
 
-                                <div *ngIf="checkUpInterval" class="form-group  mrgn-btm08">
+
+                               <!-- <div *ngIf="checkUpInterval" class="form-group  mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5">Checkup Interval:
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                  <!--  (change)="checkupIntervalMethod($event.target.value)"-->
+                                  &lt;!&ndash;  (change)="checkupIntervalMethod($event.target.value)"&ndash;&gt;
                                     <div class="col-md-8 pdng-lr-5">
-                                        <!--<select class="form-control"
+                                        &lt;!&ndash;<select class="form-control"
                                                 formControlName="interval">
                                             <option value="5">5</option>
                                             <option value="10">10</option>
@@ -664,17 +716,17 @@
                                             <option value="50">50</option>
                                             <option value="60">60</option>
 
-                                        </select>-->
+                                        </select>&ndash;&gt;
                                         <p-dropdown [autoWidth]="false" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     [options]="intervalList" formControlName="interval"
                                                     [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
-                                        <!--<span class="text-danger"
+                                        &lt;!&ndash;<span class="text-danger"
                                               *ngIf="!userForm.controls['interval'].valid &&  userForm.controls['interval'].touched">select interval</span>
-                                        <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>-->
+                                        <span *ngIf="userForm.controls['interval'].errors.required">Interval required </span>&ndash;&gt;
                                     </div>
 
-                                </div>
+                                </div>-->
 
 
                             </div>

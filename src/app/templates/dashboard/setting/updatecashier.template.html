@@ -9,11 +9,11 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">First Name
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">First Name
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="text" formControlName="firstName" data-required="1"
                                                class="form-control">
                                         <span class="text-danger"
@@ -23,34 +23,33 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Last Name
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Last Name
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input formControlName="lastName" type="text" class="form-control"></div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Username
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Username
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="text" formControlName="userName" class="form-control" disabled="true">
-                                        <span class="text-danger"
+                                       <!-- <span class="text-danger"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
                                            <span *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
                                            <span *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
                                           <span *ngIf="userForm.controls['userName'].errors.pattern">User name not valid</span>
-                                        </span>
+                                        </span>-->
                                         <!--<app-field-error-display [displayError]="isFieldValid('userName')" errorMsg="user name is required">
                                         </app-field-error-display>-->
                                     </div>
                                 </div>
-                                <div class="form-group">  
-                                    <label class="control-label col-md-4">Primary Branch
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Primary Branch
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
                                                      [options]="branchesList"
@@ -61,24 +60,23 @@
                                               *ngIf="!userForm.controls['primaryBranch'].valid &&  userForm.controls['primaryBranch'].touched">{{primaryBranchError}}</span>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Email Address
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Email Address
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8">
-                                        <input type="email" formControlName="email"
+                                    <div class="col-md-8 pdng-lr-5">
+                                        <input type="email" formControlName="email" disabled="true"
+
                                                class="form-control">
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">{{emailError}}</span>
-
                                     </div>
                                 </div>
-                                <div class="form-group mrgn-btm10" >
-                                    <label class="control-label col-md-4">Visiting Branches
+                                <div class="form-group mrgn-btm08" >
+                                    <label class="control-label col-md-4 pdng-lr-5">Visiting Branches
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <!--<div class="checkbox-box cod-higt" id="not-due">
                                             <address class="row"><label class="mt-checkbox mt-checkbox-outline">
                                                 <div *ngFor="let item of visitingBranches" class="col-md-6">
@@ -97,34 +95,30 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        formControlName="restrictBranch"
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
-                                                       name="visitBranches" [panelStyle]="{minWidth:'12em'}">
+                                                       name="visitBranches" [panelStyle]="{minWidth:''}">
                                             <ng-template let-br pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
                                             </ng-template>
                                         </p-multiSelect>
                                         <span class="text-danger" *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
-
                                     </div>
                                 </div>
-
-
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Home Phone
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Home Phone
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input formControlName="homePhone" type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Cell Phone
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Cell Phone
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input formControlName="cellPhone" type="text" class="form-control">
                                     </div>
                                 </div>
-
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Send Daily Billing Report</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
@@ -143,7 +137,6 @@
                                         <!--</label>-->
                                     </div>
                                 </div>
-
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
@@ -166,17 +159,17 @@
                                           </select>-->
                                     </div>
                                     <div class="col-md-7 pdng-lr-5">
-                                        <p-dropdown placeholder="Select Dashboard" [autoWidth]="false"
-                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [options]="doctorsList"
-                                                    formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
-                                                    [filter]="true">
-                                        </p-dropdown>
+                                        <p-multiSelect placeholder="Select Dashboard"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
+                                                       name="doctorboards"
+                                                       formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                       [filter]="true">
+                                        </p-multiSelect>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Account Expiry
-                                    </label>
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Account Expiry</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <mat-form-field class="width100">
                                             <input [style]="{'text-align': 'left' ,'width':'100%'}" matInput
@@ -215,9 +208,6 @@
                                         </mat-form-field>
                                     </div>
                                 </div>-->
-
-
-
                             </div>
                         </div>
                         <div class="hr">

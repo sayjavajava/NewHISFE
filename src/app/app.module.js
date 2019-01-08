@@ -171,7 +171,7 @@ var AppModule = (function () {
                 permissions_service_1.PermissionsService, DataService_1.DataService,
                 { provide: ng2_toastr_1.ToastOptions, useClass: CustomOption_1.CustomOption },
                 user_shared_service_1.UserSharedService, ConformationDialogService_1.ConformationDialogService,
-                FileServices_1.FileServices,
+                FileServices_1.FileServices
             ], entryComponents: [confirmationdialog_component_1.ConfirmationdialogComponent],
             imports: [
                 // Modules
