@@ -37,7 +37,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="text" formControlName="userName" class="form-control">
+                                        <input type="text" formControlName="userName" class="form-control" disabled="true">
                                         <span class="text-danger" *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
                                            <span *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>
                                            <span *ngIf="userForm.controls['userName'].errors.required">{{userNameError}} </span>
@@ -77,7 +77,7 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8">
-                                        <input type="email" formControlName="email"
+                                        <input type="email" formControlName="email" disabled="true"
                                                class="form-control">
                                         <span class="text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">{{emailError}}</span>
                                     </div>
@@ -247,12 +247,13 @@
                                           </select>-->
                                     </div>
                                     <div class="col-md-7 pdng-lr-5">
-                                        <p-dropdown placeholder="Select Dashboard" [autoWidth]="false"
-                                                    [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    [options]="doctorsList"
-                                                    formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
-                                                    [filter]="true">
-                                        </p-dropdown>
+                                        <p-multiSelect placeholder="Select Dashboard"
+                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
+                                                       name="doctorboards"
+                                                       formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                       [filter]="true">
+                                        </p-multiSelect>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">

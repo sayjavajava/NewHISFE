@@ -14,7 +14,7 @@ export class AppConfig {
     /*public static BE_API_ENDPOINT = '192.168.1.170';*/
     public static BE_API_PORT = '8080';
     public static BE_API_CONTEXT_PATH = 'HIS';
-    public static BE_ACCESS_CLIENT = 'HISClient';
+    public static BE_ACCESS_CLIENT = 'HISClient';   
     public static BE_ACCESS_SECRET = 'HISSecret';
 
     /*********************************************************************/

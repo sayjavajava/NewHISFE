@@ -280,7 +280,6 @@ var AddAppointmentComponent = (function () {
         else
             this.amt--;
         this.amt === 2 ? this.maxNo = true : this.maxNo = false;
-        console.log('amount' + this.amt);
         (_a = this.selectedType).push.apply(_a, this.selectedOptions);
         var _a;
     };
@@ -525,7 +524,6 @@ var AddAppointmentComponent = (function () {
                 self.notificationService.warn("No Appointment Founded");
             }
         }, function (error) {
-            console.log('user defined Erro ' + error);
         });
     };
     AddAppointmentComponent.prototype.selectRecurringDays = function (event, item) {
@@ -543,7 +541,6 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.getExamRoom = function (eventObj) {
         this.disbaleDoctor = false;
-        console.log('br objj' + eventObj.value);
         /*  var sp = event.split(': ');
           if (sp.length > 1)
               roomId = sp[1];
@@ -576,7 +573,6 @@ var AddAppointmentComponent = (function () {
         var _this = this;
         var self = this;
         var dateTes = convert(this.dateSchedule);
-        console.log('appt schedulae date ' + event.firstAppointment);
         this.Type.map(function (x) { return x.checked = false; });
         if (form.valid) {
             if (this.selectedType.length == 0) {
@@ -610,6 +606,24 @@ var AddAppointmentComponent = (function () {
                         self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
                         _this.hisCoreUtilService.hidePopupWithCloseButtonId('closeAppt');
                     }
+                    else if (response['responseCode'] === 'APPT_ERR_07') {
+                        _this.eventsRequest.length = 0;
+                        _this.selectedType.length = 0;
+                        self.notificationService.warn("" + response['responseMessage']);
+                        // self.router.navigate(['/dashboard/appointment/manage']);
+                        //   this.hisCoreUtilService.hidePopupWithCloseButtonId('closeAppt');
+                        /*  $('#exampleModalCenter2').modal('close');*/
+                    }
+                    else if (response['responseCode'] === 'APPT_ERR_08') {
+                        _this.eventsRequest.length = 0;
+                        _this.selectedType.length = 0;
+                        self.notificationService.warn("" + response['responseMessage']);
+                    }
+                    else if (response['responseCode'] === 'APPT_ERR_09') {
+                        _this.eventsRequest.length = 0;
+                        _this.selectedType.length = 0;
+                        self.notificationService.warn("" + response['responseMessage']);
+                    }
                     else {
                         _this.eventsRequest.length = 0;
                         self.notificationService.error('Appointment is not created', 'Appointment');
@@ -628,10 +642,8 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.updateAppointment = function (event) {
         var self = this;
-        console.log('up apptment' + event.start);
         var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox, event.start);
         this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_APPOINTMENT + event.id, obj).subscribe(function (response) {
-            console.log('event idd appt:' + event.appointmentId);
             if (response['responseCode'] === 'APPT_SUC_03') {
                 self.notificationService.success('Updated successfully', 'Appointment');
                 self.router.navigate(['/dashboard/appointment/manage']);

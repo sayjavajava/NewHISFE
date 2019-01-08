@@ -10,72 +10,83 @@ import {AppConstants} from '../../../utils/app.constants';
 import {HISUtilService} from '../../../services/his-util.service';
 import {Subscription} from "rxjs/Subscription";
 import {DataService} from "../../../services/DataService";
+import {UserTypeEnum} from "../../../enums/user-type-enum";
 
 
 @Component({
-  selector: 'addcashier-component',
-  templateUrl: '../../../templates/dashboard/setting/updatecashier.template.html',
+    selector: 'addcashier-component',
+    templateUrl: '../../../templates/dashboard/setting/updatecashier.template.html',
 })
-export class UpdateCashierComponent implements OnInit,OnDestroy {
+export class UpdateCashierComponent implements OnInit, OnDestroy {
+
+
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
-    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService: DataService,
+
+    constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService, private dataService: DataService,
                 private fb: FormBuilder, private notificationService: NotificationService) {
-                this.allBranches();
-                //this.allDoctors();
+        this.allBranches();
+        this.allDoctors();
     }
+
     private sub: any;
     id: number;
     responseUser: any[];
-    branchesList:any=[];
+    branchesList: any = [];
     visitingBranches: any [];
-    primaryDoctor:any=[];
+    selectedDoctorDashboard: any[];
+    primaryDoctor: any = [];
     error: any;
-    defaultBranch:string='primaryBranch';
-    userSelected:string='doctor';
+    defaultBranch: string = 'primaryBranch';
+    userSelected: string = 'doctor';
     userForm: FormGroup;
     cashier: UserEditModel;
-    selectedVisitBranches:any=[];
-    staffBranches : any[];
-    selectedDoctors : any [];
-    private subscription :Subscription;
-    userId :number;
+    selectedVisitBranches: any = [];
+    staffBranches: any[];
+    selectedDoctors: any [];
+    doctorsList: any;
+    private subscription: Subscription;
+    userId: number;
+
     ngOnInit() {
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
         });
-        this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
+        this.subscription= this.dataService.currentStaffServiceId.subscribe(x => {
+            this.userId = x
+        })
 
         this.patchData();
     }
+
     allDoctors() {
-        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+        this.requestService.getRequest(
+            AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseStatus'] === 'SUCCESS') {
-                        let data = response['responseData'];
-                        let userNameData = data;
-                        this.primaryDoctor = response['responseData'];
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.doctorsList = response['responseData'];
                     }
                 },
                 (error: any) => {
-                    this.error = error.error.error;
-                });
 
+                }
+            );
     }
+
     allBranches() {
-        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+        this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'BR_SUC_01') {
                         this.branchesList = response['responseData'];
                         this.visitingBranches = response['responseData'];
-                     //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
-                       /*if(this.branchesList.length > 1 ){
-                           this.removeBranch();
-                       }*/
+                        //   this.branchesList.indexOf({name :this.defaultBranch}) === -1 ? this.branchesList.push({name :this.defaultBranch}) :console.log('already there');
+                        /*if(this.branchesList.length > 1 ){
+                            this.removeBranch();
+                        }*/
                     }
                 },
                 (error: any) => {
@@ -88,7 +99,7 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+                'userName': [null],
                 'password': [null],
                 'confirmPassword': [null],
                 'homePhone': [null],
@@ -124,7 +135,7 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
 
     public patchData() {
         if (this.id) {
-            this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'CASHIER').subscribe(
+            this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id, 'CASHIER').subscribe(
                 cashier => {
                     this.userForm.patchValue({
                         firstName: cashier.firstName,
@@ -137,26 +148,28 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
                         accountExpiry: cashier.expiryDate,
                         otherDashboard: cashier.otherDashboard,
                         primaryBranch: cashier.primaryBranchId,
-                        sendBillingReport :cashier.sendBillingReport,
-                        useReceptDashboard :cashier.useReceptDashboard,
-                        otherDoctorDashBoard :cashier.otherDoctorDashBoard
+                        sendBillingReport: cashier.sendBillingReport,
+                        useReceptDashboard: cashier.useReceptDashboard,
+                        otherDoctorDashBoard: cashier.otherDoctorDashBoard
 
                     });
                     this.staffBranches = cashier.staffBranches;
                     //this.selectedDoctors = cashier.dutyWithDoctors;
-
-                    this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
+                    if(cashier.permittedDoctorDashboard){
+                        this.selectedDoctorDashboard = [...cashier.permittedDoctorDashboard]
+                    }
+                    this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
                         .subscribe(
                             (response: Response) => {
                                 if (response['responseCode'] === 'BR_SUC_01') {
                                     this.branchesList = response['responseData'];
 
-                                    this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
-                                    this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
+                                    this.staffBranches = this.staffBranches.filter(br => br.id != this.userForm.controls['primaryBranch'].value);
+                                    this.visitingBranches = this.visitingBranches.filter(br => br.id != this.userForm.controls['primaryBranch'].value);
 
-                                    for(let key in this.visitingBranches){
-                                        for(let k in this.staffBranches){
-                                            if(this.staffBranches[k].id == this.visitingBranches[key].id){
+                                    for (let key in this.visitingBranches) {
+                                        for (let k in this.staffBranches) {
+                                            if (this.staffBranches[k].id == this.visitingBranches[key].id) {
                                                 this.visitingBranches[key].checked = true;
                                                 this.selectedVisitBranches.push(this.staffBranches[k].id);
                                                 break;
@@ -175,9 +188,10 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
         }
 
     }
-    removeBranch(){
-        this.branchesList.forEach( (item: any, index :any) => {
-            if(item === this.defaultBranch) this.branchesList.splice(index,1);
+
+    removeBranch() {
+        this.branchesList.forEach((item: any, index: any) => {
+            if (item === this.defaultBranch) this.branchesList.splice(index, 1);
         });
     }
 
@@ -198,6 +212,7 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,
+                selectedDoctorDashboard: this.selectedDoctorDashboard,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
@@ -211,8 +226,7 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
     makeService(user: any) {
         this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(
             (response: Response) => {
-                if (response['responseStatus'] === 'SUCCESS') {
-                    console.log('saved00')
+                if (response['responseCode'] === 'USER_UPDATE_SUC_01') {
                     this.responseUser = response['responseData'];
                     this.notificationService.success('User has been updated Successfully')
                     this.router.navigate(['/dashboard/setting/staff']);
@@ -256,23 +270,27 @@ export class UpdateCashierComponent implements OnInit,OnDestroy {
             this.selectedVisitBranches.splice(index, 1);
         }
     }
+
     findIndexToUpdate(type: any) {
         return type.name === this;
     }
+
     getSelectedDashboard(value: any) {
         if (value) {
             this.userForm.controls['otherDashboard'].setValue(value);
         }
     }
-    cancel(){
+
+    cancel() {
         this.router.navigate(['/dashboard/setting/staff']);
     }
+
     getSelectedBranch(event: any) {
         if (event && event.target.value) {
             this.userForm.controls['primaryBranch'].setValue(event.target.value);
         }
         this.visitingBranches = this.branchesList;
-        this.visitingBranches = this.visitingBranches.filter(br=> br.id != event.target.value);
+        this.visitingBranches = this.visitingBranches.filter(br => br.id != event.target.value);
     }
 
 }

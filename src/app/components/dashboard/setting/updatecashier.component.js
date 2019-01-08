@@ -18,6 +18,7 @@ var notification_service_1 = require("../../../services/notification.service");
 var User_1 = require("../../../model/User");
 var app_constants_1 = require("../../../utils/app.constants");
 var DataService_1 = require("../../../services/DataService");
+var user_type_enum_1 = require("../../../enums/user-type-enum");
 var UpdateCashierComponent = (function () {
     function UpdateCashierComponent(route, router, requestService, dataService, fb, notificationService) {
         this.route = route;
@@ -32,7 +33,7 @@ var UpdateCashierComponent = (function () {
         this.userSelected = 'doctor';
         this.selectedVisitBranches = [];
         this.allBranches();
-        //this.allDoctors();
+        this.allDoctors();
     }
     UpdateCashierComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
@@ -43,20 +44,19 @@ var UpdateCashierComponent = (function () {
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
         });
-        this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) { _this.userId = x; });
+        this.subscription = this.dataService.currentStaffServiceId.subscribe(function (x) {
+            _this.userId = x;
+        });
         this.patchData();
     };
     UpdateCashierComponent.prototype.allDoctors = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + user_type_enum_1.UserTypeEnum.DOCTOR)
             .subscribe(function (response) {
-            if (response['responseStatus'] === 'SUCCESS') {
-                var data = response['responseData'];
-                var userNameData = data;
-                _this.primaryDoctor = response['responseData'];
+            if (response['responseCode'] === 'USER_SUC_01') {
+                _this.doctorsList = response['responseData'];
             }
         }, function (error) {
-            _this.error = error.error.error;
         });
     };
     UpdateCashierComponent.prototype.allBranches = function () {
@@ -79,7 +79,7 @@ var UpdateCashierComponent = (function () {
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+            'userName': [null],
             'password': [null],
             'confirmPassword': [null],
             'homePhone': [null],
@@ -131,6 +131,9 @@ var UpdateCashierComponent = (function () {
                 });
                 _this.staffBranches = cashier.staffBranches;
                 //this.selectedDoctors = cashier.dutyWithDoctors;
+                if (cashier.permittedDoctorDashboard) {
+                    _this.selectedDoctorDashboard = cashier.permittedDoctorDashboard.slice();
+                }
                 _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'BR_SUC_01') {
@@ -179,6 +182,7 @@ var UpdateCashierComponent = (function () {
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,
+                selectedDoctorDashboard: this.selectedDoctorDashboard,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
@@ -192,8 +196,7 @@ var UpdateCashierComponent = (function () {
     UpdateCashierComponent.prototype.makeService = function (user) {
         var _this = this;
         this.requestService.putRequest('/user/edit/' + this.userId, user).subscribe(function (response) {
-            if (response['responseStatus'] === 'SUCCESS') {
-                console.log('saved00');
+            if (response['responseCode'] === 'USER_UPDATE_SUC_01') {
                 _this.responseUser = response['responseData'];
                 _this.notificationService.success('User has been updated Successfully');
                 _this.router.navigate(['/dashboard/setting/staff']);

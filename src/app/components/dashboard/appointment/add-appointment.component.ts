@@ -305,7 +305,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
         else
             this.amt--
         this.amt === 2 ? this.maxNo = true : this.maxNo = false;
-        console.log('amount' + this.amt);
         this.selectedType.push(...this.selectedOptions);
     }
 
@@ -626,7 +625,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                     }
 
                 }, (error: any) => {
-                    console.log('user defined Erro ' + error);
                 });
     }
 
@@ -647,7 +645,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
 
     getExamRoom(eventObj: any) {
         this.disbaleDoctor = false;
-        console.log('br objj' + eventObj.value);
         /*  var sp = event.split(': ');
           if (sp.length > 1)
               roomId = sp[1];
@@ -679,7 +676,6 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
     saveAppointment(event: any, form: NgForm) {
         var self = this;
         let dateTes = convert(this.dateSchedule);
-        console.log('appt schedulae date ' + event.firstAppointment);
         this.Type.map(x => x.checked = false);
         if (form.valid) { //error type seklection
             if (this.selectedType.length == 0) {
@@ -717,6 +713,28 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                                 self.notificationService.error('Appointment on this Schedule is Already Exists', 'Appointment');
                                 this.hisCoreUtilService.hidePopupWithCloseButtonId('closeAppt');
                             }
+                           else if (response['responseCode'] === 'APPT_ERR_07'){
+                                this.eventsRequest.length = 0;
+                                this.selectedType.length = 0;
+                                self.notificationService.warn(`${response['responseMessage']}`);
+                               // self.router.navigate(['/dashboard/appointment/manage']);
+
+                             //   this.hisCoreUtilService.hidePopupWithCloseButtonId('closeAppt');
+                                /*  $('#exampleModalCenter2').modal('close');*/
+                            }
+                            else if (response['responseCode'] === 'APPT_ERR_08'){
+                                this.eventsRequest.length = 0;
+                                this.selectedType.length = 0;
+                                self.notificationService.warn(`${response['responseMessage']}`);
+
+                            }
+                            else if (response['responseCode'] === 'APPT_ERR_09'){
+                                this.eventsRequest.length = 0;
+                                this.selectedType.length = 0;
+                                self.notificationService.warn(`${response['responseMessage']}`);
+
+                            }
+
                             else {
                                 this.eventsRequest.length = 0;
                                 self.notificationService.error('Appointment is not created', 'Appointment');
@@ -738,14 +756,12 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
 
     updateAppointment(event: any) {
         var self = this;
-        console.log('up apptment'+ event.start)
         let obj = new Appointment(event.id,event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId,
             event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery,
             event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId,this.stateOfPatientBox,event.start);
         this.requestsService.putRequest(AppConstants.UPDATE_APPOINTMENT + event.id,
             obj).subscribe(
             (response: Response) => {
-                console.log('event idd appt:' + event.appointmentId);
                 if (response['responseCode'] === 'APPT_SUC_03') {
                     self.notificationService.success('Updated successfully', 'Appointment');
                     self.router.navigate(['/dashboard/appointment/manage']);

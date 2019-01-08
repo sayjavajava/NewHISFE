@@ -18,6 +18,7 @@ import {DataService} from "../../../services/DataService";
     templateUrl: '../../../templates/dashboard/setting/updatenurse.template.html',
 })
 export class UpdateNurseComponent implements OnInit,OnDestroy {
+
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
@@ -45,6 +46,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     firstShiftToTime: string;
     selectedVacationWeek: any = [];
     selectedVisitBranches: any = [];
+    selectedDoctorDashboard: any =[];
     testBranches:any;
     selectedDoctors: any = [];
     branchesList: any = [];
@@ -179,6 +181,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
         )
     }
 
+
     public patchData() {
         if (this.id) {
             this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'NURSE').subscribe(
@@ -206,6 +209,9 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
 
                     if (user.expiryDate != null) {
                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
+                    }
+                    if(user.permittedDoctorDashboard){
+                        this.selectedDoctorDashboard = [...user.permittedDoctorDashboard]
                     }
                    user.nurseDepartmentList.forEach((x:any)=>{
                             this.selectedDepartment.push(x.id);
@@ -278,6 +284,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
+                    selectedDoctorDashboard: this.selectedDoctorDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     managePatientRecords: data.managePatientRecords,
