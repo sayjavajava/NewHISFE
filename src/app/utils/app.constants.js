@@ -205,6 +205,7 @@ var AppConstants = (function () {
     AppConstants.PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
     ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
     AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    AppConstants.FETCH_ALL_LEDGERS = '/chartOfAccountConfigurations/getAllLedgers';
     AppConstants.ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
     AppConstants.ASSETS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateAssetsConfig';
     AppConstants.LIABILTY_CONFIG_SAVE = '/chartOfAccountConfigurations/updateLiabilityConfig';
@@ -277,6 +278,9 @@ var AppConstants = (function () {
     AppConstants.GET_CITY_URL = '/CityAPI/';
     AppConstants.GET_STATE_URL = '/StateAPI/';
     AppConstants.GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
+    AppConstants.GET_COUNTRY_BY_ID = '/CountryAPI/get/';
+    AppConstants.GET_STATE_BY_ID = '/StateAPI/getById/';
+    AppConstants.GET_CITY_BY_ID = '/CityAPI/getById/';
     AppConstants.ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
     AppConstants.FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';
     /////////////////////FETCH

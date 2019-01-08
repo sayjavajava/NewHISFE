@@ -888,3 +888,5 @@ ul.ui-inputtext{width: 100%;}
 .mat-form-field-wrapper{padding-bottom: 0px !important;}
 .ui-button.ui-splitbutton-menubutton {height: 2.4em !important;}
 .modal-backdrop.in {opacity: .5; display: none;}
+
+.wrap-overflow-text {overflow-wrap: break-word;}

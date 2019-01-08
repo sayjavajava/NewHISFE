@@ -229,6 +229,7 @@ export class AppConstants {
 
     ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
     public static FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    public static FETCH_ALL_LEDGERS = '/chartOfAccountConfigurations/getAllLedgers';
     public static ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
 
     public static ASSETS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateAssetsConfig';
@@ -324,6 +325,10 @@ export class AppConstants {
     public static GET_CITY_URL = '/CityAPI/';
     public static GET_STATE_URL = '/StateAPI/';
     public static GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
+
+    public static GET_COUNTRY_BY_ID = '/CountryAPI/get/';
+    public static GET_STATE_BY_ID = '/StateAPI/getById/';
+    public static GET_CITY_BY_ID = '/CityAPI/getById/';
 
     public static ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
     public static FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';

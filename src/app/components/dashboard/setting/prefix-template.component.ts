@@ -100,7 +100,9 @@ export class PrefixTemplateComponent {
                         this.notificationService.error(response['responseMessage'], 'Update Module Prefix');
                     }
                 }, (error: any) => {
-                    this.HISUtilService.tokenExpired(error.error.error);
+                    this.HISUtilService.tokenExpired(error.error.responseMessage);
+                    this.notificationService.error(error.error.responseMessage, 'Update Module Prefix');
+                    document.getElementById('close-btn-Prefix').click();
                 }
             );
         } else {

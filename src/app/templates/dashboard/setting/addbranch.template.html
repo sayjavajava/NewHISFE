@@ -78,13 +78,15 @@
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Address </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input type="text" placeholder="Enter address" formControlName="address" data-required="1" value="" class="form-control">
+                                                    <input type="text" placeholder="Enter address" formControlName="address" data-required="1" value=""
+                                                           class="form-control" (keypress)="addressChange($event.target.value)" (blur)="addressChange($event.target.value)" >
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Zip Code </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input type="text" placeholder="Enter Zip Code" formControlName="zipCode" data-required="1" value="" class="form-control">
+                                                    <input type="text" placeholder="Enter Zip Code" formControlName="zipCode" data-required="1" value=""
+                                                           class="form-control" (keypress)="zipCodeChange($event.target.value)" (blur)="zipCodeChange($event.target.value)">
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
@@ -144,24 +146,27 @@
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Fax</label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input type="text" formControlName="fax" placeholder="Enter fax number e.g 12456" data-required="1" value=""
-                                                           class="form-control">
+                                                    <input type="text" formControlName="fax" placeholder="Enter fax number e.g 12456" data-required="1"
+                                                           value="" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Formatted Address </label>
+                                                <!--<div class="col-md-8 select pdng-lr-5"> {{formattedAddress}} </div>-->
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input type="text" placeholder="Enter Formatted Address" formControlName="formattedAddress" data-required="1" value="" class="form-control">
+                                                    <textarea type="text" formControlName="formattedAddress" id="formattedAddress"
+                                                              data-required="1" class="form-control" readonly></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="form-group mrgn-btm08">
                                                 <div style="margin-left: 33%" class="col-md-8 pdng-lr-5">
                                                     <mat-radio-group formControlName="flow" required>
-                                                        <mat-radio-button value="RCND" color="primary">Receptionist &#8680; Cashier &#8680; Nurses &#8680; Doctor</mat-radio-button>
-                                                        <mat-radio-button value="RCD" color="primary">Receptionist &#8680; Cashier &#8680; Doctor</mat-radio-button>
-                                                        <mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
                                                         <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>
+                                                        <mat-radio-button value="D" color="primary">Doctor</mat-radio-button>
+                                                        <mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
+                                                        <mat-radio-button value="RCD" color="primary">Receptionist &#8680; Cashier &#8680; Doctor</mat-radio-button>
+                                                        <mat-radio-button value="RCND" color="primary">Receptionist &#8680; Cashier &#8680; Nurses &#8680; Doctor</mat-radio-button>
                                                     </mat-radio-group>
                                                     <br/>
                                                     <span class="text-danger" *ngIf="!branchForm.controls['flow'].valid && branchForm.controls['flow'].touched">
@@ -243,7 +248,9 @@
                                                             <mat-checkbox formControlName="allowOnlineScheduling" color="primary" > Online Scheduling</mat-checkbox>
                                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
                                                             <span></span>
-                                                            <i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>
+                                                            <span [hidden]="i==0" >
+                                                                <i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>
+                                                            </span>
                                                         </label>
                                                     </div>
                                                    <!--{{ branchForm.controls.examRooms.controls[i].controls.allowOnlineScheduling.value }}-->
@@ -256,7 +263,6 @@
                                             <button (click)="cancel()" class="pull-right btn default mrgn-lft8"><i class="fa fa-cancel"></i> Cancel </button>
                                             <button (click)="addBranch(branchForm.value,'')" class="pull-right btn blue"><i class="fa fa-plus"></i> Create </button>
                                         </div>
-
                                     </div>
                                 </div>
                             </form>

@@ -25,7 +25,6 @@
                                                 ariaLabelAsc="Sort in ascending order">
                                     </p-sortIcon>
                                 </th>
-
                             </tr>
                             <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -38,7 +37,7 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-prefixTemplateList>
                             <tr>
-                                <td field="module">{{prefixTemplateList.module}}</td>
+                                <td field="module" class="wrap-overflow-text">{{prefixTemplateList.module}}</td>
                                 <td field="name">{{prefixTemplateList.name}}</td>
                                 <td field="startValue">{{prefixTemplateList.startValue}}</td>
                                 <td field="currentValue">{{prefixTemplateList.currentValue}}</td>
