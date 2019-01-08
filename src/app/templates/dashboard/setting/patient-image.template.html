@@ -1,11 +1,11 @@
 <div class="page-content-wrapper">
     <div class="page-content">
 
-        <div class="hr">
+        <div class="hr no-margin">
             <h4 class="text-info">Patient Image Processing Setup
                 <div class="pull-right">
                     <a href="#patImgSetup" data-toggle="modal">
-                        <button class="btn mt-sweetalert btn green-meadow"  (click)="onAddPopupLoadImage()" >
+                        <button class="btn primary blue"  (click)="onAddPopupLoadImage()" >
                             <i class="fa fa-plus"></i> Add
                         </button>
                     </a>
@@ -147,16 +147,16 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                 <span >
-                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
-                </span>
+                    <button type="button" class="btn blue" *ngIf="patientImageSetupTemplate.id > 0"
+                               (click)="updateImage(form)">Update
+                </button>
                     <button type="button" class="btn blue"
                             *ngIf="patientImageSetupTemplate.id <= 0 || patientImageSetupTemplate.id == null"
                             (click)="savesetup(form)">Save
                     </button>
-                    <button type="button" class="btn blue" *ngIf="patientImageSetupTemplate.id > 0"
-                            (click)="updateImage(form)">Update
-                    </button>
+                    <span >
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn green-meadow">Close </button>
+                </span>
                 </div>
             </div>
         </form>

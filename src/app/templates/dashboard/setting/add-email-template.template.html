@@ -158,10 +158,10 @@
 
                         <div class="hr">
                             <div class="col-md-12 text-center">
+                                <button type="button" class="btn primary blue" (click)="saveEmailTemplate(form)"> Save</button>
                                 <a routerLink="/dashboard/setting/email-template" class="nav-link">
-                                    <button type="button" class="btn  btn-default"> Cancel</button>
+                                    <button type="button" class="btn green-meadow"> Cancel</button>
                                 </a>
-                                <button type="button" class="btn blue" (click)="saveEmailTemplate(form)"> Save</button>
                                 <div [innerHTML]="ckeditorContent"></div>
                             </div>
                         </div>

@@ -4,11 +4,11 @@
         <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
-                    <div class="hr">
+                    <div class="hr no-margin">
                         <h3 class="text-info">Doctor Payment Listing
                             <div class="pull-right">
                                 <a href="#responsive" data-toggle="modal">
-                                    <button class="btn mt-sweetalert btn green-meadow" (click)="getPaymentId()">
+                                    <button class="btn primary blue" (click)="getPaymentId()">
                                         <i class="fa fa-plus"></i> Add
                                     </button>
                                 </a>
@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-scrollable tbl-brdr-radus">
+                    <div class="">
                         <p-table #dt [columns]="cols" [value]="paymentList" [paginator]="true" [rows]="10">
                             <ng-template pTemplate="caption">
                                 <div style="text-align: right">
