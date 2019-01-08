@@ -892,12 +892,12 @@ ul.ui-inputtext{width: 100%;}
 .patnt-img img{border: 1px solid #e7e7e7;}
 .wc-date-container{border: 1px solid #c2cad8 !important; font-size: 13px !important; color:#333333 !important;}
 .wc-date-container i{color: #333333 !important; font-size: 16px !important;}
-.wc-date-container span{color: #333333 !important;}       
+.wc-date-container span{color: #333333 !important;}
 .ui-table-caption{background-color: #fff !important; border: none !important; padding-right: 0px !important;}
 .table-brd-non{border: none !important;}
 .clr-bck{color: #000000 !important; padding:5px!important; font-size: 12px !important;}
 .logo-plchldr{border: 1px solid #e7e7e7; padding: 20px; text-align: center;}
-.logo-plchldr img{display:inline-block !important;}
+.logo-plchldr img{display:inline-block !important;}      
 
 .ui-table-tbody > tr > td {padding: 4px 10px !important; border: 1px solid #e7e7e7 !important;}
 .ui-table-thead > tr > th {border: 1px solid #e7e7e7 !important; /*background: #f4f4f4 !important;*/ padding: 0.271em 0.857em !important; font-weight: bold !important; font-size: 14px !important;}
