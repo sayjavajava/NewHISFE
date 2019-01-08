@@ -6,6 +6,8 @@ import {AppConstants} from '../../../utils/app.constants';
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {LabTestSpecimanModel} from "../../../model/LabTestSpecimanModel";
+import {FileServices} from "../../../services/FileServices";
+import {MenuItem} from "primeng/api";
 
 @Component({
     selector: 'lab-test-template-component',
@@ -18,12 +20,14 @@ export class LabTestComponent {
     id: number;
     cols: any;
     labTestDataImport: File = null;
-    code: any
+    code: any;
+    items: MenuItem[];
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
                 private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                private fileServices: FileServices) {
     }
 
     ngOnInit() {
@@ -42,7 +46,18 @@ export class LabTestComponent {
             { field: 'action', header: 'Action' },
 
         ];
-
+        this.items = [
+            {label: 'Download Sample',  icon: 'fa fa-download',
+                command: () => {
+                    this.fileServices.downloadSampleFile('lab_test');
+                }
+            },
+            {label: 'Import Data', icon: 'fa fa-upload',
+                command: () => {
+                    this.importDataClicked();
+                }
+            },
+        ];
     }
 
     getAllTestSpecimanList() {
@@ -158,8 +173,6 @@ export class LabTestComponent {
         }
     }
 
-
-
     deleteLab(Id: number) {
         if (window.localStorage.getItem(btoa('access_token'))) {
             if (!confirm('Are Your Source You Want To Delete')) return;
@@ -169,10 +182,8 @@ export class LabTestComponent {
                     (response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
                             this.notificationService.success('LAB Test Speciman has been Deleted Successfully');
-
                             this.getAllTestSpecimanList();
                         } else {
-
                             this.notificationService.error('ERROR', 'LAB Test Speciman is not deleted ');
                         }
                     },
@@ -188,28 +199,36 @@ export class LabTestComponent {
     addPopupClick(){
         this.labTestSpeciman = new LabTestSpecimanModel();
     }
+
     updateLab() {
-
-        this.requestsService.putRequest(
-            AppConstants.LAB_TEST_UPDATE_URL,
-            this.labTestSpeciman)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'SUCCESS') {
-                        this.notificationService.success('Lab Test Speciman has been Updated Successfully');
-                        this.getAllTestSpecimanList();
-                        document.getElementById('close-btn-Prefix').click();
-                     //   this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-                    } else {
-                        this.notificationService.error('Lab Test Speciman is not Updated ');
-                    }
-                },
-                (error: any) => {
-                    //console.log(error.json())
-                    this.notificationService.error(error.error.error);
-
+        this.requestsService.putRequest(AppConstants.LAB_TEST_UPDATE_URL, this.labTestSpeciman)
+            .subscribe((response: Response) => {
+                if (response['responseCode'] === 'SUCCESS') {
+                    this.notificationService.success('Lab Test Speciman has been Updated Successfully');
+                    this.getAllTestSpecimanList();
+                    document.getElementById('close-btn-Prefix').click();
+                 //   this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
+                } else {
+                    this.notificationService.error('Lab Test Speciman is not Updated ');
                 }
-            );
+            },
+            (error: any) => {
+                //console.log(error.json())
+                this.notificationService.error(error.error.error);
+            }
+        );
+    }
+
+    openCaretDropdown() {
+        let elementByDiv: any[] = Array.from(document.getElementsByClassName("ui-splitbutton-menubutton"));
+        for (let i = 0; i < elementByDiv.length; i++) {
+            // console.log(elementByDiv[i]);
+            elementByDiv[i].click();
+        }
+    }
+
+    importDataClicked(){
+        document.getElementById("labTestDataImport").click();
     }
 
 }

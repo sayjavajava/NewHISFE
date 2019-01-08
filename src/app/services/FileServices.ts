@@ -28,15 +28,45 @@ export class FileServices {
                         this.HISUtilService.tokenExpired(error.error.error);
                     }
                 );
-            }
-        }
-    }
-
-    importData(fileName: string, event: any) {
-        if (localStorage.getItem(btoa('access_token'))) {
-            // if (!confirm('Are you sure want to Import Data?')) return;
-            if (fileName === 'icd_code') {
-
+            } else if (fileName === 'patient') {
+                this.requestsService.getRequest(AppConstants.PATIENT_DOWNLOAD_SAMPLE_FILE)
+                    .subscribe((response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success('ICD Code', response['responseMessage']);
+                        } else {
+                            this.notificationService.error('ICD Code', response['responseMessage']);
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+            } else if (fileName === 'lab_test') {
+                this.requestsService.getRequest(AppConstants.LAB_TEST_DOWNLOAD_SAMPLE_FILE)
+                    .subscribe((response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success('ICD Code', response['responseMessage']);
+                        } else {
+                            this.notificationService.error('ICD Code', response['responseMessage']);
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
+            } else if (fileName === 'drug') {
+                this.requestsService.getRequest(AppConstants.DRUG_DOWNLOAD_SAMPLE_FILE)
+                    .subscribe((response: Response) => {
+                        if (response['responseCode'] === 'SUCCESS') {
+                            this.notificationService.success('ICD Code', response['responseMessage']);
+                        } else {
+                            this.notificationService.error('ICD Code', response['responseMessage']);
+                        }
+                    },
+                    (error: any) => {
+                        this.HISUtilService.tokenExpired(error.error.error);
+                    }
+                );
             }
         }
     }

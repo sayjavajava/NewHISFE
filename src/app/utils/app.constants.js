@@ -316,6 +316,9 @@ var AppConstants = (function () {
     AppConstants.FETCH_VITALS_CONFIGURATIONS_ID = '/PatientVital/get/';
     /*****************************FILE DOWNLOAD*************************************/
     AppConstants.ICD_CODE_DOWNLOAD_SAMPLE_FILE = '/fileDownload/icdCodeSample';
+    AppConstants.PATIENT_DOWNLOAD_SAMPLE_FILE = '/fileDownload/patientSample';
+    AppConstants.LAB_TEST_DOWNLOAD_SAMPLE_FILE = '/fileDownload/labTestSample';
+    AppConstants.DRUG_DOWNLOAD_SAMPLE_FILE = '/fileDownload/drugSample';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;
