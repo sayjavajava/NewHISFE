@@ -40,7 +40,10 @@ export class CodeComponent implements OnInit {
     items: MenuItem[];
 
     codeDataImport: File = null;
-    loading:boolean = false;
+
+    loading: boolean = false;
+    regex:string;
+
 
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
@@ -70,6 +73,7 @@ export class CodeComponent implements OnInit {
             // {label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io'},
             // {label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup']}
         ];
+        this.regex="/^[^\\\\./:*?\"<>|][^\\\\/:*?\"<>|]{0,254}$/"
     }
 
     refreshCodesTable() {

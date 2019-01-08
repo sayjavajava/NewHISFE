@@ -17,6 +17,9 @@ export class PaymentType {
     staffPayment:any[];
     ReceiptPaymentType:any[];
     hasChild:boolean;
+    strServiceCharges:string;
+
+    strmaxCardCharges:string;
     constructor() {
 
     }

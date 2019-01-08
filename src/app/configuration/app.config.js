@@ -10,9 +10,9 @@ var AppConfig = (function () {
     /*********************************************************************/
     AppConfig.BE_HTTP_PROTOCOL = 'http';
     AppConfig.BE_HTTP_SEPARATOR = '://';
-    AppConfig.BE_API_ENDPOINT = '127.0.0.1';
-    /* public static BE_API_ENDPOINT = '122.129.73.84';*/
-    /*public static BE_API_ENDPOINT = '192.168.1.170';*/
+    /*public static BE_API_ENDPOINT = '127.0.0.1';*/
+    AppConfig.BE_API_ENDPOINT = '192.168.1.209';
+    //'122.129.73.84';
     AppConfig.BE_API_PORT = '8080';
     AppConfig.BE_API_CONTEXT_PATH = 'HIS';
     AppConfig.BE_ACCESS_CLIENT = 'HISClient';

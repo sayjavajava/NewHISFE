@@ -121,10 +121,10 @@
                             </button>
                         </a>
                     </td>
-                    <td class="text-align-right">{{item.fee | number :'.2-2'}}</td>
+                    <td class="text-align-right">{{item.strFee }}</td>
                     <td class="text-align-right">{{item.tax.rate | number :'.2-2'}}</td>
                     <!--<td>{{item.calculateTax() | number :'.2-2'}}</td>-->
-                    <td class="text-align-right">{{item.cost | number :'.2-2'}}</td>
+                    <td class="text-align-right">{{item.strCost}}</td>
                     <td>
                         <span [ngClass]="{'bg-green-meadow': item.status === true, 'bg-red-meadow': item.status === false}"
                                 class="mt-action-dot">

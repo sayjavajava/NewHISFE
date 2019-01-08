@@ -508,7 +508,7 @@
                                                 [minLength]="1" placeholder="Hint: type 'X' or 'A'" [dropdown]="true">
                                         </p-autoComplete>-->
 
-                                        <p-dropdown  placeholder="Please Select Drug" [autoWidth]="false" [(ngModel)]="selectedDrug"
+                                        <p-dropdown  placeholder="{{selectedDrug}}" [autoWidth]="false" [(ngModel)]="selectedDrug"
                                                       [style]="{'text-align': 'left' ,'width':'100%'}"  [ngModelOptions]="{standalone: true}"
                                                      (onChange)="search($event.value)"
                                                      [options]="searchedDrugNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true">

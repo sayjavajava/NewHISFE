@@ -230,6 +230,7 @@ var AppModule = (function () {
                 fileupload_1.FileUploadModule,
                 galleria_1.GalleriaModule,
                 dialog_1.DialogModule,
+                dialog_1.DialogModule,
                 splitbutton_1.SplitButtonModule,
             ],
             declarations: [

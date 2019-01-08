@@ -136,7 +136,7 @@
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Standard Value</label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="number" id="standardValue" name="standardValue" class="form-control" placeholder="e.g 80-120" required
+                                    <input type="text" id="standardValue" name="standardValue" class="form-control" placeholder="e.g 80-120" required pattern="^[a-zA-Z 0-9_-\d\b_@.#$=!%^)(\]:\*;\?\/\,}{'\|<>\[&\+-~\.,]{1,60}$"
                                            [(ngModel)]="vitalSetupTemplate.standardValue" #standardValue="ngModel">
 
                                 </div>

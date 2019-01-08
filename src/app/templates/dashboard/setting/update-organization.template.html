@@ -31,7 +31,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
-                                                    <input type="text" formControlName="companyName" class="form-control bootstrap-switch-readonly">
+                                                    <input type="text" formControlName="companyName" class="form-control">
                                                     <span class="text-danger" *ngIf="!proForm.controls['companyName'].valid && proForm.controls['companyName'].touched">
                                                             <span *ngIf="proForm.controls['companyName'].errors.minlength"> Minimum 4 characters</span>
                                                     <span *ngIf="proForm.controls['companyName'].errors.required">Company Name is required </span>
@@ -50,9 +50,9 @@
                                                             [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
                                                 </div>
-                                                <span class="text-danger" *ngIf="!proForm.controls['specialty'].valid && proForm.controls['specialty'].touched">
+                                                <!--<span class="text-danger" *ngIf="!proForm.controls['specialty'].valid && proForm.controls['specialty'].touched">
                                                     <span *ngIf="proForm.controls['specialty'].errors.required">Please Provide Speciality</span>
-                                                </span>
+                                                </span>-->
                                             </div>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Website
@@ -242,6 +242,16 @@
 
                                                 </div>
                                             </div>-->
+                                            <!--<div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Practice Business Logo
+                                                </label>
+                                                <div class="col-md-5 pdng-lr-5">
+                                                    <input type="file" id="exampleInputFile">
+                                                    <p class="help-block"> Will be attached to emails & offical
+                                                        forms </p>
+                                                </div>
+                                            </div>-->
+
                                             <h4 class="hr" style="margin-left: 19%;"> Contact</h4>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Email
@@ -263,7 +273,7 @@
                                                 <input  formControlName="formName" value="PROFILE" type="hidden" />
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Fax   <span class="required" aria-required="true">*</span>
+                                                <label class="control-label col-md-4 pdng-lr-5">Fax   <!--<span class="required" aria-required="true">*</span>-->
                                                 </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="fax"
@@ -273,7 +283,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Address<span class="required" aria-required="true">*</span>
+                                                <label class="control-label col-md-4 pdng-lr-5">Address<!--<span class="required" aria-required="true">*</span>-->
                                                 </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="text" formControlName="address"
@@ -282,28 +292,78 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Office Phone<span class="required" aria-required="true">*</span>
+                                                <label class="control-label col-md-4 pdng-lr-5">Office Phone<!--<span class="required" aria-required="true">*</span>-->
                                                 </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="tel" formControlName="officePhone" class="form-control">
-                                                    <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
+                                                   <!-- <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
                                                        <span *ngIf="proForm.controls['officePhone'].errors.required">Office Phone is required </span>
                                                        <span *ngIf="proForm.controls['officePhone'].errors.pattern">Office Phone is not valid</span>
-                                                   </span>
+                                                   </span>-->
                                                 </div>
                                             </div>
+
+
+                                            <!--<div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Appointment Serial Start
+                                                    <span class="required" aria-required="true">*</span>
+                                                </label>
+                                                <div class="col-md-8 profile-frm pdng-lr-5">
+                                                    <input type="text" readonly="true" [(ngModel)]="appointmentId" [ngModelOptions]="{standalone: true}"
+                                                           class="form-control">
+
+                                                </div>
+                                            </div>-->
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-md-4 pdng-lr-5 control-label">Practice Business Logo</label>
-                                            <div class="col-md-6 pdng-lr-5">
-                                                <div class="logo-plchldr"><img class="img-responsive" src="/public/images/company-logo-placeholder.jpg"/></div>
-                                                <div class="mrgn-top8">
-                                                    <input class="mrgn-top8" type="file" id="profileImg" name="profileImg"
-                                                           (change)="uploadImgOnChange($event,'profileImg')" >
-                                                    <small class="font-siz11">Will be attached to emails & offical forms</small>
+                                            <!--<div class="form-group">
+                                                <label class="control-label col-md-4 pdng-lr-5">Practice Business Logo</label>
+                                                <div class="col-md-8 select">
+                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                         src="/public/images/patient-photo.jpg"
+                                                         *ngIf="organization.profileImgURL === null || organization.profileImgURL === ''"/>
+                                                    <img class="" style="width: 120px; height: 140px;"
+                                                         src="{{organization.profileImgURL}}"
+                                                         *ngIf="organization.profileImgURL != null">
+                                                    <div class="">
+                                                        <input class="file" type="file"   id="documentId"
+                                                               name="documentName"
+                                                               (change)="uploadImgOnChange($event)">
+                                                    </div>
+                                                    &lt;!&ndash; <div class="imgUploadTopMargin">
+                                                         <button class="btn btn-default btn-outline"
+                                                                 (click)="uploadProfileImg()">
+                                                             <i class=" icon-arrow-up"></i>upload
+                                                         </button>
+                                                     </div>&ndash;&gt;
                                                 </div>
-                                            </div>
+                                            </div>-->
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label txt-size">Bussiness Photo</label>
+                                                <div class="col-md-6 select">
+                                                    <div class="logo-plchldr">
+                                                    <!--<img class="img-responsive" style="width: 120px; height: 140px;"
+                                                         src="/public/images/patient-photo.jpg"
+                                                         *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
+
+                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                         src="{{urlOrganization}}"
+                                                         >
+                                                    </div>
+                                                    <div class="mrgn-top8">
+                                                        <input class="file" type="file" id="profileImgUrl"
+                                                               name="profileImgUrl"
+                                                               (change)="uploadImgOnChange($event)">
+                                                        <small>Will be attached to emails & offical forms</small>
+                                                    </div>
+                                                    <div class="imgUploadTopMargin">
+                                                        <button class="btn btn-default btn-outline"
+                                                                (click)="uploadProfileImg()">
+                                                            <i class=" icon-arrow-up"></i>upload
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -325,21 +385,15 @@
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-4 pdng-lr-5">
-                                                <p-dropdown placeholder="Select Branch" [autoWidth]="false"
+
+
+                                                <p-dropdown placeholder="{{defaultBranch}}" [autoWidth]="false"
                                                             [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                            [options]="branchesList"
+                                                            [options]="branchesListModified"
                                                             formControlName="defaultBranch" [panelStyle]="{minWidth:'12em'}"
                                                             [filter]="true">
                                                 </p-dropdown>
-                                                <!--<select class="form-control"
-                                                        (change)="getSelectedBranch($event.target.value)"
-                                                        formControlName="defaultBranch">
-                                                    <option *ngFor="let br of branchesList"
-                                                            value={{br.id}}>
-                                                        {{br.name}}
-                                                    </option>
 
-                                                </select>-->
                                                 <span class="text-danger"
                                                       *ngIf="!generalForm.controls['defaultBranch'].valid && generalForm.controls['defaultBranch'].touched">
                                                   <span *ngIf="generalForm.controls['defaultBranch'].errors.required">Default Branch is required </span>
@@ -546,6 +600,37 @@
                                                 </span>
                                             </div>
                                         </div>
+
+                                        <div class="form-group mrgn-btm08">
+                                            <div style="margin-left: 33%" class="col-md-8 pdng-lr-5">
+                                                <mat-radio-group formControlName="hoursFormat">
+                                                    <mat-radio-button value="12" color="primary">12 Hours</mat-radio-button>
+                                                    <mat-radio-button value="24" color="primary">24 Hours</mat-radio-button>
+                                                    <!--<mat-radio-button value="RND" color="primary">Receptionist &#8680;  Nurses &#8680; Doctor</mat-radio-button>
+                                                    <mat-radio-button value="RD" color="primary">Receptionist &#8680;  Doctor</mat-radio-button>-->
+                                                </mat-radio-group>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Currency Format<span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-8 pdng-lr-5">
+                                                <p-dropdown
+                                                        [autoWidth]="false" required
+                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                        [(ngModel)]="organization.currencyFormat"
+                                                        [options]="currencyFormatList" formControlName="currencyFormat"
+                                                        [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+                                            </div>
+                                            <!--<span class="text-danger" *ngIf="!generalForm.controls['specialty'].valid && generalForm.controls['specialty'].touched">
+                                                <span *ngIf="generalForm.controls['specialty'].errors.required">Please Provide Speciality</span>
+                                            </span>-->
+                                        </div>
+
                                        <!-- <div class="form-group">
                                             <label  class="control-label col-md-3">Date Format </label>
                                             <div class="col-sm-7">
@@ -667,19 +752,15 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="hr"><h4 class="text-info">SMS / Email Messages</h4></div>
-                                    <div class="table-scrollable">
+                                    <div class="table-scrollable tbl-brdr-radus">
                                         <table class="table table-hover table-light">
                                             <thead>
-                                            <tr class="off-wite-bg tbl-pdng">
+                                            <tr class="hedng-bck-clr tbl-pdng">
                                                 <th> Feature</th>
                                                 <th> Usage for this month</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr class="tbl-pdng">
-                                                <td>Total Appointments Auto SMS sent by system</td>
-                                                <td>0</td>
-                                            </tr>
                                             <tr class="tbl-pdng off-wite-bg">
                                                 <td>Total Appointments Auto SMS sent by system</td>
                                                 <td>0</td>
@@ -689,6 +770,10 @@
                                                 <td>0</td>
                                             </tr>
                                             <tr class="tbl-pdng off-wite-bg">
+                                                <td>Total Appointments Auto SMS sent by system</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr class="tbl-pdng">
                                                 <td>Total Appointments Auto SMS sent by system</td>
                                                 <td>0</td>
                                             </tr>
@@ -699,7 +784,7 @@
                             </div>
                             <div class="hr">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn blue" (click)="addOrganization(proForm.value,'done')"> Update lab</button>
+                                    <button type="button" class="btn blue" (click)="addOrganization(proForm.value,'done')"> Update</button>
                                     <button (click)="cancel()" class="btn default"><i class="fa fa-default"></i> Cancel</button>
                                 </div>
                             </div>

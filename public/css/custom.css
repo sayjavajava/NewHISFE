@@ -885,6 +885,9 @@ ul.ui-inputtext{width: 100%;}
 .doctorslist button{background: none !important; color: #007ad9 !important; border: none !important;}
 .hght250{height: 250px !important;}
 .brnch-td{padding-top:20px !important; padding-left:20px !important;}
+.modal-backdrop.in {opacity: .5; display: none;}
+.logo-plchldr{border: 1px solid #e7e7e7; padding: 20px; text-align: center;}
+.logo-plchldr img{display:inline-block !important;}
 .mat-form-field-underline{margin-bottom: -20px; }
 .mat-form-field-wrapper{padding-bottom: 0px !important;}
 .ui-button.ui-splitbutton-menubutton {height: 2.4em !important;}
@@ -897,7 +900,7 @@ ul.ui-inputtext{width: 100%;}
 .table-brd-non{border: none !important;}
 .clr-bck{color: #000000 !important; padding:5px!important; font-size: 12px !important;}
 .logo-plchldr{border: 1px solid #e7e7e7; padding: 20px; text-align: center;}
-.logo-plchldr img{display:inline-block !important;}      
+.logo-plchldr img{display:inline-block !important;}
 
 .ui-table-tbody > tr > td {padding: 4px 10px !important; border: 1px solid #e7e7e7 !important;}
 .ui-table-thead > tr > th {border: 1px solid #e7e7e7 !important; /*background: #f4f4f4 !important;*/ padding: 0.271em 0.857em !important; font-weight: bold !important; font-size: 14px !important;}
