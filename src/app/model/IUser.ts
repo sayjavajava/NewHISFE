@@ -15,6 +15,7 @@ export interface  IUser {
     primaryBranch: string;
     email: string;
     selectedVisitBranches: any[];
+    selectedDoctorDashboard: any[];
     otherDashboard: string;
     sendBillingReport: boolean;
     useReceptDashboard: boolean;

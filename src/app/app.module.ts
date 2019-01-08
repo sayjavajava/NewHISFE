@@ -183,7 +183,7 @@ import {FileServices} from "./services/FileServices";
         PermissionsService,DataService,
         {provide: ToastOptions, useClass: CustomOption},
         UserSharedService, ConformationDialogService,
-        FileServices,
+        FileServices
     ], entryComponents: [ConfirmationdialogComponent],
     imports: [
         // Modules

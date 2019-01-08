@@ -44,7 +44,8 @@ export class AddStaffComponent implements OnInit {
     firstShiftFromTime: string;
     firstShiftToTime: string;
     selectedWorkingDays: any = [];
-    selectedVisitBranches: any = [];
+    selectedVisitBranches: any[] =[];
+    selectedDoctorDashboard: any[]=[];
     selectedRoles: any = [];
     selectedDoctors: any = [];
     error: string;
@@ -63,6 +64,7 @@ export class AddStaffComponent implements OnInit {
     selectedBranchId: number;
     allServicesList :any =[];
     doctorsDashboard :any =[];
+
     workingDays = [
         {label: 'Monday', value: 'Monday'},
         {label: 'Tuesday', value: 'Tuesday'},
@@ -96,11 +98,13 @@ export class AddStaffComponent implements OnInit {
     hasServices : boolean = false;
 
     intervalList: any[] = [];
+    rateInput:any;
     selectedCars2: any;
     pBillReport: boolean;
     pRoles: string[] = [];
     date: Date = new Date();
     comissionValue : any;
+    emailName :string;
     //serviceComission:{id:number,checked:boolean,comission:''}[]=[];
     serviceComission:ServiceComission[] =[];
 
@@ -247,6 +251,9 @@ export class AddStaffComponent implements OnInit {
                     if (response['responseCode'] === 'CLI_DPT_SUC_01') {
                         this.departmentList = response['responseData'];
                         if(this.departmentList){
+                            //selectedDepartment
+                            console.log(this.departmentList);
+                            this.selectedDepartment.push(this.departmentList[0].id);
                             let [first] = this.departmentList;
                             if(this.doctorDepartment)
                                this.getDeptServices(first.id);
@@ -289,7 +296,8 @@ export class AddStaffComponent implements OnInit {
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
+               // 'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z0-9_-]{4,15}$')])],
+                'userName': [null],
                 'password': [null, Validators.compose([Validators.required, Validators.minLength(6)])],
                 'confirmPassword': [null, Validators.compose([Validators.required])],
                 //'userRole': [null, Validators.required],
@@ -299,7 +307,7 @@ export class AddStaffComponent implements OnInit {
                 'interval': [null,Validators.required],
                 'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'restrictBranch': [null],
-                'allowDiscount': [null],
+                'allowDiscount': [null,Validators.compose([Validators.pattern("^[0-9]*$"),Validators.max(100), Validators.min(0)])],
                 'otherDashboard': '',
                 'sendBillingReport': '',
                 'useReceptDashboard': '',
@@ -312,6 +320,7 @@ export class AddStaffComponent implements OnInit {
                 'dateTo': [null],
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
+                 'hidePatient':'',
                 'departmentControl': [null, Validators.pattern('true')],
                 'servicesControl': [null],
                 'shift1': [null, Validators.required],
@@ -347,6 +356,7 @@ export class AddStaffComponent implements OnInit {
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
+                    selectedDoctorDashboard: this.selectedDoctorDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     allowDiscount: data.allowDiscount,
@@ -373,6 +383,7 @@ export class AddStaffComponent implements OnInit {
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
+                   selectedDoctorDashboard:this.selectedDoctorDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     allowDiscount: data.allowDiscount,
@@ -401,6 +412,7 @@ export class AddStaffComponent implements OnInit {
                         primaryBranch: data.primaryBranch,
                         email: data.email,
                         selectedVisitBranches: this.selectedVisitBranches,
+                        selectedDoctorDashboard:this.selectedDoctorDashboard,
                         otherDoctorDashBoard: data.otherDoctorDashBoard,
                         active: data.active,
                         managePatientRecords: data.managePatientRecords,
@@ -440,6 +452,7 @@ export class AddStaffComponent implements OnInit {
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
+                   selectedDoctorDashboard:this.selectedDoctorDashboard,
                     active: data.active,
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
@@ -751,6 +764,7 @@ export class AddStaffComponent implements OnInit {
         const value = typeObj.value ? typeObj.value : 'RECEPTIONIST';
         this.selectedDepartment.length = 0;
         this.selectedServices.length = 0;
+      //  this.selectedDoctorDashboard.length =0;
         this.selectedVisitBranches.length = 0;
         this.selectedDoctors.length = 0;
         this.selectedWorkingDays.length = 0;

@@ -19,6 +19,7 @@ var User_1 = require("../../../model/User");
 var app_constants_1 = require("../../../utils/app.constants");
 var his_util_service_1 = require("../../../services/his-util.service");
 var DataService_1 = require("../../../services/DataService");
+var user_type_enum_1 = require("../../../enums/user-type-enum");
 var UpdateReceptionistComponent = (function () {
     function UpdateReceptionistComponent(route, router, requestService, dataService, hisUtilService, fb, notificationService) {
         var _this = this;
@@ -34,8 +35,9 @@ var UpdateReceptionistComponent = (function () {
         this.defaultBranch = 'primaryBranch';
         this.userSelected = 'doctor';
         this.selectedVisitBranches = [];
+        this.selectedDoctorDashboard = [];
         this.allBranches();
-        //this.allDoctors();
+        this.allDoctors();
         this.createUserForm();
         this.sub = this.route.params.subscribe(function (params) {
             _this.id = params['id'];
@@ -53,19 +55,6 @@ var UpdateReceptionistComponent = (function () {
         this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();*/
     };
-    UpdateReceptionistComponent.prototype.allDoctors = function () {
-        var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
-            .subscribe(function (response) {
-            if (response['responseStatus'] === 'SUCCESS') {
-                var data = response['responseData'];
-                var userNameData = data;
-                _this.primaryDoctor = response['responseData'];
-            }
-        }, function (error) {
-            _this.error = error.error.error;
-        });
-    };
     UpdateReceptionistComponent.prototype.allBranches = function () {
         var _this = this;
         this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
@@ -80,6 +69,16 @@ var UpdateReceptionistComponent = (function () {
             }
         }, function (error) {
             _this.error = error.error.error;
+        });
+    };
+    UpdateReceptionistComponent.prototype.allDoctors = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.USER_BY_ROLE + '?name=' + user_type_enum_1.UserTypeEnum.DOCTOR)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'USER_SUC_01') {
+                _this.doctorsList = response['responseData'];
+            }
+        }, function (error) {
         });
     };
     UpdateReceptionistComponent.prototype.createUserForm = function () {
@@ -136,6 +135,9 @@ var UpdateReceptionistComponent = (function () {
                     useReceptDashboard: receptionist.useReceptDashboard,
                     otherDoctorDashBoard: receptionist.otherDoctorDashBoard
                 });
+                if (receptionist.permittedDoctorDashboard) {
+                    _this.selectedDoctorDashboard = receptionist.permittedDoctorDashboard.slice();
+                }
                 _this.staffBranches = receptionist.staffBranches;
                 _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all')
                     .subscribe(function (response) {
@@ -186,6 +188,7 @@ var UpdateReceptionistComponent = (function () {
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,
+                selectedDoctorDashboard: this.selectedDoctorDashboard,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,

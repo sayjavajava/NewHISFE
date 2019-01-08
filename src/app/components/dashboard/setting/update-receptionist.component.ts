@@ -11,6 +11,7 @@ import {AppConstants} from '../../../utils/app.constants';
 import {HISUtilService} from '../../../services/his-util.service';
 import {Subscription} from "rxjs/Subscription";
 import {DataService} from "../../../services/DataService";
+import {UserTypeEnum} from "../../../enums/user-type-enum";
 
 
 @Component({
@@ -18,12 +19,14 @@ import {DataService} from "../../../services/DataService";
     templateUrl: '../../../templates/dashboard/setting/update-receptionist.template.html',
 })
 export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
+
+
     ngOnDestroy(): void {
     }
     constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestsService,private dataService:DataService,
                 private hisUtilService: HISUtilService ,private fb: FormBuilder, private notificationService: NotificationService) {
         this.allBranches();
-        //this.allDoctors();
+        this.allDoctors();
         this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
@@ -43,9 +46,11 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     userForm: FormGroup;
     receptionist: UserEditModel;
     selectedVisitBranches:any=[];
+    selectedDoctorDashboard: any = [];
     staffBranches: any [];
     private subscription :Subscription;
     userId:number;
+    doctorsList: any;
     ngOnInit() {
         /*this.createUserForm();
         this.sub = this.route.params.subscribe(params => {
@@ -54,21 +59,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
         this.subscription=  this.dataService.currentStaffServiceId.subscribe(x=>{this.userId=x})
         this.patchData();*/
     }
-    allDoctors() {
-        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseStatus'] === 'SUCCESS') {
-                        let data = response['responseData'];
-                        let userNameData = data;
-                        this.primaryDoctor = response['responseData'];
-                    }
-                },
-                (error: any) => {
-                    this.error = error.error.error;
-                });
 
-    }
     allBranches() {
         this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
             .subscribe(
@@ -85,6 +76,19 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 (error: any) => {
                     this.error = error.error.error;
                 })
+    }
+    allDoctors() {
+        this.requestService.getRequest(
+            AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.doctorsList = response['responseData'];
+                    }
+                },
+                (error: any) => {
+                }
+            );
     }
 
 
@@ -146,6 +150,9 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         useReceptDashboard :receptionist.useReceptDashboard,
                         otherDoctorDashBoard :receptionist.otherDoctorDashBoard
                     });
+                    if(receptionist.permittedDoctorDashboard){
+                        this.selectedDoctorDashboard = [...receptionist.permittedDoctorDashboard]
+                    }
                     this.staffBranches = receptionist.staffBranches;
 
                     this.requestService.getRequest(AppConstants.FETCH_ALL_BRANCHES_URL+'all')
@@ -166,6 +173,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                                         }
                                     }
                                 }
+
                             },
                             (error: any) => {
                                 this.error = error.error.error;
@@ -201,6 +209,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,
+                selectedDoctorDashboard: this.selectedDoctorDashboard,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,

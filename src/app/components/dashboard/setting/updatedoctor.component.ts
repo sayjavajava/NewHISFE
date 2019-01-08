@@ -13,6 +13,8 @@ import {HISUtilService} from '../../../services/his-util.service';
 import {Subscription} from "rxjs/Subscription";
 import {DataService} from "../../../services/DataService";
 import {ServiceComission} from "../../../model/service-comission";
+import {getErrorLogger} from "@angular/core/src/errors";
+import {UserTypeEnum} from "../../../enums/user-type-enum";
 
 @Component({
     selector: 'adddoctor-component',
@@ -45,6 +47,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     firstShiftToTime: string;
     selectedWorkingDays: any = [];
     selectedVisitBranches: any = [];
+    selectedDoctorDashboard :any[] = new Array();
     selectedDoctors: any = [];
     departmentList:any=[];
     selectedUser:string='doctor';
@@ -60,6 +63,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     visitingBranches: any [];
     servicesList:any=[];
     primaryDoctor:any=[];
+    doctorsList:any =[];
     staffBranches: any [];
     pBranch :string;
     workingDays = [
@@ -130,17 +134,17 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     }
 
     allDoctors() {
-        this.requestService.getRequest(AppConstants.USER_BY_ROLE + '?name=' + this.userSelected)
+        this.requestService.getRequest(
+            AppConstants.USER_BY_ROLE + '?name=' + UserTypeEnum.DOCTOR)
             .subscribe(
                 (response: Response) => {
-                    if (response['responseStatus'] === 'SUCCESS') {
-                        this.primaryDoctor = response['responseData'];
-                        }
+                    if (response['responseCode'] === 'USER_SUC_01') {
+                        this.doctorsList = response['responseData'];
+                    }
                 },
                 (error: any) => {
-                    this.error = error.error.error;
-                });
-
+                }
+            );
     }
     removeBranch(){
         this.branchesList.forEach( (item: any, index :any) => {
@@ -276,7 +280,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[A-Z/a-z0-9_-]{4,15}$')])],
                 'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
@@ -318,6 +322,8 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         return this.userForm.get('workingDaysContorl') as FormArray;
     }
 
+
+
     public patchData() {
         if (this.id) {
             this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'DOCTOR').subscribe(
@@ -340,23 +346,29 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         vacation: user.vacation,
                         sendBillingReport :user.sendBillingReport,
                         useReceptDashboard :user.useReceptDashboard,
-                        otherDoctorDashBoard :user.otherDoctorDashBoard
+                        otherDoctorDashBoard :user.otherDoctorDashBoard,
+
+
                     });
                     let docDeptId = user.docDepartmentId;
                     //this.servicesList = this.getDeptServices(docDeptId);
-
+                    this.selectedWorkingDays = [...user.workingDays];
                     if (user.expiryDate != null) {
                         this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                     }
                     if(user.primaryBranchId){
                         this.loadDepartmentByBranchOnIntialization(user.primaryBranchId);
+                    }//selectedDoctorDashboard
+                    if(user.permittedDoctorDashboard){
+                        this.selectedDoctorDashboard = [...user.permittedDoctorDashboard]
                     }
+
                    // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
                     console.log('med service '+ user.doctorMedicalSrvcList.length);
                     user.doctorServiceComission.forEach((x:any)=>{
                         this.listOfServices.push({id:x.id,comission:x.comissionService})})
                     //let shifts: any [] = user.dutyShifts;
-                    if (user.dutyShifts!=null && user.dutyShifts.length > 0) {
+                    /*if (user.dutyShifts!=null && user.dutyShifts.length > 0) {
                         for (let s in user.dutyShifts) {
                             if (user.dutyShifts[s].shiftName === 'SHIFT1') {
                                 this.userForm.controls['shift1'].setValue(true);
@@ -377,7 +389,22 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                             // console.log('doneee'+user.dutyShifts[0].shiftName);
                             this.userForm.controls['shift2'].setValue(true);
                         }
+                    }*/
+                    if(user.shift1){
+                        user.shift1.forEach((x:any) =>{
+                            this.userForm.controls['shift1'].setValue(true);
+                            this.firstShiftFromTime = x.startDutyTime,
+                            this.firstShiftToTime = x.endDutyTime
+                        })
                     }
+                    if(user.shift2.length != 0){
+                        user.shift1.forEach((x:any) =>{
+                            this.userForm.controls['shift2'].setValue(true);
+                            this.secondShiftFromTime = x.startDutyTime,
+                            this.secondShiftToTime = x.endDutyTime
+                        })
+                    }
+
 
                     for(let k in this.departmentList){
                         if(this.departmentList[k].id == docDeptId){
@@ -414,10 +441,10 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                        this.selectedVisitBranches.push(x.id)
                    })
                     this.doctorServices = user.doctorMedicalSrvcList;
-                    if(user.vacation){
+                    if(user.vacationFrom && user.vacationTo){
                      this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
                      this.userForm.controls['dateTo'].setValue(new Date(user.vacationTo));}
-                     this.userForm.controls['workingDaysContorl'].patchValue({
+                     /*this.userForm.controls['workingDaysContorl'].patchValue({
                         sunday: this.checkAvailabilty('sunday', user.workingDays),
                         monday: this.checkAvailabilty('monday', user.workingDays),
                         tuesday: this.checkAvailabilty('tuesday', user.workingDays),
@@ -426,11 +453,13 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         saturday: this.checkAvailabilty('saturday', user.workingDays),
                         wednesday: this.checkAvailabilty('wednesday', user.workingDays)
 
-                    })
+                    }
+                    )*/
                         /*this.secondShiftFromTime = user.dutyShifts[0].startTime,
                         this.secondShiftToTime = user.dutyShifts[0].endTime,
                         this.firstShiftFromTime = user.dutyShifts[1].startTime,
                         this.firstShiftToTime = user.dutyShifts[1].endTime*/
+
                 }, (error: any) => {
                     //console.log(error.json());
                     this.error = error.error.error_description;
@@ -495,6 +524,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     selectedServices: this.selectedServices,
                     interval: data.interval,
                     selectedVisitBranches: this.selectedVisitBranches,
+                   selectedDoctorDashboard: this.selectedDoctorDashboard,
                     shift1: data.shift1,
                     shift2: data.shift2,
                     secondShiftToTime: this.secondShiftToTime,

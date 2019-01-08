@@ -72,6 +72,13 @@ export class DrugComponent implements OnInit {
                 }
             },
         ];
+
+        this.countryListModified = [
+            {label: 'NOVARTIS',  value: 'NOVARTIS'},
+            {label: 'MSD-SP LIMITED',  value: 'MSD-SP LIMITED'},
+            {label: 'MEDIS',  value: 'MEDIS'},
+            {label: 'GLAXOSMITHKLINE (GSK)',  value: 'GLAXOSMITHKLINE (GSK)'},
+        ];
     }
 
     getPageWiseDrug(page: number) {
@@ -85,20 +92,27 @@ export class DrugComponent implements OnInit {
 
 
     allCountries() {
-        this.requestsService.getRequest(AppConstants.GET_ALL_COUNTRY)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] === 'COUNTRY_SUC_11') {
-                        this.countryLst = response['responseData'];
-                        for (let country of this.countryLst) {
-                            let pair: any = {label: country.name, value: country.id};
-                            this.countryListModified.push(pair);
-                        }
-                    }
-                },
-                (error: any) => {
-                    this.notificationService.error(error.error.error);
-                })
+        // this.requestsService.getRequest(AppConstants.GET_ALL_COUNTRY)
+        //     .subscribe((response: Response) => {
+        //         if (response['responseCode'] === 'COUNTRY_SUC_11') {
+        //             this.countryLst = response['responseData'];
+        //             for (let country of this.countryLst) {
+        //                 let pair: any = {label: country.name, value: country.id};
+        //                 this.countryListModified.push(pair);
+        //             }
+        //         }
+        //     },
+        //     (error: any) => {
+        //         this.notificationService.error(error.error.error);
+        //     }
+        // );
+
+        this.countryListModified = [
+            {label: 'NOVARTIS',  value: 'NOVARTIS'},
+            {label: 'MSD-SP LIMITED',  value: 'MSD-SP LIMITED'},
+            {label: 'MEDIS',  value: 'MEDIS'},
+            {label: 'GLAXOSMITHKLINE (GSK)',  value: 'GLAXOSMITHKLINE (GSK)'},
+        ];
     }
 
     // refreshPage() {
@@ -150,7 +164,7 @@ export class DrugComponent implements OnInit {
 
     deleteDrug(drugId: number) {
         if (window.localStorage.getItem(btoa('access_token'))) {
-            if (!confirm('Are Your Source You Want To Delete')) return;
+            if (!confirm('Are You Sure Want To Delete?')) return;
             this.requestsService.deleteRequest(
                 AppConstants.DRUG_DELETE_URI + drugId)
                 .subscribe(
@@ -256,8 +270,8 @@ export class DrugComponent implements OnInit {
    //     this.drug.selectedCountry=this.selectedCountry;
     //    let listOfCountry=this.countryLst.filter((listing: any) => listing.id === this.drug.selectedCountry);
        // console.log(listOfCountry);
-       this.drug.selectedCountry=this.selectedCountry;
-
+       //  this.drug.selectedCountry=this.selectedCountry;
+        this.drug.selectedCountry=233;
         console.log(this.drug);
         this.requestsService.postRequest(
             AppConstants.DRUG_SAVE_URL,
@@ -292,14 +306,14 @@ export class DrugComponent implements OnInit {
             document.getElementById('genericName').focus();
             return;
         }
-        if (this.drug.companyName == '') {
-            this.notificationService.error('Please enter company Name.', 'Drug');
-            document.getElementById('companyName').focus();
-            return;
-        }
+        // if (this.drug.companyName == '') {
+        //     this.notificationService.error('Please enter company Name.', 'Drug');
+        //     document.getElementById('companyName').focus();
+        //     return;
+        // }
         if (this.drug.route == '') {
-            this.notificationService.error('Please enter name.', 'Drug');
-            document.getElementById('drugName').focus();
+            this.notificationService.error('Please enter drug route.', 'Drug');
+            document.getElementById('route').focus();
             return;
         }
 
@@ -309,17 +323,19 @@ export class DrugComponent implements OnInit {
             return;
         }
 
-        if(this.selectedCountry.length==0){
-            this.notificationService.error('Please Select Make.', 'Drug');
-            document.getElementById('origin').focus();
-            return;
-        }
+        // if(this.selectedCountry.length==0){
+        //     this.notificationService.error('Please Select Make.', 'Drug');
+        //     document.getElementById('origin').focus();
+        //     return;
+        // }
         /*if (this.drug.origin == '') {
             this.notificationService.error('Please enter origin.', 'Drug');
             document.getElementById('origin').focus();
             return;
         }*/
-        this.drug.selectedCountry=this.selectedCountry;
+        // this.drug.selectedCountry=this.selectedCountry;
+
+        this.drug.selectedCountry=233;
 
         console.log(this.drug);
         this.requestsService.putRequest(AppConstants.DRUG_UPDATE_URL, this.drug)
@@ -435,4 +451,5 @@ export class DrugComponent implements OnInit {
     importDataClicked(){
         document.getElementById("drugsDataImport").click();
     }
+
 }

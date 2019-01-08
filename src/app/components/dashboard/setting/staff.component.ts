@@ -7,7 +7,6 @@ import {SearchUser} from "../../../model/SearchUser";
 import {AppConstants} from "../../../utils/app.constants";
 import {MatDialog} from "@angular/material";
 import {ConformationDialogService} from "../../../services/ConformationDialogService";
-import {HISUtilService} from '../../../services/his-util.service';
 import {DataService} from "../../../services/DataService";
 
 @Component({
@@ -133,21 +132,15 @@ export class StaffComponent implements OnInit {
     updateUser(item: any, id: any,staffId:number) {
         this.dataService.updateStaffId(staffId);
         if (item === 'DOCTOR') {
-            console.log('iam doc');
+            // console.log('iam doc');
             this.router.navigate(['/dashboard/setting/doctor/edit/', id]);
-
         } else if (item === 'CASHIER') {
             this.router.navigate(['/dashboard/setting/cashier/edit/', id]);
-        }
-        else if (item === 'NURSE') {
+        } else if (item === 'NURSE') {
             this.router.navigate(['/dashboard/setting/nurse/edit/', id]);
-
-        }
-        else {
+        } else {
             this.router.navigate(['/dashboard/setting/receptionist/edit/', id]);
         }
-
-
     }
 
     roleSelected(typeObj: any) {
@@ -173,6 +166,12 @@ export class StaffComponent implements OnInit {
                             this.getUserFromServer();
 
                         }
+                        if (data['responseCode'] === 'USR_ERR_07') {
+                            this.notificationService.warn('User is associated ');
+                            //this.getUserFromServer();
+
+                        }
+
                     }, error => {
                         this.error = error.error.error_description;
                         this.notificationService.error('ERROR', 'User Unable to Delete ');
@@ -182,6 +181,5 @@ export class StaffComponent implements OnInit {
                 }
             });
     }
-
-
 }
+

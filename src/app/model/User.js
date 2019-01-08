@@ -25,6 +25,7 @@ var User = (function () {
         this.dutyWithDoctors = user.dutyWithDoctors;
         this.selectedServices = user.selectedServices;
         this.selectedVisitBranches = user.selectedVisitBranches;
+        this.selectedDoctorDashboard = user.selectedDoctorDashboard;
         this.selectedRoles = user.selectedRoles;
         this.selectedDoctors = user.selectedDoctors;
         this.firstShiftFromTime = user.firstShiftFromTime;

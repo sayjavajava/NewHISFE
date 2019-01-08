@@ -235,68 +235,51 @@
                                                        #drugNaturalId="ngModel"/>
                                             </div>
                                         </div>
+
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Drug Name<span
                                                     class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-8 select pdng-lr-5  profile-frm">
                                                 <input class="form-control" type="text" placeholder=" e.g Panadol"
-                                                       [(ngModel)]="drug.drugName" size="30"
-                                                       required id="drugName" pInputText
-                                                       name="drugName"
-                                                       #drugName="ngModel"/>
-                                                <span *ngIf="drugName.invalid && drugName.touched"
-                                                       class="text-danger">
-                                                    Please enter.
-                                            </span>
+                                                       [(ngModel)]="drug.drugName" size="30" required id="drugName" pInputText
+                                                       name="drugName" #drugName="ngModel"/>
+                                                <span *ngIf="drugName.invalid && drugName.touched" class="text-danger"> Please enter drug name </span>
                                             </div>
-
                                         </div>
 
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Generic Name<span
                                                     class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-8 select pdng-lr-5 profile-frm">
-                                                <input class="form-control" type="text" placeholder=" e.g Antibotic"
+                                                <input class="form-control" type="text" placeholder=" e.g Paracetamol"
                                                        [(ngModel)]="drug.genericName" size="30"
                                                        required id="genericName" pInputText
                                                        name="genericName"
                                                        #genericName="ngModel"/>
-                                                <span *ngIf="genericName.invalid && genericName.touched"
-                                                       class="text-danger">
-                                                    Please enter.
-                                            </span>
+                                                <span *ngIf="genericName.invalid && genericName.touched" class="text-danger"> Please enter generic name </span>
                                             </div>
-
                                         </div>
 
                                         <div class="form-group hr">
-                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Company Name<span
-                                                    class="required" aria-required="true"> * </span></label>
+                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Company Name</label>
                                             <div class="col-md-8 select pdng-lr-5 profile-frm">
-                                                <input class="form-control" type="text" placeholder=" e.g Medical Care"
-                                                       [(ngModel)]="drug.companyName" size="30"
-                                                       required id="companyName" pInputText
-                                                       name="companyName"
-                                                       #companyName="ngModel"/>
-                                                <span *ngIf="companyName.invalid && companyName.touched"
-                                                       class="text-danger">
-                                                    Please enter.
-                                            </span>
+                                                <input class="form-control" type="text" placeholder="e.g Medical Care"
+                                                       [(ngModel)]="drug.companyName" size="30" required id="companyName" pInputText
+                                                       name="companyName" #companyName="ngModel"/>
+                                                <!--<span *ngIf="companyName.invalid && companyName.touched" class="text-danger"> Please enter. </span>-->
                                             </div>
-
                                         </div>
 
                                         <div class="form-group hr">
-                                        <label class="col-md-4 control-label txt-size pdng-lr-5">Dozage/Route<span
-                                                class="required" aria-required="true"> * </span></label>
-                                        <div class="col-md-8 pdng-lr-5">
-                                        <p-dropdown [(ngModel)]="drug.route"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    required id="route"
-                                                    name="route" [options]="drug.routes"
-                                                    #route="ngModel">
-                                        </p-dropdown>
+                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Dozage/Route<span
+                                                    class="required" aria-required="true"> * </span></label>
+                                            <div class="col-md-8 pdng-lr-5">
+                                                <p-dropdown [(ngModel)]="drug.route"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            required id="route" name="route" [options]="drug.routes" #route="ngModel">
+                                                </p-dropdown>
+                                                <span *ngIf="route.invalid && route.touched" class="text-danger"> Please select route of drug </span>
+                                            </div>
                                         </div>
-                                    </div>
 
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Strength<span
@@ -304,47 +287,39 @@
                                             <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%', 'height':''}"
                                                          [(ngModel)]="drug.strengths" placeholder="Insert value and press enter"
-                                                         id="strengths" #strengths="ngModel">
+                                                         id="strengths" #strengths="ngModel" addOnTab="true" addOnBlur="true" allowDuplicate="false" >
                                                 </p-chips>
-                                                <span *ngIf="strengths.touched"  class="col-md-9 select pdng-lr-5 text-danger">Insert value and press enter</span>
+                                                <span *ngIf="strengths.invalid && strengths.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter strength(s)</span>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">UoM<span
                                                     class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-8 pdng-lr-5">
-                                            <p-dropdown [options]="drug.UOMs" [(ngModel)]="drug.uOM" [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                         id="uOM" name="uOM"
-                                                        #uOM="ngModel">
-                                            </p-dropdown>
-
-                                            <span *ngIf="uOM.invalid && uOM.touched"
-                                                  class="text-danger">
-                                                Please enter.
-                                            </span>
+                                                <p-dropdown [options]="drug.UOMs" [(ngModel)]="drug.uOM" [autoWidth]="false"
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            id="uOM" name="uOM" #uOM="ngModel">
+                                                </p-dropdown>
+                                                <span *ngIf="uOM.invalid && uOM.touched" class="text-danger"> Please select unit of measurement </span>
                                             </div>
                                         </div>
+
                                         <div class="form-group hr">
-                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Info<span
-                                                    class="required" aria-required="true"> * </span></label>
+                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Info</label>
                                             <div class="col-md-8 select pdng-lr-5 profile-frm">
                                                 <input class="form-control" type="text"
                                                        [(ngModel)]="drug.drugInfo" placeholder=" e.g www.medicalcare.com"
                                                        size="10" id="info"
                                                        name="info"
                                                        #info="ngModel"/>
-                                                <span *ngIf="info.invalid && info.touched" class="text-danger"> Please enter Info. </span>
+                                                <span *ngIf="info.invalid && info.touched" class="text-danger"> Please enter Info URL </span>
                                             </div>
-
                                         </div>
 
                                         <div class="form-group hr">
-                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Make<span
-                                                    class="required" aria-required="true"> * </span></label>
+                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Make</label>
                                             <div class="col-md-8 select pdng-lr-5">
                                                 <!--<input class="form-control" type="text"
                                                        [(ngModel)]="drug.origin"
@@ -361,7 +336,7 @@
                                                              name="selectedCountry" #selectedCountry="ngModel" (onChange)="selectedCountryPrint()"
                                                              [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
-                                                <span *ngIf="selectedCountry.invalid && selectedCountry.touched" class="text-danger"> Please enter. </span>
+                                                <!--<span *ngIf="selectedCountry.invalid && selectedCountry.touched" class="text-danger"> Please enter. </span>-->
                                             </div>
                                         </div>
 
@@ -379,15 +354,13 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="slimScrollBar"
-                                 style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 190px;"></div>
-                            <div class="slimScrollRail"
-                                 style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                            <div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 190px;"></div>
+                            <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
+
 
                         <button type="button" class="btn primary blue"
                                 *ngIf="drug.id <= 0 || drug.id == null"
@@ -399,6 +372,7 @@
                         <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow">
                         Close
                     </button>
+
                     </div>
                 </div>
             </form>

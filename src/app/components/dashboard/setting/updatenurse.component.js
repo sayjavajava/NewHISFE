@@ -34,6 +34,7 @@ var UpdateNurseComponent = (function () {
         this.selectedServices = [];
         this.selectedVacationWeek = [];
         this.selectedVisitBranches = [];
+        this.selectedDoctorDashboard = [];
         this.selectedDoctors = [];
         this.branchesList = [];
         this.doctorsList = [];
@@ -164,6 +165,9 @@ var UpdateNurseComponent = (function () {
                 if (user.expiryDate != null) {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
                 }
+                if (user.permittedDoctorDashboard) {
+                    _this.selectedDoctorDashboard = user.permittedDoctorDashboard.slice();
+                }
                 user.nurseDepartmentList.forEach(function (x) {
                     _this.selectedDepartment.push(x.id);
                 }),
@@ -230,6 +234,7 @@ var UpdateNurseComponent = (function () {
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
+                    selectedDoctorDashboard: this.selectedDoctorDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     managePatientRecords: data.managePatientRecords,
