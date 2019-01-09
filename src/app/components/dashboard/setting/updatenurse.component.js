@@ -132,6 +132,7 @@ var UpdateNurseComponent = (function () {
             'otherDashboard': '',
             'sendBillingReport': '',
             'useReceptDashboard': '',
+            'hidePatientPhoneNumber': '',
             'otherDoctorDashBoard': '',
             'accountExpiry': [null],
             'active': '',
@@ -161,6 +162,7 @@ var UpdateNurseComponent = (function () {
                     sendBillingReport: user.sendBillingReport,
                     useReceptDashboard: user.useReceptDashboard,
                     otherDoctorDashBoard: user.otherDoctorDashBoard,
+                    hidePatientPhoneNumber: user.hidePatientPhoneNumber
                 });
                 if (user.expiryDate != null) {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
@@ -218,7 +220,6 @@ var UpdateNurseComponent = (function () {
     UpdateNurseComponent.prototype.addUser = function (data) {
         if (this.userForm.valid) {
             if (this.selectedDepartment.length != 0) {
-                console.log('fine');
                 var nurse = new User_1.User({
                     userType: 'nurse',
                     firstName: data.firstName,
@@ -241,6 +242,7 @@ var UpdateNurseComponent = (function () {
                     managePatientInvoices: data.managePatientInvoices,
                     dutyWithDoctors: this.dutyWithDoctors,
                     selectedDepartment: this.selectedDepartment,
+                    hidePatientPhoneNumber: data.hidePatientPhoneNumber
                 });
                 this.makeService(nurse);
             }

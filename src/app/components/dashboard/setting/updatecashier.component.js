@@ -89,6 +89,8 @@ var UpdateCashierComponent = (function () {
             'email': [null],
             'restrictBranch': [null],
             'allowDiscount': [null],
+            'allowDiscountCheck': [null],
+            'canAccessPatientRecord': '',
             'otherDashboard': '',
             'sendBillingReport': '',
             'useReceptDashboard': '',
@@ -130,7 +132,10 @@ var UpdateCashierComponent = (function () {
                     useReceptDashboard: cashier.useReceptDashboard,
                     otherDoctorDashBoard: cashier.otherDoctorDashBoard,
                     receivePayment: cashier.receivePayment,
-                    allowDiscount: cashier.allowDiscount
+                    allowDiscount: cashier.allowDiscount,
+                    allowDiscountCheck: cashier.allowDiscountCheck,
+                    hidePatientPhoneNumber: cashier.hidePatientPhoneNumber,
+                    canAccessPatientRecord: cashier.canAccessPatientRecord,
                 });
                 _this.staffBranches = cashier.staffBranches;
                 //this.selectedDoctors = cashier.dutyWithDoctors;
@@ -182,6 +187,8 @@ var UpdateCashierComponent = (function () {
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
+                allowDiscountCheck: data.allowDiscountCheck,
+                canAccessPatientRecord: data.canAccessPatientRecord,
                 receivePayment: data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
@@ -190,6 +197,7 @@ var UpdateCashierComponent = (function () {
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
+                hidePatientPhoneNumber: data.hidePatientPhoneNumber
             });
             this.makeService(cashier);
         }

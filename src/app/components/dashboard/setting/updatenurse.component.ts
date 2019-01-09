@@ -169,6 +169,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                 'otherDashboard': '',
                 'sendBillingReport': '',
                 'useReceptDashboard': '',
+                'hidePatientPhoneNumber': '',
                 'otherDoctorDashBoard': '',
                 'accountExpiry': [null],
                 'active': '',
@@ -203,6 +204,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                         sendBillingReport :user.sendBillingReport,
                         useReceptDashboard :user.useReceptDashboard,
                         otherDoctorDashBoard :user.otherDoctorDashBoard,
+                        hidePatientPhoneNumber :user.hidePatientPhoneNumber
 
 
                     });
@@ -268,7 +270,6 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
     addUser(data: any) {
         if (this.userForm.valid) {
             if (this.selectedDepartment.length != 0) {
-                console.log('fine')
                 let nurse = new User({
                     userType: 'nurse',
                     firstName: data.firstName,
@@ -291,6 +292,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                     managePatientInvoices: data.managePatientInvoices,
                     dutyWithDoctors: this.dutyWithDoctors,
                     selectedDepartment: this.selectedDepartment,
+                    hidePatientPhoneNumber :data.hidePatientPhoneNumber
                 });
                 this.makeService(nurse);
 
