@@ -7,7 +7,7 @@ import {MedicalService} from '../../../model/medical-service';
 import {Branch} from '../../../model/branch';
 import {Department} from '../../../model/department';
 import {MedicalServiceSearchModel} from '../../../model/MedicalServiceSearchModel';
-
+import {InputMaskModule} from 'primeng/inputmask';
 
 @Component({
     selector: 'medical-services-component',
@@ -29,7 +29,7 @@ export class MedicalServiceComponent implements OnInit {
     loading: boolean = false;
     organizationDataList: any;
     currency:string;
-
+    currencyFormat:string;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService) {
@@ -70,6 +70,7 @@ export class MedicalServiceComponent implements OnInit {
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
                             this.notificationService.success(response['responseMessage'], 'Medical Service');
+                            this.getAllMedicalServicesFromServer();
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Medical Service');
                         }
@@ -166,6 +167,7 @@ export class MedicalServiceComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] == 'MED_SER_SUC_01') {
                         this.dataMD = response['responseData'];
+                        console.log(this.dataMD);
                         this.loading = false;
                     } else {
                         this.notificationService.error(response['responseMessage']);
@@ -189,6 +191,7 @@ export class MedicalServiceComponent implements OnInit {
                         this.organizationDataList = response['responseData'];
                         this.currency = this.organizationDataList.currency;
                         console.log(this.organizationDataList);
+
                     }
                 },
                 (error: any) => {

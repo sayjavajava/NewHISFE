@@ -348,7 +348,8 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         sendBillingReport :user.sendBillingReport,
                         useReceptDashboard :user.useReceptDashboard,
                         otherDoctorDashBoard :user.otherDoctorDashBoard,
-
+                        receivePayment :user.receivePayment,
+                        allowDiscount :user.allowDiscount
 
                     });
                     let docDeptId = user.docDepartmentId;
@@ -365,7 +366,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     }
 
                    // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
-                    console.log('med service '+ user.doctorMedicalSrvcList.length);
                     user.doctorServiceComission.forEach((x:any)=>{
                         this.listOfServices.push({id:x.id,comission:x.comissionService})})
                     //let shifts: any [] = user.dutyShifts;
@@ -525,13 +525,15 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     selectedServices: this.selectedServices,
                     interval: data.interval,
                     selectedVisitBranches: this.selectedVisitBranches,
-                   selectedDoctorDashboard: this.selectedDoctorDashboard,
+                    selectedDoctorDashboard: this.selectedDoctorDashboard,
                     shift1: data.shift1,
                     shift2: data.shift2,
                     secondShiftToTime: this.secondShiftToTime,
                     secondShiftFromTime: this.secondShiftFromTime,
                     firstShiftToTime: this.firstShiftToTime,
                     firstShiftFromTime: this.firstShiftFromTime,
+                    allowDiscount :data.allowDiscount,
+                    receivePayment :data.receivePayment,
                     vacation: data.vacation,
                     dateTo: data.dateTo,
                     dateFrom: data.dateFrom,

@@ -17,6 +17,10 @@ var notification_service_1 = require("../../../services/notification.service");
 var amazing_time_picker_1 = require("amazing-time-picker");
 var app_constants_1 = require("../../../utils/app.constants");
 var organization_1 = require("../../../model/organization");
+var util_1 = require("util");
+var Country_1 = require("../../../model/Country");
+var State_1 = require("../../../model/State");
+var City_1 = require("../../../model/City");
 var AddBranchComponent = (function () {
     function AddBranchComponent(router, requestService, fb, notificationService, amazingTimePickerService) {
         var _this = this;
@@ -37,6 +41,15 @@ var AddBranchComponent = (function () {
         this.countryListModified = [];
         this.statesListModified = [];
         this.citiesListModified = [];
+        this.formattedAddress_Address = "";
+        this.formattedAddress_ZipCode = "";
+        this.formattedAddress_State = "";
+        this.formattedAddress_City = "";
+        this.formattedAddress_Country = "";
+        this.formattedAddress = "";
+        this.country = new Country_1.Country;
+        this.state = new State_1.State;
+        this.city = new City_1.City;
         this.createCountriesList();
         this.requestService.getRequest(app_constants_1.AppConstants.BRANCH_ORGANIZATION)
             .subscribe(function (response) {
@@ -118,7 +131,7 @@ var AddBranchComponent = (function () {
             "address": [null],
             "officePhone": [null],
             "fax": [null],
-            "formattedAddress": [null],
+            "formattedAddress": [{ value: "", disabled: true }, forms_1.Validators.required],
             "officeHoursStart": [this.officeHoursStart, forms_1.Validators.compose([forms_1.Validators.required])],
             "officeHoursEnd": [this.officeHoursEnd, forms_1.Validators.compose([forms_1.Validators.required])],
             "noOfExamRooms": [null, forms_1.Validators.compose([forms_1.Validators.required])],
@@ -350,6 +363,7 @@ var AddBranchComponent = (function () {
         }, function (error) {
             this.notificationService.error("ERROR", "States List is not available");
         });
+        this.countryChange(countryId);
     };
     AddBranchComponent.prototype.getCitiesByStateId = function (stateId) {
         var _this = this;
@@ -367,13 +381,84 @@ var AddBranchComponent = (function () {
         }, function (error) {
             this.notificationService.error("ERROR", "Cities List is not available");
         });
+        this.stateChange(stateId);
     };
     AddBranchComponent.prototype.selectBranchCity = function (cityId) {
         this.branchCity = cityId;
         // console.log("Branch City ID: " + this.branchCity);
+        this.cityChange(cityId);
     };
     AddBranchComponent.prototype.cancel = function () {
         this.router.navigate(["/dashboard/setting/branch"]);
+    };
+    AddBranchComponent.prototype.addressChange = function (value) {
+        // console.log(value);
+        this.formattedAddress_Address = this.checkFormattedAddressForNullOrEmpty(value);
+        this.createFormattedAddress();
+    };
+    AddBranchComponent.prototype.zipCodeChange = function (value) {
+        this.formattedAddress_ZipCode = this.checkFormattedAddressForNullOrEmpty(value);
+        this.createFormattedAddress();
+    };
+    AddBranchComponent.prototype.stateChange = function (stateId) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_BY_ID + stateId)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "STATE_SUC_11") {
+                _this.state = response["responseData"];
+                console.log(_this.state);
+                _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty(_this.state.name);
+                _this.createFormattedAddress();
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "State is not available");
+            this.formattedAddress_State = "N/A";
+        });
+    };
+    AddBranchComponent.prototype.cityChange = function (cityId) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_CITY_BY_ID + cityId)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "CITY_SUC_11") {
+                _this.city = response["responseData"];
+                console.log(_this.state);
+                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty(_this.city.name);
+                _this.createFormattedAddress();
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "City is not available");
+            this.formattedAddress_City = "N/A";
+        });
+    };
+    AddBranchComponent.prototype.countryChange = function (countryId) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_COUNTRY_BY_ID + countryId)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "COUNTRY_SUC_11") {
+                _this.country = response["responseData"];
+                console.log(_this.country);
+                _this.formattedAddress_Country = _this.checkFormattedAddressForNullOrEmpty(_this.country.name, true);
+                _this.createFormattedAddress();
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "Country is not available");
+        });
+    };
+    AddBranchComponent.prototype.checkFormattedAddressForNullOrEmpty = function (value, isCountry) {
+        if (!util_1.isNullOrUndefined(value) && value.trim() != "") {
+            if (isCountry) {
+                return value;
+            }
+            else {
+                return value + ", ";
+            }
+        }
+        return "";
+    };
+    AddBranchComponent.prototype.createFormattedAddress = function () {
+        this.formattedAddress = this.formattedAddress_Address + this.formattedAddress_ZipCode + this.formattedAddress_State
+            + this.formattedAddress_City + this.formattedAddress_Country;
+        this.branchForm.controls["formattedAddress"].setValue(this.formattedAddress);
     };
     AddBranchComponent = __decorate([
         core_1.Component({

@@ -135,7 +135,8 @@ var UpdateReceptionistComponent = (function () {
                     primaryBranch: receptionist.primaryBranchId,
                     sendBillingReport: receptionist.sendBillingReport,
                     useReceptDashboard: receptionist.useReceptDashboard,
-                    otherDoctorDashBoard: receptionist.otherDoctorDashBoard
+                    otherDoctorDashBoard: receptionist.otherDoctorDashBoard,
+                    allowDiscount: receptionist.allowDiscount
                 });
                 if (receptionist.permittedDoctorDashboard) {
                     _this.selectedDoctorDashboard = receptionist.permittedDoctorDashboard.slice();

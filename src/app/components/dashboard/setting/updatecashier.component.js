@@ -129,7 +129,8 @@ var UpdateCashierComponent = (function () {
                     sendBillingReport: cashier.sendBillingReport,
                     useReceptDashboard: cashier.useReceptDashboard,
                     otherDoctorDashBoard: cashier.otherDoctorDashBoard,
-                    receivePayment: cashier.receivePayment
+                    receivePayment: cashier.receivePayment,
+                    allowDiscount: cashier.allowDiscount
                 });
                 _this.staffBranches = cashier.staffBranches;
                 //this.selectedDoctors = cashier.dutyWithDoctors;

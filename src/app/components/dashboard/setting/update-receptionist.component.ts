@@ -150,7 +150,8 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         primaryBranch: receptionist.primaryBranchId,
                         sendBillingReport :receptionist.sendBillingReport,
                         useReceptDashboard :receptionist.useReceptDashboard,
-                        otherDoctorDashBoard :receptionist.otherDoctorDashBoard
+                        otherDoctorDashBoard :receptionist.otherDoctorDashBoard,
+                        allowDiscount :receptionist.allowDiscount
                     });
                     if(receptionist.permittedDoctorDashboard){
                         this.selectedDoctorDashboard = [...receptionist.permittedDoctorDashboard]
@@ -215,7 +216,8 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 selectedDoctorDashboard: this.selectedDoctorDashboard,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
-                allowDiscount: data.allowDiscount,
+                allowDiscount :data.allowDiscount,
+                
             });
             this.makeService(cashier);
         } else {

@@ -168,6 +168,18 @@ var RequestsService = (function () {
         }
         return this.http.post(this.getBEAPIServer() + url, formData, { headers: reqHeader });
     };
+    RequestsService.prototype.putRequestMultipartFormAndDataWithOneFile = function (url, data, img) {
+        var reqHeader = new http_1.HttpHeaders({ 'Authorization': 'Bearer ' + atob(this.getToken()) });
+        reqHeader.append('Content-Type', 'multipart/form-data');
+        var formData = new FormData();
+        formData.append('myObject', new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+        if (img != null) {
+            formData.append('img', img, img.name);
+        }
+        return this.http.put(this.getBEAPIServer() + url, formData, { headers: reqHeader });
+    };
     RequestsService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient,

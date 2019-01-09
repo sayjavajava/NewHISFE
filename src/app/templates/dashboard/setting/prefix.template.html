@@ -25,7 +25,6 @@
                                                 ariaLabelAsc="Sort in ascending order">
                                     </p-sortIcon>
                                 </th>
-
                             </tr>
                             <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -38,7 +37,7 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-prefixTemplateList>
                             <tr>
-                                <td field="module">{{prefixTemplateList.module}}</td>
+                                <td field="module" class="wrap-overflow-text">{{prefixTemplateList.module}}</td>
                                 <td field="name">{{prefixTemplateList.name}}</td>
                                 <td field="startValue">{{prefixTemplateList.startValue}}</td>
                                 <td field="currentValue">{{prefixTemplateList.currentValue}}</td>
@@ -102,7 +101,7 @@
                                            required name="nameName" id="nameNameId" class="form-control" placeholder="Enter Name" #nameName="ngModel">
                                 </div>
                             </div>
-                            <div class="form-group hr mrgn-btm08">
+                            <div class="form-group hr mrgn-btm08" [hidden]="prefixTemplate.isFirstEdit">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Start From<span class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm"> <strong>{{prefixTemplate.startValue}}</strong>
                                     <input type="hidden" disabled
@@ -128,12 +127,22 @@
                                         Please enter valid prefix.
                                 </span>
                             </div>
+                            <div class="form-group hr mrgn-btm08" [hidden]="!prefixTemplate.isFirstEdit">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Start From<span class="required" aria-required="true"> * </span></label>
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                    <input type="number" [(ngModel)]="prefixTemplate.startValue" id="firstStartVal" name="firstStartVal"
+                                           class="form-control" pattern="^[a-zA-Z 0-9_-]{1,60}$" placeholder="Enter text" #firstStartVal="ngModel">
+                                </div>
+                                <span *ngIf="firstStartVal.invalid && firstStartVal.touched" class="col-md-9 select pdng-lr-5 text-danger"> Please enter valid start value. </span>
+                                <span class="col-md-9 select pdng-lr-5 text-danger"> You can only set this value once </span>
+                            </div>
+                            <input type="hidden" disabled [(ngModel)]="prefixTemplate.isFirstEdit" name="isFirstEdit" class="form-control" #isFirstEdit="ngModel">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                  <span >
-                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn btn-default btn-outline">Close </button>
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn default">Close </button>
                 </span>
                 <span >
                     <button type="button" class="btn blue" id="save-btn-update" (click)="editPrefixModule(ngForm)" >Update </button>

@@ -57,10 +57,10 @@
                                     {{item.rate | number :'.2-2'}}
                                 </td>
                                 <td>
-                                    {{item.fromDate}}
+                                    {{item.strfromDate}}
                                 </td>
                                 <td>
-                                    {{item.toDate}}
+                                    {{item.strtoDate}}
                                 </td>
                                 <td>{{item.description}}</td>
                                 <td class="sorting_disabled" rowspan="1" colspan="1">
@@ -148,10 +148,12 @@
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="date" class="form-control form-control-inline input-medium"
-                                           [(ngModel)]="serviceTax.fromDate" id="fromDate"
+                                    <!--<input type="date" class="form-control form-control-inline input-medium"
+                                           [ngModel]="serviceTax.fromDate | date:dateFormat" id="fromDate"
                                            (ngModelChange)="serviceTax.fromDate = $event" required
-                                           name="fromDate" #fromDate="ngModel">
+                                           name="fromDate" #fromDate="ngModel">-->
+                                    <angular2-date-picker  name="fromDate"
+                                                           id="fromDate" [settings]="settings" [(ngModel)]="serviceTax.fromDate "  #fromDate="ngModel" ></angular2-date-picker>
                                     <span *ngIf="fromDate.invalid && fromDate.touched"
                                            class="text-danger">
                                         Please enter valid from Date.
@@ -164,10 +166,13 @@
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
                                 <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                    <input type="date" class="form-control form-control-inline input-medium"
-                                           [(ngModel)]="serviceTax.toDate" id="toDate" required
+                                   <!-- <input type="date" class="form-control form-control-inline input-medium"
+                                           [ngModel]="serviceTax.toDate | date:dateFormat " id="toDate" required
                                            (ngModelChange)="serviceTax.toDate = $event"
-                                           name="toDate" #toDate="ngModel">
+                                           name="toDate" #toDate="ngModel">-->
+
+                                    <angular2-date-picker  name="toDate"
+                                                           id="toDate" [settings]="settings" [(ngModel)]="serviceTax.toDate  "   #toDate="ngModel" ></angular2-date-picker>
                                     <span *ngIf="toDate.invalid && toDate.touched"
                                            class="text-danger">
                                         Please enter valid to Date.

@@ -304,6 +304,8 @@ var UpdatedoctorComponent = (function () {
                     sendBillingReport: user.sendBillingReport,
                     useReceptDashboard: user.useReceptDashboard,
                     otherDoctorDashBoard: user.otherDoctorDashBoard,
+                    receivePayment: user.receivePayment,
+                    allowDiscount: user.allowDiscount
                 });
                 var docDeptId = user.docDepartmentId;
                 //this.servicesList = this.getDeptServices(docDeptId);
@@ -318,7 +320,6 @@ var UpdatedoctorComponent = (function () {
                     _this.selectedDoctorDashboard = user.permittedDoctorDashboard.slice();
                 }
                 // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
-                console.log('med service ' + user.doctorMedicalSrvcList.length);
                 user.doctorServiceComission.forEach(function (x) {
                     _this.listOfServices.push({ id: x.id, comission: x.comissionService });
                 });
@@ -477,6 +478,8 @@ var UpdatedoctorComponent = (function () {
                 secondShiftFromTime: this.secondShiftFromTime,
                 firstShiftToTime: this.firstShiftToTime,
                 firstShiftFromTime: this.firstShiftFromTime,
+                allowDiscount: data.allowDiscount,
+                receivePayment: data.receivePayment,
                 vacation: data.vacation,
                 dateTo: data.dateTo,
                 dateFrom: data.dateFrom,

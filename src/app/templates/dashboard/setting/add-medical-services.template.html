@@ -96,15 +96,18 @@
                                         <span class="required" aria-required="true"> * </span></label>
 
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
-                                        <input class="form-control"
-                                               type="number" placeholder="Enter Cost"
-                                               [(ngModel)]="ms.cost" min="0"
-                                               required pattern="^[0-9]{1,60}$"
-                                               name="cost" #cost="ngModel"/>
-                                        <span *ngIf="cost.invalid && cost.touched"
+                                        <input class="form-control" id="cost"
+                                               type="text" placeholder="Enter Cost"
+                                               [(ngModel)]="ms.strCost" min="0"
+                                                pattern="^[0-9 \.]{1,60}$" (keyup)="isNumberCheck($event)"
+                                               name="cost" />
+                                        <span class="text-danger">
+                                                    <span *ngIf="isError"> Please Enter Number </span>
+                                        </span>
+                                        <!--<span *ngIf="cost.invalid && cost.touched"
                                                class="text-danger">
-                                                Please enter valid cost.
-                                    </span>
+                                                Please enter Number.
+                                    </span>-->
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -112,11 +115,12 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
-                                        <input class="form-control" type="number"
-                                               [(ngModel)]="ms.fee" min="0" placeholder="Enter fee"
-                                               required pattern="^[0-9]{1,60}$"
-                                               name="fee" #fee="ngModel"/>
-                                        <span *ngIf="fee.invalid && fee.touched" class="text-danger"> Please enter valid fee </span>
+                                        <input  type="text" id="fee" class="form-control"
+                                               [(ngModel)]="ms.strFee" min="0" placeholder="Enter Fee" pattern="^[0-9\.]{1,60}$" (keyup)="isNumberCheckFee($event)"
+                                                 name="fee" />
+                                        <span class="text-danger">
+                                                    <span *ngIf="isErrorFee"> Please Enter Number </span>
+                                        </span>
                                     </div>
 
                                 </div>

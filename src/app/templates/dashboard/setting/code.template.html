@@ -6,12 +6,12 @@
                     <h4 class="text-info">ICD Code
                         <div class="pull-right">
                             <a href="#popupCode" data-toggle="modal">
-                                <button class="btn primary blue"
+                                <button class="btn mt-sweetalert btn green-meadow"
                                         (click)="onAddICDCodePopupLoad()"
                                         data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> ICD Code
                                 </button>
                             </a>
-                            <button class="btn mt-sweetalert green-meadow"
+                            <button class="btn mt-sweetalert btn blue"
                                     (click)="refreshCodesTable()"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
@@ -68,7 +68,7 @@
                             </td>
                             <td rowspan="1" colspan="1" [hidden]="versionCountUnique">
                                 <a href="#popupVersion" data-toggle="modal">
-                                    <button class="btn default clr-bck"
+                                    <button class="btn mt-sweetalert btn green-meadow"
                                             title="Click to view details"
                                             (click)="getCheckedVersionsByCodeId(item.id)"
                                             data-confirm-button-class="btn-success">
@@ -130,66 +130,77 @@
                                 </div>
                         </div>
                         <!-- Multi select by ng-->
-                        <div class="form-group hr mrgn-btm08">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Code
-                                <span class="required" aria-required="true"> * </span>
-                            </label>
-                            <div class="col-md-9 pdng-lr-5 profile-frm">
-                                <input type="text" pInputText
-                                       [(ngModel)]="iCDModel.code" id="code"
-                                       placeholder="Enter Code e.g" name="code"
-                                       required pattern="^[a-zA-Z 0-9_\-\,\.()]{1,60}$"
-                                       #code="ngModel" class="form-control">
-                                <span *ngIf="code.invalid && code.touched" class="text-danger"> Please enter valid code. </span>
-                            </div>
-                        </div>
-                        <div class="form-group hr mrgn-btm08">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Problem
-                                <span class="required" aria-required="true"> * </span>
-                            </label>
-                            <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                <input type="text" pInputText
-                                       [(ngModel)]="iCDModel.problem" id="problem"
-                                       placeholder="Enter problem" name="problem"
-                                       required pattern="^[a-zA-Z 0-9_\-\,()]{1,60}$"
-                                       #problem="ngModel" class="form-control">
-                                <span *ngIf="problem.invalid && problem.touched" class="text-danger"> Please enter valid problem. </span>
-                            </div>
-                        </div>
-                        <div class="form-group hr mrgn-btm08">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Info URL
-                            </label>
-                            <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                <input type="text" pInputText
-                                       [(ngModel)]="iCDModel.infoURL"
-                                       placeholder="Enter info URL" name="infoURL" id="infoURL"
-                                       #infoURL="ngModel" class="form-control">
-                                <span *ngIf="infoURL.invalid && infoURL.touched" class="col-md-9 select pdng-lr-5 text-danger"> Please enter valid code. </span>
-                            </div>
-                        </div>
-                        <div class="form-group hr mrgn-btm08">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
-                            <div class="col-md-9 select pdng-lr-5">
-                            <textarea rows="3"
-                                      [(ngModel)]="iCDModel.description"
-                                      name="description" pInputTextarea
-                                      placeholder="Enter text" class="form-control">
-                            </textarea>
-                            </div>
-                        </div>
-                        <div class="form-group hr mrgn-btm08">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
-                            <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
-                                <!--<label class="mt-checkbox mt-checkbox-outline">
-                                    <input type="checkbox"
-                                           [(ngModel)]="iCDModel.status" name="status">
-                                    <span></span>
-                                </label>-->
-                                <label class="mt-checkbox-outline">
-                                    <mat-checkbox [(ngModel)]="iCDModel.status" name="status" color="primary"></mat-checkbox>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Code
+                                    <span class="required" aria-required="true"> * </span>
                                 </label>
+                                <div class="col-md-9 pdng-lr-5 profile-frm">
+                                    <input type="text" pInputText
+                                           [(ngModel)]="iCDModel.code" id="code"
+                                           placeholder="Enter Code e.g" name="code"
+                                           required pattern="^[a-zA-Z 0-9_-\d\b_@.#$=!%^ \x22)(\]:\*;\?\/\,}{'\|<>\[&\+-~\.,]{1,60}$"
+                                           #code="ngModel" class="form-control">
+                                    <span *ngIf="code.invalid && code.touched"
+                                         class="text-danger">
+                                    Please enter valid code.
+                                </span>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Problem
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                    <input type="text" pInputText
+                                           [(ngModel)]="iCDModel.problem" id="problem"
+                                           placeholder="Enter problem" name="problem"
+                                           required pattern="^[a-zA-Z 0-9_-\d\b_@.#$=!%^ \x22)(\]:\*;\?\/\,}{'\|<>\[&\+-~\.,]{1,60}$"
+                                           #problem="ngModel" class="form-control">
+                                    <span *ngIf="problem.invalid && problem.touched"
+                                                                    class="text-danger">
+                                    Please enter valid problem.
+                                </span>
+                                </div>
+                            </div>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Info URL
+                                </label>
+                                <div class="col-md-9 select pdng-lr-5 profile-frm">
+                                    <input type="text" pInputText
+                                           [(ngModel)]="iCDModel.infoURL"
+                                           placeholder="Enter info URL" name="infoURL" id="infoURL"
+                                           #infoURL="ngModel" class="form-control">
+                                    <span *ngIf="infoURL.invalid && infoURL.touched"
+                                          class="col-md-9 select pdng-lr-5 text-danger">
+                                    Please enter valid code.
+                                </span>
+                                </div>
+                            </div>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Description</label>
+                                <div class="col-md-9 select pdng-lr-5">
+                                <textarea rows="3"
+                                          [(ngModel)]="iCDModel.description"
+                                          name="description" pInputTextarea
+                                          placeholder="Enter text" class="form-control">
+                                </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group hr mrgn-btm08">
+                                <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
+                                <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
+                                    <!--<label class="mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox"
+                                               [(ngModel)]="iCDModel.status" name="status">
+                                        <span></span>
+                                    </label>-->
+                                    <label class="mt-checkbox-outline">
+                                        <mat-checkbox [(ngModel)]="iCDModel.status" name="status"
+                                                      color="primary">
+                                        </mat-checkbox>
+                                    </label>
+                                </div>
+                            </div>
                     </div>
                 </div>
                 <div class="modal-footer">

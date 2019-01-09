@@ -26,7 +26,6 @@ var UpdateBranchComponent = (function () {
         this.fb = fb;
         this.notificationService = notificationService;
         this.amazingTimePickerService = amazingTimePickerService;
-        this.examRooms = [];
         this.branchesList = [];
         this.userSelected = "DOCTOR";
         this.pDoctor = [];
@@ -39,6 +38,12 @@ var UpdateBranchComponent = (function () {
         this.selectedCountry = [];
         this.selectedState = [];
         this.selectedCity = [];
+        this.formattedAddress_Address = "";
+        this.formattedAddress_ZipCode = "";
+        this.formattedAddress_State = "";
+        this.formattedAddress_City = "";
+        this.formattedAddress_Country = "";
+        this.formattedAddress = "";
         this.allRoomCount = function () {
             _this.requestService.getRequest(app_constants_1.AppConstants.FETCH_ROOM_COUNT_OF_BRANCH + _this.id)
                 .subscribe(function (response) {
@@ -82,6 +87,7 @@ var UpdateBranchComponent = (function () {
             { label: "4", value: 4 },
         ];
         this.getCityStateCntryByBranchId();
+        this.createFormattedAddress();
     };
     UpdateBranchComponent.prototype.createBranchForm = function () {
         this.branchForm = this.fb.group({
@@ -96,9 +102,9 @@ var UpdateBranchComponent = (function () {
             "primaryDoctor": [null],
             "zipCode": [null],
             "address": [null],
+            "formattedAddress": [{ disabled: true }, forms_1.Validators.required],
             "officePhone": [null],
             "fax": [null],
-            "formattedAddress": [null],
             "officeHoursStart": [null, forms_1.Validators.required],
             "officeHoursEnd": [null, forms_1.Validators.required],
             "noOfExamRooms": [null],
@@ -107,6 +113,8 @@ var UpdateBranchComponent = (function () {
             "selectedState": [null],
             "selectedCity": [null],
         });
+        // console.log(this.branchForm.controls);
+        // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.roomName.value );
     };
     UpdateBranchComponent.prototype.createBillingForm = function () {
         this.billingForm = this.fb.group({
@@ -125,6 +133,12 @@ var UpdateBranchComponent = (function () {
         return this.fb.group({
             "roomName": "",
             "allowOnlineScheduling": "",
+        });
+    };
+    UpdateBranchComponent.prototype.createExamRooms = function (roomName, allowOnlineScheduling) {
+        return this.fb.group({
+            "roomName": roomName,
+            "allowOnlineScheduling": allowOnlineScheduling,
         });
     };
     UpdateBranchComponent.prototype.allBranches = function () {
@@ -147,6 +161,7 @@ var UpdateBranchComponent = (function () {
                     officeHoursStart: branch.officeHoursStart,
                     officeHoursEnd: branch.officeHoursEnd,
                     noOfExamRooms: branch.examRooms.length,
+                    examRooms: branch.examRooms,
                     city: branch.city,
                     state: branch.city,
                     country: branch.city,
@@ -167,6 +182,14 @@ var UpdateBranchComponent = (function () {
                 _this.cityId = branch.cityId;
                 _this.stateId = branch.stateId;
                 _this.countryId = branch.countryId;
+                _this.formattedAddress_Address = _this.checkFormattedAddressForNullOrEmpty(branch.address);
+                _this.formattedAddress_ZipCode = _this.checkFormattedAddressForNullOrEmpty(branch.zipCode);
+                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty(branch.city);
+                _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty(branch.state);
+                _this.formattedAddress_Country = _this.checkFormattedAddressForNullOrEmpty(branch.country, true);
+                _this.examRooms = branch.examRooms;
+                _this.addValuesFields(_this.examRooms.length, _this.examRooms);
+                _this.createFormattedAddress();
                 /*     this.billingForm.patchValue({
                          billingBranch: branch.billingBranch,
                          billingName: branch.billingName,
@@ -178,14 +201,20 @@ var UpdateBranchComponent = (function () {
                              showBranchOnline: branch.showBranchOnline,
                              allowOnlineSchedulingInBranch: branch.allowOnlineSchedulingInBranch,
                          }
-                     );*/
-                _this.branchForm.controls["zipCode"].patchValue(branch.zipCode);
-                _this.branchForm.controls["formattedAddress"].patchValue(branch.formattedAddress);
-                // this.allRoomCount();
-                _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
-                //   branch.examRooms = this.noOfRoom;
-                _this.addFields(branch.rooms);
-                _this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
+                     );
+                this.branchForm.controls["zipCode"].patchValue(branch.zipCode);
+                this.branchForm.controls["formattedAddress"].patchValue(branch.formattedAddress);
+                this.allRoomCount();
+                this.branchForm.controls['examRooms'].patchValue(branch.examRooms);
+                  branch.examRooms = this.noOfRoom;
+                  */
+                // this.addFields(branch.rooms);
+                console.log(_this.examRooms);
+                console.log(_this.branchForm.controls.examRooms);
+                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.roomName.value );
+                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).controls.allowOnlineScheduling.value );
+                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).value.roomName);
+                // console.log( ((this.branchForm.controls.examRooms as FormArray).controls[0] as FormGroup).value.allowOnlineScheduling);
             }, function (error) {
                 //console.log(error.json());
                 _this.error = error.error.error_description;
@@ -201,6 +230,7 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent.prototype.deleteField = function (index) {
         this.examRooms = this.branchForm.get("examRooms");
+        this.noOfRoom = this.noOfRoom - 1;
         this.examRooms.removeAt(index);
     };
     UpdateBranchComponent.prototype.prepareSaveBranch = function () {
@@ -208,6 +238,7 @@ var UpdateBranchComponent = (function () {
         var billingModel = this.billingForm.value;
         var scheduleModel = this.scheduleForm.value;
         var secretLairsDeepCopy = formModel.examRooms.map(function (examRooms) { return Object.assign({}, examRooms); });
+        console.log(secretLairsDeepCopy);
         var saveBranchModel = {
             branchName: formModel.branchName,
             name: formModel.branchName,
@@ -230,6 +261,7 @@ var UpdateBranchComponent = (function () {
             showBranchOnline: scheduleModel.showBranchOnline,
             allowOnlineSchedulingInBranch: scheduleModel.allowOnlineSchedulingInBranch
         };
+        console.log(saveBranchModel);
         return saveBranchModel;
     };
     UpdateBranchComponent.prototype.addBranch = function (data) {
@@ -346,12 +378,13 @@ var UpdateBranchComponent = (function () {
             this.examRooms.push(this.createExamRoom());
         }
     };
-    UpdateBranchComponent.prototype.addValuesFields = function (no) {
+    UpdateBranchComponent.prototype.addValuesFields = function (no, examRooms) {
         this.removeAllFields();
-        this.examRooms = this.branchForm.get("examRooms");
+        // this.examRooms = this.branchForm.get("examRooms") as FormArray;
         for (var i = 0; i < no; i++) {
-            this.examRooms.push(this.createExamRoom());
+            this.examRooms.push(this.createExamRooms(examRooms[i].roomName, examRooms[i].allowOnlineScheduling));
         }
+        // console.log(this.examRooms);
     };
     UpdateBranchComponent.prototype.removeAllFields = function () {
         this.examRooms = this.branchForm.get("examRooms");
@@ -394,9 +427,14 @@ var UpdateBranchComponent = (function () {
                     _this.statesListModified.push(pair);
                 }
             }
+            else {
+                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty("N/A");
+                _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty("N/A");
+            }
         }, function (error) {
             this.notificationService.error("ERROR", "States List is not available");
         });
+        this.countryChange(countryId);
     };
     UpdateBranchComponent.prototype.getCitiesByStateId = function (stateId) {
         var _this = this;
@@ -411,13 +449,18 @@ var UpdateBranchComponent = (function () {
                     _this.citiesListModified.push(pair);
                 }
             }
+            else {
+                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty("N/A");
+            }
         }, function (error) {
             this.notificationService.error("ERROR", "Cities List is not available");
         });
+        this.stateChange(stateId);
     };
     UpdateBranchComponent.prototype.selectBranchCity = function (city) {
         this.city = city;
         this.cityId = city;
+        this.cityChange(city);
     };
     UpdateBranchComponent.prototype.getCityStateCntryByBranchId = function () {
         var _this = this;
@@ -432,16 +475,20 @@ var UpdateBranchComponent = (function () {
                     _this.selectedCountry = _this.country.name;
                     _this.countryId = _this.country.id;
                     _this.getStatesByCountryId(_this.countryId);
+                    _this.formattedAddress_Country = _this.checkFormattedAddressForNullOrEmpty(_this.country.name, true);
                 }
                 if (!util_1.isNullOrUndefined(_this.state)) {
                     _this.selectedState = _this.state.name;
                     _this.stateId = _this.state.id;
                     _this.getCitiesByStateId(_this.stateId);
+                    _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty(_this.state.name);
                 }
                 if (!util_1.isNullOrUndefined(_this.city)) {
                     _this.selectedCity = _this.city.name;
                     _this.cityId = _this.city.id;
+                    _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty(_this.city.name);
                 }
+                _this.createFormattedAddress();
             }
         }, function (error) {
             this.notificationService.error("ERROR", "CIty State Country for branch is/are not available");
@@ -449,6 +496,86 @@ var UpdateBranchComponent = (function () {
     };
     UpdateBranchComponent.prototype.cancel = function () {
         this.router.navigate(["/dashboard/setting/branch"]);
+    };
+    UpdateBranchComponent.prototype.addressChange = function (value) {
+        // console.log(value);
+        this.formattedAddress_Address = this.checkFormattedAddressForNullOrEmpty(value);
+        this.createFormattedAddress();
+    };
+    UpdateBranchComponent.prototype.zipCodeChange = function (value) {
+        this.formattedAddress_ZipCode = this.checkFormattedAddressForNullOrEmpty(value);
+        this.createFormattedAddress();
+    };
+    UpdateBranchComponent.prototype.stateChange = function (stateId) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_BY_ID + stateId)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "STATE_SUC_11") {
+                _this.state = response["responseData"];
+                _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty(_this.state.name);
+                _this.createFormattedAddress();
+            }
+            else {
+                _this.formattedAddress_State = "N/A";
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "State is not available");
+            this.formattedAddress_State = "N/A";
+        });
+    };
+    UpdateBranchComponent.prototype.cityChange = function (cityId) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_CITY_BY_ID + cityId)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "CITY_SUC_11") {
+                _this.city = response["responseData"];
+                console.log(_this.state);
+                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty(_this.city.name);
+                _this.createFormattedAddress();
+            }
+            else {
+                _this.formattedAddress_City = "N/A";
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "City is not available");
+            this.formattedAddress_City = "N/A";
+        });
+    };
+    UpdateBranchComponent.prototype.countryChange = function (countryId) {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_COUNTRY_BY_ID + countryId)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "COUNTRY_SUC_11") {
+                _this.country = response["responseData"];
+                // console.log(this.country);
+                _this.formattedAddress_Country = _this.checkFormattedAddressForNullOrEmpty(_this.country.name, true);
+            }
+            else {
+                _this.formattedAddress_City = "N/A";
+                _this.formattedAddress_State = "N/A";
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "Country is not available");
+            this.formattedAddress_City = "N/A";
+            this.formattedAddress_State = "N/A";
+        });
+        this.createFormattedAddress();
+    };
+    UpdateBranchComponent.prototype.checkFormattedAddressForNullOrEmpty = function (value, isCountry) {
+        if (!util_1.isNullOrUndefined(value) && value.trim() != "") {
+            if (isCountry) {
+                return value;
+            }
+            else {
+                return value + ", ";
+            }
+        }
+        return "";
+    };
+    UpdateBranchComponent.prototype.createFormattedAddress = function () {
+        this.formattedAddress = this.formattedAddress_Address + this.formattedAddress_ZipCode + this.formattedAddress_State
+            + this.formattedAddress_City + this.formattedAddress_Country;
+        this.branchForm.controls["formattedAddress"].setValue(this.formattedAddress);
     };
     UpdateBranchComponent = __decorate([
         core_1.Component({

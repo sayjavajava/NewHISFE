@@ -152,7 +152,8 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                         sendBillingReport: cashier.sendBillingReport,
                         useReceptDashboard: cashier.useReceptDashboard,
                         otherDoctorDashBoard: cashier.otherDoctorDashBoard,
-                        receivePayment :cashier.receivePayment
+                        receivePayment :cashier.receivePayment,
+                        allowDiscount :cashier.allowDiscount
 
                     });
                     this.staffBranches = cashier.staffBranches;

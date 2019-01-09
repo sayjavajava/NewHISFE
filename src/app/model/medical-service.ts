@@ -6,8 +6,8 @@ export class MedicalService {
     id: number = 0;
     name: string = '';
     code: string = '';
-    fee: number = 0;
-    cost: number = 0;
+    fee: string = '';
+    cost: string = '';
     status: boolean = true;
     branches: BranchPart[] = [];
     checkedBranches: BranchPart[] = [];
@@ -24,7 +24,8 @@ export class MedicalService {
     value: number = 0;
     label: string = '';
     selectedBranchesMS: number[]=[];
-
+    strCost:string;
+    strFee:string;
     constructor() {
     }
 
