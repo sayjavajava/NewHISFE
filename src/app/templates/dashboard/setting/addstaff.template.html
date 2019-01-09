@@ -684,7 +684,7 @@
                                     <label class="control-label col-md-4 pdng-lr-5">Allow Discount</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5 profile-frm">
                                         <mat-checkbox formControlName="allowDiscountCheck" name="allowDisc" (change)="toggleDiscount()"><span></span></mat-checkbox>
-                                        <input formControlName="allowDiscount" type="number"  min="0" max="100"
+                                        <input formControlName="allowDiscount" type="number"  (blur)="checkDiscount($event.target.value)"  min="0" max="100"
                                                placeholder="0-100"
                                                class="form-control width92 pull-right">
                                         <!--<mat-input-container>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 
 import {User} from '../../../model/User';
@@ -940,6 +940,16 @@ export class AddStaffComponent implements OnInit {
         if (value) {
             this.userForm.controls['otherDashboard'].setValue(value);
 
+        }
+    }
+
+    checkDiscount(value: number){
+        if (value > 100) {
+            this.notificationService.error('Value cannot be more than 100', 'Allowed Discount');
+            document.getElementById('allowDiscount').focus();
+        } else if (value < 0) {
+            this.notificationService.error('Value cannot be less than 0', 'Allowed Discount');
+            document.getElementById('allowDiscount').focus();
         }
     }
 }
