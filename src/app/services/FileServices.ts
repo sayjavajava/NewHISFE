@@ -32,9 +32,9 @@ export class FileServices {
                 this.requestsService.getRequest(AppConstants.PATIENT_DOWNLOAD_SAMPLE_FILE)
                     .subscribe((response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
-                            this.notificationService.success('ICD Code', response['responseMessage']);
+                            this.notificationService.success('Patient', response['responseMessage']);
                         } else {
-                            this.notificationService.error('ICD Code', response['responseMessage']);
+                            this.notificationService.error('Patient', response['responseMessage']);
                         }
                     },
                     (error: any) => {
@@ -45,9 +45,9 @@ export class FileServices {
                 this.requestsService.getRequest(AppConstants.LAB_TEST_DOWNLOAD_SAMPLE_FILE)
                     .subscribe((response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
-                            this.notificationService.success('ICD Code', response['responseMessage']);
+                            this.notificationService.success('Lab Test Specimen', response['responseMessage']);
                         } else {
-                            this.notificationService.error('ICD Code', response['responseMessage']);
+                            this.notificationService.error('Lab Test Specimen', response['responseMessage']);
                         }
                     },
                     (error: any) => {
@@ -58,9 +58,9 @@ export class FileServices {
                 this.requestsService.getRequest(AppConstants.DRUG_DOWNLOAD_SAMPLE_FILE)
                     .subscribe((response: Response) => {
                         if (response['responseCode'] === 'SUCCESS') {
-                            this.notificationService.success('ICD Code', response['responseMessage']);
+                            this.notificationService.success('Drug', response['responseMessage']);
                         } else {
-                            this.notificationService.error('ICD Code', response['responseMessage']);
+                            this.notificationService.error('Drug', response['responseMessage']);
                         }
                     },
                     (error: any) => {

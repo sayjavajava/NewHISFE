@@ -382,6 +382,11 @@ export class AppConstants {
     public static DRUG_DOWNLOAD_SAMPLE_FILE = '/fileDownload/drugSample';
 
   //  public static PATIENT_IMAGE_FILES_URL = '/patient/get/'
+
+    ///////////////////////// GRUG MANUFACTURERS
+
+    public static FETCH_ALL_DRUG_MAKERS = '/setting/drugManufacturer/getAll';
+    public static FETCH_ALL_ACTIVE_DRUG_MAKERS = '/setting/drugManufacturer/getAllActive';
 }
 
 

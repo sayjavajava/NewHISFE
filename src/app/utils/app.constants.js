@@ -325,6 +325,10 @@ var AppConstants = (function () {
     AppConstants.PATIENT_DOWNLOAD_SAMPLE_FILE = '/fileDownload/patientSample';
     AppConstants.LAB_TEST_DOWNLOAD_SAMPLE_FILE = '/fileDownload/labTestSample';
     AppConstants.DRUG_DOWNLOAD_SAMPLE_FILE = '/fileDownload/drugSample';
+    //  public static PATIENT_IMAGE_FILES_URL = '/patient/get/'
+    ///////////////////////// GRUG MANUFACTURERS
+    AppConstants.FETCH_ALL_DRUG_MAKERS = '/setting/drugManufacturer/getAll';
+    AppConstants.FETCH_ALL_ACTIVE_DRUG_MAKERS = '/setting/drugManufacturer/getAllActive';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

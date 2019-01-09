@@ -67,10 +67,9 @@
                             <ng-template sortable="true" pTemplate="header" let-columns>
 
                                 <tr>
-                                    <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
-
+                                    <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" >
                                         {{col.header}}
-                                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                        <p-sortIcon [field]="col.field"></p-sortIcon>
                                     </th>
                                 </tr>
                                 <!--<tr>
@@ -105,14 +104,14 @@
                             <ng-template pTemplate="body" let-rowData let-data>
                                 <!--<span *ngIf="data.drugNaturalId != null">-->
                                     <tr>
-                                        <td field="drugName"><strong>{{data.drugName}}</strong></td>
-                                        <td field="companyName">{{data.companyName}}</td>
-                                        <td field="genericName">{{data.genericName}}</td>
-                                        <td field="route">{{data.route}}</td>
-                                        <td field="strength">{{data.strengths}}</td>
-                                        <td field="uOM">{{data.uOM}}</td>
-                                        <td field="origin">{{data.countryView}}</td>
-                                        <td field="active">{{data.active === true ? 'Active' : 'In-Active'}}</td>
+                                        <td field="drugName" class="wrap-overflow-text"><strong>{{data.drugName}}</strong></td>
+                                        <td field="companyName" class="wrap-overflow-text">{{data.companyName}}</td>
+                                        <td field="genericName" class="wrap-overflow-text">{{data.genericName}}</td>
+                                        <td field="route" class="wrap-overflow-text">{{data.route}}</td>
+                                        <td field="strength" class="wrap-overflow-text">{{data.strengths}}</td>
+                                        <td field="uOM" class="wrap-overflow-text">{{data.uOM}}</td>
+                                        <td field="drugMaker" class="wrap-overflow-text">{{data.drugMakerView}}</td>
+                                        <td field="active" class="wrap-overflow-text">{{data.active === true ? 'Active' : 'In-Active'}}</td>
                                         <td>
                                             <a href="#popupDrug" data-toggle="modal">
                                                 <button class="font-blue" (click)="onUpdatePopupDrug(data.id)"> <i class="fa fa-pencil"></i> </button>
@@ -286,9 +285,10 @@
                                                     class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%', 'height':''}"
-                                                         [(ngModel)]="drug.strengths" placeholder="Insert value and press enter"
+                                                         [(ngModel)]="drug.strengths" placeholder="Insert strengths"
                                                          id="strengths" #strengths="ngModel" addOnTab="true" addOnBlur="true" allowDuplicate="false" >
                                                 </p-chips>
+                                                <span class="col-md-9 select pdng-lr-5 text-danger">Enter strength and press TAB to enter another</span>
                                                 <span *ngIf="strengths.invalid && strengths.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter strength(s)</span>
                                             </div>
                                         </div>
@@ -331,10 +331,10 @@
                                                             name="selectedCountry" #origin="ngModel"
                                                             [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>-->
-                                                <p-dropdown class="ui-dropdown-items-wrapper" id="selectedCountry" placeholder="{{drug.selectedCountry}}" [autoWidth]="false" [(ngModel)]="drug.selectedCountry"
-                                                              [style]="{'text-align': 'left' ,'max-height': '100px;' ,'width':'100%'}"
-                                                             name="selectedCountry" #selectedCountry="ngModel" (onChange)="selectedCountryPrint()"
-                                                             [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                <p-dropdown class="ui-dropdown-items-wrapper" id="drugMaker" placeholder="{{drug.drugMaker}}" [autoWidth]="false"
+                                                            [(ngModel)]="drug.drugMaker" [style]="{'text-align': 'left' ,'max-height': '100px;' ,'width':'100%'}"
+                                                            name="drugMaker" #drugMaker="ngModel" (onChange)="drugMakerPrint()"
+                                                            [options]="drugMakeListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
                                                 <!--<span *ngIf="selectedCountry.invalid && selectedCountry.touched" class="text-danger"> Please enter. </span>-->
                                             </div>
