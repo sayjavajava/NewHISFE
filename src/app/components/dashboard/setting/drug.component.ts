@@ -49,7 +49,7 @@ export class DrugComponent implements OnInit {
         this.allDrugManufacturer();
 
         this.cols = [
-           { field: 'drugName', header: 'Drug Name' },
+            { field: 'drugName', header: 'Drug Name' },
             { field: 'companyName', header: 'Company Name' },
             { field: 'genericName', header: 'Generic Name' },
             { field: 'route', header: 'Route' },
@@ -72,12 +72,6 @@ export class DrugComponent implements OnInit {
             },
         ];
 
-        // this.drugMakeListModified = [
-        //     {label: 'NOVARTIS',  value: 'NOVARTIS'},
-        //     {label: 'MSD-SP LIMITED',  value: 'MSD-SP LIMITED'},
-        //     {label: 'MEDIS',  value: 'MEDIS'},
-        //     {label: 'GLAXOSMITHKLINE (GSK)',  value: 'GLAXOSMITHKLINE (GSK)'},
-        // ];
     }
 
     getPageWiseDrug(page: number) {
@@ -105,20 +99,8 @@ export class DrugComponent implements OnInit {
                 this.notificationService.error(error.error.error);
             }
         );
-
-        // this.countryListModified = [
-        //     {label: 'NOVARTIS',  value: 'NOVARTIS'},
-        //     {label: 'MSD-SP LIMITED',  value: 'MSD-SP LIMITED'},
-        //     {label: 'MEDIS',  value: 'MEDIS'},
-        //     {label: 'GLAXOSMITHKLINE (GSK)',  value: 'GLAXOSMITHKLINE (GSK)'},
-        // ];
     }
 
-    // refreshPage() {
-    //     this.searched = false;
-    //     this.searchDepart = '';
-    //     this.getPageWiseDepartmentFromServer(0);
-    // }
 
     getPageWiseDrugFromServer(page: number) {
         // this.searchDepart = '';

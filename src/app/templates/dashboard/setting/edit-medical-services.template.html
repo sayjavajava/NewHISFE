@@ -61,13 +61,13 @@
                                     <label class="control-label col-md-4 pdng-lr-5">Service Cost {{ "("+currency+")"}} </label>
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input class="form-control"
-                                               type="text" placeholder="Enter Cost"
+                                               type="number" placeholder="Enter Cost"
                                                [(ngModel)]="ms.strCost" min="0"
                                                 pattern="^[0-9\.]{1,60}$" (keyup)="isNumberCheck($event)"
                                                name="cost" />
-                                        <span class="text-danger">
-                                                    <span *ngIf="isError"> Please Enter Number </span>
-                                        </span>
+                                        <!--<span class="text-danger">
+                                            <span *ngIf="isError"> Please Enter Number </span>
+                                        </span>-->
                                        <!-- <span *ngIf="cost.invalid && cost.touched"
                                               class="text-danger">
                                                 Please enter Number.
@@ -80,12 +80,12 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
-                                        <input class="form-control" type="text"
+                                        <input class="form-control" type="number" id="fee"
                                                [(ngModel)]="ms.strFee" min="0" placeholder="Enter fee"
-                                                pattern="^[0-9\.]{1,60}$" (keyup)="isNumberCheckFee($event)"
-                                               name="fee" />
+                                                pattern="^[0-9\.]{1,60}$" name="fee" #fee="ngModel" />
                                         <span class="text-danger">
-                                                    <span *ngIf="isErrorFee"> Please Enter Number </span>
+                                            <span *ngIf="isErrorFee"> Please Enter Number </span>
+                                            <span *ngIf="fee.invalid && fee.touched" class="text-danger"> Please select route of drug </span>
                                         </span>
                                         <!--<span *ngIf="fee.invalid && fee.touched"
                                                class="text-danger">
@@ -95,9 +95,7 @@
 
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 pdng-lr-5"> Service Tax (%)
-                                        <span class="required" aria-required="true"> * </span>
-                                    </label>
+                                    <label class="control-label col-md-4 pdng-lr-5"> Service Tax (%)</label>
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <select class="form-control" name="taxId" id="taxId" [ngModelOptions]="{standalone:true}"
                                                 [(ngModel)]="ms.tax.id" title="Select Service Tax">
