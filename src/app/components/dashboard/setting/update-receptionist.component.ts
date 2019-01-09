@@ -217,7 +217,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount :data.allowDiscount,
-                
+
             });
             this.makeService(cashier);
         } else {
