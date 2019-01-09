@@ -22,6 +22,9 @@ export interface  IUser {
     otherDoctorDashBoard: boolean;
     accountExpiry: string;
     receivePayment ?: boolean;
+    hidePatientPhoneNumber ?: boolean;
+    canAccessPatientRecord ?: boolean;
+    allowDiscountCheck ?: boolean;
     active:boolean ;
     allowDiscount?: string;
     interval?: number;

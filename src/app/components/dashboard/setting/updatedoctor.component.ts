@@ -297,6 +297,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 'accountExpiry': [null],
                 'receivePayment': [null],
                 'active': '',
+                'allowDiscountCheck': '',
                 'dateFrom': [null],
                 'dateTo': [null],
                 'departmentControl': [null],
@@ -349,7 +350,8 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         useReceptDashboard :user.useReceptDashboard,
                         otherDoctorDashBoard :user.otherDoctorDashBoard,
                         receivePayment :user.receivePayment,
-                        allowDiscount :user.allowDiscount
+                        allowDiscount :user.allowDiscount,
+                        allowDiscountCheck :user.allowDiscountCheck,
 
                     });
                     let docDeptId = user.docDepartmentId;
@@ -533,6 +535,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     firstShiftToTime: this.firstShiftToTime,
                     firstShiftFromTime: this.firstShiftFromTime,
                     allowDiscount :data.allowDiscount,
+                    allowDiscountCheck :data.allowDiscountCheck,
                     receivePayment :data.receivePayment,
                     vacation: data.vacation,
                     dateTo: data.dateTo,

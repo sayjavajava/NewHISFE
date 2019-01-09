@@ -25,6 +25,7 @@ export class User {
     accountExpiry: string;
     active: boolean;
     allowDiscount?: string;
+    hidePatientPhoneNumber : boolean;
 
     confirmPassword ?: string;
     dateFrom ?: string;
@@ -38,6 +39,8 @@ export class User {
     shift1 ?: boolean;
     vacation ?: boolean;
     firstShiftToTime?: string;
+    canAccessPatientRecord:boolean;
+    allowDiscountCheck:boolean;
 
     selectedDepartment ?: any[];
     selectedServices ?: any[];
@@ -66,7 +69,10 @@ export class User {
         this.otherDoctorDashBoard = user.otherDoctorDashBoard;
         this.otherDashboard = user.otherDashboard;
         this.accountExpiry = user.accountExpiry;
+        this.hidePatientPhoneNumber =user.hidePatientPhoneNumber;
         this.receivePayment = user.receivePayment;
+        this.allowDiscountCheck = user.allowDiscountCheck;
+        this.canAccessPatientRecord = user.canAccessPatientRecord;
         this.active = user.active;
         this.interval = user.interval;
         this.dutyWithDoctors = user.dutyWithDoctors;

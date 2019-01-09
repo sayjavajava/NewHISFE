@@ -109,6 +109,8 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 'otherDashboard': '',
                 'sendBillingReport': '',
                 'useReceptDashboard': '',
+                'allowDiscountCheck': [null],
+                'canAccessPatientRecord': '',
                 'shift2': '',
                 'vacation': '',
                 'otherDoctorDashBoard': '',
@@ -117,6 +119,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 'active': '',
                 'dateFrom': [null],
                 'dateTo': [null],
+                'hidePatientPhoneNumber': [null],
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
                 'departmentControl': [null],
@@ -151,7 +154,11 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         sendBillingReport :receptionist.sendBillingReport,
                         useReceptDashboard :receptionist.useReceptDashboard,
                         otherDoctorDashBoard :receptionist.otherDoctorDashBoard,
-                        allowDiscount :receptionist.allowDiscount
+                        allowDiscount :receptionist.allowDiscount,
+                        allowDiscountCheck:receptionist.allowDiscountCheck,
+                        hidePatientPhoneNumber :receptionist.hidePatientPhoneNumber,
+                        canAccessPatientRecord:receptionist.canAccessPatientRecord,
+
                     });
                     if(receptionist.permittedDoctorDashboard){
                         this.selectedDoctorDashboard = [...receptionist.permittedDoctorDashboard]
@@ -209,6 +216,8 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
+                allowDiscountCheck :data.allowDiscountCheck,
+                canAccessPatientRecord :data.canAccessPatientRecord,
                 receivePayment :data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
@@ -217,6 +226,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount :data.allowDiscount,
+                hidePatientPhoneNumber :data.hidePatientPhoneNumber
 
             });
             this.makeService(cashier);
