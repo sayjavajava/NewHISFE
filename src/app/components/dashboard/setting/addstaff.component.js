@@ -259,6 +259,7 @@ var AddStaffComponent = (function () {
             'shift2': '',
             'vacation': '',
             'otherDoctorDashBoard': '',
+            'selectedDoctorDashboard': '',
             'accountExpiry': [null],
             'active': '',
             'dateFrom': [null],
@@ -684,6 +685,7 @@ var AddStaffComponent = (function () {
         this.selectedVisitBranches.length = 0;
         this.selectedDoctors.length = 0;
         this.selectedWorkingDays.length = 0;
+        this.selectedDoctorDashboard.length = 0;
         this.firstShiftFromTime = '';
         //this.userForm.controls['restrictBranch'].setValue('');
         this.firstShiftToTime = '';

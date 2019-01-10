@@ -134,6 +134,7 @@ var UpdateNurseComponent = (function () {
             'useReceptDashboard': '',
             'hidePatientPhoneNumber': '',
             'otherDoctorDashBoard': '',
+            'selectedDoctorDashboard': '',
             'accountExpiry': [null],
             'active': '',
             'managePatientInvoices': '',

@@ -318,6 +318,7 @@ export class AddStaffComponent implements OnInit {
                 'shift2': '',
                 'vacation': '',
                 'otherDoctorDashBoard': '',
+                'selectedDoctorDashboard': '',
                 'accountExpiry': [null],
                 'active': '',
                 'dateFrom': [null],
@@ -782,10 +783,12 @@ export class AddStaffComponent implements OnInit {
         const value = typeObj.value ? typeObj.value : 'RECEPTIONIST';
         this.selectedDepartment.length = 0;
         this.selectedServices.length = 0;
+
       //  this.selectedDoctorDashboard.length =0;
         this.selectedVisitBranches.length = 0;
         this.selectedDoctors.length = 0;
         this.selectedWorkingDays.length = 0;
+        this.selectedDoctorDashboard.length =0;
         this.firstShiftFromTime = '';
         //this.userForm.controls['restrictBranch'].setValue('');
         this.firstShiftToTime = '';
