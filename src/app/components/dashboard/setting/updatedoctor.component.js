@@ -253,9 +253,12 @@ var UpdatedoctorComponent = (function () {
             'shift2': '',
             'vacation': '',
             'otherDoctorDashBoard': '',
+            'selectedDoctorDashboard': '',
             'accountExpiry': [null],
             'receivePayment': [null],
+            'hidePatientPhoneNumber': '',
             'active': '',
+            'allowDiscountCheck': '',
             'dateFrom': [null],
             'dateTo': [null],
             'departmentControl': [null],
@@ -305,7 +308,9 @@ var UpdatedoctorComponent = (function () {
                     useReceptDashboard: user.useReceptDashboard,
                     otherDoctorDashBoard: user.otherDoctorDashBoard,
                     receivePayment: user.receivePayment,
-                    allowDiscount: user.allowDiscount
+                    allowDiscount: user.allowDiscount,
+                    allowDiscountCheck: user.allowDiscountCheck,
+                    hidePatientPhoneNumber: user.hidePatientPhoneNumber
                 });
                 var docDeptId = user.docDepartmentId;
                 //this.servicesList = this.getDeptServices(docDeptId);
@@ -479,6 +484,7 @@ var UpdatedoctorComponent = (function () {
                 firstShiftToTime: this.firstShiftToTime,
                 firstShiftFromTime: this.firstShiftFromTime,
                 allowDiscount: data.allowDiscount,
+                allowDiscountCheck: data.allowDiscountCheck,
                 receivePayment: data.receivePayment,
                 vacation: data.vacation,
                 dateTo: data.dateTo,
