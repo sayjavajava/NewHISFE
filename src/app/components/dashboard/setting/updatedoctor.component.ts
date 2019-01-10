@@ -296,6 +296,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 'otherDoctorDashBoard': '',
                 'accountExpiry': [null],
                 'receivePayment': [null],
+                 'hidePatientPhoneNumber': '',
                 'active': '',
                 'allowDiscountCheck': '',
                 'dateFrom': [null],
@@ -352,6 +353,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         receivePayment :user.receivePayment,
                         allowDiscount :user.allowDiscount,
                         allowDiscountCheck :user.allowDiscountCheck,
+                        hidePatientPhoneNumber :user.hidePatientPhoneNumber
 
                     });
                     let docDeptId = user.docDepartmentId;

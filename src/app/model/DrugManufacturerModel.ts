@@ -6,6 +6,6 @@ export class DrugManufacturerModel {
     id: number;
     drugManufacturerNaturalId: string = '';
     name: string = '';
-    status: boolean = false;      
+    status: boolean = false;
 
 }

@@ -255,6 +255,7 @@ var UpdatedoctorComponent = (function () {
             'otherDoctorDashBoard': '',
             'accountExpiry': [null],
             'receivePayment': [null],
+            'hidePatientPhoneNumber': '',
             'active': '',
             'allowDiscountCheck': '',
             'dateFrom': [null],
@@ -308,6 +309,7 @@ var UpdatedoctorComponent = (function () {
                     receivePayment: user.receivePayment,
                     allowDiscount: user.allowDiscount,
                     allowDiscountCheck: user.allowDiscountCheck,
+                    hidePatientPhoneNumber: user.hidePatientPhoneNumber
                 });
                 var docDeptId = user.docDepartmentId;
                 //this.servicesList = this.getDeptServices(docDeptId);
