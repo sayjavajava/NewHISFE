@@ -263,7 +263,7 @@
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Company Name</label>
                                             <div class="col-md-8 select pdng-lr-5 profile-frm">
                                                 <input class="form-control" type="text" placeholder="e.g Medical Care"
-                                                       [(ngModel)]="drug.companyName" size="30" required id="companyName" pInputText
+                                                       [(ngModel)]="drug.companyName" size="30" id="companyName" pInputText
                                                        name="companyName" #companyName="ngModel"/>
                                                 <!--<span *ngIf="companyName.invalid && companyName.touched" class="text-danger"> Please enter. </span>-->
                                             </div>
@@ -309,12 +309,11 @@
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Info</label>
                                             <div class="col-md-8 select pdng-lr-5 profile-frm">
-                                                <input class="form-control" type="text"
+                                                <input class="form-control" type="url"
                                                        [(ngModel)]="drug.drugInfo" placeholder=" e.g www.medicalcare.com"
-                                                       size="10" id="info"
-                                                       name="info"
-                                                       #info="ngModel"/>
-                                                <span *ngIf="info.invalid && info.touched" class="text-danger"> Please enter Info URL </span>
+                                                       pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?"
+                                                       size="10" id="info" name="info" #info="ngModel"/>
+                                                <span *ngIf="info.invalid && info.touched" class="text-danger"> Please enter valid Info URL </span>
                                             </div>
                                         </div>
 
@@ -360,19 +359,11 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-
-
-                        <button type="button" class="btn primary blue"
-                                *ngIf="drug.id <= 0 || drug.id == null"
-                                (click)="saveDrug()">Save
-                        </button>
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn default">Close</button>
+                        <button type="button" class="btn primary blue" *ngIf="drug.id <= 0 || drug.id == null"
+                                (click)="saveDrug()">Save</button>
                         <button type="button" class="btn primary blue" *ngIf="drug.id > 0"
-                                (click)="updateDrug()">Update
-                        </button>
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow">
-                        Close
-                    </button>
-
+                                (click)="updateDrug()">Update</button>
                     </div>
                 </div>
             </form>
