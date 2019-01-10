@@ -342,10 +342,7 @@ export class PatientDemographicComponent implements OnInit {
     }
 
     uploadImgOnChange(event: any) {
-        /*let fileList: FileList = event.target.files;
-        if (fileList.length > 0) {
-            this.file = fileList[0];
-        }*/
+
         let fileList: FileList = event.target.files;
 
         if (fileList != null && fileList.length > 0) {

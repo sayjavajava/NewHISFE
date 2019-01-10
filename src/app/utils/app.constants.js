@@ -113,6 +113,7 @@ var AppConstants = (function () {
     AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
     AppConstants.UPDATE_ORGANIZATION_URL_NEW = '/setting/organization/update/';
     AppConstants.UPLOAD_ORGNAIZATION_IMAGE_URL = '/setting/organization/uploadProfileImg/';
+    AppConstants.UPLOAD_PROFILE_NEW_IMAGE_URL = '/setting/organization/uploadProfileImgAccount/';
     ////////////////////// Patient URLs ///////////////////////////////
     AppConstants.FETCH_ALL_PATIENT_URL = '/patient/';
     AppConstants.PATIENT_DELETE_URI = '/patient/delete/';

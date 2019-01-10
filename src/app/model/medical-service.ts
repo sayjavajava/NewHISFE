@@ -26,6 +26,8 @@ export class MedicalService {
     selectedBranchesMS: number[]=[];
     strCost:string;
     strFee:string;
+    imgUrl:string;
+   // profileImg: File = null;
     constructor() {
     }
 

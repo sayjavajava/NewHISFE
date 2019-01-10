@@ -136,6 +136,35 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                               <!-- <label class="col-md-4 control-label txt-size">Photo</label>-->
+                                <div class="col-md-6 select">
+                                    <div class="logo-plchldr">
+                                        <!--<img class="img-responsive" style="width: 120px; height: 140px;"
+                                             src="/public/images/patient-photo.jpg"
+                                             *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
+
+                                        <img class="img-responsive" style="width: 120px; height: 140px;"
+                                             src="{{ms.imgUrl}}">
+                                    </div>
+                                    <div class="mrgn-top8">
+                                        <input class="file" type="file" id="profileImgUrl"
+                                               name="profileImgUrl"
+                                               (change)="uploadImgOnChange($event)">
+
+                                    </div>
+                                    <!-- <div class="imgUploadTopMargin">
+                                         <button class="btn btn-default btn-outline"
+                                                 (click)="uploadProfileImg()">
+                                             <i class=" icon-arrow-up"></i>upload
+                                         </button>
+                                     </div>-->
+                                </div>
+                            </div></div>
+
+
                         <div class="hr">
                             <div class="col-md-12 text-center">
                                 <a routerLink="/dashboard/setting/medicalServices">

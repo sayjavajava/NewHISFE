@@ -25,7 +25,8 @@ export class EditMedicalServiceComponent implements OnInit {
     error: any;
     isError:boolean=false;
     isErrorFee:boolean=false;
-
+    profileImg: File = null;
+    urlOrganization:string;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -126,8 +127,8 @@ export class EditMedicalServiceComponent implements OnInit {
 
     updateMedicalServices(form: NgForm) {
 
-        if (!this.isUnderprocess) {
-            this.isUnderprocess = true;
+   //     if (!this.isUnderprocess) {
+         //   this.isUnderprocess = true;
 
             if (this.ms.name === '') {
                 this.notificationService.warn('Please enter name.');
@@ -200,7 +201,7 @@ export class EditMedicalServiceComponent implements OnInit {
                 return;
             }*/
 
-            this.requestsService.putRequest(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.ms)
+            this.requestsService.putRequestMultipartFormAndDataWithOneFile(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.ms,this.profileImg)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -209,7 +210,7 @@ export class EditMedicalServiceComponent implements OnInit {
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Medical Service');
                         }
-                        this.isUnderprocess = false;
+                   //     this.isUnderprocess = false;
                     },
                     (error: any) => {
                         this.HISUtilService.tokenExpired(error.error.error);
@@ -218,9 +219,9 @@ export class EditMedicalServiceComponent implements OnInit {
                 );
 
 
-        } else {
-            this.notificationService.warn('Your first request is under process. Please wait..')
-        }
+      //  } /*else {
+    //        this.notificationService.warn('Your first request is under process. Please wait..')
+   //     }*/
 
 
     }
@@ -298,6 +299,17 @@ export class EditMedicalServiceComponent implements OnInit {
         }
         this.isErrorFee=false;
         return true;
+    }
+
+    uploadImgOnChange(event: any) {
+
+        let fileList: FileList = event.target.files;
+        debugger
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
     }
 
 }

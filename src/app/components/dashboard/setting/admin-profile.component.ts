@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {AppConstants} from '../../../utils/app.constants';
 import {Organization} from "../../../model/organization";
+import {CustomValidators} from "./PasswordValidator";
 
 @Component({
     selector: 'icd-code-component',
@@ -17,6 +18,8 @@ export class AdminProfileComponent implements OnInit {
     id:number;
     data:any;
     organization : Organization = new Organization();
+    profileImg: File = null;
+    urlOrganization:string;
     ngOnInit(): void {
         this.createAccountForm();
     }
@@ -36,7 +39,12 @@ export class AdminProfileComponent implements OnInit {
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-        })
+            'password': [null, Validators.compose([Validators.minLength(6)])],
+            'confirmPassword': [null],
+        },
+            {
+                validator: CustomValidators.Match('password', 'confirmPassword')
+            })
     }
     saveAccount(data: FormData) {
         var self = this;
@@ -45,10 +53,10 @@ export class AdminProfileComponent implements OnInit {
             this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
                     if (response['responseCode'] === 'ORG_SUC_03') {
-                        self.notificationService.success('Organization has been Update Successfully');
+                        self.notificationService.success('User Profile  has been Update Successfully');
                     }
                 }, function (error) {
-                    self.notificationService.error('ERROR', 'Organization is not Updated');
+                    self.notificationService.error('ERROR', 'Profile is not Updated');
 
                 });
         }else {
@@ -62,7 +70,9 @@ export class AdminProfileComponent implements OnInit {
                 (response: Response) => {
                     if (response['responseCode'] === 'ORG_SUC_04') {
                         this.organization = response['responseData'];
+                        this.urlOrganization=this.organization.profileImgUrl;
                         console.log(this.organization);
+                     //   console.log(this.organization);
                     }
                 },
                 (error: any) => {
@@ -106,5 +116,40 @@ export class AdminProfileComponent implements OnInit {
     //     this.router.navigate(['/dashboard/setting/admin/profile']);
     // }
 
+    uploadImgOnChange(event: any) {
 
+        let fileList: FileList = event.target.files;
+        debugger
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
+    }
+
+
+    uploadProfileImg() {
+        if (this.profileImg && this.profileImg.size <= 40000000) {
+            this.requestService.postRequestMultipartFormData(
+                AppConstants.UPLOAD_PROFILE_NEW_IMAGE_URL + this.id
+                , this.profileImg)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ORG_SUC_02') {
+
+                            this.urlOrganization=response['responseData'];
+                            this.notificationService.success('Profile Image has been updated Successfully');
+                            this.profileImg = null;
+                            //   this.urlOrganization=response['responseData'];
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error('Profile Image uploading failed', 'Update Profile');
+
+                    }
+                );
+        } else {
+            this.notificationService.error('File size must be less then 4 mb.', 'Update Organization');
+        }
+    }
 }

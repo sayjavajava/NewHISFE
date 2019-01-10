@@ -106,7 +106,7 @@ export class StatusesComponent implements OnInit {
     }
 
     onUpdatePopupLoad(status: Status) {
-        alert();
+
         if (status.name == "CANCELLED" || status.name == "CHECK_IN" || status.name == "CONFIRMED" || status.name == "PENDING" || status.name == "COMPLETED" || status.name == "IN_SESSION") {
            // this.notificationService.warn(`sorry you can't change ${status.name} status`);
             this.status = status;

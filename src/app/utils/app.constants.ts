@@ -120,6 +120,7 @@ export class AppConstants {
     public static UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
     public static UPDATE_ORGANIZATION_URL_NEW = '/setting/organization/update/';
     public static UPLOAD_ORGNAIZATION_IMAGE_URL = '/setting/organization/uploadProfileImg/'
+    public static UPLOAD_PROFILE_NEW_IMAGE_URL = '/setting/organization/uploadProfileImgAccount/'
     ////////////////////// Patient URLs ///////////////////////////////
     public static FETCH_ALL_PATIENT_URL = '/patient/';
     public static PATIENT_DELETE_URI = '/patient/delete/';
