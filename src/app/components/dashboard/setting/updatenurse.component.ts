@@ -171,6 +171,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                 'useReceptDashboard': '',
                 'hidePatientPhoneNumber': '',
                 'otherDoctorDashBoard': '',
+                'selectedDoctorDashboard': '',
                 'accountExpiry': [null],
                 'active': '',
                 'managePatientInvoices': '',

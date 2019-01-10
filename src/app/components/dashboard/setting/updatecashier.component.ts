@@ -117,6 +117,7 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                 'shift2': '',
                 'vacation': '',
                 'otherDoctorDashBoard': '',
+                'selectedDoctorDashboard': '',
                 'hidePatientPhoneNumber': '',
                 'accountExpiry': [null],
                 'active': '',

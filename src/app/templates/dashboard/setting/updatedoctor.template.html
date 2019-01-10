@@ -202,7 +202,7 @@
                                                 <button type="button" (click)="firstShiftFrom()">From</button>
                                             </div>
                                             <div class="col-md-4 pdng-lr-5">
-                                                <input type="time" style="width: 100%" value="{{firstShiftFromTime}}">
+                                                <input type="time" disabled style="width: 100%" value="{{firstShiftFromTime}}">
                                             </div>
                                             <div class="col-md-1 pdng-lr-5">
                                                 <button type="button" (click)="firstShiftTo()">To</button>
@@ -385,7 +385,7 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
                                                        name="doctorboards"
-                                                       formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                       formControlName="selectedDoctorDashboard" [panelStyle]="{minWidth:'12em'}"
                                                        [filter]="true">
                                         </p-multiSelect>
                                     </div>
