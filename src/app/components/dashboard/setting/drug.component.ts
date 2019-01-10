@@ -200,7 +200,7 @@ export class DrugComponent implements OnInit {
        //      document.getElementById('origin').focus();
        //      return;
        //  }
-        this.drug.drugMaker=this.drugMaker;
+       //  this.drug.drugMaker=this.drugMaker;
         console.log(this.drug);
         this.requestsService.postRequest(AppConstants.DRUG_SAVE_URL, this.drug)
             .subscribe((response: Response) => {
@@ -289,23 +289,23 @@ export class DrugComponent implements OnInit {
                     this.notificationService.error(response['responseMessage']);
                 }
             }, (error: any) => {
-            this.notificationService.error(error.error.error);
-        });
+                // this.notificationService.error(error.error.error);
+            });
     }
 
     onAddDrug() {
         this.drug = new DrugModel();
         this.requestsService.getRequest(AppConstants.DRUG_GET_NATURAL_ID_URL)
-            .subscribe(
-                (response: Response) => {
-                    if (response['responseCode'] == 'DRUG_SUC_15') {
-                        this.drug.drugNaturalId = response['responseData'];
-                    } else {
-                        this.notificationService.error(response['responseMessage']);
-                    }
-                }, (error: any) => {
-                this.notificationService.error(error.error.error);
-            });
+            .subscribe((response: Response) => {
+                if (response['responseCode'] == 'DRUG_SUC_15') {
+                    this.drug.drugNaturalId = response['responseData'];
+                } else {
+                    this.notificationService.error(response['responseMessage']);
+                }
+            }, (error: any) => {
+                // this.notificationService.error(error.error.error);
+            }
+        );
     }
 
     importData(event: any) {

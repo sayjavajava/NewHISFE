@@ -10,8 +10,12 @@ export class DrugModel {
     drugName: string = '';
     genericName: string = '';
     companyName: string = '';
-
     route: string = 'Syrup';
+    strength: string = '';
+    strengths: string[] = [];
+    uOM: string = 'MG';
+    drugInfo:String='';
+
     routes: SelectItem[] = [
         // {label: 'Oral', value: 'Oral'},
         // {label: 'Syrup', value: 'Syrup'},
@@ -39,13 +43,7 @@ export class DrugModel {
         {label: 'Transdermally', value: 'Transdermally)'},
     ];
 
-    strength: string = '';
-    strengths: string[] = [];
 
-    uOM: string = 'MG';
-
- //   UOMs: SelectItem[] = [];
-    drugInfo:String='';
    // origin: string = '';
 
     UOMs: SelectItem[] = [
@@ -66,7 +64,7 @@ export class DrugModel {
 
     active: boolean = true;
     hasChild: boolean = false;
-    drugMaker:any;
+    drugMaker:any = 'Select Manufacturer';
     addInfo:any;
     drugMakerView:string;
     constructor() {
