@@ -39,7 +39,7 @@ export class AdminProfileComponent implements OnInit {
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-            'password': [null, Validators.compose([Validators.minLength(6)])],
+            'password': [null, Validators.compose([Validators.minLength(5)])],
             'confirmPassword': [null],
         },
             {
