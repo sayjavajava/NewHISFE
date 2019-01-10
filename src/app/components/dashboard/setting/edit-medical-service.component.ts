@@ -7,6 +7,7 @@ import {MedicalService} from '../../../model/medical-service';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Tax} from '../../../model/Tax';
+import {isNullOrUndefined} from "util";
 
 @Component({
     selector: 'add-medical-services-component',
@@ -140,6 +141,14 @@ export class EditMedicalServiceComponent implements OnInit {
                 this.isUnderprocess = false;
                 return;
             }
+
+            if(isNullOrUndefined(this.ms.strFee)){
+                this.notificationService.warn('Please enter Service Fee.');
+                document.getElementById('fee').focus();
+                this.isUnderprocess = false;
+                return;
+            }
+
             let foundBranch = 0;
             for (let branch of this.ms.branches) {
                 if (branch.checkedBranch) {
@@ -168,14 +177,18 @@ export class EditMedicalServiceComponent implements OnInit {
                 return;
             }
 
-            if (this.ms.tax.id <= 0) {
+            if(isNullOrUndefined(this.ms.strCost) || this.ms.strCost == ''){
+                this.ms.strCost = '0';
+            }
+
+            /*if (this.ms.tax.id <= 0) {
                 this.notificationService.warn('Please select tax.');
                 document.getElementById('taxId').focus();
                 this.isUnderprocess = false;
                 return;
-            }
+            }*/
 
-            if (this.isError == true) {
+            /*if (this.isError == true) {
                 this.notificationService.warn('Please Enter Number.');
                 document.getElementById('cost').focus();
                 return;
@@ -185,7 +198,7 @@ export class EditMedicalServiceComponent implements OnInit {
                 this.notificationService.warn('Please Enter Number.');
                 document.getElementById('fee').focus();
                 return;
-            }
+            }*/
 
             this.requestsService.putRequest(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.ms)
                 .subscribe(
