@@ -253,6 +253,7 @@ var UpdatedoctorComponent = (function () {
             'shift2': '',
             'vacation': '',
             'otherDoctorDashBoard': '',
+            'selectedDoctorDashboard': '',
             'accountExpiry': [null],
             'receivePayment': [null],
             'hidePatientPhoneNumber': '',

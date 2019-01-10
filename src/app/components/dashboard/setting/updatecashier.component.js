@@ -97,6 +97,7 @@ var UpdateCashierComponent = (function () {
             'shift2': '',
             'vacation': '',
             'otherDoctorDashBoard': '',
+            'selectedDoctorDashboard': '',
             'hidePatientPhoneNumber': '',
             'accountExpiry': [null],
             'active': '',

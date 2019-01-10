@@ -96,6 +96,7 @@ var UpdateReceptionistComponent = (function () {
             'restrictBranch': [null],
             'allowDiscount': [null],
             'otherDashboard': '',
+            'selectedDoctorDashboard': '',
             'sendBillingReport': '',
             'useReceptDashboard': '',
             'allowDiscountCheck': [null],

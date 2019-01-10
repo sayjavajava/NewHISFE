@@ -346,13 +346,13 @@
                                             <button type="button" (click)="firstShiftFrom()">From</button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
-                                            <input type="time" style="width: 100%" value="{{firstShiftFromTime}}">
+                                            <input type="time" style="width: 100%" disabled value="{{firstShiftFromTime}}">
                                         </div>
                                         <div class="col-md-1 pdng-lr-5">
                                             <button type="button" (click)="firstShiftTo()">To</button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
-                                            <input type="time" style="width: 100%" value="{{firstShiftToTime}}">
+                                            <input type="time" disabled style="width: 100%" value="{{firstShiftToTime}}">
                                         </div>
                                     </div>
                                     <span class="text-danger"
@@ -366,19 +366,19 @@
                                                 class="mt-checkbox-outline chckbox">
                                             <!--<input type="checkbox" class=""
                                                    formControlName="shift2">-->
-                                            <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
+                                            <mat-checkbox formControlName="shift2"  color="primary"></mat-checkbox>
                                             <span></span></label></div>
                                         <div class="col-md-2 pdng-lr-5">
                                             <button type="button" (click)="secondShiftFrom()">From</button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
-                                            <input type="time" style="width: 100%" value="{{secondShiftFromTime}}">
+                                            <input type="time" disabled style="width: 100%" value="{{secondShiftFromTime}}">
                                         </div>
                                         <div class="col-md-1 pdng-lr-5">
                                             <button type="button" (click)="secondShiftTo()">To</button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
-                                            <input type="time" style="width:100%" value="{{secondShiftToTime}}">
+                                            <input type="time" disabled style="width:100%" value="{{secondShiftToTime}}">
                                         </div>
                                         <div>
                                         </div>
@@ -619,7 +619,7 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
                                                        name="doctorboards"
-                                                       formControlName="otherDashboard"
+                                                       formControlName="selectedDoctorDashboard"
                                                        [filter]="true">
                                         </p-multiSelect>
                                     </div>
