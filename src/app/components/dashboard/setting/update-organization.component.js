@@ -117,11 +117,11 @@ var UpdateOrganizationComponent = (function () {
             { label: 'dd MM YY[27-12-18 ]', value: 'dd-MM-yy' },
             { label: 'yyyy MM dd[2018-12-27]', value: 'yyyy-MM-dd' },
             { label: 'MMMM dd, YYYY[DECEMBER-27-2018]', value: 'MMMM dd, YYYY' },
-            { label: 'EEEE, MMMM,DD, YYYY[thur,DECEMBER,27,2018]', value: 'EEEE, MMMM,DD, YYYY' },
-            { label: 'EEEEEE, MMMM,DD, YYYY[Thursday,DECEMBER,27,2018]', value: 'EEEEEE, MMMM,DD, YYYY' },
+            { label: 'EEEE, MMMM,DD, YYYY[thur,DECEMBER,27,2018]', value: 'EEEE, MMMM,dd, yyyy' },
+            { label: 'EEEEEE, MMMM,DD, YYYY[Thursday,DECEMBER,27,2018]', value: 'EEEEEE, MMMM,dd, yyyy' },
         ];
         this.timeType = [
-            { label: 'hh:mm', value: 'HH:mm' },
+            { label: 'hh:mm', value: 'hh:mm' },
             { label: 'hh:mm:ss', value: 'hh:mm:ss' },
         ];
         this.currencyFormatList = [

@@ -32,6 +32,7 @@ export class Organization {
     file: File;
     currencyFormat:string;
 
+
     /*  constructor(firstName ?:  string, lastName ?:  string,userName?: string, email?: string, cellPhone?:string, homePhone?: string, address?: string) {
           this.firstName = firstName;
           this.lastName = lastName;

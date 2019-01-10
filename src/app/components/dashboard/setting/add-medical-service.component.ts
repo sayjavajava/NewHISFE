@@ -26,6 +26,8 @@ export class AddMedicalServiceComponent implements OnInit {
     currencyFormat:string;
     isError:boolean=false;
     isErrorFee:boolean=false;
+    profileImg: File = null;
+   // urlOrganization:string;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -189,9 +191,9 @@ export class AddMedicalServiceComponent implements OnInit {
             }
 
            this.selectedBranches.forEach((x:any)=>{this.ms.selectedBranchesMS.push(x.id)});
-            this.requestsService.postRequest(
+            this.requestsService.postRequestMultipartFormAndDataWithOneFile(
                 AppConstants.SAVE_MEDICAL_SERVICES_URL,
-                this.ms)
+                this.ms,this.profileImg)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -245,32 +247,39 @@ export class AddMedicalServiceComponent implements OnInit {
         return true;
     }
 
-     /*validateNumber(evt:any) {
-        var e = evt || window.event;
-        var key = e.keyCode || e.which;
+    /*uploadProfileImg() {
+        if (this.profileImg && this.profileImg.size <= 40000000) {
+            this.requestsService.postRequestMultipartFormData(
+                AppConstants.UPLOAD_ORGNAIZATION_IMAGE_URL + this.id
+                , this.profileImg)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ORG_SUC_02') {
 
-        if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
-            // numbers
-            key >= 48 && key <= 57 ||
-            // Numeric keypad
-            key >= 96 && key <= 105 ||
-            // Backspace and Tab and Enter
-            key == 8 || key == 9 || key == 13 ||
-            // Home and End
-            key == 35 || key == 36 ||
-            // left and right arrows
-            key == 37 || key == 39 ||
-            // Del and Ins
-            key == 46 || key == 45) {
-            // input is VALID
+                            this.urlOrganization=response['responseData'];
+                            this.notificationService.success( 'Medical Service Image has been uploaded Succesfully');
+                            this.profileImg = null;
+                            //   this.urlOrganization=response['responseData'];
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error('Profile Image uploading failed', 'Update Organization');
+
+                    }
+                );
+        } else {
+            this.notificationService.error('File size must be less then 4 mb.', 'Update Organization');
         }
-        else {
-            // input is INVALID
-            e.returnValue = false;
-            this.isError=true;
-            if (e.preventDefault) e.preventDefault();
-        }
-         // comma, period and minus, . on keypad
-     //    key == 190 || key == 188 || key == 109 || key == 110 ||
     }*/
+
+    uploadImgOnChange(event: any) {
+
+        let fileList: FileList = event.target.files;
+        debugger
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
+    }
 }

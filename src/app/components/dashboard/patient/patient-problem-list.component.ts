@@ -56,6 +56,7 @@ export class PatientProblemListComponent implements OnInit {
             this.selectedPatientId = params['id'];
         });
         this.appointmentsByServer();
+        debugger;
         DatePicker.prototype.ngOnInit = function() {
             this.settings = Object.assign(this.defaultSettings, this.settings);
             if (this.settings.defaultOpen) {

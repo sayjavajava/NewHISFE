@@ -17,6 +17,7 @@ var app_constants_1 = require("../../../utils/app.constants");
 var medical_service_1 = require("../../../model/medical-service");
 var router_1 = require("@angular/router");
 var AddMedicalServiceComponent = (function () {
+    // urlOrganization:string;
     function AddMedicalServiceComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;
@@ -29,6 +30,7 @@ var AddMedicalServiceComponent = (function () {
         this.selectedDepartments = [];
         this.isError = false;
         this.isErrorFee = false;
+        this.profileImg = null;
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
@@ -160,7 +162,7 @@ var AddMedicalServiceComponent = (function () {
                 return;
             }
             this.selectedBranches.forEach(function (x) { _this.ms.selectedBranchesMS.push(x.id); });
-            this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_MEDICAL_SERVICES_URL, this.ms)
+            this.requestsService.postRequestMultipartFormAndDataWithOneFile(app_constants_1.AppConstants.SAVE_MEDICAL_SERVICES_URL, this.ms, this.profileImg)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Medical Service');
@@ -204,6 +206,39 @@ var AddMedicalServiceComponent = (function () {
         }
         this.isErrorFee = false;
         return true;
+    };
+    /*uploadProfileImg() {
+        if (this.profileImg && this.profileImg.size <= 40000000) {
+            this.requestsService.postRequestMultipartFormData(
+                AppConstants.UPLOAD_ORGNAIZATION_IMAGE_URL + this.id
+                , this.profileImg)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ORG_SUC_02') {
+
+                            this.urlOrganization=response['responseData'];
+                            this.notificationService.success( 'Medical Service Image has been uploaded Succesfully');
+                            this.profileImg = null;
+                            //   this.urlOrganization=response['responseData'];
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error('Profile Image uploading failed', 'Update Organization');
+
+                    }
+                );
+        } else {
+            this.notificationService.error('File size must be less then 4 mb.', 'Update Organization');
+        }
+    }*/
+    AddMedicalServiceComponent.prototype.uploadImgOnChange = function (event) {
+        var fileList = event.target.files;
+        debugger;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
     };
     AddMedicalServiceComponent = __decorate([
         core_1.Component({

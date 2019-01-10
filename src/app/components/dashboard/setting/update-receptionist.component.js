@@ -96,11 +96,8 @@ var UpdateReceptionistComponent = (function () {
             'restrictBranch': [null],
             'allowDiscount': [null],
             'otherDashboard': '',
-            'selectedDoctorDashboard': '',
             'sendBillingReport': '',
             'useReceptDashboard': '',
-            'allowDiscountCheck': [null],
-            'canAccessPatientRecord': '',
             'shift2': '',
             'vacation': '',
             'otherDoctorDashBoard': '',
@@ -109,7 +106,6 @@ var UpdateReceptionistComponent = (function () {
             'active': '',
             'dateFrom': [null],
             'dateTo': [null],
-            'hidePatientPhoneNumber': [null],
             'managePatientInvoices': '',
             'managePatientRecords': '',
             'departmentControl': [null],
@@ -140,10 +136,7 @@ var UpdateReceptionistComponent = (function () {
                     sendBillingReport: receptionist.sendBillingReport,
                     useReceptDashboard: receptionist.useReceptDashboard,
                     otherDoctorDashBoard: receptionist.otherDoctorDashBoard,
-                    allowDiscount: receptionist.allowDiscount,
-                    allowDiscountCheck: receptionist.allowDiscountCheck,
-                    hidePatientPhoneNumber: receptionist.hidePatientPhoneNumber,
-                    canAccessPatientRecord: receptionist.canAccessPatientRecord,
+                    allowDiscount: receptionist.allowDiscount
                 });
                 if (receptionist.permittedDoctorDashboard) {
                     _this.selectedDoctorDashboard = receptionist.permittedDoctorDashboard.slice();
@@ -195,8 +188,6 @@ var UpdateReceptionistComponent = (function () {
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
-                allowDiscountCheck: data.allowDiscountCheck,
-                canAccessPatientRecord: data.canAccessPatientRecord,
                 receivePayment: data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
@@ -205,7 +196,6 @@ var UpdateReceptionistComponent = (function () {
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
-                hidePatientPhoneNumber: data.hidePatientPhoneNumber
             });
             this.makeService(cashier);
         }
