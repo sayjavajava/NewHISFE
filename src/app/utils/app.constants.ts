@@ -25,11 +25,11 @@ export class AppConstants {
     public static UPDATE_BRANCH = '/setting/branch/update/';
     public static DELETE_BRANCH_URI = '/setting/branch/delete/';
     public static BRANCHES_NAME = '/setting/branch/name';
-    public static BRANCH_SEARCH = '/setting/branch/search/';      
+    public static BRANCH_SEARCH = '/setting/branch/search/';
     public static FETCH_ALL_BRANCHES_URL = '/setting/branch/';
     public static FETCH_ALL_BRANCHES_ALL_URL = '/setting/branch/all';
     public static FETCH_ALL_BRANCHES_WITH_DOCTOR_URL = '/setting/branch/branchdoctors';
-    public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';
+    public static FETCH_BRANCHES_BY_ID = '/setting/branch/get/';   
     public static FETCH_ALL_BRANCHES_WITH_DOCTORS = '/setting/branch/doctorsInBranch/';
     public static FETCH_ROOM_COUNT_OF_BRANCH = '/setting/branch/rooms/';
     public static FETCH_LIST_OF_COUNTRIES = '/setting/branch/countries/';
