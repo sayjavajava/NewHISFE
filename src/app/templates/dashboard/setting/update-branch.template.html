@@ -55,7 +55,7 @@
                                                 <label class="control-label col-md-4 pdng-lr-5">Country</label>
                                                 <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedCountry}}" [autoWidth]="false" [(ngModel)]="selectedCountry"
-                                                                 formControlName="selectedCountry" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                 formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getStatesByCountryId($event.value)"
                                                                  [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
@@ -91,7 +91,7 @@
                                                 <label class="control-label col-md-4 pdng-lr-5">State</label>
                                                 <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedState}}" [autoWidth]="false" [(ngModel)]="selectedState"
-                                                                 formControlName="selectedState" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                 formControlName="state" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getCitiesByStateId($event.value)"
                                                                  [options]="statesListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
@@ -179,7 +179,7 @@
                                                 </label>
                                                 <div class="col-md-5 pdng-lr-5">
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
-                                                    <input class="col-md-9" type="time" formControlName="officeHoursStart" value="{{officeHoursStart}}">
+                                                    <input class="col-md-9" type="time" formControlName="officeHoursStart" disabled value="{{officeHoursStart}}">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
                                                         <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
@@ -192,7 +192,7 @@
                                                 </label>
                                                 <div class="col-md-5 pdng-lr-5">
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
-                                                    <input class="col-md-9" type="time" formControlName="officeHoursEnd" value="{{officeHoursEnd}}">
+                                                    <input class="col-md-9" type="time" formControlName="officeHoursEnd" disabled value="{{officeHoursEnd}}">
                                                 </div>
                                                 <span class="text-danger"
                                                       *ngIf="!branchForm.controls['officeHoursEnd'].valid && branchForm.controls['officeHoursEnd'].touched">

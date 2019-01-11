@@ -163,8 +163,8 @@ var UpdateBranchComponent = (function () {
                     noOfExamRooms: branch.examRooms.length,
                     examRooms: branch.examRooms,
                     city: branch.city,
-                    state: branch.city,
-                    country: branch.city,
+                    state: branch.state,
+                    country: branch.country,
                     cityId: branch.cityId,
                     stateId: branch.stateId,
                     countryId: branch.countryId,
@@ -271,6 +271,8 @@ var UpdateBranchComponent = (function () {
             //  let branchObject = this.prepareSaveBranch();
             var that = this;
             this.branchForm.value.cityId = this.branchForm.value.city;
+            this.branchForm.value.stateId = this.branchForm.value.state;
+            this.branchForm.value.countryId = this.branchForm.value.country;
             // data = this.branchForm;
             // data.set("cityId", data.get("city"));
             this.requestService.postRequest(app_constants_1.AppConstants.UPDATE_BRANCH + this.id, this.branchForm.value)
@@ -417,44 +419,70 @@ var UpdateBranchComponent = (function () {
         this.stateId = !(util_1.isNullOrUndefined(this.state)) ? this.state.id : null;
         this.countryId = countryId;
         // this.countryId = !(isNullOrUndefined(this.country)) ? this.country.id : null;
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
-            .subscribe(function (response) {
-            if (response["responseCode"] === "BRANCH_SUC_01") {
-                _this.statesList = response["responseData"].data;
-                for (var _i = 0, _a = _this.statesList; _i < _a.length; _i++) {
-                    var state = _a[_i];
-                    var pair = { label: state.name, value: state.id };
-                    _this.statesListModified.push(pair);
+        var pair;
+        if (countryId == -1) {
+            pair = { label: "Not Applicable", value: -1 };
+            this.statesListModified.push(pair);
+            this.citiesListModified.push(pair);
+        }
+        else {
+            this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
+                .subscribe(function (response) {
+                if (response["responseCode"] === "STATE_SUC_11") {
+                    _this.statesList = response["responseData"].statesList;
+                    _this.country = response["responseData"].country;
+                    if (_this.statesList.length > 0) {
+                        for (var _i = 0, _a = _this.statesList; _i < _a.length; _i++) {
+                            var state = _a[_i];
+                            pair = { label: state.name, value: state.id };
+                            _this.statesListModified.push(pair);
+                            console.log(_this.statesListModified);
+                        }
+                    }
+                    else {
+                        pair = { label: "Not Applicable", value: -1 };
+                        _this.statesListModified.push(pair);
+                        _this.citiesListModified.push(pair);
+                        _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                        _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                    }
                 }
-            }
-            else {
-                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty("N/A");
-                _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty("N/A");
-            }
-        }, function (error) {
-            this.notificationService.error("ERROR", "States List is not available");
-        });
+            }, function (error) {
+                this.notificationService.error("ERROR", "States List is not available");
+            });
+        }
         this.countryChange(countryId);
     };
     UpdateBranchComponent.prototype.getCitiesByStateId = function (stateId) {
         var _this = this;
         this.citiesList = this.citiesListModified = [];
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
-            .subscribe(function (response) {
-            if (response["responseCode"] === "BRANCH_SUC_01") {
-                _this.citiesList = response["responseData"].data;
-                for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
-                    var city = _a[_i];
-                    var pair = { label: city.name, value: city.id };
-                    _this.citiesListModified.push(pair);
+        var pair;
+        if (stateId == -1) {
+            pair = { label: "Not Applicable", value: -1 };
+            this.citiesListModified.push(pair);
+        }
+        else {
+            this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
+                .subscribe(function (response) {
+                if (response["responseCode"] === "CITY_SUC_11") {
+                    _this.citiesList = response["responseData"].cityList;
+                    _this.state = response["responseData"].state;
+                    if (_this.citiesList.length > 0) {
+                        for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
+                            var city = _a[_i];
+                            pair = { label: city.name, value: city.id };
+                            _this.citiesListModified.push(pair);
+                        }
+                    }
+                    else {
+                        pair = { label: "Not Applicable", value: -1 };
+                        _this.citiesListModified.push(pair);
+                    }
                 }
-            }
-            else {
-                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty("N/A");
-            }
-        }, function (error) {
-            this.notificationService.error("ERROR", "Cities List is not available");
-        });
+            }, function (error) {
+                this.notificationService.error("ERROR", "Cities List is not available");
+            });
+        }
         this.stateChange(stateId);
     };
     UpdateBranchComponent.prototype.selectBranchCity = function (city) {
@@ -470,7 +498,6 @@ var UpdateBranchComponent = (function () {
                 _this.city = response["responseData"].data.city;
                 _this.state = response["responseData"].data.state;
                 _this.country = response["responseData"].data.country;
-                _this.createCountriesList();
                 if (!util_1.isNullOrUndefined(_this.country)) {
                     _this.selectedCountry = _this.country.name;
                     _this.countryId = _this.country.id;
@@ -488,6 +515,8 @@ var UpdateBranchComponent = (function () {
                     _this.cityId = _this.city.id;
                     _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty(_this.city.name);
                 }
+                console.log(_this.selectedCountry);
+                _this.createCountriesList();
                 _this.createFormattedAddress();
             }
         }, function (error) {
@@ -512,6 +541,8 @@ var UpdateBranchComponent = (function () {
             .subscribe(function (response) {
             if (response["responseCode"] === "STATE_SUC_11") {
                 _this.state = response["responseData"];
+                _this.branchForm.value.state = _this.state;
+                _this.branchForm.value.stateId = _this.stateId;
                 _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty(_this.state.name);
                 _this.createFormattedAddress();
             }
@@ -534,11 +565,13 @@ var UpdateBranchComponent = (function () {
                 _this.createFormattedAddress();
             }
             else {
-                _this.formattedAddress_City = "N/A";
+                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                _this.cityId = -1;
             }
         }, function (error) {
             this.notificationService.error("ERROR", "City is not available");
-            this.formattedAddress_City = "N/A";
+            this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+            this.cityId = -1;
         });
     };
     UpdateBranchComponent.prototype.countryChange = function (countryId) {
@@ -551,13 +584,19 @@ var UpdateBranchComponent = (function () {
                 _this.formattedAddress_Country = _this.checkFormattedAddressForNullOrEmpty(_this.country.name, true);
             }
             else {
-                _this.formattedAddress_City = "N/A";
-                _this.formattedAddress_State = "N/A";
+                _this.formattedAddress_City = _this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                _this.formattedAddress_State = _this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                _this.countryId = -1;
+                _this.stateId = -1;
+                _this.cityId = -1;
             }
         }, function (error) {
             this.notificationService.error("ERROR", "Country is not available");
-            this.formattedAddress_City = "N/A";
-            this.formattedAddress_State = "N/A";
+            this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+            this.formattedAddress_State = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+            this.countryId = -1;
+            this.stateId = -1;
+            this.cityId = -1;
         });
         this.createFormattedAddress();
     };

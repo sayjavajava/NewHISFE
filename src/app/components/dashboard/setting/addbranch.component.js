@@ -350,37 +350,67 @@ var AddBranchComponent = (function () {
     AddBranchComponent.prototype.getStatesByCountryId = function (countryId) {
         var _this = this;
         this.statesList = this.citiesList = this.statesListModified = this.citiesListModified = [];
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
-            .subscribe(function (response) {
-            if (response["responseCode"] === "BRANCH_SUC_01") {
-                _this.statesList = response["responseData"].data;
-                for (var _i = 0, _a = _this.statesList; _i < _a.length; _i++) {
-                    var state = _a[_i];
-                    var pair = { label: state.name, value: state.id };
-                    _this.statesListModified.push(pair);
+        var pair;
+        if (countryId == -1) {
+            pair = { label: "Not Applicable", value: -1 };
+            this.statesListModified.push(pair);
+            this.citiesListModified.push(pair);
+        }
+        else {
+            this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
+                .subscribe(function (response) {
+                if (response["responseCode"] === "BRANCH_SUC_01") {
+                    _this.statesList = response["responseData"].statesList;
+                    _this.country = response["responseData"].country;
+                    if (_this.statesList.length > 0) {
+                        for (var _i = 0, _a = _this.statesList; _i < _a.length; _i++) {
+                            var state = _a[_i];
+                            pair = { label: state.name, value: state.id };
+                            _this.statesListModified.push(pair);
+                        }
+                    }
+                    else {
+                        pair = { label: "Not Applicable", value: -1 };
+                        _this.statesListModified.push(pair);
+                        _this.citiesListModified.push(pair);
+                    }
                 }
-            }
-        }, function (error) {
-            this.notificationService.error("ERROR", "States List is not available");
-        });
+            }, function (error) {
+                this.notificationService.error("ERROR", "States List is not available");
+            });
+        }
         this.countryChange(countryId);
     };
     AddBranchComponent.prototype.getCitiesByStateId = function (stateId) {
         var _this = this;
         this.citiesList = this.citiesListModified = [];
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
-            .subscribe(function (response) {
-            if (response["responseCode"] === "BRANCH_SUC_01") {
-                _this.citiesList = response["responseData"].data;
-                for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
-                    var city = _a[_i];
-                    var pair = { label: city.name, value: city.id };
-                    _this.citiesListModified.push(pair);
+        var pair;
+        if (stateId == -1) {
+            pair = { label: "Not Applicable", value: -1 };
+            this.citiesListModified.push(pair);
+        }
+        else {
+            this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
+                .subscribe(function (response) {
+                if (response["responseCode"] === "BRANCH_SUC_01") {
+                    _this.citiesList = response["responseData"].cityList;
+                    _this.state = response["responseData"].state;
+                    if (_this.citiesList.length > 0) {
+                        for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
+                            var city = _a[_i];
+                            pair = { label: city.name, value: city.id };
+                            _this.citiesListModified.push(pair);
+                        }
+                    }
+                    else {
+                        pair = { label: "Not Applicable", value: -1 };
+                        _this.citiesListModified.push(pair);
+                    }
                 }
-            }
-        }, function (error) {
-            this.notificationService.error("ERROR", "Cities List is not available");
-        });
+            }, function (error) {
+                this.notificationService.error("ERROR", "Cities List is not available");
+            });
+        }
         this.stateChange(stateId);
     };
     AddBranchComponent.prototype.selectBranchCity = function (cityId) {
