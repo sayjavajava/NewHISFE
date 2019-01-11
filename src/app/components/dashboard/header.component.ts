@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
     showSettings: boolean = false;
     items:any[];
     items2:any=[];
+    isPresent:boolean=false;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private userSharedService: UserSharedService,
@@ -153,6 +154,16 @@ export class HeaderComponent implements OnInit {
                             this.lastName = this.userSharedService.lastName;
                             this.profileImg = this.userSharedService.profileImg;
                             this.role = this.userSharedService.roles;
+                            if(this.userSharedService.profileImg!=null){
+                                this.isPresent=true;
+                                this.userSharedService.profileImg = response['responseData'].profileImg;
+
+                            }else{
+
+                                this.userSharedService.profileImg="/public/images/avatar3_small.jpg";
+                                this.isPresent=false;
+                            }
+                          //  alert(this.userSharedService.profileImg);
                         }
                     },
                     (error: any) => {

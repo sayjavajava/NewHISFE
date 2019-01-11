@@ -16,6 +16,7 @@ export class LoginComponent {
     remember: boolean;
     error: string;
 
+
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private sharedService: UserSharedService,

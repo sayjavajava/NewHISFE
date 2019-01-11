@@ -43,7 +43,7 @@ var AdminProfileComponent = (function () {
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
-            'password': [null, forms_1.Validators.compose([forms_1.Validators.minLength(6)])],
+            'password': [null, forms_1.Validators.compose([forms_1.Validators.minLength(5)])],
             'confirmPassword': [null],
         }, {
             validator: PasswordValidator_1.CustomValidators.Match('password', 'confirmPassword')
