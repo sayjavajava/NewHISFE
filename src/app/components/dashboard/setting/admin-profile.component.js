@@ -53,6 +53,7 @@ var AdminProfileComponent = (function () {
         var self = this;
         if (this.accountForm.valid) {
             //account url can be change
+            //   postRequestMultipartFormAndDataWithOneFile
             this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_03') {
@@ -107,9 +108,9 @@ var AdminProfileComponent = (function () {
         }, function (error) {
         });
     };
-    // cancel() {
-    //     this.router.navigate(['/dashboard/setting/admin/profile']);
-    // }
+    AdminProfileComponent.prototype.cancel = function () {
+        this.router.navigate(['/dashboard/setting/admin/profile']);
+    };
     AdminProfileComponent.prototype.uploadImgOnChange = function (event) {
         var fileList = event.target.files;
         debugger;
@@ -128,6 +129,7 @@ var AdminProfileComponent = (function () {
                     _this.urlOrganization = response['responseData'];
                     _this.notificationService.success('Profile Image has been updated Successfully');
                     _this.profileImg = null;
+                    _this.router.navigate(['/dashboard/setting/admin/profile']);
                     //   this.urlOrganization=response['responseData'];
                 }
             }, function (error) {
