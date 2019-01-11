@@ -280,12 +280,12 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[A-Z/a-z0-9_-]{4,15}$')])],
+                'userName': [null],
                 'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'interval': [null],
-                'email': [null, Validators.compose([Validators.required, Validators.email])],
+                'email': [null],
                 'restrictBranch': [null],
                 'allowDiscount': [null],
                 'otherDashboard': '',
@@ -294,8 +294,12 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                 'shift2': '',
                 'vacation': '',
                 'otherDoctorDashBoard': '',
+                'selectedDoctorDashboard': '',
                 'accountExpiry': [null],
+                'receivePayment': [null],
+                 'hidePatientPhoneNumber': '',
                 'active': '',
+                'allowDiscountCheck': '',
                 'dateFrom': [null],
                 'dateTo': [null],
                 'departmentControl': [null],
@@ -347,7 +351,10 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         sendBillingReport :user.sendBillingReport,
                         useReceptDashboard :user.useReceptDashboard,
                         otherDoctorDashBoard :user.otherDoctorDashBoard,
-
+                        receivePayment :user.receivePayment,
+                        allowDiscount :user.allowDiscount,
+                        allowDiscountCheck :user.allowDiscountCheck,
+                        hidePatientPhoneNumber :user.hidePatientPhoneNumber
 
                     });
                     let docDeptId = user.docDepartmentId;
@@ -364,7 +371,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     }
 
                    // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
-                    console.log('med service '+ user.doctorMedicalSrvcList.length);
                     user.doctorServiceComission.forEach((x:any)=>{
                         this.listOfServices.push({id:x.id,comission:x.comissionService})})
                     //let shifts: any [] = user.dutyShifts;
@@ -524,13 +530,16 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                     selectedServices: this.selectedServices,
                     interval: data.interval,
                     selectedVisitBranches: this.selectedVisitBranches,
-                   selectedDoctorDashboard: this.selectedDoctorDashboard,
+                    selectedDoctorDashboard: this.selectedDoctorDashboard,
                     shift1: data.shift1,
                     shift2: data.shift2,
                     secondShiftToTime: this.secondShiftToTime,
                     secondShiftFromTime: this.secondShiftFromTime,
                     firstShiftToTime: this.firstShiftToTime,
                     firstShiftFromTime: this.firstShiftFromTime,
+                    allowDiscount :data.allowDiscount,
+                    allowDiscountCheck :data.allowDiscountCheck,
+                    receivePayment :data.receivePayment,
                     vacation: data.vacation,
                     dateTo: data.dateTo,
                     dateFrom: data.dateFrom,

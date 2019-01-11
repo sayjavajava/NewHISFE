@@ -17,6 +17,7 @@ var app_constants_1 = require("../../../utils/app.constants");
 var medical_service_1 = require("../../../model/medical-service");
 var router_1 = require("@angular/router");
 var AddMedicalServiceComponent = (function () {
+    // urlOrganization:string;
     function AddMedicalServiceComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;
@@ -27,6 +28,9 @@ var AddMedicalServiceComponent = (function () {
         this.branchIds = [];
         this.selectedBranches = [];
         this.selectedDepartments = [];
+        this.isError = false;
+        this.isErrorFee = false;
+        this.profileImg = null;
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();
@@ -37,6 +41,12 @@ var AddMedicalServiceComponent = (function () {
         //   this.getBranchesFromServer();
         //    this.getDepartmentsFromServer();
     };
+    /*ngAfterViewInit() {
+        let NumberInput = document.getElementById('fee');
+       // let inputmask = new inputmask(this.currencyFormat);
+
+      //  inputmask.mask(NumberInput);
+    }*/
     AddMedicalServiceComponent.prototype.getBranchesFromServer = function () {
         var _this = this;
         this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_ALL_BRANCHES_URL + 'all/all')
@@ -92,6 +102,7 @@ var AddMedicalServiceComponent = (function () {
                 _this.organizationDataList = response['responseData'];
                 _this.currency = _this.organizationDataList.currency;
                 console.log(_this.organizationDataList);
+                _this.currencyFormat = _this.organizationDataList.currencyFormat;
             }
         }, function (error) {
             _this.notificationService.error(error.error.error);
@@ -123,6 +134,16 @@ var AddMedicalServiceComponent = (function () {
                 document.getElementById('branchId').focus();
                 return;
             }
+            if (this.isError == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('cost').focus();
+                return;
+            }
+            if (this.isErrorFee == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('fee').focus();
+                return;
+            }
             var foundDepartment = 0;
             for (var _b = 0, _c = this.ms.departments; _b < _c.length; _b++) {
                 var department = _c[_b];
@@ -141,7 +162,7 @@ var AddMedicalServiceComponent = (function () {
                 return;
             }
             this.selectedBranches.forEach(function (x) { _this.ms.selectedBranchesMS.push(x.id); });
-            this.requestsService.postRequest(app_constants_1.AppConstants.SAVE_MEDICAL_SERVICES_URL, this.ms)
+            this.requestsService.postRequestMultipartFormAndDataWithOneFile(app_constants_1.AppConstants.SAVE_MEDICAL_SERVICES_URL, this.ms, this.profileImg)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'MED_SER_SUC_02') {
                     _this.notificationService.success(response['responseMessage'], 'Medical Service');
@@ -166,6 +187,57 @@ var AddMedicalServiceComponent = (function () {
                 return;
             }
             this.notificationService.error('Please provide required field data', 'Medical Service');
+        }
+    };
+    AddMedicalServiceComponent.prototype.isNumberCheck = function (evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)) {
+            this.isError = true;
+            return false;
+        }
+        this.isError = false;
+        return true;
+    };
+    AddMedicalServiceComponent.prototype.isNumberCheckFee = function (evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)) {
+            this.isErrorFee = true;
+            return false;
+        }
+        this.isErrorFee = false;
+        return true;
+    };
+    /*uploadProfileImg() {
+        if (this.profileImg && this.profileImg.size <= 40000000) {
+            this.requestsService.postRequestMultipartFormData(
+                AppConstants.UPLOAD_ORGNAIZATION_IMAGE_URL + this.id
+                , this.profileImg)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'ORG_SUC_02') {
+
+                            this.urlOrganization=response['responseData'];
+                            this.notificationService.success( 'Medical Service Image has been uploaded Succesfully');
+                            this.profileImg = null;
+                            //   this.urlOrganization=response['responseData'];
+                        }
+                    },
+                    (error: any) => {
+                        this.notificationService.error('Profile Image uploading failed', 'Update Organization');
+
+                    }
+                );
+        } else {
+            this.notificationService.error('File size must be less then 4 mb.', 'Update Organization');
+        }
+    }*/
+    AddMedicalServiceComponent.prototype.uploadImgOnChange = function (event) {
+        var fileList = event.target.files;
+        debugger;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
         }
     };
     AddMedicalServiceComponent = __decorate([

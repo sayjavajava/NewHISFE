@@ -9,6 +9,10 @@ import {AppConstants} from "../../../utils/app.constants";
 import {ExamRooms} from "../../../model/ExamRooms";
 import {Organization} from "../../../model/organization";
 import {SelectItem} from "primeng/components/common/selectitem";
+import {isNullOrUndefined} from "util";
+import {Country} from "../../../model/Country";
+import {State} from "../../../model/State";
+import {City} from "../../../model/City";
 
 @Component({
     selector: "addbranch-component",
@@ -41,6 +45,16 @@ export class AddBranchComponent implements OnInit {
     organizationDataList: any;
     currency:string;
     timeFormat:string;
+
+    formattedAddress_Address: string = "";
+    formattedAddress_ZipCode: string = "";
+    formattedAddress_State: string = "";
+    formattedAddress_City: string = "";
+    formattedAddress_Country: string = "";
+    formattedAddress: string = "";
+    country: Country = new Country;
+    state: State = new State;
+    city: City = new City;
 
     constructor(private router: Router, private requestService: RequestsService,
                 private fb: FormBuilder, private notificationService: NotificationService,
@@ -140,7 +154,7 @@ export class AddBranchComponent implements OnInit {
             "address": [null],
             "officePhone": [null],
             "fax": [null],
-            "formattedAddress": [null],
+            "formattedAddress": [{value: "", disabled: true}, Validators.required],
             "officeHoursStart": [this.officeHoursStart, Validators.compose([Validators.required])],
             "officeHoursEnd": [this.officeHoursEnd, Validators.compose([Validators.required])],
             "noOfExamRooms": [null, Validators.compose([Validators.required])],
@@ -223,22 +237,20 @@ export class AddBranchComponent implements OnInit {
         if (this.branchForm.valid) {
             // let branchObject = this.prepareSaveBranch();
             this.requestService.postRequest(AppConstants.ADD_BRANCH, data)
-                .subscribe(
-                    (response: Response) => {//BRANCH_ADD_SUCCESS_01
-                        if (response["responseCode"] === "BRANCH_ADD_SUCCESS_01") {
-                            this.notificationService.success("Branch is Created Successfully");
-                            this.router.navigate(["/dashboard/setting/branch"])
-                        }
-                         else if (response["responseCode"] === "BR_ALREADY_EXISTS_01") {
-                            this.notificationService.warn("Branch already Exists");
-                            //  this.router.navigate(['/dashboard/setting/branch'])
-                        }
-                    }, function () {
-                        console.clear();
-                        this.notificationService.error("ERROR", "Branch is not Created");
-                    });
-
-
+                .subscribe((response: Response) => {//BRANCH_ADD_SUCCESS_01
+                    if (response["responseCode"] === "BRANCH_ADD_SUCCESS_01") {
+                        this.notificationService.success("Branch is Created Successfully");
+                        this.router.navigate(["/dashboard/setting/branch"])
+                    }
+                     else if (response["responseCode"] === "BR_ALREADY_EXISTS_01") {
+                        this.notificationService.warn("Branch already Exists");
+                        //  this.router.navigate(['/dashboard/setting/branch'])
+                    }
+                }, function () {
+                    console.clear();
+                    this.notificationService.error("ERROR", "Branch is not Created");
+                }
+            );
         } else {
             this.validateAllFormFields(this.branchForm);
             let errors:number = 0;
@@ -365,62 +377,140 @@ export class AddBranchComponent implements OnInit {
 
     createCountriesList() {
         this.requestService.getRequest(AppConstants.FETCH_LIST_OF_COUNTRIES)
-            .subscribe(
-                (response: Response) => {
-                    if (response["responseCode"] === "BRANCH_SUC_01") {
-                        this.countryList = response["responseData"].data;
-                        for (let country of this.countryList) {
-                            var pair: any = {label: country.name, value: country.id};
-                            this.countryListModified.push(pair);
-                        }
+            .subscribe((response: Response) => {
+                if (response["responseCode"] === "BRANCH_SUC_01") {
+                    this.countryList = response["responseData"].data;
+                    for (let country of this.countryList) {
+                        var pair: any = {label: country.name, value: country.id};
+                        this.countryListModified.push(pair);
                     }
-                }, function (error) {
-                    this.notificationService.error("ERROR", "Countries List is not available");
-                });
+                }
+            }, function (error) {
+                this.notificationService.error("ERROR", "Countries List is not available");
+            }
+        );
     }
 
     getStatesByCountryId(countryId: any) {
         this.statesList = this.citiesList = this.statesListModified = this.citiesListModified = [];
 
         this.requestService.getRequest(AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
-            .subscribe(
-                (response: Response) => {
-                    if (response["responseCode"] === "BRANCH_SUC_01") {
-                        this.statesList = response["responseData"].data;
-                        for (let state of this.statesList) {
-                            var pair: any = {label: state.name, value: state.id};
-                            this.statesListModified.push(pair);
-                        }
+            .subscribe((response: Response) => {
+                if (response["responseCode"] === "BRANCH_SUC_01") {
+                    this.statesList = response["responseData"].data;
+                    for (let state of this.statesList) {
+                        var pair: any = {label: state.name, value: state.id};
+                        this.statesListModified.push(pair);
                     }
-                }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
-                });
+                }
+            }, function (error) {
+                this.notificationService.error("ERROR", "States List is not available");
+            }
+        );
+        this.countryChange(countryId);
     }
 
     getCitiesByStateId(stateId: any) {
         this.citiesList = this.citiesListModified = [];
 
         this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
-            .subscribe(
-                (response: Response) => {
-                    if (response["responseCode"] === "BRANCH_SUC_01") {
-                        this.citiesList = response["responseData"].data;
-                        for (let city of this.citiesList) {
-                            var pair: any = {label: city.name, value: city.id};
-                            this.citiesListModified.push(pair);
-                        }
+            .subscribe((response: Response) => {
+                if (response["responseCode"] === "BRANCH_SUC_01") {
+                    this.citiesList = response["responseData"].data;
+                    for (let city of this.citiesList) {
+                        var pair: any = {label: city.name, value: city.id};
+                        this.citiesListModified.push(pair);
                     }
-                }, function (error) {
-                    this.notificationService.error("ERROR", "Cities List is not available");
-                });
+                }
+            }, function (error) {
+                this.notificationService.error("ERROR", "Cities List is not available");
+            }
+        );
+        this.stateChange(stateId);
     }
 
     selectBranchCity(cityId: any) {
         this.branchCity = cityId;
         // console.log("Branch City ID: " + this.branchCity);
+        this.cityChange(cityId);
     }
 
     cancel() {
         this.router.navigate(["/dashboard/setting/branch"]);
+    }
+
+    addressChange(value: any) {
+        // console.log(value);
+        this.formattedAddress_Address = this.checkFormattedAddressForNullOrEmpty(value);
+        this.createFormattedAddress();
+    }
+
+    zipCodeChange(value: any) {
+        this.formattedAddress_ZipCode = this.checkFormattedAddressForNullOrEmpty(value);
+        this.createFormattedAddress();
+    }
+
+    stateChange(stateId: any) {
+        this.requestService.getRequest(AppConstants.GET_STATE_BY_ID + stateId)
+            .subscribe((response: Response) => {
+                if (response["responseCode"] === "STATE_SUC_11") {
+                    this.state = response["responseData"];
+                    console.log(this.state);
+                    this.formattedAddress_State = this.checkFormattedAddressForNullOrEmpty(this.state.name);
+                    this.createFormattedAddress();
+                }
+            }, function (error) {
+                this.notificationService.error("ERROR", "State is not available");
+                this.formattedAddress_State = "N/A";
+            }
+        );
+    }
+
+    cityChange(cityId: any) {
+        this.requestService.getRequest(AppConstants.GET_CITY_BY_ID + cityId)
+            .subscribe((response: Response) => {
+                if (response["responseCode"] === "CITY_SUC_11") {
+                    this.city = response["responseData"];
+                    console.log(this.state);
+                    this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty(this.city.name);
+                    this.createFormattedAddress();
+                }
+            }, function (error) {
+                this.notificationService.error("ERROR", "City is not available");
+                this.formattedAddress_City = "N/A";
+            }
+        );
+    }
+
+    countryChange(countryId: any) {
+        this.requestService.getRequest(AppConstants.GET_COUNTRY_BY_ID + countryId)
+            .subscribe((response: Response) => {
+                if (response["responseCode"] === "COUNTRY_SUC_11") {
+                    this.country = response["responseData"];
+                    console.log(this.country);
+                    this.formattedAddress_Country = this.checkFormattedAddressForNullOrEmpty(this.country.name, true);
+                    this.createFormattedAddress();
+                }
+            }, function (error) {
+                this.notificationService.error("ERROR", "Country is not available");
+            }
+        );
+    }
+
+    private checkFormattedAddressForNullOrEmpty(value: string, isCountry?: boolean) {
+        if (!isNullOrUndefined(value) && value.trim() != "") {
+            if (isCountry) {
+                return value;
+            } else {
+                return value + ", ";
+            }
+        }
+        return "";
+    }
+
+    private createFormattedAddress() {
+        this.formattedAddress = this.formattedAddress_Address + this.formattedAddress_ZipCode + this.formattedAddress_State
+            + this.formattedAddress_City + this.formattedAddress_Country;
+        this.branchForm.controls["formattedAddress"].setValue(this.formattedAddress);
     }
 }

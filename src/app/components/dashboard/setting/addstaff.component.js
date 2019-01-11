@@ -41,6 +41,7 @@ var AddStaffComponent = (function () {
         this.departmentFlag = false;
         this.userSelected = 'doctor';
         this.defaultBranch = 'primaryBranch';
+        this.allowDiscountToggle = false;
         this.branchesList = [];
         this.departmentList = [];
         this.primaryDoctor = [];
@@ -250,20 +251,25 @@ var AddStaffComponent = (function () {
             'interval': [null, forms_1.Validators.required],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'restrictBranch': [null],
-            'allowDiscount': [null, forms_1.Validators.compose([forms_1.Validators.pattern("^[0-9]*$"), forms_1.Validators.max(100), forms_1.Validators.min(0)])],
+            // 'allowDiscount': [null,Validators.compose([Validators.pattern("^[0-9]*$"),Validators.max(100), Validators.min(0)])],
+            'allowDiscount': [null],
             'otherDashboard': '',
             'sendBillingReport': '',
             'useReceptDashboard': '',
             'shift2': '',
             'vacation': '',
             'otherDoctorDashBoard': '',
+            'selectedDoctorDashboard': '',
             'accountExpiry': [null],
             'active': '',
             'dateFrom': [null],
             'dateTo': [null],
             'managePatientInvoices': '',
             'managePatientRecords': '',
-            'hidePatient': '',
+            'receivePayment': '',
+            'canAccessPatientRecord': '',
+            'allowDiscountCheck': '',
+            'hidePatientPhoneNumber': '',
             'departmentControl': [null, forms_1.Validators.pattern('true')],
             'servicesControl': [null],
             'shift1': [null, forms_1.Validators.required],
@@ -291,6 +297,8 @@ var AddStaffComponent = (function () {
                     useReceptDashboard: data.useReceptDashboard,
                     otherDashboard: data.otherDashboard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment: data.receivePayment,
+                    allowDiscountCheck: data.allowDiscountCheck,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -299,6 +307,9 @@ var AddStaffComponent = (function () {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     userType: this.selectedUser,
+                    canAccessPatientRecord: data.canAccessPatientRecord,
+                    hidePatientPhoneNumber: data.hidePatientPhoneNumber
+                    //selectedRoles : this.selectedRoles
                 });
                 this.makeService(cashier);
             }
@@ -314,6 +325,8 @@ var AddStaffComponent = (function () {
                     useReceptDashboard: data.useReceptDashboard,
                     otherDashboard: data.otherDashboard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment: data.receivePayment,
+                    allowDiscountCheck: data.allowDiscountCheck,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -322,8 +335,9 @@ var AddStaffComponent = (function () {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     selectedDoctors: this.selectedDoctors,
-                    //selectedRoles : this.selectedRoles,
-                    userType: this.selectedUser
+                    userType: this.selectedUser,
+                    canAccessPatientRecord: data.canAccessPatientRecord,
+                    hidePatientPhoneNumber: data.hidePatientPhoneNumber
                 });
                 this.makeService(receptionist);
             }
@@ -352,7 +366,8 @@ var AddStaffComponent = (function () {
                         selectedDepartment: this.selectedDepartment,
                         dutyWithDoctors: this.dutyWithDoctors,
                         //selectedRoles : this.selectedRoles,
-                        userType: this.selectedUser
+                        userType: this.selectedUser,
+                        hidePatientPhoneNumber: data.hidePatientPhoneNumber
                     });
                     this.makeService(nurse);
                 }
@@ -380,6 +395,8 @@ var AddStaffComponent = (function () {
                     otherDashboard: data.otherDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment: data.receivePayment,
+                    allowDiscountCheck: data.allowDiscountCheck,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -401,6 +418,7 @@ var AddStaffComponent = (function () {
                     selectedWorkingDays: this.selectedWorkingDays,
                     //selectedRoles : this.selectedRoles,
                     userType: this.selectedUser,
+                    hidePatientPhoneNumber: data.hidePatientPhoneNumber
                 });
                 this.makeService(doctor);
             }
@@ -667,6 +685,7 @@ var AddStaffComponent = (function () {
         this.selectedVisitBranches.length = 0;
         this.selectedDoctors.length = 0;
         this.selectedWorkingDays.length = 0;
+        this.selectedDoctorDashboard.length = 0;
         this.firstShiftFromTime = '';
         //this.userForm.controls['restrictBranch'].setValue('');
         this.firstShiftToTime = '';
@@ -752,7 +771,9 @@ var AddStaffComponent = (function () {
         this.dutytimmingshift2 = true;
         this.vacation = true;
         this.vacationweek = true;
+        this.recivepayment = true;
         this.services = true;
+        this.allowdiscount = true;
     };
     AddStaffComponent.prototype.nursePermissions = function () {
         this.nurseDepartment = true;
@@ -762,9 +783,13 @@ var AddStaffComponent = (function () {
     };
     AddStaffComponent.prototype.receptionistPermissions = function () {
         this.allowdiscount = true;
+        this.recivepayment = true;
+        this.accessPatientRecord = true;
     };
     AddStaffComponent.prototype.cashierPermissions = function () {
         this.allowdiscount = true;
+        this.recivepayment = true;
+        this.accessPatientRecord = true;
     };
     AddStaffComponent.prototype.changeState = function () {
         this.allowdiscount = false;
@@ -778,9 +803,16 @@ var AddStaffComponent = (function () {
         this.dutywithdoctor = false;
         this.managepatientrecord = false;
         this.managepatientinvoices = false;
+        this.recivepayment = false;
+        this.accessPatientRecord = false;
     };
     AddStaffComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);
+    };
+    AddStaffComponent.prototype.toggleDiscount = function () {
+        this.userForm.controls['allowDiscount'].enable();
+        this.allowDiscountToggle = !this.allowDiscountToggle;
+        console.log('disccc:' + this.allowDiscountToggle);
     };
     AddStaffComponent.prototype.getSelectedBranch = function (event) {
         if (event && event.target.value) {
@@ -792,6 +824,16 @@ var AddStaffComponent = (function () {
     AddStaffComponent.prototype.getSelectedDashboard = function (value) {
         if (value) {
             this.userForm.controls['otherDashboard'].setValue(value);
+        }
+    };
+    AddStaffComponent.prototype.checkDiscount = function (value) {
+        if (value > 100) {
+            this.notificationService.error('Value cannot be more than 100', 'Allowed Discount');
+            document.getElementById('allowDiscount').focus();
+        }
+        else if (value < 0) {
+            this.notificationService.error('Value cannot be less than 0', 'Allowed Discount');
+            document.getElementById('allowDiscount').focus();
         }
     };
     AddStaffComponent = __decorate([

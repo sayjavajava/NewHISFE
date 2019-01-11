@@ -16,6 +16,7 @@ var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var app_constants_1 = require("../../../utils/app.constants");
 var organization_1 = require("../../../model/organization");
+var PasswordValidator_1 = require("./PasswordValidator");
 var AdminProfileComponent = (function () {
     function AdminProfileComponent(route, router, requestService, fb, notificationService) {
         this.route = route;
@@ -24,6 +25,7 @@ var AdminProfileComponent = (function () {
         this.fb = fb;
         this.notificationService = notificationService;
         this.organization = new organization_1.Organization();
+        this.profileImg = null;
         //  this.getOrganizationAccount();
         this.getOrganizationFromServer(0);
     }
@@ -41,6 +43,10 @@ var AdminProfileComponent = (function () {
             'userAddress': [null],
             'formName': ['ACCOUNT'],
             'homePhone': [null],
+            'password': [null, forms_1.Validators.compose([forms_1.Validators.minLength(5)])],
+            'confirmPassword': [null],
+        }, {
+            validator: PasswordValidator_1.CustomValidators.Match('password', 'confirmPassword')
         });
     };
     AdminProfileComponent.prototype.saveAccount = function (data) {
@@ -50,10 +56,10 @@ var AdminProfileComponent = (function () {
             this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_03') {
-                    self.notificationService.success('Organization has been Update Successfully');
+                    self.notificationService.success('User Profile  has been Update Successfully');
                 }
             }, function (error) {
-                self.notificationService.error('ERROR', 'Organization is not Updated');
+                self.notificationService.error('ERROR', 'Profile is not Updated');
             });
         }
         else {
@@ -66,7 +72,9 @@ var AdminProfileComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'ORG_SUC_04') {
                 _this.organization = response['responseData'];
+                _this.urlOrganization = _this.organization.profileImgUrl;
                 console.log(_this.organization);
+                //   console.log(this.organization);
             }
         }, function (error) {
         });
@@ -98,6 +106,37 @@ var AdminProfileComponent = (function () {
             }
         }, function (error) {
         });
+    };
+    // cancel() {
+    //     this.router.navigate(['/dashboard/setting/admin/profile']);
+    // }
+    AdminProfileComponent.prototype.uploadImgOnChange = function (event) {
+        var fileList = event.target.files;
+        debugger;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
+    };
+    AdminProfileComponent.prototype.uploadProfileImg = function () {
+        var _this = this;
+        if (this.profileImg && this.profileImg.size <= 40000000) {
+            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PROFILE_NEW_IMAGE_URL + this.id, this.profileImg)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'ORG_SUC_02') {
+                    _this.urlOrganization = response['responseData'];
+                    _this.notificationService.success('Profile Image has been updated Successfully');
+                    _this.profileImg = null;
+                    //   this.urlOrganization=response['responseData'];
+                }
+            }, function (error) {
+                _this.notificationService.error('Profile Image uploading failed', 'Update Profile');
+            });
+        }
+        else {
+            this.notificationService.error('File size must be less then 4 mb.', 'Update Organization');
+        }
     };
     AdminProfileComponent = __decorate([
         core_1.Component({

@@ -310,10 +310,6 @@ var PatientDemographicComponent = (function () {
         });
     };
     PatientDemographicComponent.prototype.uploadImgOnChange = function (event) {
-        /*let fileList: FileList = event.target.files;
-        if (fileList.length > 0) {
-            this.file = fileList[0];
-        }*/
         var fileList = event.target.files;
         if (fileList != null && fileList.length > 0) {
             if (event.target.name === "profileImgURL") {

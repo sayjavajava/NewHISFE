@@ -96,26 +96,31 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
         this.userForm = this.fb.group({
                 'firstName': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
                 'lastName': [null],
-                'userName': [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+                'userName': [null],
                 'password': [null],
                 'confirmPassword': [null],
                 'homePhone': [null],
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'interval': [null],
-                'email': [null, Validators.compose([Validators.required, Validators.email])],
+                'email': [null],
                 'restrictBranch': [null],
                 'allowDiscount': [null],
                 'otherDashboard': '',
+                'selectedDoctorDashboard': '',
                 'sendBillingReport': '',
                 'useReceptDashboard': '',
+                'allowDiscountCheck': [null],
+                'canAccessPatientRecord': '',
                 'shift2': '',
                 'vacation': '',
                 'otherDoctorDashBoard': '',
                 'accountExpiry': [null],
+                'receivePayment': [null],
                 'active': '',
                 'dateFrom': [null],
                 'dateTo': [null],
+                'hidePatientPhoneNumber': [null],
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
                 'departmentControl': [null],
@@ -145,10 +150,16 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                         userName: receptionist.userName,
                         active: receptionist.active,
                         accountExpiry: receptionist.expiryDate,
+                        receivePayment :receptionist.receivePayment,
                         primaryBranch: receptionist.primaryBranchId,
                         sendBillingReport :receptionist.sendBillingReport,
                         useReceptDashboard :receptionist.useReceptDashboard,
-                        otherDoctorDashBoard :receptionist.otherDoctorDashBoard
+                        otherDoctorDashBoard :receptionist.otherDoctorDashBoard,
+                        allowDiscount :receptionist.allowDiscount,
+                        allowDiscountCheck:receptionist.allowDiscountCheck,
+                        hidePatientPhoneNumber :receptionist.hidePatientPhoneNumber,
+                        canAccessPatientRecord:receptionist.canAccessPatientRecord,
+
                     });
                     if(receptionist.permittedDoctorDashboard){
                         this.selectedDoctorDashboard = [...receptionist.permittedDoctorDashboard]
@@ -206,17 +217,21 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
+                allowDiscountCheck :data.allowDiscountCheck,
+                canAccessPatientRecord :data.canAccessPatientRecord,
+                receivePayment :data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,
                 selectedDoctorDashboard: this.selectedDoctorDashboard,
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
-                allowDiscount: data.allowDiscount,
+                allowDiscount :data.allowDiscount,
+                hidePatientPhoneNumber :data.hidePatientPhoneNumber
+
             });
             this.makeService(cashier);
         } else {
-            console.log('i am else');
             this.validateAllFormFields(this.userForm);
         }
     }

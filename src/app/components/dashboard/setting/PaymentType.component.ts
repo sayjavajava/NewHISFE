@@ -44,7 +44,8 @@ export class PaymentTypeComponent implements OnInit {
     ];
 
     loading: boolean;
-
+    isError:boolean=false;
+    isErrorFee:boolean=false;
     constructor(private service:RequestsService,private notificationService: NotificationService, private router: Router,private HISUtilService: HISUtilService){}
 
     ngOnInit(): void {
@@ -146,6 +147,17 @@ export class PaymentTypeComponent implements OnInit {
                 return;
             }
 
+            if (this.isError == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('paycard').focus();
+                return;
+            }
+
+            if (this.isErrorFee == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('payserve').focus();
+                return;
+            }
 
             var charteredofAccount = this.chartOfAccountList.filter(x=>x.id==this.selectedCharteredAccount);
             this.newPaymentType.paymentGlAccount=charteredofAccount[0];
@@ -161,7 +173,7 @@ export class PaymentTypeComponent implements OnInit {
                     this.newPaymentType.bankGlCharges=new GeneralLedgerModel();
                 }
 
-
+            `   `
                 this.service.postRequest(AppConstants.SAVE_PAYMENTTYPE, this.newPaymentType)
                     .subscribe((response: Response) => {
                             if (response['responseCode'] === 'PAYMENT_SUC_02') {
@@ -254,6 +266,9 @@ export class PaymentTypeComponent implements OnInit {
         if(this.selectedSecondCharteredAccount!=null){
             this.selectedSecondCharteredAccount=this.newPaymentType.bankGlCharges[0];
         }
+        debugger;
+     //   this.newPaymentType.maxCardCharges=parseInt(objPaymentType.strmaxCardCharges);
+     //   this.newPaymentType.serviceCharges=parseInt(objPaymentType.strServiceCharges);
 
         this.newPaymentType.isPatient=objPaymentType.patient;
         if(objPaymentType.bankGlCharges != null){
@@ -348,10 +363,33 @@ export class PaymentTypeComponent implements OnInit {
         }
     }
 
+    isNumberCheck(evt:any) {
+
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+
+
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)){
+            this.isError=true;
+            return false;
+        }
+        this.isError=false;
+        return true;
+    }
+
+    isNumberCheckFee(evt:any) {
+
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)){
+            this.isErrorFee=true;
+            return false;
+        }
+        this.isErrorFee=false;
+        return true;
+    }
 
     updatePaymentType(form: NgForm) {
         if (window.localStorage.getItem(btoa('access_token'))) {
-
+            debugger;
             if(this.selectedCharteredAccount != undefined){
             var charteredofAccount = this.chartOfAccountList.filter(x=>x.id==this.selectedCharteredAccount);
             this.newPaymentType.paymentGlAccount=charteredofAccount[0];
@@ -375,6 +413,18 @@ export class PaymentTypeComponent implements OnInit {
                 this.newPaymentType.maxCardCharges=0;
                 this.newPaymentType.payCredit="";
 
+            }
+
+            if (this.isError == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('paycard').focus();
+                return;
+            }
+
+            if (this.isErrorFee == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('payserve').focus();
+                return;
             }
             
             this.newPaymentType.isPatient=this.newPaymentType.isPatient;

@@ -111,6 +111,9 @@ var AppConstants = (function () {
     AppConstants.FETCH_ORGANIZATION_BY_ID = '/setting/organization/get/';
     AppConstants.FETCH_ORG_ACCOUNT_URL = '/setting/organization/account';
     AppConstants.UPDATE_ORGANIZATION_URL = '/setting/organization/update/';
+    AppConstants.UPDATE_ORGANIZATION_URL_NEW = '/setting/organization/update/';
+    AppConstants.UPLOAD_ORGNAIZATION_IMAGE_URL = '/setting/organization/uploadProfileImg/';
+    AppConstants.UPLOAD_PROFILE_NEW_IMAGE_URL = '/setting/organization/uploadProfileImgAccount/';
     ////////////////////// Patient URLs ///////////////////////////////
     AppConstants.FETCH_ALL_PATIENT_URL = '/patient/';
     AppConstants.PATIENT_DELETE_URI = '/patient/delete/';
@@ -205,6 +208,7 @@ var AppConstants = (function () {
     AppConstants.PREFIX_CONFIGURATION_SAVE = '/prefixConfiguration/savePrefixConfiguration';
     ////////////////////// Chart Of Account Configuration URLs ///////////////////////////////
     AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS = '/chartOfAccountConfigurations/getAll';
+    AppConstants.FETCH_ALL_LEDGERS = '/chartOfAccountConfigurations/getAllLedgers';
     AppConstants.ACCOUNTS_CONFIGURATION_SAVE = '/chartOfAccountConfigurations/saveChartOfAccount';
     AppConstants.ASSETS_CONFIG_SAVE = '/chartOfAccountConfigurations/updateAssetsConfig';
     AppConstants.LIABILTY_CONFIG_SAVE = '/chartOfAccountConfigurations/updateLiabilityConfig';
@@ -277,6 +281,9 @@ var AppConstants = (function () {
     AppConstants.GET_CITY_URL = '/CityAPI/';
     AppConstants.GET_STATE_URL = '/StateAPI/';
     AppConstants.GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
+    AppConstants.GET_COUNTRY_BY_ID = '/CountryAPI/get/';
+    AppConstants.GET_STATE_BY_ID = '/StateAPI/getById/';
+    AppConstants.GET_CITY_BY_ID = '/CityAPI/getById/';
     AppConstants.ORGANIZATION_DATA_URL = '/setting/organization/OrganizationData';
     AppConstants.FETCH_ACCOUNTS_PAYMENTTYPE = '/chartOfAccountConfigurations/getAllForPaymentType';
     /////////////////////FETCH
@@ -319,6 +326,10 @@ var AppConstants = (function () {
     AppConstants.PATIENT_DOWNLOAD_SAMPLE_FILE = '/fileDownload/patientSample';
     AppConstants.LAB_TEST_DOWNLOAD_SAMPLE_FILE = '/fileDownload/labTestSample';
     AppConstants.DRUG_DOWNLOAD_SAMPLE_FILE = '/fileDownload/drugSample';
+    //  public static PATIENT_IMAGE_FILES_URL = '/patient/get/'
+    ///////////////////////// GRUG MANUFACTURERS
+    AppConstants.FETCH_ALL_DRUG_MAKERS = '/setting/drugManufacturer/getAll';
+    AppConstants.FETCH_ALL_ACTIVE_DRUG_MAKERS = '/setting/drugManufacturer/getAllActive';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

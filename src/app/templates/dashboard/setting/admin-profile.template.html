@@ -84,7 +84,51 @@
                                                       class="form-control"></textarea>
                                         </div>
                                     </div>
+
+
+                                    <div class="form-group mrgn-btm08">
+                                        <label class="control-label col-md-4 pdng-lr-5">Password</label>
+                                        <div class="col-md-8 profile-frm pdng-lr-5">
+                                            <input type="password" formControlName="password" class="form-control">
+                                            <span class="text-danger" *ngIf="!accountForm.controls['password'].valid && accountForm.controls['password'].touched">
+                                            <span *ngIf="accountForm.controls['password'].errors.minlength"> minimum 5 charachters</span>
+                                           </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mrgn-btm08">
+                                        <label class="control-label col-md-4 pdng-lr-5">Confirm Password</label>
+                                        <div class="col-md-8 pdng-lr-5 profile-frm">
+                                            <input type="password" formControlName="confirmPassword" class="form-control">
+                                            <span class="text-danger" *ngIf="!accountForm.controls['confirmPassword'].valid && accountForm.controls['confirmPassword'].touched">pass must be match</span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                       <!-- <label class="col-md-4 control-label txt-size">Photo</label>-->
+                                        <div class="col-md-6 select">
+                                            <div class="logo-plchldr">
+                                                <!--<img class="img-responsive" style="width: 120px; height: 140px;"
+                                                     src="/public/images/patient-photo.jpg"
+                                                     *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
+
+                                                <img class="img-responsive" style="width: 120px; height: 120px;"
+                                                     src="{{urlOrganization}}">
+                                            </div>
+                                            <div class="mrgn-top8">
+                                                <input class="file" type="file" id="profileImgUrl"
+                                                       name="profileImgUrl"
+                                                       (change)="uploadImgOnChange($event)">
+
+                                            </div>
+                                            <div class="imgUploadTopMargin mrgn-top8">
+                                                <button class="btn btn-default btn-outline"
+                                                        (click)="uploadProfileImg()">
+                                                    <i class=" icon-arrow-up"></i>upload
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div></div>
                             </div></div>
                     </form>
                 </div>

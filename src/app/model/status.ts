@@ -4,7 +4,7 @@ export class Status {
     abbreviation: string;
     active: boolean = true;
     colorHash: string;
-
+    systemStatus:boolean=false;
     constructor() {
     }
 }

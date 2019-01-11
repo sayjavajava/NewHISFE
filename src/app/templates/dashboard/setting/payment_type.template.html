@@ -125,8 +125,12 @@
                                                 <option *ngFor="let ca of chartOfAccountList;" [ngValue]="ca.id">
                                                     {{ca.name}}
                                                 </option>
-                                                </select>-->
+
+                                            </select>-->
+
                                         </div>
+
+
                                     </div>
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Payment Type<span
@@ -137,6 +141,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group hr">
                                         <label class="col-md-3 pdng-lr-5 control-label txt-size">Purpose</label>
                                         <div class="col-md-9 select pdng-lr-5 profile-frm">
@@ -183,6 +188,7 @@
                                                 Patient
                                                 <span></span>
                                             </label>-->
+
                                         </div>
                                     </div>
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
@@ -231,14 +237,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn primary blue"
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn default"> Close </button>
+                        <button type="button" class="btn blue"
                                 *ngIf="newPaymentType.id == null || newPaymentType.id <= 0"
                                 (click)="savePaymentType(form)">Save
                         </button>
-                        <button type="button" class="btn primary blue" *ngIf="newPaymentType.id > 0"
+                        <button type="button" class="btn blue" *ngIf="newPaymentType.id > 0"
                                 (click)="updatePaymentType(form)">Update
                         </button>
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow"> Close </button>
                     </div>
                 </div>
             </form>

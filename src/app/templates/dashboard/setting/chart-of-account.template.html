@@ -30,6 +30,7 @@
                                                 ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order">
                                     </p-sortIcon>
                                 </th>
+
                             </tr>
                             <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -47,7 +48,8 @@
                                 <td field="name">{{chartOfAccountList.name}}</td>
                                 <td field="parentType">{{chartOfAccountList.parentType + " ("+chartOfAccountList.accountType+")"}}</td>
                                 <td field="description">{{chartOfAccountList.description}}</td>
-                                <td field="balance">{{chartOfAccountList.balance}}</td>
+                                <td field="balance">{{chartOfAccountList.balance | number :'.2-2'}}</td>
+
                                 <td field="action">
                                     <ng-container>
                                         <a href="#chartOfAccount" data-toggle="modal">

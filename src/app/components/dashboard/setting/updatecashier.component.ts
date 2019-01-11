@@ -106,19 +106,24 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                 'cellPhone': [null],
                 'primaryBranch': [null, Validators.required],
                 'interval': [null],
-                'email': [null, Validators.compose([Validators.required, Validators.email])],
+                'email': [null],
                 'restrictBranch': [null],
                 'allowDiscount': [null],
+                'allowDiscountCheck': [null],
+                'canAccessPatientRecord': '',
                 'otherDashboard': '',
                 'sendBillingReport': '',
                 'useReceptDashboard': '',
                 'shift2': '',
                 'vacation': '',
                 'otherDoctorDashBoard': '',
+                'selectedDoctorDashboard': '',
+                'hidePatientPhoneNumber': '',
                 'accountExpiry': [null],
                 'active': '',
                 'dateFrom': [null],
                 'dateTo': [null],
+                'receivePayment':[null],
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
                 'departmentControl': [null],
@@ -150,7 +155,12 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                         primaryBranch: cashier.primaryBranchId,
                         sendBillingReport: cashier.sendBillingReport,
                         useReceptDashboard: cashier.useReceptDashboard,
-                        otherDoctorDashBoard: cashier.otherDoctorDashBoard
+                        otherDoctorDashBoard: cashier.otherDoctorDashBoard,
+                        receivePayment :cashier.receivePayment,
+                        allowDiscount :cashier.allowDiscount,
+                        allowDiscountCheck :cashier.allowDiscountCheck,
+                        hidePatientPhoneNumber :cashier.hidePatientPhoneNumber,
+                        canAccessPatientRecord:cashier.canAccessPatientRecord,
 
                     });
                     this.staffBranches = cashier.staffBranches;
@@ -209,6 +219,9 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                 useReceptDashboard: data.useReceptDashboard,
                 otherDashboard: data.otherDashboard,
                 accountExpiry: data.accountExpiry,
+                allowDiscountCheck :data.allowDiscountCheck,
+                canAccessPatientRecord :data.canAccessPatientRecord,
+                receivePayment:data.receivePayment,
                 primaryBranch: data.primaryBranch,
                 email: data.email,
                 selectedVisitBranches: this.selectedVisitBranches,
@@ -216,6 +229,7 @@ export class UpdateCashierComponent implements OnInit, OnDestroy {
                 otherDoctorDashBoard: data.otherDoctorDashBoard,
                 active: data.active,
                 allowDiscount: data.allowDiscount,
+                hidePatientPhoneNumber :data.hidePatientPhoneNumber
             });
             this.makeService(cashier);
         } else {

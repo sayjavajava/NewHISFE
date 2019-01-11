@@ -122,17 +122,19 @@ var UpdateNurseComponent = (function () {
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[a-z0-9_-]{4,15}$')])],
+            'userName': [null],
             'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
-            'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.email])],
+            'email': [null],
             'restrictBranch': [null],
             'allowDiscount': [null],
             'otherDashboard': '',
             'sendBillingReport': '',
             'useReceptDashboard': '',
+            'hidePatientPhoneNumber': '',
             'otherDoctorDashBoard': '',
+            'selectedDoctorDashboard': '',
             'accountExpiry': [null],
             'active': '',
             'managePatientInvoices': '',
@@ -161,6 +163,7 @@ var UpdateNurseComponent = (function () {
                     sendBillingReport: user.sendBillingReport,
                     useReceptDashboard: user.useReceptDashboard,
                     otherDoctorDashBoard: user.otherDoctorDashBoard,
+                    hidePatientPhoneNumber: user.hidePatientPhoneNumber
                 });
                 if (user.expiryDate != null) {
                     _this.userForm.controls['accountExpiry'].setValue(new Date(user.expiryDate));
@@ -218,7 +221,6 @@ var UpdateNurseComponent = (function () {
     UpdateNurseComponent.prototype.addUser = function (data) {
         if (this.userForm.valid) {
             if (this.selectedDepartment.length != 0) {
-                console.log('fine');
                 var nurse = new User_1.User({
                     userType: 'nurse',
                     firstName: data.firstName,
@@ -241,6 +243,7 @@ var UpdateNurseComponent = (function () {
                     managePatientInvoices: data.managePatientInvoices,
                     dutyWithDoctors: this.dutyWithDoctors,
                     selectedDepartment: this.selectedDepartment,
+                    hidePatientPhoneNumber: data.hidePatientPhoneNumber
                 });
                 this.makeService(nurse);
             }

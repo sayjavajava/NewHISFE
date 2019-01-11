@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 
 import {User} from '../../../model/User';
@@ -33,6 +33,8 @@ export class AddStaffComponent implements OnInit {
     dutywithdoctor: boolean;
     managepatientrecord: boolean;
     managepatientinvoices: boolean;
+    recivepayment : boolean;
+    accessPatientRecord : boolean;
     allDBRoles: RoleAndPermission[];
     userForm: FormGroup;
     selectedDepartment: any = [];
@@ -54,6 +56,7 @@ export class AddStaffComponent implements OnInit {
     userSelected: string = 'doctor';
     defaultBranch: string = 'primaryBranch';
     pBranch: string;
+    allowDiscountToggle: boolean =false;
 
     branchesList: any = [];
     visitingBranches: any [];
@@ -307,20 +310,25 @@ export class AddStaffComponent implements OnInit {
                 'interval': [null,Validators.required],
                 'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
                 'restrictBranch': [null],
-                'allowDiscount': [null,Validators.compose([Validators.pattern("^[0-9]*$"),Validators.max(100), Validators.min(0)])],
+               // 'allowDiscount': [null,Validators.compose([Validators.pattern("^[0-9]*$"),Validators.max(100), Validators.min(0)])],
+                'allowDiscount': [null],
                 'otherDashboard': '',
                 'sendBillingReport': '',
                 'useReceptDashboard': '',
                 'shift2': '',
                 'vacation': '',
                 'otherDoctorDashBoard': '',
+                'selectedDoctorDashboard': '',
                 'accountExpiry': [null],
                 'active': '',
                 'dateFrom': [null],
                 'dateTo': [null],
                 'managePatientInvoices': '',
                 'managePatientRecords': '',
-                 'hidePatient':'',
+                'receivePayment': '',
+                'canAccessPatientRecord': '',
+                'allowDiscountCheck': '',
+                 'hidePatientPhoneNumber':'',
                 'departmentControl': [null, Validators.pattern('true')],
                 'servicesControl': [null],
                 'shift1': [null, Validators.required],
@@ -353,6 +361,8 @@ export class AddStaffComponent implements OnInit {
                     useReceptDashboard: data.useReceptDashboard,
                     otherDashboard: data.otherDashboard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment :data.receivePayment,
+                    allowDiscountCheck: data.allowDiscountCheck,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
@@ -361,6 +371,8 @@ export class AddStaffComponent implements OnInit {
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     userType: this.selectedUser,
+                    canAccessPatientRecord:data.canAccessPatientRecord,
+                    hidePatientPhoneNumber :data.hidePatientPhoneNumber
                     //selectedRoles : this.selectedRoles
                 });
 
@@ -380,16 +392,19 @@ export class AddStaffComponent implements OnInit {
                     useReceptDashboard: data.useReceptDashboard,
                     otherDashboard: data.otherDashboard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment :data.receivePayment,
+                    allowDiscountCheck: data.allowDiscountCheck,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
-                   selectedDoctorDashboard:this.selectedDoctorDashboard,
+                    selectedDoctorDashboard:this.selectedDoctorDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     active: data.active,
                     allowDiscount: data.allowDiscount,
                     selectedDoctors: this.selectedDoctors,
-                    //selectedRoles : this.selectedRoles,
-                    userType: this.selectedUser
+                    userType: this.selectedUser,
+                    canAccessPatientRecord:data.canAccessPatientRecord,
+                    hidePatientPhoneNumber :data.hidePatientPhoneNumber
                 });
 
                 this.makeService(receptionist);
@@ -421,7 +436,8 @@ export class AddStaffComponent implements OnInit {
                         selectedDepartment: this.selectedDepartment,
                         dutyWithDoctors: this.dutyWithDoctors,
                         //selectedRoles : this.selectedRoles,
-                        userType: this.selectedUser
+                        userType: this.selectedUser,
+                        hidePatientPhoneNumber :data.hidePatientPhoneNumber
                     });
                     this.makeService(nurse);
                 } else {
@@ -449,10 +465,12 @@ export class AddStaffComponent implements OnInit {
                     otherDashboard: data.otherDashboard,
                     otherDoctorDashBoard: data.otherDoctorDashBoard,
                     accountExpiry: data.accountExpiry,
+                    receivePayment :data.receivePayment,
+                    allowDiscountCheck: data.allowDiscountCheck,
                     primaryBranch: data.primaryBranch,
                     email: data.email,
                     selectedVisitBranches: this.selectedVisitBranches,
-                   selectedDoctorDashboard:this.selectedDoctorDashboard,
+                    selectedDoctorDashboard:this.selectedDoctorDashboard,
                     active: data.active,
                     selectedDoctors: this.selectedDoctors,
                     selectedDepartment: this.selectedDepartment,
@@ -470,6 +488,7 @@ export class AddStaffComponent implements OnInit {
                     selectedWorkingDays: this.selectedWorkingDays,
                     //selectedRoles : this.selectedRoles,
                     userType: this.selectedUser,
+                    hidePatientPhoneNumber :data.hidePatientPhoneNumber
 
                 });
                 this.makeService(doctor);
@@ -764,10 +783,12 @@ export class AddStaffComponent implements OnInit {
         const value = typeObj.value ? typeObj.value : 'RECEPTIONIST';
         this.selectedDepartment.length = 0;
         this.selectedServices.length = 0;
+
       //  this.selectedDoctorDashboard.length =0;
         this.selectedVisitBranches.length = 0;
         this.selectedDoctors.length = 0;
         this.selectedWorkingDays.length = 0;
+        this.selectedDoctorDashboard.length =0;
         this.firstShiftFromTime = '';
         //this.userForm.controls['restrictBranch'].setValue('');
         this.firstShiftToTime = '';
@@ -859,7 +880,9 @@ export class AddStaffComponent implements OnInit {
         this.dutytimmingshift2 = true;
         this.vacation = true;
         this.vacationweek = true;
+        this.recivepayment =true;
         this.services = true;
+        this.allowdiscount =true;
 
     }
 
@@ -873,10 +896,14 @@ export class AddStaffComponent implements OnInit {
 
     private receptionistPermissions() {
         this.allowdiscount = true;
+        this.recivepayment =true;
+        this.accessPatientRecord =true;
     }
 
     private cashierPermissions() {
         this.allowdiscount = true;
+        this.recivepayment =true;
+        this.accessPatientRecord =true;
     }
 
     private changeState() {
@@ -891,10 +918,17 @@ export class AddStaffComponent implements OnInit {
         this.dutywithdoctor = false;
         this.managepatientrecord = false;
         this.managepatientinvoices = false;
+        this.recivepayment =false;
+        this.accessPatientRecord =false;
     }
 
     cancel() {
         this.router.navigate(['/dashboard/setting/staff']);
+    }
+    toggleDiscount(){
+        this.userForm.controls['allowDiscount'].enable();
+        this.allowDiscountToggle = !this.allowDiscountToggle;
+        console.log('disccc:'+ this.allowDiscountToggle);
     }
 
     getSelectedBranch(event: any) {
@@ -909,6 +943,16 @@ export class AddStaffComponent implements OnInit {
         if (value) {
             this.userForm.controls['otherDashboard'].setValue(value);
 
+        }
+    }
+
+    checkDiscount(value: number){
+        if (value > 100) {
+            this.notificationService.error('Value cannot be more than 100', 'Allowed Discount');
+            document.getElementById('allowDiscount').focus();
+        } else if (value < 0) {
+            this.notificationService.error('Value cannot be less than 0', 'Allowed Discount');
+            document.getElementById('allowDiscount').focus();
         }
     }
 }

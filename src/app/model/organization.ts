@@ -28,6 +28,10 @@ export class Organization {
     country:string;
     city:string;
     state:string;
+    profileImgUrl: string;
+    file: File;
+    currencyFormat:string;
+
 
     /*  constructor(firstName ?:  string, lastName ?:  string,userName?: string, email?: string, cellPhone?:string, homePhone?: string, address?: string) {
           this.firstName = firstName;

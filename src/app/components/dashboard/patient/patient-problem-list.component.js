@@ -44,6 +44,7 @@ var PatientProblemListComponent = (function () {
             _this.selectedPatientId = params['id'];
         });
         this.appointmentsByServer();
+        debugger;
         angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
             this.settings = Object.assign(this.defaultSettings, this.settings);
             if (this.settings.defaultOpen) {

@@ -202,7 +202,7 @@
                                                 <button type="button" (click)="firstShiftFrom()" class="clck-icon mrgn-top4 no-padding"><i class="fa fa-clock-o"></i></button>
                                             </div>
                                             <div class="col-md-4 pdng-lr-5">
-                                                <input type="time" style="width: 100%" value="{{firstShiftFromTime}}">
+                                                <input type="time" disabled style="width: 100%" value="{{firstShiftFromTime}}">
                                             </div>
                                             <div class="col-md-1 pdng-lr-5">
                                                 <button type="button" (click)="firstShiftTo()">To</button>
@@ -347,24 +347,24 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group mrgn-btm08">
+                               <!-- <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Send Daily Billing Report</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                        <!--<label class="mt-checkbox-outline chckbox mrgn-top10">-->
-                                        <!--<input type="checkbox" formControlName="sendBillingReport"
-                                               class="">-->
-                                        <!--<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
-                                        <span></span>-->
+                                        &lt;!&ndash;<label class="mt-checkbox-outline chckbox mrgn-top10">&ndash;&gt;
+                                        &lt;!&ndash;<input type="checkbox" formControlName="sendBillingReport"
+                                               class="">&ndash;&gt;
+                                        &lt;!&ndash;<p-checkbox name="groupname" value="val1" [ngModelOptions]="{standalone:true}"  [(ngModel)]="pBillReport"></p-checkbox>
+                                        <span></span>&ndash;&gt;
                                         <label class="mt-checkbox-outline">
                                             <mat-checkbox formControlName="sendBillingReport"
                                                           color="primary"></mat-checkbox>
-                                            <!-- <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>-->
+                                            &lt;!&ndash; <p-checkbox [(ngModel)]="allowOnlineScheduling" [formControl]="branchForm.controls.examRooms.controls['allowOnlineScheduling']"></p-checkbox>&ndash;&gt;
 
                                             <span></span>
                                         </label>
-                                        <!--</label>-->
+                                        &lt;!&ndash;</label>&ndash;&gt;
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Other Doctor Dashboard</label>
@@ -385,7 +385,7 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
                                                        name="doctorboards"
-                                                       formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                       formControlName="selectedDoctorDashboard" [panelStyle]="{minWidth:'12em'}"
                                                        [filter]="true">
                                         </p-multiSelect>
                                     </div>
@@ -397,6 +397,32 @@
                                     <div class="col-md-8 col-xs-6 pdng-lr-5">
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <mat-checkbox formControlName="useReceptDashboard"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>
+                                <!--<div  class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Can Access Patient Record</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="canAccessPatientRecord"><span></span></mat-checkbox></label>
+                                    </div>
+                                </div>-->
+
+                                <div class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Hide Patient Phone Number</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox-outline">
+                                            <mat-checkbox formControlName="hidePatientPhoneNumber"
+                                                          color="primary"></mat-checkbox>
+                                            <span></span>
+                                        </label>
+                                        <!--</label>-->
+                                    </div>
+                                </div>
+                                <div  class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Can Receive Payment</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                            <mat-checkbox formControlName="receivePayment"><span></span></mat-checkbox></label>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -412,6 +438,7 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
+
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6  pdng-lr-5">Active
                                     </label>
@@ -419,6 +446,17 @@
                                         <label class="mt-checkbox-outline chckbox mrgn-top10">
                                             <mat-checkbox formControlName ="active" color="primary"><span></span></mat-checkbox></label>
                                     </div>
+                                </div>
+                                <div  class="form-group mrgn-btm08">
+                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount
+                                        <mat-checkbox formControlName="allowDiscountCheck"><span></span></mat-checkbox>
+                                    </label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
+                                        <input formControlName="allowDiscount" type="number"  min="0" max="100"
+                                               placeholder="0-100"
+                                               class="form-control">
+                                    </div>
+
                                 </div>
                             </div>
 

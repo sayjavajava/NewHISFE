@@ -69,7 +69,8 @@ export class ChartOfAccountComponent {
         document.title = "HIS | Chart Of Account Template";
 
         if (localStorage.getItem(btoa("access_token"))) {
-            this.getAllAccountsList();
+            // this.getAllAccountsList();
+            this.getAllLedgers();
         }
 
         this.element = document.getElementById("addAccDiv") as HTMLElement;
@@ -83,8 +84,27 @@ export class ChartOfAccountComponent {
             ).subscribe(
                 (response: Response) => {
                     if (response["responseCode"] === "SUCCESS") {
-                        this.chartOfAccountList = response["responseData"].accountList;
+                        // this.chartOfAccountList = response["responseData"].accountList;
                         this.accountConfig = response["responseData"].accountConfig;
+                    } else {
+                        this.notificationService.error(response["responseMessage"], "Chart of Accounts Configurations");
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(Response["responseMessage"], "Chart of Accounts Configurations");
+                }
+            );
+        } else {
+            this.router.navigate(["/login"]);
+        }
+    }
+
+    getAllLedgers(){
+        if (localStorage.getItem(btoa("access_token"))) {
+            this.requestsService.getRequest(AppConstants.FETCH_ALL_LEDGERS)
+                .subscribe((response: Response) => {
+                    if (response["responseCode"] === "SUCCESS") {
+                        this.chartOfAccountList = response["responseData"].accountList;
                     } else {
                         this.notificationService.error(response["responseMessage"], "Chart of Accounts Configurations");
                     }
@@ -145,7 +165,7 @@ export class ChartOfAccountComponent {
                     .subscribe(
                         (response: Response) => {
                             if (response["responseCode"] === "SUCCESS") {
-                                this.chartOfAccountList = response["responseData"];
+                                // this.chartOfAccountList = response["responseData"];
                                 document.getElementById("close-btn-Prefix").click();
                                 this.notificationService.success(response["responseMessage"], "Chart of Account");
                             } else {
@@ -160,6 +180,7 @@ export class ChartOfAccountComponent {
                 this.router.navigate(["/login"]);
             }
         }
+        this.getAllLedgers();
         this.chartOfAccount.parentType = "";
         this.setWidthOfElements();
     }
@@ -179,19 +200,18 @@ export class ChartOfAccountComponent {
             this.selectedParentType = "";
             this.selectedAccountType = "";
             this.requestsService.getRequest(AppConstants.FETCH_ACCOUNT_CODE)
-                .subscribe(
-                    (response: Response) => {
-                        if (response["responseCode"] === "SUCCESS") {
-                            this.code = response["responseData"].data;
-                            // this.notificationService.success(response["responseMessage"], "Chart of Account");
-                        } else {
-                            this.notificationService.error(response["responseMessage"], "Chart of Accounts");
-                        }
-                    },
-                    (error: any) => {
-                        this.HISUtilService.tokenExpired(error.error.error);
+                .subscribe((response: Response) => {
+                    if (response["responseCode"] === "SUCCESS") {
+                        this.code = response["responseData"].data;
+                        // this.notificationService.success(response["responseMessage"], "Chart of Account");
+                    } else {
+                        this.notificationService.error(response["responseMessage"], "Chart of Accounts");
                     }
-                );
+                },
+                (error: any) => {
+                    this.HISUtilService.tokenExpired(error.error.error);
+                }
+            );
             this.chartOfAccount.code = this.code;
             this.isUpdate = false;
             this.isNew = true;
@@ -206,8 +226,8 @@ export class ChartOfAccountComponent {
                     this.requestsService.deleteRequest(AppConstants.DELETE_ACCOUNT_URL + id).subscribe((data: Response) => {
                         if (data["responseCode"] === "GL_DEL_SUC_01") {
                             this.notificationService.success("Account has been Deleted Successfully");
-                            this.getAllAccountsList();
-
+                            // this.getAllAccountsList();
+                            this.getAllLedgers();
                         }
                     }, error => {
                         // this.error = error.error.error_description;

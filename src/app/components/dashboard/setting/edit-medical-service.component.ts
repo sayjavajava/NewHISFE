@@ -7,6 +7,7 @@ import {MedicalService} from '../../../model/medical-service';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Tax} from '../../../model/Tax';
+import {isNullOrUndefined} from "util";
 
 @Component({
     selector: 'add-medical-services-component',
@@ -22,8 +23,10 @@ export class EditMedicalServiceComponent implements OnInit {
     currency: string;
     branchesList: any = [];
     error: any;
-
-
+    isError:boolean=false;
+    isErrorFee:boolean=false;
+    profileImg: File = null;
+    urlOrganization:string;
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -124,8 +127,8 @@ export class EditMedicalServiceComponent implements OnInit {
 
     updateMedicalServices(form: NgForm) {
 
-        if (!this.isUnderprocess) {
-            this.isUnderprocess = true;
+   //     if (!this.isUnderprocess) {
+         //   this.isUnderprocess = true;
 
             if (this.ms.name === '') {
                 this.notificationService.warn('Please enter name.');
@@ -139,6 +142,14 @@ export class EditMedicalServiceComponent implements OnInit {
                 this.isUnderprocess = false;
                 return;
             }
+
+            if(isNullOrUndefined(this.ms.strFee)){
+                this.notificationService.warn('Please enter Service Fee.');
+                document.getElementById('fee').focus();
+                this.isUnderprocess = false;
+                return;
+            }
+
             let foundBranch = 0;
             for (let branch of this.ms.branches) {
                 if (branch.checkedBranch) {
@@ -167,14 +178,30 @@ export class EditMedicalServiceComponent implements OnInit {
                 return;
             }
 
-            if (this.ms.tax.id <= 0) {
+            if(isNullOrUndefined(this.ms.strCost) || this.ms.strCost == ''){
+                this.ms.strCost = '0';
+            }
+
+            /*if (this.ms.tax.id <= 0) {
                 this.notificationService.warn('Please select tax.');
                 document.getElementById('taxId').focus();
                 this.isUnderprocess = false;
                 return;
+            }*/
+
+            /*if (this.isError == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('cost').focus();
+                return;
             }
 
-            this.requestsService.putRequest(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.ms)
+            if (this.isErrorFee == true) {
+                this.notificationService.warn('Please Enter Number.');
+                document.getElementById('fee').focus();
+                return;
+            }*/
+
+            this.requestsService.putRequestMultipartFormAndDataWithOneFile(AppConstants.UPDATE_MEDICAL_SERVICES_URL, this.ms,this.profileImg)
                 .subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'MED_SER_SUC_02') {
@@ -183,7 +210,7 @@ export class EditMedicalServiceComponent implements OnInit {
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Medical Service');
                         }
-                        this.isUnderprocess = false;
+                   //     this.isUnderprocess = false;
                     },
                     (error: any) => {
                         this.HISUtilService.tokenExpired(error.error.error);
@@ -192,9 +219,9 @@ export class EditMedicalServiceComponent implements OnInit {
                 );
 
 
-        } else {
-            this.notificationService.warn('Your first request is under process. Please wait..')
-        }
+      //  } /*else {
+    //        this.notificationService.warn('Your first request is under process. Please wait..')
+   //     }*/
 
 
     }
@@ -245,6 +272,42 @@ export class EditMedicalServiceComponent implements OnInit {
                 if (checked === selected.id) {
                     selected.checkedDepartment = true;
                 }
+            }
+        }
+    }
+
+
+    isNumberCheck(evt:any) {
+
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+
+
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)){
+            this.isError=true;
+            return false;
+        }
+        this.isError=false;
+        return true;
+    }
+
+    isNumberCheckFee(evt:any) {
+
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57) && (iKeyCode != 190)){
+            this.isErrorFee=true;
+            return false;
+        }
+        this.isErrorFee=false;
+        return true;
+    }
+
+    uploadImgOnChange(event: any) {
+
+        let fileList: FileList = event.target.files;
+        debugger
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
             }
         }
     }

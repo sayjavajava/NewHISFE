@@ -52,18 +52,19 @@ var notification_service_1 = require("../../../services/notification.service");
 var app_constants_1 = require("../../../utils/app.constants");
 var organization_1 = require("../../../model/organization");
 require("rxjs/add/operator/toPromise");
+var core_2 = require("@angular/core");
 var UpdateOrganizationComponent = (function () {
-    function UpdateOrganizationComponent(route, router, requestService, fb, notificationService) {
+    function UpdateOrganizationComponent(route, router, requestService, fb, notificationService, cd) {
         this.route = route;
         this.router = router;
         this.requestService = requestService;
         this.fb = fb;
         this.notificationService = notificationService;
+        this.cd = cd;
         this.timezoneList = [];
         this.branchesList = [];
         this.organizationACCOUNT = [];
         this.organization = new organization_1.Organization();
-        this.defaultBranch = 'primaryBranch';
         this.countryLst = [];
         this.stateLst = [];
         this.cityLst = [];
@@ -76,6 +77,10 @@ var UpdateOrganizationComponent = (function () {
         this.selectedCity = [];
         this.selectedTimeZoneFormat = [];
         this.timeZoneListModified = [];
+        this.branchesListModified = [];
+        this.profileImg = null;
+        // profileImg: File = null;
+        this.uploadedImage = null;
         this.allBranches();
         this.allTimezone();
         this.getOrganizationAccount();
@@ -98,20 +103,32 @@ var UpdateOrganizationComponent = (function () {
             { label: 'Endocrinologists  ', value: 'Endocrinologists  ' },
             { label: 'Gastroenterologists  ', value: 'Gastroenterologists  ' }
         ];
+        /* this.selectedCountry.push({label: "Please Select Country", value: -1});
+ 
+         //     let pair: any = {label: "Please Select State", value: -1};
+         this.selectedState.push({label: "Please Select State", value: -1});
+         // let pair: any = {label: "Please Select City", value: -1};
+         this.selectedCity.push({label: "Please Select City", value: -1});*/
         this.allCountries();
         this.getDateFormatList();
         this.dateType = [
-            { label: 'dd-MM-yyyy', value: 'dd-MM-yyyy' },
-            { label: 'yyyy-MM-dd', value: 'yyyy-MM-dd' },
-            { label: 'yyyy-dd-MM', value: 'yyyy-dd-MM' },
-            { label: 'yyyy/MM/dd', value: 'yyyy/MM/dd' },
-            { label: 'dd/MM/yyyy', value: 'dd/MM/yyyy' },
-            { label: 'yyyy/dd/MM', value: 'yyyy/dd/MM' },
+            { label: 'dd MMMM yyyy[27 DEC 2018]', value: 'dd MMMM yyyy' },
+            { label: 'MM dd yy[12 27 18]', value: 'MM-dd-yy' },
+            { label: 'dd MM YY[27-12-18 ]', value: 'dd-MM-yy' },
+            { label: 'yyyy MM dd[2018-12-27]', value: 'yyyy-MM-dd' },
+            { label: 'MMMM dd, YYYY[DECEMBER-27-2018]', value: 'MMMM dd, YYYY' },
+            { label: 'EEEE, MMMM,DD, YYYY[thur,DECEMBER,27,2018]', value: 'EEEE, MMMM,dd, yyyy' },
+            { label: 'EEEEEE, MMMM,DD, YYYY[Thursday,DECEMBER,27,2018]', value: 'EEEEEE, MMMM,dd, yyyy' },
         ];
         this.timeType = [
-            { label: 'HH:mm', value: 'HH:mm' },
-            { label: 'HH:mm:ss a', value: 'HH:mm:ss a' },
-            { label: 'HH:mm:ss', value: 'HH:mm:ss' },
+            { label: 'hh:mm', value: 'hh:mm' },
+            { label: 'hh:mm:ss', value: 'hh:mm:ss' },
+        ];
+        this.currencyFormatList = [
+            { label: '123,456.00 ', value: '123,456.00' },
+            { label: '123456.00', value: '123456.00' },
+            { label: '123,456 ', value: '123,456' },
+            { label: '123456  ', value: '123456' },
         ];
     };
     UpdateOrganizationComponent.prototype.createProfileForm = function () {
@@ -119,15 +136,16 @@ var UpdateOrganizationComponent = (function () {
             'companyEmail': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$')])],
             'companyName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'officePhone': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern('^[0-9+\\(\\)#\\.\\s\\/ext-]+$')])],
-            'specialty': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'specialty': [],
             'selectedCountry': [null, forms_1.Validators.compose([forms_1.Validators.required])],
-            'selectedState': [null],
-            'selectedCity': [null],
+            'selectedState': [''],
+            'selectedCity': [''],
             'fax': [null],
             'currency': [null],
             'formName': ['PROFILE'],
-            'address': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'address': [null],
             'website': [null, forms_1.Validators.pattern('^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$')],
+            'profileImgUrl': [],
         });
     };
     UpdateOrganizationComponent.prototype.createGenralForm = function () {
@@ -141,9 +159,11 @@ var UpdateOrganizationComponent = (function () {
             'prefixSerialDepartment': [null],
             'prefixSerialAppointment': [null],
             'prefixSerialInvoices': [null],
-            'selectedTimeZoneFormat': [null, forms_1.Validators.compose([forms_1.Validators.required])],
-            'dateFormat': [null, forms_1.Validators.compose([forms_1.Validators.required])],
-            'timeFormat': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'selectedTimeZoneFormat': [],
+            'dateFormat': [],
+            'timeFormat': [],
+            'hoursFormat': [],
+            'currencyFormat': [],
         });
     };
     UpdateOrganizationComponent.prototype.createAccountForm = function () {
@@ -158,9 +178,9 @@ var UpdateOrganizationComponent = (function () {
             'formName': ['ACCOUNT'],
             'homePhone': [null],
             'selectedCountry': [null, forms_1.Validators.compose([forms_1.Validators.required])],
-            'selectedState': [null],
-            'selectedCity': [null],
-            'currency': [null],
+            'selectedState': [''],
+            'selectedCity': [''],
+            'currency': [''],
         });
     };
     UpdateOrganizationComponent.prototype.allBranches = function () {
@@ -169,6 +189,12 @@ var UpdateOrganizationComponent = (function () {
             .subscribe(function (response) {
             if (response['responseCode'] === 'BR_SUC_01') {
                 _this.branchesList = response['responseData'];
+                for (var _i = 0, _a = _this.branchesList; _i < _a.length; _i++) {
+                    var branch = _a[_i];
+                    var pair = { label: branch.name, value: branch.id };
+                    _this.branchesListModified.push(pair);
+                }
+                //       this.branchesListModified.push(pair);
             }
         }, function (error) {
             _this.notificationService.error(error.error.error);
@@ -203,16 +229,34 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.getStatesById = function (id) {
         var _this = this;
+        this.statesListModified = [];
+        this.selectedState = [];
+        this.citiesListModified = [];
+        this.selectedCity = [];
+        this.proForm.controls['selectedState'].patchValue('', { onlySelf: true });
+        this.proForm.controls['selectedCity'].patchValue('', { onlySelf: true });
         var listOfCountry = this.countryLst.filter(function (listing) { return listing.id === id; });
         this.currency = listOfCountry[0].currency;
         this.requestService.getRequest(app_constants_1.AppConstants.GET_STATE_BYCOUNTRYID + id)
             .subscribe(function (response) {
             if (response["responseCode"] === "STATE_SUC_11") {
                 _this.stateLst = response['responseData'];
-                for (var _i = 0, _a = _this.stateLst; _i < _a.length; _i++) {
-                    var state = _a[_i];
-                    var pair = { label: state.name, value: state.id };
-                    _this.statesListModified.push(pair);
+                if (_this.stateLst.length > 0) {
+                    for (var _i = 0, _a = _this.stateLst; _i < _a.length; _i++) {
+                        var state = _a[_i];
+                        var pair = { label: state.name, value: state.id };
+                        _this.statesListModified.push(pair);
+                    }
+                    if (_this.statesListModified.length > 0) {
+                        _this.selectedState = _this.statesListModified[0].value;
+                        _this.getCitiesById(_this.statesListModified[0].value);
+                    }
+                }
+                else {
+                    _this.statesListModified.push({ label: 'Not Applicable', value: -1 });
+                    // this.selectedState.push({label: 'Not Applicable', value: -1});
+                    _this.proForm.controls['selectedState'].patchValue('Not Applicable', { onlySelf: true });
+                    _this.proForm.controls['selectedCity'].patchValue('Not Applicable', { onlySelf: true });
                 }
             }
         }, function (error) {
@@ -238,15 +282,33 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.getCitiesById = function (id) {
         var _this = this;
+        this.citiesListModified = [];
+        this.citiesList = [];
         this.requestService.getRequest(app_constants_1.AppConstants.GET_CITY_BYSTATEID + id)
             .subscribe(function (response) {
             if (response["responseCode"] === "CITY_SUC_11") {
                 _this.citiesList = response["responseData"];
-                for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
-                    var city = _a[_i];
-                    var pair = { label: city.name, value: city.id };
-                    _this.citiesListModified.push(pair);
+                if (_this.citiesList.length > 0) {
+                    for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
+                        var city = _a[_i];
+                        var pair = { label: city.name, value: city.id };
+                        _this.citiesListModified.push(pair);
+                    }
                 }
+                else {
+                    _this.citiesListModified.push({ label: 'Not Applicable', value: '' });
+                    // this.selectedCity.push({label: 'Not Applicable', value: ''})
+                    _this.proForm.controls['selectedCity'].patchValue('Not Applicable', { onlySelf: true });
+                }
+                if (_this.citiesListModified.length > 0) {
+                    _this.selectedCity = _this.citiesListModified[0].value;
+                }
+            }
+            else {
+                debugger;
+                _this.citiesListModified.push({ label: 'Not Applicable', value: '' });
+                //     this.selectedCity.push({label: 'Not Applicable', value: ''});
+                _this.proForm.controls['selectedCity'].patchValue('Not Applicable', { onlySelf: true });
             }
         }, function (error) {
             this.notificationService.error("ERROR", "Cities List is not available");
@@ -312,7 +374,8 @@ var UpdateOrganizationComponent = (function () {
                     selectedCountry: organization.addInfo.country,
                     selectedCity: organization.addInfo.city,
                     selectedState: organization.addInfo.state,
-                    currency: organization.addInfo.Currency
+                    currency: organization.addInfo.Currency,
+                    profileImgUrl: organization.profileImgUrl,
                 });
                 _this.generalForm.patchValue({
                     defaultBranch: organization.defaultBranch,
@@ -321,11 +384,14 @@ var UpdateOrganizationComponent = (function () {
                     dateFormat: organization.dateFormat,
                     timeFormat: organization.timeFormat,
                     selectedTimeZoneFormat: organization.addInfo.zoneFormat,
+                    currencyFormat: organization.currencyFormat,
+                    hoursFormat: organization.hoursFormat,
                 });
-                //  this.organization.zoneId=organization.addInfo.zoneId;
-                //     let pair: any = {label:organization.addInfo.zoneFormat,value: organization.addInfo.zoneId};
-                // this.selectedTimeZoneFormat.values=organization.addInfo.zoneId;
-                //      this.selectedTimeZoneFormat.push(pair);
+                //    this.B=organization.branchName;
+                console.log(organization);
+                //  this.appointmentId=organization.addInfo.serAppointId;
+                _this.urlOrganization = organization.profileImgUrl;
+                _this.defaultBranch = organization.branchName;
             }, function (error) {
                 _this.error = error.error.error_description;
             });
@@ -392,10 +458,30 @@ var UpdateOrganizationComponent = (function () {
     UpdateOrganizationComponent.prototype.saveProfile = function (data) {
         if (this.proForm.valid) {
             var self = this;
+            console.log(data);
+            debugger;
+            if ((this.proForm.controls['selectedCity']).value != undefined) {
+                if (this.proForm.controls['selectedCity'].value.length <= 0) {
+                    //      data.selectedCity.toString("");
+                    this.proForm.controls['selectedCity'].patchValue('', { onlySelf: true });
+                }
+            }
+            if (this.proForm.controls['selectedState'].value != undefined) {
+                if (this.proForm.controls['selectedState'].value.length <= 0) {
+                    //     data.selectedState.toString("");
+                    this.proForm.controls['selectedState'].patchValue('', { onlySelf: true });
+                }
+            }
+            /*if (this.uploadedImage === null) {
+                this.notificationService.warn('Please upload Document');
+                return;
+            }*/
+            //   postRequestMultipartFormAndDataWithOneFile
+            //putRequest
             this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_03') {
-                    self.notificationService.success('Organization has been Update Successfully');
+                    self.notificationService.success('Organization has been Updated Successfully');
                 }
             }, function (error) {
                 self.notificationService.error('ERROR', 'Organization is not Updated');
@@ -407,10 +493,16 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.saveGeneralSettings = function (data) {
         var self = this;
+        debugger;
+        console.log(data);
+        /*   if(data.defaultBranch.length>0){
+   
+           }*/
+        // let listOfCountry=this.branchesList.filter((listing: any) => listing.name === data.defaultName);
         this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
             .subscribe(function (response) {
             if (response['responseCode'] === 'ORG_SUC_03') {
-                self.notificationService.success('Organization has been Update Successfully');
+                self.notificationService.success('Organization has been Updated Successfully');
             }
         }, function (error) {
             self.notificationService.error('ERROR', 'Organization is not Updated');
@@ -422,7 +514,7 @@ var UpdateOrganizationComponent = (function () {
             this.requestService.putRequest(app_constants_1.AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_03') {
-                    self.notificationService.success('Organization has been Update Successfully');
+                    self.notificationService.success('Organization has been Updated Successfully');
                 }
             }, function (error) {
                 self.notificationService.error('ERROR', 'Organization is not Updated');
@@ -437,11 +529,11 @@ var UpdateOrganizationComponent = (function () {
             this.organization.zoneId = value;
         }
     };
-    UpdateOrganizationComponent.prototype.getSelectedBranch = function (value) {
+    /*getSelectedBranch(value: any) {
         if (value) {
             this.generalForm.controls['defaultBranch'].setValue(value);
         }
-    };
+    }*/
     UpdateOrganizationComponent.prototype.getDurationOfExam = function (value) {
         if (value) {
             this.generalForm.controls['durationOfExam'].setValue(value);
@@ -462,13 +554,47 @@ var UpdateOrganizationComponent = (function () {
     UpdateOrganizationComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/organization']);
     };
+    UpdateOrganizationComponent.prototype.uploadImgOnChange = function (event) {
+        var fileList = event.target.files;
+        debugger;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
+    };
+    UpdateOrganizationComponent.prototype.uploadProfileImg = function () {
+        var _this = this;
+        if (this.profileImg && this.profileImg.size <= 40000000) {
+            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_ORGNAIZATION_IMAGE_URL + this.id, this.profileImg)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'ORG_SUC_02') {
+                    _this.urlOrganization = response['responseData'];
+                    debugger;
+                    _this.cd.detectChanges();
+                    alert(_this.urlOrganization);
+                    _this.notificationService.success(response['responseMessage'], 'Update Organization');
+                    _this.profileImg = null;
+                    //   this.urlOrganization=response['responseData'];
+                }
+            }, function (error) {
+                _this.notificationService.error('Profile Image uploading failed', 'Update Organization');
+            });
+        }
+        else {
+            this.notificationService.error('File size must be less then 4 mb.', 'Update Organization');
+        }
+    };
+    UpdateOrganizationComponent.prototype.isEmpty = function (val) {
+        return (val === undefined || val == null || val.length <= 0) ? true : false;
+    };
     UpdateOrganizationComponent = __decorate([
         core_1.Component({
             selector: 'addcashier-component',
             templateUrl: '../../../templates/dashboard/setting/update-organization.template.html',
         }),
         __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService,
-            forms_1.FormBuilder, notification_service_1.NotificationService])
+            forms_1.FormBuilder, notification_service_1.NotificationService, core_2.ChangeDetectorRef])
     ], UpdateOrganizationComponent);
     return UpdateOrganizationComponent;
 }());

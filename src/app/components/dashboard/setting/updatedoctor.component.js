@@ -239,12 +239,12 @@ var UpdatedoctorComponent = (function () {
         this.userForm = this.fb.group({
             'firstName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             'lastName': [null],
-            'userName': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.pattern('^[A-Z/a-z0-9_-]{4,15}$')])],
+            'userName': [null],
             'homePhone': [null],
             'cellPhone': [null],
             'primaryBranch': [null, forms_1.Validators.required],
             'interval': [null],
-            'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.email])],
+            'email': [null],
             'restrictBranch': [null],
             'allowDiscount': [null],
             'otherDashboard': '',
@@ -253,8 +253,12 @@ var UpdatedoctorComponent = (function () {
             'shift2': '',
             'vacation': '',
             'otherDoctorDashBoard': '',
+            'selectedDoctorDashboard': '',
             'accountExpiry': [null],
+            'receivePayment': [null],
+            'hidePatientPhoneNumber': '',
             'active': '',
+            'allowDiscountCheck': '',
             'dateFrom': [null],
             'dateTo': [null],
             'departmentControl': [null],
@@ -303,6 +307,10 @@ var UpdatedoctorComponent = (function () {
                     sendBillingReport: user.sendBillingReport,
                     useReceptDashboard: user.useReceptDashboard,
                     otherDoctorDashBoard: user.otherDoctorDashBoard,
+                    receivePayment: user.receivePayment,
+                    allowDiscount: user.allowDiscount,
+                    allowDiscountCheck: user.allowDiscountCheck,
+                    hidePatientPhoneNumber: user.hidePatientPhoneNumber
                 });
                 var docDeptId = user.docDepartmentId;
                 //this.servicesList = this.getDeptServices(docDeptId);
@@ -317,7 +325,6 @@ var UpdatedoctorComponent = (function () {
                     _this.selectedDoctorDashboard = user.permittedDoctorDashboard.slice();
                 }
                 // user.doctorMedicalSrvcList.forEach((x:any)=>this.listOfServices.push('med service'+x.id));
-                console.log('med service ' + user.doctorMedicalSrvcList.length);
                 user.doctorServiceComission.forEach(function (x) {
                     _this.listOfServices.push({ id: x.id, comission: x.comissionService });
                 });
@@ -476,6 +483,9 @@ var UpdatedoctorComponent = (function () {
                 secondShiftFromTime: this.secondShiftFromTime,
                 firstShiftToTime: this.firstShiftToTime,
                 firstShiftFromTime: this.firstShiftFromTime,
+                allowDiscount: data.allowDiscount,
+                allowDiscountCheck: data.allowDiscountCheck,
+                receivePayment: data.receivePayment,
                 vacation: data.vacation,
                 dateTo: data.dateTo,
                 dateFrom: data.dateFrom,
