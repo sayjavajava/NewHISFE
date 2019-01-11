@@ -78,7 +78,7 @@ export class UpdateOrganizationComponent implements OnInit {
    // profileImg: File = null;
     private uploadedImage: File = null;
     currencyFormatList :any;
-    urlOrganization:string;
+    urlOrganization:string="/public/images/company-logo-placeholder.jpg";
     ngOnInit() {
         this.createProfileForm();
         this.createGenralForm();
@@ -333,7 +333,7 @@ export class UpdateOrganizationComponent implements OnInit {
                             this.selectedCity=this.citiesListModified[0].value;
                      }
                     }else{
-                        debugger;
+
                         this.citiesListModified.push({label: 'Not Applicable', value: ''})
                    //     this.selectedCity.push({label: 'Not Applicable', value: ''});
                         this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
@@ -446,6 +446,11 @@ export class UpdateOrganizationComponent implements OnInit {
                     console.log(organization);
                       //  this.appointmentId=organization.addInfo.serAppointId;
                         this.urlOrganization=organization.profileImgUrl;
+                        if(this.urlOrganization!=null && this.urlOrganization !=''){
+                            this.urlOrganization=organization.profileImgUrl;
+                        }else{
+                            this.urlOrganization="/public/images/company-logo-placeholder.jpg"
+                        }
                         this.defaultBranch= organization.branchName;
                 }, (error: any) => {
 
@@ -523,7 +528,7 @@ export class UpdateOrganizationComponent implements OnInit {
         if(this.proForm.valid) {
             var self = this;
             console.log(data);
-            debugger;
+
             if((this.proForm.controls['selectedCity']).value!=undefined){
                 if (this.proForm.controls['selectedCity'].value.length <= 0) {
                     //      data.selectedCity.toString("");
@@ -560,7 +565,7 @@ export class UpdateOrganizationComponent implements OnInit {
 
         var self = this;
 
-        debugger;
+
         console.log(data);
      /*   if(data.defaultBranch.length>0){
 
@@ -606,11 +611,7 @@ export class UpdateOrganizationComponent implements OnInit {
         }
     }
 
-    /*getSelectedBranch(value: any) {
-        if (value) {
-            this.generalForm.controls['defaultBranch'].setValue(value);
-        }
-    }*/
+
 
     getDurationOfExam(value: any) {
         if (value) {
@@ -639,7 +640,7 @@ export class UpdateOrganizationComponent implements OnInit {
     uploadImgOnChange(event: any) {
 
         let fileList: FileList = event.target.files;
-        debugger
+
         if (fileList != null && fileList.length > 0) {
             if (event.target.name === "profileImgUrl") {
                 this.profileImg = fileList[0];
@@ -648,6 +649,7 @@ export class UpdateOrganizationComponent implements OnInit {
     }
 
     uploadProfileImg() {
+
         if (this.profileImg && this.profileImg.size <= 40000000) {
             this.requestService.postRequestMultipartFormData(
                 AppConstants.UPLOAD_ORGNAIZATION_IMAGE_URL + this.id
@@ -657,9 +659,8 @@ export class UpdateOrganizationComponent implements OnInit {
                         if (response['responseCode'] === 'ORG_SUC_02') {
 
                             this.urlOrganization=response['responseData'];
-                            debugger;
+                            
                             this.cd.detectChanges();
-                            alert(this.urlOrganization);
                             this.notificationService.success(response['responseMessage'], 'Update Organization');
                             this.profileImg = null;
                          //   this.urlOrganization=response['responseData'];
@@ -671,8 +672,10 @@ export class UpdateOrganizationComponent implements OnInit {
                     }
                 );
         } else {
-            this.notificationService.error('File size must be less then 4 mb.', 'Update Organization');
+            this.notificationService.error('Please Select file.', 'Update Organization');
         }
+
+
     }
 
     isEmpty(val:string){
