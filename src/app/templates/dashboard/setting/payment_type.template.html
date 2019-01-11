@@ -2,22 +2,18 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">Payment Type
                         <div class="pull-right">
                             <a href="#responsive" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow" (click)="onAddPopup()">
+                                <button class="btn primary blue" (click)="onAddPopup()">
                                     <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
-
                         </div>
                     </h4>
-
                 </div>
-
-                <div class="table-scrollable">
-
+                <div class="table-scrollable border-non">
                     <p-table #dt [columns]="cols" [value]="paymentlst"  [rows]="10"  [paginator]="true" >
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
@@ -52,8 +48,8 @@
                             <tr>
                                 <td field="paymentTitle"> {{paymentlst.paymentTitle}} </td>
                                 <td field="paymentGlAccount"> {{paymentlst.paymentGlAccount==null?"":paymentlst.paymentGlAccount.name}} </td>
-                                <td field="serviceCharges" > {{ paymentlst.strServiceCharges}} </td>
-                                <td field="maxCardCharges"> {{paymentlst.strmaxCardCharges}} </td>
+                                <td field="serviceCharges" > {{ paymentlst.serviceCharges}} </td>
+                                <td field="maxCardCharges"> {{paymentlst.maxCardCharges}} </td>
                                 <td field="active"><span class=""> {{paymentlst.active?"Active":"Inactive"}} </span></td>
                                 <td>
                                     <a href="#responsive" data-toggle="modal">
@@ -159,24 +155,26 @@
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Service Charges <span
                                                 class="required" aria-required="true"> * </span> </label>
                                         <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                            <input class="form-control" type="text" pattern="^[0-9\.]{1,60}$" id="payserve"
-                                                   [(ngModel)]="newPaymentType.strServiceCharges" (keyup)="isNumberCheckFee($event)"
+                                            <input class="form-control" type="text" pattern="^[0-9]{1,60}$"
+                                                   [(ngModel)]="newPaymentType.serviceCharges" required
                                                    name="payserv" #payserv="ngModel"/>
                                         </div>
-                                        <span class="text-danger">
-                                                    <span *ngIf="isErrorFee"> Please Enter Number </span>
+                                        <span *ngIf="payserv.invalid && payserv.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter Number.
                                         </span>
                                     </div>
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Max Card Charges <span
                                                 class="required" aria-required="true"> * </span></label>
                                         <div class="col-md-9 select pdng-lr-5 profile-frm">
-                                            <input class="form-control" type="text" pattern="^[0-9\.]{1,60}$" id="paycard"
-                                                   [(ngModel)]="newPaymentType.strmaxCardCharges"  (keyup)="isNumberCheck($event)"
+                                            <input class="form-control" type="text" pattern="^[0-9]{1,60}$"
+                                                   [(ngModel)]="newPaymentType.maxCardCharges" required
                                                    name="paycard" #paycard="ngModel"/>
                                         </div>
-                                        <span class="text-danger">
-                                                    <span *ngIf="isError"> Please Enter Number </span>
+                                        <span *ngIf="paycard.invalid && paycard.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please enter Number.
                                         </span>
                                     </div>
                                     <div *ngIf="serviceChargesDiv" class="form-group hr">
@@ -242,10 +240,10 @@
                         <button type="button" data-dismiss="modal" id="closeButton" class="btn default"> Close </button>
                         <button type="button" class="btn blue"
                                 *ngIf="newPaymentType.id == null || newPaymentType.id <= 0"
-                                (click)="savePaymentType(form);">Save
+                                (click)="savePaymentType(form)">Save
                         </button>
                         <button type="button" class="btn blue" *ngIf="newPaymentType.id > 0"
-                                (click)="updatePaymentType(form);">Update
+                                (click)="updatePaymentType(form)">Update
                         </button>
                     </div>
                 </div>

@@ -13,12 +13,12 @@
                             <button class="btn green-meadow"
                                     data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                     data-type="success" data-allow-outside-click="true"
-                                    (click)="getAllDrugsFromServer()"
+                                    (click)="getPageWiseDrugFromServer(0)"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
-                            <!--<span>
+                            <span>
                                 <button class="btn primary blue"> <i class="icon-clock"></i> Print </button>
-                            </span>-->
+                            </span>
                             <p-splitButton label="Data Import" icon="fa fa-file" (onClick)="openCaretDropdown()" [model]="items" styleClass="ui-button-danger"></p-splitButton>
                             <div class="upload-btn-wrapper">
                                 <!--<button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button>-->
@@ -67,9 +67,10 @@
                             <ng-template sortable="true" pTemplate="header" let-columns>
 
                                 <tr>
-                                    <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" >
+                                    <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
                                         {{col.header}}
-                                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                                     </th>
                                 </tr>
                                 <!--<tr>
@@ -104,14 +105,14 @@
                             <ng-template pTemplate="body" let-rowData let-data>
                                 <!--<span *ngIf="data.drugNaturalId != null">-->
                                     <tr>
-                                        <td field="drugName" class="wrap-overflow-text"><strong>{{data.drugName}}</strong></td>
-                                        <td field="companyName" class="wrap-overflow-text">{{data.companyName}}</td>
-                                        <td field="genericName" class="wrap-overflow-text">{{data.genericName}}</td>
-                                        <td field="route" class="wrap-overflow-text">{{data.route}}</td>
-                                        <td field="strength" class="wrap-overflow-text">{{data.strengths}}</td>
-                                        <td field="uOM" class="wrap-overflow-text">{{data.uOM}}</td>
-                                        <td field="drugMaker" class="wrap-overflow-text">{{data.drugMakerView}}</td>
-                                        <td field="active" class="wrap-overflow-text">{{data.active === true ? 'Active' : 'In-Active'}}</td>
+                                        <td field="drugName"><strong>{{data.drugName}}</strong></td>
+                                        <td field="companyName">{{data.companyName}}</td>
+                                        <td field="genericName">{{data.genericName}}</td>
+                                        <td field="route">{{data.route}}</td>
+                                        <td field="strength">{{data.strengths}}</td>
+                                        <td field="uOM">{{data.uOM}}</td>
+                                        <td field="origin">{{data.countryView}}</td>
+                                        <td field="active">{{data.active === true ? 'Active' : 'In-Active'}}</td>
                                         <td>
                                             <a href="#popupDrug" data-toggle="modal">
                                                 <button class="font-blue" (click)="onUpdatePopupDrug(data.id)"> <i class="fa fa-pencil"></i> </button>
@@ -263,7 +264,7 @@
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Company Name</label>
                                             <div class="col-md-8 select pdng-lr-5 profile-frm">
                                                 <input class="form-control" type="text" placeholder="e.g Medical Care"
-                                                       [(ngModel)]="drug.companyName" size="30" id="companyName" pInputText
+                                                       [(ngModel)]="drug.companyName" size="30" required id="companyName" pInputText
                                                        name="companyName" #companyName="ngModel"/>
                                                 <!--<span *ngIf="companyName.invalid && companyName.touched" class="text-danger"> Please enter. </span>-->
                                             </div>
@@ -285,10 +286,9 @@
                                                     class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <p-chips min="0" max="3" name="strengths" [style]="{'text-align': 'left' ,'width':'100%', 'height':''}"
-                                                         [(ngModel)]="drug.strengths" placeholder="Insert strengths"
+                                                         [(ngModel)]="drug.strengths" placeholder="Insert value and press enter"
                                                          id="strengths" #strengths="ngModel" addOnTab="true" addOnBlur="true" allowDuplicate="false" >
                                                 </p-chips>
-                                                <span class="col-md-9 select pdng-lr-5 text-danger">Enter strength and press TAB to enter another</span>
                                                 <span *ngIf="strengths.invalid && strengths.touched" class="col-md-9 select pdng-lr-5 text-danger">Please enter strength(s)</span>
                                             </div>
                                         </div>
@@ -309,11 +309,12 @@
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Info</label>
                                             <div class="col-md-8 select pdng-lr-5 profile-frm">
-                                                <input class="form-control" type="url"
+                                                <input class="form-control" type="text"
                                                        [(ngModel)]="drug.drugInfo" placeholder=" e.g www.medicalcare.com"
-                                                       pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?"
-                                                       size="10" id="info" name="info" #info="ngModel"/>
-                                                <span *ngIf="info.invalid && info.touched" class="text-danger"> Please enter valid Info URL </span>
+                                                       size="10" id="info"
+                                                       name="info"
+                                                       #info="ngModel"/>
+                                                <span *ngIf="info.invalid && info.touched" class="text-danger"> Please enter Info URL </span>
                                             </div>
                                         </div>
 
@@ -330,10 +331,10 @@
                                                             name="selectedCountry" #origin="ngModel"
                                                             [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>-->
-                                                <p-dropdown class="ui-dropdown-items-wrapper" id="drugMaker" placeholder="{{drug.drugMaker}}" [autoWidth]="false"
-                                                            [(ngModel)]="drug.drugMaker" [style]="{'text-align': 'left' ,'max-height': '100px;' ,'width':'100%'}"
-                                                            name="drugMaker" #drugMaker="ngModel" (onChange)="drugMakerPrint()"
-                                                            [options]="drugMakeListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                <p-dropdown class="ui-dropdown-items-wrapper" id="selectedCountry" placeholder="{{drug.selectedCountry}}" [autoWidth]="false" [(ngModel)]="drug.selectedCountry"
+                                                              [style]="{'text-align': 'left' ,'max-height': '100px;' ,'width':'100%'}"
+                                                             name="selectedCountry" #selectedCountry="ngModel" (onChange)="selectedCountryPrint()"
+                                                             [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
                                                 <!--<span *ngIf="selectedCountry.invalid && selectedCountry.touched" class="text-danger"> Please enter. </span>-->
                                             </div>
@@ -359,11 +360,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn default">Close</button>
-                        <button type="button" class="btn primary blue" *ngIf="drug.id <= 0 || drug.id == null"
-                                (click)="saveDrug()">Save</button>
+                        <button type="button" class="btn primary blue"
+                                *ngIf="drug.id <= 0 || drug.id == null"
+                                (click)="saveDrug()">Save
+                        </button>
                         <button type="button" class="btn primary blue" *ngIf="drug.id > 0"
-                                (click)="updateDrug()">Update</button>
+                                (click)="updateDrug()">Update
+                        </button>
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow mrgn-lft0">Close</button>
                     </div>
                 </div>
             </form>

@@ -2,11 +2,11 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">SKU Prefix and Range </h4>
                 </div>
 
-                <div class="table-scrollable">
+                <div class="table-scrollable border-non">
                     <p-table #dt [columns]="cols" [value]="prefixTemplateList" [paginator]="true" [rows]="10">
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
@@ -25,6 +25,7 @@
                                                 ariaLabelAsc="Sort in ascending order">
                                     </p-sortIcon>
                                 </th>
+
                             </tr>
                             <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -144,8 +145,8 @@
                  <span >
                     <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn default">Close </button>
                 </span>
-                <span >
-                    <button type="button" class="btn blue" id="save-btn-update" (click)="editPrefixModule(ngForm)" >Update </button>
+                    <span >
+                    <button type="button" data-dismiss="modal" id="close-btn-Prefix" class="btn green-meadow">Close </button>
                 </span>
                 </div>
             </div>

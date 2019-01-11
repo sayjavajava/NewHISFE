@@ -34,10 +34,7 @@
                                     <label class="control-label col-md-4 pdng-lr-5">Username
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-
-
-
-                                    <div class="col-md-8 pdng-lr-5">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="text" formControlName="userName" class="form-control" disabled="true">
 
                                         <span class="text-danger" *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
@@ -66,7 +63,7 @@
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
                                                      [options]="branchesList"
-                                                    formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
+                                                    formControlName="primaryBranch"
                                                     [filter]="true">
                                         </p-dropdown>
                                         <!--[(ngModel)]="pBranch"-->

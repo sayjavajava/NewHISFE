@@ -2,7 +2,7 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">ICD Code
                         <div class="pull-right">
                             <a href="#popupCode" data-toggle="modal">
@@ -196,13 +196,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" id="close-btn" class="btn btn-default btn-outline">Close</button>
                     <span [hidden]="this.isCodeUpdate">
-                        <button type="button" class="btn blue" id="save-btn" (click)="saveICDCode(form)">Save</button>
+                        <button type="button" class="btn primary blue" id="save-btn" (click)="saveICDCode(form)">Save</button>
                     </span>
                     <span [hidden]="!(this.isCodeUpdate)">
-                        <button type="button" class="btn blue" id="update-btn" (click)="updateICDCode(form)">Update</button>
+                        <button type="button" class="btn primary blue" id="update-btn" (click)="updateICDCode(form)">Update</button>
                     </span>
+                    <button type="button" data-dismiss="modal" id="close-btn" class="btn green-meadow">Close</button>
                 </div>
             </div>
         </form>
@@ -248,7 +248,7 @@
                 <button type="button" data-dismiss="modal"
                         id="close-btn-branch"
                         name="close-btn-branch"
-                        class="btn btn-default btn-outline"
+                        class="btn green-meadow"
                         (click)="clearList($event)">Close
                 </button>
             </div>

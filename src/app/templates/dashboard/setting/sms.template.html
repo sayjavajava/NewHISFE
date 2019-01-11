@@ -2,18 +2,18 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">SMS Template
                         <div class="pull-right">
                             <a routerLink="add">
-                                <button class="btn mt-sweetalert btn green-meadow" data-confirm-button-class="btn-success">
+                                <button class="btn primary blue" data-confirm-button-class="btn-success">
                                     <i class="fa fa-plus"></i> SMS Template
                                 </button>
                             </a>
                         </div>
                     </h4>
                 </div>
-                <div class="table-scrollable">
+                <div class="table-scrollable border-non">
                     <p-table #dt [columns]="cols" [value]="smsTemplateList" [paginator]="true" [rows]="10">
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
@@ -32,7 +32,6 @@
                                                 ariaLabelAsc="Sort in ascending order">
                                     </p-sortIcon>
                                 </th>
-
                             </tr>
                             <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">

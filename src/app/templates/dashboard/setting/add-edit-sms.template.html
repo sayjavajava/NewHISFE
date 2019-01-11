@@ -68,7 +68,7 @@
                                     <div class="form-group mrgn-btm08">
                                         <label class="col-md-4 control-label pdng-lr-5"></label>
                                         <div class="col-md-8 pdng-lr-5">
-                                    <textarea style="width: 100%; padding: 10px;" data-provide="markdown" rows="10" cols=""
+                                    <textarea style="width: 100%; padding: 10px;" data-provide="markdown" rows="11" cols=""
                                               required name="emailTemplate" maxlength="" minlength=""
                                               [(ngModel)]="smsTemplate.smsTemplate"
                                               #emailTemplate="ngModel">
@@ -98,12 +98,12 @@
                                 </div>
                         </div>
 
-                        <div class="hr">
+                        <div class="hr mrgn-top8">
                             <div class="col-md-12 text-center">
+                                <button type="button" class="btn primary blue" (click)="saveSMSTemplate(form)"> Save</button>
                                 <a routerLink="/dashboard/setting/sms-template" class="nav-link">
-                                    <button type="button" class="btn  btn-default"> Cancel</button>
-                                </a>
-                                <button type="button" class="btn blue" (click)="saveSMSTemplate(form)"> Save</button>
+                                <button type="button" class="btn  default"> Cancel</button>
+                            </a>
                             </div>
                         </div>
                     </div>

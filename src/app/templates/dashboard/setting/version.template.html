@@ -2,7 +2,7 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">Version
                         <div class="pull-right">
                             <a href="#popupVersion" data-toggle="modal">
@@ -180,19 +180,20 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" id="close-btn-ICDVersion"
-                            class="btn btn-default btn-outline">Close
-                    </button>
+
                     <span [hidden]="this.isVersionUpdate">
-                    <button type="button" class="btn blue" id="save-btn-ICDVersion"
+                    <button type="button" class="btn primary blue" id="save-btn-ICDVersion"
                             (click)="saveICDVersion(form)">Save
                     </button>
                 </span>
                     <span [hidden]="!(this.isVersionUpdate)">
-                    <button type="button" class="btn blue" id="save-btn-update"
+                    <button type="button" class="btn primary blue" id="save-btn-update"
                             (click)="updateICDVersion(form)">Update
                     </button>
                 </span>
+                    <button type="button" data-dismiss="modal" id="close-btn-ICDVersion"
+                               class="btn green-meadow">Close
+                </button>
                 </div>
             </div>
         </form>

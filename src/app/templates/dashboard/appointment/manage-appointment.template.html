@@ -83,14 +83,13 @@
                     </table>
                 </div>
             </div>-->
-        <div class="col-md-12 mrgn-btm10">
+        <div class="col-md-12">
             <h4 class="text-info">Appointments
                 <div class="pull-right">
                     <a href="#responsive" data-toggle="modal">
-                        <button class="btn mt-sweetalert btn green-meadow" routerLink="/dashboard/appointment/add">
+                        <button class="btn mt-sweetalert btn primary blue" routerLink="/dashboard/appointment/add">
                             <i class="fa fa-plus"></i> New Appointment
                         </button>
-
                     </a>
                 </div></h4>
         </div>
@@ -132,7 +131,6 @@
 
                     <ng-template pTemplate="body" let-item>
                         <tr>
-
                             <!--{{car[col.field]}}-->
                             <td> {{item.patient }}</td>
                             <td> {{item.examName}}</td>
@@ -142,7 +140,6 @@
                             <td> {{item.appointmentEndedOn}}</td>
                             <td> {{item.duration}}</td>
                             <td> {{item.status}}</td>
-
                             <td>
                                 <!--<a href="#responsive" data-toggle="modal">
                                     <button class="btn btn-default btn-outline btn-sm"
@@ -154,15 +151,11 @@
                                         (click)="deleteAppointment(item.id)">
                                     <i class="fa fa-remove"></i>
                                 </button>
-
                             </td>
-
                         </tr>
                     </ng-template>
-
                 </p-table>
         </div>
-
             <div class="clearfix"></div>
         </div>
         <!--  <div class="row">
