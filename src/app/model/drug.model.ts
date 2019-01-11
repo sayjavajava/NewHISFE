@@ -10,7 +10,7 @@ export class DrugModel {
     drugName: string = '';
     genericName: string = '';
     companyName: string = '';
-    route: string = 'Syrup';
+    route: string = 'Orally (Tab)';
     strength: string = '';
     strengths: string[] = [];
     uOM: string = 'MG';
@@ -53,7 +53,7 @@ export class DrugModel {
         {label: 'GM', value: 'GM'},
         {label: 'MG/ML', value: 'MG/ML'},
         {label: 'MCG/ML', value: 'MCG/ML'},
-        {label: 'LITRE', value: 'LITRE'},
+        {label: 'LTR', value: 'LTR'},
         // {label: 'DOSING CUP', value: 'DOSING CUP'},
         // {label: 'DOSING SPOONS', value: 'DOSING SPOONS'},
         // {label: 'DOSING SYRINGE', value: 'DOSING SYRINGE'},
