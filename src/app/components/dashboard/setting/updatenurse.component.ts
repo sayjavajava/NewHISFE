@@ -296,7 +296,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                     selectedDepartment: this.selectedDepartment,
                     hidePatientPhoneNumber :data.hidePatientPhoneNumber,
                 });
-                this.makeService(nurse);  
+                this.makeService(nurse);
 
             } else { this.departmentFlag =true;
                 console.log('select deprat err')
