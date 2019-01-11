@@ -295,7 +295,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <!--<div class="form-group">
                                                 <label class="col-md-4 pdng-lr-5 control-label">Practice Business Logo</label>
                                             <div class="col-md-6 pdng-lr-5">
                                                 <div class="logo-plchldr"><img class="img-responsive" src="/public/images/company-logo-placeholder.jpg"/></div>
@@ -305,7 +305,34 @@
                                                     <small class="font-siz11">Will be attached to emails & offical forms</small>
                                                 </div>
                                             </div>
+                                            </div>-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label txt-size">Practice Business Logo</label>
+                                                <div class="col-md-6 select">
+                                                    <div class="logo-plchldr">
+                                                        <!--<img class="img-responsive" style="width: 120px; height: 140px;"
+                                                             src="/public/images/company-logo-placeholder.jpg"
+                                                             *ngIf="urlOrganization === null || urlOrganization === ''"/>-->
+
+                                                        <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                             src="{{urlOrganization}}"
+                                                        >
+                                                    </div>
+                                                    <div class="mrgn-top8">
+                                                        <input class="file" type="file" id="profileImgUrl"
+                                                               name="profileImgUrl"
+                                                               (change)="uploadImgOnChange($event)">
+                                                        <small>Will be attached to emails & offical forms</small>
+                                                    </div>
+                                                    <div class="imgUploadTopMargin">
+                                                        <button class="btn btn-default btn-outline"
+                                                                (click)="uploadProfileImg()">
+                                                            <i class=" icon-arrow-up"></i>upload
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="hr">

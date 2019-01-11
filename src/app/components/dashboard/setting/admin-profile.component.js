@@ -74,6 +74,9 @@ var AdminProfileComponent = (function () {
             if (response['responseCode'] === 'ORG_SUC_04') {
                 _this.organization = response['responseData'];
                 _this.urlOrganization = _this.organization.profileImgUrl;
+                /* if(this.urlOrganization!=null){
+                     this.urlOrganization=""
+                 }*/
                 console.log(_this.organization);
                 //   console.log(this.organization);
             }

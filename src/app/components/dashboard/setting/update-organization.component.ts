@@ -315,7 +315,7 @@ export class UpdateOrganizationComponent implements OnInit {
         this.citiesListModified=[];
         this.citiesList=[];
         this.requestService.getRequest(AppConstants.GET_CITY_BYSTATEID + id)
-            .subscribe(
+            .subscribe(  
                 (response: Response) => {
                     if (response["responseCode"] === "CITY_SUC_11") {
                         this.citiesList = response["responseData"];
@@ -446,6 +446,9 @@ export class UpdateOrganizationComponent implements OnInit {
                     console.log(organization);
                       //  this.appointmentId=organization.addInfo.serAppointId;
                         this.urlOrganization=organization.profileImgUrl;
+                     if(this.urlOrganization==null){
+                        this.urlOrganization="/public/images/company-logo-placeholder.jpg"
+                    }
                         this.defaultBranch= organization.branchName;
                 }, (error: any) => {
 

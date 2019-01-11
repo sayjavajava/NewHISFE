@@ -391,6 +391,9 @@ var UpdateOrganizationComponent = (function () {
                 console.log(organization);
                 //  this.appointmentId=organization.addInfo.serAppointId;
                 _this.urlOrganization = organization.profileImgUrl;
+                if (_this.urlOrganization == null) {
+                    _this.urlOrganization = "/public/images/company-logo-placeholder.jpg";
+                }
                 _this.defaultBranch = organization.branchName;
             }, function (error) {
                 _this.error = error.error.error_description;
