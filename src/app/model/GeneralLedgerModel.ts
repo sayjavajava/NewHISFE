@@ -9,7 +9,7 @@ export  class  GeneralLedgerModel{
     code: string = '';
     description: string = '';
 
-    balance: number = 0.00;
+    balance: string = '0.0';
 
     bankAccount: BankAccountModel;
 

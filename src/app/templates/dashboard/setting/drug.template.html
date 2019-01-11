@@ -275,7 +275,7 @@
                                                     class="required" aria-required="true"> * </span></label>
                                             <div class="col-md-8 pdng-lr-5">
                                                 <p-dropdown [(ngModel)]="drug.route"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                            required id="route" name="route" [options]="drug.routes" #route="ngModel">
+                                                            required id="route" name="route" [options]="drug.routes" #route="ngModel" [filter]="true">
                                                 </p-dropdown>
                                                 <span *ngIf="route.invalid && route.touched" class="text-danger"> Please select route of drug </span>
                                             </div>
@@ -300,7 +300,7 @@
                                             <div class="col-md-8 pdng-lr-5">
                                                 <p-dropdown [options]="drug.UOMs" [(ngModel)]="drug.uOM" [autoWidth]="false"
                                                             [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                            id="uOM" name="uOM" #uOM="ngModel">
+                                                            id="uOM" name="uOM" #uOM="ngModel" [filter]="true">
                                                 </p-dropdown>
                                                 <span *ngIf="uOM.invalid && uOM.touched" class="text-danger"> Please select unit of measurement </span>
                                             </div>
