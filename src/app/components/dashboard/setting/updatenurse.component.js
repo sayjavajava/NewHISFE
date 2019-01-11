@@ -134,6 +134,7 @@ var UpdateNurseComponent = (function () {
             'useReceptDashboard': '',
             'hidePatientPhoneNumber': '',
             'otherDoctorDashBoard': '',
+            'recivePayment': '',
             'selectedDoctorDashboard': '',
             'accountExpiry': [null],
             'active': '',
@@ -243,7 +244,7 @@ var UpdateNurseComponent = (function () {
                     managePatientInvoices: data.managePatientInvoices,
                     dutyWithDoctors: this.dutyWithDoctors,
                     selectedDepartment: this.selectedDepartment,
-                    hidePatientPhoneNumber: data.hidePatientPhoneNumber
+                    hidePatientPhoneNumber: data.hidePatientPhoneNumber,
                 });
                 this.makeService(nurse);
             }

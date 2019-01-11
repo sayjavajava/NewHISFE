@@ -171,6 +171,7 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                 'useReceptDashboard': '',
                 'hidePatientPhoneNumber': '',
                 'otherDoctorDashBoard': '',
+                'recivePayment': '',
                 'selectedDoctorDashboard': '',
                 'accountExpiry': [null],
                 'active': '',
@@ -293,9 +294,9 @@ export class UpdateNurseComponent implements OnInit,OnDestroy {
                     managePatientInvoices: data.managePatientInvoices,
                     dutyWithDoctors: this.dutyWithDoctors,
                     selectedDepartment: this.selectedDepartment,
-                    hidePatientPhoneNumber :data.hidePatientPhoneNumber
+                    hidePatientPhoneNumber :data.hidePatientPhoneNumber,
                 });
-                this.makeService(nurse);
+                this.makeService(nurse);  
 
             } else { this.departmentFlag =true;
                 console.log('select deprat err')

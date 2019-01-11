@@ -490,6 +490,7 @@ var UpdatedoctorComponent = (function () {
                 dateTo: data.dateTo,
                 dateFrom: data.dateFrom,
                 selectedWorkingDays: this.selectedWorkingDays,
+                hidePatientPhoneNumber: data.hidePatientPhoneNumber,
                 userType: this.selectedUser
             });
             this.makeService(doctor);
