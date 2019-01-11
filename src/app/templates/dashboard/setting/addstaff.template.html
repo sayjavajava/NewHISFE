@@ -242,7 +242,7 @@
                                                                     (onChange)="addComissionCheck($event,item)">
                                                         </p-checkbox>
                                                     </span>
-                                                <p class="col-md-7 pdng-lr-5">{{item.name}}</p>
+                                                    <p class="col-md-7 pdng-lr-5">{{item.name}}</p>
                                                 <div class="col-md-4 pdng-lr-5">
                                                     <input style="width: 100%" type="number" pInputText
                                                            (keyup)="addComission($event,item)"
@@ -342,14 +342,14 @@
                                             <mat-checkbox formControlName="shift1" color="primary"></mat-checkbox>
                                             <span></span></label>
                                         </div>
-                                        <div class="col-md-2 pdng-lr-5">
-                                            <button type="button" (click)="firstShiftFrom()">From</button>
+                                        <div class="col-md-2 pdng-lr-5 text-right">
+                                            <button type="button" (click)="firstShiftFrom()" class="mrgn-top4 clck-icon no-padding"><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" style="width: 100%" disabled value="{{firstShiftFromTime}}">
                                         </div>
                                         <div class="col-md-1 pdng-lr-5">
-                                            <button type="button" (click)="firstShiftTo()">To</button>
+                                            <button type="button" (click)="firstShiftTo()" class="mrgn-top4 clck-icon no-padding-lft"><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" disabled style="width: 100%" value="{{firstShiftToTime}}">
@@ -368,14 +368,14 @@
                                                    formControlName="shift2">-->
                                             <mat-checkbox formControlName="shift2"  color="primary"></mat-checkbox>
                                             <span></span></label></div>
-                                        <div class="col-md-2 pdng-lr-5">
-                                            <button type="button" (click)="secondShiftFrom()">From</button>
+                                        <div class="col-md-2 pdng-lr-5 text-right">
+                                            <button type="button" (click)="secondShiftFrom()" class="clck-icon mrgn-top4 no-padding"><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" disabled style="width: 100%" value="{{secondShiftFromTime}}">
                                         </div>
                                         <div class="col-md-1 pdng-lr-5">
-                                            <button type="button" (click)="secondShiftTo()">To</button>
+                                            <button type="button" (click)="secondShiftTo()" class="clck-icon mrgn-top4 no-padding-lft"><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" disabled style="width:100%" value="{{secondShiftToTime}}">

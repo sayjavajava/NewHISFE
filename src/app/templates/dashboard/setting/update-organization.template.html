@@ -13,9 +13,9 @@
                         <li class="">
                             <a href="#tab_1_2" data-toggle="tab" aria-expanded="false"> General Settings </a>
                         </li>
-                       <!-- <li class="">
-                            <a href="#tab_1_5" data-toggle="tab" aria-expanded="false"> Account </a>
-                        </li>-->
+                        <!-- <li class="">
+                             <a href="#tab_1_5" data-toggle="tab" aria-expanded="false"> Account </a>
+                         </li>-->
                         <li class="">
                             <a href="#tab_1_3" data-toggle="tab" aria-expanded="false"> Usage </a>
                         </li>
@@ -152,44 +152,44 @@
                                                 </div>
                                             </div>-->
 
-                                         <!--   <div class="form-group">
-                                                <label  class="control-label col-md-4">Country </label>
-                                                <div class="col-sm-7">
--->
-                                                    <!--<p-dropdown  [options]="countryListModified" [(ngModel)]="selectedCountry"
-                                                                filter="filter" [autoWidth]="false" [style]="{'width':'150px'}">
-                                                        <ng-template let-country pTemplate="item">
-                                                            <div class="ui-helper-clearfix" style="'display': 'inline-block'">
-                                                                <span class="country-text">{{country.label}}</span>
-                                                            </div>
-                                                        </ng-template>
-                                                    </p-dropdown>-->
+                                            <!--   <div class="form-group">
+                                                   <label  class="control-label col-md-4">Country </label>
+                                                   <div class="col-sm-7">
+   -->
+                                            <!--<p-dropdown  [options]="countryListModified" [(ngModel)]="selectedCountry"
+                                                        filter="filter" [autoWidth]="false" [style]="{'width':'150px'}">
+                                                <ng-template let-country pTemplate="item">
+                                                    <div class="ui-helper-clearfix" style="'display': 'inline-block'">
+                                                        <span class="country-text">{{country.label}}</span>
+                                                    </div>
+                                                </ng-template>
+                                            </p-dropdown>-->
 
 
-                                                   <!-- <p-dropdown  placeholder="Select Country" [autoWidth]="false" [(ngModel)]="selectedCountry"
-                                                                 formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                                 (onChange)="getStatesByCountryId($event.value)"
-                                                                 [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                                    </p-dropdown>
+                                            <!-- <p-dropdown  placeholder="Select Country" [autoWidth]="false" [(ngModel)]="selectedCountry"
+                                                          formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                          (onChange)="getStatesByCountryId($event.value)"
+                                                          [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                             </p-dropdown>
 
-                                                </div>
-                                            </div>
+                                         </div>
+                                     </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">State </label>
-                                                <div class="col-sm-7">
-
-
+                                     <div class="form-group">
+                                         <label class="control-label col-md-4">State </label>
+                                         <div class="col-sm-7">
 
 
-                                                    <p-dropdown  placeholder="Select State" [autoWidth]="false" [(ngModel)]="organization.state"
-                                                                 formControlName="state" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                                 (onChange)="getCitiesByStateId($event.value)"
-                                                                 [options]="stateLstModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                                    </p-dropdown>
 
-                                                </div>
-                                            </div>-->
+
+                                             <p-dropdown  placeholder="Select State" [autoWidth]="false" [(ngModel)]="organization.state"
+                                                          formControlName="state" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                          (onChange)="getCitiesByStateId($event.value)"
+                                                          [options]="stateLstModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                             </p-dropdown>
+
+                                         </div>
+                                     </div>-->
 
 
                                             <!--<div class="form-group">
@@ -296,10 +296,10 @@
                                                 </label>
                                                 <div class="col-md-8 profile-frm pdng-lr-5">
                                                     <input type="tel" formControlName="officePhone" class="form-control">
-                                                   <!-- <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
-                                                       <span *ngIf="proForm.controls['officePhone'].errors.required">Office Phone is required </span>
-                                                       <span *ngIf="proForm.controls['officePhone'].errors.pattern">Office Phone is not valid</span>
-                                                   </span>-->
+                                                    <!-- <span class="text-danger" *ngIf="!proForm.controls['officePhone'].valid && proForm.controls['officePhone'].touched">
+                                                        <span *ngIf="proForm.controls['officePhone'].errors.required">Office Phone is required </span>
+                                                        <span *ngIf="proForm.controls['officePhone'].errors.pattern">Office Phone is not valid</span>
+                                                    </span>-->
                                                 </div>
                                             </div>
 
@@ -343,13 +343,13 @@
                                                 <label class="col-md-4 control-label txt-size">Bussiness Photo</label>
                                                 <div class="col-md-6 select">
                                                     <div class="logo-plchldr">
-                                                    <!--<img class="img-responsive" style="width: 120px; height: 140px;"
-                                                         src="/public/images/patient-photo.jpg"
-                                                         *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
+                                                        <!--<img class="img-responsive" style="width: 120px; height: 140px;"
+                                                             src="/public/images/patient-photo.jpg"
+                                                             *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
 
-                                                    <img class="img-responsive" style="width: 120px; height: 140px;"
-                                                         src="{{urlOrganization}}"
-                                                         >
+                                                        <img class="img-responsive" style="width: 120px; height: 140px;"
+                                                             src="{{urlOrganization}}"
+                                                        >
                                                     </div>
                                                     <div class="mrgn-top8">
                                                         <input class="file" type="file" id="profileImgUrl"
@@ -569,11 +569,11 @@
                                                               [options]="dateType" formControlName="dateFormat"
                                                               [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
-                                               <!-- <p-dropdown placeholder="Select Date Format" [autoWidth]="false"  class="form-control" formControlName="dateFormat"
-                                                             [panelStyle]="{minWidth:'10em'}"  [options]="dateFormatLst">
+                                                <!-- <p-dropdown placeholder="Select Date Format" [autoWidth]="false"  class="form-control" formControlName="dateFormat"
+                                                              [panelStyle]="{minWidth:'10em'}"  [options]="dateFormatLst">
 
 
-                                                </p-dropdown>-->
+                                                 </p-dropdown>-->
 
                                                 <span class="text-danger"
                                                       *ngIf="!generalForm.controls['dateFormat'].valid && generalForm.controls['dateFormat'].touched">
@@ -631,17 +631,17 @@
                                             </span>-->
                                         </div>
 
-                                       <!-- <div class="form-group">
-                                            <label  class="control-label col-md-3">Date Format </label>
-                                            <div class="col-sm-7">
+                                        <!-- <div class="form-group">
+                                             <label  class="control-label col-md-3">Date Format </label>
+                                             <div class="col-sm-7">
 
-                                                <p-dropdown  placeholder="Select Country" [autoWidth]="false"
-                                                             formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                             (onChange)="getStatesByCountryId($event.value)"
-                                                             [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                                </p-dropdown>
-                                            </div>
-                                        </div>-->
+                                                 <p-dropdown  placeholder="Select Country" [autoWidth]="false"
+                                                              formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                              (onChange)="getStatesByCountryId($event.value)"
+                                                              [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                 </p-dropdown>
+                                             </div>
+                                         </div>-->
                                         <!--<div class="form-group">
                                             <label  class="control-label col-md-4">Time Format </label>
                                             <div class="col-sm-7">

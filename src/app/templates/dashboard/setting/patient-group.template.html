@@ -2,7 +2,7 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">Group
                         <div class="pull-right">
                             <a href="#popupPatientGroup" data-toggle="modal">
@@ -40,7 +40,7 @@
                         </div>
                     </div>-->
 
-                    <div class="table-scrollable">
+                    <div class="table-scrollable border-non">
                         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
                             <ng-template pTemplate="caption">
                                 <div style="text-align: right">
@@ -222,10 +222,10 @@
                               *ngIf="patientGroup.id <= 0 || patientGroup.id == null"
                               (click)="savePatientGroup()">Save
                     </button>
-                        <button type="button" class="btn blue" *ngIf="patientGroup.id > 0"
+                        <button type="button" class="btn primary blue" *ngIf="patientGroup.id > 0"
                                      (click)="updatePatientGroup()">Update
                     </button>
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow">
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow mrgn-lft0">
                             Close
                         </button>
                     </div>

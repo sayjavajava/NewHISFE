@@ -199,13 +199,13 @@
                                                 <span></span></label>
                                             </div>
                                             <div class="col-md-2 pdng-lr-5">
-                                                <button type="button" (click)="firstShiftFrom()">From</button>
+                                                <button type="button" (click)="firstShiftFrom()" class="clck-icon mrgn-top4 no-padding"><i class="fa fa-clock-o"></i></button>
                                             </div>
                                             <div class="col-md-4 pdng-lr-5">
                                                 <input type="time" disabled style="width: 100%" value="{{firstShiftFromTime}}">
                                             </div>
                                             <div class="col-md-1 pdng-lr-5">
-                                                <button type="button" (click)="firstShiftTo()">To</button>
+                                                <button type="button" (click)="firstShiftTo()" class="clck-icon mrgn-top4 no-padding"><i class="fa fa-clock-o"></i></button>
                                             </div>
                                             <div class="col-md-4 pdng-lr-5">
                                                 <input type="time" disabled style="width: 100%" value="{{firstShiftToTime}}">
@@ -225,13 +225,13 @@
                                             <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
                                             <span></span></label></div>
                                         <div class="col-md-2 pdng-lr-5">
-                                            <button type="button" (click)="secondShiftFrom()">From</button>
+                                            <button type="button" disabled (click)="secondShiftFrom()" class="clck-icon mrgn-top4 no-padding" ><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" style="width: 100%" value="{{secondShiftFromTime}}">
                                         </div>
                                         <div class="col-md-1 pdng-lr-5">
-                                            <button type="button" (click)="secondShiftTo()">To</button>
+                                            <button type="button" disabled (click)="secondShiftTo()" class="clck-icon mrgn-top4 no-padding" ><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" style="width:100%" value="{{secondShiftToTime}}">

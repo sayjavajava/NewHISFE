@@ -11,7 +11,6 @@
                 </li>
             </ul>
             <div class="tab-content">
-
                 <div class="tab-pane fade active in" id="tab_1_1">
                     <div class="row">
                         <div class="col-md-6">
@@ -22,7 +21,7 @@
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" class="form-control" id="host" [(ngModel)]="smtps.smtpHost" name="host" #host="ngModel" required>
-                                        <div *ngIf="host.invalid && (host.dirty || host.touched) " class="font-red">Host is required</div>
+                                        <div *ngIf="host.invalid && (host.dirty || host.touched) " class="text-danger">Host is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -32,7 +31,7 @@
                                     <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="email" class="form-control" id="smtpEmail" [(ngModel)]="smtps.senderEmail"  required
                                                name="smtpEmail" #smtpEmail="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                                        <div *ngIf="smtpEmail.invalid && (smtpEmail.dirty || smtpEmail.touched)" class="font-red">
+                                        <div *ngIf="smtpEmail.invalid && (smtpEmail.dirty || smtpEmail.touched)" class="text-danger">
                                             Please enter valid email
                                         </div>
                                     </div>
@@ -55,10 +54,10 @@
                                                [(ngModel)]="smtps.smptPassword"
                                                name="smtpPassword"
                                                #smtpPassword="ngModel">
-                                        <div *ngIf="smtpPassword.invalid" style="color: red">Password is required</div>
-                                        <input type="text" class="form-control" [(ngModel)]="smtps.smptPassword"
+                                        <div *ngIf="smtpPassword.invalid" style="color: red" class="text-danger">Password is required</div>
+                                        <input type="text" class="form-control mrgn-top8" [(ngModel)]="smtps.smptPassword"
                                                name="smtpPassword" required #smtpPassword="ngModel">
-                                        <div *ngIf="smtpPassword.invalid && (smtpPassword.dirty || smtpPassword.touched) " class="font-red">Password is required</div>
+                                        <div *ngIf="smtpPassword.invalid && (smtpPassword.dirty || smtpPassword.touched) " class="text-danger">Password is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -68,7 +67,7 @@
                                     <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" class="form-control" [(ngModel)]="smtps.smtpPort" required
                                                name="smtpPort" #smtpPort="ngModel">
-                                        <div *ngIf="smtpPort.invalid && (smtpPort.dirty || smtpPort.touched) " class="font-red">Port is required</div>
+                                        <div *ngIf="smtpPort.invalid && (smtpPort.dirty || smtpPort.touched) " class="text-danger">Port is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -90,15 +89,16 @@
                                         </label>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="hr">
-                                        <button data-repeater-create="" class="btn blue"
-                                                (click)="saveSMTPSConfiguration(sesForm,smtpsForm)"> Save
-                                        </button>
-                                    </div>
-                                </div>
                             </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="hr text-center">
+                                <button data-repeater-create="" class="btn primary blue"
+                                        (click)="saveSMTPSConfiguration(sesForm,smtpsForm)"> Save
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                                     <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" class="form-control" #accessKey="ngModel"  id="accessKey" required
                                                name="accessKey" [(ngModel)]="amazonSES.sesAccessKey">
-                                        <div *ngIf="accessKey.invalid && (accessKey.dirty || accessKey.touched) " class="font-red">Access Key is required</div>
+                                        <div *ngIf="accessKey.invalid && (accessKey.dirty || accessKey.touched) " class="text-danger">Access Key is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -124,7 +124,7 @@
                                     <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" class="form-control" #secretKey="ngModel"  id="secretKey" required
                                                name="secretKey" [(ngModel)]="amazonSES.sesSecretKey">
-                                        <div *ngIf="secretKey.invalid && (secretKey.dirty || secretKey.touched) " class="font-red">Secret Key is required</div>
+                                        <div *ngIf="secretKey.invalid && (secretKey.dirty || secretKey.touched) " class="text-danger">Secret Key is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
@@ -134,7 +134,7 @@
                                     <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input type="text" class="form-control" #emailId="ngModel"  id="emailId" name="emailId" required
                                                [(ngModel)]="amazonSES.senderEmail" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                                        <div *ngIf="emailId.invalid && (emailId.dirty || emailId.touched)" class="font-red">
+                                        <div *ngIf="emailId.invalid && (emailId.dirty || emailId.touched)" class="text-danger">
                                             Please enter valid email
                                         </div>
                                     </div>
@@ -164,15 +164,16 @@
                                         </label>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="hr">
-                                        <button data-repeater-create="" class="btn blue"
-                                                (click)="saveSESConfiguration(sesForm,smtpsForm)"> Save
-                                        </button>
-                                    </div>
-                                </div>
                             </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="hr text-center">
+                                <button data-repeater-create="" class="btn blue"
+                                        (click)="saveSESConfiguration(sesForm,smtpsForm)"> Save
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -141,7 +141,6 @@
                                         Please enter valid rate.
                                 </span>
                                 </div>
-
                             </div>
                             <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">From
@@ -182,7 +181,6 @@
                                         Please enter valid to Date.
                                 </span>
                                 </div>
-
                             </div>
                             <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Description
@@ -198,7 +196,6 @@
                                     </textarea>
                                 </div>
                             </div>
-
                             <div class="form-group hr">
                                 <label class="col-md-3 control-label txt-size pdng-lr-5">Status</label>
                                 <div class="col-md-9 select pdng-lr-5 mt-checkbox mt-checkbox-outline">
@@ -211,31 +208,27 @@
                                                       name="active"
                                                       [(ngModel)]="serviceTax.active"
                                                       color="primary"></mat-checkbox>
-
                                     </label>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" id="close-btn"
-                            class="btn btn-default btn-outline">Close
-                    </button>
                     <span [hidden]="isUpdateServiceTax">
-                        <button type="button" class="btn blue" id="save-btn"
+                        <button type="button" class="btn primary blue" id="save-btn"
                                 (click)="saveServiceTax(form)"
                                 cl>Save
                         </button>
                     </span>
                     <span [hidden]="!isUpdateServiceTax">
-                        <button type="button" class="btn blue" id="update-btn"
+                        <button type="button" class="btn primary blue" id="update-btn"
                                 (click)="updateServiceTax(form)">Update
                         </button>
                     </span>
-
+                    <button type="button" data-dismiss="modal" id="close-btn"
+                            class="btn green-meadow">Close
+                    </button>
                 </div>
             </div>
         </form>
