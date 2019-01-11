@@ -74,7 +74,7 @@
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Address</label>
                                                 <div class="col-md-8 pdng-lr-5">
-                                                    <textarea formControlName="address" class="form-control" rows="5"></textarea>
+                                                    <textarea formControlName="address" class="form-control" rows="3"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
@@ -169,22 +169,26 @@
                                                 <label class="control-label col-md-3 pdng-lr-5"> Office St. Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-5 pdng-lr-5">
-                                                    <button type="button" (click)="getOfficeHoursStart()">Start</button>
-                                                    <input class="col-md-9" type="time" formControlName="officeHoursStart" value="{{officeHoursStart}}">
+                                                <div class="col-md-9 pdng-lr-5">
+                                                    <span class="col-md-7 no-padding">
+                                                        <input class="width100" type="time" formControlName="officeHoursStart" value="{{officeHoursStart}}">
+                                                    </span>
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
                                                         <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
                                                     </span>
+                                                    <button type="button" (click)="getOfficeHoursStart()" class="font-siz11">Start</button>
                                                 </div>
                                             </div>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-3 pdng-lr-5"> Office End Time
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-5 pdng-lr-5">
-                                                    <button type="button" (click)="getOfficeHoursEnd()">End</button>
-                                                    <input class="col-md-9" type="time" formControlName="officeHoursEnd" value="{{officeHoursEnd}}">
+                                                <div class="col-md-9 pdng-lr-5">
+                                                    <span class="col-md-7 no-padding">
+                                                       <input class="width100" type="time" formControlName="officeHoursEnd" value="{{officeHoursEnd}}">
+                                                    </span>
+                                                    <button type="button" (click)="getOfficeHoursEnd()" class="font-siz11">End</button>
                                                 </div>
                                                 <span class="text-danger"
                                                       *ngIf="!branchForm.controls['officeHoursEnd'].valid && branchForm.controls['officeHoursEnd'].touched">
@@ -195,7 +199,7 @@
                                                 <label class="control-label col-md-3 pdng-lr-5">No of Ex Rooms
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
-                                                <div class="col-md-5 pdng-lr-5 profile-frm">
+                                                <div class="col-md-6 pdng-lr-5 profile-frm">
                                                     <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom" [attr.disabled]="disable"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="1">1</option>
@@ -211,12 +215,12 @@
                                                 <div class="form-group mrgn-btm08">
                                                     <label class="control-label col-md-3 pdng-lr-5">Exam Name
                                                     </label>
-                                                    <div class="col-md-4 profile-frm pdng-lr-5">
+                                                    <div class="col-md-5 profile-frm pdng-lr-5">
                                                         <input type="text" class="form-control"  [attr.disabled]="disable"
                                                                formControlName="roomName"></div>
-                                                    <div class="col-md-5 pdng-lr-5 mrgn-top4">
+                                                    <div class="col-md-4 pdng-lr-5">
                                                         <label class="mt-checkbox-outline">
-                                                            <mat-checkbox formControlName="allowOnlineScheduling" color="primary"
+                                                            <mat-checkbox formControlName="allowOnlineScheduling" color="primary" class="font-siz11"
                                                                           [disabled]="true"> Allow Online Scheduling</mat-checkbox><span></span>
                                                             <!--<input type="checkbox"  [attr.disabled]="disable"
                                                                    formControlName="allowOnlineScheduling"> Allow Online Scheduling <span></span>-->
@@ -245,65 +249,60 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <form [formGroup]="billingForm" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Billing Name
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-3 pdng-lr-5">Billing Name
                                             </label>
-                                            <div class="col-md-9">
+                                            <div class="col-md-9 pdng-lr-5 profile-frm">
                                                 <input type="text" formControlName="billingName"
                                                        class="form-control"></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Billing Branch
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-3 pdng-lr-5">Billing Branch
                                             </label>
-                                            <div class="col-md-9">
+                                            <div class="col-md-9 profile-frm pdng-lr-5">
                                                 <select class="form-control"
                                                         (change)="getSelectedBranch($event.target.value)"
                                                         formControlName="billingBranch" placeholder="Select Branch">
                                                     <option *ngFor="let br of branchesList" [value]="br">
                                                         {{br}}
                                                     </option>
-
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Billing Tax ID #
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-3 pdng-lr-5">Billing Tax ID #
                                             </label>
-                                            <div class="col-md-9">
+                                            <div class="col-md-9 profile-frm pdng-lr-5">
                                                 <input type="text" formControlName="billingTaxID"
                                                        class="form-control"></div>
-
-                                            <div class="hr">
-                                                <div class="col-md-12 text-center">
-                                                    <button (click)="addBranch(billingForm.value,'')" class="btn blue">
-                                                        <i
-                                                                class="fa fa-plus"></i> Create
-                                                    </button>
-                                                </div>
                                             </div>
+                                        <div class="hr">
+                                        <div class="col-md-12 text-center">
+                                            <button (click)="addBranch(billingForm.value,'')" class="btn blue">
+                                                <i class="fa fa-plus"></i> Create
+                                            </button>
                                         </div>
+                                    </div>
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                         <div class="tab-pane fade" id="tab_1_3">
                             <div class="row">
                                 <div class="col-md-6">
                                     <form [formGroup]="scheduleForm" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Show this Branch information
-                                                online</label>
-                                            <div class="col-md-8">
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-8 pdng-lr-5">Show this Branch information online</label>
+                                            <div class="col-md-4 pdng-lr-5">
                                                 <label class="mt-checkbox mt-checkbox-outline chckbox">
                                                     <input type="checkbox"
                                                            formControlName="showBranchOnline"><span></span></label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Allow online scheduling in this
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-8 pdng-lr-5">Allow online scheduling in this
                                                 Branch</label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-4 pdng-lr-5">
                                                 <label class="mt-checkbox mt-checkbox-outline chckbox">
                                                     <input type="checkbox"
                                                            formControlName="allowOnlineSchedulingInBranch"><span></span></label>

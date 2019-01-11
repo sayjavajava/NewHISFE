@@ -34,9 +34,8 @@
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
 
-                                    <div class="col-md-8 pdng-lr-5">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="text" formControlName="userName" class="form-control" disabled="true">
-
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['userName'].valid && userForm.controls['userName'].touched">
                                            <span *ngIf="userForm.controls['userName'].errors.minlength"> minimum 4 charachters</span>

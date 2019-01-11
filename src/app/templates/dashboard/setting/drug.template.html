@@ -305,7 +305,6 @@
                                                 <span *ngIf="uOM.invalid && uOM.touched" class="text-danger"> Please select unit of measurement </span>
                                             </div>
                                         </div>
-
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Info</label>
                                             <div class="col-md-8 select pdng-lr-5 profile-frm">
@@ -317,7 +316,6 @@
                                                 <span *ngIf="info.invalid && info.touched" class="text-danger"> Please enter Info URL </span>
                                             </div>
                                         </div>
-
                                         <div class="form-group hr">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Make</label>
                                             <div class="col-md-8 select pdng-lr-5">
@@ -360,8 +358,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-
-
                         <button type="button" class="btn primary blue"
                                 *ngIf="drug.id <= 0 || drug.id == null"
                                 (click)="saveDrug()">Save
@@ -369,10 +365,7 @@
                         <button type="button" class="btn primary blue" *ngIf="drug.id > 0"
                                 (click)="updateDrug()">Update
                         </button>
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow">
-                        Close
-                    </button>
-
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow mrgn-lft0">Close</button>
                     </div>
                 </div>
             </form>

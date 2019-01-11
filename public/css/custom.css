@@ -141,7 +141,7 @@ label{margin-bottom: 0 !important;}
 .set-width{width: 33%; float: left; margin-right: 1px;}
 .mt-action-dot{display:inline-block;width:12px;height:12px;border-radius:50%!important;margin-left:5px;margin-right:5px}
 .menu-stng{margin-top:0 !important; margin-right:0 !important; background:#004b97 !important; width:100%; text-align: right; opacity:1 !important;}
-.chckbox span{ margin-top:10px !important;}
+.chckbox span{margin-top: 3px !important;}
 .checkbox-box{border:1px solid #c2cad8; background:#fff; padding:10px;}
 .checkbox-box address, .checkbox-box address label{ margin-bottom:2px !important;}
 
@@ -830,6 +830,7 @@ width: 93%; !important;
 .wc-time-sec[_ngcontent-c19] {padding: 10px 10px 8px !important;}
 .time-view[_ngcontent-c8]{padding:0px !important;}
 .wc-date-popover{height: 400px !important; width: 306px !important;}
+.wc-date-popover{/*width: 250px;*/ position: fixed !important; top: 5% !important; height: auto; left: 50% !important; transform: translateX(-50%) !important;}
 .mat-input-wrapper, .mat-form-field-wrapper{margin-right: 0px;}
 .ui-overlaypanel {top:40% !important; left:40% !important; width: 20% !important; position: absolute !important;}
 .brnch-modl ul{list-style: none; padding-left: 0;}
@@ -888,7 +889,6 @@ ul.ui-inputtext{width: 100%;}
 .mat-form-field-underline{margin-bottom: -20px; }
 .mat-form-field-wrapper{padding-bottom: 0px !important;}
 .ui-button.ui-splitbutton-menubutton {height: 2.4em !important;}
-.wc-date-popover[_ngcontent-c7] {width: 250px; position: fixed !important; top: 5% !important; height: auto; left: 50% !important; transform: translateX(-50%) !important;}
 .patnt-img img{border: 1px solid #e7e7e7;}
 .wc-date-container{border: 1px solid #c2cad8 !important; font-size: 13px !important; color:#333333 !important;}
 .wc-date-container i{color: #333333 !important; font-size: 16px !important;}
@@ -897,8 +897,7 @@ ul.ui-inputtext{width: 100%;}
 .table-brd-non{border: none !important;}
 .clr-bck{color: #000000 !important; padding:5px!important; font-size: 12px !important;}
 .logo-plchldr{border: 1px solid #e7e7e7; padding: 20px; text-align: center;}
-.logo-plchldr img{display:inline-block !important;}      
-
+.logo-plchldr img{display:inline-block !important;}
 .ui-table-tbody > tr > td {padding: 4px 10px !important; border: 1px solid #e7e7e7 !important;}
 .ui-table-thead > tr > th {border: 1px solid #e7e7e7 !important; /*background: #f4f4f4 !important;*/ padding: 0.271em 0.857em !important; font-weight: bold !important; font-size: 14px !important;}
 .ui-table-thead > tr > th:hover .ui-table-thead > tr > th:focus {background: #EFEFEF !important; color: #000 !important;}
@@ -906,3 +905,4 @@ ul.ui-inputtext{width: 100%;}
 .ui-paginator-first, .ui-paginator-page, .ui-paginator-prev, .ui-paginator-next, .ui-paginator-last{height: 1.5em !important; line-height: 1.5em !important;}
 .checkbox-sm .form-control{height: 18px !important}
 .bc-bg{background-color: red; color: green;}
+.clck-icon i{font-size: 24px;}

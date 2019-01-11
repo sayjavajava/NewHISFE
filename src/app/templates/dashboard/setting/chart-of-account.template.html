@@ -2,19 +2,18 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">Chart of Accounts
                         <div class="pull-right">
                             <a href="#chartOfAccount" data-toggle="modal">
-                                <button class="btn mt-sweetalert btn green-meadow" (click)="edit()"> <i class="fa fa-plus"></i>
+                                <button class="btn primary blue" (click)="edit()"> <i class="fa fa-plus"></i>
                                     Chart of Account
                                 </button>
                             </a>
                         </div>
                     </h4>
                 </div>
-
-                <div class="table-scrollable">
+                <div class="table-scrollable border-non">
                     <p-table #dt [columns]="cols" [value]="chartOfAccountList" [paginator]="true" [rows]="10">
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
@@ -31,7 +30,6 @@
                                                 ariaLabel="Sort" ariaLabelDesc="Sort in descending order" ariaLabelAsc="Sort in ascending order">
                                     </p-sortIcon>
                                 </th>
-
                             </tr>
                             <!--<tr>
                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -50,7 +48,6 @@
                                 <td field="parentType">{{chartOfAccountList.parentType + " ("+chartOfAccountList.accountType+")"}}</td>
                                 <td field="description">{{chartOfAccountList.description}}</td>
                                 <td field="balance">{{chartOfAccountList.balance}}</td>
-
                                 <td field="action">
                                     <ng-container>
                                         <a href="#chartOfAccount" data-toggle="modal">
@@ -208,7 +205,7 @@
                         </span>
                         <span>
                             <button type="button" data-dismiss="modal" id="close-btn-Prefix" (click)="clearAccountSetUp()"
-                                    class="btn default">Close </button>
+                                    class="btn green-meadow">Close </button>
                         </span>
                     </div>
                 </div>

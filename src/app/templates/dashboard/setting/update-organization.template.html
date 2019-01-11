@@ -49,10 +49,11 @@
                                                             [options]="specialtyList" formControlName="specialty"
                                                             [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
-                                                </div>
-                                                <span class="text-danger" *ngIf="!proForm.controls['specialty'].valid && proForm.controls['specialty'].touched">
+                                                    <span class="text-danger" *ngIf="!proForm.controls['specialty'].valid && proForm.controls['specialty'].touched">
                                                     <span *ngIf="proForm.controls['specialty'].errors.required">Please Provide Speciality</span>
                                                 </span>
+                                                </div>
+
                                             </div>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Website
@@ -667,15 +668,15 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="hr"><h4 class="text-info">SMS / Email Messages</h4></div>
-                                    <div class="table-scrollable">
+                                    <div class="table-scrollable border-non">
                                         <table class="table table-hover table-light">
-                                            <thead>
+                                            <thead class="ui-table-thead">
                                             <tr class="off-wite-bg tbl-pdng">
                                                 <th> Feature</th>
                                                 <th> Usage for this month</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="ui-table-tbody">
                                             <tr class="tbl-pdng">
                                                 <td>Total Appointments Auto SMS sent by system</td>
                                                 <td>0</td>

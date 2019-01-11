@@ -195,27 +195,19 @@
                         </a>--> <!--(click)="op.toggle($event)" -->
                         <button type="text" pButton label="" (click)="getBranchesWithDepartment(item.id,op,$event)"><i class="fa fa-university"></i> </button>
                     </td>
-
                     <td>
                         <a href="#responsive" data-toggle="modal">
-                            <button class=""
-                                    (click)="onUpdatePopupLoad(item,item.id)"><i class="fa fa-pencil"></i>
-
-                            </button>
+                            <button class="" (click)="onUpdatePopupLoad(item,item.id)"><i class="fa fa-pencil"></i></button>
                         </a>
                         <button class="text-danger"
                                 (click)="deleteDepartment(item.id)">
                             <i class="fa fa-remove"></i>
                         </button>
-
                     </td>
-
                 </tr>
             </ng-template>
         </p-table>
         </div>
-
-
     </div>
     <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -243,7 +235,6 @@
                                                 Please enter valid name.
                                         </span>
                                         </div>
-
                                     </div>
                                     <div class="form-group hr mrgn-btm08">
                                         <label class="col-md-3 control-label txt-size pdng-lr-5">Branch <span
@@ -295,7 +286,6 @@
                                                           name="status"
                                                           [(ngModel)]="selectedDepartment.active"
                                                           color="primary"></mat-checkbox>
-
                                         </label>
                                     </div>
                                 </div>
@@ -307,15 +297,13 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">
-                            Close
-                        </button>
-                        <button type="button" class="btn blue"
-                                *ngIf="selectedDepartment.id <= 0 || selectedDepartment.id == null"
+                        <button type="button" class="btn primary blue" *ngIf="selectedDepartment.id <= 0 || selectedDepartment.id == null"
                                 (click)="saveClinicalDepartment(form)">Save
                         </button>
-                        <button type="button" class="btn blue" *ngIf="selectedDepartment.id > 0"
+                        <button type="button" class="btn primary blue" *ngIf="selectedDepartment.id > 0"
                                 (click)="updateClinicalDepartment(form)">Update
+                        </button>
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow mrgn-lft0">Close
                         </button>
                     </div>
                 </div>

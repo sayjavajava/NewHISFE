@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <div class="hr">
+                <div class="hr no-margin">
                     <h4 class="text-info">Status
                         <div class="pull-right">
                             <a href="#statusModal" data-toggle="modal">
@@ -12,13 +12,13 @@
                                     <i class="fa fa-plus"></i> Add
                                 </button>
                             </a>
-                            <button class="btn green-meadow"
+                            <button class="btn primary blue"
                                     data-title="Sweet Alerts with Icons" data-message="Success Icon"
                                     data-type="success" data-allow-outside-click="true"
                                     (click)="getAllStatusesFromServer(0)"
                                     data-confirm-button-class="btn-success"> Refresh
                             </button>
-                            <span><button class="btn primary blue"> <i
+                            <span><button class="btn green-meadow"> <i
                                     class=" icon-clock"></i> Print </button></span>
                         </div>
                     </h4>
@@ -40,7 +40,7 @@
                         </div>
                     </div>-->
 
-                <div class="table-scrollable">
+                <div class="table-scrollable border-non no-margin">
                     <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
@@ -242,16 +242,15 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" id="closeButton" (click)="closeAddStatusModal()" class="btn btn-default btn-outline">
-                        Close
-                    </button>
-                    <button type="button" class="btn blue"
+
+                    <button type="button" class="btn primary blue"
                             *ngIf="status.id <= 0 || status.id == null"
                             (click)="saveStatus(form)">Save
                     </button>
-                    <button type="button" class="btn blue" *ngIf="status.id > 0"
+                    <button type="button" class="btn primary blue" *ngIf="status.id > 0"
                             (click)="updateStatus(form)">Update
                     </button>
+                    <button type="button" data-dismiss="modal" id="closeButton" (click)="closeAddStatusModal()" class="btn green-meadow mrgn-lft0">Close</button>
                 </div>
             </div>
         </form>

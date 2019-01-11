@@ -64,7 +64,7 @@
                                     <label class="control-label col-md-4 pdng-lr-5">Email Address
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 pdng-lr-5">
+                                    <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="email" formControlName="email" disabled="true"
 
                                                class="form-control">
@@ -163,7 +163,7 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
                                                        name="doctorboards"
-                                                       formControlName="otherDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                       formControlName="otherDashboard"
                                                        [filter]="true">
                                         </p-multiSelect>
                                     </div>
