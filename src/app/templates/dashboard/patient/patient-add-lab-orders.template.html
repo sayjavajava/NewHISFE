@@ -355,8 +355,7 @@
                         <div class="col-md-12"  *ngIf="show">
                             <form name="invoiceForm">
                                 <div class="hr padding round-bck table-responsive">
-                                    <table class="table table-striped table-hover table-checkable dataTable no-footer" id="" aria-describedby="datatable_ajax_info"
-                                           role="grid">
+                                    <table class="table table-striped table-hover table-checkable dataTable no-footer" id="" aria-describedby="datatable_ajax_info" role="grid">
                                         <thead class="ui-table-thead">
                                         <tr role="row" class="">
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
@@ -366,6 +365,8 @@
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
                                             <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                                         </tr>
+                                        </thead>
+                                        <tbody class="ui-table-tbody">
                                         <tr role="row" class="filter">
                                             <td rowspan="1" colspan="1" class="custom-td-size">
                                                 <input type="text" name="code" value="{{filterSpeciman.testCode}}"  disabled class="form-control" >
@@ -397,13 +398,10 @@
                                             <td rowspan="1" colspan="1" class="custom-td-size">
                                                 <i (click)="clearField()" title="Remove" class="fa fa-close font-red"></i>
                                             </td>
-
-
-                                        </tr>
-                                        </thead>
+                                          </tr>
+                                        </tbody>
                                     </table>
                                     <div class="pull-right">
-
                                         <button *ngIf="!showEdit" class="btn btn-default btn-outline btn-sm" (click)="addLabtoGrid()"> Add Test </button>
                                         <button *ngIf="showEdit" class="btn btn-default btn-outline btn-sm" (click)="updateLabtoGrid()"> Edit Test </button>
                                     </div>
@@ -411,10 +409,10 @@
                             </form>
                         </div>
                         <div class="col-md-12">
-                            <div class="table-scrollable">
+                            <div class="table-scrollable border-non">
                                 <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" aria-describedby="datatable_ajax_info"
                                        role="grid">
-                                    <thead>
+                                    <thead class="ui-table-thead">
                                     <tr role="row" class="off-wite-bg">
                                         <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
 
@@ -425,21 +423,20 @@
                                         <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
                                         <th width="8%" class="sorting_disabled" rowspan="1" colspan="1"> Action</th>
                                     </tr>
+                                    </thead>
+                                    <tbody class="ui-table-tbody">
                                     <tr role="row" class="filter" *ngFor="let lbRT of LabReadList;  let idx = index">
                                         <!-- <td rowspan="1" colspan="1">{{lbRT.id}}</td>-->
                                         <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.testCode}}</td>
-
                                         <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.resultValue }}</td>
                                         <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.unit}}</td>
                                         <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.minNormalRange}}</td>
-
                                         <td rowspan="1" colspan="1" class="text-align-left">
                                             <button  (click)="editLabtoGrid(idx)" class="btn btn-default btn-outline btn-sm"><i class="fa fa-pencil"></i></button>
                                             <button  (click)="removeLabtoGrid(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button>
                                         </td>
                                     </tr>
-
-                                    </thead>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

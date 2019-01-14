@@ -1035,7 +1035,7 @@
                                                                             [(ngModel)]="event.serviceId"
                                                                             [options]="filteredServices"
                                                                             (onChange)="getSelectedService($event)"
-                                                                            [panelStyle]="{minWidth:'12em'}"
+                                                                            [panelStyle]="{minWidth:''}"
                                                                             [filter]="true">
                                                                 </p-dropdown>
                                                                 <!--<span *ngIf="service.invalid && service.touched"
@@ -1326,20 +1326,14 @@
                      </button>-->
 
                     <button type="button" [disabled]="!loginForm.valid" (click)="saveAppointment(event,loginForm)"
-                            name="saveBtn"
-                            class="btn btn-sm green btn-outline filter-submit margin-bottom">Save
-                    </button>
+                            name="saveBtn" class="btn primary">Save</button>
                     <!--<button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index,1);refresh.next()"
                             class="btn btn-default btn-outline"> Cancel
                     </button>-->
-                    <button type="button" class="close" data-dismiss="modal" name="cancel"
-                            (click)="closeAddModal()"
-                            class="btn btn-sm blue btn-outline filter-submit margin-bottom">
-                        Cancel
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" name="cancel" (click)="closeAddModal()"
+                            class="btn default mrgn-lft0">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

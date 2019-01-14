@@ -502,7 +502,6 @@
                                             <td rowspan="1" colspan="1" class="text-align-right padding-t-10"><span class="pdng-l-r-15">{{item.standardValue}}</span></td>
                                         </tr>
                                         </tbody>
-
                                     </table>
                                 </div>
 
@@ -590,10 +589,11 @@
                 </form>
             </div>
             <div class="modal-footer">
+
+                <button type="button" class="btn primary blue" name="btnSaveMD" (click)="savePatientVitalList(ngForm)">Save</button>
                 <span >
-                    <button type="button" data-dismiss="modal" id="closeButton" class="btn btn-default btn-outline">Close </button>
+                    <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow">Close </button>
                 </span>
-                <button type="button" class="btn green" name="btnSaveMD" (click)="savePatientVitalList(ngForm)">Save</button>
             </div>
         </div>
     </div>

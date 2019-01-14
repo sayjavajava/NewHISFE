@@ -131,9 +131,9 @@
                                     </thead>
                                 </table>
                                 <div class="pull-right">
-                                    <button  class="btn btn-default btn-outline btn-sm" (click)="cancel()"> Cancel </button>
-                                    <button *ngIf="!showEditButton" class="btn btn-default btn-outline btn-sm" (click)="addInvoice()"> Add Line </button>
-                                    <button *ngIf="showEditButton" class="btn btn-default btn-outline btn-sm" (click)="updateInovice()"> Edit Line </button>
+                                    <button  class="btn default" (click)="cancel()"> Cancel </button>
+                                    <button *ngIf="!showEditButton" class="btn primary blue" (click)="addInvoice()"> Add Line </button>
+                                    <button *ngIf="showEditButton" class="btn primary blue" (click)="updateInovice()"> Edit Line </button>
                                 </div>
                             </div>
                         </form>
@@ -173,7 +173,7 @@
                                 <td rowspan="1" colspan="1" class="text-align-right">{{(((invc.quantity*invc.unitFee)-((invc.quantity*invc.unitFee) * (invc.discountRate/100))) * (invc.taxRate/100)) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-right">{{(invc.quantity*invc.unitFee) - ((invc.quantity*invc.unitFee) * (invc.discountRate/100)) + (((invc.quantity*invc.unitFee)-((invc.quantity*invc.unitFee) * (invc.discountRate/100))) * (invc.taxRate/100)) | number:'.2-2'}}</td>
                                 <td rowspan="1" colspan="1" class="text-align-center">
-                                    <button *ngIf="!completed" (click)="editInvoic(idx)" class=""><i class="fa fa-pencil"></i></button>
+                                    <button *ngIf="!completed" (click)="editInvoic(idx)" class=""><i class="fa fa-pencil font-blue"></i></button>
                                     <button *ngIf="!completed" (click)="removeInvoic(idx)" class=""> <i class="fa fa-remove font-red"></i> </button>
                                 </td>
                             </tr>
@@ -224,7 +224,7 @@
                     <button *ngIf="!completed" class="btn primary blue" (click)="completeInvoice()"> Complete </button>
                     <span  *ngIf="!completed">
                         <!-- <button class="btn btn-default btn-outline btn-sm"> Print </button>  -->
-                        <button class="btn green-meadow" (click)="saveInvoice()"> Save </button>
+                        <button class="btn primary blue" (click)="saveInvoice()"> Save </button>
                     </span>
                     <button class="btn default" (click)="backPage()"> Cancel </button>
 

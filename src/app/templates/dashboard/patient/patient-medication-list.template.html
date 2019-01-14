@@ -654,20 +654,21 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal"
-                            #closeBtnMedication name="btnCloseMD"
-                            id="closeBtnMedication"
-                            name="closeBtnMedication"
-                            class="btn btn-default btn-outline">Close
-                    </button>
+
                     <span [hidden]="isUpdate">
-                    <button type="button" class="btn green" name="btnSaveMD"
+                    <button type="button" class="btn primary blue" name="btnSaveMD"
                             (click)="saveMedication(mdForm)">Save</button>
                     </span>
                     <span [hidden]="!isUpdate">
-                    <button type="button" class="btn green" name="btnUpdateMD" (click)="updateMedication(mdForm)">Update
+                    <button type="button" class="btn primary blue" name="btnUpdateMD" (click)="updateMedication(mdForm)">Update
                     </button>
                 </span>
+                    <button type="button" data-dismiss="modal"
+                               #closeBtnMedication name="btnCloseMD"
+                               id="closeBtnMedication"
+                               name="closeBtnMedication"
+                               class="btn  green-meadow">Close
+                </button>
                 </div>
             </div>
         </form>

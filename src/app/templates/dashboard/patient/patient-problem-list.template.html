@@ -51,9 +51,7 @@
                                             <td class="font-red">Mon. Jul. 27, 2015</td>
                                         </tr>-->
                                     </table>
-
                                 </div>
-
                             </div>
                         </div>
                         <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
@@ -105,7 +103,6 @@
                 </div>
                 <div class="table-scrollable table-brd-non">
                     <p-table #dt [columns]="cols" [value]="problemData" [paginator]="true"  [rows]="5">
-
                         <ng-template pTemplate="caption">
                             <div style="text-align: right">
                                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -132,7 +129,6 @@
                                     </p-sortIcon>
                                 </th>
                             </tr>
-
                         </ng-template>
 
                         <!-- <ng-template sortable="true" pTemplate="header" let-columns>
@@ -162,11 +158,7 @@
 
                                      &lt;!&ndash;<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
                                             (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
-
-
-
-
-                                 </th>
+                                        </th>
                              </tr>&ndash;&gt;
                          </ng-template>-->
                         <!--  <ng-template pTemplate="header">
@@ -213,7 +205,6 @@
                         </ng-template>-->
                         <ng-template pTemplate="body" let-problem let-columns="columns">
                             <tr>
-
                                 <!--{{car[col.field]}}-->
                                 <td> {{problem.versionName}}</td>
                                 <td> {{problem.codeName}}</td>
@@ -221,13 +212,11 @@
                                 <td> {{problem.dateDiagnosis}}</td>
                                 <td> {{problem.note}} </td>
                                 <td> {{problem.status}} </td>
-
                                 <td>
                                     <a href="#responsive" data-toggle="modal" class="font-blue" (click)="editPatientProblem(problem.id)"> <i class="fa fa-pencil"></i> </a>
                                     <button class="text-danger" (click)="deletePatientProblem(problem.id)"> <i class="fa fa-remove"></i> </button>
                                     <button class="font-green-jungle" (click)="openUrl(problem.info)"><i class="fa fa-globe"></i></button>
                                 </td>
-
                             </tr>
                         </ng-template>
 
@@ -303,7 +292,6 @@
                 <p></p>
             </div> -->
         </div>
-
     </div>
 </div>
 
@@ -345,19 +333,14 @@
                                     </select>-->
                                 </div>
                             </div>
-
                             <div class="col-md-7 pdng-lr-5" *ngIf="isUpdate">
                                 <div class="select2-bootstrap-prepend">
-
-
                                     <p-dropdown  placeholder="{{ppm.appointmentId}}"
                                                  [autoWidth]="false"
                                                  [style]="{'text-align': 'left' ,'width':'100%'}" name="selectedAppointmentId"
                                                  [options]="patient.pastAppointments"
                                                  [(ngModel)]="ppm.appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true" [disabled]="ppm.appointmentId">
                                     </p-dropdown>
-
-
                                     <!--<select id="selectedAppointmentId"
                                             [(ngModel)]="ppm.appointmentId"
                                             name="selectedAppointmentId"
@@ -403,8 +386,7 @@
                             </div>
                         </div>
                         <div class="form-group hr mrgn-btm08">
-                            <label class="col-md-3 control-label txt-size pdng-lr-5">Problem:<span class="required"
-                                                                                                   aria-required="true"> * </span></label>
+                            <label class="col-md-3 control-label txt-size pdng-lr-5">Problem:<span class="required" aria-required="true"> * </span></label>
                             <div class="col-md-9 pdng-lr-5">
                                 <div class="select2-bootstrap-prepend">
                                     <p-dropdown  placeholder="Select Problem"
@@ -468,16 +450,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" #closeBtn
-                        class="btn btn-default btn-outline">Close
-                </button>
                 <span [hidden]="isUpdate">
-                    <button type="button" class="btn green" (click)="savePatientProblem()">Save</button>
+                    <button type="button" class="btn primary blue" (click)="savePatientProblem()"> Save </button>
                 </span>
                 <span [hidden]="!isUpdate">
-                    <button type="button" class="btn green" (click)="updatePatientProblem()">Update
-                    </button>
+                    <button type="button" class="btn primary blue" (click)="updatePatientProblem()"> Update </button>
                 </span>
+                <button type="button" data-dismiss="modal" #closeBtn class="btn green-meadow"> Close </button>
             </div>
         </div>
     </div>
