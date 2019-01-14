@@ -47,6 +47,7 @@ export class EditMedicalServiceComponent implements OnInit {
                     response => {
                         if (response['responseCode'] === 'MED_SER_SUC_01') {
                             this.ms = response['responseData'];
+                            console.log(this.ms);
                             debugger;
                             this.selectedBranches = [];
                             // this.selectedDepartments = [];

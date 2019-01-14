@@ -327,6 +327,7 @@ export class AppConstants {
     public static GET_CITY_URL = '/CityAPI/';
     public static GET_STATE_URL = '/StateAPI/';
     public static GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
+    public static GET_CITY_BYCOUNTRYID = '/CityAPI/getCountry/';
 
     public static GET_COUNTRY_BY_ID = '/CountryAPI/get/';
     public static GET_STATE_BY_ID = '/StateAPI/getById/';
