@@ -72,6 +72,9 @@ export class AdminProfileComponent implements OnInit {
                     if (response['responseCode'] === 'ORG_SUC_04') {
                         this.organization = response['responseData'];
                         this.urlOrganization=this.organization.profileImgUrl;
+                       /* if(this.urlOrganization!=null){
+                            this.urlOrganization=""
+                        }*/
                         console.log(this.organization);
                      //   console.log(this.organization);
                     }

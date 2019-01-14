@@ -17,7 +17,6 @@ var app_constants_1 = require("../../../utils/app.constants");
 var medical_service_1 = require("../../../model/medical-service");
 var router_1 = require("@angular/router");
 var AddMedicalServiceComponent = (function () {
-    // urlOrganization:string;
     function AddMedicalServiceComponent(notificationService, requestsService, HISUtilService, router) {
         this.notificationService = notificationService;
         this.requestsService = requestsService;
@@ -31,6 +30,7 @@ var AddMedicalServiceComponent = (function () {
         this.isError = false;
         this.isErrorFee = false;
         this.profileImg = null;
+        this.urlOrganization = "/public/images/company-logo-placeholder.jpg";
         this.ms.tax.id = -1;
         this.getBranchesFromServer();
         this.getDepartmentsFromServer();

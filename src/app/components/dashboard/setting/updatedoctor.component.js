@@ -395,9 +395,9 @@ var UpdatedoctorComponent = (function () {
                 user.staffBranches.forEach(function (x) {
                     _this.selectedVisitBranches.push(x.id);
                 });
-                _this.staffBranches.forEach(function (x) {
-                    _this.selectedVisitBranches.push(x.id);
-                });
+                /*this.staffBranches.forEach(x=>{
+                   this.selectedVisitBranches.push(x.id)
+               })*/
                 _this.doctorServices = user.doctorMedicalSrvcList;
                 if (user.vacationFrom && user.vacationTo) {
                     _this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
@@ -679,6 +679,15 @@ var UpdatedoctorComponent = (function () {
     };
     UpdatedoctorComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);
+    };
+    UpdatedoctorComponent.prototype.checkDiscount = function (value) {
+        this.allowDisCheck = false;
+        if (value > 100) {
+            this.allowDisCheck = true;
+        }
+        else if (value < 0) {
+            this.allowDisCheck = true;
+        }
     };
     UpdatedoctorComponent = __decorate([
         core_1.Component({

@@ -150,18 +150,22 @@ var UpdateCashierComponent = (function () {
                         _this.branchesList = response['responseData'];
                         _this.staffBranches = _this.staffBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
                         _this.visitingBranches = _this.visitingBranches.filter(function (br) { return br.id != _this.userForm.controls['primaryBranch'].value; });
-                        for (var key in _this.visitingBranches) {
-                            for (var k in _this.staffBranches) {
-                                if (_this.staffBranches[k].id == _this.visitingBranches[key].id) {
-                                    _this.visitingBranches[key].checked = true;
-                                    _this.selectedVisitBranches.push(_this.staffBranches[k].id);
-                                    break;
-                                }
-                            }
-                        }
+                        /* for (let key in this.visitingBranches) {
+                             for (let k in this.staffBranches) {
+                                 if (this.staffBranches[k].id == this.visitingBranches[key].id) {
+                                     this.visitingBranches[key].checked = true;
+                                     this.selectedVisitBranches.push(this.staffBranches[k].id);
+                                     break;
+                                 }
+                             }
+                         }*/
                     }
                 }, function (error) {
                     _this.error = error.error.error;
+                });
+                _this.selectedVisitBranches.length = 0;
+                cashier.staffBranches.forEach(function (x) {
+                    _this.selectedVisitBranches.push(x.id);
                 });
             }, function (error) {
                 _this.error = error.error.error_description;
@@ -268,6 +272,15 @@ var UpdateCashierComponent = (function () {
         }
         this.visitingBranches = this.branchesList;
         this.visitingBranches = this.visitingBranches.filter(function (br) { return br.id != event.target.value; });
+    };
+    UpdateCashierComponent.prototype.checkDiscount = function (value) {
+        this.allowDisCheck = false;
+        if (value > 100) {
+            this.allowDisCheck = true;
+        }
+        else if (value < 0) {
+            this.allowDisCheck = true;
+        }
     };
     UpdateCashierComponent = __decorate([
         core_1.Component({

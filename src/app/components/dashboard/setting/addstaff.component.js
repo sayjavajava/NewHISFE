@@ -809,11 +809,6 @@ var AddStaffComponent = (function () {
     AddStaffComponent.prototype.cancel = function () {
         this.router.navigate(['/dashboard/setting/staff']);
     };
-    AddStaffComponent.prototype.toggleDiscount = function () {
-        this.userForm.controls['allowDiscount'].enable();
-        this.allowDiscountToggle = !this.allowDiscountToggle;
-        console.log('disccc:' + this.allowDiscountToggle);
-    };
     AddStaffComponent.prototype.getSelectedBranch = function (event) {
         if (event && event.target.value) {
             this.userForm.controls['primaryBranch'].setValue(event.target.value);
@@ -827,13 +822,12 @@ var AddStaffComponent = (function () {
         }
     };
     AddStaffComponent.prototype.checkDiscount = function (value) {
+        this.allowDisCheck = false;
         if (value > 100) {
-            this.notificationService.error('Value cannot be more than 100', 'Allowed Discount');
-            document.getElementById('allowDiscount').focus();
+            this.allowDisCheck = true;
         }
         else if (value < 0) {
-            this.notificationService.error('Value cannot be less than 0', 'Allowed Discount');
-            document.getElementById('allowDiscount').focus();
+            this.allowDisCheck = true;
         }
     };
     AddStaffComponent = __decorate([

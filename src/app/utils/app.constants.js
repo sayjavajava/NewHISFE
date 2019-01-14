@@ -281,6 +281,7 @@ var AppConstants = (function () {
     AppConstants.GET_CITY_URL = '/CityAPI/';
     AppConstants.GET_STATE_URL = '/StateAPI/';
     AppConstants.GET_ALL_COUNTRYBYID = '/CountryAPI/get/';
+    AppConstants.GET_CITY_BYCOUNTRYID = '/CityAPI/getCountry/';
     AppConstants.GET_COUNTRY_BY_ID = '/CountryAPI/get/';
     AppConstants.GET_STATE_BY_ID = '/StateAPI/getById/';
     AppConstants.GET_CITY_BY_ID = '/CityAPI/getById/';

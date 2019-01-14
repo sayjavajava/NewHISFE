@@ -50,6 +50,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
     staffBranches: any [];
     private subscription :Subscription;
     userId:number;
+    allowDisCheck:boolean;
     doctorsList: any;
     ngOnInit() {
         /*this.createUserForm();
@@ -174,7 +175,7 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                                     this.visitingBranches = response['responseData'];
                                     this.staffBranches = this.staffBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
                                     this.visitingBranches = this.visitingBranches.filter(br=> br.id != this.userForm.controls['primaryBranch'].value);
-                                    for(let key in this.visitingBranches){
+                                   /* for(let key in this.visitingBranches){
                                         for(let k in this.staffBranches){
                                             if(this.staffBranches[k].id == this.visitingBranches[key].id){
                                                 this.visitingBranches[key].checked = true;
@@ -182,14 +183,17 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
                                                 break;
                                             }
                                         }
-                                    }
+                                    }*/
                                 }
 
                             },
                             (error: any) => {
                                 this.error = error.error.error;
                             })
-
+                    this.selectedVisitBranches.length = 0;
+                    receptionist.staffBranches.forEach((x:any)=>{
+                        this.selectedVisitBranches.push(x.id);
+                    })
 
                 }, (error: any) => {
                     this.error = error.error.error_description;
@@ -310,7 +314,14 @@ export class UpdateReceptionistComponent implements OnInit ,OnDestroy{
         }
         this.visitingBranches = this.branchesList;
         this.visitingBranches = this.visitingBranches.filter(br=> br.id != event.target.value);
-
+    }
+    checkDiscount(value: number){
+        this.allowDisCheck = false;
+        if (value > 100) {
+            this.allowDisCheck = true;
+        } else if (value < 0) {
+            this.allowDisCheck = true;
+        }
     }
 
 }

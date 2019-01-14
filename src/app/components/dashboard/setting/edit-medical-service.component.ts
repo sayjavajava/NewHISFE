@@ -15,7 +15,7 @@ import {isNullOrUndefined} from "util";
 })
 export class EditMedicalServiceComponent implements OnInit {
 
-    ms: MedicalService = new MedicalService();
+    ms: MedicalService = new MedicalService();   
     taxes: Tax[] = [];
     selectedBranches: any[] = [];
     selectedDepartments: any[] = [];
@@ -27,6 +27,7 @@ export class EditMedicalServiceComponent implements OnInit {
     isErrorFee:boolean=false;
     profileImg: File = null;
     urlOrganization:string;
+
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -46,6 +47,8 @@ export class EditMedicalServiceComponent implements OnInit {
                     response => {
                         if (response['responseCode'] === 'MED_SER_SUC_01') {
                             this.ms = response['responseData'];
+                            console.log(this.ms);
+                            debugger;
                             this.selectedBranches = [];
                             // this.selectedDepartments = [];
                             /*for (let checked of this.ms.checkedBranches) {

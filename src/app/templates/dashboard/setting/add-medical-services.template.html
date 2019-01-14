@@ -93,12 +93,13 @@
                                 </div>
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5">Service Cost {{+ "("+currency+")"}}
-                                        <span class="required" aria-required="true"> * </span></label>
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
 
-                                    <div class="col-md-8 pdng-lr-5 profile-frm">
+                                    <div class="col-md-8 pdng-lr-5">
                                         <input class="form-control" id="cost"
-                                               type="text" placeholder="Enter Cost"
-                                               [(ngModel)]="ms.strCost" min="0"
+                                               type="number" placeholder="Enter Cost"
+                                               [(ngModel)]="ms.cost" min="0"
                                                 pattern="^[0-9 \.]{1,60}$" (keyup)="isNumberCheck($event)"
                                                name="cost" />
                                         <span class="text-danger">
@@ -114,9 +115,9 @@
                                     <label class="control-label col-md-4 pdng-lr-5">Service Fee {{+ "("+currency+")"}}
                                         <span class="required" aria-required="true"> * </span>
                                     </label>
-                                    <div class="col-md-8 pdng-lr-5 profile-frm">
-                                        <input  type="text" id="fee" class="form-control"
-                                               [(ngModel)]="ms.strFee" min="0" placeholder="Enter Fee" pattern="^[0-9\.]{1,60}$" (keyup)="isNumberCheckFee($event)"
+                                    <div class="col-md-8 pdng-lr-5 ">
+                                        <input  type="number" id="fee" class="form-control"
+                                               [(ngModel)]="ms.fee" min="0" placeholder="Enter Fee" pattern="^[0-9\.]{1,60}$" (keyup)="isNumberCheckFee($event)"
                                                  name="fee" />
                                         <span class="text-danger">
                                                     <span *ngIf="isErrorFee"> Please Enter Number </span>
@@ -164,9 +165,9 @@
                                                   [(ngModel)]="ms.description" name="description" #description="ngModel">
                                         </textarea>
                                     </div>
+                                </div>
 
-
-                                <div class="form-group hr">
+                                <div class="form-group  hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
                                     <div class="col-md-8 select mt-checkbox mt-checkbox-outline pdng-l-r-15">
                                         <label class="mt-checkbox-outline">
@@ -174,7 +175,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+
 
                             <!-- Image Upload -->
 

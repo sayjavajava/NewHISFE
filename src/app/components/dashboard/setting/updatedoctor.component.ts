@@ -52,6 +52,7 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
     departmentList:any=[];
     selectedUser:string='doctor';
     error: string;
+    allowDisCheck :boolean;
     responseUser: any[];
     private sub: any;
     id: number;
@@ -443,9 +444,9 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
                         this.selectedVisitBranches.push(x.id);
                     })
 
-                    this.staffBranches.forEach(x=>{
+                    /*this.staffBranches.forEach(x=>{
                        this.selectedVisitBranches.push(x.id)
-                   })
+                   })*/
                     this.doctorServices = user.doctorMedicalSrvcList;
                     if(user.vacationFrom && user.vacationTo){
                      this.userForm.controls['dateFrom'].setValue(new Date(user.vacationFrom));
@@ -750,6 +751,14 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
 
     cancel() {
         this.router.navigate(['/dashboard/setting/staff']);
+    }
+    checkDiscount(value: number){
+        this.allowDisCheck = false;
+        if (value > 100) {
+            this.allowDisCheck = true;
+        } else if (value < 0) {
+            this.allowDisCheck = true;
+        }
     }
 
 }

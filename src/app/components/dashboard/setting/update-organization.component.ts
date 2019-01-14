@@ -286,7 +286,10 @@ export class UpdateOrganizationComponent implements OnInit {
                             this.statesListModified.push({label: 'Not Applicable', value: -1});
                            // this.selectedState.push({label: 'Not Applicable', value: -1});
                             this.proForm.controls['selectedState'].patchValue('Not Applicable', {onlySelf: true});
-                            this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
+                            /*if(id>0){
+                            this.getCitiesByCountryId(id);
+                            }*/
+                       //     this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
                         }
                     }
                 }, function (error) {
@@ -345,6 +348,39 @@ export class UpdateOrganizationComponent implements OnInit {
 
 
 
+
+    getCitiesByCountryId(id: any) {
+
+        this.citiesListModified=[];
+        this.citiesList=[];
+        this.requestService.getRequest(AppConstants.GET_CITY_BYCOUNTRYID + id)
+            .subscribe(
+                (response: Response) => {
+                    if (response["responseCode"] === "CITY_SUC_11") {
+                        this.citiesList = response["responseData"];
+                        if(this.citiesList.length>0){
+                            for (let city of this.citiesList) {
+                                var pair: any = {label: city.name, value: city.id};
+                                this.citiesListModified.push(pair);
+                            }
+                        }else{
+                            this.citiesListModified.push({label: 'Not Applicable', value: ''})
+                            // this.selectedCity.push({label: 'Not Applicable', value: ''})
+                            this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
+                        }
+                        if(this.citiesListModified.length>0){
+                            this.selectedCity=this.citiesListModified[0].value;
+                        }
+                    }else{
+
+                        this.citiesListModified.push({label: 'Not Applicable', value: ''})
+                        //     this.selectedCity.push({label: 'Not Applicable', value: ''});
+                        this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
+                    }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Cities List is not available");
+                });
+    }
 
 
     getOrganizationAccount() {
