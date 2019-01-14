@@ -27,7 +27,7 @@ export class AddMedicalServiceComponent implements OnInit {
     isError:boolean=false;
     isErrorFee:boolean=false;
     profileImg: File = null;
-   // urlOrganization:string;
+    urlOrganization:string="/public/images/company-logo-placeholder.jpg";
     constructor(private notificationService: NotificationService,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,

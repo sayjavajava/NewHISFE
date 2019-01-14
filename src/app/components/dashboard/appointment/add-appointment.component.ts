@@ -716,6 +716,7 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                            else if (response['responseCode'] === 'APPT_ERR_07'){
                                 this.eventsRequest.length = 0;
                                 this.selectedType.length = 0;
+                                this.closeAddModal();
                                 self.notificationService.warn(`${response['responseMessage']}`);
                                // self.router.navigate(['/dashboard/appointment/manage']);
 
@@ -725,12 +726,14 @@ export class AddAppointmentComponent implements OnInit ,AfterViewInit {
                             else if (response['responseCode'] === 'APPT_ERR_08'){
                                 this.eventsRequest.length = 0;
                                 this.selectedType.length = 0;
+                                this.closeAddModal();
                                 self.notificationService.warn(`${response['responseMessage']}`);
 
                             }
                             else if (response['responseCode'] === 'APPT_ERR_09'){
                                 this.eventsRequest.length = 0;
                                 this.selectedType.length = 0;
+                                this.closeAddModal();
                                 self.notificationService.warn(`${response['responseMessage']}`);
 
                             }

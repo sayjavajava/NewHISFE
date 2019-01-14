@@ -81,6 +81,7 @@ var UpdateOrganizationComponent = (function () {
         this.profileImg = null;
         // profileImg: File = null;
         this.uploadedImage = null;
+        this.urlOrganization = "/public/images/company-logo-placeholder.jpg";
         this.allBranches();
         this.allTimezone();
         this.getOrganizationAccount();
@@ -305,7 +306,6 @@ var UpdateOrganizationComponent = (function () {
                 }
             }
             else {
-                debugger;
                 _this.citiesListModified.push({ label: 'Not Applicable', value: '' });
                 //     this.selectedCity.push({label: 'Not Applicable', value: ''});
                 _this.proForm.controls['selectedCity'].patchValue('Not Applicable', { onlySelf: true });
@@ -391,7 +391,10 @@ var UpdateOrganizationComponent = (function () {
                 console.log(organization);
                 //  this.appointmentId=organization.addInfo.serAppointId;
                 _this.urlOrganization = organization.profileImgUrl;
-                if (_this.urlOrganization == null) {
+                if (_this.urlOrganization != null && _this.urlOrganization != '') {
+                    _this.urlOrganization = organization.profileImgUrl;
+                }
+                else {
                     _this.urlOrganization = "/public/images/company-logo-placeholder.jpg";
                 }
                 _this.defaultBranch = organization.branchName;
@@ -462,7 +465,6 @@ var UpdateOrganizationComponent = (function () {
         if (this.proForm.valid) {
             var self = this;
             console.log(data);
-            debugger;
             if ((this.proForm.controls['selectedCity']).value != undefined) {
                 if (this.proForm.controls['selectedCity'].value.length <= 0) {
                     //      data.selectedCity.toString("");
@@ -496,7 +498,6 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.saveGeneralSettings = function (data) {
         var self = this;
-        debugger;
         console.log(data);
         /*   if(data.defaultBranch.length>0){
    
@@ -532,11 +533,6 @@ var UpdateOrganizationComponent = (function () {
             this.organization.zoneId = value;
         }
     };
-    /*getSelectedBranch(value: any) {
-        if (value) {
-            this.generalForm.controls['defaultBranch'].setValue(value);
-        }
-    }*/
     UpdateOrganizationComponent.prototype.getDurationOfExam = function (value) {
         if (value) {
             this.generalForm.controls['durationOfExam'].setValue(value);
@@ -559,7 +555,6 @@ var UpdateOrganizationComponent = (function () {
     };
     UpdateOrganizationComponent.prototype.uploadImgOnChange = function (event) {
         var fileList = event.target.files;
-        debugger;
         if (fileList != null && fileList.length > 0) {
             if (event.target.name === "profileImgUrl") {
                 this.profileImg = fileList[0];
@@ -573,9 +568,7 @@ var UpdateOrganizationComponent = (function () {
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_02') {
                     _this.urlOrganization = response['responseData'];
-                    debugger;
                     _this.cd.detectChanges();
-                    alert(_this.urlOrganization);
                     _this.notificationService.success(response['responseMessage'], 'Update Organization');
                     _this.profileImg = null;
                     //   this.urlOrganization=response['responseData'];
@@ -585,7 +578,7 @@ var UpdateOrganizationComponent = (function () {
             });
         }
         else {
-            this.notificationService.error('File size must be less then 4 mb.', 'Update Organization');
+            this.notificationService.error('Please Select file.', 'Update Organization');
         }
     };
     UpdateOrganizationComponent.prototype.isEmpty = function (val) {

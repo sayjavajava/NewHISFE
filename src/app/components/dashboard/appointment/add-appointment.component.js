@@ -609,6 +609,7 @@ var AddAppointmentComponent = (function () {
                     else if (response['responseCode'] === 'APPT_ERR_07') {
                         _this.eventsRequest.length = 0;
                         _this.selectedType.length = 0;
+                        _this.closeAddModal();
                         self.notificationService.warn("" + response['responseMessage']);
                         // self.router.navigate(['/dashboard/appointment/manage']);
                         //   this.hisCoreUtilService.hidePopupWithCloseButtonId('closeAppt');
@@ -617,11 +618,13 @@ var AddAppointmentComponent = (function () {
                     else if (response['responseCode'] === 'APPT_ERR_08') {
                         _this.eventsRequest.length = 0;
                         _this.selectedType.length = 0;
+                        _this.closeAddModal();
                         self.notificationService.warn("" + response['responseMessage']);
                     }
                     else if (response['responseCode'] === 'APPT_ERR_09') {
                         _this.eventsRequest.length = 0;
                         _this.selectedType.length = 0;
+                        _this.closeAddModal();
                         self.notificationService.warn("" + response['responseMessage']);
                     }
                     else {
