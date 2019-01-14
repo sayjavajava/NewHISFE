@@ -64,7 +64,7 @@
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="selectedBranch($event)"
                                                     [(ngModel)]="pBranch" [options]="branchesList"
-                                                    formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
+                                                    formControlName="primaryBranch" [panelStyle]="{minWidth:''}"
                                                     [filter]="true">
                                         </p-dropdown>
 
@@ -110,7 +110,7 @@
                                                        [ngModelOptions]="{standalone:true}"
                                                        [panelStyle]="{minWidth:''}">
                                             <ng-template let-br pTemplate="item">
-                                                <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
+                                                <div style="font-size:14px;">{{br.name}}</div>
                                             </ng-template>
                                         </p-multiSelect>
                                         <span class="text-danger"
@@ -133,7 +133,7 @@
                                                     formControlName="departmentControl" name="dept"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="selectDoctorDepartment($event)"
                                                     [(ngModel)]="selectedDepartmentObj" [options]="departmentList"
-                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    [panelStyle]="{minWidth:''}" [filter]="true">
                                             <!--<ng-template let-dpt pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{dpt.name}}</div>
                                             </ng-template>-->
@@ -199,13 +199,13 @@
                                                 <span></span></label>
                                             </div>
                                             <div class="col-md-2 pdng-lr-5">
-                                                <button type="button" (click)="firstShiftFrom()" class="clck-icon mrgn-top4 no-padding"><i class="fa fa-clock-o"></i></button>
+                                                <button type="button" (click)="firstShiftFrom()" class="clck-icon mrgn-top4 no-padding pull-right"><i class="fa fa-clock-o"></i></button>
                                             </div>
                                             <div class="col-md-4 pdng-lr-5">
                                                 <input type="time" disabled style="width: 100%" value="{{firstShiftFromTime}}">
                                             </div>
                                             <div class="col-md-1 pdng-lr-5">
-                                                <button type="button" (click)="firstShiftTo()">To</button>
+                                                <button type="button" (click)="firstShiftTo()" class="clck-icon mrgn-top4 pdng-lr-5"><i class="fa fa-clock-o"></i></button>
                                             </div>
                                             <div class="col-md-4 pdng-lr-5">
                                                 <input type="time" disabled style="width: 100%" value="{{firstShiftToTime}}">
@@ -225,13 +225,13 @@
                                             <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
                                             <span></span></label></div>
                                         <div class="col-md-2 pdng-lr-5">
-                                            <button type="button" (click)="secondShiftFrom()"><i class="fa fa-clock-o"></i></button>
+                                            <button type="button" (click)="secondShiftFrom()" class="clck-icon pull-right mrgn-top4 no-padding"><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" style="width: 100%" value="{{secondShiftFromTime}}">
                                         </div>
                                         <div class="col-md-1 pdng-lr-5">
-                                            <button type="button" (click)="secondShiftTo()">To</button>
+                                            <button type="button" (click)="secondShiftTo()" class="clck-icon mrgn-top4 pdng-lr-5"><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" style="width:100%" value="{{secondShiftToTime}}">
@@ -276,10 +276,8 @@
                                     <label class="control-label col-md-4 col-xs-12 pdng-lr-5"> Working Days:
                                     </label>
                                     <!--  <div class="col-md-8 col-xs-12 text-center" formGroupName="workingDaysContorl">
-
-                                          <div *ngFor="let item of workingDaysContorl.controls; let i= index " class="">
-
-                                              <div class=" col-md-1 col-width25 col-xs-3">
+                                       <div *ngFor="let item of workingDaysContorl.controls; let i= index " class="">
+                                            <div class=" col-md-1 col-width25 col-xs-3">
                                                  &lt;!&ndash; <input type="checkbox" class="form-control spinner"
                                                          value="{{item.id}}"
                                                          (change)="selectWorkingDays($event,item)">
@@ -290,8 +288,7 @@
                                                      >
                                                   {{item.name}}
                                               </div>
-                                          </div>
-      -->
+                                          </div>-->
                                     <!--<div class=" col-md-1 col-width25 col-xs-3">
                                         Sunday: <input class="spinner" type="checkbox" formControlName="sunday" >
                                     </div>
@@ -321,7 +318,7 @@
                                                        [ngModelOptions]="{standalone:true}"
                                                        [panelStyle]="{minWidth:''}">
                                             <ng-template let-dy pTemplate="item">
-                                                <div style="font-size:14px;float:right;margin-top:4px">{{dy.label}}
+                                                <div style="font-size:14px;">{{dy.label}}
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
@@ -385,12 +382,10 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="doctorsList" [(ngModel)]="selectedDoctorDashboard"
                                                        name="doctorboards"
-                                                       formControlName="selectedDoctorDashboard" [panelStyle]="{minWidth:'12em'}"
+                                                       formControlName="selectedDoctorDashboard" [panelStyle]="{minWidth:''}"
                                                        [filter]="true">
                                         </p-multiSelect>
                                     </div>
-
-
                                 </div>
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
@@ -443,26 +438,18 @@
                                     <label class="control-label col-md-4 col-xs-6  pdng-lr-5">Active
                                     </label>
                                     <div class="col-md-8 col-xs-6  pdng-lr-5">
-                                        <label class="mt-checkbox-outline chckbox mrgn-top10">
+                                        <label class="mt-checkbox-outline chckbox">
                                             <mat-checkbox formControlName ="active" color="primary"><span></span></mat-checkbox></label>
                                     </div>
                                 </div>
                                 <div  class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount
+                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount</label>
+                                    <div class="col-md-8 col-xs-6 pdng-lr-5 profile-frm">
                                         <mat-checkbox formControlName="allowDiscountCheck"><span></span></mat-checkbox>
-                                    </label>
-                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                        <input formControlName="allowDiscount" type="number"  min="0" max="100"
-                                               placeholder="0-100"
-                                               class="form-control">
+                                        <input formControlName="allowDiscount" type="number"  min="0" max="" placeholder="0-100" class="form-control width92 pull-right">
                                     </div>
-
                                 </div>
                             </div>
-
-
-
-
                         </div>
                         <div class="hr">
                             <div class="col-md-12 text-center">

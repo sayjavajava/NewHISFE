@@ -908,5 +908,5 @@ ul.ui-inputtext{width: 100%;}
 .checkbox-sm .form-control{height: 18px !important}
 .bc-bg{background-color: red; color: green;}
 .clck-icon i{font-size: 24px;}
-
+.ui-chkbox{float: left;}
 .wrap-overflow-text {overflow-wrap: break-word;}
