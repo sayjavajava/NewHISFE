@@ -496,7 +496,7 @@ export class UpdateBranchComponent implements OnInit {
                             this.statesList = response["responseData"].statesList;
                             this.country = response["responseData"].country;
 
-                            if (this.statesList.length > 0) {
+                            if (!isNullOrUndefined(this.statesList) && this.statesList.length > 0) {
                                 for (let state of this.statesList) {
                                     pair = {label: state.name, value: state.id};
                                     this.statesListModified.push(pair);
@@ -534,7 +534,7 @@ export class UpdateBranchComponent implements OnInit {
                         this.citiesList = response["responseData"].cityList;
                         this.state = response["responseData"].state;
 
-                        if (this.citiesList.length > 0) {
+                        if (!isNullOrUndefined(this.citiesList) && this.citiesList.length > 0) {
                             for (let city of this.citiesList) {
                                 pair = {label: city.name, value: city.id};
                                 this.citiesListModified.push(pair);

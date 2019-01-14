@@ -359,10 +359,10 @@ var AddBranchComponent = (function () {
         else {
             this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
                 .subscribe(function (response) {
-                if (response["responseCode"] === "BRANCH_SUC_01") {
+                if (response["responseCode"] === "STATE_SUC_11") {
                     _this.statesList = response["responseData"].statesList;
                     _this.country = response["responseData"].country;
-                    if (_this.statesList.length > 0) {
+                    if (!util_1.isNullOrUndefined(_this.statesList) && _this.statesList.length > 0) {
                         for (var _i = 0, _a = _this.statesList; _i < _a.length; _i++) {
                             var state = _a[_i];
                             pair = { label: state.name, value: state.id };
@@ -392,10 +392,10 @@ var AddBranchComponent = (function () {
         else {
             this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
                 .subscribe(function (response) {
-                if (response["responseCode"] === "BRANCH_SUC_01") {
+                if (response["responseCode"] === "CITY_SUC_11") {
                     _this.citiesList = response["responseData"].cityList;
                     _this.state = response["responseData"].state;
-                    if (_this.citiesList.length > 0) {
+                    if (!util_1.isNullOrUndefined(_this.citiesList) && _this.citiesList.length > 0) {
                         for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
                             var city = _a[_i];
                             pair = { label: city.name, value: city.id };
