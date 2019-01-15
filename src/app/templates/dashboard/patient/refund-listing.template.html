@@ -3,25 +3,24 @@
         <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
-                    <div class="hr">
+                    <div class="hr no-margin">
                         <h3 class="text-info">
                             Refund Listing
 
                             <div class="pull-right">
                                 <a href="#responsive" data-toggle="modal">
-                                    <button class="btn mt-sweetalert btn green-meadow" (click)="getRefundId()">
+                                    <button class="btn primary blue" (click)="getRefundId()">
                                         <i class="fa fa-plus"></i> Refund
                                     </button>
                                 </a>
                             </div>
-
                         </h3>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-scrollable tbl-brdr-radus">
+                    <div class="table-scrollable border-non no-margin">
                         <p-table #dt [columns]="cols" [value]="refundList" [paginator]="true" [rows]="10">
                             <ng-template pTemplate="caption">
                                 <div style="text-align: right">
@@ -126,7 +125,6 @@
                                                         </p-dropdown>
                                                     </div>
                                                 </div>
-
                                                 <span [hidden]="!isInvoice">
                                                     <div class="form-group hr" >
                                                         <label class="col-md-4 control-label txt-size pdng-lr-5">Invoice <span class="required" aria-required="true"> * </span></label>
@@ -146,7 +144,6 @@
                                                                required [(ngModel)]="refundRequest.refundAmount" #refundAmount="ngModel" (blur)="checkAmountEntered($event.target.value)"/>
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div class="col-md-6">
 
@@ -200,17 +197,14 @@
                                                         </textarea>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" id="closeButton" class="btn default"> Close </button>
-                                <button type="button" class="btn blue" (click)="refundPayment()"> Save </button>
+                                <button type="button" class="btn primary blue" (click)="refundPayment()"> Save </button>
+                                <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow mrgn-lft0"> Close </button>
                             </div>
                         </div>
                     </form>

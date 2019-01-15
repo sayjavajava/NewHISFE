@@ -465,7 +465,7 @@ label{margin-bottom: 0 !important;}
     margin: 200px auto !important;
 }
 /*.portlet{margin-bottom: 0px !important;}*/
-.profile-frm input, .profile-frm select{height: 25px !important; padding: 2px 12px !important;}
+.profile-frm input, .profile-frm select{height: 25px !important; /*padding: 2px 12px !important;*/}
 /*.form-control{height: 25px !important; padding: 2px 12px !important;}*/
 /*.form-group {margin-bottom: 0px;}*/
 .form-control, output{font-size:12px;}

@@ -301,8 +301,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label txt-size">Patient Photo</label>
-                                                <div class="col-md-8 select patnt-img">
+                                                <label class="col-md-4 control-label txt-size pdng-lr-5">Patient Photo</label>
+                                                <div class="col-md-8 select patnt-img pdng-lr-5">
                                                     <img class="img-responsive" style="width: 120px; height: 120px;"
                                                          src="/public/images/patient-photo.jpg"
                                                          *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
@@ -315,7 +315,7 @@
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
                                                     <div class="imgUploadTopMargin mrgn-top8">
-                                                        <button class="btn btn-default btn-outline"
+                                                        <button class="btn primary blue"
                                                                 (click)="uploadProfileImg()">
                                                             <i class=" icon-arrow-up"></i> upload
                                                         </button>

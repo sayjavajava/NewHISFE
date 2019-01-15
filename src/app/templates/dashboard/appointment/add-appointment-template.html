@@ -767,9 +767,7 @@
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-
                                             <div class="tab-pane fade active in" id="tab_1_1">
-
                                                 <div class="form-group">
                                                     <div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
                                                         <label>
@@ -781,7 +779,6 @@
                                                             {{item.name}}
                                                         </label>
                                                     </div>
-
                                                     <div>
                                                         <input type="checkbox" name="newPatient"
                                                                (change)="createNewPatient()"
@@ -804,8 +801,6 @@
                                                                            placeholder="First Name"
                                                                            [(ngModel)]="event.newPatient"
                                                                            (keyup)="refresh.next()">
-
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -813,7 +808,6 @@
                                                             <div class="form-group hr no-margin">
                                                                 <label class="col-md-4 control-label">Cell Phone</label>
                                                                 <div class="col-md-8 profile-frm">
-
                                                                     <input
                                                                             type="text"
                                                                             placeholder="cell Phone"
@@ -821,14 +815,9 @@
                                                                             [ngModelOptions]="{standalone:true}"
                                                                             [(ngModel)]="event.cellPhone"
                                                                             (keyup)="refresh.next()">
-
-
                                                                 </div>
                                                             </div>
-
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                                 <div class="hr padding round-table off-wite-bg">
@@ -1107,7 +1096,7 @@
                                                             <span *ngIf="duration.invalid && duration.touched"
                                                                   class="col-md-9 select pdng-lr-5 text-danger">
                                                                 Duration required
-                                                                  </span>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1121,15 +1110,12 @@
                                                     <div *ngIf="isRecurringFlag"
                                                          class="hr off-wite-bg round-table checkbox-sm"
                                                          style="padding: 10px">
-
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-2 col-xs-12"> Working
                                                                 Days:
                                                             </label>
                                                             <div class="col-md-10 col-xs-12 text-center">
-
                                                                 <div *ngFor="let item of recurringDays" class="">
-
                                                                     <div class=" col-md-1 col-width14 col-xs-3">
                                                                         <input class="checkbox-sm" type="checkbox"
                                                                                name="working"
@@ -1138,7 +1124,6 @@
                                                                                (change)="selectRecurringDays($event,item)">
                                                                         {{item.name}}
                                                                     </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1196,13 +1181,10 @@
                                                                                 [(ngModel)]="event.lastAppointment"
                                                                                 name="lastAppt"
                                                                                 [settings]="settings"></angular2-date-picker>
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                     <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-btm08">
                                                         <input type="checkbox" name="followUpReminder"
@@ -1251,10 +1233,7 @@
                                                                            name="followReason"
                                                                               value="" class="form-control"></textarea></div>
                                                             </div>
-
-
                                                         </div>
-
                                                         <!--  <div class="form-group hr">
                                                               <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
                                                                       class="required" aria-required="true"> * </span></label>
@@ -1268,9 +1247,7 @@
                                                           Please enter valid name.
                                                   </span>
                                                           </div>-->
-
                                                     </div>
-
                                                     <div class="hr off-wite-bg round-table" style="padding: 10px;">
                                                         <div class="col-md-6">
                                                             <div class="form-group hr mrgn-btm08">
@@ -1287,8 +1264,6 @@
                                                                     </p-dropdown>
                                                                 </div>
                                                             </div>
-
-
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group hr mrgn-btm08">
@@ -1304,11 +1279,8 @@
                                                                 <label class="control-label col-md-6">Before
                                                                 </label>
                                                             </div>
-
-
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -1317,14 +1289,12 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)"
                              class="btn red"> Delete
                      </button>-->
-
                     <button type="button" [disabled]="!loginForm.valid" (click)="saveAppointment(event,loginForm)"
                             name="saveBtn" class="btn primary">Save</button>
                     <!--<button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index,1);refresh.next()"

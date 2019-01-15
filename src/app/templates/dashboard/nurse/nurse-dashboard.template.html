@@ -4,11 +4,11 @@
         <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
-                    <div class="hr"><h3 class="text-info">Nurse Dashboard</h3></div>
+                    <div class="hr"><h4 class="text-info">Nurse Dashboard</h4></div>
                     <div class="hr padding round-table off-wite-bg">
                         <div class="col-md-3 no-padding profile-frm">
                             <h4 class="font-green-meadow">Branch</h4>
-                            <select class="form-control" (change)="getFilteredBranch($event.target.value)">
+                            <select class="form-control no-padding" (change)="getFilteredBranch($event.target.value)">
                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
                                 <option *ngFor="let item of branches; let i = index;"
                                         value={{item.branchName}} (keyup)="refresh.next()">
@@ -19,7 +19,7 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-3 no-padding profile-frm">
                             <h4 class="font-green-meadow">Doctor</h4>
-                            <select class="form-control" (change)="getfilteredDoctor($event.target.value)">
+                            <select class="form-control no-padding" (change)="getfilteredDoctor($event.target.value)">
                                 <option value="All">&#45;&#45; All &#45;&#45;</option>
                                 <option *ngFor="let item of doctorsList; let i = index;"
                                         value={{item.lastName}} (keyup)="refresh.next()">
@@ -73,7 +73,7 @@
                                 <td><button  type="button" class="btn-link"(click)="showRoomWithBranch(item.branchId,item.roomId)">{{showRoomBtn}}</button>
                                 </td>
                                 <td class="profile-frm">
-                                    <select *ngIf="showRoomDrop" class="form-control" [ngModelOptions]="{standalone:true}" [(ngModel)]="item.roomId" (change)="getExamRoom($event.target.value,item.appointmentId)">
+                                    <select *ngIf="showRoomDrop" class="form-control no-padding" [ngModelOptions]="{standalone:true}" [(ngModel)]="item.roomId" (change)="getExamRoom($event.target.value,item.appointmentId)">
                                         <option *ngFor="let r of allRooms" value="{{r.id}}">{{ r.branchName }} </option>
                                     </select>
                                 </td>
@@ -90,7 +90,7 @@
                                     <option value="CONFIRMED">CONFIRMED</option>
                                     <option value="NOT_CONFIRMED">NOT_CONFIRMED</option>
                                 </select>-->
-                                    <select class="form-control" (change)="getUpdatedStatus(item.statusId,item.apptNaturalId,item.appointmentId)" [(ngModel)]="item.statusId" name="itemSt">
+                                    <select class="form-control no-padding" (change)="getUpdatedStatus(item.statusId,item.apptNaturalId,item.appointmentId)" [(ngModel)]="item.statusId" name="itemSt">
                                         <option *ngFor="let item of statusesList; let i = index;"
                                                 value={{item.id}} (keyup)="refresh.next()">
                                             {{item.name}}

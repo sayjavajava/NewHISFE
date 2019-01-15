@@ -196,7 +196,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-5 pdng-lr-5 profile-frm">
-                                                    <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom" [attr.disabled]="disable"
+                                                    <select class="form-control no-padding" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom" [attr.disabled]="disable"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -214,18 +214,17 @@
                                                     <div class="col-md-4 profile-frm pdng-lr-5">
                                                         <input type="text" class="form-control"  [attr.disabled]="disable"
                                                                formControlName="roomName"></div>
-                                                    <div class="col-md-5 pdng-lr-5 mrgn-top4">
-                                                        <label class="mt-checkbox-outline">
+                                                    <div class="col-md-5 pdng-lr-5">
+                                                        <label class="mt-checkbox-outline pull-left fnt-sze10">
                                                             <mat-checkbox formControlName="allowOnlineScheduling" color="primary"
                                                                           [disabled]="true"> Allow Online Scheduling</mat-checkbox><span></span>
-                                                            <!--<input type="checkbox"  [attr.disabled]="disable"
+                                                           <!--<input type="checkbox"  [attr.disabled]="disable"
                                                                    formControlName="allowOnlineScheduling"> Allow Online Scheduling <span></span>-->
-                                                            <!--<i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>-->
+                                                            <i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <!-- Chosen name: {{
                                              branchForm.controls.examRooms.controls[i].controls.examName.value }}-->
                                         </div>
@@ -243,67 +242,64 @@
                         </div>
                         <div class="tab-pane fade" id="tab_1_2">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <form [formGroup]="billingForm" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Billing Name
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-3 pdng-lr-5">Billing Name
                                             </label>
-                                            <div class="col-md-9">
+                                            <div class="col-md-9 pdng-lr-5 profile-frm">
                                                 <input type="text" formControlName="billingName"
                                                        class="form-control"></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Billing Branch
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-3 pdng-lr-5">Billing Branch
                                             </label>
-                                            <div class="col-md-9">
+                                            <div class="col-md-9 pdng-lr-5 profile-frm">
                                                 <select class="form-control"
                                                         (change)="getSelectedBranch($event.target.value)"
                                                         formControlName="billingBranch" placeholder="Select Branch">
                                                     <option *ngFor="let br of branchesList" [value]="br">
                                                         {{br}}
                                                     </option>
-
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Billing Tax ID #
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-3 pdng-lr-5">Billing Tax ID #
                                             </label>
-                                            <div class="col-md-9">
+                                            <div class="col-md-9 pdng-lr-5 profile-frm">
                                                 <input type="text" formControlName="billingTaxID"
                                                        class="form-control"></div>
-
-                                            <div class="hr">
-                                                <div class="col-md-12 text-center">
-                                                    <button (click)="addBranch(billingForm.value,'')" class="btn blue">
-                                                        <i
-                                                                class="fa fa-plus"></i> Create
-                                                    </button>
-                                                </div>
-                                            </div>
                                         </div>
+
                                     </form>
                                 </div>
+                                <div class="hr">
+                                <div class="col-md-5 text-right">
+                                    <button (click)="addBranch(billingForm.value,'')" class="btn blue">
+                                        <i class="fa fa-plus"></i> Create
+                                    </button>
+                                </div>
                             </div>
-
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="tab_1_3">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <form [formGroup]="scheduleForm" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Show this Branch information
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-8 pdng-lr-5">Show this Branch information
                                                 online</label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-4 pdng-lr-5">
                                                 <label class="mt-checkbox mt-checkbox-outline chckbox">
                                                     <input type="checkbox"
                                                            formControlName="showBranchOnline"><span></span></label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Allow online scheduling in this
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-8 pdng-lr-5">Allow online scheduling in this
                                                 Branch</label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-4 pdng-lr-5">
                                                 <label class="mt-checkbox mt-checkbox-outline chckbox">
                                                     <input type="checkbox"
                                                            formControlName="allowOnlineSchedulingInBranch"><span></span></label>
@@ -313,7 +309,7 @@
                                 </div>
                             </div>
                             <div class="hr">
-                                <div class="col-md-12 text-center">
+                                <div class="col-md-4 text-right">
                                     <button (click)="addBranch(billingForm.value,'done')" class="btn blue"> Save
                                     </button>
                                 </div>

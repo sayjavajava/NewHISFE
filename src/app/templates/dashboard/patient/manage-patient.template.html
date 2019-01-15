@@ -4,30 +4,28 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="hr no-margin">
-                    <h4 class="text-info">Manage Patients
-                        <div class="pull-right">
-                            <a routerLink="/dashboard/patient/add">
-                                <button class="btn mt-sweetalert btn green-meadow">
-                                    <i class="fa fa-plus"></i> Add
-                                </button>
-                            </a>
-                            <button class="btn mt-sweetalert btn blue"
-                                    data-confirm-button-class="btn-success"
-                                    (click)="refreshPatient()"> Refresh
+                    <h4 class="text-info pull-left">Manage Patients</h4>
+                    <div class="pull-right" style="margin-top: -14px;">
+                        <a routerLink="/dashboard/patient/add">
+                            <button class="btn primary blue">
+                                <i class="fa fa-plus"></i> Add
                             </button>
-                            <button class="btn mt-sweetalert green-meadow" data-confirm-button-class="btn-success" (click)="dt.exportCSV()">
-                                <i class="fa fa-download" aria-hidden="true"></i> Export All Data </button>
-                            <!--<span><button class="btn btn-default btn-outline"> <i class=" icon-clock"></i> Print </button></span>-->
-                            <div class="upload-btn-wrapper">
-                                <a><button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button></a>
-                                <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                       id="patientDataImport" name="patientDataImport" value="" placeholder="" (change)="importData($event)">
-                            </div>
+                        </a>
+                        <button class="btn primary blue"
+                                data-confirm-button-class="btn-success"
+                                (click)="refreshPatient()"> Refresh
+                        </button>
+                        <button class="btn mt-sweetalert green-meadow" data-confirm-button-class="btn-success" (click)="dt.exportCSV()">
+                            <i class="fa fa-download" aria-hidden="true"></i> Export All Data </button>
+                        <!--<span><button class="btn btn-default btn-outline"> <i class=" icon-clock"></i> Print </button></span>-->
+                        <div class="upload-btn-wrapper">
+                            <a><button class="btn red mt-sweetalert"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</button></a>
+                            <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                   id="patientDataImport" name="patientDataImport" value="" placeholder="" (change)="importData($event)">
                         </div>
-                    </h4>
+                    </div>
                 </div>
                 <div class="">
-
                     <!--<div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                         <div class="col-md-4">
                             <div class="form-group font-siz11">
@@ -46,8 +44,7 @@
                             </div>
                         </div>
                     </div>-->
-
-                    <div class="table-scrollable border-non">
+                    <div class="table-scrollable border-non no-margin">
                         <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10" exportFilename="patients">
                             <ng-template pTemplate="caption">
                                 <div style="text-align: right">
@@ -187,5 +184,4 @@
             </div>
         </div>-->
     </div>
-
 </div>
