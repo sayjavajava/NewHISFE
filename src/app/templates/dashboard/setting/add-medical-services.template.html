@@ -30,18 +30,18 @@
                                 <!---->
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5">code
-                                        <span class="required" aria-required="true"> * </span>
+
                                     </label>
                                     <div class="col-md-8 profile-frm pdng-lr-5">
                                         <input class="form-control"
                                                type="text" placeholder="Enter Code"
                                                [(ngModel)]="ms.code" minlength="3"
-                                               required id="code"
+                                                id="code"
                                                name="code" #code="ngModel"/>
-                                        <span *ngIf="code.invalid && code.touched"
+                                        <!--<span *ngIf="code.invalid && code.touched"
                                               class="text-danger">
                                                 Please enter valid Code.
-                                    </span>
+                                    </span>-->
                                     </div>
 
                                 </div>

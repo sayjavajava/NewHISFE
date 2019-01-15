@@ -196,7 +196,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-5 pdng-lr-5 profile-frm">
-                                                    <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom" [attr.disabled]="disable"
+                                                    <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -212,12 +212,12 @@
                                                     <label class="control-label col-md-3 pdng-lr-5">Exam Name
                                                     </label>
                                                     <div class="col-md-4 profile-frm pdng-lr-5">
-                                                        <input type="text" class="form-control"  [attr.disabled]="disable"
+                                                        <input type="text" class="form-control"
                                                                formControlName="roomName"></div>
                                                     <div class="col-md-5 pdng-lr-5 mrgn-top4">
                                                         <label class="mt-checkbox-outline">
                                                             <mat-checkbox formControlName="allowOnlineScheduling" color="primary"
-                                                                          [disabled]="true"> Allow Online Scheduling</mat-checkbox><span></span>
+                                                                          > Allow Online Scheduling</mat-checkbox><span></span>
                                                             <!--<input type="checkbox"  [attr.disabled]="disable"
                                                                    formControlName="allowOnlineScheduling"> Allow Online Scheduling <span></span>-->
                                                             <!--<i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>-->
