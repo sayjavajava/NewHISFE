@@ -257,7 +257,10 @@ var UpdateOrganizationComponent = (function () {
                     _this.statesListModified.push({ label: 'Not Applicable', value: -1 });
                     // this.selectedState.push({label: 'Not Applicable', value: -1});
                     _this.proForm.controls['selectedState'].patchValue('Not Applicable', { onlySelf: true });
-                    _this.proForm.controls['selectedCity'].patchValue('Not Applicable', { onlySelf: true });
+                    /*if(id>0){
+                    this.getCitiesByCountryId(id);
+                    }*/
+                    //     this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
                 }
             }
         }, function (error) {
@@ -286,6 +289,39 @@ var UpdateOrganizationComponent = (function () {
         this.citiesListModified = [];
         this.citiesList = [];
         this.requestService.getRequest(app_constants_1.AppConstants.GET_CITY_BYSTATEID + id)
+            .subscribe(function (response) {
+            if (response["responseCode"] === "CITY_SUC_11") {
+                _this.citiesList = response["responseData"];
+                if (_this.citiesList.length > 0) {
+                    for (var _i = 0, _a = _this.citiesList; _i < _a.length; _i++) {
+                        var city = _a[_i];
+                        var pair = { label: city.name, value: city.id };
+                        _this.citiesListModified.push(pair);
+                    }
+                }
+                else {
+                    _this.citiesListModified.push({ label: 'Not Applicable', value: '' });
+                    // this.selectedCity.push({label: 'Not Applicable', value: ''})
+                    _this.proForm.controls['selectedCity'].patchValue('Not Applicable', { onlySelf: true });
+                }
+                if (_this.citiesListModified.length > 0) {
+                    _this.selectedCity = _this.citiesListModified[0].value;
+                }
+            }
+            else {
+                _this.citiesListModified.push({ label: 'Not Applicable', value: '' });
+                //     this.selectedCity.push({label: 'Not Applicable', value: ''});
+                _this.proForm.controls['selectedCity'].patchValue('Not Applicable', { onlySelf: true });
+            }
+        }, function (error) {
+            this.notificationService.error("ERROR", "Cities List is not available");
+        });
+    };
+    UpdateOrganizationComponent.prototype.getCitiesByCountryId = function (id) {
+        var _this = this;
+        this.citiesListModified = [];
+        this.citiesList = [];
+        this.requestService.getRequest(app_constants_1.AppConstants.GET_CITY_BYCOUNTRYID + id)
             .subscribe(function (response) {
             if (response["responseCode"] === "CITY_SUC_11") {
                 _this.citiesList = response["responseData"];

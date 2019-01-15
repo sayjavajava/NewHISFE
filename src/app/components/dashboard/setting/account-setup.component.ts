@@ -46,9 +46,8 @@ export class AccountSetupComponent {
 
     getAllAccountsList() {
         if (localStorage.getItem(btoa("access_token"))) {
-            this.requestsService.getRequest(AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS
-            ).subscribe(
-                (response: Response) => {
+            this.requestsService.getRequest(AppConstants.FETCH_ACCOUNTS_CONFIGURATIONS)
+                .subscribe((response: Response) => {
                     if (response["responseCode"] === "SUCCESS") {
                         this.chartOfAccountList = response["responseData"].accountList;
                         this.accountConfig = isNullOrUndefined(response["responseData"].accountConfig) ? new AccountConfigModel : response["responseData"].accountConfig;
