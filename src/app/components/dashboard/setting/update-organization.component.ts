@@ -271,25 +271,27 @@ export class UpdateOrganizationComponent implements OnInit {
                 (response: Response) => {
                     if (response["responseCode"] === "STATE_SUC_11") {
 
-                        this.stateLst = response['responseData'];
+                        this.stateLst = response['responseData'].statesList;
+                        console.log(this.stateLst);
                         if(this.stateLst.length>0){
 
                         for (let state of this.stateLst) {
                             var pair: any = {label: state.name, value: state.id};
                             this.statesListModified.push(pair);
                         }
+
                         if(this.statesListModified.length>0){
                         this.selectedState=this.statesListModified[0].value;
                         this.getCitiesById(this.statesListModified[0].value);
                         }
                     }else{
                             this.statesListModified.push({label: 'Not Applicable', value: -1});
-                           // this.selectedState.push({label: 'Not Applicable', value: -1});
                             this.proForm.controls['selectedState'].patchValue('Not Applicable', {onlySelf: true});
-                            /*if(id>0){
-                            this.getCitiesByCountryId(id);
-                            }*/
-                       //     this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
+                            this.citiesListModified=[];
+                            this.selectedCity=[];
+                            this.citiesListModified.push({label: 'Not Applicable', value: '-1'})
+                            this.selectedCity.push({label: 'Not Applicable', value: '-1'});
+                            this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
                         }
                     }
                 }, function (error) {
@@ -297,7 +299,7 @@ export class UpdateOrganizationComponent implements OnInit {
                 });
     }
 
-    async getCountryById(id: any) {
+   /* async getCountryById(id: any) {
         this.requestService.getRequest(AppConstants.GET_ALL_COUNTRYBYID + id)
             .subscribe(
                 (response: Response) => {
@@ -311,7 +313,7 @@ export class UpdateOrganizationComponent implements OnInit {
                 }, function (error) {
                     this.notificationService.error("ERROR", "Country is not available");
                 });
-    }
+    }*/
 
     getCitiesById(id: any) {
 
@@ -321,7 +323,9 @@ export class UpdateOrganizationComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response["responseCode"] === "CITY_SUC_11") {
-                        this.citiesList = response["responseData"];
+                        this.citiesList = response["responseData"].cityList;
+
+                        console.log(this.citiesList);
                         if(this.citiesList.length>0){
                         for (let city of this.citiesList) {
                             var pair: any = {label: city.name, value: city.id};
@@ -329,7 +333,6 @@ export class UpdateOrganizationComponent implements OnInit {
                         }
                     }else{
                             this.citiesListModified.push({label: 'Not Applicable', value: ''})
-                           // this.selectedCity.push({label: 'Not Applicable', value: ''})
                             this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
                         }
                      if(this.citiesListModified.length>0){
@@ -337,8 +340,8 @@ export class UpdateOrganizationComponent implements OnInit {
                      }
                     }else{
 
-                        this.citiesListModified.push({label: 'Not Applicable', value: ''})
-                   //     this.selectedCity.push({label: 'Not Applicable', value: ''});
+                        this.citiesListModified.push({label: 'Not Applicable', value: '-1'})
+                        this.selectedCity.push({label: 'Not Applicable', value: '-1'});
                         this.proForm.controls['selectedCity'].patchValue('Not Applicable', {onlySelf: true});
                     }
                 }, function (error) {
