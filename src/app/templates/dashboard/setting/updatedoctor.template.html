@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08" ngClass="displayFieldCss">
-                                    <label class="control-label col-md-4 pdng-lr-5">Visit Branches
+                                    <label class="control-label col-md-4 pdng-lr-5">Allow Branches
                                         <!--<span class="required" aria-required="true"> * </span>-->
                                     </label>
                                     <div class="col-md-8 pdng-lr-5">
@@ -109,9 +109,9 @@
                                                        [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
                                                        [panelStyle]="{minWidth:''}">
-                                            <ng-template let-br pTemplate="item">
-                                                <div style="font-size:14px;">{{br.name}}</div>
-                                            </ng-template>
+                                            <!--<ng-template let-br pTemplate="item">
+                                                <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
+                                            </ng-template>-->
                                         </p-multiSelect>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
@@ -206,6 +206,7 @@
                                             </div>
                                             <div class="col-md-1 pdng-lr-5">
                                                 <button type="button" (click)="firstShiftTo()" class="clck-icon mrgn-top4 pdng-lr-5"><i class="fa fa-clock-o"></i></button>
+
                                             </div>
                                             <div class="col-md-4 pdng-lr-5">
                                                 <input type="time" disabled style="width: 100%" value="{{firstShiftToTime}}">
@@ -225,13 +226,13 @@
                                             <mat-checkbox formControlName="shift2" color="primary"></mat-checkbox>
                                             <span></span></label></div>
                                         <div class="col-md-2 pdng-lr-5">
-                                            <button type="button" (click)="secondShiftFrom()" class="clck-icon pull-right mrgn-top4 no-padding"><i class="fa fa-clock-o"></i></button>
+                                            <button type="button" disabled (click)="secondShiftFrom()" class="clck-icon pull-right mrgn-top4 no-padding" ><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" style="width: 100%" value="{{secondShiftFromTime}}">
                                         </div>
                                         <div class="col-md-1 pdng-lr-5">
-                                            <button type="button" (click)="secondShiftTo()" class="clck-icon mrgn-top4 pdng-lr-5"><i class="fa fa-clock-o"></i></button>
+                                            <button type="button" disabled (click)="secondShiftTo()" class="clck-icon mrgn-top4 pdng-lr-5" ><i class="fa fa-clock-o"></i></button>
                                         </div>
                                         <div class="col-md-4 pdng-lr-5">
                                             <input type="time" style="width:100%" value="{{secondShiftToTime}}">
@@ -386,6 +387,8 @@
                                                        [filter]="true">
                                         </p-multiSelect>
                                     </div>
+
+
                                 </div>
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 col-xs-6 pdng-lr-5">Use Receipt Dashboard</label>
@@ -443,10 +446,13 @@
                                     </div>
                                 </div>
                                 <div  class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount</label>
+                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount
+                                    </label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5 profile-frm">
-                                        <mat-checkbox formControlName="allowDiscountCheck"><span></span></mat-checkbox>
-                                        <input formControlName="allowDiscount" type="number"  min="0" max="" placeholder="0-100" class="form-control width92 pull-right">
+                                        <mat-checkbox formControlName="allowDiscountCheck" name="allowDisc"><span></span></mat-checkbox>
+                                        <input formControlName="allowDiscount" type="number"  (input)="checkDiscount($event.target.value)" min="0" max="100"
+                                               placeholder="0-100"
+                                               class="form-control width92 pull-right">
                                     </div>
                                 </div>
                             </div>

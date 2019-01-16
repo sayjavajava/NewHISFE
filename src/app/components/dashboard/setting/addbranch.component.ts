@@ -381,7 +381,7 @@ export class AddBranchComponent implements OnInit {
                 if (response["responseCode"] === "BRANCH_SUC_01") {
                     this.countryList = response["responseData"].data;
                     for (let country of this.countryList) {
-                        var pair: any = {label: country.name, value: country.id};
+                        let pair: any = {label: country.name, value: country.id};
                         this.countryListModified.push(pair);
                     }
                 }
@@ -394,38 +394,69 @@ export class AddBranchComponent implements OnInit {
     getStatesByCountryId(countryId: any) {
         this.statesList = this.citiesList = this.statesListModified = this.citiesListModified = [];
 
-        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
-            .subscribe((response: Response) => {
-                if (response["responseCode"] === "BRANCH_SUC_01") {
-                    this.statesList = response["responseData"].data;
-                    for (let state of this.statesList) {
-                        var pair: any = {label: state.name, value: state.id};
-                        this.statesListModified.push(pair);
+        let pair: any;
+        if (countryId == -1) {
+            pair = {label: "Not Applicable", value: -1};
+            this.statesListModified.push(pair);
+            this.citiesListModified.push(pair);
+
+        } else {
+            this.requestService.getRequest(AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
+                .subscribe((response: Response) => {
+                    if (response["responseCode"] === "STATE_SUC_11") {
+                        this.statesList = response["responseData"].statesList;
+                        this.country = response["responseData"].country;
+
+                        if (!isNullOrUndefined(this.statesList) && this.statesList.length > 0) {
+                            for (let state of this.statesList) {
+                                pair = {label: state.name, value: state.id};
+                                this.statesListModified.push(pair);
+                            }
+                        } else {
+                            pair = {label: "Not Applicable", value: -1};
+                            this.statesListModified.push(pair);
+                            this.citiesListModified.push(pair);
+                        }
+
                     }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "States List is not available");
                 }
-            }, function (error) {
-                this.notificationService.error("ERROR", "States List is not available");
-            }
-        );
+            );
+        }
         this.countryChange(countryId);
     }
 
     getCitiesByStateId(stateId: any) {
         this.citiesList = this.citiesListModified = [];
 
-        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
-            .subscribe((response: Response) => {
-                if (response["responseCode"] === "BRANCH_SUC_01") {
-                    this.citiesList = response["responseData"].data;
-                    for (let city of this.citiesList) {
-                        var pair: any = {label: city.name, value: city.id};
-                        this.citiesListModified.push(pair);
+        let pair: any;
+        if (stateId == -1) {
+            pair = {label: "Not Applicable", value: -1};
+            this.citiesListModified.push(pair);
+
+        } else {
+            this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
+                .subscribe((response: Response) => {
+                    if (response["responseCode"] === "CITY_SUC_11") {
+                        this.citiesList = response["responseData"].cityList;
+                        this.state = response["responseData"].state;
+
+                        if (!isNullOrUndefined(this.citiesList) && this.citiesList.length > 0) {
+                            for (let city of this.citiesList) {
+                                pair = {label: city.name, value: city.id};
+                                this.citiesListModified.push(pair);
+                            }
+                        } else {
+                            pair = {label: "Not Applicable", value: -1};
+                            this.citiesListModified.push(pair);
+                        }
                     }
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Cities List is not available");
                 }
-            }, function (error) {
-                this.notificationService.error("ERROR", "Cities List is not available");
-            }
-        );
+            );
+        }
         this.stateChange(stateId);
     }
 

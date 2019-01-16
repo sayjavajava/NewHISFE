@@ -50,6 +50,7 @@ export class AdminProfileComponent implements OnInit {
         var self = this;
         if(this.accountForm.valid) {
             //account url can be change
+         //   postRequestMultipartFormAndDataWithOneFile
             this.requestService.putRequest(AppConstants.UPDATE_ORGANIZATION_URL + this.id, data)
                 .subscribe(function (response) {
                     if (response['responseCode'] === 'ORG_SUC_03') {
@@ -71,6 +72,9 @@ export class AdminProfileComponent implements OnInit {
                     if (response['responseCode'] === 'ORG_SUC_04') {
                         this.organization = response['responseData'];
                         this.urlOrganization=this.organization.profileImgUrl;
+                       /* if(this.urlOrganization!=null){
+                            this.urlOrganization=""
+                        }*/
                         console.log(this.organization);
                      //   console.log(this.organization);
                     }
@@ -112,9 +116,9 @@ export class AdminProfileComponent implements OnInit {
             );
     }
 
-    // cancel() {
-    //     this.router.navigate(['/dashboard/setting/admin/profile']);
-    // }
+     cancel() {
+        this.router.navigate(['/dashboard/setting/admin/profile']);
+     }
 
     uploadImgOnChange(event: any) {
 
@@ -140,6 +144,7 @@ export class AdminProfileComponent implements OnInit {
                             this.urlOrganization=response['responseData'];
                             this.notificationService.success('Profile Image has been updated Successfully');
                             this.profileImg = null;
+                            this.router.navigate(['/dashboard/setting/admin/profile']);
                             //   this.urlOrganization=response['responseData'];
                         }
                     },

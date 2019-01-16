@@ -229,13 +229,19 @@
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <mat-checkbox formControlName="allowDiscount"><span></span></mat-checkbox></label>
                                     </div>-->
-                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount
-                                        <mat-checkbox formControlName="allowDiscountCheck"><span></span></mat-checkbox>
-                                    </label>
-                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                        <input formControlName="allowDiscount" type="number"  min="0" max="100"
-                                               placeholder="0-100"
-                                               class="form-control">
+                                    <div  class="form-group mrgn-btm08">
+                                        <label class="control-label col-md-4 pdng-lr-5">Allow Discount
+                                        </label>
+                                        <div class="col-md-8 col-xs-6 pdng-lr-5 profile-frm">
+                                            <mat-checkbox formControlName="allowDiscountCheck" name="allowDisc"><span></span></mat-checkbox>
+                                            <input formControlName="allowDiscount" type="number" (input)="checkDiscount($event.target.value)"  min="0" max="100"
+                                                   placeholder="0-100"
+                                                   class="form-control width92 pull-right">
+                                        </div>
+
+                                        <span class="text-danger" *ngIf="allowDisCheck">
+                                        should be between 0 and 100
+                                    </span>
                                     </div>
                                     <!--<mat-input-container>
                                         <input type="number" min="0" max="100" required matInput placeholder="Charge" [(ngModel)]="rateInput" name="rateInput" [formControl]="allowDiscount">

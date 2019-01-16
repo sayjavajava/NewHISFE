@@ -25,14 +25,13 @@
                                 <!---->
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5">Code
-                                        <span class="required" aria-required="true"> * </span>
                                     </label>
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input class="form-control" type="text"
                                                [(ngModel)]="ms.code" minlength="1"
-                                               required id="code" placeholder="Enter code"
+                                                id="code" placeholder="Enter code"
                                                name="code" #code="ngModel"/>
-                                        <span *ngIf="code.invalid && code.touched" class="text-danger"> Please enter code </span>
+                                       <!-- <span *ngIf="code.invalid && code.touched" class="text-danger"> Please enter code </span>-->
                                     </div>
                                 </div>
                                 <!---->
@@ -58,12 +57,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
-                                    <label class="control-label col-md-4 pdng-lr-5">Service Cost {{ "("+currency+")"}} </label>
+                                    <label class="control-label col-md-4 pdng-lr-5">Service Cost {{ "("+currency+")"}}
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input class="form-control"
                                                type="number" placeholder="Enter Cost"
-                                               [(ngModel)]="ms.strCost" min="0"
-                                                pattern="^[0-9\.]{1,60}$" (keyup)="isNumberCheck($event)"
+                                               [(ngModel)]="ms.cost" min="0"
+                                                 (keyup)="isNumberCheck($event)"
                                                name="cost" />
                                         <!--<span class="text-danger">
                                             <span *ngIf="isError"> Please Enter Number </span>
@@ -81,8 +83,8 @@
                                     </label>
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input class="form-control" type="number" id="fee"
-                                               [(ngModel)]="ms.strFee" min="0" placeholder="Enter fee"
-                                                pattern="^[0-9\.]{1,60}$" name="fee" #fee="ngModel" />
+                                               [(ngModel)]="ms.fee" min="0" placeholder="Enter fee"
+                                                 name="fee" #fee="ngModel" />
                                         <span class="text-danger">
                                             <span *ngIf="isErrorFee"> Please Enter Number </span>
                                             <span *ngIf="fee.invalid && fee.touched" class="text-danger"> Please select route of drug </span>
@@ -151,6 +153,7 @@
                                             <input class="file" type="file" id="profileImgUrl"
                                                    name="profileImgUrl"
                                                    (change)="uploadImgOnChange($event)">
+
                                         </div>
                                         <!-- <div class="imgUploadTopMargin">
                                              <button class="btn btn-default btn-outline"
@@ -161,6 +164,37 @@
                                     </div>
                                 </div></div>
                         </div>
+
+
+
+
+                        <!--<div class="col-md-6">
+                            <div class="form-group">
+                               &lt;!&ndash; <label class="col-md-4 control-label txt-size">Photo</label>&ndash;&gt;
+                                <div class="col-md-6 select">
+                                    <div class="logo-plchldr">
+                                        &lt;!&ndash;<img class="img-responsive" style="width: 120px; height: 140px;"
+                                             src="/public/images/patient-photo.jpg"
+                                             *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>&ndash;&gt;
+
+                                        <img class="img-responsive" style="width: 120px; height: 140px;"
+                                             src="{{ms.imgUrl}}">
+                                    </div>
+                                    <div class="mrgn-top8">
+                                        <input class="file" type="file" id="profileImgUrl"
+                                               name="profileImgUrl"
+                                               (change)="uploadImgOnChange($event)">
+
+                                    </div>
+                                    &lt;!&ndash; <div class="imgUploadTopMargin">
+                                         <button class="btn btn-default btn-outline"
+                                                 (click)="uploadProfileImg()">
+                                             <i class=" icon-arrow-up"></i>upload
+                                         </button>
+                                     </div>&ndash;&gt;
+                                </div>
+                            </div></div>-->
+
 
                         <div class="hr">
                             <div class="col-md-12 text-center">

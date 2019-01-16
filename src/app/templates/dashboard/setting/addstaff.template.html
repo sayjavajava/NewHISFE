@@ -154,9 +154,6 @@
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
                                                        [panelStyle]="{minWidth:''}">
-                                            <ng-template let-br pTemplate="item">
-                                                <div style="font-size:14px;">{{br.name}}</div>
-                                            </ng-template>
                                         </p-multiSelect>
 
                                         <!-- <p-multiSelect [options]="branchesList" formControlName="restrictBranch"  [panelStyle]="{minWidth:'12em'}">   </p-multiSelect>-->
@@ -683,17 +680,17 @@
                                     </div>-->
                                     <label class="control-label col-md-4 pdng-lr-5">Allow Discount</label>
                                     <div class="col-md-8 col-xs-6 pdng-lr-5 profile-frm">
-                                        <mat-checkbox formControlName="allowDiscountCheck" name="allowDisc" (change)="toggleDiscount()"><span></span></mat-checkbox>
-                                        <input formControlName="allowDiscount" type="number"  (blur)="checkDiscount($event.target.value)"  min="0" max="100"
+                                        <mat-checkbox formControlName="allowDiscountCheck" name="allowDisc"><span></span></mat-checkbox>
+                                        <input formControlName="allowDiscount" type="number"  (input)="checkDiscount($event.target.value)"  min="0" max="100"
                                                placeholder="0-100"
                                                class="form-control width92 pull-right">
                                         <!--<mat-input-container>
                                         <input type="number" min="0" max="100" required matInput placeholder="Charge" [(ngModel)]="rateInput" name="rateInput" [formControl]="allowDiscount">
                                         <mat-error>Please enter a value between 0 and 100</mat-error>
                                     </mat-input-container>-->
-                                   <!-- <span *ngIf="userForm.controls['allowDiscount'].touched && userForm.controls['allowDiscount'].hasError('maxlength')">
-                                        Maximum of 100
-                                    </span>-->
+                                    <span class="text-danger" *ngIf="allowDisCheck">
+                                        Can't be More than 100
+                                    </span>
                                     </div>
                                 </div>
 

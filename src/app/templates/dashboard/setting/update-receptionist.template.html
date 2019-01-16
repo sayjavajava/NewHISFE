@@ -102,9 +102,9 @@
                                                        formControlName="restrictBranch"
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
                                                        name="visitBranches" [panelStyle]="{minWidth:''}">
-                                            <ng-template let-br pTemplate="item">
+                                            <!--<ng-template let-br pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{br.name}}</div>
-                                            </ng-template>
+                                            </ng-template>-->
                                         </p-multiSelect>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['restrictBranch'].valid && userForm.controls['restrictBranch'].touched">{{restrictBranchError}}</span>
@@ -271,13 +271,18 @@
                                         <label class="mt-checkbox mt-checkbox-outline chckbox">
                                             <mat-checkbox formControlName="allowDiscount"><span></span></mat-checkbox></label>
                                     </div>-->
-                                    <label class="control-label col-md-4 pdng-lr-5">Allow Discount
-                                        <mat-checkbox formControlName="allowDiscountCheck"><span></span></mat-checkbox>
-                                    </label>
-                                    <div class="col-md-8 col-xs-6 pdng-lr-5">
-                                        <input formControlName="allowDiscount" type="number"  min="0" max="100"
-                                               placeholder="0-100"
-                                               class="form-control">
+                                    <div  class="form-group mrgn-btm08">
+                                        <label class="control-label col-md-4 pdng-lr-5">Allow Discount
+                                        </label>
+                                        <div class="col-md-8 col-xs-6 pdng-lr-5 profile-frm">
+                                            <mat-checkbox formControlName="allowDiscountCheck" name="allowDisc"><span></span></mat-checkbox>
+                                            <input formControlName="allowDiscount" type="number" (input)="checkDiscount($event.target.value)"  min="0" max="100"
+                                                   placeholder="0-100"
+                                                   class="form-control width92 pull-right">
+                                        </div>
+                                        <span class="text-danger" *ngIf="allowDisCheck">
+                                        Can't be More than 100
+                                    </span>
                                     </div>
                                     <!--<mat-input-container>
                                         <input type="number" min="0" max="100" required matInput placeholder="Charge" [(ngModel)]="rateInput" name="rateInput" [formControl]="allowDiscount">

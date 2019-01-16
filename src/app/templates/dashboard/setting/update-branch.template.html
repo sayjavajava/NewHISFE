@@ -55,7 +55,7 @@
                                                 <label class="control-label col-md-4 pdng-lr-5">Country</label>
                                                 <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedCountry}}" [autoWidth]="false" [(ngModel)]="selectedCountry"
-                                                                 formControlName="selectedCountry" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                 formControlName="country" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getStatesByCountryId($event.value)"
                                                                  [options]="countryListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
@@ -87,7 +87,7 @@
                                                 <label class="control-label col-md-4 pdng-lr-5">State</label>
                                                 <div class="col-md-8 pdng-lr-5">
                                                     <p-dropdown  placeholder="{{selectedState}}" [autoWidth]="false" [(ngModel)]="selectedState"
-                                                                 formControlName="selectedState" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                                 formControlName="state" [style]="{'text-align': 'left' ,'width':'100%'}"
                                                                  (onChange)="getCitiesByStateId($event.value)"
                                                                  [options]="statesListModified"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                     </p-dropdown>
@@ -171,7 +171,7 @@
                                                 </label>
                                                 <div class="col-md-5 pdng-lr-5">
                                                     <button type="button" (click)="getOfficeHoursStart()">Start</button>
-                                                    <input class="col-md-9" type="time" formControlName="officeHoursStart" value="{{officeHoursStart}}">
+                                                    <input class="col-md-9" type="time" formControlName="officeHoursStart" disabled value="{{officeHoursStart}}">
                                                     <span class="text-danger"
                                                           *ngIf="!branchForm.controls['officeHoursStart'].valid && branchForm.controls['officeHoursStart'].touched">
                                                         <span *ngIf="branchForm.controls['officeHoursStart'].errors.required"> Start time  is required </span>
@@ -184,7 +184,7 @@
                                                 </label>
                                                 <div class="col-md-5 pdng-lr-5">
                                                     <button type="button" (click)="getOfficeHoursEnd()">End</button>
-                                                    <input class="col-md-9" type="time" formControlName="officeHoursEnd" value="{{officeHoursEnd}}">
+                                                    <input class="col-md-9" type="time" formControlName="officeHoursEnd" disabled value="{{officeHoursEnd}}">
                                                 </div>
                                                 <span class="text-danger"
                                                       *ngIf="!branchForm.controls['officeHoursEnd'].valid && branchForm.controls['officeHoursEnd'].touched">
@@ -196,6 +196,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-5 pdng-lr-5 profile-frm">
+                                                    <select class="form-control" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom"
                                                     <select class="form-control no-padding" formControlName="noOfExamRooms" name="noOFRooms"  [(ngModel)]="noOfRoom" [attr.disabled]="disable"
                                                             (change)="getNoOfExamRooms($event.target.value)">
                                                         <option value="1">1</option>
@@ -212,15 +213,15 @@
                                                     <label class="control-label col-md-3 pdng-lr-5">Exam Name
                                                     </label>
                                                     <div class="col-md-4 profile-frm pdng-lr-5">
-                                                        <input type="text" class="form-control"  [attr.disabled]="disable"
+                                                        <input type="text" class="form-control"
                                                                formControlName="roomName"></div>
                                                     <div class="col-md-5 pdng-lr-5">
                                                         <label class="mt-checkbox-outline pull-left fnt-sze10">
                                                             <mat-checkbox formControlName="allowOnlineScheduling" color="primary"
-                                                                          [disabled]="true"> Allow Online Scheduling</mat-checkbox><span></span>
-                                                           <!--<input type="checkbox"  [attr.disabled]="disable"
+                                                                          > Allow Online Scheduling</mat-checkbox><span></span>
+                                                            <!--<input type="checkbox"  [attr.disabled]="disable"
                                                                    formControlName="allowOnlineScheduling"> Allow Online Scheduling <span></span>-->
-                                                            <i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>
+                                                            <!--<i (click)="deleteField(i)" title="Remove" class="fa fa-close font-red"></i>-->
                                                         </label>
                                                     </div>
                                                 </div>
@@ -282,6 +283,7 @@
                                 </div>
                             </div>
                             </div>
+
                         </div>
                         <div class="tab-pane fade" id="tab_1_3">
                             <div class="row">

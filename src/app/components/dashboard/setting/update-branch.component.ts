@@ -196,8 +196,8 @@ export class UpdateBranchComponent implements OnInit {
                         noOfExamRooms: branch.examRooms.length,
                         examRooms: (branch.examRooms as FormArray),
                         city: branch.city,
-                        state: branch.city,
-                        country: branch.city,
+                        state: branch.state,
+                        country: branch.country,
                         cityId: branch.cityId,
                         stateId: branch.stateId,
                         countryId: branch.countryId,
@@ -316,6 +316,8 @@ export class UpdateBranchComponent implements OnInit {
             //  let branchObject = this.prepareSaveBranch();
             var that = this;
             this.branchForm.value.cityId = this.branchForm.value.city;
+            this.branchForm.value.stateId = this.branchForm.value.state;
+            this.branchForm.value.countryId = this.branchForm.value.country;
             // data = this.branchForm;
             // data.set("cityId", data.get("city"));
             this.requestService.postRequest(AppConstants.UPDATE_BRANCH + this.id, this.branchForm.value)
@@ -468,7 +470,8 @@ export class UpdateBranchComponent implements OnInit {
                 }
             }, function (error) {
                 this.notificationService.error("ERROR", "Countries List is not available");
-            });
+            }
+        );
     }
 
     getStatesByCountryId(countryId: any) {
@@ -480,43 +483,72 @@ export class UpdateBranchComponent implements OnInit {
         this.countryId = countryId;
         // this.countryId = !(isNullOrUndefined(this.country)) ? this.country.id : null;
 
-        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
-            .subscribe((response: Response) => {
-                    if (response["responseCode"] === "BRANCH_SUC_01") {
-                        this.statesList = response["responseData"].data;
-                        for (let state of this.statesList) {
-                            var pair: any = {label: state.name, value: state.id};
-                            this.statesListModified.push(pair);
+        let pair: any;
+        if (countryId == -1) {
+            pair = {label: "Not Applicable", value: -1};
+            this.statesListModified.push(pair);
+            this.citiesListModified.push(pair);
+
+        } else {
+            this.requestService.getRequest(AppConstants.FETCH_LIST_OF_STATES_BY_CNTRY_ID + countryId)
+                .subscribe((response: Response) => {
+                        if (response["responseCode"] === "STATE_SUC_11") {
+                            this.statesList = response["responseData"].statesList;
+                            this.country = response["responseData"].country;
+
+                            if (!isNullOrUndefined(this.statesList) && this.statesList.length > 0) {
+                                for (let state of this.statesList) {
+                                    pair = {label: state.name, value: state.id};
+                                    this.statesListModified.push(pair);
+                                    console.log(this.statesListModified);
+                                }
+                            } else {
+                                pair = {label: "Not Applicable", value: -1};
+                                this.statesListModified.push(pair);
+                                this.citiesListModified.push(pair);
+                                this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                                this.formattedAddress_State = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                            }
+
                         }
-                    } else {
-                        this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("N/A");
-                        this.formattedAddress_State = this.checkFormattedAddressForNullOrEmpty("N/A");
+                    }, function (error) {
+                        this.notificationService.error("ERROR", "States List is not available");
                     }
-                }, function (error) {
-                    this.notificationService.error("ERROR", "States List is not available");
-                }
-            );
+                );
+        }
         this.countryChange(countryId);
     }
 
     getCitiesByStateId(stateId: any) {
         this.citiesList = this.citiesListModified = [];
 
-        this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
-            .subscribe((response: Response) => {
-                if (response["responseCode"] === "BRANCH_SUC_01") {
-                    this.citiesList = response["responseData"].data;
-                    for (let city of this.citiesList) {
-                        var pair: any = {label: city.name, value: city.id};
-                        this.citiesListModified.push(pair);
+        let pair: any;
+        if (stateId == -1) {
+            pair = {label: "Not Applicable", value: -1};
+            this.citiesListModified.push(pair);
+
+        } else {
+            this.requestService.getRequest(AppConstants.FETCH_LIST_OF_CITIES_BY_STATE_ID + stateId)
+                .subscribe((response: Response) => {
+                    if (response["responseCode"] === "CITY_SUC_11") {
+                        this.citiesList = response["responseData"].cityList;
+                        this.state = response["responseData"].state;
+
+                        if (!isNullOrUndefined(this.citiesList) && this.citiesList.length > 0) {
+                            for (let city of this.citiesList) {
+                                pair = {label: city.name, value: city.id};
+                                this.citiesListModified.push(pair);
+                            }
+                        } else {
+                            pair = {label: "Not Applicable", value: -1};
+                            this.citiesListModified.push(pair);
+                        }
                     }
-                } else {
-                    this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("N/A");
+                }, function (error) {
+                    this.notificationService.error("ERROR", "Cities List is not available");
                 }
-            }, function (error) {
-                this.notificationService.error("ERROR", "Cities List is not available");
-            }
-        );
+            );
+        }
         this.stateChange(stateId);
     }
 
@@ -533,7 +565,6 @@ export class UpdateBranchComponent implements OnInit {
                     this.city = response["responseData"].data.city;
                     this.state = response["responseData"].data.state;
                     this.country = response["responseData"].data.country;
-                    this.createCountriesList();
 
                     if (!isNullOrUndefined(this.country)) {
                         this.selectedCountry = this.country.name;
@@ -554,9 +585,10 @@ export class UpdateBranchComponent implements OnInit {
                         this.cityId = this.city.id;
                         this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty(this.city.name);
                     }
+                    console.log(this.selectedCountry);
 
+                    this.createCountriesList();
                     this.createFormattedAddress();
-
                 }
             }, function (error: any) {
                 this.notificationService.error("ERROR", "CIty State Country for branch is/are not available");
@@ -584,6 +616,8 @@ export class UpdateBranchComponent implements OnInit {
             .subscribe((response: Response) => {
                 if (response["responseCode"] === "STATE_SUC_11") {
                     this.state = response["responseData"];
+                    this.branchForm.value.state = this.state;
+                    this.branchForm.value.stateId = this.stateId;
                     this.formattedAddress_State = this.checkFormattedAddressForNullOrEmpty(this.state.name);
                     this.createFormattedAddress();
                 } else {
@@ -605,11 +639,13 @@ export class UpdateBranchComponent implements OnInit {
                     this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty(this.city.name);
                     this.createFormattedAddress();
                 } else {
-                    this.formattedAddress_City = "N/A";
+                    this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                    this.cityId = -1;
                 }
             }, function (error) {
                 this.notificationService.error("ERROR", "City is not available");
-                this.formattedAddress_City = "N/A";
+                this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                this.cityId = -1;
             }
         );
     }
@@ -622,13 +658,19 @@ export class UpdateBranchComponent implements OnInit {
                     // console.log(this.country);
                     this.formattedAddress_Country = this.checkFormattedAddressForNullOrEmpty(this.country.name, true);
                 } else {
-                    this.formattedAddress_City = "N/A";
-                    this.formattedAddress_State = "N/A";
+                    this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                    this.formattedAddress_State = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                    this.countryId = -1;
+                    this.stateId = -1;
+                    this.cityId = -1;
                 }
             }, function (error) {
                 this.notificationService.error("ERROR", "Country is not available");
-                this.formattedAddress_City = "N/A";
-                this.formattedAddress_State = "N/A";
+                this.formattedAddress_City = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                this.formattedAddress_State = this.checkFormattedAddressForNullOrEmpty("Not Applicable");
+                this.countryId = -1;
+                this.stateId = -1;
+                this.cityId = -1;
             }
         );
         this.createFormattedAddress();
