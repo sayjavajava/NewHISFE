@@ -186,14 +186,13 @@
                                  src="/public/images/patient-photo.jpg"
                                  *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
 
-                            <img class="img-responsive" style="width: 120px; height: 140px;"
+                            <img class="img-responsive" style="width: 120px; height: 120px;"
                                  src="{{urlOrganization}}">
                         </div>
                         <div class="mrgn-top8">
                             <input class="file" type="file" id="profileImgUrl"
                                    name="profileImgUrl"
                                    (change)="uploadImgOnChange($event)">
-
                         </div>
                         <!-- <div class="imgUploadTopMargin">
                              <button class="btn btn-default btn-outline"
@@ -210,7 +209,6 @@
                                 <a routerLink="/dashboard/setting/medicalServices">
                                     <button type="button" class="btn default"> Cancel</button>
                                 </a>
-
                             </div>
                         </div>
                     </div>
