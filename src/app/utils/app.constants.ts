@@ -130,6 +130,10 @@ export class AppConstants {
     public static SEARCH_ALL_PATIENT_URL = '/patient/search';
     public static GET_ALL_PATIENT_URL = '/patient/';
     public static IMPORT_PATIENTS_LIST_TO_SERVER = '/patient/importPatientRecords';
+    public static IMPORT_PATIENTS_MAP_FIELDS = '/patient/importPatientMapFields';
+    public static IMPORT_PATIENTS_SAVE_MAP_FIELDS = '/patient/importPatientSaveMapping';
+    public static IMPORT_PATIENTS_IMPORT_MAPPED_DATA = '/patient/importPatientImportMappedData';
+    public static IMPORT_PATIENTS_SAVE_MAPPED_DATA = '/patient/importPatientSaveMappedData';
     public static UPLOAD_PATIENT_IMAGE_URL = '/patient/uploadProfileImg/';
     public static UPLOAD_PATIENT_FRONT_IMAGE_URL = '/patient/uploadInsuranceFrontImg/';//'/patient/uploadImageFront/insurance/';
     public static UPLOAD_PATIENT_BACK_IMAGE_URL = '/patient/uploadInsuranceBackImg/';//'/patient/uploadImageBack/insurance/';

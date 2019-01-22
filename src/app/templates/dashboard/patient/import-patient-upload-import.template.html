@@ -1,0 +1,131 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr no-margin">
+                    <h4 class="text-info">{{heading}}</h4>
+                </div>
+                <div class="border-non">
+                    <div class="main-steps">
+                        <!--<div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">1</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Upload</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">2</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Map Fields</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">3</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Import Done</div>
+                            </div>
+                        </div>-->
+                        <p-steps [model]="items" [readonly]="true" [(activeIndex)]="activeIndex"></p-steps>
+                    </div>
+                    <br/><br/>
+                    <div class="">
+                        <div [hidden]="showFieldsDiv" class="contnt-data col-md-12">
+                            <p>Mapping fields &nbsp;&nbsp;
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner1.gif" height="64" width="64"/>
+                                <!--
+                                <img src= "../../../../../public/images/loader-spinner/his-loader-spinner.gif" height="64" width="64"/>
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner2.gif" height="64" width="64"/>
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner3.gif" height="64" width="64"/>
+                                -->
+                            </p>
+                        </div>
+                        <div [hidden]="!showFieldsDiv" class="contnt-data col-md-12">
+                            <p>{{numOfRecords}} records are ready to be imported.</p>
+                            <form name="dataForm">
+                                <table class="table table-striped table-hover table-checkable dataTable no-footer" id="datatable_ajax" role="grid">
+                                    <thead>
+                                        <tr role="row" class="off-wite-bg">
+                                            <th width="2%" class="c-text-left padding">
+                                                <input type="checkbox" id="allChecked" [(ngModel)]="allChecked"
+                                                       [ngModelOptions]="{standalone: true}"
+                                                       #checkBox="ngModel" (click)="checkAll($event.target.checked)">
+                                            </th>
+                                            <th width="18%" class="c-text-left padding"> First Name</th>
+                                            <th width="18%">Last Name</th>
+                                            <th width="18%">Cell Phone</th>
+                                            <th width="19%">Date of Birth (yyyy-MM-dd)</th>
+                                            <th width="24%">Gender (Male, Female, Other)</th>
+                                        </tr>
+                                        <tr role="row" *ngFor="let patientData of allPatientDataToImport; let i = index;" class="off-wite-bg filter">
+                                            <!--<td class="c-text-left padding font-green-dark" *ngFor="let patientData of patient; let j = index;">
+                                                <span *ngIf="j==0">
+                                                    <span *ngIf="patientData.status==true || patientData == '1'">
+                                                        <input [(ngModel)]="patientData.status" type="checkbox" checked="checked">
+                                                    </span>
+                                                    <span *ngIf="patientData.status==false || patientData == '0'">
+                                                        <input [(ngModel)]="patientData.status" type="checkbox">
+                                                    </span>
+                                                </span>
+                                                <span *ngIf="j>0">
+                                                    <input type="text" id="patientData{{i}}{{j}}" value="{{patientData}}" title="{{patientData}}">
+                                                <!--</span>
+                                            </td>-->
+                                            <td class="c-text-left padding font-green-dark">
+                                                <span *ngIf="patientData.status">
+                                                    <input [(ngModel)]="patientData.status" type="checkbox"
+                                                           checked="true" [ngModelOptions]="{standalone: true}"
+                                                           #checkBox="ngModel"
+                                                           (click)="evalCheckedRecords($event.target.checked)">
+                                                </span>
+                                                <span *ngIf="!patientData.status">
+                                                    <input [(ngModel)]="patientData.status" type="checkbox"
+                                                           [ngModelOptions]="{standalone: true}" #checkBox="ngModel"
+                                                           (click)="evalCheckedRecords($event.target.checked)">
+                                                </span>
+                                            </td>
+                                            <td class="c-text-left padding font-green-dark">
+                                                <input type="text" [(ngModel)]="patientData.firstName" value="{{patientData.firstName}}" [ngModelOptions]="{standalone: true}">
+                                            </td>
+                                            <td class="c-text-left padding font-green-dark">
+                                                <input type="text" [(ngModel)]="patientData.lastName" value="{{patientData.lastName}}" [ngModelOptions]="{standalone: true}">
+                                            </td>
+                                            <td class="c-text-left padding font-green-dark">
+                                                <input type="text" [(ngModel)]="patientData.cellPhone" value="{{patientData.cellPhone}}" [ngModelOptions]="{standalone: true}">
+                                            </td>
+                                            <td class="c-text-left padding font-green-dark">
+                                                <input type="text" [(ngModel)]="patientData.dob" value="{{patientData.dob}}" [ngModelOptions]="{standalone: true}">
+                                            </td>
+                                            <td class="c-text-left padding font-green-dark">
+                                                <input type="text" [(ngModel)]="patientData.gender" value="{{patientData.gender}}" [ngModelOptions]="{standalone: true}">
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <!--<div class="contnt-data col-md-12 mrgn-top24">
+
+                    </div>-->
+                    <div class="contnt-data col-md-12 mrgn-top24">
+                        <div class="col-md-12 no-padding">
+                            <div class="text-align-center">
+                                <button class="btn blue" (click)="previousPage()"><i class="fa fa-angle-double-left"></i> Previous </button>
+                                <button class="btn default" (click)="cancel()"> Cancel <i class="fa fa-cancel"></i></button>
+                                <button class="btn blue" (click)="importData()"> Import </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+
+

@@ -242,7 +242,8 @@ export class ManagePatientComponent implements OnInit {
     }
 
     importDataClicked(){
-        document.getElementById("patientDataImport").click();
+        this.router.navigate(['/dashboard/patient/importPatientData/']);
+        // document.getElementById("patientDataImport").click();
     }
 
 }
