@@ -34,14 +34,12 @@
                     <div class="">
                         <div [hidden]="showFieldsDiv" class="contnt-data col-md-12">
                             <p>Fetching system and file fields &nbsp;&nbsp;
-                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner1.gif"
-                                     height="64" width="64"/>
-                                <!--<img src="../../../../../public/images/loader-spinner/his-loader-spinner.gif"
-                                     height="64" width="64"/>
-                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner2.gif"
-                                     height="64" width="64"/>
-                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner3.gif"
-                                     height="64" width="64"/>-->
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner1.gif" height="64" width="64"/>
+                                <!--
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner.gif" height="64" width="64"/>
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner2.gif" height="64" width="64"/>
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner3.gif" height="64" width="64"/>
+                                -->
                             </p>
                         </div>
                         <div [hidden]="!showFieldsDiv" class="contnt-data col-md-12">
@@ -57,13 +55,9 @@
                                         <div class="form-group tbl-lbel">
                                             <label class="control-label col-md-6 pdng-top8 text-align-left">First Name</label>
                                             <div class="col-md-6 pdng-all">
-                                                <!--<select [(ngModel)]="simpleValue"> // value is a string or number
-                                                    <option *ngFor="let obj of objArray" [value]="obj.value">{{obj.name}}</option>
-                                                </select>-->
                                                 <p-dropdown placeholder="{{firstNameField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
                                                             [(ngModel)]="firstNameField" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                            (onChange)="printSelFieldValue($event.value)" name="firstNameField"
-                                                            [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                            name="firstNameField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
                                                 <!--<select class="form-control" id="first_name">
                                                     <option>First Name</option>
@@ -77,94 +71,44 @@
                                         <div class="form-group tbl-lbel">
                                             <label class="control-label col-md-6 pdng-top8 text-align-left">Last Name</label>
                                             <div class="col-md-6 pdng-all">
-                                                <!--<select class="form-control" id="last_name">
-                                                    <option>First Name</option>
-                                                    <option>Last Name</option>
-                                                    <option>Cell Phone</option>
-                                                    <option>Date of Birth (yyyy-MM-dd)</option>
-                                                    <option>Gender (Male, Female, Other)</option>
-                                                </select>-->
                                                 <p-dropdown placeholder="{{lastNameField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
                                                             [(ngModel)]="lastNameField" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                            (onChange)="printSelFieldValue($event.value)" name="lastNameField"
-                                                            [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                            name="lastNameField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
                                             </div>
                                         </div>
                                         <div class="form-group tbl-lbel">
                                             <label class="control-label col-md-6 pdng-top8 text-align-left">Cell Phone</label>
                                             <div class="col-md-6 pdng-all">
-                                                <!--<select class="form-control" id="cell_phone">
-                                                    <option>First Name</option>
-                                                    <option>Last Name</option>
-                                                    <option>Cell Phone</option>
-                                                    <option>Date of Birth (yyyy-MM-dd)</option>
-                                                    <option>Gender (Male, Female, Other)</option>
-                                                </select>-->
                                                 <p-dropdown placeholder="{{cellPhoneField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
                                                             [(ngModel)]="cellPhoneField" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                            (onChange)="printSelFieldValue($event.value)" name="cellPhoneField"
-                                                            [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                            name="cellPhoneField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
                                             </div>
                                         </div>
                                         <div class="form-group tbl-lbel">
                                             <label class="control-label col-md-6 pdng-top8 text-align-left">Date of Birth (yyyy-MM-dd)</label>
                                             <div class="col-md-6 pdng-all">
-                                                <!--<select class="form-control" id="dob">
-                                                    <option>First Name</option>
-                                                    <option>Last Name</option>
-                                                    <option>Cell Phone</option>
-                                                    <option>Date of Birth (yyyy-MM-dd)</option>
-                                                    <option>Gender (Male, Female, Other)</option>
-                                                </select>-->
                                                 <p-dropdown placeholder="{{dobField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
                                                             [(ngModel)]="dobField" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                            (onChange)="printSelFieldValue($event.value)" name="dobField"
-                                                            [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                            name="dobField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
                                             </div>
                                         </div>
                                         <div class="form-group tbl-lbel">
                                             <label class="control-label col-md-6 pdng-top8 text-align-left">Gender (Male, Female, Other)</label>
                                             <div class="col-md-6 pdng-all">
-                                                <!--<select class="form-control" id="gender" title="gender">
-                                                    <option>First Name</option>
-                                                    <option>Last Name</option>
-                                                    <option>Cell Phone</option>
-                                                    <option>Date of Birth (yyyy-MM-dd)</option>
-                                                    <option>Gender (Male, Female, Other)</option>
-                                                </select>-->
                                                 <p-dropdown placeholder="{{genderField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
                                                             [(ngModel)]="genderField" [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                            (onChange)="printSelFieldValue($event.value)" name="genderField"
-                                                            [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                            name="genderField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                                 </p-dropdown>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
-                                <!--<div class="contnt-data mrgn-top24">
-                                    <div class="col-md-6 col-xs-6"><a href="#">
-                                        <button class="btn default cancle-btn">Previous</button>
-                                    </a></div>
-                                    <div class="col-md-6 col-xs-6">
-                                        <div class="pull-right">
-                                            <a href="#">
-                                                <button class="btn default cancle-btn">Cancel</button>
-                                            </a>
-                                            <a href="#">
-                                                <button class="btn default btn-primary save-btn">Save</button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>-->
                             </div>
                         </div>
                     </div>
-                    <!--<div class="contnt-data col-md-12 mrgn-top24">
-
-                    </div>-->
                     <div class="contnt-data col-md-12 mrgn-top24">
                         <div class="col-md-12 no-padding">
                             <div class="text-align-center">

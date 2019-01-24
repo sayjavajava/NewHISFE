@@ -55,33 +55,33 @@ export class ImportPatientUploadImportComponent implements OnInit {
 
         this.requestsService.postRequest(AppConstants.IMPORT_PATIENTS_IMPORT_MAPPED_DATA, this.importFileId)
             .subscribe((response: Response) => {
-                if (response['responseCode'] === 'SUCCESS') {
-                    this.notificationService.success(response['responseMessage'], 'Import Patient');
+                if (response['responseCode'] == 'SUCCESS') {
                     this.allPatientDataToImport = response['responseData'];
-                    this.numOfRecords = this.allPatientDataToImport.length;
-                    console.log(this.allPatientDataToImport);
-                    console.log(this.numOfRecords);
-                    if (this.numOfRecords > 0) {
-                        this.showFieldsDiv = true;
-                        for (let i = 0; i < this.numOfRecords; i++) {
-                            this.patientImportRecord = this.allPatientDataToImport[i];
-                            if (this.patientImportRecord.status) {
-                                this.numOfCheckedRecords++;
-                            }
-                        }
-                        if (this.numOfRecords == this.numOfCheckedRecords) {
-                            this.allChecked = true;
-                            // document.getElementById('allChecked').setAttribute('checked', 'checked');
-                        }
+                    if (this.allPatientDataToImport == null) {
+                        this.numOfRecords = 0;
+                        this.notificationService.error('No record to import. Please try again!', 'Import Patient');
                     } else {
-                        this.notificationService.error('No record to import. Please select a valid file!', 'Import Patient');
+                        this.numOfRecords = this.allPatientDataToImport.length;
+                        if (this.numOfRecords > 0) {
+                            this.showFieldsDiv = true;
+                            for (let i = 0; i < this.numOfRecords; i++) {
+                                this.patientImportRecord = this.allPatientDataToImport[i];
+                                if (this.patientImportRecord.status) {
+                                    this.numOfCheckedRecords++;
+                                }
+                            }
+                            if (this.numOfRecords == this.numOfCheckedRecords) {
+                                this.allChecked = true;
+                            }
+                        } else {
+                            this.notificationService.error('No record to import. Please select a valid file!', 'Import Patient');
+                        }
                     }
-                    // this.router.navigate(['/dashboard/patient/importPatientSaveImport/' + this.importFileId]);
+
                 } else {
                     this.notificationService.error(response['responseMessage'], 'Import Patient');
                 }
             },(error: any) => {
-                //console.log(error.json())
                 this.HISUtilService.tokenExpired(error.error.error);
                 this.notificationService.error(error.error.error, 'Import Patient');
             }
@@ -92,18 +92,16 @@ export class ImportPatientUploadImportComponent implements OnInit {
     importData() {
         if (this.numOfRecords > 0) {
             if (this.numOfCheckedRecords > 0) {
-                // this.dataMap["importFileId"] = this.importFileId + "";
-                // this.dataMap["dataList"] = this.allPatientDataToImport;
                 console.log(this.allPatientDataToImport);
                 this.requestsService.postRequest(AppConstants.IMPORT_PATIENTS_SAVE_MAPPED_DATA + '?importFileId=' + this.importFileId, this.allPatientDataToImport)
                     .subscribe((response: Response) => {
-                        if (response['responseCode'] === 'SUCCESS') {
+                        if (response['responseCode'] == 'SUCCESS') {
                             this.notificationService.success(response['responseData'] + ' patients record imported', 'Import Patient');
+                            this.cancel();
                         } else {
-                            this.notificationService.error(response['responseMessage'], 'Import Patient');
+                            this.notificationService.warn(response['responseMessage']);
                         }
                     },(error: any) => {
-                        //console.log(error.json())
                         this.HISUtilService.tokenExpired(error.error.error);
                         this.notificationService.error(error.error.error, 'Import Patient');
                     }
@@ -128,13 +126,7 @@ export class ImportPatientUploadImportComponent implements OnInit {
 
     evalAllCheckedRecord() {
         console.log(this.numOfRecords + " : " + this.numOfCheckedRecords);
-        if (this.numOfRecords == this.numOfCheckedRecords) {
-            this.allChecked = true;
-            // document.getElementById('allChecked').setAttribute('checked', 'true');
-        } else {
-            this.allChecked = false;
-            // document.getElementById('allChecked').removeAttribute('checked');
-        }
+        this.allChecked = this.numOfRecords == this.numOfCheckedRecords;
     }
 
     checkAll(checkToggle: boolean) {
@@ -151,21 +143,6 @@ export class ImportPatientUploadImportComponent implements OnInit {
         }
 
         this.evalAllCheckedRecord();
-
-        /*
-        let checkBoxes = document.getElementsByTagName('input');
-        for (let i=0; i<checkBoxes.length; i++)  {
-            if (checkBoxes[i].type == 'checkbox')   {
-                if (checkToggle) {
-                    checkBoxes[i].setAttribute('checked', 'true')
-                } else {
-                    checkBoxes[i].removeAttribute('checked')
-                }
-
-                // checkBoxes[i].checked = checkToggle;
-            }
-        }
-        */
     }
 
     previousPage() {

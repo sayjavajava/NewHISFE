@@ -60,7 +60,7 @@ export class ImportPatientMapFieldsComponent implements OnInit {
         this.requestsService.getRequest(AppConstants.IMPORT_PATIENTS_MAP_FIELDS + '/' + this.importFileId)
             .subscribe((response: Response) => {
                 if (response['responseCode'] === 'SUCCESS') {
-                    this.notificationService.success(response['responseMessage'], 'Import Patient');
+                    // this.notificationService.success(response['responseMessage'], 'Import Patient');
                     this.importFileId = response["responseData"].importFileId;
                     this.fileFieldsList = response["responseData"].fieldsList;
                     for (let fieldName of this.fileFieldsList) {
@@ -91,9 +91,8 @@ export class ImportPatientMapFieldsComponent implements OnInit {
     }
 
     mapFields() {
-        if (this.firstNameField == '' || this.lastNameField == '' || this.cellPhoneField == ''
-            || this.dobField == '' || this.genderField == '') {
-            this.notificationService.warn('Map all the fields first');
+        if (this.firstNameField == '' || this.lastNameField == '' || this.cellPhoneField == '' || this.dobField == '' || this.genderField == '') {
+            this.notificationService.warn('Map all the fields');
         } else {
             let mappingFieldsList: any[] = [];
             mappingFieldsList.push(this.firstNameField);
@@ -105,26 +104,9 @@ export class ImportPatientMapFieldsComponent implements OnInit {
             this.fieldMappingList["importFileId"] = this.importFileId + "";
             this.fieldMappingList["fileFieldsList"] = this.fileFieldsList;
             this.fieldMappingList["mappingFieldsList"] = mappingFieldsList;
-            // this.fieldMappingList.set("importFileId", this.importFileId);
-            // this.fieldMappingList.set("fileFieldsList", this.fileFieldsList);
-            // this.fieldMappingList.set("mappingFieldsList", mappingFieldsList);
-            // for (let key of this.fieldMappingList.keys()) {
-            //     console.log(key);
-            // }
-            // for (let val of this.fieldMappingList.values()) {
-            //     console.log(val);
-            // }
+
             console.log(this.fieldMappingList);
-            this.notificationService.success('Map Fields', 'Mapping done');
-
-            // let mapFieldStr:string = this.firstNameField + ',' + this.lastNameField + ',' + this.cellPhoneField + ',' + this.dobField + ',' + this.genderField;
-            // for (var value of mappingFieldsList) {
-            //     mapFieldStr = value + ',';
-            // }
-            // mapFieldStr = mapFieldStr.substring(0, mapFieldStr.length-1);
-            // console.log(mapFieldStr);
-
-            //
+            this.notificationService.success('Fields Mapped', 'Import Patient');
             this.requestsService.postRequest(AppConstants.IMPORT_PATIENTS_SAVE_MAP_FIELDS, this.fieldMappingList)
                 .subscribe((response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
@@ -141,21 +123,4 @@ export class ImportPatientMapFieldsComponent implements OnInit {
             );
         }
     }
-
-    printSelFieldValue(value: any){
-        console.log(value);
-    }
-
-    // mapToObj(strMap: any) {
-    //     console.log(strMap);
-    //     let obj = Object.create(null);
-    //     console.log(obj);
-    //     for (let [k,v] of strMap) {
-    //         obj[k] = v; //look out! Key must be a string!
-    //         console.log(v + " : " + obj[k]);
-    //     }
-    //     // console.log(strMap.json());
-    //     return obj;
-    // }
-
 }

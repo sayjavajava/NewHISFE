@@ -99,26 +99,21 @@ export class ImportPatientDataComponent implements OnInit {
         this.requestsService.postRequestMultipartForm(AppConstants.IMPORT_PATIENTS_LIST_TO_SERVER + '/' + this.dupRecOp + '/' + this.encodingType, this.patientDataImport)
             .subscribe((response: Response) => {
                 if (response['responseCode'] === 'SUCCESS') {
-                    this.notificationService.success(response['responseMessage'], 'Patient');
+                    this.notificationService.success(response['responseMessage'], 'Import Patient');
                     this.importFileId = response["responseData"];
-
-                    // this.fileFieldsList = response["responseData"];
-                    // for (let fieldName of this.fileFieldsList) {
-                    //     let pair: any = {label: fieldName, value: fieldName};
-                    //     this.fileFieldsListModified.push(pair);
-                    // }
-                    // console.log(this.fileFieldsListModified);
-                    console.log(this.importFileId);
+                    // console.log(this.importFileId);
                     if (this.importFileId != -1) {
                         this.router.navigate(['/dashboard/patient/importPatientMapFields/' + this.importFileId]);
+                    } else {
+                        this.notificationService.error('Import Patient', 'Failed to upload file' );
                     }
                 } else {
-                    this.notificationService.error(response['responseMessage'], 'Patient');
+                    this.notificationService.error(response['responseMessage'], 'Import Patient');
                 }
             },(error: any) => {
                 //console.log(error.json())
                 this.HISUtilService.tokenExpired(error.error.error);
-                this.notificationService.error(error.error.responseMessage, 'Patient');
+                this.notificationService.error(error.error.responseMessage, 'Import Patient');
             }
         );
 

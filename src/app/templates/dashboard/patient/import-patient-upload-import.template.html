@@ -75,9 +75,8 @@
                                             </td>-->
                                             <td class="c-text-left padding font-green-dark">
                                                 <span *ngIf="patientData.status">
-                                                    <input [(ngModel)]="patientData.status" type="checkbox"
-                                                           checked="true" [ngModelOptions]="{standalone: true}"
-                                                           #checkBox="ngModel"
+                                                    <input [(ngModel)]="patientData.status" type="checkbox" checked="true"
+                                                           [ngModelOptions]="{standalone: true}" #checkBox="ngModel"
                                                            (click)="evalCheckedRecords($event.target.checked)">
                                                 </span>
                                                 <span *ngIf="!patientData.status">
@@ -87,19 +86,19 @@
                                                 </span>
                                             </td>
                                             <td class="c-text-left padding font-green-dark">
-                                                <input type="text" [(ngModel)]="patientData.firstName" value="{{patientData.firstName}}" [ngModelOptions]="{standalone: true}">
+                                                <input type="text" [(ngModel)]="patientData.firstName" value="{{patientData.firstName}}" [ngModelOptions]="{standalone: true}" required>
                                             </td>
                                             <td class="c-text-left padding font-green-dark">
-                                                <input type="text" [(ngModel)]="patientData.lastName" value="{{patientData.lastName}}" [ngModelOptions]="{standalone: true}">
+                                                <input type="text" [(ngModel)]="patientData.lastName" value="{{patientData.lastName}}" [ngModelOptions]="{standalone: true}" required>
                                             </td>
                                             <td class="c-text-left padding font-green-dark">
-                                                <input type="text" [(ngModel)]="patientData.cellPhone" value="{{patientData.cellPhone}}" [ngModelOptions]="{standalone: true}">
+                                                <input type="text" [(ngModel)]="patientData.cellPhone" value="{{patientData.cellPhone}}" [ngModelOptions]="{standalone: true}" required>
                                             </td>
                                             <td class="c-text-left padding font-green-dark">
-                                                <input type="text" [(ngModel)]="patientData.dob" value="{{patientData.dob}}" [ngModelOptions]="{standalone: true}">
+                                                <input type="text" [(ngModel)]="patientData.dob" value="{{patientData.dob}}" [ngModelOptions]="{standalone: true}" required>
                                             </td>
                                             <td class="c-text-left padding font-green-dark">
-                                                <input type="text" [(ngModel)]="patientData.gender" value="{{patientData.gender}}" [ngModelOptions]="{standalone: true}">
+                                                <input type="text" [(ngModel)]="patientData.gender" value="{{patientData.gender}}" [ngModelOptions]="{standalone: true}" required>
                                             </td>
                                         </tr>
                                     </thead>
