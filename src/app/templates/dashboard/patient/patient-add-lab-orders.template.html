@@ -83,8 +83,6 @@
                                  </label>-->
 
                                 <div class="col-md-5 pdng-lr-5" *ngIf="!isUpdate">
-
-
                                     <p-dropdown  placeholder="select appointment"  [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
                                                  (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
@@ -186,6 +184,14 @@
                                                  (onChange)="filterLabTestSingle($event.value)"
                                                  [options]="searchedNamesLstNew"  [panelStyle]="{minWidth:''}" [filter]="true" disabled="true">
                                     </p-dropdown>
+                                </div>
+                            </div>
+                            <div class="form-group mrgn-btm08">
+                                <label class="control-label col-md-3 pdng-lr-5">Upload Image</label>
+                                <div class="col-md-8 select patnt-img pdng-lr-5">
+                                        <input class="file" type="file" id="profileImgURL"
+                                               name="profileImgURL"
+                                               (change)="uploadImgOnChange($event)">
                                 </div>
                             </div>
                         </div>

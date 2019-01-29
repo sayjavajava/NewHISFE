@@ -744,6 +744,34 @@
                                     </div>
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">
+                                        Drug name:<span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8 select pdng-lr-5" >
+                                        <p-dropdown  placeholder="{{selectedDrug}}" [autoWidth]="false" [(ngModel)]="selectedDrug"
+                                                     [style]="{'text-align': 'left' ,'width':'100%'}"  [ngModelOptions]="{standalone: true}"
+                                                     (onChange)="search($event.value)"
+                                                     [options]="searchedDrugNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Strength</label>
+                                    <div class="col-md-8 pdng-lr-5">
+                                        <p-dropdown placeholder="{{selectedstr}}"  [(ngModel)]="selectedstr"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                    required id="strengths"
+                                                    name="strengths" [options]="searchedDrugStrengthsAnyListModified"
+                                                    #strengths="ngModel">
+                                        </p-dropdown>
+
+                                        <span *ngIf="strengths.invalid && strengths.touched"
+                                              class="col-md-9 select pdng-lr-5 text-danger">
+                                                Please Select.
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Route</label>
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
                                         <input type="text" readonly
@@ -756,8 +784,7 @@
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                        Frequency
-                                    </label>
+                                        Frequency</label>
                                     <div class="col-md-8 select pdng-lr-5 profile-frm">
                                         <input type="text"
                                                class="form-control" placeholder="e.g 2"
@@ -780,23 +807,27 @@
 
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Refill</label>
                                     <div class="col-md-8 select pdng-lr-5 profile-frm">
-                                        <!--<select class="form-control"
-                                                name="status" [ngModelOptions]="{standalone:true}"
-                                                id="statusId"
-                                                [(ngModel)]="medicationModel.status">
-                                            <option value="ACTIVE">Active</option>
-                                            <option value="IN_ACTIVE">In_Active</option>
-                                        </select>-->
-                                        <p-dropdown  placeholder={{medicationModel.status}} [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="statusType"
-                                                     [options]="statusType"
-                                                     [(ngModel)]="medicationModel.status"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                        </p-dropdown>
+                                        <input class="form-control" placeholder="Refill">
                                     </div>
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Start Date Taking:</label>
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Sig</label>
+                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
+                                        <input class="form-control" id="pharmacyNoteId" name="pharmacyNote"
+                                               rows="3" placeholder="e.g www.www.com"
+                                               [(ngModel)]="medicationModel.pharmacyNote">
+                                    </div>
+                                </div>
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Prescribed</label>
+                                    <div class="col-md-8 select pdng-lr-5">
+                                        <angular2-date-picker  name="datePrescribed" id="datePrescribedId" [settings]="settings" [(ngModel)]="medicationModel.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
+                                    </div>
+                                </div>
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Started Taking</label>
                                     <!--<div class="col-md-9 col-xs-12">
                                         <div class=" col-md-12 col-xs-12 pull-left no-padding">
                                             <mwl-demo-utils-date-time-picker
@@ -813,41 +844,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes</label>
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Stop Taking</label>
                                     <div class="col-md-8 select pdng-lr-5">
-                                <textarea class="form-control"
-                                          rows="3" id="noteId" name="note" placeholder="e.g Sample"
-                                          [(ngModel)]="medicationModel.note">
-                                </textarea>
+                                        <angular2-date-picker  name="dateStoppedTaking"
+                                                               id="dateStoppedTakingId" [settings]="settings" [(ngModel)]="medicationModel.dateStoppedTakingDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
                                     </div>
-                                </div>
-                                <div class="form-group hr mrgn-btm08">
-                                <label class="col-md-4 control-label txt-size pdng-lr-5">
-                                    Drug name:<span class="required" aria-required="true"> * </span>
-                                </label>
-                                <div class="col-md-8 select pdng-lr-5" >
-                                    <p-dropdown  placeholder="{{selectedDrug}}" [autoWidth]="false" [(ngModel)]="selectedDrug"
-                                                 [style]="{'text-align': 'left' ,'width':'100%'}"  [ngModelOptions]="{standalone: true}"
-                                                 (onChange)="search($event.value)"
-                                                 [options]="searchedDrugNamesLstNew"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                    </p-dropdown>
-                                </div>
-                            </div>
-                                <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Strength</label>
-                                    <div class="col-md-8 pdng-lr-5">
-                                        <p-dropdown placeholder="{{selectedstr}}"  [(ngModel)]="selectedstr"  [autoWidth]="false"   [style]="{'text-align': 'left' ,'width':'100%'}"
-                                                    required id="strengths"
-                                                    name="strengths" [options]="searchedDrugStrengthsAnyListModified"
-                                                    #strengths="ngModel">
-                                        </p-dropdown>
-
-                                        <span *ngIf="strengths.invalid && strengths.touched"
-                                              class="col-md-9 select pdng-lr-5 text-danger">
-                                                Please Select.
-                                        </span>
-                                    </div>
-
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Indication</label>
@@ -859,33 +860,37 @@
                                     </div>
                                 </div>
                                 <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Notes</label>
+                                    <div class="col-md-8 select pdng-lr-5">
+                                <textarea class="form-control"
+                                          rows="3" id="noteId" name="note" placeholder="e.g Sample"
+                                          [(ngModel)]="medicationModel.note">
+                                </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group hr mrgn-btm08">
+                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
+                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
+                                        <!--<select class="form-control"
+                                                name="status" [ngModelOptions]="{standalone:true}"
+                                                id="statusId"
+                                                [(ngModel)]="medicationModel.status">
+                                            <option value="ACTIVE">Active</option>
+                                            <option value="IN_ACTIVE">In_Active</option>
+                                        </select>-->
+                                        <p-dropdown  placeholder={{medicationModel.status}} [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="statusType"
+                                                     [options]="statusType"
+                                                     [(ngModel)]="medicationModel.status"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="form-group hr mrgn-btm08">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Duration Period</label>
                                     <div class="col-md-8 select pdng-lr-5">
                                         <p-dropdown  placeholder="select Duration" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" name="durationList"
                                                      [options]="durationList"
                                                      [(ngModel)]="medicationModel.durationPeriod"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                         </p-dropdown>
-                                    </div>
-                                </div>
-                                <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Datetime Prescribed:</label>
-                                    <div class="col-md-8 select pdng-lr-5">
-                                        <angular2-date-picker  name="datePrescribed" id="datePrescribedId" [settings]="settings" [(ngModel)]="medicationModel.datePrescribedDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
-                                    </div>
-                                </div>
-                                <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 control-label txt-size pdng-lr-5">Stopped Date Taking:</label>
-                                    <div class="col-md-8 select pdng-lr-5">
-                                        <angular2-date-picker  name="dateStoppedTaking"
-                                                               id="dateStoppedTakingId" [settings]="settings" [(ngModel)]="medicationModel.dateStoppedTakingDate" [ngModelOptions]="{standalone:true}"></angular2-date-picker>
-                                    </div>
-                                </div>
-                                <div class="form-group hr mrgn-btm08">
-                                    <label class="col-md-4 pdng-lr-5 control-label txt-size">Sig</label>
-                                    <div class="col-md-8 select pdng-lr-5 profile-frm">
-                                        <input class="form-control" id="pharmacyNoteId" name="pharmacyNote"
-                                               rows="3" placeholder="e.g www.www.com"
-                                               [(ngModel)]="medicationModel.pharmacyNote">
                                     </div>
                                 </div>
                             </div>
