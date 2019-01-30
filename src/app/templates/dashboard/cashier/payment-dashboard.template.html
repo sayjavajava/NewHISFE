@@ -7,7 +7,7 @@
                 <h4 class="text-info mrgn-btm8">
                     <b>Patient Invoice</b>
                 </h4>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-4 col-sm-6 no-padding">
                     <div class="sub-total">
                         <ul>
                             <li> <span>Invoice Id:</span>    <span  class="text-align-left"> {{invoicePrefix}} </span> </li>
@@ -22,7 +22,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="sub-total">
                         <ul>
                             <li> <span>Invoice Id:</span><span  class="text-align-left"> {{invoicePrefix}} </span> </li>
@@ -31,6 +31,15 @@
 
                             <li> <span>Cashier Name:</span><span  class="text-align-left">Administrator</span>    </li>
                         </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-3 pdng-lr-5"></label>
+                        <div class="col-md-6 pdng-lr-5 text-center">
+                            <img class="img-responsive" width="100%" src="/public/images/barcode.jpg" />
+                            <span class="">Invoice #654654</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,38 +110,35 @@
                             <input type="number" class="form-control text-align-right" min="0" (blur)="checkDiscount($event.target.value)" name="discountAmount" [(ngModel)]="discountAmount" [step]="0.01">
                         </div>
                     </div>
-                    <div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
-                        <label class="col-md-4 pdng-lr-5">Advance Used :</label>
-                        <div class="col-md-8 pdng-lr-5 profile-frm">
-                            <input type="number" class="form-control text-align-right" min="0" max="{{patientAdvanceDeposit}}" name="usedAdvanceDeposit"
-                                   id="usedAdvanceDeposit" (blur)="useAdvanceBalance($event.target.value)" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
+                    <div class="form-group hr mrgn-top8">
+                        <div class="pull-right">
+                        <button  class="btn default" (click)="backPage()"> Cancel</button>
+                        <span *ngIf="isPaymentOK">
+                                    <button  class="btn primary blue" (click)="savePayment()"> Add </button>
+                                </span>
                         </div>
                     </div>
-                    <div class="form-group mrgn-btm08">
-                        <!-- <div class="col-md-2">
-                            <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                <input type="checkbox" class="form-control"
-                                       name="useAdvancedBal"
-                                       [(ngModel)]="useAdvancedBal"><span></span>
-                            </label>
-                        </div>
-                        <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
-                        <label class="col-md-4 pdng-lr-5"> Use Advanced </label>
-                        <div class="col-md-8 pdng-lr-5">
-                            <label class="mt-checkbox mt-checkbox-outline">
-                                <input type="checkbox" (change)="checkExistingAdvanceBal()"  [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
-                                <span></span>
-                            </label>
-                            <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
-                        </div>
+                    <div class="table-scrollable">
+                        <table class="table table-bordered table-hover off-wite-bg text-center">
+                            <tbody>
+                            <tr>
+                                <td> Cash </td>
+                                <td> 20.00 </td>
+                                <td> <i class="fa fa-close text-danger"></i> </td>
+                            </tr>
+                            <tr>
+                                <td> Visa </td>
+                                <td> 25.25 </td>
+                                <td> <i class="fa fa-close text-danger"></i> </td>
+                            </tr>
+                            <tr>
+                                <td> Cash </td>
+                                <td> 20.00 </td>
+                                <td> <i class="fa fa-close text-danger"></i> </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="form-group  pull-right mrgn-top8">
-                    <button  class="btn default" (click)="backPage()"> Cancel</button>
-                    <span *ngIf="isPaymentOK">
-                        <button  class="btn primary blue" (click)="savePayment()"> Payment </button>
-                    </span>
-
                 </div>
                 <!--<div class="form-group hr">
                     <div class="sub-total">
@@ -157,7 +163,7 @@
                 <div class="off-wite-bg padding-10 sub-total">
                     <ul>
                         <li>
-                            <span>Gross Amount:</span> <span>{{grandTotal | number :'.2-2'}}</span>
+                            <span>Total Invoice Amount:</span> <span>{{grandTotal | number :'.2-2'}}</span>
                         </li>
                         <li>
                             <span>Total Discount:</span> <span class="amount-border-botom">{{grandTotalDiscount | number :'.2-2'}}</span>
@@ -167,6 +173,44 @@
                         </li>
                         <li>
                             <span>Total Tax</span> <span>{{grandTotalTax | number :'.2-2'}}</span>
+                        </li>
+                        <li>
+                            <div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
+                                <label class="col-md-4 no-padding-lft bold">Advance Used :</label>
+                                <div class="col-md-8 no-padding-rgt profile-frm">
+                                    <input type="number" class="form-control text-align-right" min="0" max="{{patientAdvanceDeposit}}" name="usedAdvanceDeposit"
+                                           id="usedAdvanceDeposit" (blur)="useAdvanceBalance($event.target.value)" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
+                                </div>
+                            </div>
+                            <div class="form-group mrgn-btm08">
+                                <!-- <div class="col-md-2">
+                                    <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                        <input type="checkbox" class="form-control"
+                                               name="useAdvancedBal"
+                                               [(ngModel)]="useAdvancedBal"><span></span>
+                                    </label>
+                                </div>
+                                <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
+                                <label class="col-md-4 no-padding-lft bold"> Use Advanced </label>
+                                <div class="col-md-8 no-padding-rgt">
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox" (change)="checkExistingAdvanceBal()"  [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
+                                        <span class="width100"></span>
+                                    </label>
+                                    <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group mrgn-btm08">
+                                <label class="col-md-4 no-padding-lft bold"> Received Due </label>
+                                <div class="col-md-8 no-padding-rgt">
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox" class="">
+                                        <span class="width100"></span>
+                                    </label>
+                                </div>
+                            </div>
                         </li>
                         <li>
                             <span>Grand Total:</span> <span class="amount-border-botom amount-border-top">{{grandTotalWithTax | number :'.2-2'}}</span>
@@ -187,6 +231,15 @@
                                 <span>0.00</span>
                             </li>
                         </ul> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right mrgn-top8">
+                    <span><button class="btn default"> Cancel </button></span>
+                    <button class="btn primary blue"> Save </button>
+                    <span><button class="btn mt-sweetalert green-meadow"> Complete </button></span>
                 </div>
             </div>
         </div>
