@@ -26,7 +26,7 @@ export class Patient {
     primaryDoctorLastName: string = "";
     patientGroup: string = "";
     patientGroupId: number;
-
+    foreignName:string;
     ////////Appointment
     pastAppointments: any = [];
     futureAppointments: any[];
@@ -63,7 +63,11 @@ export class Patient {
     photoFrontURL: string;
     photoFront: File;
     photoBack: File;
-
+    age:number;
+    createDate:string;
+    dobStr:string;
+    insurancePlan:string;
+    insuranceProfile:string;
     ////////////Smoking Status
     smokingStatus: any [];
 

@@ -41,6 +41,8 @@ export class PatientLabOrdersComponent implements OnInit {
     patient:Patient =new Patient();
     cols: any[];
     labTestFiltered:any[]=[];
+    profileImg: File = null;
+    testId:number;
     constructor(private router: Router,private route:ActivatedRoute,private fb:FormBuilder,private requestService:RequestsService,
                 private notificationService:NotificationService,private hISUtilService: HISUtilService,private confirmationDialogService: ConformationDialogService ) {
     }
@@ -49,7 +51,7 @@ export class PatientLabOrdersComponent implements OnInit {
             this.id = params['id'];
         });
         this.allorganizationData();
-       this.createLabOrderForm();
+        this.createLabOrderForm();
 
         this.loadRecord();
         this.labForm.controls['patientId'].setValue(this.id);
@@ -59,12 +61,21 @@ export class PatientLabOrdersComponent implements OnInit {
         //  this.addMoreTest();
 
         this.cols = [
-            { field: 'name', header: 'Doctor Name' },
-            { field: 'TestDate', header: 'Test Date' },
-            { field: 'orderStatus', header: 'Order Status' },
-            { field: 'description', header: 'Description' },
-            { field: 'LabTest', header: 'Lab Test' },
-            { field: 'action', header: 'Action' }
+            { field:'TestDate',header:'Test Date Time'},
+            { field: 'name', header: 'Ordering  Doctor ' },
+            { field: 'description', header: 'Comments' },
+            { field: 'Appointment', header: 'Appointment' },
+            { field: 'Lab', header: 'Lab' },
+            { field: 'result', header: 'Result value' },
+            { field: 'normal  Range', header: 'Normal Range ' },
+            { field: 'unit', header: 'Unit ' },
+            { field: 'action', header: 'Action' },
+            /* { field: 'name', header: 'Doctor Name' },
+             { field: 'TestDate', header: 'Test Date' },
+             { field: 'orderStatus', header: 'Order Status' },
+             { field: 'description', header: 'Description' },
+             { field: 'LabTest', header: 'Lab Test' },
+             { field: 'action', header: 'Action' }*/
         ];
     }
 
@@ -174,7 +185,7 @@ export class PatientLabOrdersComponent implements OnInit {
                     });
 
         } else {
-            this.validateAllFormFields(this.labForm);
+            // this.validateAllFormFields(this.labForm);
         }
 
     }
@@ -221,12 +232,12 @@ export class PatientLabOrdersComponent implements OnInit {
         })*/
         //console.log('lab tes'+ labTestFiltered[0]);
     }
-    updateOrder(id:number){
-        console.log('dmmm');
-        this.orderId = id;
+    updateOrder(id:number,idNew:number){
 
+        this.orderId = id;
+        this.testId=idNew;
         // this.router.navigate("['/dashboard/patient/create-order/',id,'add',orderId,'order']");
-        this.router.navigate(['/dashboard/patient/create-order',this.id,'add',this.orderId,'order']);
+        this.router.navigate(['/dashboard/patient/create-order',this.id,'add',this.orderId,'order',this.testId]);
     }
 
     validateAllFormFields(formGroup: FormGroup) {
@@ -261,5 +272,18 @@ export class PatientLabOrdersComponent implements OnInit {
                     });
                 }
             });
+    }
+
+
+
+    uploadImgOnChange(event: any) {
+
+        let fileList: FileList = event.target.files;
+        debugger
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
     }
 }

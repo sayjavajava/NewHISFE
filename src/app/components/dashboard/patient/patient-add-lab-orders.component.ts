@@ -56,6 +56,9 @@ export class PatientAddLabOrdersComponent implements OnInit {
     data: LabTestSpecimanModel[];
     selectedTestNew: SelectItem[] = [];
     testList:any[]=[];
+    profileImg: File = null;
+    urlOrganization:string="/public/images/company-logo-placeholder.jpg";
+    testId:number;
     getAllTestSpecimanList() {
         if (localStorage.getItem(btoa('access_token'))) {
             this.requestService.getRequest(AppConstants.FETCH_LAB_TEST_SPECIMAN_CONFIGURATIONS
@@ -65,11 +68,11 @@ export class PatientAddLabOrdersComponent implements OnInit {
                         this.data = response['responseData'];
                         this.testList=response['responseData'];
                         if(this.testList.length>0){
-                        for (let test of this.testList) {
-                            var pair: any = {label: test.testName, value: test.id};
-                            this.searchedNamesLstNew.push(pair);
-                        }
-                        console.log(this.data);
+                            for (let test of this.testList) {
+                                var pair: any = {label: test.testName, value: test.id};
+                                this.searchedNamesLstNew.push(pair);
+                            }
+                            console.log(this.data);
                         }
                         // this.cars = response['responseData'];
                     } else {
@@ -87,10 +90,10 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
 
     filterLabTestSingle(event:any) {
-      //  let query = event.query;
+        //  let query = event.query;
 
         if(event>0) {
-             this.filteredTestSingle = this.testList.filter((listing: any) => listing.id === event);
+            this.filteredTestSingle = this.testList.filter((listing: any) => listing.id === event);
 
 
             if (this.filteredTestSingle.length > 0) {
@@ -161,6 +164,9 @@ export class PatientAddLabOrdersComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.orderId = params['orderId'];
         });
+        this.route.params.subscribe(params => {
+            this.testId = params['orderCode'];
+        });
         this.getAllTestSpecimanList()
         this.createLabOrderForm();
         this.loadRecord();
@@ -214,7 +220,11 @@ export class PatientAddLabOrdersComponent implements OnInit {
                         //   this.doctorAppointment=apptId[]
                         console.log(apptId);
                         this.appointmentId  = apptId[0].id;
-
+                        if(this.appointmentList.length>0){
+                            let doctorName= this.appointmentList.filter((listing: any) => listing.id === this.appointmentId);
+                            this.doctorAppointment=doctorName[0].docFirstName+' '+doctorName[0].docLastName;
+                            this.showDoctor=true;
+                            this.labForm.controls['appointmentId'].setValue(this.appointmentId);}
                         console.log('test appoint id :'+ this.appointmentId)
                     } else {
                         this.notificationService.error(response['responseMessage'], 'Patient');
@@ -250,7 +260,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
     }
 
     public patchOrderData() {
-        this.requestService.getRequest(AppConstants.FETCH_LABORDER_BY_ID + this.orderId).subscribe(
+        this.requestService.getRequest(AppConstants.FETCH_LABORDER_BY_ID + this.orderId + '?orderId=' + this.testId).subscribe(
             res => {
 
 
@@ -260,63 +270,77 @@ export class PatientAddLabOrdersComponent implements OnInit {
                     this.labTestList=res['responseData']['labTest'];
                     this.listOfAppointment=res['responseData']['appointment'];
                     this.LabReadList=this.labTestList;
-                    if(this.LabReadList.length >0 ){
-                    for(let i = 0; i < this.LabReadList.length; i++) {
-                        let test = this.LabReadList[i]
-                        //labTests[i];
 
-                        if(test!=null) {
-                            this.LabReadList[i].testCode=test.loincCode;
-                            this.LabReadList[i].resultValue=test.resultValue;
-                            this.LabReadList[i].unit=test.units;
-                            this.LabReadList[i].minNormalRange=test.normalRange;
+
+                    if(this.LabReadList.length >0 ){
+                        for(let i = 0; i < this.LabReadList.length; i++) {
+                            let test = this.LabReadList[i]
+                            //labTests[i];
+
+                            if(test!=null) {
+                                this.LabReadList[i].testCode=test.loincCode;
+                                this.LabReadList[i].resultValue=test.resultValue;
+                                this.LabReadList[i].unit=test.units;
+                                this.LabReadList[i].minNormalRange=test.normalRange;
+                            }
                         }
-                    }
-                    this.addUpdateResponseTest(this.LabReadList.length);
-                    console.log(this.patient);
+                        this.addUpdateResponseTest(this.LabReadList.length);
+                        console.log(this.patient);
                     }
                     if(this.labOrder.length>0) {
                         let associateAppoint = this.labOrder[0].appointment;
+                        this.urlOrganization=this.labOrder[0].imgURL;
 
+                        let selectAppointment=this.patient.pastAppointments.filter((listing: any) => listing.id === associateAppoint.id);
 
-                    let selectAppointment=this.patient.pastAppointments.filter((listing: any) => listing.id === associateAppoint.id);
-
-                 //   console.log(this.labOrder.appointment[0].id);
-                    this.appointmentId=selectAppointment.appointmentId;
-                    if(selectAppointment!=null){
-                        this.selectedAppointmentId=selectAppointment[0].label;
+                        //   console.log(this.labOrder.appointment[0].id);
+                        this.appointmentId=selectAppointment.appointmentId;
+                        if(selectAppointment!=null){
+                            this.selectedAppointmentId=selectAppointment[0].label;
+                        }
                     }
-                    }
-                 //   console.log(this.labOrder);
+                    //   console.log(this.labOrder);
                     /*let apptId = res['responseData']['pastAppointments'];
                     this.appointmentList=response['responseData']['pastAppointments'];*/
-               //     debugger;
+                    //     debugger;
                     //   this.doctorAppointment=apptId[]
-                //    console.log(apptId);
-                //    this.appointmentId  = apptId[0].id;
+                    //    console.log(apptId);
+                    //    this.appointmentId  = apptId[0].id;
                     if(this.LabReadList.length>0){
-                    this.selectedString=this.LabReadList[0].testCode.toString();
+                        this.selectedString=this.LabReadList[0].testCode.toString();
                     }
                     if(this.labOrder.length>0) {
                         let DateTest = this.labOrder[0].dateTest;
+                        debugger;
                         if (DateTest != null) {
                             DateTest = new Date(this.labOrder[0].dateTest);
+
 
                         } else {
                             DateTest = new Date();
                         }
-                   //     document.getElementById("TestDate") = DateTest;
+                        this.dateTest=DateTest;
+                        //  document.getElementById("TestDate") = DateTest;
+                        /* this.labForm.patchValue({
+                         //    orderStatus: this.labOrder[0].status,
+                             dateTest: DateTest
+                        //    comments: this.labOrder[0].comments,
+                        ///     labTest : this.LabReadList,
+
+
+
+                         });*/
                     }
                     if(this.labOrder.length>0) {
-                    this.labForm.patchValue({
-                        orderStatus: this.labOrder[0].status,
-                     //   dateTest: DateTest,
-                        comments: this.labOrder[0].comments,
-                        labTest : this.LabReadList,
+                        this.labForm.patchValue({
+                            orderStatus: this.labOrder[0].status,
+                            //      dateTest: DateTest,
+                            comments: this.labOrder[0].comments,
+                            labTest : this.LabReadList,
 
 
 
-                    });
+                        });
                     }
 
                     this.isUpdate=true;
@@ -326,43 +350,43 @@ export class PatientAddLabOrdersComponent implements OnInit {
                     // this.router.navigate(['404-not-found'])
                 }
 
-               /* this.LabReadList=res.labTests;
-                for(let i = 0; i < res.labTests.length; i++) {
-                    let test = res.labTests[i];
+                /* this.LabReadList=res.labTests;
+                 for(let i = 0; i < res.labTests.length; i++) {
+                     let test = res.labTests[i];
 
-                    if(test!=null) {
-                        this.LabReadList[i].testCode=test.loincCode;
-                        this.LabReadList[i].resultValue=test.resultValue;
-                        this.LabReadList[i].unit=test.units;
-                        this.LabReadList[i].minNormalRange=test.normalRange;
-                    }
-                }*/
-               /* debugger;
-                this.addUpdateResponseTest(res.labTests.length);
+                     if(test!=null) {
+                         this.LabReadList[i].testCode=test.loincCode;
+                         this.LabReadList[i].resultValue=test.resultValue;
+                         this.LabReadList[i].unit=test.units;
+                         this.LabReadList[i].minNormalRange=test.normalRange;
+                     }
+                 }*/
+                /* debugger;
+                 this.addUpdateResponseTest(res.labTests.length);
 
-                let selectAppointment=this.patient.pastAppointments.filter((listing: any) => listing.appointmentId === res.appointment[0].appointmentId);
-                debugger;
-                if(selectAppointment!=null){
-                    this.selectedAppointmentId=selectAppointment[0].label;
-                }*/
+                 let selectAppointment=this.patient.pastAppointments.filter((listing: any) => listing.appointmentId === res.appointment[0].appointmentId);
+                 debugger;
+                 if(selectAppointment!=null){
+                     this.selectedAppointmentId=selectAppointment[0].label;
+                 }*/
                 /*debugger;
                 for (let sel of selectAppointment) {
                     var pair: any = {label: sel.label, value: sel.label};
                     this.selectedAppointmentId.push(pair);
                 }*/
 
-               /* this.selectedString=res.labTests[0].testCode.toString();
-                debugger;
-                this.labForm.patchValue({
-                    orderStatus: res.status,
-                    orderTestDate: new Date(),
-                    comments: res.comments,
-                    labTest : res.labTests,
+                /* this.selectedString=res.labTests[0].testCode.toString();
+                 debugger;
+                 this.labForm.patchValue({
+                     orderStatus: res.status,
+                     orderTestDate: new Date(),
+                     comments: res.comments,
+                     labTest : res.labTests,
 
 
 
-                });
-                this.isUpdate=true;*/
+                 });
+                 this.isUpdate=true;*/
 
             }, (error: any) => {
                 //console.log(error.json());
@@ -424,43 +448,43 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
 
     }
-   /* addLabOrder(data:any ){
+    /* addLabOrder(data:any ){
 
-        data.testDate=new Date(this.dateTest);
-        debugger;
-            if (this.labForm.valid) {
-                if (this.orderId > 0) {
+         data.testDate=new Date(this.dateTest);
+         debugger;
+             if (this.labForm.valid) {
+                 if (this.orderId > 0) {
 
-                    this.requestService.putRequest(AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
-                        .subscribe(
-                            (response: Response) => {
-                                if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
-                                    this.notificationService.success('LabOrder is Updated Successfully');
-                                    this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
-                                }
-                            }, function (error) {
-                                this.notificationService.error('ERROR', 'LabOrder is not Updated');
-                            });
-                } else {
-                    debugger;
-                    data.labTest = this.LabReadList;
-                    this.requestService.postRequest(AppConstants.LAB_ORDER_CREATE, data)
-                        .subscribe(
-                            (response: Response) => {
-                                if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
-                                    this.notificationService.success('LabOrder is Created Successfully');
-                                    this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
-                                }
-                            }, function (error) {
-                                this.notificationService.error('ERROR', 'LabOrder is not Created');
-                            });
-                }
+                     this.requestService.putRequest(AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
+                         .subscribe(
+                             (response: Response) => {
+                                 if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
+                                     this.notificationService.success('LabOrder is Updated Successfully');
+                                     this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
+                                 }
+                             }, function (error) {
+                                 this.notificationService.error('ERROR', 'LabOrder is not Updated');
+                             });
+                 } else {
+                     debugger;
+                     data.labTest = this.LabReadList;
+                     this.requestService.postRequest(AppConstants.LAB_ORDER_CREATE, data)
+                         .subscribe(
+                             (response: Response) => {
+                                 if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
+                                     this.notificationService.success('LabOrder is Created Successfully');
+                                     this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
+                                 }
+                             }, function (error) {
+                                 this.notificationService.error('ERROR', 'LabOrder is not Created');
+                             });
+                 }
 
-            } else {
-                this.validateAllFormFields(this.labForm);
-            }
+             } else {
+                 this.validateAllFormFields(this.labForm);
+             }
 
-    }*/
+     }*/
 
     addLabOrder(data:any ){
 
@@ -468,62 +492,62 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
 
 
-                if (this.orderId > 0) {
-                    data.labTest = this.LabReadList;
-                    data.testDate=new Date(this.dateTest);
-                    console.log(data);
-
-                    this.requestService.putRequest(AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
-                        .subscribe(
-                            (response: Response) => {
-                                if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
-                                    this.notificationService.success('LabOrder is Updated Successfully');
-                                    this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
-                                }
-                            }, function (error) {
-                                this.notificationService.error('ERROR', 'LabOrder is not Updated');
-                            });
-                } else {
-                    data.labTest = this.LabReadList;
-                    if (this.labForm.valid) {
-                    console.log(data);
-                    this.requestService.postRequest(AppConstants.LAB_ORDER_CREATE, data)
-                        .subscribe(
-                            (response: Response) => {
-                                if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
-                                    this.notificationService.success('LabOrder is Created Successfully');
-                                    this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
-                                }
-                            }, function (error) {
-                                this.notificationService.error('ERROR', 'LabOrder is not Created');
-                            });
-                    }else {
-                        this.validateAllFormFields(this.labForm);
-                    }
-                }
-
-
-
-            }
-       /*else{
-
-            if (this.orderId > 0) {
-                data.labTest = this.LabReadList;
-                data.testDate=new Date(this.dateTest);
+        if (this.orderId > 0) {
+            data.labTest = this.LabReadList;
+            data.testDate=new Date(this.dateTest);
+            console.log(data);
+//put request
+            this.requestService.putRequestMultipartFormAndDataWithOneFile(AppConstants.LAB_ORDER_UPDATE + this.orderId, data,this.profileImg)
+                .subscribe(
+                    (response: Response) => {
+                        if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
+                            this.notificationService.success('LabOrder is Updated Successfully');
+                            this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
+                        }
+                    }, function (error) {
+                        this.notificationService.error('ERROR', 'LabOrder is not Updated');
+                    });
+        } else {
+            data.labTest = this.LabReadList;
+            if (this.labForm.valid) {
                 console.log(data);
-                debugger;
-                this.requestService.putRequest(AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
+                this.requestService.postRequestMultipartFormAndDataWithOneFile(AppConstants.LAB_ORDER_CREATE, data,this.profileImg)
                     .subscribe(
                         (response: Response) => {
-                            if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
-                                this.notificationService.success('LabOrder is Updated Successfully');
+                            if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
+                                this.notificationService.success('LabOrder is Created Successfully');
                                 this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
                             }
                         }, function (error) {
-                            this.notificationService.error('ERROR', 'LabOrder is not Updated');
+                            this.notificationService.error('ERROR', 'LabOrder is not Created');
                         });
+            }else {
+                this.validateAllFormFields(this.labForm);
             }
-        }*/
+        }
+
+
+
+    }
+    /*else{
+
+         if (this.orderId > 0) {
+             data.labTest = this.LabReadList;
+             data.testDate=new Date(this.dateTest);
+             console.log(data);
+             debugger;
+             this.requestService.putRequest(AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
+                 .subscribe(
+                     (response: Response) => {
+                         if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
+                             this.notificationService.success('LabOrder is Updated Successfully');
+                             this.router.navigate(['/dashboard/patient/lab-orders/', this.id, 'history']);
+                         }
+                     }, function (error) {
+                         this.notificationService.error('ERROR', 'LabOrder is not Updated');
+                     });
+         }
+     }*/
 
 
 
@@ -566,7 +590,7 @@ export class PatientAddLabOrdersComponent implements OnInit {
         this.selectedTest.minNormalRange=this.singleObj.minNormalRange +"-"+this.singleObj.maxNormalRange;
         this.selectedTest.id=this.singleObj.id;
         this.selectedTest.resultValue=this.resultValue;
-      //  this.selectedTestNew=this.singleObj.testName;
+        //  this.selectedTestNew=this.singleObj.testName;
 
         if(!this.isEmpty(this.resultValue)) {
 
@@ -577,7 +601,13 @@ export class PatientAddLabOrdersComponent implements OnInit {
             let arr = this.filteredTestSingle.filter((listing: any) => listing.id === this.selectedTest.id);
             this.filteredTestSingle.splice(arr[0], 1);
         }else{
-            this.isError=true;
+            this.isError=false;
+            this.LabReadList.push(this.selectedTest);
+            this.show = false;
+            this.showEdit = false;
+            this.clearField();
+            let arr = this.filteredTestSingle.filter((listing: any) => listing.id === this.selectedTest.id);
+            this.filteredTestSingle.splice(arr[0], 1);
         }
     }
 
@@ -625,20 +655,20 @@ export class PatientAddLabOrdersComponent implements OnInit {
 
         this.selectedTest = new LabTestModel();
         if(this.LabReadList.length>0){
-        this.filterSpeciman.testCode = this.LabReadList[value].testCode;
-        this.filterSpeciman.unit=this.LabReadList[value].unit;
-        this.filterSpeciman.minNormalRange=this.LabReadList[value].minNormalRange;
-        this.filterSpeciman.id=this.LabReadList[value].id;
-        this.resultValue=this.LabReadList[value].resultValue;
-        this.selectedTest.testCode=this.LabReadList[value].testCode;
-        this.selectedTest.unit=this.LabReadList[value].unit;
-        this.selectedTest.minNormalRange=this.LabReadList[value].minNormalRange;
-        this.selectedTest.id=this.LabReadList[value].id;
-        this.selectedTest.resultValue=this.LabReadList[value].resultValue;
-        this.LabReadList[value]=this.selectedTest;
-        this.editIndex = value ;
-        this.show = true;
-        this.showEdit=true;
+            this.filterSpeciman.testCode = this.LabReadList[value].testCode;
+            this.filterSpeciman.unit=this.LabReadList[value].unit;
+            this.filterSpeciman.minNormalRange=this.LabReadList[value].minNormalRange;
+            this.filterSpeciman.id=this.LabReadList[value].id;
+            this.resultValue=this.LabReadList[value].resultValue;
+            this.selectedTest.testCode=this.LabReadList[value].testCode;
+            this.selectedTest.unit=this.LabReadList[value].unit;
+            this.selectedTest.minNormalRange=this.LabReadList[value].minNormalRange;
+            this.selectedTest.id=this.LabReadList[value].id;
+            this.selectedTest.resultValue=this.LabReadList[value].resultValue;
+            this.LabReadList[value]=this.selectedTest;
+            this.editIndex = value ;
+            this.show = true;
+            this.showEdit=true;
         }
 
 
@@ -671,4 +701,16 @@ export class PatientAddLabOrdersComponent implements OnInit {
         return this.LabReadList.id === this;
     }
 
+
+
+    uploadImgOnChange(event: any) {
+
+        let fileList: FileList = event.target.files;
+        debugger
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
+    }
 }

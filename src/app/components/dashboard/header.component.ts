@@ -21,11 +21,16 @@ export class HeaderComponent implements OnInit {
     items:any[];
     items2:any=[];
     isPresent:boolean=false;
+    isUserLoggedIn: boolean;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private userSharedService: UserSharedService,
                 private HISUtilService: HISUtilService,
                 private permissionService: PermissionsService) {
+
+        this.userSharedService.isUserLoggedIn.subscribe( value => {
+            this.isUserLoggedIn = value;
+        });
         this.items = [
             /*{
                 label: 'Dashboard', icon: 'icon-home',
@@ -201,7 +206,7 @@ export class HeaderComponent implements OnInit {
     }
 
     goToUserDashBoard() {
-        //this.router.navigate(['/dashboard/'+window.localStorage.getItem(atob('user_type'))+'/']);
+
         this.router.navigate(['/dashboard/' + atob(localStorage.getItem(btoa('user_type'))) + '/']);
     }
 }

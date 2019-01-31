@@ -335,6 +335,9 @@ var AppConstants = (function () {
     ///////////////////////// GRUG MANUFACTURERS
     AppConstants.FETCH_ALL_DRUG_MAKERS = '/setting/drugManufacturer/getAll';
     AppConstants.FETCH_ALL_ACTIVE_DRUG_MAKERS = '/setting/drugManufacturer/getAllActive';
+    /////////////////////
+    AppConstants.INS_PROFILE_DATA_TABLE = '/setting/Insurrance/InsuranceProfile';
+    AppConstants.INS_PROFILE_SAVE = '/setting/Insurrance/plan/save';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

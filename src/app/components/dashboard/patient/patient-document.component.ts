@@ -29,6 +29,7 @@ export class PatientDocumentsComponent implements OnInit {
     private subscription: Subscription;
     reportType:any;
     cols: any[];
+    public loading = false;
     constructor(private notificationService: NotificationService,private route:ActivatedRoute,
                 private requestsService: RequestsService,
                 private HISUtilService: HISUtilService,
@@ -98,6 +99,7 @@ export class PatientDocumentsComponent implements OnInit {
 
             if (!this.isRequestUnderProcess) {
                 this.isRequestUnderProcess = true;
+                this.loading =true;
                 this.dm.patientId = this.selectedPatientId;
                 this.requestsService.postRequestMultipartFormAndDataWithOneFile(
                     AppConstants.DOCUMENT_SAVE_URL,
@@ -109,6 +111,7 @@ export class PatientDocumentsComponent implements OnInit {
                             this.uploadedImage = null;
                             this.notificationService.success(response['responseMessage'], 'Document');
                             this.getPageWiseDocumentsFromServer(0);
+                             this.loading =false;
                         } else {
                             this.notificationService.error(response['responseMessage'], 'Document');
                         }

@@ -50,7 +50,11 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     allVitalsNamesAny: any[];
     vitalList: PatientVitalModel[];
     vitalListData: PatientVitalModel[];
-
+    vitalListReadDataNew:any[]=[];
+    vitalListReadDataNewLst:any[]=[];
+    cols: any[]=[];
+    chiefComplaint: string;
+    lastAppointment:string;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -85,7 +89,11 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
             response => {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
+                    console.log(this.patient)
                     let apptId = response['responseData']['pastAppointments'];
+                    debugger;
+                    console.log(apptId);
+
                 }
             },
             (error: any) => {
@@ -109,6 +117,8 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                         this.problemPages = response['responseData']['pages'];
                         this.problemActiveData = [];
                         this.problemActiveData = response['responseData']['data'];
+                        debugger;
+                        console.log(this.problemActiveData);
                     }
                 },
                 (error: any) => {
@@ -193,7 +203,9 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     addVitalPopupClick() {
         this.isUpdate = false;
         this.vitalSetupTemplate = new PatientVitalModel();
+
         this.getVitalSetupList();
+        this. chiefComplaint ='';
     }
 
     getVitalSetupList() {
@@ -203,7 +215,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
                         this.data = response['responseData'];
-                        console.log(this.data);
+                     //   console.log(this.data);
                         this.vitalList = this.data;
                         this.allVitalsNamesAny = this.data;
 
@@ -236,14 +248,35 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
-                       /* this.vitalNextPage = response['responseData']['nextPage'];
-                        this.vitalPrePage = response['responseData']['prePage'];
-                        this.vitalCurrPage = response['responseData']['currPage'];
-                        this.vitalPages = response['responseData']['pages'];*/
-                        // this.vitalActiveData=[];
+
                         this.vitalListData = response['responseData']['data'];
+                        this.chiefComplaint = response['responseData']['chiefComplaint'];
+                        this.cols.push({field: 'PCC', header: 'PCC'});
+                        this.vitalListReadDataNewLst.push(this.chiefComplaint);
+                        for(let i =0 ; i <this.vitalListData.length;i++){
+                            let temp={
+                                firstName : this.vitalListData[i].name,
+                                value : this.vitalListData[i].currentValue
+                            }
+                            debugger;
+                            //   this.vitalListReadDataNewLst.push()
+                            this.vitalListReadDataNew.push(temp);
+                        }
+
+                        for (let header of this.vitalListReadDataNew) {
+                            debugger;
+                            let item: any = {field: header.firstName, header: header.firstName};
+                            let item2:any  = {field: "currentValue", header: header.value};
+
+                            this.cols.push(item);
+
+                            this.vitalListReadDataNewLst.push(header.value);
+
+                            console.log(this.vitalListReadDataNewLst.length);
+
+                        }
                     } else {
-                        //  this.notificationService.error( 'Vital  Information not fetched');
+
                     }
                 },
                 (error: any) => {

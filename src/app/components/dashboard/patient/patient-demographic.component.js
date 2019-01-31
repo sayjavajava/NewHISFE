@@ -138,6 +138,8 @@ var PatientDemographicComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.patient = response['responseData'];
+                debugger;
+                console.log(_this.patient);
                 _this.smokeStatusList = response['responseData'].smokingStatus;
                 _this.selectedCountry = _this.patient.country;
                 _this.selectedState = _this.patient.state;

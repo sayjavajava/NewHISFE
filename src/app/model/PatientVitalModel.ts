@@ -10,7 +10,10 @@ export class PatientVitalModel{
     currentValue:string;
     listofVital:PatientVitalModel[];
     updatedOn: string;
-    // patient:Patient=new Patient();
-    constructor() {
-    }
+    chiefComplaint: string;
+    appointmentId:number = -1;
+
+// patient:Patient=new Patient();
+constructor() {
+}
 }

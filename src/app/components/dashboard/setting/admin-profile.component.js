@@ -17,15 +17,21 @@ var forms_1 = require("@angular/forms");
 var app_constants_1 = require("../../../utils/app.constants");
 var organization_1 = require("../../../model/organization");
 var PasswordValidator_1 = require("./PasswordValidator");
+var user_shared_service_1 = require("../../../services/user.shared.service");
 var AdminProfileComponent = (function () {
-    function AdminProfileComponent(route, router, requestService, fb, notificationService) {
+    function AdminProfileComponent(route, router, userSharedService, requestService, fb, notificationService) {
         this.route = route;
         this.router = router;
+        this.userSharedService = userSharedService;
         this.requestService = requestService;
         this.fb = fb;
         this.notificationService = notificationService;
         this.organization = new organization_1.Organization();
-        this.profileImg = null;
+        this.profileImgD = null;
+        this.showMenu = false;
+        this.showSettings = false;
+        this.items2 = [];
+        this.isPresent = false;
         //  this.getOrganizationAccount();
         this.getOrganizationFromServer(0);
     }
@@ -119,21 +125,20 @@ var AdminProfileComponent = (function () {
         debugger;
         if (fileList != null && fileList.length > 0) {
             if (event.target.name === "profileImgUrl") {
-                this.profileImg = fileList[0];
+                this.profileImgD = fileList[0];
             }
         }
     };
     AdminProfileComponent.prototype.uploadProfileImg = function () {
         var _this = this;
-        if (this.profileImg && this.profileImg.size <= 40000000) {
-            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PROFILE_NEW_IMAGE_URL + this.id, this.profileImg)
+        if (this.profileImg && this.profileImgD.size <= 40000000) {
+            this.requestService.postRequestMultipartFormData(app_constants_1.AppConstants.UPLOAD_PROFILE_NEW_IMAGE_URL + this.id, this.profileImgD)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'ORG_SUC_02') {
                     _this.urlOrganization = response['responseData'];
                     _this.notificationService.success('Profile Image has been updated Successfully');
-                    _this.profileImg = null;
-                    _this.router.navigate(['/dashboard/setting/admin/profile']);
-                    //   this.urlOrganization=response['responseData'];
+                    //    this.profileImgD = null;
+                    _this.userSharedService.isUserLoggedIn.next(true);
                 }
             }, function (error) {
                 _this.notificationService.error('Profile Image uploading failed', 'Update Profile');
@@ -148,7 +153,7 @@ var AdminProfileComponent = (function () {
             selector: 'icd-code-component',
             templateUrl: '../../../templates/dashboard/setting/admin-profile.template.html',
         }),
-        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, requests_service_1.RequestsService, forms_1.FormBuilder, notification_service_1.NotificationService])
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, user_shared_service_1.UserSharedService, requests_service_1.RequestsService, forms_1.FormBuilder, notification_service_1.NotificationService])
     ], AdminProfileComponent);
     return AdminProfileComponent;
 }());

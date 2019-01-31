@@ -83,35 +83,37 @@
                                  </label>-->
 
                                 <div class="col-md-5 pdng-lr-5" *ngIf="!isUpdate">
-                                    <p-dropdown  placeholder="select appointment"  [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
-                                                 (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
+
+
+                                    <p-dropdown class="slct-arrow-hidn" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt" readonly="true"
+                                                (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
-                                    <span class="text-danger"
+                                    <!--<span class="text-danger"
                                           *ngIf="!labForm.controls['appointmentId'].valid && labForm.controls['appointmentId'].touched">
                                                     <span *ngIf="labForm.controls['appointmentId'].errors.required"> Please Select Appointment </span>
-                                                </span>
+                                                </span>-->
                                 </div>
 
 
                                 <div class="col-md-5 pdng-lr-5" *ngIf="isUpdate">
-                                    <p-dropdown   [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
-                                                  (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true" disabled="appointmentId">
+                                    <p-dropdown class="slct-arrow-hidn"  [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'80%'}" name="apt"
+                                                (onChange) =selectedAppointment($event) [options]=" patient.pastAppointments" formControlName="appointmentId"  [panelStyle]="{minWidth:'12em'}" [filter]="true" disabled="appointmentId">
                                     </p-dropdown>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-8" *ngIf="showDoctor">
+                       <!-- <div class="col-md-8" *ngIf="showDoctor">
                             <div class="form-group mrgn-btm08">
                                 <label class="control-label col-md-3 pdng-lr-5"> Doctor </label>
-                                <!-- <label class="control-label txt-size pdng-lr-3">
+                                &lt;!&ndash; <label class="control-label txt-size pdng-lr-3">
                                      Appointments<span class="required" aria-required="true"> * </span>
-                                 </label>-->
+                                 </label>&ndash;&gt;
                                 <div class="col-md-5 pdng-lr-5">
                                     <input type="text"  class="form-control" formControlName="doctorName" value="{{doctorAppointment}}"  disabled>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="col-md-8">
                             <div class="form-group mrgn-btm08">
@@ -119,8 +121,8 @@
                                         class="required" aria-required="true"> * </span></label>
                                 <div class="col-md-5 pdng-lr-5">
 
-                                    <p-dropdown  placeholder="Select Status" [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="goToStatus($event)" name="pStatus"
-                                                 formControlName="orderStatus" [options]="statusType"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                    <p-dropdown placeholder= "Select Status "  [autoWidth]="false"  [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="goToStatus($event)" name="pStatus"
+                                                formControlName="orderStatus" [options]="statusType"   [panelStyle]="{minWidth:'12em'}" [filter]="true">
                                     </p-dropdown>
                                     <span class="text-danger"
                                           *ngIf="!labForm.controls['orderStatus'].valid && labForm.controls['orderStatus'].touched">
@@ -170,8 +172,8 @@
                                                     <span *ngIf="labForm.controls['testNameId'].errors.required"> Please Select Test </span>
                                     </span>
                                 </div>
-                                <div class="col-md-4 pdng-lr-5 font-siz">Test Name of the lab order.</div>
-                                <div class="col-md-5" *ngIf="isUpdate">
+
+                                <div class="col-md-5 pdng-lr-5" *ngIf="isUpdate">
                                     <!--<p-autoComplete   placeholder={{selectedString}} [suggestions]="filteredTestSingle"
                                                       formControlName="testNameId"
                                                       (completeMethod)="filterLabTestSingle($event)"
@@ -184,17 +186,39 @@
                                                  (onChange)="filterLabTestSingle($event.value)"
                                                  [options]="searchedNamesLstNew"  [panelStyle]="{minWidth:''}" [filter]="true" disabled="true">
                                     </p-dropdown>
+
                                 </div>
-                            </div>
-                            <div class="form-group mrgn-btm08">
-                                <label class="control-label col-md-3 pdng-lr-5">Upload Image</label>
-                                <div class="col-md-8 select patnt-img pdng-lr-5">
-                                        <input class="file" type="file" id="profileImgURL"
-                                               name="profileImgURL"
-                                               (change)="uploadImgOnChange($event)">
-                                </div>
+                                <div class="col-md-4 pdng-lr-5 font-siz">Test Name of the lab order.</div>
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 pdng-lr-5 control-label txt-size">Upload Photo</label>
+                                <div class="col-md-6 select pdng-lr-5">
+                                    <div class="logo-plchldr">
+                                        <!--<img class="img-responsive" style="width: 120px; height: 140px;"
+                                             src="/public/images/patient-photo.jpg"
+                                             *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
+
+                                        <img class="img-responsive" style="width: 120px; height: 140px;"
+                                             src="{{urlOrganization}}" >
+                                    </div>
+                                    <div class="mrgn-top8">
+                                        <input class="file" type="file" id="profileImgUrl"
+                                               name="profileImgUrl"
+                                               (change)="uploadImgOnChange($event)">
+
+                                    </div>
+                                    <!-- <div class="imgUploadTopMargin">
+                                         <button class="btn btn-default btn-outline"
+                                                 (click)="uploadProfileImg()">
+                                             <i class=" icon-arrow-up"></i>upload
+                                         </button>
+                                     </div>-->
+                                </div>
+                            </div></div>
+
                     </div>
                     <!-- <div class="row">
                          <form id="LabForm" *ngIf="showEdit" [formGroup]="labForm" #form="ngForm">
@@ -365,7 +389,7 @@
                                         <thead class="ui-table-thead">
                                         <tr role="row" class="">
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
-                                            <!-- <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Description </th> -->
+                                            <th width="12%" class="sorting_disabled" rowspan="1" colspan="1"> Test Name </th>
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result Value </th>
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Unit  </th>
                                             <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
@@ -377,9 +401,9 @@
                                             <td rowspan="1" colspan="1" class="custom-td-size">
                                                 <input type="text" name="code" value="{{filterSpeciman.testCode}}"  disabled class="form-control" >
                                             </td>
-                                            <!--<td class="sorting_disabled custom-td-size" rowspan="1" colspan="1">
+                                            <td class="sorting_disabled custom-td-size" rowspan="1" colspan="1">
                                                 <input type="text" class="form-control" name="testname" value="{{filterSpeciman.testName}}"  disabled>
-                                            </td>-->
+                                            </td>
                                             <!--   <td rowspan="1" colspan="1" class="custom-td-size">
                                                   <textarea type="text" name="description" value="{{selectedService.description}}" rows="1"></textarea>
                                               </td> -->
@@ -387,9 +411,9 @@
                                                 <input type="text" id="resultValueId" name="resultValue"  class="form-control" placeholder="eg 123.."
                                                        [(ngModel)]="resultValue"  >
 
-                                                <span class="text-danger">
-                                                    <span *ngIf="isError"> Please Enter Value </span>
-                                                </span>
+                                                <!-- <span class="text-danger">
+                                                     <span *ngIf="isError"> Please Enter Value </span>
+                                                 </span>-->
 
                                             </td>
                                             <td rowspan="1" colspan="1" class="custom-td-size">
@@ -404,7 +428,7 @@
                                             <td rowspan="1" colspan="1" class="custom-td-size">
                                                 <i (click)="clearField()" title="Remove" class="fa fa-close font-red"></i>
                                             </td>
-                                          </tr>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <div class="pull-right">
@@ -421,6 +445,7 @@
                                     <thead class="ui-table-thead">
                                     <tr role="row" class="off-wite-bg">
                                         <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
+                                        <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Name </th>
 
 
                                         <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result Value </th>
@@ -434,6 +459,7 @@
                                     <tr role="row" class="filter" *ngFor="let lbRT of LabReadList;  let idx = index">
                                         <!-- <td rowspan="1" colspan="1">{{lbRT.id}}</td>-->
                                         <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.testCode}}</td>
+                                        <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.testName}}</td>
                                         <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.resultValue }}</td>
                                         <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.unit}}</td>
                                         <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.minNormalRange}}</td>
@@ -446,10 +472,19 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-4 mrgn-top8"></div>
+
+                        <div class="col-md-4 mrgn-top8">
+
+                        </div>
+
+
                         <div class="col-md-12 mrgn-top14">
+
                             <div class="pull-right">
+
+
                                 <button class="btn blue" (click)="addLabOrder(labForm.value)"> Submit Order </button>
+
                             </div>
                         </div>
                     </div>

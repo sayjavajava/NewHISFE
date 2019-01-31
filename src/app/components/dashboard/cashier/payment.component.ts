@@ -44,7 +44,9 @@ export class PaymentComponent implements OnInit {
 
     paymentTypeList: any[];
     isPaymentOK = false;
-
+    imgBarcode:object;
+    img:any[];
+    invoiceNo:string;
     constructor(private router: Router,private route: ActivatedRoute, private requestsService: RequestsService , private notificationService: NotificationService) {
 
     }
@@ -76,6 +78,13 @@ export class PaymentComponent implements OnInit {
                 this.appointmentId = res.responseData.id;
                 this.receivedAmount = res.responseData.receivedAmount;
                 this.refundAmount = res.responseData.refundAmount;
+                this.imgBarcode=this.appointment.imgBarcode;
+                this.img=this.appointment.img;
+                var link = document.getElementById("ItemPreview");
+                link.setAttribute("src","data:image/png;base64," + this.img);
+                var myString = this.invoicePrefix;
+            //    this.invoiceNo=myString;
+                this.invoiceNo = myString.substr(3);
                 console.log("Appointment ID : " + this.appointmentId );
 
                 this.getInvoiceItemsById();

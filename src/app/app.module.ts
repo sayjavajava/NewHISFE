@@ -181,6 +181,8 @@ import {PanelModule} from "primeng/panel";
 import {GalleriaModule} from 'primeng/components/galleria/galleria';
 import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
 import {FileServices} from "./services/FileServices";
+import {InsurranceplanComponent} from "./components/dashboard/setting/insurranceplan.component";
+import {InsurranceprofileComponent} from "./components/dashboard/setting/insuranceprofile.component";
 import {StepsModule} from 'primeng/components/steps/steps';
 import {ImportPatientDataComponent} from "./components/dashboard/patient/import-patient-data.component";
 import {RadioButtonModule} from 'primeng/components/radiobutton/radiobutton';
@@ -378,8 +380,9 @@ import {ImportPatientUploadImportComponent} from "./components/dashboard/patient
         DoctorPaymentListingComponent,
         ImportPatientDataComponent,
         ImportPatientMapFieldsComponent,
-        ImportPatientUploadImportComponent
-
+        ImportPatientUploadImportComponent,
+        InsurranceplanComponent,
+        InsurranceprofileComponent
     ],
     bootstrap: [AppComponent]
 })

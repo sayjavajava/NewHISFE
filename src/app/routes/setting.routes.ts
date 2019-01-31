@@ -47,6 +47,8 @@ import {PaymentTypeComponent} from "../components/dashboard/setting/PaymentType.
 import {CurrencyComponent} from '../components/dashboard/setting/currency.component';
 import {PaymentComponent} from "../components/dashboard/cashier/payment.component";
 import {PatientImageComponent} from "../components/dashboard/setting/PatientImageComponent";
+import {InsurranceplanComponent} from "../components/dashboard/setting/insurranceplan.component";
+import {InsurranceprofileComponent} from "../components/dashboard/setting/insuranceprofile.component";
 
 
 export const SettingRoutes: Routes = [
@@ -101,5 +103,7 @@ export const SettingRoutes: Routes = [
     {path: 'currency', component: CurrencyComponent},
     {path :'payment', component :PaymentComponent},
     {path: 'PatientImage', component: PatientImageComponent},
+    {path: 'InsurancePlan', component: InsurranceplanComponent},
+    {path: 'InsuranceProfile', component: InsurranceprofileComponent},
     {path: '**', redirectTo: '404'}
 ];

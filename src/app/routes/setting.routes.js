@@ -45,6 +45,8 @@ var PaymentType_component_1 = require("../components/dashboard/setting/PaymentTy
 var currency_component_1 = require("../components/dashboard/setting/currency.component");
 var payment_component_1 = require("../components/dashboard/cashier/payment.component");
 var PatientImageComponent_1 = require("../components/dashboard/setting/PatientImageComponent");
+var insurranceplan_component_1 = require("../components/dashboard/setting/insurranceplan.component");
+var insuranceprofile_component_1 = require("../components/dashboard/setting/insuranceprofile.component");
 exports.SettingRoutes = [
     // Setting Pages dashboard/setting/chart-of-account-template
     { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -96,6 +98,8 @@ exports.SettingRoutes = [
     { path: 'currency', component: currency_component_1.CurrencyComponent },
     { path: 'payment', component: payment_component_1.PaymentComponent },
     { path: 'PatientImage', component: PatientImageComponent_1.PatientImageComponent },
+    { path: 'InsurancePlan', component: insurranceplan_component_1.InsurranceplanComponent },
+    { path: 'InsuranceProfile', component: insuranceprofile_component_1.InsurranceprofileComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=setting.routes.js.map

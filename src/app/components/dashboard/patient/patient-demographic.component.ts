@@ -48,7 +48,13 @@ export class PatientDemographicComponent implements OnInit {
     patientGroupList: any[];
     patientGroupListModified: SelectItem[] = [];
     smokeStatusType :any;
+    profileListModified: SelectItem[] = [];
+    profileList:any[];
+    selectedProfile:string='Please Select Insurance Company';
 
+    planListModified: SelectItem[] = [];
+    planList:any[];
+    selectedPlan:string='Please Select Insurance Plan';
     constructor(private router: Router, private route: ActivatedRoute, private HISUTilService: HISUtilService,
                 private confirmationDialogService: ConformationDialogService, private  requestService: RequestsService,
                 private notificationService: NotificationService) {
@@ -127,7 +133,77 @@ export class PatientDemographicComponent implements OnInit {
 
         this.createCountriesList();
         this.createPatientGroupList();
+        this.allCompanyProfile();
+        this.allPlans();
     }
+
+    allCompanyProfile() {
+
+        this.requestService.getRequest(
+            AppConstants.INS_PROFILE_DATA_TABLE)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ICD_SUC_16') {
+                        this.profileList = response['responseData'];
+                        console.log(this.profileList);
+                        for (let profile of this.profileList) {
+                            let pair: any = {label: profile.name, value: profile.id};
+                            this.profileListModified.push(pair);
+
+                        }
+                    }
+                   // this.loading = false;
+                },
+                (error: any) => {
+                    this.HISUTilService.tokenExpired(error.error.error);
+                  //  this.loading = false;
+                }
+            );
+
+
+       /* this.requestService.getRequest(AppConstants.GET_ALL_COUNTRY)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'COUNTRY_SUC_11') {
+                        this.countryLst = response['responseData'];
+                        for (let country of this.countryLst) {
+                            let pair: any = {label: country.name, value: country.id};
+                            this.countryListModified.push(pair);
+
+                        }
+
+                    }
+                },
+                (error: any) => {
+                    this.notificationService.error(error.error.error);
+                })*/
+    }
+
+
+    allPlans() {
+
+        this.requestService.getRequest(
+            AppConstants.INS_PLAN_DATA_TABLE)
+            .subscribe(
+                (response: Response) => {
+                    if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
+                        this.planList = response['responseData'];
+                        console.log(this.planList);
+                        for (let plan of this.planList) {
+                            let pair: any = {label: plan.name, value: plan.id};
+                            this.planListModified.push(pair);
+
+                        }
+                    }
+                 //   this.loading = false;
+                },
+                (error: any) => {
+                    this.HISUTilService.tokenExpired(error.error.error);
+                 //   this.loading = false;
+                }
+            );
+    }
+
 
     isValidPatientId() {
         if (this.id <= 0) {
@@ -147,10 +223,15 @@ export class PatientDemographicComponent implements OnInit {
             response => {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
+                    debugger;
+                    console.log(this.patient);
                     this.smokeStatusList = response['responseData'].smokingStatus;
                     this.selectedCountry = this.patient.country;
                     this.selectedState = this.patient.state;
                     this.selectedCity = this.patient.city;
+                    this.selectedPlan=this.patient.planName;
+                    this.selectedProfile=this.patient.company;
+
 
                     if (this.patient.dob == undefined || this.patient.dob == null || this.patient.dob.toString().trim() == "") {
                         this.patient.dob = new Date().toDateString();

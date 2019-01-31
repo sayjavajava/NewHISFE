@@ -11,6 +11,7 @@ import {Patient} from '../../../model/patient';
 import {SelectItem} from "primeng/api";
 import {PatientImageOrderModel} from "../../../model/PatientImageOrderModel";
 import {PatientImageModel} from "../../../model/PatientImageModel";
+import {PatientImageOrderModelUpdate} from "../../../model/PatientImageOrderUpdate";
 
 
 @Component({
@@ -54,7 +55,7 @@ export class PatientImageOrderComponent implements OnInit {
     selectedindex:number=0;
     patientId: number;
     cols:any[];
-
+    patientImageTemplateUpdate:PatientImageOrderModelUpdate=new PatientImageOrderModelUpdate();
     @ViewChild('closeBtn') closeBtn: ElementRef;
 
     constructor(private notificationService: NotificationService,
@@ -93,11 +94,20 @@ export class PatientImageOrderComponent implements OnInit {
         ];
 
         this.cols = [
-            { field: 'orderName', header: 'Order Name' },
+            {field: 'OrderDR', header: 'Ordering Doctor'},
+            {field: 'ImageOrder', header: 'Image Order'},
+            {field: 'Code', header: 'Order Code'},
+            {field: 'OrderDate', header: 'Order Date'},
+            {field: 'Status', header: 'Status'},
+            {field: 'File', header: 'File'},
+            {field: 'Comment', header: 'Comments'},
+            {field: 'action', header: 'Action'},
+
+           /* { field: 'orderName', header: 'Order Name' },
             { field: 'download', header: 'Download' },
             { field: 'comment', header: 'Doctor Comment' },
             { field: 'description', header: 'Description' },
-            { field: 'action', header: ' Action' },
+            { field: 'action', header: ' Action' },*/
 
         ];
 
@@ -173,10 +183,10 @@ export class PatientImageOrderComponent implements OnInit {
                 return;
             }*/
 
-            if(this.uploadedFiles.length <= 0){
+            /*if(this.uploadedFiles.length <= 0){
                 this.notificationService.warn('Please Upload  File ');
                 return;
-            }
+            }*/
             console.log(this.patientImageTemplate);
             this.closeBtn.nativeElement.click();
             this.requestsService.postRequestMultipartFormAndDataWithMultipleFile(
@@ -237,13 +247,16 @@ export class PatientImageOrderComponent implements OnInit {
 
         if (Id > 0) {
             if (localStorage.getItem(btoa('access_token'))) {
+
                 this.requestsService.getRequest(AppConstants.FETCH_PATIENT_ORDER_ID + Id)
                     .subscribe(
                         response => {
                             if (response['responseCode'] === 'DOC_SUC_42') {
+                                this.patientImageTemplate=new PatientImageOrderModel();
                                 this.patientImageTemplate = response['responseData'];
                                 //  this.isUpdate=true;
                                 this.selectedOrder=this.patientImageTemplate.orderObj.code;
+                                console.log(this.patientImageTemplate);
                                 this.isUpdate = true;
                             } else {
                                 this.notificationService.error(response['responseMessage'], 'Image of Patient');
@@ -281,12 +294,16 @@ export class PatientImageOrderComponent implements OnInit {
                 this.notificationService.warn('Please provide Doctor Comment');
                 return;
             }
-
-            if (!this.isRequestUnderProcess) {
-                this.isRequestUnderProcess = true;
-                this.requestsService.postRequestMultipartFormAndDataWithOneFile(
+            console.log(this.patientImageTemplate);
+            this.patientImageTemplateUpdate.patientId=this.patientImageTemplate.patientId;
+            this.patientImageTemplateUpdate.doctorComment=this.patientImageTemplate.doctorComment;
+            this.patientImageTemplateUpdate.description=this.patientImageTemplate.description;
+            this.patientImageTemplateUpdate.status=this.patientImageTemplate.status;
+            this.patientImageTemplateUpdate.orderId=this.patientImageTemplate.id;
+            debugger;
+                this.requestsService.putRequest(
                     AppConstants.UPDATE_PATIENT_IMAGE_UPDATE,
-                    this.patientImageTemplate, this.uploadedImage
+                    this.patientImageTemplateUpdate
                 ).subscribe(
                     (response: Response) => {
                         if (response['responseCode'] === 'DOC_SUC_44') {
@@ -298,18 +315,16 @@ export class PatientImageOrderComponent implements OnInit {
                         } else {
                             this.notificationService.error(response['responseMessage'], '');
                         }
-                        this.isRequestUnderProcess = false;
+                 ///       this.isRequestUnderProcess = false;
                     },
                     (error: any) => {
                         this.HISUtilService.tokenExpired(error.error.error);
-                        this.isRequestUnderProcess = false;
+                    //    this.isRequestUnderProcess = false;
                     }
                 );
 
-            } else {
-                this.notificationService.warn('Your first request is under process, Please wait...');
             }
-        } else {
+         else {
             this.router.navigate(['/login']);
         }
     }
@@ -532,4 +547,12 @@ export class PatientImageOrderComponent implements OnInit {
                 });
         }
     }
+
+    /*downloadFile(data: Response) {
+        console.log(data);
+        // may be you need to use data._body to get data of body
+        var blob = new Blob([data], {type: 'image/jpeg'});
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
+    }*/
 }

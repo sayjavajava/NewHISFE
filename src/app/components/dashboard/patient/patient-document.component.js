@@ -34,6 +34,7 @@ var PatientDocumentsComponent = (function () {
         this.dm = new document_1.DocumentModel();
         this.uploadedImage = null;
         this.isRequestUnderProcess = false;
+        this.loading = false;
         /*this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
         });*/
@@ -85,6 +86,7 @@ var PatientDocumentsComponent = (function () {
             }
             if (!this.isRequestUnderProcess) {
                 this.isRequestUnderProcess = true;
+                this.loading = true;
                 this.dm.patientId = this.selectedPatientId;
                 this.requestsService.postRequestMultipartFormAndDataWithOneFile(app_constants_1.AppConstants.DOCUMENT_SAVE_URL, this.dm, this.uploadedImage).subscribe(function (response) {
                     if (response['responseCode'] === 'DOC_SUC_37') {
@@ -92,6 +94,7 @@ var PatientDocumentsComponent = (function () {
                         _this.uploadedImage = null;
                         _this.notificationService.success(response['responseMessage'], 'Document');
                         _this.getPageWiseDocumentsFromServer(0);
+                        _this.loading = false;
                     }
                     else {
                         _this.notificationService.error(response['responseMessage'], 'Document');
