@@ -134,16 +134,12 @@ export class EditAppointmentComponent implements OnInit {
 
     title = 'app';
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
-
     view: string = 'month';
     event: Appointment = new Appointment();
-
     viewDate: Date = new Date();
     data: any = [];
     branches: any[];
     selectedType: any = [];
-
-
     examRooms: any = [];
     filteredData: any[];
     appointmentForm: FormGroup;

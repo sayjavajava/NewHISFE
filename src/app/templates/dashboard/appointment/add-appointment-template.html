@@ -35,6 +35,41 @@
       </div>-->
 
     <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr padding round-table off-wite-bg">
+                    <div class="col-md-3 no-padding profile-frm">
+                        <h4 class="font-green-meadow">Branch</h4>
+                        <p-dropdown placeholder="Select Branch"
+                                    [autoWidth]="false" name="branchDrp"  [(ngModel)]="searchBranchId"
+                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                    [options]="branches"
+                                    (onChange)="getExamRoom($event)"
+                                    [panelStyle]="{minWidth:'12em'}"
+                                    [filter]="true">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3 no-padding profile-frm">
+                        <h4 class="font-green-meadow">Doctor</h4>
+                        <p-dropdown placeholder="Select Doctor"
+                                    [autoWidth]="false" name="branchDrp" [(ngModel)]="searchDoctorId"
+                                    [style]="{'text-align': 'left' ,'width':'100%'}"
+                                    [options]="doctorsList"
+                                    (onChange)="selectServices($event)"
+                                    [panelStyle]="{minWidth:'12em'}"
+                                    [filter]="true">
+                        </p-dropdown>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn primary blue" (click)="searchAppointment(searchBranchId,searchDoctorId)" data-title="Sweet Alerts with Icons"
+                                    data-message="Success Icon" data-type="success" data-allow-outside-click="true"
+                                    data-confirm-button-class="btn-success">Search
+                            </button>
+                       </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered schedle-appint-modal" role="document">
@@ -61,7 +96,7 @@
                                                 <div class="tab-pane fade active in" id="tab_1_2">
 
                                                     <div class="form-group">
-                                                        <div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
+                                                        <!--<div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
                                                             <label>
                                                                 <input type="checkbox"
                                                                        [ngModelOptions]="{standalone:true}"
@@ -70,7 +105,9 @@
                                                                        [(ngModel)]="item.checked"/>
                                                                 {{item.name}}
                                                             </label>
-                                                        </div>
+                                                        </div>-->
+                                                        <p-radioButton name="groupname" value="Regular" label="Regular"  [(ngModel)]="apptType"></p-radioButton>
+                                                        <p-radioButton name="groupname" value="Walk-In" label="Walk-In" [(ngModel)]="apptType"></p-radioButton>
                                                     </div>
                                                     <div *ngIf="newPatient"
                                                          class="hr padding round-table off-wite-bg mrgn-btm10">
@@ -304,7 +341,7 @@
                                                                                 [(ngModel)]="modalData?.event.serviceId"
                                                                                 name="mService"
                                                                                 [options]="filteredServices"
-                                                                                (onChange)="selectServices($event)"
+                                                                                (onChange)="getSelectedService($event)"
                                                                                 [panelStyle]="{minWidth:'12em'}"
                                                                                 [filter]="true">
                                                                     </p-dropdown>
@@ -771,7 +808,7 @@
                                             <div class="tab-pane fade active in" id="tab_1_1">
 
                                                 <div class="form-group">
-                                                    <div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
+                                                    <!--<div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
                                                         <label>
                                                             <input type="checkbox" [disabled]="!item.checked && maxNo"
                                                                    [ngModelOptions]="{standalone:true}"
@@ -780,7 +817,9 @@
                                                                    [(ngModel)]="item.checked"/>
                                                             {{item.name}}
                                                         </label>
-                                                    </div>
+                                                    </div>-->
+                                                    <p-radioButton name="groupname" value="Regular" label="Regular"  [(ngModel)]="apptType"></p-radioButton>
+                                                    <p-radioButton name="groupname" value="Walk-In" label="Walk-In" [(ngModel)]="apptType"></p-radioButton>
 
                                                     <div>
                                                         <input type="checkbox" name="newPatient"
@@ -795,13 +834,25 @@
                                                 <div *ngIf="newPatient"
                                                      class="hr round-table off-wite-bg mrgn-btm8">
                                                     <div class="">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <div class="form-group hr no-margin">
-                                                                <label class="col-md-4 control-label">First Name</label>
-                                                                <div class="col-md-8 profile-frm">
+                                                                <label class="col-md-3 control-label pdng-lr-5">First Name</label>
+                                                                <div class="col-md-9 profile-frm pdng-lr-5">
                                                                     <input type="text" value="" class="form-control"
                                                                            [ngModelOptions]="{standalone:true}"
                                                                            placeholder="First Name"
+                                                                           [(ngModel)]="event.newPatient"
+                                                                           (keyup)="refresh.next()">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group hr no-margin">
+                                                                <label class="col-md-3 control-label pdng-lr-5">Last Name</label>
+                                                                <div class="col-md-9 profile-frm pdng-lr-5">
+                                                                    <input type="text" value="" class="form-control"
+                                                                           [ngModelOptions]="{standalone:true}"
+                                                                           placeholder="Last Name"
                                                                            [(ngModel)]="event.newPatient"
                                                                            (keyup)="refresh.next()">
 
@@ -809,14 +860,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <div class="form-group hr no-margin">
-                                                                <label class="col-md-4 control-label">Cell Phone</label>
-                                                                <div class="col-md-8 profile-frm">
+                                                                <label class="col-md-3 control-label pdng-lr-5">Cell Phone</label>
+                                                                <div class="col-md-9 profile-frm pdng-lr-5">
 
                                                                     <input
                                                                             type="text"
-                                                                            placeholder="cell Phone"
+                                                                            placeholder="Cell Phone"
                                                                             class="form-control"
                                                                             [ngModelOptions]="{standalone:true}"
                                                                             [(ngModel)]="event.cellPhone"
@@ -827,8 +878,6 @@
                                                             </div>
 
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                                 <div class="hr padding round-table off-wite-bg">
@@ -1142,22 +1191,22 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!--<div class="hr">
+                                                        <div class="hr">
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr">
                                                                     <label class="control-label col-md-4">Recurs every
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <input
-                                                                                type="text"
-                                                                                class="form-control" name="recurse"
-                                                                                [(ngModel)]="event.recurseEvery"
+                                                                                type="number"
+                                                                                 class="form-control" name="recurse"
+                                                                                 [(ngModel)]="event.recurseEvery"
                                                                                 (keyup)="refresh.next()">
                                                                     </div>
                                                                     <div class="col-md-2">Week(s)</div>
                                                                 </div>
                                                             </div>
-                                                        </div>-->
+                                                        </div>
                                                         <div class="hr">
                                                             <div class="col-md-6">
                                                                 <div class="form-group hr mrgn-btm08">

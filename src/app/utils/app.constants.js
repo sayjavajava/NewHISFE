@@ -155,7 +155,7 @@ var AppConstants = (function () {
     ////////////////////// Appointments URLs ///////////////////////////////
     AppConstants.FETCH_PAGINATED_APPOINTMENTS_URL = '/appointment/';
     AppConstants.CREATE_APPOINTMENT_URL = '/appointment/create';
-    AppConstants.SEARCH_APPOINTMENT_URL = '/appointment/search/';
+    AppConstants.SEARCH_APPOINTMENT_URL = '/appointment/search';
     AppConstants.SEARCH_APPOINTMENTS_BY_PATIENT = '/appointment/patient/appointments/';
     AppConstants.FETCH_APPOINTMENTS_BY_ID = '/appointment/get/';
     AppConstants.UPDATE_APPOINTMENT = '/appointment/update/';

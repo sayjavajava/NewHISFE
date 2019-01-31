@@ -5,11 +5,13 @@ import {AddAppointmentComponent} from "../components/dashboard/appointment/add-a
 import {AppointmentReportsComponent} from "../components/dashboard/appointment/appointment-reports.component";
 import {EditAppointmentComponent} from '../components/dashboard/appointment/edit-appointment.component';
 import {PrimeSchedularComponent} from "../components/dashboard/primeschedular/prime-schedular.component";
+import {SelectAppointmentComponent} from "../components/dashboard/appointment/SelectAppointment.component";
 
 export const AppointmentRoutes: Routes = [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard', component: AppointmentDashboardComponent},
     {path: 'manage', component: ManageAppointmentComponent},
+    {path: 'select', component: SelectAppointmentComponent},
     {path: 'add', component: AddAppointmentComponent},
     {path: 'schedule', component:PrimeSchedularComponent },
     {path:'edit/:id',component:EditAppointmentComponent},

@@ -155,6 +155,7 @@ var panel_1 = require("primeng/panel");
 var galleria_1 = require("primeng/components/galleria/galleria");
 var doctor_payment_listing_component_1 = require("./components/dashboard/patient/doctor-payment-listing.component");
 var FileServices_1 = require("./services/FileServices");
+var SelectAppointment_component_1 = require("./components/dashboard/appointment/SelectAppointment.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -219,7 +220,7 @@ var AppModule = (function () {
                 autocomplete_1.AutoCompleteModule,
                 primeng_1.DataTableModule,
                 primeng_1.PaginatorModule, panel_1.PanelModule,
-                primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule,
+                primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule, primeng_1.RadioButtonModule,
                 shared_1.SharedModule,
                 editor_1.EditorModule,
                 primeng_1.OverlayPanelModule,
@@ -273,6 +274,7 @@ var AppModule = (function () {
                 add_appointment_component_1.AddAppointmentComponent,
                 appointment_reports_component_1.AppointmentReportsComponent,
                 appointment_navigation_component_1.AppointmentNavigationComponent,
+                SelectAppointment_component_1.SelectAppointmentComponent,
                 //Setting Components
                 setting_component_1.SettingComponent,
                 setting_navigation_component_1.SettingNavigationComponent,

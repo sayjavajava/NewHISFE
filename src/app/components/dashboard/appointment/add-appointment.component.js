@@ -27,13 +27,15 @@ var his_util_service_1 = require("../../../services/his-util.service");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
 var angular2_datetimepicker_1 = require("angular2-datetimepicker");
 var util_1 = require("util");
+var DataService_1 = require("../../../services/DataService");
 var AddAppointmentComponent = (function () {
-    function AddAppointmentComponent(modal, dialog, fb, hisCoreUtilService, notificationService, router, requestsService, renderer) {
+    function AddAppointmentComponent(modal, dialog, fb, hisCoreUtilService, dataService, notificationService, router, requestsService, renderer) {
         var _this = this;
         this.modal = modal;
         this.dialog = dialog;
         this.fb = fb;
         this.hisCoreUtilService = hisCoreUtilService;
+        this.dataService = dataService;
         this.notificationService = notificationService;
         this.router = router;
         this.requestsService = requestsService;
@@ -130,9 +132,6 @@ var AddAppointmentComponent = (function () {
             this.date = new Date();
         };
     }
-    AddAppointmentComponent.prototype.ngAfterViewInit = function () {
-        this.getAllAppointments();
-    };
     AddAppointmentComponent.prototype.getAllAppointments = function () {
         var _this = this;
         this.events.length = 0;
@@ -208,7 +207,7 @@ var AddAppointmentComponent = (function () {
                         status: apt.status,
                         duration: apt.duration,
                         age: apt.age,
-                        type: apt.appointmentType,
+                        type: apt.apptType,
                         //cellPhone:apt.patient.profile.cellPhone,
                         //selectWorkingDays:this.selectedRecurringDays,
                         appointmentType: apt.appointmentType,
@@ -234,13 +233,24 @@ var AddAppointmentComponent = (function () {
                     _this.refresh.next();
                 }
             }
-            //  this.renderer.setText(this.nameInputRef,'kamiii')
         }, function (error) {
             //  this.hisUtilService.tokenExpired(error.error.error);
         });
     };
     AddAppointmentComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.allStatusesOfOrganization();
+        this.dataService.cuurentApptBranchId.subscribe(function (x) {
+            _this.reqBranchId = x;
+        });
+        this.dataService.cuurentApptDoctorId.subscribe(function (x) {
+            _this.reqDoctorId = x;
+        });
+        if (this.reqBranchId != 0 || this.reqDoctorId != 0) {
+            this.searchAppointment(this.reqBranchId, this.reqDoctorId);
+        }
+        else
+            this.getAllAppointments();
     };
     Object.defineProperty(AddAppointmentComponent.prototype, "selectedOptions", {
         get: function () {
@@ -270,7 +280,9 @@ var AddAppointmentComponent = (function () {
         this.maxNo = false;
         this.amt = 0;
         if (this.Type.length != 0)
-            this.Type.map(function (x) { x.checked = false; });
+            this.Type.map(function (x) {
+                x.checked = false;
+            });
         this.addModal.hide();
     };
     AddAppointmentComponent.prototype.selectType = function (form, checked) {
@@ -365,7 +377,8 @@ var AddAppointmentComponent = (function () {
             .subscribe(function (response) {
             //console.log('i am branch call');
             if (response['responseCode'] === 'STATUS_SUC_05') {
-                _this.statusesList = response['responseData'];
+                var items = response['responseData'];
+                _this.statusesList = items.filter(function (x) { return x.name == "PENDING" || x.name == "CONFIRMED" || x.name == "WAITING"; });
                 //console.log(this.servicesList);
             }
         }, function (error) {
@@ -408,9 +421,11 @@ var AddAppointmentComponent = (function () {
         this.filteredDoctor = this.branchDoctor.slice();
         this.filteredServices = this.servicesListWithDoctors.slice();
         this.disbaleDoctor = true;
-        this.Type.filter(function (e) { return event.appointmentType.includes(e.name); }).map(function (e) { return e.checked = true; });
-        this.selectedType = event.appointmentType;
+        console.log('i am handle...');
+        // this.Type.filter(e => event.appointmentType.includes(e.name)).map(e => e.checked = true);
+        //  this.selectedType = event.appointmentType;
         var filteredData2 = this.branches.filter(function (x) { return x.id == event.branchId; });
+        this.apptType = event.type;
         this.examRooms = filteredData2[0].examRooms;
         $('#exampleModalCenter2').modal('show');
     };
@@ -423,6 +438,14 @@ var AddAppointmentComponent = (function () {
         this.eventsRequest.length = 0;
         this.serviceDuration = 0;
         this.addModal.show();
+        if (this.reqDoctorId != 0) {
+            this.disbaleDoctor = false;
+            this.setServicesForDoctorOnInit(this.reqDoctorId);
+        }
+        if (this.reqBranchId != 0) {
+            this.disbaleDoctor = false;
+            this.setDoctorsAndRoomsForBranchOnInit(this.reqBranchId);
+        }
         this.dateSchedule = new Date(date);
         //  $('#create-responsive').modal('show');
         /* $('#create-responsive').on('show', function() {
@@ -443,11 +466,12 @@ var AddAppointmentComponent = (function () {
             type: '',
             gender: 'Gender',
             cellPhone: '',
+            branchId: this.reqBranchId,
+            doctorId: this.reqDoctorId,
             selectWorkingDays: this.selectedRecurringDays,
             appointmentType: this.selectedType,
             followUpDate: new Date(date),
             followUpReason: '',
-            recurseEvery: 'rescurse',
             neverEnds: false,
             followUpReminder: false,
             arrangeFollowUpReminder: false,
@@ -470,19 +494,68 @@ var AddAppointmentComponent = (function () {
     AddAppointmentComponent.prototype.getSearchedDoctor = function (docObj) {
         this.searchedDoctor = docObj.value;
     };
-    AddAppointmentComponent.prototype.searchAppointment = function () {
+    AddAppointmentComponent.prototype.searchAppointment = function (branchId, docId) {
         var _this = this;
+        this.reqBranchId = branchId;
+        this.reqDoctorId = docId != 0 ? docId : 0;
         var self = this;
-        this.requestsService.searchWithParam(app_constants_1.AppConstants.SEARCH_APPOINTMENT_URL, this.searchedDoctor, this.searchedBranch)
+        this.requestsService.searchWithParam(app_constants_1.AppConstants.SEARCH_APPOINTMENT_URL, docId, branchId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'APPT_SUC_01') {
                 _this.events.length = 0;
-                self.notificationService.success('Success', "Appointment Founded ");
+                // self.notificationService.success('Success', "Appointment Founded ");
                 for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
                     var apt = _a[_i];
                     _this.events.push({
-                        id: apt.id,
-                        title: apt.patient,
+                        title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/ '<div class="headng-bck">\n' +
+                            ' <div class="hadng-txt">\n' +
+                            '<table width="236px" border="0">\n' + '\n' +
+                            '<tr class="" width="236">\n' +
+                            '    <td   id="imageDiv" style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="' + apt.profileImgURL + '"></td>\n' +
+                            '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>' + apt.appointmentId + '</h2></td>\n' +
+                            '</tr>\n' +
+                            '  </table>\n' +
+                            '            </div>\n' +
+                            /* '        </div> ' +*/
+                            '<div class="bc-bg">\n' +
+                            '                <table width="236px" border="0">\n' +
+                            '\n' +
+                            '            <tr class="gry-bckgrnd inr-txt">\n' +
+                            '                    <td class="display-none">Patient</td>\n' +
+                            '                    <td class="brnch-td width100">\n' + apt.patient + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td>Branch</td>\n' +
+                            '                    <td>\n' + apt.branchName + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td>Schedule Date</td>\n' +
+                            '                    <td>\n' + apt.scheduleDate + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td>Doctor</td>\n' +
+                            '                    <td>\n' + apt.docFirstName + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td>Service</td>\n' +
+                            '                    <td>\n' + apt.serviceName + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td>Duration</td>\n' +
+                            '                    <td>\n' + apt.duration + 'min' + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td>Status</td>\n' +
+                            '                    <td>\n' + apt.status + '</td>\n' +
+                            '                </tr>\n' +
+                            '            <tr class="whte-bckgrnd inr-txt">\n' +
+                            '                    <td>Room</td>\n' +
+                            '                    <td>\n' + apt.examName + '</td>\n' +
+                            '                </tr>\n' +
+                            '            </table>\n' +
+                            '                \n' +
+                            '            </div>\n' +
+                            '            </div>\n',
                         start: date_fns_1.startOfDay(new Date(apt.scheduleDate)),
                         end: date_fns_1.endOfDay(new Date(apt.scheduleDate)),
                         color: {
@@ -496,7 +569,7 @@ var AddAppointmentComponent = (function () {
                         status: apt.status,
                         duration: apt.duration,
                         age: apt.age,
-                        type: apt.appointmentType,
+                        type: apt.apptType,
                         //cellPhone:apt.patient.profile.cellPhone,
                         //selectWorkingDays:this.selectedRecurringDays,
                         appointmentType: apt.appointmentType,
@@ -575,10 +648,10 @@ var AddAppointmentComponent = (function () {
         var dateTes = convert(this.dateSchedule);
         this.Type.map(function (x) { return x.checked = false; });
         if (form.valid) {
-            if (this.selectedType.length == 0) {
-                this.eventsRequest.length = 0;
-                self.notificationService.error('Select At leat One Type', 'Invalid Form');
-            }
+            /* if (this.selectedType.length == 0) {
+                 this.eventsRequest.length = 0;
+                 self.notificationService.error('Select At leat One Type', 'Invalid Form');
+             }*/
             if (this.newPatient == false && event.patientId == null) {
                 this.eventsRequest.length = 0;
                 self.notificationService.error('Patient is required', 'Invalid Form');
@@ -589,7 +662,7 @@ var AddAppointmentComponent = (function () {
                 self.notificationService.error('Patient Name and Cell Phone are mandatory', 'Invalid Form');
             }
             if (this.eventsRequest.length != 0) {
-                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, this.serviceDuration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox, this.dateSchedule);
+                var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, this.serviceDuration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox, this.dateSchedule, this.apptType);
                 this.requestsService.postRequest(app_constants_1.AppConstants.CREATE_APPOINTMENT_URL, obj)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'APPT_SUC_02') {
@@ -645,7 +718,7 @@ var AddAppointmentComponent = (function () {
     };
     AddAppointmentComponent.prototype.updateAppointment = function (event) {
         var self = this;
-        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox, event.start);
+        var obj = new Appointment_1.Appointment(event.id, event.appointmentId, event.title, event.branchId, event.doctorId, event.scheduleDateAndTime, event.start, event.end, event.draggable, this.selectedRecurringDays, this.selectedType, event.notes, event.patientId, event.reason, event.statusId, event.duration, event.followUpDate, event.followUpReason, event.followUpReminder, event.recurringAppointment, event.recurseEvery, event.firstAppointment, event.lastAppointment, event.examRoom, event.age, event.cellPhone, event.gender, event.email, this.color, event.roomId, event.newPatient, event.dob, event.serviceId, this.stateOfPatientBox, event.start, this.apptType);
         this.requestsService.putRequest(app_constants_1.AppConstants.UPDATE_APPOINTMENT + event.id, obj).subscribe(function (response) {
             if (response['responseCode'] === 'APPT_SUC_03') {
                 self.notificationService.success('Updated successfully', 'Appointment');
@@ -669,6 +742,26 @@ var AddAppointmentComponent = (function () {
     AddAppointmentComponent.prototype.refreshAllAppointments = function () {
         this.getAllAppointments();
     };
+    AddAppointmentComponent.prototype.setServicesForDoctorOnInit = function (val) {
+        this.filteredServices = [];
+        var list = this.servicesListWithDoctors.filter(function (x) { return x.doctorId == val; });
+        this.filteredServices = list.slice();
+    };
+    AddAppointmentComponent.prototype.setDoctorsAndRoomsForBranchOnInit = function (brId) {
+        var filteredData2 = this.branchDoctor.filter(function (x) { return x.id == brId; });
+        var filterDoctor = this.branchDoctor.filter(function (x) { return x.id == brId; });
+        if (filteredData2.length != 0) {
+            this.examRooms = filteredData2[0].examRooms;
+        }
+        var filteredDoctorsWithValue = [];
+        var branchDocobj2 = null;
+        filterDoctor.forEach(function (x) {
+            branchDocobj2 = new DoctorService(x.firstName + x.lastName, x.doctorId);
+            filteredDoctorsWithValue.push(branchDocobj2);
+        });
+        //  filteredDoctorsWithValue.forEach(x=>{console.log('xv' , x.label , x.value)})
+        this.filteredDoctor = filteredDoctorsWithValue.slice();
+    };
     __decorate([
         core_2.ViewChild('modalContent'),
         __metadata("design:type", core_2.TemplateRef)
@@ -682,7 +775,7 @@ var AddAppointmentComponent = (function () {
             selector: 'add-appointment-component',
             templateUrl: '../../../templates/dashboard/appointment/add-appointment-template.html',
         }),
-        __metadata("design:paramtypes", [ng_bootstrap_1.NgbModal, material_1.MatDialog, forms_1.FormBuilder, his_util_service_1.HISUtilService,
+        __metadata("design:paramtypes", [ng_bootstrap_1.NgbModal, material_1.MatDialog, forms_1.FormBuilder, his_util_service_1.HISUtilService, DataService_1.DataService,
             notification_service_1.NotificationService, router_1.Router, requests_service_1.RequestsService, core_1.Renderer2])
     ], AddAppointmentComponent);
     return AddAppointmentComponent;

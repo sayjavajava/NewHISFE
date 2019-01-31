@@ -1,0 +1,44 @@
+<div class="page-container">
+
+    <div class="page-content-wrapper">
+        <div class="page-content" style="min-height: 499px; margin-left: 0px !important;">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="hr padding round-table off-wite-bg">
+                        <div class="col-md-3 no-padding profile-frm">
+                            <h4 class="font-green-meadow">Branch</h4>
+                            <p-dropdown placeholder="Select Branch"
+                                        [autoWidth]="false" name="branchDrp"
+                                        [style]="{'text-align': 'left' ,'width':'100%'}"
+                                        [options]="branchesList"
+                                        (onChange)="getBranchId($event)"
+                                        [panelStyle]="{minWidth:'12em'}"
+                                        [filter]="true">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3 no-padding profile-frm">
+                            <h4 class="font-green-meadow">Doctor</h4>
+                            <p-dropdown placeholder="Select Doctor"
+                                        [autoWidth]="false" name="branchDrp"
+                                        [style]="{'text-align': 'left' ,'width':'100%'}"
+                                        [options]="doctorsList"
+                                        (onChange)="getDoctorId($event)"
+                                        [panelStyle]="{minWidth:'12em'}"
+                                        [filter]="true">
+                            </p-dropdown>
+                        </div>
+                        <div class="pull-right">
+                            <a routerLink="/dashboard/appointment/add">
+                                <button class="btn primary blue" data-title="Sweet Alerts with Icons"
+                                        data-message="Success Icon" data-type="success" data-allow-outside-click="true"
+                                        data-confirm-button-class="btn-success">Search
+                                </button>
+                            </a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

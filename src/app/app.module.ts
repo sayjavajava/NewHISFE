@@ -127,7 +127,7 @@ import {DialogModule} from 'primeng/dialog';
 
 import {
     CheckboxModule, DataTableModule, MegaMenuModule, OverlayPanelModule, PaginatorModule, PanelMenuModule,
-    PasswordModule,
+    PasswordModule, RadioButtonModule,
     ScheduleModule
 } from "primeng/primeng";
 import {SplitButtonModule} from "primeng/components/splitbutton/splitbutton";
@@ -173,6 +173,7 @@ import {PanelModule} from "primeng/panel";
 import {GalleriaModule} from 'primeng/components/galleria/galleria';
 import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
 import {FileServices} from "./services/FileServices";
+import {SelectAppointmentComponent} from "./components/dashboard/appointment/SelectAppointment.component";
 
 @NgModule({
     providers: [
@@ -233,7 +234,7 @@ import {FileServices} from "./services/FileServices";
         AutoCompleteModule,
         DataTableModule,
         PaginatorModule,PanelModule,
-        PanelMenuModule,MegaMenuModule,ChipsModule,SliderModule,TableModule,
+        PanelMenuModule,MegaMenuModule,ChipsModule,SliderModule,TableModule,RadioButtonModule,
         SharedModule,
         EditorModule,
         OverlayPanelModule,
@@ -290,6 +291,8 @@ import {FileServices} from "./services/FileServices";
         AddAppointmentComponent,
         AppointmentReportsComponent,
         AppointmentNavigationComponent,
+        SelectAppointmentComponent,
+
 
         //Setting Components
         SettingComponent,

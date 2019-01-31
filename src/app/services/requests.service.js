@@ -77,7 +77,6 @@ var RequestsService = (function () {
             .map(function (data) {
             return data.responseData;
         });
-        ;
         //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
     };
     RequestsService.prototype.putRequest = function (url, _params) {

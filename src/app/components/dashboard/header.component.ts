@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
                     [
                         {label: 'Appointment',
                             items: [{label: 'Appointments',icon: 'icon-clock',routerLink: ['/dashboard/appointment/manage']},
-                                {label: 'New Appointment',icon: 'fa fa-calendar-plus-o',routerLink: ['/dashboard/appointment/add']},
+                                {label: 'New Appointment',icon: 'fa fa-calendar-plus-o',routerLink: ['/dashboard/appointment/select']},
                                 // {label: 'Reports',icon: 'fa fa-book',routerLink: ['/dashboard/appointment/reports']}
                                 ]
 
@@ -82,33 +82,7 @@ export class HeaderComponent implements OnInit {
             },
         ];
 
-        /*test*/
-       this.items2= [
-            {
-                label: 'Dashboard', icon: 'fa fa-fw fa-check',
-                items: [
-                    [
-                        {   label: 'Dash',
-                            items: [{label: 'Cashier',icon: 'fa fa-dashboard',routerLink: ['/dashboard/cashier']},
-                                {label: 'Receptionist',icon: 'fa fa-fw fa-soccer-ball-o',routerLink: ['/dashboard/receptionist']},
-                                {label: 'Nurse',icon: 'fa fa-fw fa-soccer-ball-o',routerLink: ['/dashboard/nurse']},
-                                {label: 'Doctor',icon: 'fa fa-fw fa-soccer-ball-o',routerLink: ['/dashboard/doctor']}]
 
-                        },
-                    ],
-                    [
-                        {
-                            label: 'TV 3',
-                            items: [{label: 'TV 3.1'},{label: 'TV 3.2'}]
-                        },
-                        {
-                            label: 'TV 4',
-                            items: [{label: 'TV 4.1'},{label: 'TV 4.2'}]
-                        }
-                    ]
-                ]
-            }
-        ];
     }
     ngOnInit() {
 

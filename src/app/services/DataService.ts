@@ -10,6 +10,12 @@ export class DataService{
     private staffSource = new BehaviorSubject(0);
     currentStaffServiceId = this.staffSource.asObservable();
 
+    private apptBranchIdSource = new BehaviorSubject(0);
+    cuurentApptBranchId = this.apptBranchIdSource.asObservable();
+
+    private apptDoctorIdSource = new BehaviorSubject(0);
+    cuurentApptDoctorId = this.apptDoctorIdSource.asObservable();
+
     constructor() { }
     getPatientId(id: number) {
         this.patientIdSource.next(id);
@@ -18,5 +24,16 @@ export class DataService{
     updateStaffId(id:number){
           this.staffSource.next(id);
     }
+
+    updateApptBranchId(id:any){
+        console.log('Branch:' + id)
+        this.apptBranchIdSource.next(id);
+    }
+    updateApptDoctorId(id:any){
+        console.log('pun:' + id)
+        this.apptDoctorIdSource.next(id);
+    }
+
+
 
 }

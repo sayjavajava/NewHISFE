@@ -327,8 +327,6 @@ export class UpdatedoctorComponent implements OnInit,OnDestroy {
         return this.userForm.get('workingDaysContorl') as FormArray;
     }
 
-
-
     public patchData() {
         if (this.id) {
             this.requestService.findByIdAndType(AppConstants.FETCH_USER_BY_ID + this.id,'DOCTOR').subscribe(

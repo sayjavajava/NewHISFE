@@ -17,12 +17,24 @@ var DataService = (function () {
         this.currentPatientId = this.patientIdSource.asObservable();
         this.staffSource = new rxjs_1.BehaviorSubject(0);
         this.currentStaffServiceId = this.staffSource.asObservable();
+        this.apptBranchIdSource = new rxjs_1.BehaviorSubject(0);
+        this.cuurentApptBranchId = this.apptBranchIdSource.asObservable();
+        this.apptDoctorIdSource = new rxjs_1.BehaviorSubject(0);
+        this.cuurentApptDoctorId = this.apptDoctorIdSource.asObservable();
     }
     DataService.prototype.getPatientId = function (id) {
         this.patientIdSource.next(id);
     };
     DataService.prototype.updateStaffId = function (id) {
         this.staffSource.next(id);
+    };
+    DataService.prototype.updateApptBranchId = function (id) {
+        console.log('Branch:' + id);
+        this.apptBranchIdSource.next(id);
+    };
+    DataService.prototype.updateApptDoctorId = function (id) {
+        console.log('pun:' + id);
+        this.apptDoctorIdSource.next(id);
     };
     DataService = __decorate([
         core_1.Injectable(),

@@ -7,7 +7,7 @@ export class AppConfig {
     /*                             Local                                 */
     /*********************************************************************/
 
-    public static BE_HTTP_PROTOCOL = 'http';
+    public static BE_HTTP_PROTOCOL = 'http';  
     public static BE_HTTP_SEPARATOR = '://';
 
      public static BE_API_ENDPOINT = '127.0.0.1';

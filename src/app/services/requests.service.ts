@@ -64,7 +64,7 @@ export class RequestsService {
 
     }
 
-    findById(url: any): Observable<any> {
+        findById(url: any): Observable<any> {
         const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' + atob(this.getToken())});
         reqHeader.append('Content-Type', 'application/json');
         return this.http.get(this.getBEAPIServer() + url, {headers: reqHeader})
@@ -82,7 +82,6 @@ export class RequestsService {
             .map((data: any) => {
                 return data.responseData as Object;
             });
-        ;
         //.catch((error:any) => Observable.throw(error.json().error || 'Error'));
     }
 
