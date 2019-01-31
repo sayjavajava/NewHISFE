@@ -28,6 +28,9 @@ import {PatientInvoiceListComponent} from "../components/dashboard/patient/patie
 import {PatientImageOrderComponent} from "../components/dashboard/patient/PatientImageOrderComponent";
 
 import {PatientHistoryVitalComponent} from "../components/dashboard/patient/patient-history-vital.component";
+import {ImportPatientDataComponent} from "../components/dashboard/patient/import-patient-data.component";
+import {ImportPatientMapFieldsComponent} from "../components/dashboard/patient/import-patient-map-fields.component";
+import {ImportPatientUploadImportComponent} from "../components/dashboard/patient/import-patient-upload-import.component";
 
 export const PatientRoutes: Routes = [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -35,9 +38,10 @@ export const PatientRoutes: Routes = [
     {path: 'manage', component: ManagePatientComponent},
     {path: 'add', component: AddPatientComponent},
     {path: 'invoice', component: PatientInvoiceComponent},
-    /*{path: 'history/:id', component: PatientHistoryComponent},*/
-    {path: 'invoice/:id', component: PatientInvoiceComponent},
 
+    /*{path: 'history/:id', component: PatientHistoryComponent},*/
+
+    {path: 'invoice/:id', component: PatientInvoiceComponent},
     {path: 'invoice-list/:id', component: PatientInvoiceListComponent},
 
     /* {path: 'history', component: PatientHistoryComponent}, */
@@ -60,7 +64,11 @@ export const PatientRoutes: Routes = [
     /*{path: 'image-order', component: PatientImageOrderComponent},*/
 
     {path: ':id/image-order', component: PatientImageOrderComponent},
-
     {path: ':id/patient-vital', component: PatientHistoryVitalComponent},
+    {path: 'importPatientData', component: ImportPatientDataComponent},
+    {path: 'importPatientMapFields/:id', component: ImportPatientMapFieldsComponent},
+    {path: 'importPatientSaveImport/:id', component: ImportPatientUploadImportComponent},
     {path: '**', redirectTo: '404'}
 ];
+
+

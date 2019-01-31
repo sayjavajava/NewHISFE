@@ -21,6 +21,9 @@ var patient_invoice_list_component_1 = require("../components/dashboard/patient/
 /*import {PatientImageOrderComponent} from "../components/dashboard/patient/PatientImageOrderComponent";*/
 var PatientImageOrderComponent_1 = require("../components/dashboard/patient/PatientImageOrderComponent");
 var patient_history_vital_component_1 = require("../components/dashboard/patient/patient-history-vital.component");
+var import_patient_data_component_1 = require("../components/dashboard/patient/import-patient-data.component");
+var import_patient_map_fields_component_1 = require("../components/dashboard/patient/import-patient-map-fields.component");
+var import_patient_upload_import_component_1 = require("../components/dashboard/patient/import-patient-upload-import.component");
 exports.PatientRoutes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: patient_dashboard_component_1.PatientDashboardComponent },
@@ -48,6 +51,9 @@ exports.PatientRoutes = [
     /*{path: 'image-order', component: PatientImageOrderComponent},*/
     { path: ':id/image-order', component: PatientImageOrderComponent_1.PatientImageOrderComponent },
     { path: ':id/patient-vital', component: patient_history_vital_component_1.PatientHistoryVitalComponent },
+    { path: 'importPatientData', component: import_patient_data_component_1.ImportPatientDataComponent },
+    { path: 'importPatientMapFields/:id', component: import_patient_map_fields_component_1.ImportPatientMapFieldsComponent },
+    { path: 'importPatientSaveImport/:id', component: import_patient_upload_import_component_1.ImportPatientUploadImportComponent },
     { path: '**', redirectTo: '404' }
 ];
 //# sourceMappingURL=patient.routes.js.map

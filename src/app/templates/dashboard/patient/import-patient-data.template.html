@@ -1,0 +1,121 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr no-margin">
+                    <h4 class="text-info">{{heading}}</h4>
+                </div>
+                <div class="table-scrollable border-non">
+                    <div class="main-steps">
+                        <!--<div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">1</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Upload</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">2</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Map Fields</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">3</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Import Done</div>
+                            </div>
+                        </div>-->
+                        <p-steps [model]="items" [readonly]="true" [(activeIndex)]="activeIndex"></p-steps>
+                    </div>
+                    <div class="contnt-data col-md-12 browse-file-txt">
+                        <p>Download a <a (click)="downloadSampleFiles()">sample xls file</a> and compare it to your import file to ensure you have the file perfect for the import.</p>
+                        <h2>Select an Excel file to upload</h2>
+                        <div class="">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group input-large">
+                                    <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                        {{uploadFileTitle}} <span class="fileinput-filename"> </span>
+                                    </div>
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <input #fileUpload type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                               id="patientDataImport" name="patientDataImport" class="btn green btn-file select-file"
+                                               (click)="fileUpload.value = null" (change)="importData($event)" style="display:none">
+                                        <!--<span class="fileinput-new"> Select file </span>
+                                        <span class="fileinput-exists"> Change </span>
+                                        <span class="fileinput-filename"> </span> &nbsp;
+                                        <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"> </a>-->
+                                    </div>
+                                </div>
+                                <div>
+                                    <!--<input type="text" disabled readonly value="{{uploadFileTitle}}">-->
+                                    <button class="btn blue" (click)="fileUpload.click()"> Browse </button>
+                                </div>
+                                <!--<div class="ui-g-12 ui-md-8">
+                                    <div class="ui-inputgroup">
+                                        <input type="text" pInputText placeholder="{{uploadFileTitle}}" value="{{uploadFileTitle}}">
+                                        <button pButton type="button" class="ui-button-warn" (click)="fileUpload.click()">Browse</button>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contnt-data col-md-12 mrgn-top24">
+                        <label class="control-label">Duplicate Records
+                            <span class="required" aria-required="true"> * </span>
+                        </label>
+                        <div class="mt-radio-list">
+                            <!--<label class="mt-radio mt-radio-outline">
+                                <input type="radio" name="toasts" value="Skip" checked="">Skip
+                                <span></span>
+                            </label>
+                            <label class="mt-radio mt-radio-outline">
+                                <input type="radio" name="toasts" value="Overwrite">Overwrite
+                                <span></span>
+                            </label>-->
+                            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                <div class="ui-g-12"><p-radioButton name="dupRecord" value="Skip" label="Skip" [(ngModel)]="dupRecOp" inputId="Skip"></p-radioButton></div>
+                                <div class="ui-g-12"><p-radioButton name="dupRecord" value="Overwrite" label="Overwrite" [(ngModel)]="dupRecOp" inputId="Overwrite"></p-radioButton></div>
+                            </div>
+                        </div>
+                        <!--<div class="form-group mrgn-btm08">
+                            <label class="control-label col-md-4 pdng-lr-5">Country </label>-->
+                        <div class="col-md-6 pdng-lr-5 mrgn-btm08">
+                        <!--<div class="frm-slct">-->
+                            <label class="control-label">Character Encoding
+                                <span class="required" aria-required="true"> * </span>
+                            </label>
+                            <!--<select class="form-control" (change)="getSelectedEncoding($event.target.value)"
+                                    [(ngModel)]="encodingType" placeholder="Select Encoding">
+                                <option *ngFor="let charEnc of charEncodingList" [value]="charEnc"> {{charEnc.label}} </option>
+                            </select>-->
+                            <p-dropdown placeholder="Select Encoding" [autoWidth]="false" [(ngModel)]="encodingType" id="encodingType" aria-required="true"
+                                        data-required="true" [options]="charEncodingList" [panelStyle]="{minWidth:'12em'}" [filter]="true"
+                                        [style]="{'text-align': 'left' ,'width':'100%'}" (onChange)="getSelectedEncoding($event.value)">
+                            </p-dropdown>
+                            <!--<select class="page-footer-option form-control input-sm" title="">
+                                <option value="fixed">UTF-8 (Unicode)</option>
+                                <option value="default" selected="selected">UTF-8 (Unicode)</option>
+                            </select>-->
+                        </div>
+                    </div>
+                    <div class="contnt-data col-md-12 mrgn-top24">
+                        <div class="col-md-12 no-padding">
+                            <div class="text-align-center">
+                                <button class="btn default" (click)="cancel()"> Cancel <i class="fa fa-cancel"></i> </button>
+                                <button class="btn blue" (click)="recordOperation()"> Next <i class="fa fa-angle-double-right"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+
+

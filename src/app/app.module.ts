@@ -22,7 +22,7 @@ import {NotFound404Component} from "./components/errors/not-found-404.component"
 // Routes
 import {routes} from "./app.routes";
 import {ColorPickerModule} from "ngx-color-picker";
-import { CKEditorModule } from 'ng2-ckeditor';
+import {CKEditorModule} from 'ng2-ckeditor';
 // Services
 import {RequestsService} from "./services/requests.service";
 import {HISUtilService} from "./services/his-util.service";
@@ -58,12 +58,15 @@ import {UpdateReceptionistComponent} from "./components/dashboard/setting/update
 import {AddBranchComponent} from "./components/dashboard/setting/addbranch.component";
 import {UserPermissionsComponent} from "./components/dashboard/setting/user-permissions.component";
 import {
-    MatButtonModule, MatButtonToggle, MatButtonToggleModule, MatCheckbox, MatCheckboxModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatNativeDateModule, MatRadioModule,
+    MatNativeDateModule,
+    MatRadioModule,
     MatSnackBarModule
 } from "@angular/material";
 import {NotificationService} from "./services/notification.service";
@@ -126,7 +129,12 @@ import {DialogModule} from 'primeng/dialog';
 
 
 import {
-    CheckboxModule, DataTableModule, MegaMenuModule, OverlayPanelModule, PaginatorModule, PanelMenuModule,
+    CheckboxModule,
+    DataTableModule,
+    MegaMenuModule,
+    OverlayPanelModule,
+    PaginatorModule,
+    PanelMenuModule,
     PasswordModule,
     ScheduleModule
 } from "primeng/primeng";
@@ -173,6 +181,11 @@ import {PanelModule} from "primeng/panel";
 import {GalleriaModule} from 'primeng/components/galleria/galleria';
 import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
 import {FileServices} from "./services/FileServices";
+import {StepsModule} from 'primeng/components/steps/steps';
+import {ImportPatientDataComponent} from "./components/dashboard/patient/import-patient-data.component";
+import {RadioButtonModule} from 'primeng/components/radiobutton/radiobutton';
+import {ImportPatientMapFieldsComponent} from "./components/dashboard/patient/import-patient-map-fields.component";
+import {ImportPatientUploadImportComponent} from "./components/dashboard/patient/import-patient-upload-import.component";
 
 @NgModule({
     providers: [
@@ -245,6 +258,8 @@ import {FileServices} from "./services/FileServices";
         GalleriaModule,
         DialogModule,
         SplitButtonModule,
+        StepsModule,
+        RadioButtonModule,
     ],
     declarations: [
         // App Components
@@ -360,7 +375,11 @@ import {FileServices} from "./services/FileServices";
         PatientImageComponent,
         PatientImageOrderComponent,
         PatientHistoryVitalComponent,
-        DoctorPaymentListingComponent
+        DoctorPaymentListingComponent,
+        ImportPatientDataComponent,
+        ImportPatientMapFieldsComponent,
+        ImportPatientUploadImportComponent
+
     ],
     bootstrap: [AppComponent]
 })
