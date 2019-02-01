@@ -1,7 +1,7 @@
 <patient-history-menu></patient-history-menu>
 <div class="page-content-wrapper">
     <div class="page-content">
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
                     <div class="portlet-title">
@@ -19,6 +19,72 @@
                                         <tr>
                                             <td class="txt-rigt">Cell Phone:</td>
                                             <td class="txt-left font-red">{{patient.cellPhone}}</td>
+                                            &lt;!&ndash;<td class="font-red">Missing</td>&ndash;&gt;
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Address:</td>
+                                            <td class="text-left font-red">{{patient.formattedAddress}}</td>
+                                            &lt;!&ndash;<td class="font-red">No address on file</td>&ndash;&gt;
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Email:</td>
+                                            <td class="text-left font-red">{{patient.email}}</td>
+                                            &lt;!&ndash; <td class="font-red">Missing</td>&ndash;&gt;
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Gender:</td>
+                                            <td class="text-left font-red">{{patient.gender}}</td>
+                                            &lt;!&ndash; <td class="font-red">Missing</td>&ndash;&gt;
+                                        </tr>
+                                        &lt;!&ndash;<tr>
+                                            <td class="txt-rigt">Appt:</td>
+                                            <td class="font-red">Mon. Jul. 27, 2015</td>
+                                        </tr>&ndash;&gt;
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        &lt;!&ndash;  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>&ndash;&gt;
+                    </div>
+                    <div class="hr no-margin">
+                        <div class="hr">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="portlet-title">
+                        <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-sm-8 col-xs-12">
+                            <div class="hr">
+                                <h1 class="page-title no-margin"> {{patient.firstName }} {{patient.lastName}}</h1>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.age}} years old | {{patient.dobStr  }})</small>
+                            </div>
+                            <div class="hr padding-b-10">
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Cell Phone:</td>
+                                            <td class="txt-left font-red">{{patient.cellPhone}}</td>
                                             <!--<td class="font-red">Missing</td>-->
                                         </tr>
                                         <tr>
@@ -26,8 +92,12 @@
                                             <td class="text-left font-red">{{patient.formattedAddress}}</td>
                                             <!--<td class="font-red">No address on file</td>-->
                                         </tr>
-                                    </table>
 
+                                        <tr>
+                                            <td class="txt-rigt">Dated:</td>
+                                            <td class="font-red">{{patient.createDate}}</td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="col-md-4 col-xs-12">
                                     <table width="100%" border="0">
@@ -41,30 +111,38 @@
                                             <td class="text-left font-red">{{patient.gender}}</td>
                                             <!-- <td class="font-red">Missing</td>-->
                                         </tr>
-                                        <!--<tr>
-                                            <td class="txt-rigt">Appt:</td>
-                                            <td class="font-red">Mon. Jul. 27, 2015</td>
-                                        </tr>-->
+                                        <tr>
+                                            <td class="txt-rigt">Last Scheduled Appt:</td>
+                                            <td class="font-red">{{patient.lastAppointment}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="txt-rigt">Next Scheduled Appt:</td>
+                                            <td class="font-red">{{patient.nextAppointment}}</td>
+                                        </tr>
                                     </table>
-
                                 </div>
-
                             </div>
                         </div>
                         <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
                     </div>
                     <div class="hr no-margin">
-                        <div class="hr">
+                        <div *ngIf="patient.primaryDoctorFirstName"  class="hr">
                             <div class="portlet-title">
-                                <div class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primary Doctor:</span> <span
+                                        class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span>
+                                </div>
                             </div>
                         </div>
-
+                        <!-- <div class="hr no-margin">
+                             <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
+                             <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
+                         </div>-->
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-12">
                 <form [formGroup]="labForm" class="form-horizontal">
