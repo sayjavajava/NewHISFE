@@ -49,6 +49,7 @@ export class ManageAppointmentComponent implements OnInit {
     dateSchedule: any;
     cols: any;
     serviceDuration: any = 0;
+    statusColor:any;
     appointmentForm: FormGroup;
     appointmentObj: ManageAppointment = new ManageAppointment();
     selectedMedicalService: MedicalService = new MedicalService();
@@ -138,6 +139,7 @@ export class ManageAppointmentComponent implements OnInit {
                 }
             );
     }
+
 
     selectServices(item: any) {
         this.filteredServices = [];
@@ -360,9 +362,14 @@ export class ManageAppointmentComponent implements OnInit {
         $('#appEditModal').modal('show');
     }
 
-    getUpdatedStatus(statusValue: number, apptId: any) {
+    getUpdatedStatus(statusValue: number, apptId: any ,stObj ?:any) {
         var that = this;
-        console.log(statusValue + 'status log:' + status);
+        console.log( 'status log:' + stObj );
+        if(stObj){
+            let stColor = this.statusesList.filter((x:any) => x.id == stObj);
+            this.statusColor = stColor[0].colorHash;
+            console.log(stColor);
+        }
         this.confirmationDialogService
             .confirm('Update Status', 'Are you sure?')
             .subscribe(res => {

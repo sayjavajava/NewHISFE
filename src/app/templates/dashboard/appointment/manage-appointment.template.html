@@ -145,7 +145,7 @@
                        <!--     <td> {{item.status}}</td>-->
                             <td *ngIf="item.pastAppt">{{item.status}}</td>
                             <td *ngIf="item.pastAppt == false">
-                                <select class="form-control" #t (change)="getUpdatedStatus($event.target.value,item.appointmentId)" [(ngModel)]="item.statusId" name="itemSt">
+                                <select [ngStyle]="{'color': red}" class="form-control" #t (change)="getUpdatedStatus($event.target.value,item.appointmentId,t.value)"   [(ngModel)]="item.statusId" name="itemSt">
                                 <option *ngFor="let st of statusesList; let i = index;"
                                         value={{st.id}}>
                                     {{st.name}}

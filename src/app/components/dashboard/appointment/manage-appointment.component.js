@@ -296,10 +296,15 @@ var ManageAppointmentComponent = (function () {
         this.appointmentObj = appt;
         $('#appEditModal').modal('show');
     };
-    ManageAppointmentComponent.prototype.getUpdatedStatus = function (statusValue, apptId) {
+    ManageAppointmentComponent.prototype.getUpdatedStatus = function (statusValue, apptId, stObj) {
         var _this = this;
         var that = this;
-        console.log(statusValue + 'status log:' + status);
+        console.log('status log:' + stObj);
+        if (stObj) {
+            var stColor = this.statusesList.filter(function (x) { return x.id == stObj; });
+            this.statusColor = stColor[0].colorHash;
+            console.log(stColor);
+        }
         this.confirmationDialogService
             .confirm('Update Status', 'Are you sure?')
             .subscribe(function (res) {
