@@ -95,8 +95,8 @@ label{margin-bottom: 0 !important;}
 .sub-total ul{list-style:none; padding:0; float:left; width: 100%;}
 .sub-total li{width:100%; float:left; padding-top: 5px; padding-bottom: 5px;}
 .sub-total li span{}
-.sub-total li span:first-child{float: left;font-weight: bold; width: 30%; text-align: left;}
-.sub-total li span:last-child{float: right;width: 70%; text-align: right;}
+.sub-total li span:first-child{float: left;font-weight: bold; width: 40%; text-align: left;}
+.sub-total li span:last-child{float: right;width: 60%; text-align: right;}
 .sar-total{background:#faf9f9; border:1px solid #eee; padding:10px;}
 .txt-btm-brdr{border-bottom: 1px dotted #000;}
 .hdr-bckgrnd{background:#0153a7; color:#fff; text-align:left;}
@@ -465,7 +465,7 @@ label{margin-bottom: 0 !important;}
     margin: 200px auto !important;
 }
 /*.portlet{margin-bottom: 0px !important;}*/
-.profile-frm input, .profile-frm select{height: 25px !important; padding: 2px 12px !important;}
+.profile-frm input, .profile-frm select{height: 25px !important; /*padding: 2px 12px !important;*/}
 /*.form-control{height: 25px !important; padding: 2px 12px !important;}*/
 /*.form-group {margin-bottom: 0px;}*/
 .form-control, output{font-size:12px;}
@@ -908,5 +908,7 @@ ul.ui-inputtext{width: 100%;}
 .checkbox-sm .form-control{height: 18px !important}
 .bc-bg{background-color: red; color: green;}
 .clck-icon i{font-size: 24px;}
-
+.ui-chkbox{float: left;}
 .wrap-overflow-text {overflow-wrap: break-word;}
+.slct-arrow-hidn div span{display: none;}
+/*.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {border-top: none !important;}*/

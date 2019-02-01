@@ -90,7 +90,7 @@ export class ManageAppointmentComponent implements OnInit {
             {field: 'serviceName', header: 'Service'},
             {field: 'examName', header: 'Room'},
             {field: 'branchName', header: 'Branch'},
-            {field: 'appointmentType', header: 'Type'},
+            {field: 'apptType', header: 'Type'},
             {field: 'scheduleDate', header: 'Appt Time'},
             {field: 'checkIn', header: 'CheckIn'},
             {field: 'creatorName', header: 'Creator'},

@@ -166,8 +166,7 @@
                                         </textarea>
                                     </div>
                                 </div>
-
-                                <div class="form-group  hr mrgn-btm08">
+                                <div class="form-group hr">
                                     <label class="col-md-4 control-label txt-size pdng-lr-5">Status</label>
                                     <div class="col-md-8 select mt-checkbox mt-checkbox-outline pdng-l-r-15">
                                         <label class="mt-checkbox-outline">
@@ -175,11 +174,8 @@
                                         </label>
                                     </div>
                                 </div>
-
-
-                            <!-- Image Upload -->
-
-                            <!-- -->
+                                <!-- Image Upload -->
+                                <!-- -->
                         </div>
                         <div class="col-md-6">
                         <div class="form-group">
@@ -190,14 +186,13 @@
                                  src="/public/images/patient-photo.jpg"
                                  *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
 
-                            <img class="img-responsive" style="width: 120px; height: 140px;"
+                            <img class="img-responsive" style="width: 120px; height: 120px;"
                                  src="{{urlOrganization}}">
                         </div>
                         <div class="mrgn-top8">
                             <input class="file" type="file" id="profileImgUrl"
                                    name="profileImgUrl"
                                    (change)="uploadImgOnChange($event)">
-
                         </div>
                         <!-- <div class="imgUploadTopMargin">
                              <button class="btn btn-default btn-outline"
@@ -214,7 +209,6 @@
                                 <a routerLink="/dashboard/setting/medicalServices">
                                     <button type="button" class="btn default"> Cancel</button>
                                 </a>
-
                             </div>
                         </div>
                     </div>

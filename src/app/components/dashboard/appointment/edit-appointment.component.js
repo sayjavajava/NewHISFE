@@ -237,7 +237,6 @@ var EditAppointmentComponent = (function () {
             appointmentType: this.selectedType,
             followUpDate: new Date(),
             followUpReason: 'reason',
-            recurseEvery: 'rescurse',
             neverEnds: false,
             followUpReminder: false,
             arrangeFollowUpReminder: false,

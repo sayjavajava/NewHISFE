@@ -499,105 +499,110 @@ var AddAppointmentComponent = (function () {
         this.reqBranchId = branchId;
         this.reqDoctorId = docId != 0 ? docId : 0;
         var self = this;
-        this.requestsService.searchWithParam(app_constants_1.AppConstants.SEARCH_APPOINTMENT_URL, docId, branchId)
-            .subscribe(function (response) {
-            if (response['responseCode'] === 'APPT_SUC_01') {
-                _this.events.length = 0;
-                // self.notificationService.success('Success', "Appointment Founded ");
-                for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
-                    var apt = _a[_i];
-                    _this.events.push({
-                        title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/ '<div class="headng-bck">\n' +
-                            ' <div class="hadng-txt">\n' +
-                            '<table width="236px" border="0">\n' + '\n' +
-                            '<tr class="" width="236">\n' +
-                            '    <td   id="imageDiv" style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="' + apt.profileImgURL + '"></td>\n' +
-                            '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>' + apt.appointmentId + '</h2></td>\n' +
-                            '</tr>\n' +
-                            '  </table>\n' +
-                            '            </div>\n' +
-                            /* '        </div> ' +*/
-                            '<div class="bc-bg">\n' +
-                            '                <table width="236px" border="0">\n' +
-                            '\n' +
-                            '            <tr class="gry-bckgrnd inr-txt">\n' +
-                            '                    <td class="display-none">Patient</td>\n' +
-                            '                    <td class="brnch-td width100">\n' + apt.patient + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td>Branch</td>\n' +
-                            '                    <td>\n' + apt.branchName + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td>Schedule Date</td>\n' +
-                            '                    <td>\n' + apt.scheduleDate + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td>Doctor</td>\n' +
-                            '                    <td>\n' + apt.docFirstName + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td>Service</td>\n' +
-                            '                    <td>\n' + apt.serviceName + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td>Duration</td>\n' +
-                            '                    <td>\n' + apt.duration + 'min' + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td>Status</td>\n' +
-                            '                    <td>\n' + apt.status + '</td>\n' +
-                            '                </tr>\n' +
-                            '            <tr class="whte-bckgrnd inr-txt">\n' +
-                            '                    <td>Room</td>\n' +
-                            '                    <td>\n' + apt.examName + '</td>\n' +
-                            '                </tr>\n' +
-                            '            </table>\n' +
-                            '                \n' +
-                            '            </div>\n' +
-                            '            </div>\n',
-                        start: date_fns_1.startOfDay(new Date(apt.scheduleDate)),
-                        end: date_fns_1.endOfDay(new Date(apt.scheduleDate)),
-                        color: {
-                            primary: apt.color,
-                            secondary: apt.color
-                        },
-                        colorHash: apt.color,
-                        draggable: true,
-                        notes: apt.notes,
-                        reason: apt.reason,
-                        status: apt.status,
-                        duration: apt.duration,
-                        age: apt.age,
-                        type: apt.apptType,
-                        //cellPhone:apt.patient.profile.cellPhone,
-                        //selectWorkingDays:this.selectedRecurringDays,
-                        appointmentType: apt.appointmentType,
-                        followUpDate: new Date(),
-                        followUpReason: apt.followUpReason,
-                        recurseEvery: apt.recurseEvery,
-                        neverEnds: false,
-                        followUpReminder: false,
-                        arrangeFollowUpReminder: false,
-                        firstAppointment: apt.firstAppointmentOn,
-                        lastAppointment: apt.lastAppointmentOn,
-                        recurringAppointment: false,
-                        branch: apt.branchName,
-                        examRoom: apt.examName,
-                        branchId: apt.branchId,
-                        roomId: apt.roomId,
-                        doctorId: apt.doctorId
-                        //service id
-                    });
-                    _this.refresh.next();
+        if (branchId != null && docId != null) {
+            this.requestsService.searchWithParam(app_constants_1.AppConstants.SEARCH_APPOINTMENT_URL, docId, branchId)
+                .subscribe(function (response) {
+                if (response['responseCode'] === 'APPT_SUC_01') {
+                    _this.events.length = 0;
+                    // self.notificationService.success('Success', "Appointment Founded ");
+                    for (var _i = 0, _a = response['responseData']; _i < _a.length; _i++) {
+                        var apt = _a[_i];
+                        _this.events.push({
+                            title: /*'<div  class="popup-hiden">\n' +apt.branchName+*/ '<div class="headng-bck">\n' +
+                                ' <div class="hadng-txt">\n' +
+                                '<table width="236px" border="0">\n' + '\n' +
+                                '<tr class="" width="236">\n' +
+                                '    <td   id="imageDiv" style="width:20%; padding: 6px !important; margin: 6px;"><img alt="" width="70" height="70" class="img-circle" src="' + apt.profileImgURL + '"></td>\n' +
+                                '    <td style="width:80%; padding: 6px !important; margin: 6px;"><h2>' + apt.appointmentId + '</h2></td>\n' +
+                                '</tr>\n' +
+                                '  </table>\n' +
+                                '            </div>\n' +
+                                /* '        </div> ' +*/
+                                '<div class="bc-bg">\n' +
+                                '                <table width="236px" border="0">\n' +
+                                '\n' +
+                                '            <tr class="gry-bckgrnd inr-txt">\n' +
+                                '                    <td class="display-none">Patient</td>\n' +
+                                '                    <td class="brnch-td width100">\n' + apt.patient + '</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td>Branch</td>\n' +
+                                '                    <td>\n' + apt.branchName + '</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td>Schedule Date</td>\n' +
+                                '                    <td>\n' + apt.scheduleDate + '</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td>Doctor</td>\n' +
+                                '                    <td>\n' + apt.docFirstName + '</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td>Service</td>\n' +
+                                '                    <td>\n' + apt.serviceName + '</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td>Duration</td>\n' +
+                                '                    <td>\n' + apt.duration + 'min' + '</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td>Status</td>\n' +
+                                '                    <td>\n' + apt.status + '</td>\n' +
+                                '                </tr>\n' +
+                                '            <tr class="whte-bckgrnd inr-txt">\n' +
+                                '                    <td>Room</td>\n' +
+                                '                    <td>\n' + apt.examName + '</td>\n' +
+                                '                </tr>\n' +
+                                '            </table>\n' +
+                                '                \n' +
+                                '            </div>\n' +
+                                '            </div>\n',
+                            start: date_fns_1.startOfDay(new Date(apt.scheduleDate)),
+                            end: date_fns_1.endOfDay(new Date(apt.scheduleDate)),
+                            color: {
+                                primary: apt.color,
+                                secondary: apt.color
+                            },
+                            colorHash: apt.color,
+                            draggable: true,
+                            notes: apt.notes,
+                            reason: apt.reason,
+                            status: apt.status,
+                            duration: apt.duration,
+                            age: apt.age,
+                            type: apt.apptType,
+                            //cellPhone:apt.patient.profile.cellPhone,
+                            //selectWorkingDays:this.selectedRecurringDays,
+                            appointmentType: apt.appointmentType,
+                            followUpDate: new Date(),
+                            followUpReason: apt.followUpReason,
+                            recurseEvery: apt.recurseEvery,
+                            neverEnds: false,
+                            followUpReminder: false,
+                            arrangeFollowUpReminder: false,
+                            firstAppointment: apt.firstAppointmentOn,
+                            lastAppointment: apt.lastAppointmentOn,
+                            recurringAppointment: false,
+                            branch: apt.branchName,
+                            examRoom: apt.examName,
+                            branchId: apt.branchId,
+                            roomId: apt.roomId,
+                            doctorId: apt.doctorId
+                            //service id
+                        });
+                        _this.refresh.next();
+                    }
                 }
-            }
-            if (response['responseCode'] === 'APPT_ERR_03') {
-                _this.events = [];
-                self.notificationService.warn("No Appointment Founded");
-            }
-        }, function (error) {
-        });
+                if (response['responseCode'] === 'APPT_ERR_03') {
+                    _this.events = [];
+                    self.notificationService.warn("No Appointment Founded");
+                }
+            }, function (error) {
+            });
+        }
+        else {
+            this.getAllAppointments();
+        }
     };
     AddAppointmentComponent.prototype.selectRecurringDays = function (event, item) {
         if (event.target.checked) {

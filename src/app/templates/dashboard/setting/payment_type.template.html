@@ -237,14 +237,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" id="closeButton" class="btn default"> Close </button>
-                        <button type="button" class="btn blue"
+                        <button type="button" class="btn primary blue"
                                 *ngIf="newPaymentType.id == null || newPaymentType.id <= 0"
                                 (click)="savePaymentType(form)">Save
                         </button>
-                        <button type="button" class="btn blue" *ngIf="newPaymentType.id > 0"
+                        <button type="button" class="btn primary blue" *ngIf="newPaymentType.id > 0"
                                 (click)="updatePaymentType(form)">Update
                         </button>
+                        <button type="button" data-dismiss="modal" id="closeButton" class="btn green-meadow mrgn-lft0"> Close </button>
                     </div>
                 </div>
             </form>

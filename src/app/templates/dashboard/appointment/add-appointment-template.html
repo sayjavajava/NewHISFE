@@ -792,7 +792,7 @@
                     <h4 class="modal-title bold"> Schedule Appointment </h4>
                 </div>
                 <div class="modal-body schedule-body">
-                    <div class="scroller" style="height:750px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller" style="height:840px" data-always-visible="1" data-rail-visible1="1">
                         <div class="row">
                             <form id="loginForm" class="login-form" #loginForm="ngForm">
                                 <div class=" col-md-12">
@@ -804,9 +804,7 @@
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-
                                             <div class="tab-pane fade active in" id="tab_1_1">
-
                                                 <div class="form-group">
                                                     <!--<div *ngFor="let item of Type" class="col-sm-2 pdng-lr-5">
                                                         <label>
@@ -848,23 +846,8 @@
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group hr no-margin">
-                                                                <label class="col-md-3 control-label pdng-lr-5">Last Name</label>
-                                                                <div class="col-md-9 profile-frm pdng-lr-5">
-                                                                    <input type="text" value="" class="form-control"
-                                                                           [ngModelOptions]="{standalone:true}"
-                                                                           placeholder="Last Name"
-                                                                           [(ngModel)]="event.newPatient"
-                                                                           (keyup)="refresh.next()">
-
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group hr no-margin">
-                                                                <label class="col-md-3 control-label pdng-lr-5">Cell Phone</label>
-                                                                <div class="col-md-9 profile-frm pdng-lr-5">
-
+                                                                <label class="col-md-4 control-label">Cell Phone</label>
+                                                                <div class="col-md-8 profile-frm">
                                                                     <input
                                                                             type="text"
                                                                             placeholder="Cell Phone"
@@ -872,11 +855,8 @@
                                                                             [ngModelOptions]="{standalone:true}"
                                                                             [(ngModel)]="event.cellPhone"
                                                                             (keyup)="refresh.next()">
-
-
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1084,7 +1064,7 @@
                                                                             [(ngModel)]="event.serviceId"
                                                                             [options]="filteredServices"
                                                                             (onChange)="getSelectedService($event)"
-                                                                            [panelStyle]="{minWidth:'12em'}"
+                                                                            [panelStyle]="{minWidth:''}"
                                                                             [filter]="true">
                                                                 </p-dropdown>
                                                                 <!--<span *ngIf="service.invalid && service.touched"
@@ -1170,15 +1150,12 @@
                                                     <div *ngIf="isRecurringFlag"
                                                          class="hr off-wite-bg round-table checkbox-sm"
                                                          style="padding: 10px">
-
                                                         <div class="form-group hr">
                                                             <label class="control-label col-md-2 col-xs-12"> Working
                                                                 Days:
                                                             </label>
                                                             <div class="col-md-10 col-xs-12 text-center">
-
                                                                 <div *ngFor="let item of recurringDays" class="">
-
                                                                     <div class=" col-md-1 col-width14 col-xs-3">
                                                                         <input class="checkbox-sm" type="checkbox"
                                                                                name="working"
@@ -1187,7 +1164,6 @@
                                                                                (change)="selectRecurringDays($event,item)">
                                                                         {{item.name}}
                                                                     </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1245,13 +1221,10 @@
                                                                                 [(ngModel)]="event.lastAppointment"
                                                                                 name="lastAppt"
                                                                                 [settings]="settings"></angular2-date-picker>
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                     <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-btm08">
                                                         <input type="checkbox" name="followUpReminder"
@@ -1300,10 +1273,7 @@
                                                                            name="followReason"
                                                                               value="" class="form-control"></textarea></div>
                                                             </div>
-
-
                                                         </div>
-
                                                         <!--  <div class="form-group hr">
                                                               <label class="col-md-3 control-label txt-size pdng-lr-5">Name <span
                                                                       class="required" aria-required="true"> * </span></label>
@@ -1317,10 +1287,8 @@
                                                           Please enter valid name.
                                                   </span>
                                                           </div>-->
-
                                                     </div>
-
-                                                    <div class="hr off-wite-bg round-table" style="padding: 10px;">
+                                                   <!-- <div class="hr off-wite-bg round-table" style="padding: 10px;">
                                                         <div class="col-md-6">
                                                             <div class="form-group hr mrgn-btm08">
                                                                 <label class="control-label col-md-3">Email
@@ -1336,8 +1304,6 @@
                                                                     </p-dropdown>
                                                                 </div>
                                                             </div>
-
-
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group hr mrgn-btm08">
@@ -1353,11 +1319,211 @@
                                                                 <label class="control-label col-md-6">Before
                                                                 </label>
                                                             </div>
-
-
+                                                        </div>
+                                                    </div>-->
+                                                    <label class="mt-checkbox mt-checkbox-outline col-md-12 mrgn-btm08">
+                                                        <input type="checkbox" name=""> View Active Reminders
+                                                        <span></span>
+                                                    </label>
+                                                    <div class="hr round-table">
+                                                        <div class="row mrgn-btm08">
+                                                        <div class="col-md-8">
+                                                        <div class="form-group mrgn-btm08">
+                                                            <label class="control-label col-md-4 pdng-lr-5 bold">Choose a Reminder Profile:</label>
+                                                            <div class="col-md-7 profile-frm pdng-lr-5">
+                                                                <select class="form-control no-padding">
+                                                                    <option>SMS</option>
+                                                                    <option>SMS</option>
+                                                                    <option>SMS</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        <div class="row mrgn-btm08">
+                                                            <div class="col-md-8">
+                                                        <div class="form-group mrgn-btm08">
+                                                            <label class="control-label col-md-4 pdng-lr-5">Time has already passed.</label>
+                                                            <div class="col-md-3 profile-frm pdng-lr-5">
+                                                                <div class="">
+                                                                <select class="form-control no-padding">
+                                                                    <option>SMS</option>
+                                                                    <option>SMS</option>
+                                                                    <option>SMS</option>
+                                                                </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1 profile-frm pdng-lr-5">
+                                                                <input type="text" class="form-control text-center" placeholder="1" value="">
+                                                            </div>
+                                                            <div class="col-md-2 profile-frm pdng-lr-5">
+                                                                <div class="">
+                                                                    <select class="form-control no-padding">
+                                                                        <option>Week(s)</option>
+                                                                        <option>Week(s)</option>
+                                                                        <option>Week(s)</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 profile-frm pdng-lr-5">
+                                                                <div class="">
+                                                                    <select class="form-control no-padding">
+                                                                        <option>before</option>
+                                                                        <option>before</option>
+                                                                        <option>before</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="pull-right">
+                                                                    <span class="mrgn-lft8 font-blue"><button class=""> <i class="fa fa-pencil"></i> </button></span>
+                                                                    <span class="mrgn-lft8"><button class=""> <i class="fa fa-eye"></i> </button></span>
+                                                                    <span class="mrgn-lft8 text-danger"><button class=""> <i class="fa fa-remove"></i> </button></span>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mrgn-btm08">
+                                                            <div class="col-md-8">
+                                                                <div class="form-group mrgn-btm08">
+                                                                    <label class="control-label col-md-4 pdng-lr-5">Time has already passed.</label>
+                                                                    <div class="col-md-3 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>Email</option>
+                                                                                <option>Email</option>
+                                                                                <option>Email</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-1 profile-frm pdng-lr-5">
+                                                                        <input type="text" class="form-control text-center" placeholder="2" value="">
+                                                                    </div>
+                                                                    <div class="col-md-2 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>day(s)</option>
+                                                                                <option>day(s)</option>
+                                                                                <option>day(s)</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>before</option>
+                                                                                <option>before</option>
+                                                                                <option>before</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="pull-right">
+                                                                    <span class="mrgn-lft8 font-blue"><button class=""> <i class="fa fa-pencil"></i> </button></span>
+                                                                    <span class="mrgn-lft8"><button class=""> <i class="fa fa-eye"></i> </button></span>
+                                                                    <span class="mrgn-lft8 text-danger"><button class=""> <i class="fa fa-remove"></i> </button></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mrgn-btm08">
+                                                            <div class="col-md-8">
+                                                                <div class="form-group mrgn-btm08">
+                                                                    <label class="control-label col-md-4 pdng-lr-5">Not available for free users.</label>
+                                                                    <div class="col-md-3 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>Auto Phone Call</option>
+                                                                                <option>Auto Phone Call</option>
+                                                                                <option>Auto Phone Call</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-1 profile-frm pdng-lr-5">
+                                                                        <input type="text" class="form-control text-center" placeholder="1" value="">
+                                                                    </div>
+                                                                    <div class="col-md-2 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>Week(s)</option>
+                                                                                <option>Week(s)</option>
+                                                                                <option>Week(s)</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>before</option>
+                                                                                <option>before</option>
+                                                                                <option>before</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="pull-right">
+                                                                    <span class="mrgn-lft8 font-blue"><button class=""> <i class="fa fa-pencil"></i> </button></span>
+                                                                    <span class="mrgn-lft8"><button class=""> <i class="fa fa-eye"></i> </button></span>
+                                                                    <span class="mrgn-lft8 text-danger"><button class=""> <i class="fa fa-remove"></i> </button></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mrgn-btm08">
+                                                            <div class="col-md-8">
+                                                                <div class="form-group mrgn-btm08">
+                                                                    <label class="control-label col-md-4 pdng-lr-5">Time has already passed.</label>
+                                                                    <div class="col-md-3 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>Email</option>
+                                                                                <option>Email</option>
+                                                                                <option>Email</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-1 profile-frm pdng-lr-5">
+                                                                        <input type="text" class="form-control text-center" placeholder="1" value="">
+                                                                    </div>
+                                                                    <div class="col-md-2 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>Week(s)</option>
+                                                                                <option>Week(s)</option>
+                                                                                <option>Week(s)</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 profile-frm pdng-lr-5">
+                                                                        <div class="">
+                                                                            <select class="form-control no-padding">
+                                                                                <option>before</option>
+                                                                                <option>before</option>
+                                                                                <option>before</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="pull-right">
+                                                                    <span class="mrgn-lft8 font-blue"><button class=""> <i class="fa fa-pencil"></i> </button></span>
+                                                                    <span class="mrgn-lft8"><button class=""> <i class="fa fa-eye"></i> </button></span>
+                                                                    <span class="mrgn-lft8 text-danger"><button class=""> <i class="fa fa-remove"></i> </button></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="pull-right">
+                                                                    <button class="btn primary blue"><i class="fa fa-plus"></i> New Reminder </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -1366,29 +1532,21 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" data-dismiss="modal" (click)="eventsRequest.splice(index, 1)"
                              class="btn red"> Delete
                      </button>-->
-
                     <button type="button" [disabled]="!loginForm.valid" (click)="saveAppointment(event,loginForm)"
-                            name="saveBtn"
-                            class="btn btn-sm green btn-outline filter-submit margin-bottom">Save
-                    </button>
+                            name="saveBtn" class="btn primary">Save</button>
                     <!--<button type="button"  data-dismiss="modal" aria-hidden="true"  (click)="eventsRequest.splice(index,1);refresh.next()"
                             class="btn btn-default btn-outline"> Cancel
                     </button>-->
-                    <button type="button" class="close" data-dismiss="modal" name="cancel"
-                            (click)="closeAddModal()"
-                            class="btn btn-sm blue btn-outline filter-submit margin-bottom">
-                        Cancel
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" name="cancel" (click)="closeAddModal()"
+                            class="btn default mrgn-lft0">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

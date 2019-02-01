@@ -301,8 +301,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label txt-size">Patient Photo</label>
-                                                <div class="col-md-8 select patnt-img">
+                                                <label class="col-md-4 control-label txt-size pdng-lr-5">Patient Photo</label>
+                                                <div class="col-md-8 select patnt-img pdng-lr-5">
                                                     <img class="img-responsive" style="width: 120px; height: 120px;"
                                                          src="/public/images/patient-photo.jpg"
                                                          *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
@@ -315,7 +315,7 @@
                                                                (change)="uploadImgOnChange($event)">
                                                     </div>
                                                     <div class="imgUploadTopMargin mrgn-top8">
-                                                        <button class="btn btn-default btn-outline"
+                                                        <button class="btn primary blue"
                                                                 (click)="uploadProfileImg()">
                                                             <i class=" icon-arrow-up"></i> upload
                                                         </button>
@@ -374,59 +374,21 @@
                                                 </div>
                                             </div>-->
                                             <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Name</label>
-                                                <div class="col-md-8 pdng-lr-5 profile-frm">
-                                                    <input type="text" class="form-control"
-                                                           [(ngModel)]="patient.emergencyContactName"
-                                                           name="emergencyContactName"
-                                                           #emergencyContactName="ngModel">
-                                                </div>
-                                            </div>
-                                            <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Relation</label>
-                                                <div class="col-md-8 pdng-lr-5">
-                                                    <!--<input type="text" class="form-control"
-                                                           [(ngModel)]="patient.emergencyContactRelation"
-                                                           name="emergencyContactRelation"
-                                                           #emergencyContactRelation="ngModel">-->
-                                                    <p-dropdown placeholder="Select Relation of contact with patient" [autoWidth]="false"
-                                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="emergencyContactRelation"
-                                                                [(ngModel)]="patient.emergencyContactRelation" [options]="emergencyContactRelations"
-                                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                                    </p-dropdown>
-                                                </div>
-                                            </div>
-                                            <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Phone</label>
-                                                <div class="col-md-8 pdng-lr-5 profile-frm">
-                                                    <input type="number" class="form-control"
-                                                           [(ngModel)]="patient.emergencyContactPhone"
-                                                           name="emergencyContactPhone"
-                                                           #emergencyContactPhone="ngModel">
-                                                    <!--<div *ngIf="emergencyContactPhone.invalid && (emergencyContactPhone.dirty || emergencyContactPhone.touched)"
-                                                         class="alert alert-danger">
-                                                        please provide valid number
-                                                    </div>-->
-                                                </div>
+                                            <label class="control-label col-md-4 pdng-lr-5">Gender</label>
+                                            <div class="col-md-8 pdng-lr-5">
+                                                <!--<select class="form-control" name="gender"
+                                                        #gender="ngModel"
+                                                        [(ngModel)]="patient.gender">
+                                                    <option value="MALE">Male</option>
+                                                    <option value="FEMALE">Female</option>
+                                                </select>-->
+                                                <p-dropdown placeholder="Select Gender" [autoWidth]="false"
+                                                            [style]="{'text-align': 'left' ,'width':'100%'}" name="gender"
+                                                            [(ngModel)]="patient.gender" [options]="genders"
+                                                            [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group mrgn-btm08">
-                                                <label class="control-label col-md-4 pdng-lr-5">Gender</label>
-                                                <div class="col-md-8 pdng-lr-5">
-                                                    <!--<select class="form-control" name="gender"
-                                                            #gender="ngModel"
-                                                            [(ngModel)]="patient.gender">
-                                                        <option value="MALE">Male</option>
-                                                        <option value="FEMALE">Female</option>
-                                                    </select>-->
-                                                    <p-dropdown placeholder="Select Gender" [autoWidth]="false"
-                                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="gender"
-                                                                [(ngModel)]="patient.gender" [options]="genders"
-                                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
-                                                    </p-dropdown>
-                                                </div>
-                                            </div>
                                             <div class="form-group mrgn-btm08">
                                                 <label class="control-label col-md-4 pdng-lr-5">Marital Status
                                                 </label>
@@ -519,6 +481,45 @@
                                                     </p-dropdown>
                                                 </div>
                                             </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Name</label>
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
+                                                    <input type="text" class="form-control"
+                                                           [(ngModel)]="patient.emergencyContactName"
+                                                           name="emergencyContactName"
+                                                           #emergencyContactName="ngModel">
+                                                </div>
+                                            </div>
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Relation</label>
+                                                <div class="col-md-8 pdng-lr-5">
+                                                    <!--<input type="text" class="form-control"
+                                                           [(ngModel)]="patient.emergencyContactRelation"
+                                                           name="emergencyContactRelation"
+                                                           #emergencyContactRelation="ngModel">-->
+                                                    <p-dropdown placeholder="Select Relation of contact with patient" [autoWidth]="false"
+                                                                [style]="{'text-align': 'left' ,'width':'100%'}" name="emergencyContactRelation"
+                                                                [(ngModel)]="patient.emergencyContactRelation" [options]="emergencyContactRelations"
+                                                                [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mrgn-btm08">
+                                                <label class="control-label col-md-4 pdng-lr-5">Emergency Contact Phone</label>
+                                                <div class="col-md-8 pdng-lr-5 profile-frm">
+                                                    <input type="number" class="form-control"
+                                                           [(ngModel)]="patient.emergencyContactPhone"
+                                                           name="emergencyContactPhone"
+                                                           #emergencyContactPhone="ngModel">
+                                                    <!--<div *ngIf="emergencyContactPhone.invalid && (emergencyContactPhone.dirty || emergencyContactPhone.touched)"
+                                                         class="alert alert-danger">
+                                                        please provide valid number
+                                                    </div>-->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -541,12 +542,29 @@
                                                        [(ngModel)]="patient.insuranceId"></div>
                                         </div>
                                         <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Company
+                                            </label>
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
+                                                <input type="text" class="form-control"
+                                                       #company="ngModel"
+                                                       name="company" [(ngModel)]="patient.company">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mrgn-btm08">
                                             <label class="control-label col-md-4 pdng-lr-5">Insurance Plan Name
                                             </label>
                                             <div class="col-md-8 pdng-lr-5 profile-frm">
                                                 <input type="text" class="form-control" name="planName"
                                                        #planName="ngModel"
                                                        [(ngModel)]="patient.planName"></div>
+                                        </div>
+                                        <div class="form-group mrgn-btm08">
+                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Plan Class
+                                            </label>
+                                            <div class="col-md-8 pdng-lr-5 profile-frm">
+                                                <input type="text" [(ngModel)]="patient.planType" name="planType"
+                                                       #planType="ngModel"
+                                                       class="form-control"></div>
                                         </div>
                                         <div class="form-group mrgn-btm08">
                                             <label class="col-md-4 control-label txt-size pdng-lr-5">Card Issued Date</label>
@@ -581,13 +599,28 @@
                                             </span>-->
                                         </div>
                                         <div class="form-group mrgn-btm08">
-                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Primary Insurance
-                                                Notes</label>
+                                            <label class="col-md-4 control-label txt-size pdng-lr-5">Insurance Notes</label>
                                             <div class="col-md-8 pdng-lr-5">
                                                 <textarea class="form-control" rows="3" title=""
                                                           placeholder=""></textarea>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <!--<div class="form-group">
+                                            <label class="col-md-4 control-label txt-size">Insurance Class</label>
+                                            <div class="col-md-8 frm-stng">
+                                                <select class="form-control">
+                                                    <option>select ...</option>
+                                                    <option>Class</option>
+                                                    <option>Class</option>
+                                                    <option>Class</option>
+                                                    <option>Class</option>
+                                                </select>
+                                                <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
+                                            </div>
+                                        </div>-->
                                         <div class="form-group mrgn-btm08">
                                             <label class="control-label col-md-4 pdng-lr-5">Insurance Photo Front
                                             </label>
@@ -614,48 +647,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mrgn-btm08">
-                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Company
-                                            </label>
-                                            <div class="col-md-8 pdng-lr-5 profile-frm">
-                                                <input type="text" class="form-control"
-                                                       #company="ngModel"
-                                                       name="company" [(ngModel)]="patient.company">
-                                            </div>
-                                        </div>
-                                        <!--<div class="form-group">
-                                            <label class="col-md-4 control-label txt-size">Insurance Class</label>
-                                            <div class="col-md-8 frm-stng">
-                                                <select class="form-control">
-                                                    <option>select ...</option>
-                                                    <option>Class</option>
-                                                    <option>Class</option>
-                                                    <option>Class</option>
-                                                    <option>Class</option>
-                                                </select>
-                                                <span class="pull-right tol-tip"><i class="fa fa-info-circle tooltips" data-original-title="e.g. I, II, III, IV, Jr, Sr"></i></span>
-                                            </div>
-                                        </div>-->
-                                        <div class="form-group mrgn-btm08">
-                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Group Number
-                                            </label>
-                                            <div class="col-md-8 pdng-lr-5 profile-frm">
-                                                <input type="text" name="groupNumber"
-                                                       #groupNumber="ngModel"
-                                                       [(ngModel)]="patient.groupNumber" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group mrgn-btm08">
-                                            <label class="control-label col-md-4 pdng-lr-5">Insurance Plan Type
-                                            </label>
-                                            <div class="col-md-8 pdng-lr-5 profile-frm">
-                                                <input type="text" [(ngModel)]="patient.planType" name="planType"
-                                                       #planType="ngModel"
-                                                       class="form-control"></div>
                                         </div>
                                         <div class="form-group mrgn-btm08">
                                             <label class="control-label col-md-4 pdng-lr-5">Insurance Photo Back

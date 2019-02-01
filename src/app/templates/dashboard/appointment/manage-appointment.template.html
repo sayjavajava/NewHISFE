@@ -138,7 +138,7 @@
                             <td> {{item.serviceName }}</td>
                             <td> {{item.examName}}</td>
                             <td> {{item.branchName}}</td>
-                            <td> {{item.appointmentType}}</td>
+                            <td> {{item.apptType}}</td>
                             <td> {{item.scheduleDate}}</td>
                             <td> {{item.checkIn}}</td>
                             <td> {{item.creatorName}}</td>
@@ -155,13 +155,13 @@
 
                             <td>
                                 <a href="#responsive" data-toggle="modal">
-                                    <button class="btn btn-default btn-outline btn-sm"
-                                            (click)="patchData(item,item.id)"><i class="glyphicon glyphicon-eye-open"></i>
+                                    <button class=""
+                                            (click)="patchData(item,item.id)"><i class="fa fa-eye"></i>
 
                                     </button>
                                 </a>
                                 <a href="#responsive" data-toggle="modal">
-                                    <button class="btn btn-default btn-outline btn-sm"
+                                    <button class="font-blue"
                                             (click)="patchData(item,item.id,'updateBtn')"><i class="fa fa-pencil"></i>
 
                                     </button>

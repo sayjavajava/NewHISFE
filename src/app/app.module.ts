@@ -22,7 +22,7 @@ import {NotFound404Component} from "./components/errors/not-found-404.component"
 // Routes
 import {routes} from "./app.routes";
 import {ColorPickerModule} from "ngx-color-picker";
-import { CKEditorModule } from 'ng2-ckeditor';
+import {CKEditorModule} from 'ng2-ckeditor';
 // Services
 import {RequestsService} from "./services/requests.service";
 import {HISUtilService} from "./services/his-util.service";
@@ -127,7 +127,7 @@ import {DialogModule} from 'primeng/dialog';
 
 import {
     CheckboxModule, DataTableModule, MegaMenuModule, OverlayPanelModule, PaginatorModule, PanelMenuModule,
-    PasswordModule, RadioButtonModule,
+    PasswordModule,
     ScheduleModule
 } from "primeng/primeng";
 import {SplitButtonModule} from "primeng/components/splitbutton/splitbutton";
@@ -174,6 +174,11 @@ import {GalleriaModule} from 'primeng/components/galleria/galleria';
 import {DoctorPaymentListingComponent} from "./components/dashboard/patient/doctor-payment-listing.component";
 import {FileServices} from "./services/FileServices";
 import {SelectAppointmentComponent} from "./components/dashboard/appointment/SelectAppointment.component";
+import {StepsModule} from 'primeng/components/steps/steps';
+import {ImportPatientDataComponent} from "./components/dashboard/patient/import-patient-data.component";
+import {RadioButtonModule} from 'primeng/components/radiobutton/radiobutton';
+import {ImportPatientMapFieldsComponent} from "./components/dashboard/patient/import-patient-map-fields.component";
+import {ImportPatientUploadImportComponent} from "./components/dashboard/patient/import-patient-upload-import.component";
 
 @NgModule({
     providers: [
@@ -246,6 +251,7 @@ import {SelectAppointmentComponent} from "./components/dashboard/appointment/Sel
         GalleriaModule,
         DialogModule,
         SplitButtonModule,
+        StepsModule,
     ],
     declarations: [
         // App Components
@@ -363,7 +369,11 @@ import {SelectAppointmentComponent} from "./components/dashboard/appointment/Sel
         PatientImageComponent,
         PatientImageOrderComponent,
         PatientHistoryVitalComponent,
-        DoctorPaymentListingComponent
+        DoctorPaymentListingComponent,
+        ImportPatientDataComponent,
+        ImportPatientMapFieldsComponent,
+        ImportPatientUploadImportComponent
+
     ],
     bootstrap: [AppComponent]
 })

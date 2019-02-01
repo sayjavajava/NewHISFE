@@ -156,6 +156,11 @@ var galleria_1 = require("primeng/components/galleria/galleria");
 var doctor_payment_listing_component_1 = require("./components/dashboard/patient/doctor-payment-listing.component");
 var FileServices_1 = require("./services/FileServices");
 var SelectAppointment_component_1 = require("./components/dashboard/appointment/SelectAppointment.component");
+var steps_1 = require("primeng/components/steps/steps");
+var import_patient_data_component_1 = require("./components/dashboard/patient/import-patient-data.component");
+var radiobutton_1 = require("primeng/components/radiobutton/radiobutton");
+var import_patient_map_fields_component_1 = require("./components/dashboard/patient/import-patient-map-fields.component");
+var import_patient_upload_import_component_1 = require("./components/dashboard/patient/import-patient-upload-import.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -220,7 +225,7 @@ var AppModule = (function () {
                 autocomplete_1.AutoCompleteModule,
                 primeng_1.DataTableModule,
                 primeng_1.PaginatorModule, panel_1.PanelModule,
-                primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule, primeng_1.RadioButtonModule,
+                primeng_1.PanelMenuModule, primeng_1.MegaMenuModule, chips_1.ChipsModule, slider_1.SliderModule, table_1.TableModule, radiobutton_1.RadioButtonModule,
                 shared_1.SharedModule,
                 editor_1.EditorModule,
                 primeng_1.OverlayPanelModule,
@@ -232,6 +237,7 @@ var AppModule = (function () {
                 galleria_1.GalleriaModule,
                 dialog_1.DialogModule,
                 splitbutton_1.SplitButtonModule,
+                steps_1.StepsModule,
             ],
             declarations: [
                 // App Components
@@ -341,7 +347,10 @@ var AppModule = (function () {
                 PatientImageComponent_1.PatientImageComponent,
                 PatientImageOrderComponent_1.PatientImageOrderComponent,
                 patient_history_vital_component_1.PatientHistoryVitalComponent,
-                doctor_payment_listing_component_1.DoctorPaymentListingComponent
+                doctor_payment_listing_component_1.DoctorPaymentListingComponent,
+                import_patient_data_component_1.ImportPatientDataComponent,
+                import_patient_map_fields_component_1.ImportPatientMapFieldsComponent,
+                import_patient_upload_import_component_1.ImportPatientUploadImportComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

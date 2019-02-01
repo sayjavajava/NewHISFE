@@ -91,7 +91,7 @@
                                         <p-dropdown placeholder="Select Branch" [autoWidth]="false"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     [options]="branchesList" (onChange)="selectedBranch($event)"
-                                                    formControlName="primaryBranch" [panelStyle]="{minWidth:'12em'}"
+                                                    formControlName="primaryBranch" [panelStyle]="{minWidth:''}"
                                                     [filter]="true">
                                         </p-dropdown>
                                         <!-- [(ngModel)]="pBranch"-->
@@ -149,7 +149,7 @@
                                          <p>Selected Cars: {{selectedCars2}}</p>-->
 
                                         <p-multiSelect placeholder="select branches"
-                                                       [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                       [style]="{'text-align':'left', 'float':'left', 'width':'100%'}"
                                                        (onChange)="sortServices($event)"
                                                        [options]="branchesList" [(ngModel)]="selectedVisitBranches"
                                                        [ngModelOptions]="{standalone:true}"
@@ -178,7 +178,7 @@
                                                        [style]="{'text-align': 'left' ,'width':'100%'}"
                                                        [options]="departmentList" [(ngModel)]="selectedDepartment"
                                                        [ngModelOptions]="{standalone:true}"
-                                                       [panelStyle]="{minWidth:'12em'}">
+                                                       [panelStyle]="{minWidth:''}">
                                             <ng-template let-dpt pTemplate="item">
                                                 <div style="font-size:14px;float:right;margin-top:4px">{{dpt.name}}
                                                 </div>
@@ -209,7 +209,7 @@
                                         <p-dropdown [autoWidth]="false" (onChange)="selectDoctorDepartment($event)"
                                                     [style]="{'text-align': 'left' ,'width':'100%'}"
                                                     [options]="departmentList" formControlName="departmentControl"
-                                                    [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                    [panelStyle]="{minWidth:''}" [filter]="true">
                                         </p-dropdown>
                                         <span class="text-danger"
                                               *ngIf="!userForm.controls['departmentControl'].valid && userForm.controls['departmentControl'].touched">{{departmentError}}</span>
@@ -295,9 +295,9 @@
                                                        [options]="doctorsList" [(ngModel)]="dutyWithDoctors"
                                                        formControlName="nurseDutyWithDoctor"
                                                        (change)="dutyWithDoctor($event)"
-                                                       [panelStyle]="{minWidth:'12em'}">
+                                                       [panelStyle]="{minWidth:''}">
                                             <ng-template let-dpt pTemplate="item">
-                                                <div style="font-size:14px;float:right;margin-top:4px">{{dpt.label}}
+                                                <div style="font-size:14px;">{{dpt.label}}
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
@@ -433,7 +433,7 @@
                                                        [ngModelOptions]="{standalone:true}"
                                                        [panelStyle]="{minWidth:''}">
                                             <ng-template let-dy pTemplate="item">
-                                                <div style="font-size:14px;float:right;margin-top:4px">{{dy.label}}</div>
+                                                <div style="font-size:14px;">{{dy.label}}</div>
                                             </ng-template>
                                         </p-multiSelect>
                                     </div>

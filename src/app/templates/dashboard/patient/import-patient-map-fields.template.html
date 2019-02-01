@@ -1,0 +1,130 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="hr no-margin">
+                    <h4 class="text-info">{{heading}}</h4>
+                </div>
+                <div class="border-non">
+                    <div class="main-steps">
+                        <!--<div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">1</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Upload</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">2</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Map Fields</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-step-col">
+                            <div class="mt-step-number font-grey steps-round">3</div>
+                            <div class="mt-step-content font-grey-cascade steps-txt">
+                                <div id="txt-line"></div>
+                                <div class="upload-txt">Import Done</div>
+                            </div>
+                        </div>-->
+                        <p-steps [model]="items" [readonly]="true" [(activeIndex)]="activeIndex"></p-steps>
+                    </div>
+
+                    <div class="">
+                        <div [hidden]="showFieldsDiv" class="contnt-data col-md-12">
+                            <p>Fetching system and file fields &nbsp;&nbsp;
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner1.gif" height="64" width="64"/>
+                                <!--
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner.gif" height="64" width="64"/>
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner2.gif" height="64" width="64"/>
+                                <img src="../../../../../public/images/loader-spinner/his-loader-spinner3.gif" height="64" width="64"/>
+                                -->
+                            </p>
+                        </div>
+                        <div [hidden]="!showFieldsDiv" class="contnt-data col-md-12">
+                            <p>The best match to each field on the selected file have been auto-selected.</p>
+                            <div class="portlet-body form col-md-6 col-xs-12 col-sm-8">
+                                <div class="row">
+                                    <div class=" col-md-6"><label>System Fields</label></div>
+                                    <div class=" col-md-6"><label>Your File Fields</label></div>
+                                </div>
+                                <!-- BEGIN FORM-->
+                                <form action="#" class="form-horizontal form-bordered">
+                                    <div class="form-body tbl-brdr2">
+                                        <div class="form-group tbl-lbel">
+                                            <label class="control-label col-md-6 pdng-top8 text-align-left">First Name</label>
+                                            <div class="col-md-6 pdng-all">
+                                                <p-dropdown placeholder="{{firstNameField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
+                                                            [(ngModel)]="firstNameField" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            name="firstNameField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+                                                <!--<select class="form-control" id="first_name">
+                                                    <option>First Name</option>
+                                                    <option>Last Name</option>
+                                                    <option>Cell Phone</option>
+                                                    <option>Date of Birth (yyyy-MM-dd)</option>
+                                                    <option>Gender (Male, Female, Other)</option>
+                                                </select>-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group tbl-lbel">
+                                            <label class="control-label col-md-6 pdng-top8 text-align-left">Last Name</label>
+                                            <div class="col-md-6 pdng-all">
+                                                <p-dropdown placeholder="{{lastNameField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
+                                                            [(ngModel)]="lastNameField" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            name="lastNameField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                        <div class="form-group tbl-lbel">
+                                            <label class="control-label col-md-6 pdng-top8 text-align-left">Cell Phone</label>
+                                            <div class="col-md-6 pdng-all">
+                                                <p-dropdown placeholder="{{cellPhoneField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
+                                                            [(ngModel)]="cellPhoneField" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            name="cellPhoneField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                        <div class="form-group tbl-lbel">
+                                            <label class="control-label col-md-6 pdng-top8 text-align-left">Date of Birth (yyyy-MM-dd)</label>
+                                            <div class="col-md-6 pdng-all">
+                                                <p-dropdown placeholder="{{dobField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
+                                                            [(ngModel)]="dobField" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            name="dobField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                        <div class="form-group tbl-lbel">
+                                            <label class="control-label col-md-6 pdng-top8 text-align-left">Gender (Male, Female, Other)</label>
+                                            <div class="col-md-6 pdng-all">
+                                                <p-dropdown placeholder="{{genderField}}" [autoWidth]="false" [ngModelOptions]="{standalone: true}"
+                                                            [(ngModel)]="genderField" [style]="{'text-align': 'left' ,'width':'100%'}"
+                                                            name="genderField" [options]="fileFieldsListModified" [panelStyle]="{minWidth:'12em'}" [filter]="true">
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contnt-data col-md-12 mrgn-top24">
+                        <div class="col-md-12 no-padding">
+                            <div class="text-align-center">
+                                <button class="btn blue" (click)="previousPage()"><i class="fa fa-angle-double-left"></i> Previous </button>
+                                <button class="btn default" (click)="cancel()"> Cancel <i class="fa fa-cancel"></i></button>
+                                <button class="btn blue" (click)="mapFields()"> Next <i class="fa fa-angle-double-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+
+

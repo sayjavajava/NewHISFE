@@ -347,19 +347,19 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal"
-                        #closeBtnAllergy
-                        id="closeBtnAllergy"
-                        name="closeBtnAllergy"
-                        class="btn btn-default btn-outline">Close
-                </button>
+
                 <span [hidden]="isUpdate">
-                    <button type="button" class="btn green" (click)="saveAllergy()">Save</button>
+                    <button type="button" class="btn primary blue" (click)="saveAllergy()">Save</button>
                 </span>
                 <span [hidden]="!isUpdate">
-                    <button type="button" class="btn green" (click)="updateAllergy()">Update
+                    <button type="button" class="btn primary blue" (click)="updateAllergy()">Update
                     </button>
                 </span>
+                <button type="button" data-dismiss="modal"
+                               #closeBtnAllergy
+                               id="closeBtnAllergy"
+                               name="closeBtnAllergy"
+                               class="btn green-meadow">Close</button>
             </div>
         </div>
     </div>

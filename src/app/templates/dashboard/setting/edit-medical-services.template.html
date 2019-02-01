@@ -99,7 +99,7 @@
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5"> Service Tax (%)</label>
                                     <div class="col-md-8 pdng-lr-5 profile-frm">
-                                        <select class="form-control" name="taxId" id="taxId" [ngModelOptions]="{standalone:true}"
+                                        <select class="form-control no-padding" name="taxId" id="taxId" [ngModelOptions]="{standalone:true}"
                                                 [(ngModel)]="ms.tax.id" title="Select Service Tax">
                                             <option value="-1">-- Select --</option>
                                             <option *ngFor="let item of taxes; let i = index;" value={{item.id}}> {{item.name}} </option>
@@ -114,7 +114,7 @@
                                                name="duration" #duration="ngModel"/>
                                         <span *ngIf="duration.invalid && duration.touched" class="text-danger"> Please enter valid duration</span>
                                     </div>
-                                    <div class="control-label col-md-1 no-padding-lft"> Minutes </div>    
+                                    <div class="control-label col-md-1 no-padding-lft"> Minutes </div>
                                 </div>
                                 <div class="form-group mrgn-btm08">
                                     <label class="control-label col-md-4 pdng-lr-5">Description</label>
@@ -146,7 +146,7 @@
                                                  src="/public/images/patient-photo.jpg"
                                                  *ngIf="organization.profileImgUrl === null || organization.profileImgUrl === ''"/>-->
 
-                                            <img class="img-responsive" style="width: 120px; height: 140px;"
+                                            <img class="img-responsive" style="width: 120px; height: 120px;"
                                                  src="{{ms.imgUrl}}">
                                         </div>
                                         <div class="mrgn-top8">
