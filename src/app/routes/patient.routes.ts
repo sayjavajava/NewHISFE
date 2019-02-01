@@ -38,10 +38,9 @@ export const PatientRoutes: Routes = [
     {path: 'manage', component: ManagePatientComponent},
     {path: 'add', component: AddPatientComponent},
     {path: 'invoice', component: PatientInvoiceComponent},
-
     /*{path: 'history/:id', component: PatientHistoryComponent},*/
-
     {path: 'invoice/:id', component: PatientInvoiceComponent},
+
     {path: 'invoice-list/:id', component: PatientInvoiceListComponent},
 
     /* {path: 'history', component: PatientHistoryComponent}, */
@@ -57,7 +56,7 @@ export const PatientRoutes: Routes = [
     {path: ':id/medication-list', component: PatientMedicationListComponent},
     {path: ':id/allergy-list', component: PatientAllergyListComponent},
     {path: 'lab-orders/:id/history', component: PatientLabOrdersComponent},
-    {path: 'create-order/:id/add/:orderId/order', component: PatientAddLabOrdersComponent},
+    {path: 'create-order/:id/add/:orderId/order/:orderCode', component: PatientAddLabOrdersComponent},
     {path: 'communication', component: PatientCommunicationComponent},
     {path: ':id/family-history', component: PatientFamilyHistoryComponent},
 
@@ -70,5 +69,3 @@ export const PatientRoutes: Routes = [
     {path: 'importPatientSaveImport/:id', component: ImportPatientUploadImportComponent},
     {path: '**', redirectTo: '404'}
 ];
-
-

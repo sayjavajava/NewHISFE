@@ -36,6 +36,7 @@ export class MedicationModel {
     dateStartedTakingDate: Date = new Date();
     dateStoppedTakingDate: Date = new Date();
     appointmentDate:string;
+    dteAppointment:string;
    // appoint:Appointment=new Appointment();
     constructor() {
     }

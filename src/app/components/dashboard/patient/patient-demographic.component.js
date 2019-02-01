@@ -51,6 +51,10 @@ var PatientDemographicComponent = (function () {
         this.citiesListModified = [];
         this.selectedCity = '';
         this.patientGroupListModified = [];
+        this.profileListModified = [];
+        this.selectedProfile = 'Please Select Insurance Company';
+        this.planListModified = [];
+        this.selectedPlan = 'Please Select Insurance Plan';
         angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
             this.settings = Object.assign(this.defaultSettings, this.settings);
             if (this.settings.defaultOpen) {
@@ -122,6 +126,62 @@ var PatientDemographicComponent = (function () {
         });
         this.createCountriesList();
         this.createPatientGroupList();
+        this.allCompanyProfile();
+        this.allPlans();
+    };
+    PatientDemographicComponent.prototype.allCompanyProfile = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.INS_PROFILE_DATA_TABLE)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'ICD_SUC_16') {
+                _this.profileList = response['responseData'];
+                console.log(_this.profileList);
+                for (var _i = 0, _a = _this.profileList; _i < _a.length; _i++) {
+                    var profile = _a[_i];
+                    var pair = { label: profile.name, value: profile.id };
+                    _this.profileListModified.push(pair);
+                }
+            }
+            // this.loading = false;
+        }, function (error) {
+            _this.HISUTilService.tokenExpired(error.error.error);
+            //  this.loading = false;
+        });
+        /* this.requestService.getRequest(AppConstants.GET_ALL_COUNTRY)
+             .subscribe(
+                 (response: Response) => {
+                     if (response['responseCode'] === 'COUNTRY_SUC_11') {
+                         this.countryLst = response['responseData'];
+                         for (let country of this.countryLst) {
+                             let pair: any = {label: country.name, value: country.id};
+                             this.countryListModified.push(pair);
+ 
+                         }
+ 
+                     }
+                 },
+                 (error: any) => {
+                     this.notificationService.error(error.error.error);
+                 })*/
+    };
+    PatientDemographicComponent.prototype.allPlans = function () {
+        var _this = this;
+        this.requestService.getRequest(app_constants_1.AppConstants.INS_PLAN_DATA_TABLE)
+            .subscribe(function (response) {
+            if (response['responseCode'] === 'ICD_VERSIONS_FOUND_03') {
+                _this.planList = response['responseData'];
+                console.log(_this.planList);
+                for (var _i = 0, _a = _this.planList; _i < _a.length; _i++) {
+                    var plan = _a[_i];
+                    var pair = { label: plan.name, value: plan.id };
+                    _this.planListModified.push(pair);
+                }
+            }
+            //   this.loading = false;
+        }, function (error) {
+            _this.HISUTilService.tokenExpired(error.error.error);
+            //   this.loading = false;
+        });
     };
     PatientDemographicComponent.prototype.isValidPatientId = function () {
         if (this.id <= 0) {
@@ -138,10 +198,14 @@ var PatientDemographicComponent = (function () {
         this.requestService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + this.id).subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.patient = response['responseData'];
+                debugger;
+                console.log(_this.patient);
                 _this.smokeStatusList = response['responseData'].smokingStatus;
                 _this.selectedCountry = _this.patient.country;
                 _this.selectedState = _this.patient.state;
                 _this.selectedCity = _this.patient.city;
+                _this.selectedPlan = _this.patient.planName;
+                _this.selectedProfile = _this.patient.company;
                 if (_this.patient.dob == undefined || _this.patient.dob == null || _this.patient.dob.toString().trim() == "") {
                     _this.patient.dob = new Date().toDateString();
                 }

@@ -30,6 +30,7 @@ export class PatientMedicationListComponent implements OnInit {
     currPage: any;
     pages: number[] = [];
     medicationData: MedicationModel[] = [];
+    medicationDataIn:MedicationModel[] = [];
     medicationModel: MedicationModel = new MedicationModel();
     appointments: Appointment [] = [];
     isUpdate: boolean = false;
@@ -56,6 +57,7 @@ export class PatientMedicationListComponent implements OnInit {
     searchedDrugStrengths: DrugModel = new DrugModel();
     DrugStrengths: any[];
     cols: any = [];
+    colsIn: any = [];
     selectedstrength: StrengthModel[];
     StrengthListModified: SelectItem[] = [];
     isUpdateAppoint: boolean = false;
@@ -137,6 +139,18 @@ export class PatientMedicationListComponent implements OnInit {
             {field: 'pharmacyNote', header: 'SIG'},
             {field: 'datePrescribedString', header: 'Start Date'},
             {field: 'status', header: 'Action'},
+        ];
+
+
+        this.colsIn = [
+            {field: 'appointmentDate', header: 'Appointment Date/Time'},
+            {field: 'drugName', header: 'Medication'},
+            {field: 'strengths', header: 'Strengths'},
+            {field: 'frequency', header: 'Frequency'},
+            {field: 'duration', header: 'Duration'},
+            {field: 'pharmacyNote', header: 'SIG'},
+            {field: 'datePrescribedString', header: 'Start Date'},
+
         ];
     }
 
@@ -358,6 +372,7 @@ export class PatientMedicationListComponent implements OnInit {
                         this.currPage = response['responseData']['currPage'];
                         this.pages = response['responseData']['pages'];
                         this.medicationData = response['responseData']['data'];
+                        this.medicationDataIn=response['responseData']['data1'];
                         console.log(this.medicationData);
 
                     } else {

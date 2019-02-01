@@ -16,7 +16,7 @@
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
                                 <h1 class="page-title no-margin"> {{patient.firstName }} {{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date: 'MM-dd-yyyy' }})</small>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.age}} years old | {{patient.dobStr  }})</small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
@@ -30,6 +30,11 @@
                                             <td class="txt-rigt">Address:</td>
                                             <td class="text-left font-red">{{patient.formattedAddress}}</td>
                                             <!--<td class="font-red">No address on file</td>-->
+                                        </tr>
+
+                                        <tr>
+                                            <td class="txt-rigt">Dated:</td>
+                                            <td class="font-red">{{patient.createDate}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -45,10 +50,15 @@
                                             <td class="text-left font-red">{{patient.gender}}</td>
                                             <!-- <td class="font-red">Missing</td>-->
                                         </tr>
-                                        <!--<tr>
-                                            <td class="txt-rigt">Appt:</td>
-                                            <td class="font-red">Mon. Jul. 27, 2015</td>
-                                        </tr>-->
+                                        <tr>
+                                        <td class="txt-rigt">Last Scheduled Appt:</td>
+                                        <td class="font-red">{{patient.lastAppointment}}</td>
+                                    </tr>
+
+                                        <tr>
+                                            <td class="txt-rigt">Next Scheduled Appt:</td>
+                                            <td class="font-red">{{patient.nextAppointment}}</td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -102,16 +112,105 @@
                 <div class="hr">
                     <h4 class="text-info">Vital </h4>
                 </div>
-                <div class="mrgn-top8">
+                <div class="table-scrollable table-brd-non">
+                    <p-table #dt [columns]="cols" [value]="vitalListReadDataNewLst"  [rows]="1"  [paginator]="true" >
+                        <ng-template pTemplate="caption">
+                            <!--<div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Name/Unit/Current Value/Standard Value"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>-->
+                        </ng-template>
+
+                        <!-- <div style="text-align: right">
+                             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                             <input type="text" pInputText size="50" placeholder="Name/Unit/Current Value/Standard Value"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                    style="width:auto">
+                         </div>-->
+                        <ng-template sortable="true" pTemplate="header" let-columns>
+                            <tr class="off-wite-bg">
+                                <th sortable="true" *ngFor="let col of columns" [pSortableColumn]="col.field" style='width:-webkit-fill-available;'>
+
+                                    {{col.header}}
+                                    <!--<p-sortIcon *ngIf="col.field != 'status'" [field]="col.field" ></p-sortIcon>-->
+                                </th>
+                            </tr>
+                            <!-- <tr>
+                                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                                     <input *ngSwitchCase="'name'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                     <input *ngSwitchCase="'unit'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                     &lt;!&ndash;<input *ngSwitchCase="'status'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                                     <input *ngSwitchCase="'note'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+
+                                     &lt;!&ndash;<input *ngSwitchCase="'updatedOn'" pInputText type="text" style="width: 100%"
+                                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">&ndash;&gt;
+                                 </th>
+                             </tr>-->
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData>
+                            <tr *ngFor="let in of [0];let iouter = index; "  >
+
+                                <td  *ngFor="let lst of vitalListReadDataNewLst;let i = index;">
+
+                                    {{lst}}
+
+                                </td>
+
+                                <!-- <td field="currentValue">{{vitalListData.currentValue}}</td>-->
+
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <!--<table class="table table-hover table-light">
+                        <thead>
+                        <tr class="hedng-bck-clr tbl-pdng">
+                            <th> Allergy</th>
+                            <th> Reaction</th>
+                            <th> Status</th>
+                            <th> Notes</th>
+                            <th>updated</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="tbl-pdng" *ngFor="let allergy of allergyData" class="filter">
+                            <td>{{allergy.name}}</td>
+                            <td>{{allergy.reaction}}</td>
+                            <td>{{allergy.status}}</td>
+                            <td>{{allergy.note}}</td>
+                            <td>{{allergy.updatedOn}}</td>
+                            <td>
+                                <a href="#responsiveAllergy" data-toggle="modal"
+                                   (click)="editAllergy(allergy.id)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <button
+                                        (click)="deleteAllergy(allergy.id)">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>-->
+                </div>
+                <!--<div class="mrgn-top8">
                     <table class="table table-hover table-light">
                         <thead class="ui-table-thead">
                             <tr class="tbl-pdng off-wite-bg">
                                 <th> Name</th>
                                 <th> Unit</th>
-                                <th> NCurrent Value</th>
+                                <th> Current Value</th>
                                 <th> Standard</th>
-                                <!--<th> Status</th>-->
-                               <!-- <th> Acton</th>-->
+
                             </tr>
                         </thead>
                         <tbody class="ui-table-tbody">
@@ -120,25 +219,11 @@
                                 <td>{{vitalList.unit}}</td>
                                 <td> {{vitalList.currentValue }}</td>
                                 <td>{{vitalList.standardValue}}</td>
-                                <!--<td>{{vitalList.status}}</td>-->
-                                <!--<td>
-                                    <a href="#vitalSetup" data-toggle="modal"
-                                       (click)="editVital(vitalList.id)">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <button
-                                            (click)="delete(vitalList.id)">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
-                                    &lt;!&ndash;      href = "#{{aType.Name}}"&ndash;&gt;
-                                    &lt;!&ndash;<button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>&ndash;&gt;
-                                    &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
-                                    &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;
-                                </td>-->
+
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div>-->
             </div>
             <div class="clearfix"></div>
         </div>
@@ -164,7 +249,7 @@
                         <tbody class="ui-table-tbody">
                         <tr *ngFor="let problemActive of problemActiveData" class="filter">
                             <td>{{problemActive.versionName}}</td>
-                            <td>{{problemActive.codeName}}</td>
+                            <td>{{problemActive.problemName}}</td>
                             <td> {{problemActive.dateDiagnosis }}</td>
                             <td>{{problemActive.status}}</td>
                             <td>{{problemActive.note}}</td>
@@ -299,9 +384,9 @@
                         <tbody class="ui-table-tbody">
                         <tr *ngFor="let med of medicationsActiveData" class="tbl-pdng">
                             <td>{{med.drugName}}</td>
-                            <td>{{med.datePrescribedString | date:'medium'}}</td>
-                            <td>{{med.dateStartedTakingString | date:'medium'}}</td>
-                            <td>{{med.dateStoppedTakingString | date:'medium'}}</td>
+                            <td>{{med.datePrescribedString }}</td>
+                            <td>{{med.dateStartedTakingString }}</td>
+                            <td>{{med.dateStoppedTakingString }}</td>
                             <!--<td>{{med.updatedOn}}</td>-->
                             <td>{{med.orderStatus}}</td>
                             <td>{{med.numberRefill}}</td>

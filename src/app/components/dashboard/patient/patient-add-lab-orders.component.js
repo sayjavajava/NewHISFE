@@ -56,6 +56,8 @@ var PatientAddLabOrdersComponent = (function () {
         this.searchedNamesLstNew = [];
         this.selectedTestNew = [];
         this.testList = [];
+        this.profileImg = null;
+        this.urlOrganization = "/public/images/company-logo-placeholder.jpg";
         this.createLabTest();
         angular2_datetimepicker_1.DatePicker.prototype.ngOnInit = function () {
             this.settings = Object.assign(this.defaultSettings, this.settings);
@@ -142,6 +144,9 @@ var PatientAddLabOrdersComponent = (function () {
         this.route.params.subscribe(function (params) {
             _this.orderId = params['orderId'];
         });
+        this.route.params.subscribe(function (params) {
+            _this.testId = params['orderCode'];
+        });
         this.getAllTestSpecimanList();
         this.createLabOrderForm();
         this.loadRecord();
@@ -184,6 +189,12 @@ var PatientAddLabOrdersComponent = (function () {
                     //   this.doctorAppointment=apptId[]
                     console.log(apptId);
                     _this.appointmentId = apptId[0].id;
+                    if (_this.appointmentList.length > 0) {
+                        var doctorName = _this.appointmentList.filter(function (listing) { return listing.id === _this.appointmentId; });
+                        _this.doctorAppointment = doctorName[0].docFirstName + ' ' + doctorName[0].docLastName;
+                        _this.showDoctor = true;
+                        _this.labForm.controls['appointmentId'].setValue(_this.appointmentId);
+                    }
                     console.log('test appoint id :' + _this.appointmentId);
                 }
                 else {
@@ -219,7 +230,7 @@ var PatientAddLabOrdersComponent = (function () {
     };
     PatientAddLabOrdersComponent.prototype.patchOrderData = function () {
         var _this = this;
-        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LABORDER_BY_ID + this.orderId).subscribe(function (res) {
+        this.requestService.getRequest(app_constants_1.AppConstants.FETCH_LABORDER_BY_ID + this.orderId + '?orderId=' + this.testId).subscribe(function (res) {
             if (res['responseCode'] === 'LAB_ORDER_SUC_02') {
                 _this.labOrder = res['responseData']['data'];
                 _this.labTestList = res['responseData']['labTest'];
@@ -241,6 +252,7 @@ var PatientAddLabOrdersComponent = (function () {
                 }
                 if (_this.labOrder.length > 0) {
                     var associateAppoint_1 = _this.labOrder[0].appointment;
+                    _this.urlOrganization = _this.labOrder[0].imgURL;
                     var selectAppointment = _this.patient.pastAppointments.filter(function (listing) { return listing.id === associateAppoint_1.id; });
                     //   console.log(this.labOrder.appointment[0].id);
                     _this.appointmentId = selectAppointment.appointmentId;
@@ -260,18 +272,29 @@ var PatientAddLabOrdersComponent = (function () {
                 }
                 if (_this.labOrder.length > 0) {
                     var DateTest = _this.labOrder[0].dateTest;
+                    debugger;
                     if (DateTest != null) {
                         DateTest = new Date(_this.labOrder[0].dateTest);
                     }
                     else {
                         DateTest = new Date();
                     }
-                    //     document.getElementById("TestDate") = DateTest;
+                    _this.dateTest = DateTest;
+                    //  document.getElementById("TestDate") = DateTest;
+                    /* this.labForm.patchValue({
+                     //    orderStatus: this.labOrder[0].status,
+                         dateTest: DateTest
+                    //    comments: this.labOrder[0].comments,
+                    ///     labTest : this.LabReadList,
+
+
+
+                     });*/
                 }
                 if (_this.labOrder.length > 0) {
                     _this.labForm.patchValue({
                         orderStatus: _this.labOrder[0].status,
-                        //   dateTest: DateTest,
+                        //      dateTest: DateTest,
                         comments: _this.labOrder[0].comments,
                         labTest: _this.LabReadList,
                     });
@@ -364,12 +387,12 @@ var PatientAddLabOrdersComponent = (function () {
         this.selectedTest.resultValue = '';
     };
     /* addLabOrder(data:any ){
- 
+
          data.testDate=new Date(this.dateTest);
          debugger;
              if (this.labForm.valid) {
                  if (this.orderId > 0) {
- 
+
                      this.requestService.putRequest(AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
                          .subscribe(
                              (response: Response) => {
@@ -394,11 +417,11 @@ var PatientAddLabOrdersComponent = (function () {
                                  this.notificationService.error('ERROR', 'LabOrder is not Created');
                              });
                  }
- 
+
              } else {
                  this.validateAllFormFields(this.labForm);
              }
- 
+
      }*/
     PatientAddLabOrdersComponent.prototype.addLabOrder = function (data) {
         var _this = this;
@@ -407,7 +430,8 @@ var PatientAddLabOrdersComponent = (function () {
             data.labTest = this.LabReadList;
             data.testDate = new Date(this.dateTest);
             console.log(data);
-            this.requestService.putRequest(app_constants_1.AppConstants.LAB_ORDER_UPDATE + this.orderId, data)
+            //put request
+            this.requestService.putRequestMultipartFormAndDataWithOneFile(app_constants_1.AppConstants.LAB_ORDER_UPDATE + this.orderId, data, this.profileImg)
                 .subscribe(function (response) {
                 if (response['responseCode'] === 'LAB_ORDER_SUC_03') {
                     _this.notificationService.success('LabOrder is Updated Successfully');
@@ -421,7 +445,7 @@ var PatientAddLabOrdersComponent = (function () {
             data.labTest = this.LabReadList;
             if (this.labForm.valid) {
                 console.log(data);
-                this.requestService.postRequest(app_constants_1.AppConstants.LAB_ORDER_CREATE, data)
+                this.requestService.postRequestMultipartFormAndDataWithOneFile(app_constants_1.AppConstants.LAB_ORDER_CREATE, data, this.profileImg)
                     .subscribe(function (response) {
                     if (response['responseCode'] === 'LAB_ORDER_SUC_01') {
                         _this.notificationService.success('LabOrder is Created Successfully');
@@ -502,7 +526,13 @@ var PatientAddLabOrdersComponent = (function () {
             this.filteredTestSingle.splice(arr[0], 1);
         }
         else {
-            this.isError = true;
+            this.isError = false;
+            this.LabReadList.push(this.selectedTest);
+            this.show = false;
+            this.showEdit = false;
+            this.clearField();
+            var arr = this.filteredTestSingle.filter(function (listing) { return listing.id === _this.selectedTest.id; });
+            this.filteredTestSingle.splice(arr[0], 1);
         }
     };
     PatientAddLabOrdersComponent.prototype.updateLabtoGrid = function (event) {
@@ -569,6 +599,15 @@ var PatientAddLabOrdersComponent = (function () {
     };
     PatientAddLabOrdersComponent.prototype.findIndexToUpdate = function (object) {
         return this.LabReadList.id === this;
+    };
+    PatientAddLabOrdersComponent.prototype.uploadImgOnChange = function (event) {
+        var fileList = event.target.files;
+        debugger;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
     };
     PatientAddLabOrdersComponent = __decorate([
         core_1.Component({

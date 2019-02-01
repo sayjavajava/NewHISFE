@@ -45,7 +45,7 @@ exports.PatientRoutes = [
     { path: ':id/medication-list', component: patient_medication_list_component_1.PatientMedicationListComponent },
     { path: ':id/allergy-list', component: patient_allergy_list_component_1.PatientAllergyListComponent },
     { path: 'lab-orders/:id/history', component: patient_lab_orders_component_1.PatientLabOrdersComponent },
-    { path: 'create-order/:id/add/:orderId/order', component: patient_add_lab_orders_component_1.PatientAddLabOrdersComponent },
+    { path: 'create-order/:id/add/:orderId/order/:orderCode', component: patient_add_lab_orders_component_1.PatientAddLabOrdersComponent },
     { path: 'communication', component: patient_communication_component_1.PatientCommunicationComponent },
     { path: ':id/family-history', component: patient_family_history_component_1.PatientFamilyHistoryComponent },
     /*{path: 'image-order', component: PatientImageOrderComponent},*/

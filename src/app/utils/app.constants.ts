@@ -370,7 +370,7 @@ export class AppConstants {
     public static FETCH_PATIENT_ORDER = '/PatientImage/getSetup';
     public static PATIENT_IMAGE_SAVE_ORDER = '/patient/Imageorder/save';
     public static DELETE_PATIENT_IMAGE_DELETE = '/patient/Imageorder/delete/';
-    public static UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
+    public static UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/updateOrder';
     public static PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/';///all by paginated
     public static FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
     public static FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get?orderId=';
@@ -393,6 +393,19 @@ export class AppConstants {
 
     public static FETCH_ALL_DRUG_MAKERS = '/setting/drugManufacturer/getAll';
     public static FETCH_ALL_ACTIVE_DRUG_MAKERS = '/setting/drugManufacturer/getAllActive';
+
+    /////////////////////
+    public static INS_PROFILE_DATA_TABLE = '/setting/Insurrance/InsuranceProfile';
+    public static INS_PROFILE_SAVE = '/setting/Insurrance/profile/save';
+    public static INS_PROFILE_DELETE_URL = '/setting/Insurrance/profile/delete?Id=';
+    public static INS_PROFILE_UPDATE_URL = '/setting/Insurrance/profile/update';
+
+
+    public static INS_PLAN_DATA_TABLE = '/setting/Insurrance/Insurance/Plan';
+    public static INS_PLAN_SAVE_URL = '/setting/Insurrance/plan/save';
+    public static INS_PLAN_UPDATE_URL = '/setting/Insurrance/plan/update';
+    public static PLAN_DELETE_URL = '/setting/Insurrance/code/delete?Id=';
+
 }
 
 

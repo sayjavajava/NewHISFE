@@ -315,7 +315,7 @@ var AppConstants = (function () {
     AppConstants.FETCH_PATIENT_ORDER = '/PatientImage/getSetup';
     AppConstants.PATIENT_IMAGE_SAVE_ORDER = '/patient/Imageorder/save';
     AppConstants.DELETE_PATIENT_IMAGE_DELETE = '/patient/Imageorder/delete/';
-    AppConstants.UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/update';
+    AppConstants.UPDATE_PATIENT_IMAGE_UPDATE = '/patient/Imageorder/updateOrder';
     AppConstants.PATIENT_IMAGE_FETCH_ALL_PAGINATED_URI = '/patient/Imageorder/'; ///all by paginated
     AppConstants.FETCH_PATIENT_ORDER_IMAGES_ID = '/patient/Imageorder/getImages?';
     AppConstants.FETCH_PATIENT_ORDER_ID = '/patient/Imageorder/get?orderId=';
@@ -335,6 +335,15 @@ var AppConstants = (function () {
     ///////////////////////// GRUG MANUFACTURERS
     AppConstants.FETCH_ALL_DRUG_MAKERS = '/setting/drugManufacturer/getAll';
     AppConstants.FETCH_ALL_ACTIVE_DRUG_MAKERS = '/setting/drugManufacturer/getAllActive';
+    /////////////////////
+    AppConstants.INS_PROFILE_DATA_TABLE = '/setting/Insurrance/InsuranceProfile';
+    AppConstants.INS_PROFILE_SAVE = '/setting/Insurrance/profile/save';
+    AppConstants.INS_PROFILE_DELETE_URL = '/setting/Insurrance/profile/delete?Id=';
+    AppConstants.INS_PROFILE_UPDATE_URL = '/setting/Insurrance/profile/update';
+    AppConstants.INS_PLAN_DATA_TABLE = '/setting/Insurrance/Insurance/Plan';
+    AppConstants.INS_PLAN_SAVE_URL = '/setting/Insurrance/plan/save';
+    AppConstants.INS_PLAN_UPDATE_URL = '/setting/Insurrance/plan/update';
+    AppConstants.PLAN_DELETE_URL = '/setting/Insurrance/code/delete?Id=';
     return AppConstants;
 }());
 exports.AppConstants = AppConstants;

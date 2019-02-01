@@ -37,6 +37,7 @@ var PatientLabOrdersComponent = (function () {
         // LabOrderModelList:LabOrderModel[]=[];
         this.patient = new patient_1.Patient();
         this.labTestFiltered = [];
+        this.profileImg = null;
     }
     PatientLabOrdersComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -50,12 +51,15 @@ var PatientLabOrdersComponent = (function () {
         this.getLabOrderFromServer(0);
         //  this.addMoreTest();
         this.cols = [
-            { field: 'name', header: 'Doctor Name' },
-            { field: 'TestDate', header: 'Test Date' },
-            { field: 'orderStatus', header: 'Order Status' },
-            { field: 'description', header: 'Description' },
-            { field: 'LabTest', header: 'Lab Test' },
-            { field: 'action', header: 'Action' }
+            { field: 'TestDate', header: 'Test Date Time' },
+            { field: 'name', header: 'Ordering  Doctor ' },
+            { field: 'description', header: 'Comments' },
+            { field: 'Appointment', header: 'Appointment' },
+            { field: 'Lab', header: 'Lab' },
+            { field: 'result', header: 'Result value' },
+            { field: 'normal  Range', header: 'Normal Range ' },
+            { field: 'unit', header: 'Unit ' },
+            { field: 'action', header: 'Action' },
         ];
     };
     PatientLabOrdersComponent.prototype.getLabOrderFromServer = function (page) {
@@ -144,7 +148,7 @@ var PatientLabOrdersComponent = (function () {
             });
         }
         else {
-            this.validateAllFormFields(this.labForm);
+            // this.validateAllFormFields(this.labForm);
         }
     };
     PatientLabOrdersComponent.prototype.getLabTest = function (orderId) {
@@ -181,11 +185,11 @@ var PatientLabOrdersComponent = (function () {
         })*/
         //console.log('lab tes'+ labTestFiltered[0]);
     };
-    PatientLabOrdersComponent.prototype.updateOrder = function (id) {
-        console.log('dmmm');
+    PatientLabOrdersComponent.prototype.updateOrder = function (id, idNew) {
         this.orderId = id;
+        this.testId = idNew;
         // this.router.navigate("['/dashboard/patient/create-order/',id,'add',orderId,'order']");
-        this.router.navigate(['/dashboard/patient/create-order', this.id, 'add', this.orderId, 'order']);
+        this.router.navigate(['/dashboard/patient/create-order', this.id, 'add', this.orderId, 'order', this.testId]);
     };
     PatientLabOrdersComponent.prototype.validateAllFormFields = function (formGroup) {
         var _this = this;
@@ -219,6 +223,15 @@ var PatientLabOrdersComponent = (function () {
                 });
             }
         });
+    };
+    PatientLabOrdersComponent.prototype.uploadImgOnChange = function (event) {
+        var fileList = event.target.files;
+        debugger;
+        if (fileList != null && fileList.length > 0) {
+            if (event.target.name === "profileImgUrl") {
+                this.profileImg = fileList[0];
+            }
+        }
     };
     PatientLabOrdersComponent = __decorate([
         core_1.Component({

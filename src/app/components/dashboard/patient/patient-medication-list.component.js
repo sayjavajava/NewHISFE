@@ -34,6 +34,7 @@ var PatientMedicationListComponent = (function () {
         this.datepipe = datepipe;
         this.pages = [];
         this.medicationData = [];
+        this.medicationDataIn = [];
         this.medicationModel = new medication_model_1.MedicationModel();
         this.appointments = [];
         this.isUpdate = false;
@@ -50,6 +51,7 @@ var PatientMedicationListComponent = (function () {
         this.searchedDrugNamesLst = [];
         this.searchedDrugStrengths = new drug_model_1.DrugModel();
         this.cols = [];
+        this.colsIn = [];
         this.StrengthListModified = [];
         this.isUpdateAppoint = false;
         this.searchedDrugStrengthsAnyListModified = [];
@@ -113,6 +115,15 @@ var PatientMedicationListComponent = (function () {
             { field: 'pharmacyNote', header: 'SIG' },
             { field: 'datePrescribedString', header: 'Start Date' },
             { field: 'status', header: 'Action' },
+        ];
+        this.colsIn = [
+            { field: 'appointmentDate', header: 'Appointment Date/Time' },
+            { field: 'drugName', header: 'Medication' },
+            { field: 'strengths', header: 'Strengths' },
+            { field: 'frequency', header: 'Frequency' },
+            { field: 'duration', header: 'Duration' },
+            { field: 'pharmacyNote', header: 'SIG' },
+            { field: 'datePrescribedString', header: 'Start Date' },
         ];
     };
     PatientMedicationListComponent.prototype.appointmentsByPatientFromServer = function (selectedPatientId) {
@@ -293,6 +304,7 @@ var PatientMedicationListComponent = (function () {
                 _this.currPage = response['responseData']['currPage'];
                 _this.pages = response['responseData']['pages'];
                 _this.medicationData = response['responseData']['data'];
+                _this.medicationDataIn = response['responseData']['data1'];
                 console.log(_this.medicationData);
             }
             else {

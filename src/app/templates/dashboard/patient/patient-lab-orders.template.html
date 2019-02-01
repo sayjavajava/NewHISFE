@@ -13,8 +13,8 @@
                         </div>
                         <div class="col-md-10 col-sm-8 col-xs-12">
                             <div class="hr">
-                                <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
-                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date:"MM-dd-yyyy"}})</small>
+                                <h1 class="page-title no-margin"> {{patient.firstName }} {{patient.lastName}}</h1>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.age}} years old | {{patient.dobStr  }})</small>
                             </div>
                             <div class="hr padding-b-10">
                                 <div class="col-md-4 col-xs-12">
@@ -29,8 +29,12 @@
                                             <td class="text-left font-red">{{patient.formattedAddress}}</td>
                                             <!--<td class="font-red">No address on file</td>-->
                                         </tr>
-                                    </table>
 
+                                        <tr>
+                                            <td class="txt-rigt">Dated:</td>
+                                            <td class="font-red">{{patient.createDate}}</td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="col-md-4 col-xs-12">
                                     <table width="100%" border="0">
@@ -44,22 +48,28 @@
                                             <td class="text-left font-red">{{patient.gender}}</td>
                                             <!-- <td class="font-red">Missing</td>-->
                                         </tr>
-                                        <!--<tr>
-                                            <td class="txt-rigt">Appt:</td>
-                                            <td class="font-red">Mon. Jul. 27, 2015</td>
-                                        </tr>-->
+                                        <tr>
+                                            <td class="txt-rigt">Last Scheduled Appt:</td>
+                                            <td class="font-red">{{patient.lastAppointment}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="txt-rigt">Next Scheduled Appt:</td>
+                                            <td class="font-red">{{patient.nextAppointment}}</td>
+                                        </tr>
                                     </table>
-
                                 </div>
-
                             </div>
                         </div>
                         <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
                     </div>
                     <div class="hr no-margin">
-                        <div class="hr">
+                        <div *ngIf="patient.primaryDoctorFirstName"  class="hr">
                             <div class="portlet-title">
-                                <div *ngIf="patient.primaryDoctorFirstName"  class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primary Doctor:</span> <span
+                                        class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span>
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="hr no-margin">
@@ -70,12 +80,89 @@
                 </div>
             </div>
         </div>
+        <!--<div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="portlet-title">
+                        <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
+                            <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-sm-8 col-xs-12">
+                            <div class="hr">
+                                <h1 class="page-title no-margin"> {{patient.firstName }} {{""}}{{patient.lastName}}</h1>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.dob | date:"MM-dd-yyyy"}})</small>
+                            </div>
+                            <div class="hr padding-b-10">
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Cell Phone:</td>
+                                            <td class="txt-left font-red">{{patient.cellPhone}}</td>
+                                            &lt;!&ndash;<td class="font-red">Missing</td>&ndash;&gt;
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Address:</td>
+                                            <td class="text-left font-red">{{patient.formattedAddress}}</td>
+                                            &lt;!&ndash;<td class="font-red">No address on file</td>&ndash;&gt;
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Email:</td>
+                                            <td class="text-left font-red">{{patient.email}}</td>
+                                            &lt;!&ndash; <td class="font-red">Missing</td>&ndash;&gt;
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Gender:</td>
+                                            <td class="text-left font-red">{{patient.gender}}</td>
+                                            &lt;!&ndash; <td class="font-red">Missing</td>&ndash;&gt;
+                                        </tr>
+                                        &lt;!&ndash;<tr>
+                                            <td class="txt-rigt">Appt:</td>
+                                            <td class="font-red">Mon. Jul. 27, 2015</td>
+                                        </tr>&ndash;&gt;
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="hr">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primary Doctor:</span> <span
+                                        class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash;  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>&ndash;&gt;
+                    </div>
+                    &lt;!&ndash;<div class="hr no-margin">
+                        <div class="hr">
+                            <div class="portlet-title">
+                                <div *ngIf="patient.primaryDoctorFirstName"  class="caption"> <i class="icon-bar-chart font-dark hide"></i> <span class="caption-subject text-info bold">Primery Doctor:</span> <span class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span> </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash; <div class="hr no-margin">
+                             <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
+                             <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
+                         </div>&ndash;&gt;
+                    </div>&ndash;&gt;
+                </div>
+            </div>
+        </div>-->
 
         <div class="row mrgn-top10">
             <div class="col-md-12">
                 <h4 class="text-info">Lab Orders
                     <div class="pull-right">
-                        <a [routerLink]="['/dashboard/patient/create-order/',id,'add',orderId,'order']">
+                        <a [routerLink]="['/dashboard/patient/create-order/',id,'add',orderId,'order','']">
                             <button class="btn primary blue" data-title="Sweet Alerts with Icons"
                                     data-message="Success Icon" data-type="success" data-allow-outside-click="true"
                                     data-confirm-button-class="btn-success"><i class="fa fa-plus"></i> New
@@ -131,23 +218,29 @@
                         </ng-template>
                         <ng-template   pTemplate="body" let-item let-allergyData>
                             <tr>
-
+                                <td >{{item.strDate}}</td>
                                 <td ><strong>{{item.appointment.doctor.firstName +" "+ item.appointment.doctor.lastName}}</strong></td>
-                                <td >{{item.testDate | date:stdSystemFormat}}</td>
-                                <td >{{item.orderStatus}}</td>
                                 <td >{{item.comments}}</td>
+                                <td >{{item.strAppDate}}</td>
+                                <td>{{item.testName}}</td>
+                                <td>{{item.resultValue}}</td>
+                                <td>{{item.normalRange}}</td>
+                                <td>{{item.units}}</td>
+
+                                <!-- <td >{{item.orderStatus}}</td>-->
+                                <!-- <td >{{item.comments}}</td>-->
                                 <!--<td >{{allergyData.updatedOn}}</td>-->
 
-                                <td><a href="#popupTest" data-toggle="modal">
-                                    <button class="btn default clr-bck"
-                                            (click)="getLabTest(item.id)"
-                                            data-confirm-button-class="btn-success">
-                                        <i class="fa fa"></i> Show Test
-                                    </button>
-                                </a></td>
+                                <!-- <td><a href="#popupTest" data-toggle="modal">
+                                     <button class="btn default clr-bck"
+                                             (click)="getLabTest(item.id)"
+                                             data-confirm-button-class="btn-success">
+                                         <i class="fa fa"></i> Show Test
+                                     </button>
+                                 </a></td>-->
                                 <td rowspan="1" colspan="1">
 
-                                    <button (click)="updateOrder(item.id)" class="font-blue"><i
+                                    <button (click)="updateOrder(item.id,item.idNew)" class="font-blue"><i
                                             class="fa fa-pencil"></i></button>
                                     <button (click)="deleteLabOrder(item.id)" class="text-danger"><i
                                             class="fa fa-remove"></i></button>
@@ -269,6 +362,7 @@
                                             <thead class="ui-table-thead">
                                             <tr role="row" class="off-wite-bg">
                                                 <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Code </th>
+                                                <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Test Name </th>
                                                 <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Result Value </th>
                                                 <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Unit  </th>
                                                 <th width="4%" class="sorting_disabled" rowspan="1" colspan="1"> Range  </th>
@@ -277,6 +371,7 @@
                                             <tr role="row" class="filter" *ngFor="let lbRT of labTestFiltered;  let idx = index">
                                                 <!-- <td rowspan="1" colspan="1">{{lbRT.id}}</td>-->
                                                 <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.loincCode}}</td>
+                                                <td class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.testName}}</td>
                                                 <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.resultValue }}</td>
                                                 <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.units}}</td>
                                                 <td rowspan="1" colspan="1" class="text-align-left">{{lbRT.normalRange}}</td>

@@ -60,7 +60,7 @@ export class PatientHistoryVitalComponent implements OnInit {
     prePage: any;
     currPage: any;
     pages: number[] = [];
-    cols: any[];
+    cols: any[]=[];
     vitalListSetupData: PatientVitalModel[];
     vitalForm: FormGroup;
     items: FormArray;
@@ -72,6 +72,11 @@ export class PatientHistoryVitalComponent implements OnInit {
     public form: FormGroup;
     public contactList: FormArray;
     vitalSaveList:any[];
+    vitalListReadDataNew:any[]=[];
+    vitalListReadDataNewLst:any[]=[];
+    itemsLst:any[] = [];
+    chiefComplaint: string;
+    isFirst:boolean;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -88,12 +93,13 @@ export class PatientHistoryVitalComponent implements OnInit {
             this.selectedPatientId = params['id'];
 
         });
-
+        this.getPaginatedPatientVitalList(0);
         this.getPaginatedProblemsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');this.getPaginatedAllergiesByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPaginatedMedicationsByActiveAndPatientIdFromServer(0, 5, 'ACTIVE');
         this.getPatientByIdFromServer(this.selectedPatientId);
-        this.getPaginatedPatientVitalList(0);
+
         this.getVitalSetupList();
+
     }
 
     get createFormGroup() {
@@ -148,15 +154,23 @@ export class PatientHistoryVitalComponent implements OnInit {
              currentValue: '',
              items: this.fb.array([ this.createItem() ])
          });*/
-        this.cols = [
+
+
+
+
+
+
+
+
+        /*this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'unit', header: 'Unit' },
             { field: 'currentValue', header: 'Current' },
             { field: 'standardValue', header: 'Standard' },
             { field: 'updatedOn', header: 'Updated On' },
-            /*   { field: 'status', header: 'Status' },*/
+            /!*   { field: 'status', header: 'Status' },*!/
             { field: 'status', header: 'Action' }
-        ];
+        ];*/
 
         this.getVitalSetupList();
 
@@ -182,6 +196,7 @@ export class PatientHistoryVitalComponent implements OnInit {
 
     createItem(): FormGroup {
         return this.fb.group({
+            chiefComplaint:'',
             name: '',
             currentValue: '',
             standardValue: ''
@@ -204,7 +219,13 @@ export class PatientHistoryVitalComponent implements OnInit {
             response => {
                 if (response['responseCode'] === 'USER_SUC_01') {
                     this.patient = response['responseData'];
-                    let apptId = response['responseData']['pastAppointments'];
+                    console.log("record fetch"+this.patient);
+                   // let apptId = this.patient.pastAppointments
+                    debugger;
+                    let apptId=this.patient.pastAppointments[0].id;
+                    debugger;
+                    this.vitalSetupTemplate.appointmentId=apptId[0];
+
                 }
             },
             (error: any) => {
@@ -313,10 +334,11 @@ export class PatientHistoryVitalComponent implements OnInit {
         this.isUpdate = false;
         this.vitalSetupTemplate = new PatientVitalModel();
         this.vitalListData=[];
+        this.isFirst=true;
+     //   this.createItem();
+        this.ngOnInit();
         //  this.getPaginatedPatientVitalList(0);
 
-
-        this.getVitalSetupList();
     }
 
     getVitalSetupList() {
@@ -340,7 +362,7 @@ export class PatientHistoryVitalComponent implements OnInit {
                         }
 
                         this.selectedstr = this.searchedVitalAnyListModified[0].value;
-
+                        this.chiefComplaint='';
                         // console.log("Length : " + this.prefixTemplateList.length);
                     } else {
                         this.notificationService.error('Vital Information not fetched');
@@ -701,8 +723,92 @@ export class PatientHistoryVitalComponent implements OnInit {
                         this.vitalPrePage = response['responseData']['prePage'];
                         this.vitalCurrPage = response['responseData']['currPage'];
                         this.vitalPages = response['responseData']['pages'];
-                        // this.vitalActiveData=[];
+
                         this.vitalListReadData = response['responseData']['data'];
+                        this.chiefComplaint = response['responseData']['chiefComplaint'];
+                        this.cols.push({field: 'PCC', header: 'PCC'});
+                        this.vitalListReadDataNewLst.push(this.chiefComplaint);
+                        for(let i =0 ; i <this.vitalListReadData.length;i++){
+                            let temp={
+                                firstName : this.vitalListReadData[i].name,
+                                value : this.vitalListReadData[i].currentValue
+                            }
+                            debugger;
+                            this.vitalListReadDataNew.push(temp);
+                        }
+                        console.log(this.vitalListReadDataNew.length);
+                        console.log(this.vitalListReadDataNew);
+                        for (let header of this.vitalListReadDataNew) {
+                            debugger;
+                            let item: any = {field: header.firstName, header: header.firstName};
+                            let item2:any  = {field: "currentValue", header: header.value};
+
+                            this.cols.push(item);
+
+                            this.vitalListReadDataNewLst.push(header.value);
+                            console.log(this.vitalListReadDataNewLst);
+
+                        }
+                        /*Object.keys(this.vitalListReadDataNew[0]).forEach(item=>{
+                            debugger;
+                            console.log(item);
+
+                            this.cols.push({field: item.value, header: item});
+                        })*/
+
+                        console.log(this.cols);
+                        /*for (let header of this.vitalListReadDataNew) {
+                            debugger;
+                            let item: any = {field: header.firstName, header: header.lastName};
+                            this.cols.push(item);
+                         //   this.branchesListModified.push(pair);
+
+                        }*/
+                        /*Object.keys(this.vitalListReadDataNew[0]).forEach(item=>{
+                            this.cols.push({field: item, header: item});
+                        })*/
+
+
+
+                        /*for(let i =0 ; i <this.vitalListReadData.length;i++){
+                            this.vitalListReadDataNew.push(this.vitalListReadData[i].name);
+                            let temp={
+                                firstName : this.vitalListReadData[i].name,
+                                lastName : this.vitalListReadData[i].name
+                            }
+                            this.vitalListReadData[i].forEach(item=>{
+                                let keyValue = Object.values(item);
+                                console.log(keyValue);
+                                temp[keyValue[0].toString()] = keyValue[1]
+
+                            }
+                          //  this.vitalListReadDataNew.push(temp);
+
+
+                        console.log(this.vitalListReadDataNew);
+                       Object.keys(this.vitalListReadDataNew[0]).forEach(item=>{
+                            this.cols.push({field: item, header: item});
+                        })*/
+
+                    //npm start    console.log(this.cols);
+
+
+
+
+
+                      //  console.log(this.vitalListReadData);no
+
+                        /*for(let i =0 ; i <this.vitalListReadData.length;i++){
+                            console.log(this.vitalListReadData);
+                            let pair: any = {firstName: this.vitalListReadData[i].name, lastName: this.vitalListReadData[i].name};
+
+
+
+                            this.vitalListReadDataNew.push(pair);
+                            /!*this.cols=[
+                                {field:this.vitalListReadData[i].name, header: this.vitalListReadData[i].name}];*!/
+
+                        }*/
                     } else {
                       //  this.notificationService.error( 'Vital  Information not fetched');
                     }
@@ -744,15 +850,12 @@ export class PatientHistoryVitalComponent implements OnInit {
 
         const index = this.vitalListData.findIndex(list => list.id === id);
         let arr = this.vitalListData.filter((listing: any) => listing.id === id);
+        debugger;
         this.vitalListData[index].currentValue=event;
-        //   this.vitalListData[index].currentValue=arr[index].currentValue;
-        //    let updateItem = this.vitalListData.items.find(this.findIndexToUpdate, id);
-        //   let arr = this.vitalListData.filter((listing: any) => listing.id === id);
+        this.vitalListData[index].appointmentId=this.patient.pastAppointments[0].id;
+        debugger;
+        this.vitalListData[index].chiefComplaint=this.chiefComplaint;
 
-        //   let updateItem = this.vitalListData.items.find(this.findIndexToUpdate, id);
-        //   let index = this.vitalListData.items.indexOf(updateItem);
-        //  this.vitalListData.items[index].currentValue = event.value;
-        //var currentValue = event.value();
 
     }
 
@@ -791,5 +894,14 @@ export class PatientHistoryVitalComponent implements OnInit {
              this.router.navigate(['/login']);
          }
      }*/
+
+
+    createRange(number:any){
+        this.itemsLst = [];
+        for(var i = 1; i <number; i++){
+            this.itemsLst.push(i);
+        }
+        return this.itemsLst;
+    }
 
 }

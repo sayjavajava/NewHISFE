@@ -38,6 +38,9 @@ var PatientHistoryComponent = (function () {
         this.vitalSetupTemplate = new PatientVitalModel_1.PatientVitalModel();
         this.searchedVitalAnyListModified = [];
         this.selectedstr = [];
+        this.vitalListReadDataNew = [];
+        this.vitalListReadDataNewLst = [];
+        this.cols = [];
         /*this.subscription = this.dataService.currentPatientId.subscribe(id => {
             this.selectedPatientId = id;
         });*/
@@ -58,7 +61,10 @@ var PatientHistoryComponent = (function () {
         this.requestsService.getRequest(app_constants_1.AppConstants.PATIENT_FETCH_URL + patientId).subscribe(function (response) {
             if (response['responseCode'] === 'USER_SUC_01') {
                 _this.patient = response['responseData'];
+                console.log(_this.patient);
                 var apptId = response['responseData']['pastAppointments'];
+                debugger;
+                console.log(apptId);
             }
         }, function (error) {
             _this.HISUTilService.tokenExpired(error.error.error);
@@ -78,6 +84,8 @@ var PatientHistoryComponent = (function () {
                 _this.problemPages = response['responseData']['pages'];
                 _this.problemActiveData = [];
                 _this.problemActiveData = response['responseData']['data'];
+                debugger;
+                console.log(_this.problemActiveData);
             }
         }, function (error) {
             _this.HISUTilService.tokenExpired(error.error.error);
@@ -145,6 +153,7 @@ var PatientHistoryComponent = (function () {
         this.isUpdate = false;
         this.vitalSetupTemplate = new PatientVitalModel_1.PatientVitalModel();
         this.getVitalSetupList();
+        this.chiefComplaint = '';
     };
     PatientHistoryComponent.prototype.getVitalSetupList = function () {
         var _this = this;
@@ -152,7 +161,7 @@ var PatientHistoryComponent = (function () {
             this.requestsService.getRequest(app_constants_1.AppConstants.FETCH_VITALS_CONFIGURATIONS).subscribe(function (response) {
                 if (response['responseCode'] === 'SUCCESS') {
                     _this.data = response['responseData'];
-                    console.log(_this.data);
+                    //   console.log(this.data);
                     _this.vitalList = _this.data;
                     _this.allVitalsNamesAny = _this.data;
                     for (var _i = 0, _a = _this.allVitalsNamesAny; _i < _a.length; _i++) {
@@ -179,15 +188,30 @@ var PatientHistoryComponent = (function () {
         this.requestsService.getRequest(app_constants_1.AppConstants.VITALS_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)
             .subscribe(function (response) {
             if (response['responseCode'] === 'SUCCESS') {
-                /* this.vitalNextPage = response['responseData']['nextPage'];
-                 this.vitalPrePage = response['responseData']['prePage'];
-                 this.vitalCurrPage = response['responseData']['currPage'];
-                 this.vitalPages = response['responseData']['pages'];*/
-                // this.vitalActiveData=[];
                 _this.vitalListData = response['responseData']['data'];
+                _this.chiefComplaint = response['responseData']['chiefComplaint'];
+                _this.cols.push({ field: 'PCC', header: 'PCC' });
+                _this.vitalListReadDataNewLst.push(_this.chiefComplaint);
+                for (var i = 0; i < _this.vitalListData.length; i++) {
+                    var temp = {
+                        firstName: _this.vitalListData[i].name,
+                        value: _this.vitalListData[i].currentValue
+                    };
+                    debugger;
+                    //   this.vitalListReadDataNewLst.push()
+                    _this.vitalListReadDataNew.push(temp);
+                }
+                for (var _i = 0, _a = _this.vitalListReadDataNew; _i < _a.length; _i++) {
+                    var header = _a[_i];
+                    debugger;
+                    var item = { field: header.firstName, header: header.firstName };
+                    var item2 = { field: "currentValue", header: header.value };
+                    _this.cols.push(item);
+                    _this.vitalListReadDataNewLst.push(header.value);
+                    console.log(_this.vitalListReadDataNewLst.length);
+                }
             }
             else {
-                //  this.notificationService.error( 'Vital  Information not fetched');
             }
         }, function (error) {
             _this.HISUTilService.tokenExpired(error.error.error);

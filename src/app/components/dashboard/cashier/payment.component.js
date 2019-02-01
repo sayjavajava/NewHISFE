@@ -63,6 +63,13 @@ var PaymentComponent = (function () {
                 _this.appointmentId = res.responseData.id;
                 _this.receivedAmount = res.responseData.receivedAmount;
                 _this.refundAmount = res.responseData.refundAmount;
+                _this.imgBarcode = _this.appointment.imgBarcode;
+                _this.img = _this.appointment.img;
+                var link = document.getElementById("ItemPreview");
+                link.setAttribute("src", "data:image/png;base64," + _this.img);
+                var myString = _this.invoicePrefix;
+                //    this.invoiceNo=myString;
+                _this.invoiceNo = myString.substr(3);
                 console.log("Appointment ID : " + _this.appointmentId);
                 _this.getInvoiceItemsById();
             }, function (error) {

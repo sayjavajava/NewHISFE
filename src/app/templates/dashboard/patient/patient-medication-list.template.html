@@ -10,6 +10,85 @@
                     <div class="portlet-title">
                         <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
                             <div class="profile-userpic">
+                                <img src="/public/images/patient-photo.jpg" class="img-responsive" *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
+                                <img src="{{patient.profileImgURL}}" class="img-responsive" *ngIf="patient.profileImgURL != null "/>
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-sm-8 col-xs-12">
+                            <div class="hr">
+                                <h1 class="page-title no-margin"> {{patient.firstName }} {{patient.lastName}}</h1>
+                                <small class="small-txt">( {{patient.gender}} | {{patient.age}} years old | {{patient.dobStr  }})</small>
+                            </div>
+                            <div class="hr padding-b-10">
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Cell Phone:</td>
+                                            <td class="txt-left font-red">{{patient.cellPhone}}</td>
+                                            <!--<td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Address:</td>
+                                            <td class="text-left font-red">{{patient.formattedAddress}}</td>
+                                            <!--<td class="font-red">No address on file</td>-->
+                                        </tr>
+
+                                        <tr>
+                                            <td class="txt-rigt">Dated:</td>
+                                            <td class="font-red">{{patient.createDate}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td class="txt-rigt">Email:</td>
+                                            <td class="text-left font-red">{{patient.email}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Gender:</td>
+                                            <td class="text-left font-red">{{patient.gender}}</td>
+                                            <!-- <td class="font-red">Missing</td>-->
+                                        </tr>
+                                        <tr>
+                                            <td class="txt-rigt">Last Scheduled Appt:</td>
+                                            <td class="font-red">{{patient.lastAppointment}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="txt-rigt">Next Scheduled Appt:</td>
+                                            <td class="font-red">{{patient.nextAppointment}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
+                    </div>
+                    <div class="hr no-margin">
+                        <div *ngIf="patient.primaryDoctorFirstName"  class="hr">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-bar-chart font-dark hide"></i> <span
+                                        class="caption-subject text-info bold">Primary Doctor:</span> <span
+                                        class="caption-helper">{{patient.primaryDoctorFirstName+ ' ' + patient.primaryDoctorLastName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="hr no-margin">
+                             <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
+                             <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
+                         </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class=" patient-profile hr portlet padding-10 light bordered view-pro">
+                    <div class="portlet-title">
+                        <div class="col-md-1 col-sm-2 col-xs-12 no-padding">
+                            <div class="profile-userpic">
                                 <img src="/public/images/patient-photo.jpg" class="img-responsive"
                                      *ngIf="patient.profileImgURL === null || patient.profileImgURL === ''"/>
                                 <img src="{{patient.profileImgURL}}" class="img-responsive"
@@ -28,12 +107,12 @@
                                         <tr>
                                             <td class="txt-rigt">Cell Phone:</td>
                                             <td class="txt-left font-red">{{patient.cellPhone}}</td>
-                                            <!--<td class="font-red">Missing</td>-->
+                                            &lt;!&ndash;<td class="font-red">Missing</td>&ndash;&gt;
                                         </tr>
                                         <tr>
                                             <td class="txt-rigt">Address:</td>
                                             <td class="text-left font-red">{{patient.formattedAddress}}</td>
-                                            <!--<td class="font-red">No address on file</td>-->
+                                            &lt;!&ndash;<td class="font-red">No address on file</td>&ndash;&gt;
                                         </tr>
                                     </table>
 
@@ -43,24 +122,24 @@
                                         <tr>
                                             <td class="txt-rigt">Email:</td>
                                             <td class="text-left font-red">{{patient.email}}</td>
-                                            <!-- <td class="font-red">Missing</td>-->
+                                            &lt;!&ndash; <td class="font-red">Missing</td>&ndash;&gt;
                                         </tr>
                                         <tr>
                                             <td class="txt-rigt">Gender:</td>
                                             <td class="text-left font-red">{{patient.gender}}</td>
-                                            <!-- <td class="font-red">Missing</td>-->
+                                            &lt;!&ndash; <td class="font-red">Missing</td>&ndash;&gt;
                                         </tr>
-                                        <!--<tr>
+                                        &lt;!&ndash;<tr>
                                             <td class="txt-rigt">Appt:</td>
                                             <td class="font-red">Mon. Jul. 27, 2015</td>
-                                        </tr>-->
+                                        </tr>&ndash;&gt;
                                     </table>
 
                                 </div>
 
                             </div>
                         </div>
-                        <!--  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>-->
+                        &lt;!&ndash;  <div class="col-md-1 col-sm-2 col-xs-12 text-right"> <span class="pull-right color-grey">{{patient.patientId}} </span> <span class="text-center"><img alt="barcode" title="barcode" class="img-responsive" src="/public/images/barcode.png"> </span> </div>&ndash;&gt;
                     </div>
                     <div class="hr no-margin">
                         <div class="hr">
@@ -71,14 +150,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="hr no-margin">
+                        &lt;!&ndash; <div class="hr no-margin">
                              <button class="btn btn-default btn-outline btn-sm" onclick="window.location.href='print_demographics.html'"> <i class=" icon-printer"></i> Print Demographics </button>
                              <button class="btn btn-default btn-outline btn-sm pull-right"> <i class=" icon-clock"></i> Shedule New Appointment </button>
-                         </div>-->
+                         </div>&ndash;&gt;
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- common dive profile -->
 
         <div class="row mrgn-top10">
@@ -128,7 +207,7 @@
                             <tr>
 
                                 <!--{{car[col.field]}}-->
-                                <td>{{medication.appointmentDate}}</td>
+                                <td>{{medication.dteAppointment}}</td>
                                 <td>{{medication.drugName}}</td>
                                 <td>{{medication.strengths}}</td>
                                 <td>{{medication.frequency}}</td>
@@ -237,7 +316,102 @@
                 <button type="button" class="btn  btn-default"> Cancel</button>
             </a>-->
         </div>
+        <div class="hr no-margin">
+            <h4 class="text-info">Past Medication Orders
+
+            </h4>
+        </div>
+        <div class="table-scrollable table-brd-non">
+            <p-table #dt [columns]="colsIn" [value]="medicationDataIn" [paginator]="true"  [rows]="5">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Medication/Strengths/Frequency/Duration"
+                               (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon *ngIf="col.field != 'status'" [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-medication let-columns="columns">
+                    <tr>
+
+                        <!--{{car[col.field]}}-->
+                        <td>{{medication.dteAppointment}}</td>
+                        <td>{{medication.drugName}}</td>
+                        <td>{{medication.strengths}}</td>
+                        <td>{{medication.frequency}}</td>
+                        <td>{{medication.duration}}</td>
+                        <td>{{medication.pharmacyNote}}</td>
+                        <!-- <td>{{medication.orderStatus}}</td>-->
+                        <td>{{medication.datePrescribedString}}</td>
+                        <!--<td>{{medication.updatedOn}}</td>-->
+                       <!-- <td>
+                            <a href="#responsiveMedication" data-toggle="modal" (click)="editMedication(medication.id)">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <button class="text-danger" (click)="deleteMedication(medication.id)"> <i class="fa fa-remove"></i> </button>
+                            <button class="font-green-jungle" (click)="openUrl(medication.pharmacyNote)"> <i class="fa fa-globe"></i> </button>
+                            &lt;!&ndash;  &lt;!&ndash; <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>&ndash;&gt;
+                              &lt;!&ndash;<a href="#{{medication.pharmacyNote}}" target="_blank">&ndash;&gt;&ndash;&gt;
+                        </td>-->
+
+                    </tr>
+                </ng-template>
+
+            </p-table>
+            <!-- <table class="table table-hover table-light">
+               <thead>
+               <tr class="hedng-bck-clr tbl-pdng">
+                   <th> Appointment Date/Time</th>
+                   <th> Medication</th>
+                   <th>Strengths</th>
+                   <th>Frequency</th>
+                   <th> Duration</th>
+                   <th> SIG </th>
+                   <th> Start Date</th>
+                   <th>Action</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr class="tbl-pdng" *ngFor="let medication of medicationData" class="filter">
+                   <td>{{medication.appointmentDate}}</td>
+                   <td>{{medication.drugName}}</td>
+                   <td>{{medication.strengths}}</td>
+                   <td>{{medication.frequency}}</td>
+                   <td>{{medication.duration}}</td>
+                   <td>{{medication.pharmacyNote}}</td>
+                   <!--<td>{{medication.orderStatus}}</td>
+                   <td>{{medication.datePrescribedString}}</td>
+                   <!--<td>{{medication.updatedOn}}</td>
+                   <td>
+                       <a href="#responsiveMedication" data-toggle="modal"
+                          (click)="editMedication(medication.id)">
+                           <i class="fa fa-pencil"></i>
+                       </a>
+                       <button
+                               (click)="deleteMedication(medication.id)">
+                           <i class="fa fa-remove"></i>
+                       </button>
+
+                       <button (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></button>
+                      <!-- <a routerLink="" (click)="openUrl(medication.pharmacyNote)"><i class="fa fa-globe"></i></a>-->
+            <!--<a href="#{{medication.pharmacyNote}}" target="_blank">
+
+        </td>
+    </tr>
+    </tbody>
+</table> -->
+        </div>
     </div>
+
 </div>
 
 <!--<div id="responsiveMedication" class="modal fade" tabindex="-1" aria-hidden="true">

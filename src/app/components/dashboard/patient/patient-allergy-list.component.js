@@ -57,7 +57,6 @@ var PatientAllergyListComponent = (function () {
             { field: 'reaction', header: 'Reaction' },
             { field: 'status', header: 'Status' },
             { field: 'note', header: 'Notes' },
-            { field: 'updatedOn', header: 'Updated On' },
             { field: 'origin', header: 'Action' }
         ];
     };
