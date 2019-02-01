@@ -334,7 +334,7 @@ export class PatientMedicationListComponent implements OnInit {
         if (localStorage.getItem(btoa('access_token'))) {
             this.medicationModel.patientId = this.selectedPatientId;
             console.log(this.medicationModel);
-
+            this.medicationModel.appointment=null;
             this.requestsService.postRequest(
                 AppConstants.MEDICATION_SAVE_URL, this.medicationModel)
                 .subscribe(
