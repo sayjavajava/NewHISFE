@@ -55,6 +55,7 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
     cols: any[]=[];
     chiefComplaint: string;
     lastAppointment:string;
+    createdDate:string;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -251,7 +252,10 @@ export class PatientHistoryComponent implements OnInit, OnDestroy {
 
                         this.vitalListData = response['responseData']['data'];
                         this.chiefComplaint = response['responseData']['chiefComplaint'];
+                        this.createdDate=response['responseData']['Date'];
+                        this.cols.push({field: 'Date', header: 'Date'});
                         this.cols.push({field: 'PCC', header: 'PCC'});
+                        this.vitalListReadDataNewLst.push(this.createdDate);
                         this.vitalListReadDataNewLst.push(this.chiefComplaint);
                         for(let i =0 ; i <this.vitalListData.length;i++){
                             let temp={

@@ -371,5 +371,27 @@ export class PatientInvoiceComponent implements OnInit {
 
 
 
+   /* saveInvoice(){
+        console.log("save invoice data : " + this.invoiceList);
+        this.invoiceCompletedRequest = new GenerateInvoiceRequestModel();
+        this.invoiceCompletedRequest.invoicePrefix = "0001";
+        this.invoiceCompletedRequest.completed = false;
+        this.invoiceCompletedRequest.invoiceRequestWrapper = this.invoiceList;
+
+        this.requestsService.postRequest(AppConstants.SAVE_INVOICE, this.invoiceCompletedRequest)
+            .subscribe(
+                (response: Response) => {
+                    console.log(" Added : " + response);
+                    if (response['responseCode'] === 'SUCCESS') {
+                        this.router.navigate(['/dashboard/doctor']);
+                        /!*  this.notificationService.success('Branch is Created Successfully');
+                         this.router.navigate(['/dashboard/setting/branch']) *!/
+                    }
+                }, function (error) {
+                    //    this.error('ERROR', 'Branch is not Created');
+                });
+    }*/
+
+
 
 }

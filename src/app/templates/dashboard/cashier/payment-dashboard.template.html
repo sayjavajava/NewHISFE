@@ -102,7 +102,7 @@
                     <div class="form-group hr mrgn-btm08 mrgn-top8">
                         <label class="col-md-4 pdng-lr-5">Applied Amount</label>
                         <div class="col-md-8 pdng-lr-5 profile-frm">
-                            <input type="number" class="form-control text-align-right" min="0" (blur)="checkDiscount($event.target.value)" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
+                            <input type="number" class="form-control text-align-right" min="0" (blur)="checkPaidAmountCashier($event.target.value)" name="paidAmount" [(ngModel)]="paidAmount" [step]="0.01">
                         </div>
                     </div>
                     <!--<div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
@@ -134,28 +134,29 @@
                 <div class="form-group  pull-right mrgn-top8">
                     <button  class="btn default" (click)="backPage()"> Cancel</button>
                     <span *ngIf="isPaymentOK">
-                        <button  class="btn primary blue" (click)="savePayment()"> Add </button>
+                        <button  class="btn primary blue" (click)="addtoGrid()"> Add </button>
                     </span>
 
                 </div>
-                <div class="table-scrollable">
+                <div class="table-scrollable"   *ngIf="showDiv">
                     <table class="table table-bordered table-hover off-wite-bg text-center">
                         <tbody>
-                        <tr>
-                            <td> Cash </td>
-                            <td> 20.00 </td>
-                            <td> <i class="fa fa-close text-danger"></i> </td>
+                        <tr   *ngFor="let lbRT of paymentList;  let idx = index" >
+                            <td  class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.paymentMode}} </td>
+                            <td  class="sorting_disabled" rowspan="1" colspan="1">{{lbRT.paymentAmount}} </td>
+                            <td><button  (click)="removeRecordfromGrid(idx)" class="btn btn-default btn-outline btn-sm"> <i class="fa fa-remove font-red"></i> </button></td>
+                            <!--<td> <i class="fa fa-close text-danger"></i> </td>-->
                         </tr>
-                        <tr>
+                        <!--<tr>
                             <td> Visa </td>
                             <td> 25.25 </td>
                             <td> <i class="fa fa-close text-danger"></i> </td>
-                        </tr>
-                        <tr>
+                        </tr>-->
+                       <!-- <tr>
                             <td> Cash </td>
                             <td> 20.00 </td>
                             <td> <i class="fa fa-close text-danger"></i> </td>
-                        </tr>
+                        </tr>-->
                         </tbody>
                     </table>
                 </div>
@@ -181,17 +182,52 @@
             <div class="col-md-4 pull-right mrgn-top8">
                 <div class="off-wite-bg padding-10 sub-total">
                     <ul>
+
+                        <div class="form-group mrgn-btm08">
+                            <!-- <div class="col-md-2">
+                                <label class="mt-checkbox mt-checkbox-outline chckbox">
+                                    <input type="checkbox" class="form-control"
+                                           name="useAdvancedBal"
+                                           [(ngModel)]="useAdvancedBal"><span></span>
+                                </label>
+                            </div>
+                            <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
+                            <label class="col-md-4 no-padding-lft bold"> Use Advanced </label>
+                            <div class="col-md-8 no-padding-rgt">
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" (change)="checkExistingAdvanceBal()"  [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
+                                    <span class="width100"></span>
+                                </label>
+                                <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group mrgn-btm08">
+
+                            <label class="col-md-4 no-padding-lft bold"> Received Due </label>
+                            <div class="col-md-8 no-padding-rgt">
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" (change)="checkExistingReceiveBal()"  [(ngModel)]="useReceiveBal" ng-reflect-name="chk-4" ng-reflect-model="false" id="chk-4" class="ng-valid ng-dirty ng-touched">
+                                    <span class="width100"></span>
+                                </label>
+                                <span class="pull-right"> <b>{{  receiveDue | number :'.2-2'  }}</b></span>
+                            </div>
+                        </div>
+
+
+
                         <li>
                             <span>Total Invoice Amount:</span> <span>{{grandTotal | number :'.2-2'}}</span>
                         </li>
-                        <li>
+                       <!-- <li>
                             <div class="form-group hr mrgn-btm08">
                                 <label class="col-md-4 no-padding-lft bold">Discount Amount</label>
                                 <div class="col-md-8 no-padding-rgt profile-frm">
                                     <input type="number" class="form-control text-align-right" min="0" (blur)="checkDiscount($event.target.value)" name="discountAmount" [(ngModel)]="discountAmount" [step]="0.01">
                                 </div>
                             </div>
-                        </li>
+                        </li>-->
                         <li>
                             <span>Total Discount:</span> <span class="amount-border-botom">{{grandTotalDiscount | number :'.2-2'}}</span>
                         </li>
@@ -202,6 +238,8 @@
                             <span>Total Tax</span> <span>{{grandTotalTax | number :'.2-2'}}</span>
                         </li>
                         <li>
+
+
                             <div class="form-group hr mrgn-btm08" *ngIf="useAdvancedBal">
                                 <label class="col-md-4 no-padding-lft bold">Advance Used :</label>
                                 <div class="col-md-8 no-padding-rgt profile-frm">
@@ -209,37 +247,28 @@
                                            id="usedAdvanceDeposit" (blur)="useAdvanceBalance($event.target.value)" [(ngModel)]="usedAdvanceDeposit" [step]="0.01">
                                 </div>
                             </div>
-                            <div class="form-group mrgn-btm08">
-                                <!-- <div class="col-md-2">
-                                    <label class="mt-checkbox mt-checkbox-outline chckbox">
-                                        <input type="checkbox" class="form-control"
-                                               name="useAdvancedBal"
-                                               [(ngModel)]="useAdvancedBal"><span></span>
-                                    </label>
-                                </div>
-                                <label class="control-label col-md-4">Use Advanced Balance : <b>{{patientAdvanceDeposit}}</b> </label> -->
-                                <label class="col-md-4 no-padding-lft bold"> Use Advanced </label>
-                                <div class="col-md-8 no-padding-rgt">
-                                    <label class="mt-checkbox mt-checkbox-outline">
-                                        <input type="checkbox" (change)="checkExistingAdvanceBal()"  [(ngModel)]="useAdvancedBal" ng-reflect-name="chk-3" ng-reflect-model="false" id="chk-3" class="ng-valid ng-dirty ng-touched">
-                                        <span class="width100"></span>
-                                    </label>
-                                    <span class="pull-right"> <b>{{  patientAdvanceDeposit | number :'.2-2'  }}</b></span>
+
+                            <div class="form-group hr mrgn-btm08" *ngIf="useReceieveBal">
+                                <label class="col-md-4 no-padding-lft bold">Received  Due :</label>
+                                <div class="col-md-8 no-padding-rgt profile-frm">
+                                    <input type="number" class="form-control text-align-right" min="0" max="{{receiveDue}}" name="useReceieveBalance"
+                                           id="useReceieveBalance" (blur)="useReceiveBalance($event.target.value)" [(ngModel)]="usedReceiveDeposit" [step]="0.01">
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <div class="form-group mrgn-btm08">
+                            <span>Grand Total:</span> <span class="amount-border-botom amount-border-top">{{grandTotalWithTax | number :'.2-2'}}</span>
+                            <!--<div class="form-group mrgn-btm08">
                                 <label class="col-md-4 no-padding-lft bold"> Received Due </label>
                                 <div class="col-md-8 no-padding-rgt">
-                                    <!--<label class="mt-checkbox mt-checkbox-outline">-->
-                                        <!--<input type="checkbox" class="">-->
-                                        <!--<span class="width100"></span>-->
-                                    <!--</label>-->
-                                </div>
-                            </div>
+
+                                </div>&lt;!&ndash;<label class="mt-checkbox mt-checkbox-outline">&ndash;&gt;
+                                &lt;!&ndash;<input type="checkbox" class="">&ndash;&gt;
+                                &lt;!&ndash;<span class="width100"></span>&ndash;&gt;
+                                &lt;!&ndash;</label>&ndash;&gt;
+                            </div>-->
                         </li>
-                        <li>
+                        <!--<li>
                             <span>Grand Total:</span> <span class="amount-border-botom amount-border-top">{{grandTotalWithTax | number :'.2-2'}}</span>
                         </li>
                         <li>
@@ -250,26 +279,31 @@
                         </li>
                         <li>
                             <span>Invoice Due Amount</span><span class="amount-border-botom amount-border-top">{{grandTotalWithTax - receivedAmount - refundAmount| number :'.2-2'}}</span>
-                        </li>
+                        </li>-->
                     </ul>
-                    <!-- <ul>
-                            <li>
-                                <span>Balance Due:</span>
-                                <span>0.00</span>
-                            </li>
-                        </ul> -->
+
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="pull-right mrgn-top8">
-                    <span><button class="btn default"> Cancel </button></span>
+
+
+                    <button *ngIf="!completed" class="btn primary blue" (click)="completedPayment()"> Complete </button>
+                    <span  *ngIf="!completed">
+                        <!-- <button class="btn btn-default btn-outline btn-sm"> Print </button>  -->
+                        <button class="btn primary blue" (click)="savePayment()"> Save </button>
+                    </span>
+                    <button class="btn default" (click)="backPage()"> Cancel </button>
+
+
+                    <!--<span><button class="btn default"> Cancel </button></span>
                     <button class="btn primary blue"> Save </button>
-                    <span><button class="btn mt-sweetalert green-meadow"> Complete </button></span>
+                    <span><button class="btn mt-sweetalert green-meadow"> Complete </button></span>-->
                 </div>
             </div>
         </div>
-        <!--</div>-->
+
     </div>
 </div>

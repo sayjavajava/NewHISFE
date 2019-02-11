@@ -449,9 +449,6 @@ export class PatientImageOrderComponent implements OnInit {
         if (this.showImage == true) {
             this.showImage = false;
         }
-        // this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
-        //    document.getElementById('close-btn-Prefix').click();
-        //    this.HISUtilService.hidePopupWithCloseButtonId('closeButton');
         var filename = val.substring(val.lastIndexOf('/') + 1);
 
         var ext=filename.substr(filename.length - 3);
@@ -459,20 +456,12 @@ export class PatientImageOrderComponent implements OnInit {
         var link = document.getElementById("closeGalleria");
         this.images=[];
 
-        if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "tiff" || ext == "jpg" || ext == "GIF" || ext == "PNG" || ext == "JPEG" || ext == "TIFF" || ext == "JPG") {
-            let labTestFilteredimgUrl = this.orderData.filter((x: any) => x.id == this.selectedId);
-
-
-            for (let i = 0; i < labTestFilteredimgUrl.length; i++) {
-                let test = labTestFilteredimgUrl[i];
-                //   var filenameInt = test;
-
-                //     filenameInt=filenameInt.url;
-                //    var ext=filenameInt.substr(filenameInt.length - 3);
-                //     if(filename===filenameInt){
-                //        this.selectedindex=i;
-                //   }
-                for (let j = 0; j < test.url.length; j++) {
+        if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "tiff" || ext == "jpg" || ext == "GIF" || ext == "PNG" || ext == "JPEG" || ext == "TIFF" || ext == "JPG")
+        {
+          //  let labTestFilteredimgUrl = this.orderData.filter((x: any) => x.id == this.selectedId);
+          //  for (let i = 0; i < labTestFilteredimgUrl.length; i++) {
+              //  let test = labTestFilteredimgUrl[i];
+                /*for (let j = 0; j < test.url.length; j++) {
 
                     var urlpath = test.url[j];
                     var extPath = filename.substr(filename.length - 3);
@@ -485,13 +474,14 @@ export class PatientImageOrderComponent implements OnInit {
                         this.images.push({source: test.url[j]});
 
                     }
-                }
-                console.log(this.images);
+                }*/
+             //   console.log(this.images);
+                this.images.push({source:val});
                 link.setAttribute("href", "#responsiveGalleria2");
                 this.showImage = true;
-                this.showDialog();
+           //     this.showDialog();
                 // this.HISUtilService.hidePopupWithCloseButtonId("closeGalleria");
-            }
+          //  }
         } else if (ext == "pdf" || ext == "txt" || ext == "PDF" || ext == "TXT") {
             this.showImage = false;
             link.setAttribute("href", "#Doc");

@@ -293,7 +293,14 @@
                                         <td> {{order.orderObj.code}}</td>
                                         <td> {{order.strCreatedDate}}</td>
                                         <td> {{order.status}}</td>
-                                        <td><a href="{{order.strUrl}}" target="_blank">Download</a></td>
+                                        <td>
+                                            <!--<a href="{{order.strUrl}}" target="_blank">Download</a>-->
+                                            <a  id="closeGalleria" data-toggle="modal" data-dismiss="modal" >
+                                                <button class=""
+                                                        (click)="openDiv(order.strUrl)">View
+                                                </button>
+                                            </a>
+                                        </td>
                                         <!--<td><a href="#popupTest" data-toggle="modal">
                                             <button class="btn default clr-bck" (click)="getImageTest(order.id)"
                                                     data-confirm-button-class="btn-success">
@@ -529,11 +536,11 @@
 </div>
 
 <!--[modal]="true"-->
-<p-dialog *ngIf="showImage" id="responsiveGalleria2"   [responsive]="true" [width]="1024" [minWidth]="520" [minY]="170" showEffect="fade" modal="modal"  [dismissableMask]="true"
+<!--<p-dialog *ngIf="showImage" id="responsiveGalleria2"   [responsive]="true" [width]="1024" [minWidth]="520" [minY]="170" showEffect="fade" modal="modal"  [dismissableMask]="true"
           [closeOnEscape]="true"
           [responsive]="true"
           [closable]="true"
-          [maximizable]="true" [baseZIndex]="10000" header="View Image Order" [(visible)]="display" >
+          [maximizable]="true" [baseZIndex]="10000" header="View Image Order" [(visible)]="display" >-->
 
 
     <!--<div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
@@ -561,17 +568,26 @@
         </div>
     </div>-->
 
-    <div class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1" >
+<div *ngIf="showImage" id="responsiveGalleria2"  class="modal-dialog" >
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        </div>
+        <div class="modal-body">
+    <div   class="scroller slide-br-img" style="" data-always-visible="1" data-rail-visible1="1" >
 
-        <p-galleria [images]="images" panelWidth="1024" panelHeight="520" [(activeIndex)]="selectedindex" ></p-galleria>
-        <p-footer>
+        <p-galleria [images]="images" panelWidth="824" panelHeight="320"  ></p-galleria>
+        <!--<p-footer>
             <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
             <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
-        </p-footer>
+        </p-footer>-->
     </div>
+        </div>
+    </div>
+</div>
 
 
-</p-dialog>
+<!--</p-dialog>-->
 
 <!-- <div *ngIf="showImage" id="responsiveGalleria2" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" style="width: 1024px; margin: 30px auto;">
@@ -612,7 +628,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">View  Order </h4>
+
             </div>
             <div class="modal-body">
                 <div class="scroller" style="height:520px" data-always-visible="1" data-rail-visible1="1">

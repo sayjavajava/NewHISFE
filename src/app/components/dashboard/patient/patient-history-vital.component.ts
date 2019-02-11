@@ -77,6 +77,7 @@ export class PatientHistoryVitalComponent implements OnInit {
     itemsLst:any[] = [];
     chiefComplaint: string;
     isFirst:boolean;
+    createdDate:string;
     constructor(private requestsService: RequestsService,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -354,6 +355,7 @@ export class PatientHistoryVitalComponent implements OnInit {
                         this.vitalSaveList=this.data;
                         this.allVitalsNamesAny = this.data;
 
+
                         this.vitalListData=this.data;
                         for (let vital of this.allVitalsNamesAny) {
                             let pair: any = {label: vital.name, value: vital.name};
@@ -363,7 +365,8 @@ export class PatientHistoryVitalComponent implements OnInit {
 
                         this.selectedstr = this.searchedVitalAnyListModified[0].value;
                         this.chiefComplaint='';
-                        // console.log("Length : " + this.prefixTemplateList.length);
+
+
                     } else {
                         this.notificationService.error('Vital Information not fetched');
                     }
@@ -534,7 +537,9 @@ export class PatientHistoryVitalComponent implements OnInit {
 
                             this.notificationService.success('Patient Vital Sucessfully Saved');
                             document.getElementById('close-btn-new-vitals').click();
+
                             this.getPaginatedPatientVitalList(0);
+
                             //  this.getPatientVitalList();
 
                         } else {
@@ -714,11 +719,12 @@ export class PatientHistoryVitalComponent implements OnInit {
     private getPaginatedPatientVitalList(page: number) {
 
         //   this.selectedPatientId=this.vitalSetupTemplate.patientId;
-
+        this.vitalListReadData=[];
         this.requestsService.getRequest(AppConstants.VITALS_PAGINATED_URL + page + '?patientId=' + this.selectedPatientId)
             .subscribe(
                 (response: Response) => {
                     if (response['responseCode'] === 'SUCCESS') {
+
                         this.vitalNextPage = response['responseData']['nextPage'];
                         this.vitalPrePage = response['responseData']['prePage'];
                         this.vitalCurrPage = response['responseData']['currPage'];
@@ -726,8 +732,13 @@ export class PatientHistoryVitalComponent implements OnInit {
 
                         this.vitalListReadData = response['responseData']['data'];
                         this.chiefComplaint = response['responseData']['chiefComplaint'];
+                        this.createdDate=response['responseData']['Date'];
+                        this.cols.push({field: 'Date', header: 'Date'});
                         this.cols.push({field: 'PCC', header: 'PCC'});
+
+                        this.vitalListReadDataNewLst.push(this.createdDate);
                         this.vitalListReadDataNewLst.push(this.chiefComplaint);
+
                         for(let i =0 ; i <this.vitalListReadData.length;i++){
                             let temp={
                                 firstName : this.vitalListReadData[i].name,
@@ -749,66 +760,8 @@ export class PatientHistoryVitalComponent implements OnInit {
                             console.log(this.vitalListReadDataNewLst);
 
                         }
-                        /*Object.keys(this.vitalListReadDataNew[0]).forEach(item=>{
-                            debugger;
-                            console.log(item);
-
-                            this.cols.push({field: item.value, header: item});
-                        })*/
-
-                        console.log(this.cols);
-                        /*for (let header of this.vitalListReadDataNew) {
-                            debugger;
-                            let item: any = {field: header.firstName, header: header.lastName};
-                            this.cols.push(item);
-                         //   this.branchesListModified.push(pair);
-
-                        }*/
-                        /*Object.keys(this.vitalListReadDataNew[0]).forEach(item=>{
-                            this.cols.push({field: item, header: item});
-                        })*/
 
 
-
-                        /*for(let i =0 ; i <this.vitalListReadData.length;i++){
-                            this.vitalListReadDataNew.push(this.vitalListReadData[i].name);
-                            let temp={
-                                firstName : this.vitalListReadData[i].name,
-                                lastName : this.vitalListReadData[i].name
-                            }
-                            this.vitalListReadData[i].forEach(item=>{
-                                let keyValue = Object.values(item);
-                                console.log(keyValue);
-                                temp[keyValue[0].toString()] = keyValue[1]
-
-                            }
-                          //  this.vitalListReadDataNew.push(temp);
-
-
-                        console.log(this.vitalListReadDataNew);
-                       Object.keys(this.vitalListReadDataNew[0]).forEach(item=>{
-                            this.cols.push({field: item, header: item});
-                        })*/
-
-                    //npm start    console.log(this.cols);
-
-
-
-
-
-                      //  console.log(this.vitalListReadData);no
-
-                        /*for(let i =0 ; i <this.vitalListReadData.length;i++){
-                            console.log(this.vitalListReadData);
-                            let pair: any = {firstName: this.vitalListReadData[i].name, lastName: this.vitalListReadData[i].name};
-
-
-
-                            this.vitalListReadDataNew.push(pair);
-                            /!*this.cols=[
-                                {field:this.vitalListReadData[i].name, header: this.vitalListReadData[i].name}];*!/
-
-                        }*/
                     } else {
                       //  this.notificationService.error( 'Vital  Information not fetched');
                     }

@@ -911,8 +911,5 @@ ul.ui-inputtext{width: 100%;}
 .ui-chkbox{float: left;}
 .wrap-overflow-text {overflow-wrap: break-word;}
 .slct-arrow-hidn div span{display: none;}
-.active-route {
-    background: #337ab7;
-    border-bottom: 2px solid red;
-}
+.active-route{border-right: 5px solid #337ab7 !important;}
 .page-footer-inner{float:left; display:inline-block; position:fixed; left:0; bottom:0;}
